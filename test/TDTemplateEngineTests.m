@@ -26,8 +26,13 @@
     [super tearDown];
 }
 
-- (void)testExample {
-    //XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
+- (void)testSimpleVarReplacement {
+    NSString *input = @"{{foo}}";
+    id vars = @{@"foo": @"bar"};
+    
+    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    TDNotNil(res);
+    TDEqualObjects(@"bar", res);
 }
 
 @end

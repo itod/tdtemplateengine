@@ -52,7 +52,7 @@
     NSParameterAssert([str length]);
     TDAssertMainThread();
 
-    return nil;
+    return str;
 }
 
 @end
