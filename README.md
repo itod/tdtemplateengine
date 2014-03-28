@@ -1,4 +1,4 @@
-tdtemplateengine
+TDTemplateEngine
 ================
 
 A template engine implemented in Cocoa for use in Cocoa
