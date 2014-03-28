@@ -30,6 +30,7 @@
 #import "TDEndBlockNode.h"
 
 #import <PEGKit/PKTokenizer.h>
+#import <PEGKit/PKWhitespaceState.h>
 #import <PEGKit/PKSymbolState.h>
 #import <PEGKit/PKToken.h>
 
@@ -162,6 +163,7 @@
     
     
     PKTokenizer *t = [PKTokenizer tokenizerWithString:inStr];
+    t.whitespaceState.reportsWhitespaceTokens = YES;
     [t.symbolState add:_varStartDelimiter];
     [t.symbolState add:_varEndDelimiter];
     [t.symbolState add:_blockStartDelimiter];

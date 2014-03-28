@@ -41,7 +41,8 @@
     NSParameterAssert(ctx);
     TDAssert([_name length]);
     
-    return [ctx resolveVariable:_name];
+    NSString *s = [ctx resolveVariable:_name];
+    return s;
 }
 
 @end

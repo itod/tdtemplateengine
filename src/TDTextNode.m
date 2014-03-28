@@ -7,7 +7,16 @@
 //
 
 #import "TDTextNode.h"
+#import "TDFragment.h"
 
 @implementation TDTextNode
+
+- (NSString *)renderInContext:(id <TDTemplateContext>)ctx {
+    NSParameterAssert(ctx);
+    TDAssert([self.fragment.string length]);
+    
+    NSString *s = self.fragment.string;
+    return s;
+}
 
 @end
