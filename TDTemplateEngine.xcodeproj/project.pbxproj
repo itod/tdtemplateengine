@@ -1,0 +1,565 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D367DFC918E5EF6900F97BCC /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D367DFC818E5EF6900F97BCC /* XCTest.framework */; };
+		D367DFCD18E5EF6900F97BCC /* TDTemplateEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D367DFB018E5EF6900F97BCC /* TDTemplateEngine.framework */; };
+		D3A29D8218E5F57300DC591E /* TDTemplateEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29D8118E5F57300DC591E /* TDTemplateEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D3A29D8418E5F57E00DC591E /* TDTemplateEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29D8318E5F57E00DC591E /* TDTemplateEngine.m */; };
+		D3A29D8A18E5F5A500DC591E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D3A29D8818E5F5A500DC591E /* InfoPlist.strings */; };
+		D3A29D8E18E5F5C000DC591E /* TDTemplateEngineTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29D8D18E5F5C000DC591E /* TDTemplateEngineTests.m */; };
+		D3A29D9218E5F5D900DC591E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D3A29D9018E5F5D900DC591E /* InfoPlist.strings */; };
+		D3A29D9418E5F60100DC591E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3A29D9318E5F60100DC591E /* Foundation.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D367DFCB18E5EF6900F97BCC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D367DFA718E5EF6800F97BCC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D367DFAF18E5EF6900F97BCC;
+			remoteInfo = TDTemplateEngine;
+		};
+		D3A29D9D18E5F6AB00DC591E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D3A29D9518E5F6AB00DC591E /* PEGKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D3F8A48D175817DF00056188;
+			remoteInfo = PEGKit;
+		};
+		D3A29D9F18E5F6AB00DC591E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D3A29D9518E5F6AB00DC591E /* PEGKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D366C55418D1F29D00AF3EFB;
+			remoteInfo = libPEGKitOSX;
+		};
+		D3A29DA118E5F6AB00DC591E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D3A29D9518E5F6AB00DC591E /* PEGKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D317C12B18D1F5EB0036BE75;
+			remoteInfo = libPEGKitIOS;
+		};
+		D3A29DA318E5F6AB00DC591E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D3A29D9518E5F6AB00DC591E /* PEGKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D37D8DC61571A4F700CDB822;
+			remoteInfo = PEGKitTests;
+		};
+		D3A29DA518E5F6AB00DC591E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D3A29D9518E5F6AB00DC591E /* PEGKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D338302F171C923700CCE513;
+			remoteInfo = ParserGenApp;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		D367DFB018E5EF6900F97BCC /* TDTemplateEngine.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TDTemplateEngine.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D367DFC718E5EF6900F97BCC /* TDTemplateEngineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TDTemplateEngineTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D367DFC818E5EF6900F97BCC /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		D3A29D8118E5F57300DC591E /* TDTemplateEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDTemplateEngine.h; path = include/TDTemplateEngine/TDTemplateEngine.h; sourceTree = SOURCE_ROOT; };
+		D3A29D8318E5F57E00DC591E /* TDTemplateEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDTemplateEngine.m; path = src/TDTemplateEngine.m; sourceTree = SOURCE_ROOT; };
+		D3A29D8518E5F58700DC591E /* TDTemplateEngine-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "TDTemplateEngine-Info.plist"; path = "res/TDTemplateEngine-Info.plist"; sourceTree = SOURCE_ROOT; };
+		D3A29D8618E5F5A000DC591E /* TDTemplateEngine-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TDTemplateEngine-Prefix.pch"; path = "res/TDTemplateEngine-Prefix.pch"; sourceTree = SOURCE_ROOT; };
+		D3A29D8918E5F5A500DC591E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = res/en.lproj/InfoPlist.strings; sourceTree = SOURCE_ROOT; };
+		D3A29D8B18E5F5B300DC591E /* TDTestScaffold.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDTestScaffold.h; path = test/TDTestScaffold.h; sourceTree = SOURCE_ROOT; };
+		D3A29D8D18E5F5C000DC591E /* TDTemplateEngineTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDTemplateEngineTests.m; path = test/TDTemplateEngineTests.m; sourceTree = SOURCE_ROOT; };
+		D3A29D8F18E5F5CC00DC591E /* TDTemplateEngineTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "TDTemplateEngineTests-Info.plist"; path = "test/TDTemplateEngineTests-Info.plist"; sourceTree = SOURCE_ROOT; };
+		D3A29D9118E5F5D900DC591E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = test/en.lproj/InfoPlist.strings; sourceTree = SOURCE_ROOT; };
+		D3A29D9318E5F60100DC591E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		D3A29D9518E5F6AB00DC591E /* PEGKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PEGKit.xcodeproj; path = lib/pegkit/PEGKit.xcodeproj; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D367DFAC18E5EF6900F97BCC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D3A29D9418E5F60100DC591E /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D367DFC418E5EF6900F97BCC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D367DFCD18E5EF6900F97BCC /* TDTemplateEngine.framework in Frameworks */,
+				D367DFC918E5EF6900F97BCC /* XCTest.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D367DFA618E5EF6800F97BCC = {
+			isa = PBXGroup;
+			children = (
+				D3A29D9518E5F6AB00DC591E /* PEGKit.xcodeproj */,
+				D367DFB918E5EF6900F97BCC /* TDTemplateEngine */,
+				D367DFCE18E5EF6900F97BCC /* TDTemplateEngine Tests */,
+				D367DFB218E5EF6900F97BCC /* Frameworks */,
+				D367DFB118E5EF6900F97BCC /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D367DFB118E5EF6900F97BCC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D367DFB018E5EF6900F97BCC /* TDTemplateEngine.framework */,
+				D367DFC718E5EF6900F97BCC /* TDTemplateEngineTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D367DFB218E5EF6900F97BCC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D3A29D9318E5F60100DC591E /* Foundation.framework */,
+				D367DFC818E5EF6900F97BCC /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D367DFB918E5EF6900F97BCC /* TDTemplateEngine */ = {
+			isa = PBXGroup;
+			children = (
+				D3A29D8118E5F57300DC591E /* TDTemplateEngine.h */,
+				D3A29D8318E5F57E00DC591E /* TDTemplateEngine.m */,
+				D367DFBA18E5EF6900F97BCC /* Supporting Files */,
+			);
+			path = TDTemplateEngine;
+			sourceTree = "<group>";
+		};
+		D367DFBA18E5EF6900F97BCC /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D3A29D8518E5F58700DC591E /* TDTemplateEngine-Info.plist */,
+				D3A29D8818E5F5A500DC591E /* InfoPlist.strings */,
+				D3A29D8618E5F5A000DC591E /* TDTemplateEngine-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D367DFCE18E5EF6900F97BCC /* TDTemplateEngine Tests */ = {
+			isa = PBXGroup;
+			children = (
+				D3A29D8B18E5F5B300DC591E /* TDTestScaffold.h */,
+				D3A29D8D18E5F5C000DC591E /* TDTemplateEngineTests.m */,
+				D367DFCF18E5EF6900F97BCC /* Supporting Files */,
+			);
+			name = "TDTemplateEngine Tests";
+			path = TDTemplateEngineTests;
+			sourceTree = "<group>";
+		};
+		D367DFCF18E5EF6900F97BCC /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D3A29D8F18E5F5CC00DC591E /* TDTemplateEngineTests-Info.plist */,
+				D3A29D9018E5F5D900DC591E /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D3A29D9618E5F6AB00DC591E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D3A29D9E18E5F6AB00DC591E /* PEGKit.framework */,
+				D3A29DA018E5F6AB00DC591E /* libPEGKitOSX.a */,
+				D3A29DA218E5F6AB00DC591E /* libPEGKitIOS.a */,
+				D3A29DA418E5F6AB00DC591E /* PEGKitTests.xctest */,
+				D3A29DA618E5F6AB00DC591E /* ParserGenApp.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		D367DFAD18E5EF6900F97BCC /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D3A29D8218E5F57300DC591E /* TDTemplateEngine.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		D367DFAF18E5EF6900F97BCC /* TDTemplateEngine */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D367DFD818E5EF6900F97BCC /* Build configuration list for PBXNativeTarget "TDTemplateEngine" */;
+			buildPhases = (
+				D367DFAB18E5EF6900F97BCC /* Sources */,
+				D367DFAC18E5EF6900F97BCC /* Frameworks */,
+				D367DFAD18E5EF6900F97BCC /* Headers */,
+				D367DFAE18E5EF6900F97BCC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TDTemplateEngine;
+			productName = TDTemplateEngine;
+			productReference = D367DFB018E5EF6900F97BCC /* TDTemplateEngine.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		D367DFC618E5EF6900F97BCC /* TDTemplateEngineTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D367DFDB18E5EF6900F97BCC /* Build configuration list for PBXNativeTarget "TDTemplateEngineTests" */;
+			buildPhases = (
+				D367DFC318E5EF6900F97BCC /* Sources */,
+				D367DFC418E5EF6900F97BCC /* Frameworks */,
+				D367DFC518E5EF6900F97BCC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D367DFCC18E5EF6900F97BCC /* PBXTargetDependency */,
+			);
+			name = TDTemplateEngineTests;
+			productName = TDTemplateEngineTests;
+			productReference = D367DFC718E5EF6900F97BCC /* TDTemplateEngineTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D367DFA718E5EF6800F97BCC /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = "Todd Ditchendorf";
+				TargetAttributes = {
+					D367DFC618E5EF6900F97BCC = {
+						TestTargetID = D367DFAF18E5EF6900F97BCC;
+					};
+				};
+			};
+			buildConfigurationList = D367DFAA18E5EF6800F97BCC /* Build configuration list for PBXProject "TDTemplateEngine" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = D367DFA618E5EF6800F97BCC;
+			productRefGroup = D367DFB118E5EF6900F97BCC /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = D3A29D9618E5F6AB00DC591E /* Products */;
+					ProjectRef = D3A29D9518E5F6AB00DC591E /* PEGKit.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				D367DFAF18E5EF6900F97BCC /* TDTemplateEngine */,
+				D367DFC618E5EF6900F97BCC /* TDTemplateEngineTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		D3A29D9E18E5F6AB00DC591E /* PEGKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = PEGKit.framework;
+			remoteRef = D3A29D9D18E5F6AB00DC591E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D3A29DA018E5F6AB00DC591E /* libPEGKitOSX.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libPEGKitOSX.a;
+			remoteRef = D3A29D9F18E5F6AB00DC591E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D3A29DA218E5F6AB00DC591E /* libPEGKitIOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libPEGKitIOS.a;
+			remoteRef = D3A29DA118E5F6AB00DC591E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D3A29DA418E5F6AB00DC591E /* PEGKitTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = PEGKitTests.xctest;
+			remoteRef = D3A29DA318E5F6AB00DC591E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D3A29DA618E5F6AB00DC591E /* ParserGenApp.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = ParserGenApp.app;
+			remoteRef = D3A29DA518E5F6AB00DC591E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D367DFAE18E5EF6900F97BCC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D3A29D8A18E5F5A500DC591E /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D367DFC518E5EF6900F97BCC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D3A29D9218E5F5D900DC591E /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D367DFAB18E5EF6900F97BCC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D3A29D8418E5F57E00DC591E /* TDTemplateEngine.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D367DFC318E5EF6900F97BCC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D3A29D8E18E5F5C000DC591E /* TDTemplateEngineTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D367DFCC18E5EF6900F97BCC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D367DFAF18E5EF6900F97BCC /* TDTemplateEngine */;
+			targetProxy = D367DFCB18E5EF6900F97BCC /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		D3A29D8818E5F5A500DC591E /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D3A29D8918E5F5A500DC591E /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		D3A29D9018E5F5D900DC591E /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D3A29D9118E5F5D900DC591E /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D367DFD618E5EF6900F97BCC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					lib/pegkit/include,
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		D367DFD718E5EF6900F97BCC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					lib/pegkit/include,
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		D367DFD918E5EF6900F97BCC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "res/TDTemplateEngine-Prefix.pch";
+				INFOPLIST_FILE = "res/TDTemplateEngine-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Debug;
+		};
+		D367DFDA18E5EF6900F97BCC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "res/TDTemplateEngine-Prefix.pch";
+				INFOPLIST_FILE = "res/TDTemplateEngine-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Release;
+		};
+		D367DFDC18E5EF6900F97BCC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/TDTemplateEngine.framework/Versions/A/TDTemplateEngine";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "res/TDTemplateEngine-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+				);
+				INFOPLIST_FILE = "test/TDTemplateEngineTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		D367DFDD18E5EF6900F97BCC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/TDTemplateEngine.framework/Versions/A/TDTemplateEngine";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "res/TDTemplateEngine-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+				);
+				INFOPLIST_FILE = "test/TDTemplateEngineTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D367DFAA18E5EF6800F97BCC /* Build configuration list for PBXProject "TDTemplateEngine" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D367DFD618E5EF6900F97BCC /* Debug */,
+				D367DFD718E5EF6900F97BCC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D367DFD818E5EF6900F97BCC /* Build configuration list for PBXNativeTarget "TDTemplateEngine" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D367DFD918E5EF6900F97BCC /* Debug */,
+				D367DFDA18E5EF6900F97BCC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D367DFDB18E5EF6900F97BCC /* Build configuration list for PBXNativeTarget "TDTemplateEngineTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D367DFDC18E5EF6900F97BCC /* Debug */,
+				D367DFDD18E5EF6900F97BCC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D367DFA718E5EF6800F97BCC /* Project object */;
+}
