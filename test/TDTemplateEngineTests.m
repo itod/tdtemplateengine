@@ -26,13 +26,22 @@
     [super tearDown];
 }
 
-- (void)testSimpleVarReplacement {
+- (void)testSimpleVarReplacementFoo {
     NSString *input = @"{{foo}}";
     id vars = @{@"foo": @"bar"};
     
     NSString *res = [_engine processTemplateString:input withVariables:vars];
     TDNotNil(res);
     TDEqualObjects(@"bar", res);
+}
+
+- (void)testSimpleVarReplacementBar {
+    NSString *input = @"{{bar}}";
+    id vars = @{@"bar": @"foo"};
+    
+    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    TDNotNil(res);
+    TDEqualObjects(@"foo", res);
 }
 
 @end

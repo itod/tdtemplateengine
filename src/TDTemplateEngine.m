@@ -22,10 +22,38 @@
 
 #import "TDTemplateEngine.h"
 
+@interface TDTemplateEngine ()
+@property (nonatomic, retain) NSRegularExpression *tokRegex;
+@end
+
 @implementation TDTemplateEngine
 
 + (TDTemplateEngine *)templateEngine {
     return [[[TDTemplateEngine alloc] init] autorelease];
+}
+
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        self.varStartToken = @"{{";
+        self.varEndToken = @"}}";
+        self.blockStartToken = @"{%";
+        self.blockEndToken = @"%}";
+        
+        self.tokRegex = nil;
+    }
+    return self;
+}
+
+
+- (void)dealloc {
+    self.varStartToken = nil;
+    self.varEndToken = nil;
+    self.blockStartToken = nil;
+    self.blockEndToken = nil;
+    self.tokRegex = nil;
+    [super dealloc];
 }
 
 
