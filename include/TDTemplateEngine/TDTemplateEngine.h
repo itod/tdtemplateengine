@@ -29,4 +29,9 @@
 
 - (NSString *)processTemplateString:(NSString *)str withVariables:(NSDictionary *)vars;
 - (NSString *)processTemplateFile:(NSString *)path withVariables:(NSDictionary *)vars encoding:(NSStringEncoding)enc error:(NSError **)err;
+
+@property (nonatomic, retain) NSString *varStartDelimiter;
+@property (nonatomic, retain) NSString *varEndDelimiter;
+@property (nonatomic, retain) NSString *blockStartDelimiter;
+@property (nonatomic, retain) NSString *blockEndDelimiter;
 @end

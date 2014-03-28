@@ -35,11 +35,6 @@
 #import <PEGKit/PKToken.h>
 
 @interface TDTemplateEngine ()
-@property (nonatomic, retain) NSString *varStartDelimiter;
-@property (nonatomic, retain) NSString *varEndDelimiter;
-@property (nonatomic, retain) NSString *blockStartDelimiter;
-@property (nonatomic, retain) NSString *blockEndDelimiter;
-//@property (nonatomic, retain) NSRegularExpression *delimiterRegex;
 @property (nonatomic, retain) NSDictionary *vars;
 @end
 
@@ -67,7 +62,6 @@
     self.varEndDelimiter = nil;
     self.blockStartDelimiter = nil;
     self.blockEndDelimiter = nil;
-//    self.delimiterRegex = nil;
     self.vars = nil;
     [super dealloc];
 }
@@ -122,45 +116,8 @@
 #pragma mark -
 #pragma mark Private
 
-//- (BOOL)setUpDelimiterRegex:(NSError **)outErr {
-//    TDAssertMainThread();
-//    
-//    NSString *pattern = [NSString stringWithFormat:@"(%@.*?%@|%@.*?%@)", _varStartDelimiter, _varEndDelimiter, _blockStartDelimiter, _blockEndDelimiter];
-//    
-//    self.delimiterRegex = [[[NSRegularExpression alloc] initWithPattern:pattern options:0 error:outErr] autorelease];
-//    
-//    BOOL success = nil != _delimiterRegex;
-//    return success;
-//}
-
-
-
 - (NSArray *)fragmentsFromString:(NSString *)inStr {
-    //    NSError *err = nil;
-    //
-    //    if (![self setUpDelimiterRegex:&err]) {
-    //        NSLog(@"%@", err);
-    //        goto done;
-    //    }
-    //
-    ////    TDAssert(_delimiterRegex);
-    ////    NSArray *frags = [_delimiterRegex matchesInString:str options:NSMatchingReportCompletion range:NSMakeRange(0, [str length])];
-    ////    TDAssert([frags count]);
-    //
     NSMutableArray *frags = [NSMutableArray array];
-    //
-    //    NSRange r = NSMakeRange(0, [inStr length]);
-    //    [_delimiterRegex enumerateMatchesInString:inStr options:NSMatchingReportCompletion range:r usingBlock:^(NSTextCheckingResult *current, NSMatchingFlags flags, BOOL *stop) {
-    //        NSString *s = [inStr substringWithRange:current.range];
-    //        NSUInteger type = 0;
-    //        if ([s hasPrefix:_varStartDelimiter]) {
-    //            type = VAR_FRAGMENT;
-    //        } else if ([s hasPrefix:_blockStartDelimiter]) {
-    //            type
-    //        }
-    //        id frag = @{@"type": @(type), @"string": s};
-    //    }];
-    
     
     PKTokenizer *t = [PKTokenizer tokenizerWithString:inStr];
     t.whitespaceState.reportsWhitespaceTokens = YES;
@@ -229,7 +186,7 @@
         }
     }
 
-    NSLog(@"%@", frags);
+    //NSLog(@"%@", frags);
     return frags;
 }
 
