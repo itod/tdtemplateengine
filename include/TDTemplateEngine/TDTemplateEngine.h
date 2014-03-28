@@ -26,6 +26,6 @@
 
 + (TDTemplateEngine *)templateEngine;
 
-- (NSString *)processTemplateFile:(NSString *)path withVariables:(NSDictionary *)vars;
 - (NSString *)processTemplateString:(NSString *)str withVariables:(NSDictionary *)vars;
+- (NSString *)processTemplateFile:(NSString *)path withVariables:(NSDictionary *)vars encoding:(NSStringEncoding)enc error:(NSError **)err;
 @end

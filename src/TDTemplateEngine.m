@@ -29,30 +29,26 @@
 }
 
 
-- (NSString *)processTemplateFile:(NSString *)path withVariables:(NSDictionary *)vars {
-    NSParameterAssert([path length]);
-    TDAssertMainThread();
-    
-    NSString *result = nil;
-    
-    NSError *err = nil;
-    NSString *str = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&err];
-
-    if (str) {
-        result = [self processTemplateString:str withVariables:vars];
-    } else {
-        if (err) NSLog(@"%@", err);
-    }
-    
-    return result;
-}
-
-
 - (NSString *)processTemplateString:(NSString *)str withVariables:(NSDictionary *)vars {
     NSParameterAssert([str length]);
     TDAssertMainThread();
 
-    return str;
+    return @"bar";
+}
+
+
+- (NSString *)processTemplateFile:(NSString *)path withVariables:(NSDictionary *)vars encoding:(NSStringEncoding)enc error:(NSError **)err {
+    NSParameterAssert([path length]);
+    TDAssertMainThread();
+    
+    NSString *result = nil;
+    NSString *str = [NSString stringWithContentsOfFile:path encoding:enc error:err];
+    
+    if (str) {
+        result = [self processTemplateString:str withVariables:vars];
+    }
+    
+    return result;
 }
 
 @end
