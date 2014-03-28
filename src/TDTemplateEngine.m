@@ -21,6 +21,8 @@
 // THE SOFTWARE.
 
 #import "TDTemplateEngine.h"
+#import "TDRootNode.h"
+#import "TDVariableNode.h"
 
 @interface TDTemplateEngine ()
 @property (nonatomic, retain) NSString *varStartDelimiter;
@@ -79,9 +81,10 @@
     }
 
     TDAssert(_delimiterRegex);
-    NSArray *fragments = [_delimiterRegex matchesInString:str options:NSMatchingReportCompletion range:NSMakeRange(0, [str length])];
-    TDAssert([fragments count]);
+    NSArray *frags = [_delimiterRegex matchesInString:str options:NSMatchingReportCompletion range:NSMakeRange(0, [str length])];
+    TDAssert([frags count]);
     
+    [self compile:frags];
     
     result = @"bar";
     
@@ -112,11 +115,53 @@ done:
     
     NSString *pattern = [NSString stringWithFormat:@"(%@.*?%@|%@.*?%@)", _varStartDelimiter, _varEndDelimiter, _blockStartDelimiter, _blockEndDelimiter];
     
-    
     self.delimiterRegex = [[[NSRegularExpression alloc] initWithPattern:pattern options:0 error:outErr] autorelease];
     
     BOOL success = nil != _delimiterRegex;
     return success;
+}
+
+
+- (TDNode *)makeNode:(NSString *)frag {
+    return [TDNode nodeWithFragment:frag]; // TODO
+}
+
+
+- (TDNode *)compile:(NSArray *)frags {
+    
+#define VAR_FRAGMENT 0
+#define OPEN_BLOCK_FRAGMENT 1
+#define CLOSE_BLOCK_FRAGMENT 2
+#define TEXT_FRAGMENT 3
+    
+    TDNode *root = [TDRootNode rootNode];
+    
+    NSMutableArray *scopeStack = [NSMutableArray arrayWithObject:root];
+    
+    for (NSString *fragment in frags) {
+        if (![scopeStack count]) {
+            //raise TemplateError('nesting issues')
+        }
+    
+        TDNode *parentScope = [scopeStack lastObject];
+        if (0 /*fragment.type == CLOSE_BLOCK_FRAGMENT*/) {
+            [parentScope exitScope];
+            [scopeStack removeLastObject];
+            continue;
+        }
+        
+        TDNode *newNode = [self makeNode:fragment];
+        
+        if (newNode) {
+            [parentScope.children addObject:newNode];
+            if (newNode.createsScope) {
+                [scopeStack addObject:newNode];
+                [newNode enterScope];
+            }
+        }
+    }
+    
+    return root;
 }
 
 @end
