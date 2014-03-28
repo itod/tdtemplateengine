@@ -20,9 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "TDNode.h"
+#import <TDTemplateEngine/TDTag.h>
 
-@interface TDVariableNode : TDNode
+@interface TDForTag : TDTag
 
-@property (nonatomic, copy) NSString *name;
 @end
