@@ -28,9 +28,4 @@
 
 - (NSString *)processTemplateString:(NSString *)str withVariables:(NSDictionary *)vars;
 - (NSString *)processTemplateFile:(NSString *)path withVariables:(NSDictionary *)vars encoding:(NSStringEncoding)enc error:(NSError **)err;
-
-@property (nonatomic, retain) NSString *varStartToken;
-@property (nonatomic, retain) NSString *varEndToken;
-@property (nonatomic, retain) NSString *blockStartToken;
-@property (nonatomic, retain) NSString *blockEndToken;
 @end

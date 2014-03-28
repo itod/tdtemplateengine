@@ -23,7 +23,11 @@
 #import "TDTemplateEngine.h"
 
 @interface TDTemplateEngine ()
-@property (nonatomic, retain) NSRegularExpression *tokRegex;
+@property (nonatomic, retain) NSString *varStartDelimiter;
+@property (nonatomic, retain) NSString *varEndDelimiter;
+@property (nonatomic, retain) NSString *blockStartDelimiter;
+@property (nonatomic, retain) NSString *blockEndDelimiter;
+@property (nonatomic, retain) NSRegularExpression *delimiterRegex;
 @end
 
 @implementation TDTemplateEngine
@@ -36,38 +40,53 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.varStartToken = @"{{";
-        self.varEndToken = @"}}";
-        self.blockStartToken = @"{%";
-        self.blockEndToken = @"%}";
-        
-        self.tokRegex = nil;
+        self.varStartDelimiter = @"\\{\\{";
+        self.varEndDelimiter = @"\\}\\}";
+        self.blockStartDelimiter = @"\\{%";
+        self.blockEndDelimiter = @"%\\}";
     }
     return self;
 }
 
 
 - (void)dealloc {
-    self.varStartToken = nil;
-    self.varEndToken = nil;
-    self.blockStartToken = nil;
-    self.blockEndToken = nil;
-    self.tokRegex = nil;
+    self.varStartDelimiter = nil;
+    self.varEndDelimiter = nil;
+    self.blockStartDelimiter = nil;
+    self.blockEndDelimiter = nil;
+    self.delimiterRegex = nil;
     [super dealloc];
 }
 
 
+#pragma mark -
+#pragma mark Public
+
 - (NSString *)processTemplateString:(NSString *)str withVariables:(NSDictionary *)vars {
     NSParameterAssert([str length]);
     TDAssertMainThread();
+    TDAssert([_varStartDelimiter length]);
+    TDAssert([_varEndDelimiter length]);
+    TDAssert([_blockStartDelimiter length]);
+    TDAssert([_blockEndDelimiter length]);
 
-    return @"bar";
+    NSString *result = nil;
+    NSError *err = nil;
+    
+    if (![self setUpDelimiterRegex:&err]) {
+        NSLog(@"%@", err);
+        goto done;
+    }
+
+    result = @"bar";
+    
+done:
+    return result;
 }
 
 
 - (NSString *)processTemplateFile:(NSString *)path withVariables:(NSDictionary *)vars encoding:(NSStringEncoding)enc error:(NSError **)err {
     NSParameterAssert([path length]);
-    TDAssertMainThread();
     
     NSString *result = nil;
     NSString *str = [NSString stringWithContentsOfFile:path encoding:enc error:err];
@@ -77,6 +96,22 @@
     }
     
     return result;
+}
+
+
+#pragma mark -
+#pragma mark Private
+
+- (BOOL)setUpDelimiterRegex:(NSError **)outErr {
+    TDAssertMainThread();
+    
+    NSString *pattern = [NSString stringWithFormat:@"(%@.*?%@|%@.*?%@)", _varStartDelimiter, _varEndDelimiter, _blockStartDelimiter, _blockEndDelimiter];
+    
+    
+    self.delimiterRegex = [[[NSRegularExpression alloc] initWithPattern:pattern options:0 error:outErr] autorelease];
+    
+    BOOL success = nil != _delimiterRegex;
+    return success;
 }
 
 @end
