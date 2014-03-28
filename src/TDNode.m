@@ -7,21 +7,24 @@
 //
 
 #import "TDNode.h"
+#import "TDFragment.h"
 
 @interface TDNode ()
+
 @end
 
 @implementation TDNode
 
-+ (instancetype)nodeWithFragment:(NSString *)frag {
++ (instancetype)nodeWithFragment:(TDFragment *)frag {
     return [[[self alloc] initWithFragment:frag] autorelease];
 }
 
 
-- (instancetype)initWithFragment:(NSString *)frag {
-    NSParameterAssert([frag length]);
+- (instancetype)initWithFragment:(TDFragment *)frag {
+    NSParameterAssert(frag);
     self = [super init];
     if (self) {
+        self.fragment = frag;
         self.children = [NSMutableArray array];
         self.createsScope = NO;
         [self processFragment:frag];
@@ -31,6 +34,7 @@
 
 
 - (void)dealloc {
+    self.fragment = nil;
     self.children = nil;
     [super dealloc];
 }
@@ -44,7 +48,7 @@
 #pragma mark -
 #pragma mark Public
 
-- (void)processFragment:(NSString *)frag {
+- (void)processFragment:(TDFragment *)frag {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
 }
 

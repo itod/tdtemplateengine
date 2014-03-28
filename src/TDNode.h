@@ -8,17 +8,20 @@
 
 #import <Foundation/Foundation.h>
 
+@class TDFragment;
+
 @interface TDNode : NSObject
 
-+ (instancetype)nodeWithFragment:(NSString *)frag;
-- (instancetype)initWithFragment:(NSString *)frag;
++ (instancetype)nodeWithFragment:(TDFragment *)frag;
+- (instancetype)initWithFragment:(TDFragment *)frag;
 
-- (void)processFragment:(NSString *)frag;
+- (void)processFragment:(TDFragment *)frag;
 - (NSString *)renderInContext:(id)ctx;
 
 - (void)enterScope;
 - (void)exitScope;
 
+@property (nonatomic, retain) TDFragment *fragment;
 @property (nonatomic, retain) NSMutableArray *children;
 @property (nonatomic, assign) BOOL createsScope;
 @end

@@ -7,11 +7,14 @@
 //
 
 #import "TDRootNode.h"
+#import "TDFragment.h"
 
 @implementation TDRootNode
 
 + (instancetype)rootNode {
-    return [self nodeWithFragment:@"((ROOT))"];
+    TDFragment *frag = [[[TDFragment alloc] init] autorelease];
+    frag.string = @"((ROOT))";
+    return [self nodeWithFragment:frag];
 }
 
 @end
