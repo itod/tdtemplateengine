@@ -53,9 +53,10 @@
 }
 
 
-- (NSString *)renderInContext:(id)ctx {
-    NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
-    return nil;
+- (NSString *)renderInContext:(id <TDTemplateContext>)ctx {
+    //NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
+
+    return [self renderChildren:_children inContext:ctx];
 }
 
 
@@ -72,7 +73,7 @@
 #pragma mark -
 #pragma mark Private
 
-- (NSString *)renderChildren:(NSArray *)children inContext:(id)ctx {
+- (NSString *)renderChildren:(NSArray *)children inContext:(id <TDTemplateContext>)ctx {
     children = children ? children : self.children;
     
     NSMutableString *buff = [NSMutableString string];

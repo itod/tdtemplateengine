@@ -7,6 +7,7 @@
 //
 
 #import "TDVariableNode.h"
+#import "TDTemplateContext.h"
 
 @implementation TDVariableNode
 
@@ -25,11 +26,11 @@
 }
 
 
-- (NSString *)renderInContext:(id)ctx {
+- (NSString *)renderInContext:(id <TDTemplateContext>)ctx {
     NSParameterAssert(ctx);
     TDAssert([_name length]);
     
-    return nil; //[self resolveName:_name inContext:ctx];
+    return [ctx resolveVariable:_name];
 }
 
 @end

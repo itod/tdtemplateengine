@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class TDFragment;
+@protocol TDTemplateContext;
 
 @interface TDNode : NSObject
 
@@ -16,7 +17,7 @@
 - (instancetype)initWithFragment:(TDFragment *)frag;
 
 - (void)processFragment:(TDFragment *)frag;
-- (NSString *)renderInContext:(id)ctx;
+- (NSString *)renderInContext:(id <TDTemplateContext>)ctx;
 
 - (void)enterScope;
 - (void)exitScope;

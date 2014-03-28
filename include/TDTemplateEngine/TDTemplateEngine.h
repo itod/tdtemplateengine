@@ -21,8 +21,9 @@
 // THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
+#import "TDTemplateContext.h"
 
-@interface TDTemplateEngine : NSObject
+@interface TDTemplateEngine : NSObject <TDTemplateContext>
 
 + (TDTemplateEngine *)templateEngine;
 

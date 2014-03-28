@@ -24,7 +24,10 @@
 #import "TDFragment.h"
 #import "TDNode.h"
 #import "TDRootNode.h"
+#import "TDTextNode.h"
 #import "TDVariableNode.h"
+#import "TDStartBlockNode.h"
+#import "TDEndBlockNode.h"
 
 #import <PEGKit/PKTokenizer.h>
 #import <PEGKit/PKSymbolState.h>
@@ -35,7 +38,8 @@
 @property (nonatomic, retain) NSString *varEndDelimiter;
 @property (nonatomic, retain) NSString *blockStartDelimiter;
 @property (nonatomic, retain) NSString *blockEndDelimiter;
-@property (nonatomic, retain) NSRegularExpression *delimiterRegex;
+//@property (nonatomic, retain) NSRegularExpression *delimiterRegex;
+@property (nonatomic, retain) NSDictionary *vars;
 @end
 
 @implementation TDTemplateEngine
@@ -62,7 +66,8 @@
     self.varEndDelimiter = nil;
     self.blockStartDelimiter = nil;
     self.blockEndDelimiter = nil;
-    self.delimiterRegex = nil;
+//    self.delimiterRegex = nil;
+    self.vars = nil;
     [super dealloc];
 }
 
@@ -79,13 +84,14 @@
     TDAssert([_blockEndDelimiter length]);
 
     NSString *result = nil;
+    self.vars = vars;
 
     NSArray *frags = [self fragmentsFromString:inStr];
     
     TDNode *root = [self compile:frags];
-    result = [root renderInContext:vars];
-    
-done:
+    result = [root renderInContext:self];
+
+    self.vars = nil;
     return result;
 }
 
@@ -101,6 +107,14 @@ done:
     }
     
     return result;
+}
+
+
+#pragma mark -
+#pragma mark TDTemplateContext
+
+- (NSString *)resolveVariable:(NSString *)name {
+    return _vars[name];
 }
 
 
@@ -217,12 +231,28 @@ done:
 
 
 - (TDNode *)makeNode:(TDFragment *)frag {
-//      // TODO
-//    NSMutableString *mstr = [NSMutableString string];
-//    for (PKToken *tok in tokbuff) {
-//        [mstr appendString:tok.stringValue];
-//    }
-    return [TDNode nodeWithFragment:frag];
+    
+    Class cls = Nil;
+    switch (frag.type) {
+        case TDFragmentTypeText:
+            cls = [TDTextNode class];
+            break;
+        case TDFragmentTypeVariable:
+            cls = [TDVariableNode class];
+            break;
+        case TDFragmentTypeStartBlock:
+            cls = [TDStartBlockNode class];
+            break;
+        case TDFragmentTypeEndBlock:
+            cls = [TDEndBlockNode class];
+            break;
+        default:
+            TDAssert(0);
+            break;
+    }
+
+    TDNode *node = [cls nodeWithFragment:frag];
+    return node;
 }
 
 
@@ -234,6 +264,7 @@ done:
     
     for (TDFragment *frag in frags) {
         if (![scopeStack count]) {
+            TDAssert(0);
             //raise TemplateError('nesting issues')
         }
     
