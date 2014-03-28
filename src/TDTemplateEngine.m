@@ -78,6 +78,11 @@
         goto done;
     }
 
+    TDAssert(_delimiterRegex);
+    NSArray *fragments = [_delimiterRegex matchesInString:str options:NSMatchingReportCompletion range:NSMakeRange(0, [str length])];
+    TDAssert([fragments count]);
+    
+    
     result = @"bar";
     
 done:

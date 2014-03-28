@@ -44,4 +44,13 @@
     TDEqualObjects(@"foo", res);
 }
 
+- (void)testSimpleVarReplacementOneTextTwo {
+    NSString *input = @"{{one}} text {{two}}";
+    id vars = @{@"one": @"1", @"two": @"2"};
+    
+    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    TDNotNil(res);
+    TDEqualObjects(@"1 text 2", res);
+}
+
 @end
