@@ -10,6 +10,17 @@
 
 @implementation TDFragment
 
+- (instancetype)initWithType:(TDFragmentType)t string:(NSString *)s tokens:(NSArray *)toks {
+    self = [super init];
+    if (self) {
+        self.type = t;
+        self.string = s;
+        self.tokens = toks;
+    }
+    return self;
+}
+
+
 - (void)dealloc {
     self.string = nil;
     self.tokens = nil;

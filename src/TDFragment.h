@@ -17,6 +17,8 @@ typedef NS_ENUM(NSUInteger, TDFragmentType) {
 
 @interface TDFragment : NSObject
 
+- (instancetype)initWithType:(TDFragmentType)t string:(NSString *)s tokens:(NSArray *)toks;
+
 @property (nonatomic, assign) TDFragmentType type;
 @property (nonatomic, retain) NSString *string;
 @property (nonatomic, retain) NSArray *tokens;
