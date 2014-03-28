@@ -41,7 +41,7 @@
 
 @implementation TDTemplateEngine
 
-+ (TDTemplateEngine *)templateEngine {
++ (instancetype)templateEngine {
     return [[[TDTemplateEngine alloc] init] autorelease];
 }
 

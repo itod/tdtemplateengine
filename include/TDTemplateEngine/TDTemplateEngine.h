@@ -24,7 +24,7 @@
 
 @interface TDTemplateEngine : NSObject
 
-+ (TDTemplateEngine *)templateEngine;
++ (instancetype)templateEngine;
 
 - (NSString *)processTemplateString:(NSString *)str withVariables:(NSDictionary *)vars;
 - (NSString *)processTemplateFile:(NSString *)path withVariables:(NSDictionary *)vars encoding:(NSStringEncoding)enc error:(NSError **)err;
