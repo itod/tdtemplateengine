@@ -8,6 +8,8 @@
 
 #import "TDVariableNode.h"
 #import "TDTemplateContext.h"
+#import "TDFragment.h"
+#import <PEGKit/PKToken.h>
 
 @implementation TDVariableNode
 
@@ -20,9 +22,18 @@
 #pragma mark -
 #pragma mark Public
 
-- (void)processFragment:(NSString *)frag {
-    NSParameterAssert([frag length]);
-    self.name = frag;
+- (void)processFragment:(TDFragment *)frag {
+    NSParameterAssert(frag);
+    NSArray *toks = frag.tokens;
+    TDAssert([toks count] >= 3);
+    
+    for (PKToken *tok in toks) {
+        if (PKTokenTypeWord == tok.tokenType) {
+            self.name = tok.stringValue;
+            break;
+        }
+    }
+    TDAssert([_name length]);
 }
 
 

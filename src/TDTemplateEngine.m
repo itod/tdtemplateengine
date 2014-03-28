@@ -180,8 +180,9 @@
         if ([s isEqualToString:_varStartDelimiter] || [s isEqualToString:_blockStartDelimiter]) {
             if (fragStr) {
                 TDFragment *frag = [[[TDFragment alloc] init] autorelease];
-                frag.string = fragStr;
                 frag.type = fragType;
+                frag.string = fragStr;
+                frag.tokens = fragToks;
                 [frags addObject:frag];
             }
             fragToks = [NSMutableArray array];
@@ -209,8 +210,9 @@
             [fragToks addObject:tok];
             
             TDFragment *frag = [[[TDFragment alloc] init] autorelease];
-            frag.string = fragStr;
             frag.type = fragType;
+            frag.string = fragStr;
+            frag.tokens = fragToks;
             [frags addObject:frag];
             fragStr = nil;
             fragToks = nil;
