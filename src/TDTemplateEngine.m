@@ -28,6 +28,7 @@
 #import "TDVariableNode.h"
 #import "TDStartBlockNode.h"
 #import "TDEndBlockNode.h"
+#import "TDTemplateContext.h"
 
 #import <PEGKit/PKTokenizer.h>
 #import <PEGKit/PKWhitespaceState.h>
@@ -35,7 +36,7 @@
 #import <PEGKit/PKToken.h>
 
 @interface TDTemplateEngine ()
-@property (nonatomic, retain) NSDictionary *vars;
+
 @end
 
 @implementation TDTemplateEngine
@@ -62,7 +63,6 @@
     self.varEndDelimiter = nil;
     self.blockStartDelimiter = nil;
     self.blockEndDelimiter = nil;
-    self.vars = nil;
     [super dealloc];
 }
 
@@ -79,14 +79,14 @@
     TDAssert([_blockEndDelimiter length]);
 
     NSString *result = nil;
-    self.vars = vars;
 
     NSArray *frags = [self fragmentsFromString:inStr];
     
     TDNode *root = [self compile:frags];
-    result = [root renderInContext:self];
+    TDTemplateContext *ctx = [[[TDTemplateContext alloc] initWithVariables:vars] autorelease];
+    
+    result = [root renderInContext:ctx];
 
-    self.vars = nil;
     return result;
 }
 
@@ -102,14 +102,6 @@
     }
     
     return result;
-}
-
-
-#pragma mark -
-#pragma mark TDTemplateContext
-
-- (NSString *)resolveVariable:(NSString *)name {
-    return _vars[name];
 }
 
 

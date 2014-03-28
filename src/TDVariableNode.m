@@ -37,7 +37,7 @@
 }
 
 
-- (NSString *)renderInContext:(id <TDTemplateContext>)ctx {
+- (NSString *)renderInContext:(TDTemplateContext *)ctx {
     NSParameterAssert(ctx);
     TDAssert([_name length]);
     

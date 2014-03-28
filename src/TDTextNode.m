@@ -11,7 +11,13 @@
 
 @implementation TDTextNode
 
-- (NSString *)renderInContext:(id <TDTemplateContext>)ctx {
+- (void)processFragment:(TDFragment *)frag {
+    NSParameterAssert(frag);
+    TDAssert(!frag.tokens);
+}
+
+
+- (NSString *)renderInContext:(TDTemplateContext *)ctx {
     NSParameterAssert(ctx);
     TDAssert([self.fragment.string length]);
     

@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol TDTemplateContext <NSObject>
+@interface TDTemplateContext : NSObject
+
+- (instancetype)initWithVariables:(NSDictionary *)vars;
+
 - (NSString *)resolveVariable:(NSString *)name;
 @end
