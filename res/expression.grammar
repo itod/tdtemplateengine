@@ -28,22 +28,18 @@
 
 expr    = orExpr;
 
-orOp 	@after { PUSH(@(XP_TOKEN_KIND_OR)); }
-		=  'or'! | '||'!;
+orOp 	=  'or'! | '||'!;
 orExpr  = andExpr (orOp andExpr {
 	XPValue *rhs = POP();
-	NSInteger op = POP_INT();
 	XPValue *lhs = POP();
-    PUSH([XPBooleanExpression booleanExpressionWithOperand:lhs operator:op operand:rhs]);
+    PUSH([XPBooleanExpression booleanExpressionWithOperand:lhs operator:XP_TOKEN_KIND_OR operand:rhs]);
 })*;
 
-andOp 	@after { PUSH(@(XP_TOKEN_KIND_AND)); }
-		= 'and'! | '&&'!;
+andOp 	= 'and'! | '&&'!;
 andExpr = equalityExpr (andOp equalityExpr {
 	XPValue *rhs = POP();
-	NSInteger op = POP_INT();
 	XPValue *lhs = POP();
-    PUSH([XPBooleanExpression booleanExpressionWithOperand:lhs operator:op operand:rhs]);
+    PUSH([XPBooleanExpression booleanExpressionWithOperand:lhs operator:XP_TOKEN_KIND_AND operand:rhs]);
 })*;
 
 eqOp 	@after { PUSH(@(XP_TOKEN_KIND_EQ)); }

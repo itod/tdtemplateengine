@@ -181,9 +181,6 @@
     } else {
         [self raise:@"No viable alternative found in rule 'orOp'."];
     }
-    [self execute:^{
-     PUSH(@(XP_TOKEN_KIND_OR)); 
-    }];
 
     [self fireDelegateSelector:@selector(parser:didMatchOrOp:)];
 }
@@ -197,9 +194,8 @@
         [self execute:^{
         
 	XPValue *rhs = POP();
-	NSInteger op = POP_INT();
 	XPValue *lhs = POP();
-    PUSH([XPBooleanExpression booleanExpressionWithOperand:lhs operator:op operand:rhs]);
+    PUSH([XPBooleanExpression booleanExpressionWithOperand:lhs operator:XP_TOKEN_KIND_OR operand:rhs]);
 
         }];
     }
@@ -216,9 +212,6 @@
     } else {
         [self raise:@"No viable alternative found in rule 'andOp'."];
     }
-    [self execute:^{
-     PUSH(@(XP_TOKEN_KIND_AND)); 
-    }];
 
     [self fireDelegateSelector:@selector(parser:didMatchAndOp:)];
 }
@@ -232,9 +225,8 @@
         [self execute:^{
         
 	XPValue *rhs = POP();
-	NSInteger op = POP_INT();
 	XPValue *lhs = POP();
-    PUSH([XPBooleanExpression booleanExpressionWithOperand:lhs operator:op operand:rhs]);
+    PUSH([XPBooleanExpression booleanExpressionWithOperand:lhs operator:XP_TOKEN_KIND_AND operand:rhs]);
 
         }];
     }
