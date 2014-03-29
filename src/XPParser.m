@@ -4,6 +4,8 @@
 #import <TDTemplateEngine/XPBooleanValue.h>
 #import <TDTemplateEngine/XPNumericValue.h>
 #import <TDTemplateEngine/XPStringValue.h>
+#import <TDTemplateEngine/XPBooleanExpression.h>
+#import <TDTemplateEngine/XPRelationalExpression.h>
 
 #define LT(i) [self LT:(i)]
 #define LA(i) [self LA:(i)]
@@ -192,6 +194,14 @@
     while ([self speculate:^{ [self orOp_]; [self andExpr_]; }]) {
         [self orOp_]; 
         [self andExpr_]; 
+        [self execute:^{
+        
+	XPValue *rhs = POP();
+	NSInteger op = POP_INT();
+	XPValue *lhs = POP();
+    PUSH([XPBooleanExpression booleanExpressionWithOperand:lhs operator:op operand:rhs]);
+
+        }];
     }
 
     [self fireDelegateSelector:@selector(parser:didMatchOrExpr:)];
@@ -219,6 +229,14 @@
     while ([self speculate:^{ [self andOp_]; [self equalityExpr_]; }]) {
         [self andOp_]; 
         [self equalityExpr_]; 
+        [self execute:^{
+        
+	XPValue *rhs = POP();
+	NSInteger op = POP_INT();
+	XPValue *lhs = POP();
+    PUSH([XPBooleanExpression booleanExpressionWithOperand:lhs operator:op operand:rhs]);
+
+        }];
     }
 
     [self fireDelegateSelector:@selector(parser:didMatchAndExpr:)];
@@ -277,8 +295,7 @@
 	XPValue *rhs = POP();
 	NSInteger op = POP_INT();
 	XPValue *lhs = POP();
-	BOOL res = [lhs compareToValue:rhs usingOperator:op];
-    PUSH([XPBooleanValue booleanValueWithBoolean:res]);
+    PUSH([XPRelationalExpression relationalExpressionWithOperand:lhs operator:op operand:rhs]);
 
         }];
     }
@@ -371,8 +388,7 @@
 	XPValue *rhs = POP();
 	NSInteger op = POP_INT();
 	XPValue *lhs = POP();
-	BOOL res = [lhs compareToValue:rhs usingOperator:op];
-    PUSH([XPBooleanValue booleanValueWithBoolean:res]);
+    PUSH([XPRelationalExpression relationalExpressionWithOperand:lhs operator:op operand:rhs]);
 
         }];
     }

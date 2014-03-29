@@ -2,6 +2,8 @@
 #import <TDTemplateEngine/XPBooleanValue.h>
 #import <TDTemplateEngine/XPNumericValue.h>
 #import <TDTemplateEngine/XPStringValue.h>
+#import <TDTemplateEngine/XPBooleanExpression.h>
+#import <TDTemplateEngine/XPRelationalExpression.h>
 }
 
 @extension {
@@ -28,11 +30,21 @@ expr    = orExpr;
 
 orOp 	@after { PUSH(@(XP_TOKEN_KIND_OR)); }
 		=  'or'! | '||'!;
-orExpr  = andExpr (orOp andExpr)*;
+orExpr  = andExpr (orOp andExpr {
+	XPValue *rhs = POP();
+	NSInteger op = POP_INT();
+	XPValue *lhs = POP();
+    PUSH([XPBooleanExpression booleanExpressionWithOperand:lhs operator:op operand:rhs]);
+})*;
 
 andOp 	@after { PUSH(@(XP_TOKEN_KIND_AND)); }
 		= 'and'! | '&&'!;
-andExpr = equalityExpr (andOp equalityExpr)*;
+andExpr = equalityExpr (andOp equalityExpr {
+	XPValue *rhs = POP();
+	NSInteger op = POP_INT();
+	XPValue *lhs = POP();
+    PUSH([XPBooleanExpression booleanExpressionWithOperand:lhs operator:op operand:rhs]);
+})*;
 
 eqOp 	@after { PUSH(@(XP_TOKEN_KIND_EQ)); }
 		=  '='! | '=='! | 'eq'!;
@@ -42,8 +54,7 @@ equalityExpr = relationalExpr ((eqOp | neOp) relationalExpr {
 	XPValue *rhs = POP();
 	NSInteger op = POP_INT();
 	XPValue *lhs = POP();
-	BOOL res = [lhs compareToValue:rhs usingOperator:op];
-    PUSH([XPBooleanValue booleanValueWithBoolean:res]);
+    PUSH([XPRelationalExpression relationalExpressionWithOperand:lhs operator:op operand:rhs]);
 })*;
 
 ltOp 	@after { PUSH(@(XP_TOKEN_KIND_LT)); }
@@ -58,8 +69,7 @@ relationalExpr = additiveExpr ((ltOp | gtOp | leOp | geOp) additiveExpr {
 	XPValue *rhs = POP();
 	NSInteger op = POP_INT();
 	XPValue *lhs = POP();
-	BOOL res = [lhs compareToValue:rhs usingOperator:op];
-    PUSH([XPBooleanValue booleanValueWithBoolean:res]);
+    PUSH([XPRelationalExpression relationalExpressionWithOperand:lhs operator:op operand:rhs]);
 })*;
 
 additiveExpr = multiplicativeExpr (('+' | '-') multiplicativeExpr)*;

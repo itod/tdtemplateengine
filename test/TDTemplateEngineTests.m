@@ -305,4 +305,58 @@
     TDEqualObjects(@"", res);
 }
 
+- (void)testIf1And0 {
+    NSString *input = @"{% if 1 and 0 %} text {% endif %}";
+    id vars = nil;
+    
+    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    TDNotNil(res);
+    TDEqualObjects(@"", res);
+}
+
+- (void)testIf0And1 {
+    NSString *input = @"{% if 0 and 1 %} text {% endif %}";
+    id vars = nil;
+    
+    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    TDNotNil(res);
+    TDEqualObjects(@"", res);
+}
+
+- (void)testIf1And1 {
+    NSString *input = @"{% if 1 and 1 %} text {% endif %}";
+    id vars = nil;
+    
+    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    TDNotNil(res);
+    TDEqualObjects(@" text ", res);
+}
+
+- (void)testIf1Or0 {
+    NSString *input = @"{% if 1 or 0 %} text {% endif %}";
+    id vars = nil;
+    
+    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    TDNotNil(res);
+    TDEqualObjects(@" text ", res);
+}
+
+- (void)testIf0Or1 {
+    NSString *input = @"{% if 0 or 1 %} text {% endif %}";
+    id vars = nil;
+    
+    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    TDNotNil(res);
+    TDEqualObjects(@" text ", res);
+}
+
+- (void)testIf1Or1 {
+    NSString *input = @"{% if 1 or 1 %} text {% endif %}";
+    id vars = nil;
+    
+    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    TDNotNil(res);
+    TDEqualObjects(@" text ", res);
+}
+
 @end
