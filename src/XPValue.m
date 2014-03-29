@@ -132,20 +132,17 @@ double XPNumberFromString(NSString *s) {
 
 
 - (BOOL)isBooleanValue {
-    return [self isKindOfClass:[XPBooleanValue class]];
-    //return XPDataTypeBoolean == [self dataType];
+    return XPDataTypeBoolean == [self dataType];
 }
 
 
 - (BOOL)isNumericValue {
-    return [self isKindOfClass:[XPNumericValue class]];
-    //return XPDataTypeNumber == [self dataType];
+    return XPDataTypeNumber == [self dataType];
 }
 
 
 - (BOOL)isStringValue {
-    return [self isKindOfClass:[XPStringValue class]];
-    //return XPDataTypeString == [self dataType];
+    return XPDataTypeString == [self dataType];
 }
 
 @end
