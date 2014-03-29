@@ -455,6 +455,50 @@
     TDEquals(0.0, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
 
+- (void)testTruePlus1 {
+    NSString *input = @"true + 1";
+    NSArray *toks = [self tokenize:input];
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDEquals(2.0, [[expr simplify] evaluateAsNumberInContext:nil]);
+}
+
+- (void)testYesPlus1 {
+    NSString *input = @"YES + 1";
+    NSArray *toks = [self tokenize:input];
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDEquals(2.0, [[expr simplify] evaluateAsNumberInContext:nil]);
+}
+
+- (void)testFalsePlus1 {
+    NSString *input = @"false + 1";
+    NSArray *toks = [self tokenize:input];
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDEquals(1.0, [[expr simplify] evaluateAsNumberInContext:nil]);
+}
+
+- (void)testNoPlus1 {
+    NSString *input = @"NO + 1";
+    NSArray *toks = [self tokenize:input];
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDEquals(1.0, [[expr simplify] evaluateAsNumberInContext:nil]);
+}
+
 - (void)test2Times2 {
     NSString *input = @"2*2";
     NSArray *toks = [self tokenize:input];
