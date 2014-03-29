@@ -1,3 +1,11 @@
+@h {
+@class PKTokenizer;
+}
+
+@interface {
++ (PKTokenizer *)makeTokenizer;
+}
+
 @m {
 #import <TDTemplateEngine/XPBooleanValue.h>
 #import <TDTemplateEngine/XPNumericValue.h>
@@ -12,17 +20,8 @@
 @property (nonatomic, retain) PKToken *minus;
 }
 
-@init {
-    self.openParen = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"(" doubleValue:0.0];
-    self.minus = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"-" doubleValue:0.0];
-}
-
-@dealloc {
-    self.openParen = nil;
-	self.minus = nil;
-}
-
-@before {
+@implementation {
++ (PKTokenizer *)makeTokenizer {
     PKTokenizer *t = [PKTokenizer tokenizer];
     [t.symbolState add:@"=="];
     [t.symbolState add:@"!="];
@@ -32,6 +31,20 @@
     [t.symbolState add:@"||"];
 	
 	[t setTokenizerState:t.symbolState from:'-' to:'-'];
+	return t;
+\}
+
+}
+
+@init {
+	self.tokenizer = [[self class] makeTokenizer];
+    self.openParen = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"(" doubleValue:0.0];
+    self.minus = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"-" doubleValue:0.0];
+}
+
+@dealloc {
+    self.openParen = nil;
+	self.minus = nil;
 }
 
 expr    = orExpr;

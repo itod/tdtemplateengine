@@ -28,16 +28,15 @@
 #import "TDVariableNode.h"
 #import "TDStartBlockNode.h"
 #import "TDEndBlockNode.h"
+
 #import <TDTemplateEngine/TDTemplateContext.h>
+
+#import "XPParser.h"
 
 #import <PEGKit/PKTokenizer.h>
 #import <PEGKit/PKWhitespaceState.h>
 #import <PEGKit/PKSymbolState.h>
 #import <PEGKit/PKToken.h>
-
-@interface TDTemplateEngine ()
-- (PKTokenizer *)tokenizer;
-@end
 
 @implementation TDTemplateEngine
 
@@ -109,21 +108,14 @@
 #pragma mark Private
 
 - (PKTokenizer *)tokenizer {
-    PKTokenizer *t = [PKTokenizer tokenizer];
+    PKTokenizer *t = [XPParser makeTokenizer];
+    TDAssert(t);
+
     t.whitespaceState.reportsWhitespaceTokens = YES;
     [t.symbolState add:_varStartDelimiter];
     [t.symbolState add:_varEndDelimiter];
     [t.symbolState add:_blockStartDelimiter];
     [t.symbolState add:_blockEndDelimiter];
-    
-    [t.symbolState add:@"=="];
-    [t.symbolState add:@"!="];
-    [t.symbolState add:@"<="];
-    [t.symbolState add:@">="];
-    [t.symbolState add:@"&&"];
-    [t.symbolState add:@"||"];
-	
-	[t setTokenizerState:t.symbolState from:'-' to:'-'];
 
     return t;
 }

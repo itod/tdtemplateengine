@@ -73,11 +73,26 @@
 @end
 
 @implementation XPParser { }
+    
++ (PKTokenizer *)makeTokenizer {
+    PKTokenizer *t = [PKTokenizer tokenizer];
+    [t.symbolState add:@"=="];
+    [t.symbolState add:@"!="];
+    [t.symbolState add:@"<="];
+    [t.symbolState add:@">="];
+    [t.symbolState add:@"&&"];
+    [t.symbolState add:@"||"];
+	
+	[t setTokenizerState:t.symbolState from:'-' to:'-'];
+	return t;
+}
+
 
 - (id)initWithDelegate:(id)d {
     self = [super initWithDelegate:d];
     if (self) {
             
+	self.tokenizer = [[self class] makeTokenizer];
     self.openParen = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"(" doubleValue:0.0];
     self.minus = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"-" doubleValue:0.0];
 
@@ -154,19 +169,6 @@
 }
 
 - (void)start {
-    [self execute:^{
-    
-    PKTokenizer *t = [PKTokenizer tokenizer];
-    [t.symbolState add:@"=="];
-    [t.symbolState add:@"!="];
-    [t.symbolState add:@"<="];
-    [t.symbolState add:@">="];
-    [t.symbolState add:@"&&"];
-    [t.symbolState add:@"||"];
-	
-	[t setTokenizerState:t.symbolState from:'-' to:'-'];
-
-    }];
 
     [self expr_]; 
     [self matchEOF:YES]; 

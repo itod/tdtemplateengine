@@ -1,5 +1,7 @@
 #import <PEGKit/PKParser.h>
 
+@class PKTokenizer;
+
 enum {
     XP_TOKEN_KIND_GE = 14,
     XP_TOKEN_KIND_MINUS,
@@ -32,6 +34,8 @@ enum {
 };
 
 @interface XPParser : PKParser
+
++ (PKTokenizer *)makeTokenizer;
 
 @end
 
