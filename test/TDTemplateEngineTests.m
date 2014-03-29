@@ -143,4 +143,94 @@
     TDEqualObjects(@"", res);
 }
 
+- (void)testIf1Eq1 {
+    NSString *input = @"{% if 1 eq 1 %} text {% endif %}";
+    id vars = nil;
+    
+    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    TDNotNil(res);
+    TDEqualObjects(@" text ", res);
+}
+
+- (void)testIf1EqSign1 {
+    NSString *input = @"{% if 1 = 1 %} text {% endif %}";
+    id vars = nil;
+    
+    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    TDNotNil(res);
+    TDEqualObjects(@" text ", res);
+}
+
+- (void)testIf1EqEqSign1 {
+    NSString *input = @"{% if 1 == 1 %} text {% endif %}";
+    id vars = nil;
+    
+    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    TDNotNil(res);
+    TDEqualObjects(@" text ", res);
+}
+
+- (void)testIf1Eq2 {
+    NSString *input = @"{% if 1 eq 2 %} text {% endif %}";
+    id vars = nil;
+    
+    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    TDNotNil(res);
+    TDEqualObjects(@"", res);
+}
+
+- (void)testIf1EqSign2 {
+    NSString *input = @"{% if 1 = 2 %} text {% endif %}";
+    id vars = nil;
+    
+    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    TDNotNil(res);
+    TDEqualObjects(@"", res);
+}
+
+- (void)testIf1EqEqSign2 {
+    NSString *input = @"{% if 1 == 2 %} text {% endif %}";
+    id vars = nil;
+    
+    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    TDNotNil(res);
+    TDEqualObjects(@"", res);
+}
+
+- (void)testIf1Ne1 {
+    NSString *input = @"{% if 1 ne 1 %} text {% endif %}";
+    id vars = nil;
+    
+    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    TDNotNil(res);
+    TDEqualObjects(@"", res);
+}
+
+- (void)testIf1NeSign1 {
+    NSString *input = @"{% if 1 != 1 %} text {% endif %}";
+    id vars = nil;
+    
+    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    TDNotNil(res);
+    TDEqualObjects(@"", res);
+}
+
+- (void)testIf1Ne2 {
+    NSString *input = @"{% if 1 ne 2 %} text {% endif %}";
+    id vars = nil;
+    
+    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    TDNotNil(res);
+    TDEqualObjects(@" text ", res);
+}
+
+- (void)testIf1NeSign2 {
+    NSString *input = @"{% if 1 != 2 %} text {% endif %}";
+    id vars = nil;
+    
+    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    TDNotNil(res);
+    TDEqualObjects(@" text ", res);
+}
+
 @end

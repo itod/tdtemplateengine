@@ -25,6 +25,7 @@
 #import "XPNumericValue.h"
 #import "XPStringValue.h"
 #import "TDTemplateContext.h"
+#import "XPParser.h"
 
 double XPNumberFromString(NSString *s) {
     return [s doubleValue];
@@ -87,8 +88,8 @@ double XPNumberFromString(NSString *s) {
 
 - (BOOL)compareToValue:(XPValue *)other usingOperator:(NSInteger)op {
 
-    if (op == XPTokenTypeEQ) return [self isEqualToValue:other];
-    if (op == XPTokenTypeNE) return [self isNotEqualToValue:other];
+    if (op == XP_TOKEN_KIND_EQ) return [self isEqualToValue:other];
+    if (op == XP_TOKEN_KIND_NE) return [self isNotEqualToValue:other];
         
     return [self compareNumber:[self asNumber] toNumber:[other asNumber] usingOperator:op];
 }
@@ -96,14 +97,14 @@ double XPNumberFromString(NSString *s) {
 
 - (NSInteger)inverseOperator:(NSInteger)op {
     switch (op) {
-        case XPTokenTypeLT:
-            return XPTokenTypeGT;
-        case XPTokenTypeLE:
-            return XPTokenTypeGE;
-        case XPTokenTypeGT:
-            return XPTokenTypeLT;
-        case XPTokenTypeGE:
-            return XPTokenTypeLE;
+        case XP_TOKEN_KIND_LT:
+            return XP_TOKEN_KIND_GT;
+        case XP_TOKEN_KIND_LE:
+            return XP_TOKEN_KIND_GE;
+        case XP_TOKEN_KIND_GT:
+            return XP_TOKEN_KIND_LT;
+        case XP_TOKEN_KIND_GE:
+            return XP_TOKEN_KIND_LE;
         default:
             return op;
     }
@@ -112,13 +113,13 @@ double XPNumberFromString(NSString *s) {
 
 - (BOOL)compareNumber:(double)x toNumber:(double)y usingOperator:(NSInteger)op {
     switch (op) {
-        case XPTokenTypeLT:
+        case XP_TOKEN_KIND_LT:
             return x < y;
-        case XPTokenTypeLE:
+        case XP_TOKEN_KIND_LE:
             return x <= y;
-        case XPTokenTypeGT:
+        case XP_TOKEN_KIND_GT:
             return x > y;
-        case XPTokenTypeGE:
+        case XP_TOKEN_KIND_GE:
             return x >= y;
         default:
             return NO;

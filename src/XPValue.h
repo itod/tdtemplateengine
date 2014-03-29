@@ -22,19 +22,19 @@
 
 #import <TDTemplateEngine/XPExpression.h>
 
-typedef enum {
-	XPTokenTypeEQ = 0,
-	XPTokenTypeNE,
-	XPTokenTypeGT,
-	XPTokenTypeLT,
-	XPTokenTypeGE,
-	XPTokenTypeLE,
-	XPTokenTypePlus,
-	XPTokenTypeMinus,
-	XPTokenTypeMult,
-	XPTokenTypeDiv,
-	XPTokenTypeMod,
-} XPTokenType;
+//typedef enum {
+//	XPTokenTypeEQ = 0,
+//	XPTokenTypeNE,
+//	XPTokenTypeGT,
+//	XPTokenTypeLT,
+//	XPTokenTypeGE,
+//	XPTokenTypeLE,
+//	XPTokenTypePlus,
+//	XPTokenTypeMinus,
+//	XPTokenTypeMult,
+//	XPTokenTypeDiv,
+//	XPTokenTypeMod,
+//} XPTokenType;
 
 double XPNumberFromString(NSString *s);
 
