@@ -286,27 +286,6 @@
     [self fireDelegateSelector:@selector(parser:didMatchEqualityExpr:)];
 }
 
-- (void)relationalExpr_ {
-    
-    [self additiveExpr_]; 
-    while ([self speculate:^{ if ([self predicts:XP_TOKEN_KIND_LT, XP_TOKEN_KIND_LT_SYM, 0]) {[self ltOp_]; } else if ([self predicts:XP_TOKEN_KIND_GT, XP_TOKEN_KIND_GT_SYM, 0]) {[self gtOp_]; } else if ([self predicts:XP_TOKEN_KIND_LE, XP_TOKEN_KIND_LE_SYM, 0]) {[self leOp_]; } else if ([self predicts:XP_TOKEN_KIND_GE, XP_TOKEN_KIND_GE_SYM, 0]) {[self geOp_]; } else {[self raise:@"No viable alternative found in rule 'relationalExpr'."];}[self additiveExpr_]; }]) {
-        if ([self predicts:XP_TOKEN_KIND_LT, XP_TOKEN_KIND_LT_SYM, 0]) {
-            [self ltOp_]; 
-        } else if ([self predicts:XP_TOKEN_KIND_GT, XP_TOKEN_KIND_GT_SYM, 0]) {
-            [self gtOp_]; 
-        } else if ([self predicts:XP_TOKEN_KIND_LE, XP_TOKEN_KIND_LE_SYM, 0]) {
-            [self leOp_]; 
-        } else if ([self predicts:XP_TOKEN_KIND_GE, XP_TOKEN_KIND_GE_SYM, 0]) {
-            [self geOp_]; 
-        } else {
-            [self raise:@"No viable alternative found in rule 'relationalExpr'."];
-        }
-        [self additiveExpr_]; 
-    }
-
-    [self fireDelegateSelector:@selector(parser:didMatchRelationalExpr:)];
-}
-
 - (void)ltOp_ {
     
     if ([self predicts:XP_TOKEN_KIND_LT_SYM, 0]) {
@@ -369,6 +348,36 @@
     }];
 
     [self fireDelegateSelector:@selector(parser:didMatchGeOp:)];
+}
+
+- (void)relationalExpr_ {
+    
+    [self additiveExpr_]; 
+    while ([self speculate:^{ if ([self predicts:XP_TOKEN_KIND_LT, XP_TOKEN_KIND_LT_SYM, 0]) {[self ltOp_]; } else if ([self predicts:XP_TOKEN_KIND_GT, XP_TOKEN_KIND_GT_SYM, 0]) {[self gtOp_]; } else if ([self predicts:XP_TOKEN_KIND_LE, XP_TOKEN_KIND_LE_SYM, 0]) {[self leOp_]; } else if ([self predicts:XP_TOKEN_KIND_GE, XP_TOKEN_KIND_GE_SYM, 0]) {[self geOp_]; } else {[self raise:@"No viable alternative found in rule 'relationalExpr'."];}[self additiveExpr_]; }]) {
+        if ([self predicts:XP_TOKEN_KIND_LT, XP_TOKEN_KIND_LT_SYM, 0]) {
+            [self ltOp_]; 
+        } else if ([self predicts:XP_TOKEN_KIND_GT, XP_TOKEN_KIND_GT_SYM, 0]) {
+            [self gtOp_]; 
+        } else if ([self predicts:XP_TOKEN_KIND_LE, XP_TOKEN_KIND_LE_SYM, 0]) {
+            [self leOp_]; 
+        } else if ([self predicts:XP_TOKEN_KIND_GE, XP_TOKEN_KIND_GE_SYM, 0]) {
+            [self geOp_]; 
+        } else {
+            [self raise:@"No viable alternative found in rule 'relationalExpr'."];
+        }
+        [self additiveExpr_]; 
+        [self execute:^{
+        
+	XPValue *rhs = POP();
+	NSInteger op = POP_INT();
+	XPValue *lhs = POP();
+	BOOL res = [lhs compareToValue:rhs usingOperator:op];
+    PUSH([XPBooleanValue booleanValueWithBoolean:res]);
+
+        }];
+    }
+
+    [self fireDelegateSelector:@selector(parser:didMatchRelationalExpr:)];
 }
 
 - (void)additiveExpr_ {
