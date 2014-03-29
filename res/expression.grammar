@@ -27,24 +27,24 @@
 expr    = orExpr;
 orExpr  = andExpr (orOp andExpr)*;
 andExpr = equalityExpr (andOp equalityExpr)*;
-orOp 	@after { PUSH(@"or"); }
+orOp 	@after { PUSH(@(XP_TOKEN_KIND_OR)); }
 		=  'or'! | '||'!;
-andOp 	@after { PUSH(@"and"); }
+andOp 	@after { PUSH(@(XP_TOKEN_KIND_AND)); }
 		= 'and'! | '&&'!;
 
 equalityExpr = relationalExpr ((eqOp | neOp) relationalExpr)*;
 relationalExpr = additiveExpr ((ltOp | gtOp | leOp | geOp) additiveExpr)*;
-eqOp 	@after { PUSH(@"eq"); }
+eqOp 	@after { PUSH(@(XP_TOKEN_KIND_EQ)); }
 		=  '='! | '=='! | 'eq'!;
-neOp 	@after { PUSH(@"ne"); }
+neOp 	@after { PUSH(@(XP_TOKEN_KIND_NE)); }
 		= '!='! | '!='! | 'ne'!;
-ltOp 	@after { PUSH(@"lt"); }
+ltOp 	@after { PUSH(@(XP_TOKEN_KIND_LT)); }
 		=  '<'! | 'lt'!;
-gtOp 	@after { PUSH(@"gt"); }
+gtOp 	@after { PUSH(@(XP_TOKEN_KIND_GT)); }
 		=  '>'! | 'gt'!;
-leOp 	@after { PUSH(@"le"); }
+leOp 	@after { PUSH(@(XP_TOKEN_KIND_LE)); }
 		= '<='! | 'le'!;
-geOp 	@after { PUSH(@"ge"); }
+geOp 	@after { PUSH(@(XP_TOKEN_KIND_GE)); }
 		= '>='! | 'ge'!;
 
 additiveExpr = multiplicativeExpr (('+' | '-') multiplicativeExpr)*;
