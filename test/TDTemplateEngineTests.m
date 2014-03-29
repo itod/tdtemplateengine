@@ -359,4 +359,13 @@
     TDEqualObjects(@" text ", res);
 }
 
+- (void)testIf1SpacePlusSpace2 {
+    NSString *input = @"{% if 1 + 2 %} text {% endif %}";
+    id vars = nil;
+    
+    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    TDNotNil(res);
+    TDEqualObjects(@" text ", res);
+}
+
 @end

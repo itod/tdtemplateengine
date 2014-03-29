@@ -4,6 +4,7 @@
 #import <TDTemplateEngine/XPStringValue.h>
 #import <TDTemplateEngine/XPBooleanExpression.h>
 #import <TDTemplateEngine/XPRelationalExpression.h>
+#import <TDTemplateEngine/XPArithmeticExpression.h>
 }
 
 @extension {
@@ -68,7 +69,17 @@ relationalExpr = additiveExpr ((ltOp | gtOp | leOp | geOp) additiveExpr {
     PUSH([XPRelationalExpression relationalExpressionWithOperand:lhs operator:op operand:rhs]);
 })*;
 
-additiveExpr = multiplicativeExpr (('+' | '-') multiplicativeExpr)*;
+plus	@after { PUSH(@(XP_TOKEN_KIND_PLUS)); }
+		= '+'!;
+minus	@after { PUSH(@(XP_TOKEN_KIND_MINUS)); }
+		= '-'!;
+additiveExpr = multiplicativeExpr ((plus | minus) multiplicativeExpr {
+	XPValue *rhs = POP();
+	NSInteger op = POP_INT();
+	XPValue *lhs = POP();
+    PUSH([XPArithmeticExpression arithmeticExpressionWithOperand:lhs operator:op operand:rhs]);
+})*;
+
 multiplicativeExpr = unaryExpr (('*' | '/' | '%') unaryExpr)*;
 unaryExpr = '-'* primary;
 primary = atom | subExpr;

@@ -6,6 +6,7 @@
 #import <TDTemplateEngine/XPStringValue.h>
 #import <TDTemplateEngine/XPBooleanExpression.h>
 #import <TDTemplateEngine/XPRelationalExpression.h>
+#import <TDTemplateEngine/XPArithmeticExpression.h>
 
 #define LT(i) [self LT:(i)]
 #define LA(i) [self LA:(i)]
@@ -388,18 +389,46 @@
     [self fireDelegateSelector:@selector(parser:didMatchRelationalExpr:)];
 }
 
+- (void)plus_ {
+    
+    [self match:XP_TOKEN_KIND_PLUS discard:YES]; 
+    [self execute:^{
+     PUSH(@(XP_TOKEN_KIND_PLUS)); 
+    }];
+
+    [self fireDelegateSelector:@selector(parser:didMatchPlus:)];
+}
+
+- (void)minus_ {
+    
+    [self match:XP_TOKEN_KIND_MINUS discard:YES]; 
+    [self execute:^{
+     PUSH(@(XP_TOKEN_KIND_MINUS)); 
+    }];
+
+    [self fireDelegateSelector:@selector(parser:didMatchMinus:)];
+}
+
 - (void)additiveExpr_ {
     
     [self multiplicativeExpr_]; 
-    while ([self speculate:^{ if ([self predicts:XP_TOKEN_KIND_PLUS, 0]) {[self match:XP_TOKEN_KIND_PLUS discard:NO]; } else if ([self predicts:XP_TOKEN_KIND_MINUS, 0]) {[self match:XP_TOKEN_KIND_MINUS discard:NO]; } else {[self raise:@"No viable alternative found in rule 'additiveExpr'."];}[self multiplicativeExpr_]; }]) {
+    while ([self speculate:^{ if ([self predicts:XP_TOKEN_KIND_PLUS, 0]) {[self plus_]; } else if ([self predicts:XP_TOKEN_KIND_MINUS, 0]) {[self minus_]; } else {[self raise:@"No viable alternative found in rule 'additiveExpr'."];}[self multiplicativeExpr_]; }]) {
         if ([self predicts:XP_TOKEN_KIND_PLUS, 0]) {
-            [self match:XP_TOKEN_KIND_PLUS discard:NO]; 
+            [self plus_]; 
         } else if ([self predicts:XP_TOKEN_KIND_MINUS, 0]) {
-            [self match:XP_TOKEN_KIND_MINUS discard:NO]; 
+            [self minus_]; 
         } else {
             [self raise:@"No viable alternative found in rule 'additiveExpr'."];
         }
         [self multiplicativeExpr_]; 
+        [self execute:^{
+        
+	XPValue *rhs = POP();
+	NSInteger op = POP_INT();
+	XPValue *lhs = POP();
+    PUSH([XPArithmeticExpression arithmeticExpressionWithOperand:lhs operator:op operand:rhs]);
+
+        }];
     }
 
     [self fireDelegateSelector:@selector(parser:didMatchAdditiveExpr:)];
