@@ -38,7 +38,6 @@
     NSParameterAssert(frag);
     self = [super init];
     if (self) {
-        self.fragment = frag;
         self.children = [NSMutableArray array];
         self.createsScope = NO;
         [self processFragment:frag];
@@ -48,7 +47,6 @@
 
 
 - (void)dealloc {
-    self.fragment = nil;
     self.children = nil;
     [super dealloc];
 }

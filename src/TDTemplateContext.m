@@ -21,7 +21,6 @@
 // THE SOFTWARE.
 
 #import <TDTemplateEngine/TDTemplateContext.h>
-//#import <TDTemplateEngine/XPExpression.h>
 
 @interface TDTemplateContext ()
 @property (nonatomic, retain) NSDictionary *vars;
@@ -50,10 +49,5 @@
 - (NSString *)resolveVariable:(NSString *)name {
     return _vars[name];
 }
-
-
-//- (XPExpression *)expressionFromTokens:(NSArray *)toks {
-//    return nil; // TODO
-//}
 
 @end

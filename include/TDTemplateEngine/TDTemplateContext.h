@@ -22,12 +22,9 @@
 
 #import <Foundation/Foundation.h>
 
-//@class XPExpression;
-
 @interface TDTemplateContext : NSObject
 
 - (instancetype)initWithVariables:(NSDictionary *)vars;
 
 - (NSString *)resolveVariable:(NSString *)name;
-//- (XPExpression *)expressionFromTokens:(NSArray *)toks;
 @end

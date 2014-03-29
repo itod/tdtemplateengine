@@ -36,7 +36,6 @@
 - (void)enterScope;
 - (void)exitScope;
 
-@property (nonatomic, retain) TDFragment *fragment;
 @property (nonatomic, retain) NSMutableArray *children;
 @property (nonatomic, assign) BOOL createsScope;
 @end

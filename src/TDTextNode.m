@@ -23,20 +23,31 @@
 #import "TDTextNode.h"
 #import "TDFragment.h"
 
+@interface TDTextNode ()
+@property (nonatomic, retain) NSString *string;
+@end
+
 @implementation TDTextNode
+
+- (void)dealloc {
+    self.string = nil;
+    [super dealloc];
+}
+
 
 - (void)processFragment:(TDFragment *)frag {
     NSParameterAssert(frag);
     TDAssert(!frag.tokens);
+    TDAssert([frag.string length]);
+
+    self.string = frag.string;
 }
 
 
 - (NSString *)renderInContext:(TDTemplateContext *)ctx {
     NSParameterAssert(ctx);
-    TDAssert([self.fragment.string length]);
-    
-    NSString *s = self.fragment.string;
-    return s;
+    TDAssert([_string length]);
+    return _string;
 }
 
 @end
