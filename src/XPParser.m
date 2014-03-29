@@ -154,6 +154,19 @@
 }
 
 - (void)start {
+    [self execute:^{
+    
+    PKTokenizer *t = [PKTokenizer tokenizer];
+    [t.symbolState add:@"=="];
+    [t.symbolState add:@"!="];
+    [t.symbolState add:@"<="];
+    [t.symbolState add:@">="];
+    [t.symbolState add:@"&&"];
+    [t.symbolState add:@"||"];
+	
+	[t setTokenizerState:t.symbolState from:'-' to:'-'];
+
+    }];
 
     [self expr_]; 
     [self matchEOF:YES]; 
