@@ -24,4 +24,20 @@
 
 @implementation TDTag
 
++ (instancetype)tagForName:(NSString *)tagName {
+    // TODO make this extensible
+    NSString *clsName = [NSString stringWithFormat:@"TD%@Tag", [tagName capitalizedString]];
+    Class cls = NSClassFromString(clsName);
+    TDAssert(cls);
+    TDTag *tag = [[[cls alloc] init] autorelease];
+    TDAssert(tag);
+    return tag;
+}
+
+
+- (id)evaluate:(NSArray *)tokens inContext:(TDTemplateContext *)ctx {
+    NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
+    return nil;
+}
+
 @end

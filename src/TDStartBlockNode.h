@@ -24,4 +24,5 @@
 
 @interface TDStartBlockNode : TDNode
 
+@property (nonatomic, retain) NSString *tagName;
 @end

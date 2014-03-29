@@ -20,38 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <TDTemplateEngine/TDTemplateContext.h>
-#import <TDTemplateEngine/TDEvaluator.h>
+#import <TDTemplateEngine/TDTag.h>
 
-@interface TDTemplateContext ()
-@property (nonatomic, retain) NSDictionary *vars;
-@property (nonatomic, retain, readwrite) TDEvaluator *evaluator;
-@end
-
-@implementation TDTemplateContext
-
-- (instancetype)initWithVariables:(NSDictionary *)vars {
-    self = [super init];
-    if (self) {
-        self.evaluator = [[[TDEvaluator alloc] init] autorelease];
-        self.vars = vars;
-    }
-    return self;
-}
-
-
-- (void)dealloc {
-    self.evaluator = nil;
-    self.vars = nil;
-    [super dealloc];
-}
-
-
-#pragma mark -
-#pragma mark Public
-
-- (NSString *)resolveVariable:(NSString *)name {
-    return _vars[name];
-}
+@interface TDIfTag : TDTag
 
 @end

@@ -22,9 +22,13 @@
 
 #import <Foundation/Foundation.h>
 
+@class TDEvaluator;
+
 @interface TDTemplateContext : NSObject
 
 - (instancetype)initWithVariables:(NSDictionary *)vars;
 
 - (NSString *)resolveVariable:(NSString *)name;
+
+@property (nonatomic, retain, readonly) TDEvaluator *evaluator;
 @end

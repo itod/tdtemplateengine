@@ -30,12 +30,16 @@
 		D3A29DC718E6285800DC591E /* TDStartBlockNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29DC518E6285800DC591E /* TDStartBlockNode.m */; };
 		D3A29DCA18E6286600DC591E /* TDEndBlockNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29DC818E6286600DC591E /* TDEndBlockNode.h */; };
 		D3A29DCB18E6286600DC591E /* TDEndBlockNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29DC918E6286600DC591E /* TDEndBlockNode.m */; };
-		D3A29DD018E63A1C00DC591E /* TDTemplateContext.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29DCE18E63A1C00DC591E /* TDTemplateContext.h */; };
 		D3A29DD118E63A1C00DC591E /* TDTemplateContext.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29DCF18E63A1C00DC591E /* TDTemplateContext.m */; };
 		D3A29DD618E63D4F00DC591E /* TDForTag.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29DD418E63D4F00DC591E /* TDForTag.h */; };
 		D3A29DD718E63D4F00DC591E /* TDForTag.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29DD518E63D4F00DC591E /* TDForTag.m */; };
 		D3A29DDB18E63D5B00DC591E /* TDTag.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29DD918E63D5B00DC591E /* TDTag.m */; };
 		D3A29DDD18E63D6D00DC591E /* TDTag.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29DDC18E63D6D00DC591E /* TDTag.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D3A29DE018E6423500DC591E /* TDIfTag.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29DDE18E6423500DC591E /* TDIfTag.h */; };
+		D3A29DE118E6423500DC591E /* TDIfTag.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29DDF18E6423500DC591E /* TDIfTag.m */; };
+		D3A29DE618E64EF000DC591E /* TDEvaluator.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29DE418E64EF000DC591E /* TDEvaluator.m */; };
+		D3A29DE818E64FA800DC591E /* TDEvaluator.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29DE718E64FA800DC591E /* TDEvaluator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D3A29DEA18E64FB800DC591E /* TDTemplateContext.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29DE918E64FB800DC591E /* TDTemplateContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,12 +123,16 @@
 		D3A29DC518E6285800DC591E /* TDStartBlockNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDStartBlockNode.m; path = src/TDStartBlockNode.m; sourceTree = SOURCE_ROOT; };
 		D3A29DC818E6286600DC591E /* TDEndBlockNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDEndBlockNode.h; path = src/TDEndBlockNode.h; sourceTree = SOURCE_ROOT; };
 		D3A29DC918E6286600DC591E /* TDEndBlockNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDEndBlockNode.m; path = src/TDEndBlockNode.m; sourceTree = SOURCE_ROOT; };
-		D3A29DCE18E63A1C00DC591E /* TDTemplateContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDTemplateContext.h; path = src/TDTemplateContext.h; sourceTree = SOURCE_ROOT; };
 		D3A29DCF18E63A1C00DC591E /* TDTemplateContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDTemplateContext.m; path = src/TDTemplateContext.m; sourceTree = SOURCE_ROOT; };
 		D3A29DD418E63D4F00DC591E /* TDForTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDForTag.h; path = src/TDForTag.h; sourceTree = SOURCE_ROOT; };
 		D3A29DD518E63D4F00DC591E /* TDForTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDForTag.m; path = src/TDForTag.m; sourceTree = SOURCE_ROOT; };
 		D3A29DD918E63D5B00DC591E /* TDTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDTag.m; path = src/TDTag.m; sourceTree = SOURCE_ROOT; };
 		D3A29DDC18E63D6D00DC591E /* TDTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDTag.h; path = include/TDTemplateEngine/TDTag.h; sourceTree = SOURCE_ROOT; };
+		D3A29DDE18E6423500DC591E /* TDIfTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDIfTag.h; path = src/TDIfTag.h; sourceTree = SOURCE_ROOT; };
+		D3A29DDF18E6423500DC591E /* TDIfTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDIfTag.m; path = src/TDIfTag.m; sourceTree = SOURCE_ROOT; };
+		D3A29DE418E64EF000DC591E /* TDEvaluator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDEvaluator.m; path = src/TDEvaluator.m; sourceTree = SOURCE_ROOT; };
+		D3A29DE718E64FA800DC591E /* TDEvaluator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDEvaluator.h; path = include/TDTemplateEngine/TDEvaluator.h; sourceTree = SOURCE_ROOT; };
+		D3A29DE918E64FB800DC591E /* TDTemplateContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDTemplateContext.h; path = include/TDTemplateEngine/TDTemplateContext.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -183,7 +191,9 @@
 			children = (
 				D3A29D8118E5F57300DC591E /* TDTemplateEngine.h */,
 				D3A29D8318E5F57E00DC591E /* TDTemplateEngine.m */,
-				D3A29DCE18E63A1C00DC591E /* TDTemplateContext.h */,
+				D3A29DE718E64FA800DC591E /* TDEvaluator.h */,
+				D3A29DE418E64EF000DC591E /* TDEvaluator.m */,
+				D3A29DE918E64FB800DC591E /* TDTemplateContext.h */,
 				D3A29DCF18E63A1C00DC591E /* TDTemplateContext.m */,
 				D3A29DC018E6206600DC591E /* TDFragment.h */,
 				D3A29DC118E6206600DC591E /* TDFragment.m */,
@@ -260,6 +270,8 @@
 			children = (
 				D3A29DDC18E63D6D00DC591E /* TDTag.h */,
 				D3A29DD918E63D5B00DC591E /* TDTag.m */,
+				D3A29DDE18E6423500DC591E /* TDIfTag.h */,
+				D3A29DDF18E6423500DC591E /* TDIfTag.m */,
 				D3A29DD418E63D4F00DC591E /* TDForTag.h */,
 				D3A29DD518E63D4F00DC591E /* TDForTag.m */,
 			);
@@ -273,6 +285,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3A29DEA18E64FB800DC591E /* TDTemplateContext.h in Headers */,
 				D3A29DC218E6206600DC591E /* TDFragment.h in Headers */,
 				D3A29DC618E6285800DC591E /* TDStartBlockNode.h in Headers */,
 				D3A29DBE18E61ACA00DC591E /* TDTextNode.h in Headers */,
@@ -283,7 +296,8 @@
 				D3A29DCA18E6286600DC591E /* TDEndBlockNode.h in Headers */,
 				D3A29DDD18E63D6D00DC591E /* TDTag.h in Headers */,
 				D3A29D8218E5F57300DC591E /* TDTemplateEngine.h in Headers */,
-				D3A29DD018E63A1C00DC591E /* TDTemplateContext.h in Headers */,
+				D3A29DE018E6423500DC591E /* TDIfTag.h in Headers */,
+				D3A29DE818E64FA800DC591E /* TDEvaluator.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -431,9 +445,11 @@
 				D3A29DBF18E61ACA00DC591E /* TDTextNode.m in Sources */,
 				D3A29DC318E6206600DC591E /* TDFragment.m in Sources */,
 				D3A29D8418E5F57E00DC591E /* TDTemplateEngine.m in Sources */,
+				D3A29DE618E64EF000DC591E /* TDEvaluator.m in Sources */,
 				D3A29DCB18E6286600DC591E /* TDEndBlockNode.m in Sources */,
 				D3A29DBB18E60F9F00DC591E /* TDRootNode.m in Sources */,
 				D3A29DD118E63A1C00DC591E /* TDTemplateContext.m in Sources */,
+				D3A29DE118E6423500DC591E /* TDIfTag.m in Sources */,
 				D3A29DC718E6285800DC591E /* TDStartBlockNode.m in Sources */,
 				D3A29DAB18E609E700DC591E /* TDNode.m in Sources */,
 				D3A29DDB18E63D5B00DC591E /* TDTag.m in Sources */,

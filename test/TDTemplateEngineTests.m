@@ -53,4 +53,22 @@
     TDEqualObjects(@"1 text 2", res);
 }
 
+- (void)testIf1 {
+    NSString *input = @"{% if 1 %} text {% /if %}";
+    id vars = nil;
+    
+    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    TDNotNil(res);
+    TDEqualObjects(@" text ", res);
+}
+
+- (void)testIf0 {
+    NSString *input = @"{% if 0 %} text {% /if %}";
+    id vars = nil;
+    
+    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    TDNotNil(res);
+    TDEqualObjects(@"", res);
+}
+
 @end

@@ -21,7 +21,7 @@
 // THE SOFTWARE.
 
 #import "TDVariableNode.h"
-#import "TDTemplateContext.h"
+#import <TDTemplateEngine/TDTemplateContext.h>
 #import "TDFragment.h"
 #import <PEGKit/PKToken.h>
 

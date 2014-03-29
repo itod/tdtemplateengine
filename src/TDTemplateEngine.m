@@ -28,7 +28,7 @@
 #import "TDVariableNode.h"
 #import "TDStartBlockNode.h"
 #import "TDEndBlockNode.h"
-#import "TDTemplateContext.h"
+#import <TDTemplateEngine/TDTemplateContext.h>
 
 #import <PEGKit/PKTokenizer.h>
 #import <PEGKit/PKWhitespaceState.h>
@@ -172,7 +172,7 @@
         }
     }
 
-    //NSLog(@"%@", frags);
+    NSLog(@"%@", frags);
     return frags;
 }
 

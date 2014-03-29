@@ -22,6 +22,11 @@
 
 #import <Foundation/Foundation.h>
 
+@class TDTemplateContext;
+
 @interface TDTag : NSObject
 
++ (instancetype)tagForName:(NSString *)tagName;
+
+- (id)evaluate:(NSArray *)tokens inContext:(TDTemplateContext *)ctx;
 @end
