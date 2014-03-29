@@ -39,17 +39,17 @@
 }
 
 
-- (NSString *)asString {
+- (NSString *)stringValue {
     return _value ? @"true" : @"false";
 }
 
 
-- (double)asNumber {
+- (double)doubleValue {
     return _value ? 1.0 : 0.0;
 }
 
 
-- (BOOL)asBoolean {
+- (BOOL)boolValue {
     return _value;
 }
 
@@ -60,12 +60,12 @@
 
 
 - (void)display:(NSInteger)level {
-    //NSLog(@"%@boolean (%@)", [self indent:level], [self asString]);
+    //NSLog(@"%@boolean (%@)", [self indent:level], [self stringValue]);
 }
 
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<XPBooleanValue %@>", [self asString]];
+    return [NSString stringWithFormat:@"<XPBooleanValue %@>", [self stringValue]];
 }
 
 @end

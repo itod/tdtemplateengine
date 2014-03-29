@@ -543,4 +543,37 @@
     TDEquals(10.0, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
 
+- (void)testMinus1 {
+    NSString *input = @"-1";
+    NSArray *toks = [self tokenize:input];
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDEquals(-1.0, [[expr simplify] evaluateAsNumberInContext:nil]);
+}
+
+- (void)testMinusMinus1 {
+    NSString *input = @"--1";
+    NSArray *toks = [self tokenize:input];
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDEquals(1.0, [[expr simplify] evaluateAsNumberInContext:nil]);
+}
+
+- (void)testMinusMinusMinus1 {
+    NSString *input = @"---1";
+    NSArray *toks = [self tokenize:input];
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDEquals(-1.0, [[expr simplify] evaluateAsNumberInContext:nil]);
+}
+
 @end

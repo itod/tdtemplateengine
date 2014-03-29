@@ -9,24 +9,17 @@
 
 @extension {
 @property (nonatomic, retain) PKToken *openParen;
+@property (nonatomic, retain) PKToken *minus;
 }
 
 @init {
     self.openParen = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"(" doubleValue:0.0];
+    self.minus = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"-" doubleValue:0.0];
 }
 
 @dealloc {
     self.openParen = nil;
-}
-
-@before {
-    PKTokenizer *t = self.tokenizer;
-    [t.symbolState add:@"=="];
-    [t.symbolState add:@"!="];
-    [t.symbolState add:@"<="];
-    [t.symbolState add:@">="];
-    [t.symbolState add:@"&&"];
-    [t.symbolState add:@"||"];
+	self.minus = nil;
 }
 
 expr    = orExpr;
@@ -94,7 +87,19 @@ multiplicativeExpr = unaryExpr ((times | div | mod) unaryExpr {
 	XPValue *lhs = POP();
     PUSH([XPArithmeticExpression arithmeticExpressionWithOperand:lhs operator:op operand:rhs]);
 })*;
-unaryExpr = '-'* primary;
+unaryExpr 
+	= '-'+ primary {
+		double d = POP_DOUBLE();
+		id obj = POP();
+		while (EQ(_minus, obj)) {
+			d = -d;
+			obj = POP();
+		\}
+		PUSH(obj);
+		PUSH([XPNumericValue numericValueWithNumber:d]);
+	}
+	| primary
+	;
 primary = atom | subExpr;
 
 subExpr

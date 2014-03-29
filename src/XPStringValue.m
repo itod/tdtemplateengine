@@ -47,17 +47,17 @@
 }
 
 
-- (NSString *)asString {
+- (NSString *)stringValue {
     return _value;
 }
 
 
-- (double)asNumber {
+- (double)doubleValue {
     return XPNumberFromString(_value);
 }
 
 
-- (BOOL)asBoolean {
+- (BOOL)boolValue {
     return [_value length] > 0;
 }
 

@@ -115,6 +115,16 @@
     [t.symbolState add:_varEndDelimiter];
     [t.symbolState add:_blockStartDelimiter];
     [t.symbolState add:_blockEndDelimiter];
+    
+    [t.symbolState add:@"=="];
+    [t.symbolState add:@"!="];
+    [t.symbolState add:@"<="];
+    [t.symbolState add:@">="];
+    [t.symbolState add:@"&&"];
+    [t.symbolState add:@"||"];
+	
+	[t setTokenizerState:t.symbolState from:'-' to:'-'];
+
     return t;
 }
 

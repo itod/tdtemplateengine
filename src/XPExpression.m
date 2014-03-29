@@ -69,17 +69,17 @@ static PKParser *sParser = nil;
 
 
 - (BOOL)evaluateAsBooleanInContext:(TDTemplateContext *)ctx {
-    return [[self evaluateInContext:ctx] asBoolean];
+    return [[self evaluateInContext:ctx] boolValue];
 }
 
 
 - (double)evaluateAsNumberInContext:(TDTemplateContext *)ctx {
-    return [[self evaluateInContext:ctx] asNumber];
+    return [[self evaluateInContext:ctx] doubleValue];
 }
 
 
 - (NSString *)evaluateAsStringInContext:(TDTemplateContext *)ctx {
-    return [[self evaluateInContext:ctx] asString];
+    return [[self evaluateInContext:ctx] stringValue];
 }
 
 

@@ -39,17 +39,17 @@
 }
 
 
-- (NSString *)asString {
+- (NSString *)stringValue {
     return [[NSNumber numberWithDouble:_value] stringValue];
 }
 
 
-- (double)asNumber {
+- (double)doubleValue {
     return _value;
 }
 
 
-- (BOOL)asBoolean {
+- (BOOL)boolValue {
     return (_value != 0.0 && !isnan(_value));
 }
 
@@ -60,12 +60,12 @@
 
 
 - (void)display:(NSInteger)level {
-    //NSLog(@"%@number (%@)", [self indent:level], [self asString]);
+    //NSLog(@"%@number (%@)", [self indent:level], [self stringValue]);
 }
 
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<XPNumericValue %p %@>", self, [self asString]];
+    return [NSString stringWithFormat:@"<XPNumericValue %p %@>", self, [self stringValue]];
 }
 
 @end

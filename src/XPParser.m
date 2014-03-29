@@ -68,6 +68,7 @@
 @interface XPParser ()
     
 @property (nonatomic, retain) PKToken *openParen;
+@property (nonatomic, retain) PKToken *minus;
 
 @end
 
@@ -78,6 +79,7 @@
     if (self) {
             
     self.openParen = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"(" doubleValue:0.0];
+    self.minus = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"-" doubleValue:0.0];
 
         self.startRuleName = @"expr";
         self.tokenKindTab[@"ge"] = @(XP_TOKEN_KIND_GE);
@@ -145,23 +147,13 @@
 - (void)dealloc {
         
     self.openParen = nil;
+	self.minus = nil;
 
 
     [super dealloc];
 }
 
 - (void)start {
-    [self execute:^{
-    
-    PKTokenizer *t = self.tokenizer;
-    [t.symbolState add:@"=="];
-    [t.symbolState add:@"!="];
-    [t.symbolState add:@"<="];
-    [t.symbolState add:@">="];
-    [t.symbolState add:@"&&"];
-    [t.symbolState add:@"||"];
-
-    }];
 
     [self expr_]; 
     [self matchEOF:YES]; 
@@ -495,10 +487,28 @@
 
 - (void)unaryExpr_ {
     
-    while ([self predicts:XP_TOKEN_KIND_MINUS, 0]) {
-        [self match:XP_TOKEN_KIND_MINUS discard:NO]; 
+    if ([self predicts:XP_TOKEN_KIND_MINUS, 0]) {
+        do {
+            [self match:XP_TOKEN_KIND_MINUS discard:NO]; 
+        } while ([self predicts:XP_TOKEN_KIND_MINUS, 0]);
+        [self primary_]; 
+        [self execute:^{
+        
+		double d = POP_DOUBLE();
+		id obj = POP();
+		while (EQ(_minus, obj)) {
+			d = -d;
+			obj = POP();
+		}
+		PUSH(obj);
+		PUSH([XPNumericValue numericValueWithNumber:d]);
+	
+        }];
+    } else if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, XP_TOKEN_KIND_FALSE, XP_TOKEN_KIND_NO_UPPER, XP_TOKEN_KIND_OPEN_PAREN, XP_TOKEN_KIND_TRUE, XP_TOKEN_KIND_YES_UPPER, 0]) {
+        [self primary_]; 
+    } else {
+        [self raise:@"No viable alternative found in rule 'unaryExpr'."];
     }
-    [self primary_]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchUnaryExpr:)];
 }

@@ -48,19 +48,19 @@ double XPNumberFromString(NSString *s) {
 }
 
 
-- (NSString *)asString {
+- (NSString *)stringValue {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
     return NO;
 }
 
 
-- (double)asNumber {
+- (double)doubleValue {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
     return NO;
 }
 
 
-- (BOOL)asBoolean {
+- (BOOL)boolValue {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
     return NO;
 }
@@ -69,14 +69,14 @@ double XPNumberFromString(NSString *s) {
 - (BOOL)isEqualToValue:(XPValue *)other {
 
     if ([self isBooleanValue] || [other isBooleanValue]) {
-        return [self asBoolean] == [other asBoolean];
+        return [self boolValue] == [other boolValue];
     }
     
     if ([self isNumericValue] || [other isNumericValue]) {
-        return [self asNumber] == [other asNumber];
+        return [self doubleValue] == [other doubleValue];
     }
     
-    return [[self asString] isEqualToString:[other asString]];
+    return [[self stringValue] isEqualToString:[other stringValue]];
 }
 
 
@@ -91,7 +91,7 @@ double XPNumberFromString(NSString *s) {
     if (op == XP_TOKEN_KIND_EQ) return [self isEqualToValue:other];
     if (op == XP_TOKEN_KIND_NE) return [self isNotEqualToValue:other];
         
-    return [self compareNumber:[self asNumber] toNumber:[other asNumber] usingOperator:op];
+    return [self compareNumber:[self doubleValue] toNumber:[other doubleValue] usingOperator:op];
 }
 
 

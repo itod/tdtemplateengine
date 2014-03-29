@@ -26,20 +26,16 @@ double XPNumberFromString(NSString *s);
 
 @interface XPValue : XPExpression
 
-- (NSString *)asString;
-
-- (double)asNumber;
-
-- (BOOL)asBoolean;
+- (NSString *)stringValue;
+- (double)doubleValue;
+- (BOOL)boolValue;
 
 - (BOOL)isEqualToValue:(XPValue *)other;
-
 - (BOOL)isNotEqualToValue:(XPValue *)other;
 
 - (BOOL)compareToValue:(XPValue *)other usingOperator:(NSInteger)op;
-
 - (NSInteger)inverseOperator:(NSInteger)op;
-    
+
 - (BOOL)compareNumber:(double)x toNumber:(double)y usingOperator:(NSInteger)op;
 
 - (XPExpression *)reduceDependencies:(NSUInteger)dep inContext:(TDTemplateContext *)ctx;
