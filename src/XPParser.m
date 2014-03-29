@@ -1,5 +1,9 @@
 #import "XPParser.h"
 #import <PEGKit/PEGKit.h>
+    
+#import <TDTemplateEngine/XPBooleanValue.h>
+#import <TDTemplateEngine/XPNumericValue.h>
+#import <TDTemplateEngine/XPStringValue.h>
 
 #define LT(i) [self LT:(i)]
 #define LA(i) [self LA:(i)]
@@ -57,13 +61,19 @@
 @end
 
 @interface XPParser ()
+    
+@property (nonatomic, retain) PKToken *openParen;
+
 @end
 
-@implementation XPParser
+@implementation XPParser { }
 
 - (id)initWithDelegate:(id)d {
     self = [super initWithDelegate:d];
     if (self) {
+            
+        self.openParen = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"(" doubleValue:0.0];
+
         self.startRuleName = @"expr";
         self.tokenKindTab[@"YES"] = @(XP_TOKEN_KIND_YES_UPPER);
         self.tokenKindTab[@"("] = @(XP_TOKEN_KIND_OPEN_PAREN);
@@ -81,6 +91,14 @@
 
     }
     return self;
+}
+
+- (void)dealloc {
+        
+    self.openParen = nil;
+
+
+    [super dealloc];
 }
 
 - (void)start {
@@ -113,6 +131,15 @@
     [self match:XP_TOKEN_KIND_OPEN_PAREN discard:NO]; 
     [self expr_]; 
     [self match:XP_TOKEN_KIND_CLOSE_PAREN discard:YES]; 
+    [self execute:^{
+    
+    NSArray *objs = ABOVE(_openParen);
+    POP(); // discard `(`
+    for (id obj in [objs reverseObjectEnumerator]) {
+        PUSH(obj);
+    }
+
+    }];
 
     [self fireDelegateSelector:@selector(parser:didMatchSubExpr:)];
 }
@@ -143,8 +170,14 @@
     
     if ([self predicts:XP_TOKEN_KIND_TRUE, XP_TOKEN_KIND_YES_UPPER, 0]) {
         [self true_]; 
+        [self execute:^{
+         PUSH([XPBooleanValue booleanValueWithBoolean:YES]); 
+        }];
     } else if ([self predicts:XP_TOKEN_KIND_FALSE, XP_TOKEN_KIND_NO_UPPER, 0]) {
         [self false_]; 
+        [self execute:^{
+         PUSH([XPBooleanValue booleanValueWithBoolean:NO]); 
+        }];
     } else {
         [self raise:@"No viable alternative found in rule 'bool'."];
     }
@@ -181,6 +214,11 @@
 - (void)num_ {
     
     [self matchNumber:NO]; 
+    [self execute:^{
+    
+    PUSH([XPNumericValue numericValueWithNumber:POP_DOUBLE()]);
+
+    }];
 
     [self fireDelegateSelector:@selector(parser:didMatchNum:)];
 }
@@ -188,6 +226,13 @@
 - (void)str_ {
     
     [self matchQuotedString:NO]; 
+    [self execute:^{
+    
+    NSString *str = POP_STR();
+    str = [str substringWithRange:NSMakeRange(1, [str length]-2)]; // trim quotes
+    PUSH([XPStringValue stringValueWithString:str]);
+
+    }];
 
     [self fireDelegateSelector:@selector(parser:didMatchStr:)];
 }

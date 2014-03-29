@@ -24,7 +24,7 @@
 #import <TDTemplateEngine/TDTemplateContext.h>
 #import "XPValue.h"
 #import "XPParser.h"
-#import "XPAssembler.h"
+//#import "XPAssembler.h"
 #import <PEGKit/PKAssembly.h>
 
 static PKParser *sParser = nil;
@@ -37,8 +37,8 @@ static PKParser *sParser = nil;
 
 + (void)initialize {
     if ([XPExpression class] == self) {
-        XPAssembler *sAssembler = [[XPAssembler alloc] init];
-        sParser = [[XPParser alloc] initWithDelegate:sAssembler];
+//        XPAssembler *sAssembler = [[XPAssembler alloc] init];
+        sParser = [[XPParser alloc] initWithDelegate:nil];
         TDAssert(sParser);
     }
 }
