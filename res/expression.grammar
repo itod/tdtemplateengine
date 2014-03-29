@@ -43,7 +43,5 @@ num = Number {
 };
 
 str = QuotedString {
-    NSString *str = POP_STR();
-    str = [str substringWithRange:NSMakeRange(1, [str length]-2)]; // trim quotes
-    PUSH([XPStringValue stringValueWithString:str]);
+    PUSH([XPStringValue stringValueWithString:POP_QUOTED_STR()]);
 };
