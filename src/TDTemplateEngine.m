@@ -172,7 +172,7 @@
         }
     }
 
-    NSLog(@"%@", frags);
+    //NSLog(@"%@", frags);
     return frags;
 }
 

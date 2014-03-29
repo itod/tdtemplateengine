@@ -1,15 +1,28 @@
+// The MIT License (MIT)
 //
-//  XPExpression.m
-//  XPath
+// Copyright (c) 2014 Todd Ditchendorf
 //
-//  Created by Todd Ditchendorf on 3/5/09.
-//  Copyright 2009 Todd Ditchendorf. All rights reserved.
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
 //
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
 
 #import <TDTemplateEngine/XPExpression.h>
 #import <TDTemplateEngine/TDTemplateContext.h>
 #import "XPValue.h"
-#import "NSError+XPAdditions.h"
 #import "XPParser.h"
 #import "XPAssembler.h"
 #import <PEGKit/PKAssembly.h>
@@ -24,8 +37,8 @@ static PKParser *sParser = nil;
 
 + (void)initialize {
     if ([XPExpression class] == self) {
-        XPAssembler *assembler = [[[XPAssembler alloc] init] autorelease];
-        sParser = [[XPParser alloc] initWithDelegate:assembler];
+        XPAssembler *sAssembler = [[XPAssembler alloc] init];
+        sParser = [[XPParser alloc] initWithDelegate:sAssembler];
         TDAssert(sParser);
     }
 }
@@ -33,19 +46,13 @@ static PKParser *sParser = nil;
 
 + (XPExpression *)expressionFromTokens:(NSArray *)toks error:(NSError **)outErr {
     TDAssert(sParser);
-    @try {
-        PKAssembly *a = [sParser parseTokens:toks error:outErr];
+    PKAssembly *a = [sParser parseTokens:toks error:outErr];
 
-        XPExpression *expr = [a pop];
-        TDAssert([expr isKindOfClass:[XPExpression class]]);
-        
-        expr = [expr simplify];
-        return expr;
-    }
-    @catch (NSException *e) {
-        if (outErr) *outErr = [NSError XPathErrorWithCode:47 format:[e reason]];
-    }
-    return nil;
+    XPExpression *expr = [a pop];
+    TDAssert([expr isKindOfClass:[XPExpression class]]);
+    
+    expr = [expr simplify];
+    return expr;
 }
 
 

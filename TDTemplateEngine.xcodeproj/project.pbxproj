@@ -36,7 +36,6 @@
 		D3A29DDB18E63D5B00DC591E /* TDTag.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29DD918E63D5B00DC591E /* TDTag.m */; };
 		D3A29DDD18E63D6D00DC591E /* TDTag.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29DDC18E63D6D00DC591E /* TDTag.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3A29DE018E6423500DC591E /* TDIfTag.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29DDE18E6423500DC591E /* TDIfTag.h */; };
-		D3A29DE118E6423500DC591E /* TDIfTag.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29DDF18E6423500DC591E /* TDIfTag.m */; };
 		D3A29DEA18E64FB800DC591E /* TDTemplateContext.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29DE918E64FB800DC591E /* TDTemplateContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3A29DF518E6583600DC591E /* XPExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29DF418E6583600DC591E /* XPExpression.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3A29DFF18E6584D00DC591E /* XPBooleanValue.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29DF618E6584D00DC591E /* XPBooleanValue.h */; };
@@ -48,12 +47,11 @@
 		D3A29E0518E6584D00DC591E /* XPStringValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29DFC18E6584D00DC591E /* XPStringValue.m */; };
 		D3A29E0618E6584D00DC591E /* XPValue.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29DFD18E6584D00DC591E /* XPValue.h */; };
 		D3A29E0718E6584D00DC591E /* XPValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29DFE18E6584D00DC591E /* XPValue.m */; };
-		D3A29E0A18E65A9C00DC591E /* NSError+XPAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29E0818E65A9C00DC591E /* NSError+XPAdditions.h */; };
-		D3A29E0B18E65A9C00DC591E /* NSError+XPAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29E0918E65A9C00DC591E /* NSError+XPAdditions.m */; };
 		D3A29E0E18E65AC400DC591E /* XPParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29E0C18E65AC400DC591E /* XPParser.h */; };
 		D3A29E0F18E65AC400DC591E /* XPParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29E0D18E65AC400DC591E /* XPParser.m */; };
 		D3A29E1218E65AE200DC591E /* XPAssembler.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29E1018E65AE200DC591E /* XPAssembler.h */; };
 		D3A29E1318E65AE200DC591E /* XPAssembler.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29E1118E65AE200DC591E /* XPAssembler.m */; };
+		D3A29E1718E6678500DC591E /* TDIfTag.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29DDF18E6423500DC591E /* TDIfTag.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -155,12 +153,11 @@
 		D3A29DFC18E6584D00DC591E /* XPStringValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPStringValue.m; path = src/XPStringValue.m; sourceTree = SOURCE_ROOT; };
 		D3A29DFD18E6584D00DC591E /* XPValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPValue.h; path = src/XPValue.h; sourceTree = SOURCE_ROOT; };
 		D3A29DFE18E6584D00DC591E /* XPValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = XPValue.m; path = src/XPValue.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		D3A29E0818E65A9C00DC591E /* NSError+XPAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSError+XPAdditions.h"; path = "src/NSError+XPAdditions.h"; sourceTree = SOURCE_ROOT; };
-		D3A29E0918E65A9C00DC591E /* NSError+XPAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSError+XPAdditions.m"; path = "src/NSError+XPAdditions.m"; sourceTree = SOURCE_ROOT; };
 		D3A29E0C18E65AC400DC591E /* XPParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPParser.h; path = src/XPParser.h; sourceTree = SOURCE_ROOT; };
 		D3A29E0D18E65AC400DC591E /* XPParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPParser.m; path = src/XPParser.m; sourceTree = SOURCE_ROOT; };
 		D3A29E1018E65AE200DC591E /* XPAssembler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPAssembler.h; path = src/XPAssembler.h; sourceTree = SOURCE_ROOT; };
 		D3A29E1118E65AE200DC591E /* XPAssembler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPAssembler.m; path = src/XPAssembler.m; sourceTree = SOURCE_ROOT; };
+		D3A29E1518E6659400DC591E /* expression.grammar */ = {isa = PBXFileReference; lastKnownFileType = text; name = expression.grammar; path = res/expression.grammar; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -308,10 +305,7 @@
 		D3A29DEB18E6548200DC591E /* Expression */ = {
 			isa = PBXGroup;
 			children = (
-				D3A29E0C18E65AC400DC591E /* XPParser.h */,
-				D3A29E0D18E65AC400DC591E /* XPParser.m */,
-				D3A29E1018E65AE200DC591E /* XPAssembler.h */,
-				D3A29E1118E65AE200DC591E /* XPAssembler.m */,
+				D3A29E1618E6659D00DC591E /* Parser */,
 				D3A29DF418E6583600DC591E /* XPExpression.h */,
 				D3A29DF818E6584D00DC591E /* XPExpression.m */,
 				D3A29DFD18E6584D00DC591E /* XPValue.h */,
@@ -322,10 +316,20 @@
 				D3A29DFA18E6584D00DC591E /* XPNumericValue.m */,
 				D3A29DFB18E6584D00DC591E /* XPStringValue.h */,
 				D3A29DFC18E6584D00DC591E /* XPStringValue.m */,
-				D3A29E0818E65A9C00DC591E /* NSError+XPAdditions.h */,
-				D3A29E0918E65A9C00DC591E /* NSError+XPAdditions.m */,
 			);
 			name = Expression;
+			sourceTree = "<group>";
+		};
+		D3A29E1618E6659D00DC591E /* Parser */ = {
+			isa = PBXGroup;
+			children = (
+				D3A29E0C18E65AC400DC591E /* XPParser.h */,
+				D3A29E0D18E65AC400DC591E /* XPParser.m */,
+				D3A29E1518E6659400DC591E /* expression.grammar */,
+				D3A29E1018E65AE200DC591E /* XPAssembler.h */,
+				D3A29E1118E65AE200DC591E /* XPAssembler.m */,
+			);
+			name = Parser;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -348,7 +352,6 @@
 				D3A29DD618E63D4F00DC591E /* TDForTag.h in Headers */,
 				D3A29DB618E60E4500DC591E /* TDVariableNode.h in Headers */,
 				D3A29DCA18E6286600DC591E /* TDEndBlockNode.h in Headers */,
-				D3A29E0A18E65A9C00DC591E /* NSError+XPAdditions.h in Headers */,
 				D3A29DF518E6583600DC591E /* XPExpression.h in Headers */,
 				D3A29DDD18E63D6D00DC591E /* TDTag.h in Headers */,
 				D3A29D8218E5F57300DC591E /* TDTemplateEngine.h in Headers */,
@@ -501,7 +504,6 @@
 				D3A29DD718E63D4F00DC591E /* TDForTag.m in Sources */,
 				D3A29DBF18E61ACA00DC591E /* TDTextNode.m in Sources */,
 				D3A29E0718E6584D00DC591E /* XPValue.m in Sources */,
-				D3A29E0B18E65A9C00DC591E /* NSError+XPAdditions.m in Sources */,
 				D3A29DC318E6206600DC591E /* TDFragment.m in Sources */,
 				D3A29D8418E5F57E00DC591E /* TDTemplateEngine.m in Sources */,
 				D3A29E0018E6584D00DC591E /* XPBooleanValue.m in Sources */,
@@ -509,11 +511,11 @@
 				D3A29E0518E6584D00DC591E /* XPStringValue.m in Sources */,
 				D3A29DBB18E60F9F00DC591E /* TDRootNode.m in Sources */,
 				D3A29E0118E6584D00DC591E /* XPExpression.m in Sources */,
+				D3A29E1718E6678500DC591E /* TDIfTag.m in Sources */,
 				D3A29DD118E63A1C00DC591E /* TDTemplateContext.m in Sources */,
 				D3A29E0F18E65AC400DC591E /* XPParser.m in Sources */,
 				D3A29E0318E6584D00DC591E /* XPNumericValue.m in Sources */,
 				D3A29E1318E65AE200DC591E /* XPAssembler.m in Sources */,
-				D3A29DE118E6423500DC591E /* TDIfTag.m in Sources */,
 				D3A29DC718E6285800DC591E /* TDStartBlockNode.m in Sources */,
 				D3A29DAB18E609E700DC591E /* TDNode.m in Sources */,
 				D3A29DDB18E63D5B00DC591E /* TDTag.m in Sources */,
@@ -591,7 +593,6 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -628,7 +629,6 @@
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
