@@ -62,7 +62,7 @@
 }
 
 
-- (NSInteger)dataType {
+- (XPDataType)dataType {
     return XPDataTypeString;
 }
 

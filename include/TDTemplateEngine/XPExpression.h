@@ -25,13 +25,13 @@
 @class TDTemplateContext;
 @class XPValue;
 
-typedef enum {
+typedef NS_ENUM(NSUInteger, XPDataType) {
     XPDataTypeBoolean,
     XPDataTypeNumber,
     XPDataTypeString,
     XPDataTypeObject,
     XPDataTypeAny
-} XPDataType;
+};
 
 @interface XPExpression : NSObject
 
@@ -48,7 +48,7 @@ typedef enum {
 - (NSUInteger)dependencies;
 - (XPExpression *)reduceDependencies:(NSUInteger)dep inContext:(TDTemplateContext *)ctx;
 
-- (NSInteger)dataType;
+- (XPDataType)dataType;
 
 - (void)display:(NSInteger)level;
 @end

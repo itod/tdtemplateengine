@@ -54,7 +54,7 @@
 }
 
 
-- (NSInteger)dataType {
+- (XPDataType)dataType {
     return XPDataTypeBoolean;
 }
 
