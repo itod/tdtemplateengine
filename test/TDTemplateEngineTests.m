@@ -125,4 +125,22 @@
     TDEqualObjects(@"", res);
 }
 
+- (void)testIfSQString {
+    NSString *input = @"{% if 'hello' %} text {% endif %}";
+    id vars = nil;
+    
+    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    TDNotNil(res);
+    TDEqualObjects(@" text ", res);
+}
+
+- (void)testIfEmptySQString {
+    NSString *input = @"{% if '' %} text {% endif %}";
+    id vars = nil;
+    
+    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    TDNotNil(res);
+    TDEqualObjects(@"", res);
+}
+
 @end

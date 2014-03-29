@@ -24,8 +24,9 @@
 #import <PEGKit/PKParser.h>
 #import <PEGKit/PKAssembly.h>
 #import <PEGKit/PKToken.h>
-#import <TDTemplateEngine/XPNumericValue.h>
 #import <TDTemplateEngine/XPBooleanValue.h>
+#import <TDTemplateEngine/XPNumericValue.h>
+#import <TDTemplateEngine/XPStringValue.h>
 
 @interface XPAssembler ()
 @property (nonatomic, retain) PKToken *openParen;
@@ -56,6 +57,17 @@
     for (id obj in [objs reverseObjectEnumerator]) {
         [a push:obj];
     }
+}
+
+
+- (void)parser:(PKParser *)p didMatchStr:(PKAssembly *)a {
+    //NSLog(@"%s", __PRETTY_FUNCTION__);
+    
+    PKToken *tok = [a pop];
+    NSString *str = tok.stringValue;
+    str = [str substringWithRange:NSMakeRange(1, [str length]-2)];
+    XPValue *val = [XPStringValue stringValueWithString:str];
+    [a push:val];
 }
 
 

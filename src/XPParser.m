@@ -97,7 +97,7 @@
 
 - (void)primary_ {
     
-    if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, XP_TOKEN_KIND_FALSE, XP_TOKEN_KIND_NO_UPPER, XP_TOKEN_KIND_TRUE, XP_TOKEN_KIND_YES_UPPER, 0]) {
+    if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, XP_TOKEN_KIND_FALSE, XP_TOKEN_KIND_NO_UPPER, XP_TOKEN_KIND_TRUE, XP_TOKEN_KIND_YES_UPPER, 0]) {
         [self atom_]; 
     } else if ([self predicts:XP_TOKEN_KIND_OPEN_PAREN, 0]) {
         [self subExpr_]; 
@@ -126,7 +126,9 @@
 
 - (void)literal_ {
     
-    if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, 0]) {
+    if ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
+        [self str_]; 
+    } else if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, 0]) {
         [self num_]; 
     } else if ([self predicts:XP_TOKEN_KIND_FALSE, XP_TOKEN_KIND_NO_UPPER, XP_TOKEN_KIND_TRUE, XP_TOKEN_KIND_YES_UPPER, 0]) {
         [self bool_]; 
@@ -181,6 +183,13 @@
     [self matchNumber:NO]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchNum:)];
+}
+
+- (void)str_ {
+    
+    [self matchQuotedString:NO]; 
+
+    [self fireDelegateSelector:@selector(parser:didMatchStr:)];
 }
 
 @end
