@@ -26,18 +26,8 @@
     double _value;
 }
 
-+ (XPNumericValue *)numericValueWithString:(NSString *)s {
-    return [[[self alloc] initWithString:s] autorelease];
-}
-
-
 + (XPNumericValue *)numericValueWithNumber:(double)n {
     return [[[self alloc] initWithNumber:n] autorelease];
-}
-
-
-- (id)initWithString:(NSString *)s {
-    return [self initWithNumber:XPNumberFromString(s)];
 }
 
 
@@ -50,7 +40,6 @@
 
 
 - (NSString *)asString {
-    // TODO
     return [[NSNumber numberWithDouble:_value] stringValue];
 }
 

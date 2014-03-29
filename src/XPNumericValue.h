@@ -24,10 +24,8 @@
 
 @interface XPNumericValue : XPValue
 
-+ (XPNumericValue *)numericValueWithString:(NSString *)s;
 + (XPNumericValue *)numericValueWithNumber:(double)n;
 
-- (id)initWithString:(NSString *)s;
 - (id)initWithNumber:(double)n;
 
 @end
