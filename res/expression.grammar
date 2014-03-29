@@ -1,4 +1,4 @@
-@head {
+@m {
 #import <TDTemplateEngine/XPBooleanValue.h>
 #import <TDTemplateEngine/XPNumericValue.h>
 #import <TDTemplateEngine/XPStringValue.h>

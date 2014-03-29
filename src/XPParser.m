@@ -10,14 +10,15 @@
 #define LS(i) [self LS:(i)]
 #define LF(i) [self LD:(i)]
 
-#define POP()        [self.assembly pop]
-#define POP_STR()    [self popString]
-#define POP_TOK()    [self popToken]
-#define POP_BOOL()   [self popBool]
-#define POP_INT()    [self popInteger]
-#define POP_UINT()   [self popUnsignedInteger]
-#define POP_FLOAT()  [self popFloat]
-#define POP_DOUBLE() [self popDouble]
+#define POP()            [self.assembly pop]
+#define POP_STR()        [self popString]
+#define POP_QUOTED_STR() [self popQuotedString]
+#define POP_TOK()        [self popToken]
+#define POP_BOOL()       [self popBool]
+#define POP_INT()        [self popInteger]
+#define POP_UINT()       [self popUnsignedInteger]
+#define POP_FLOAT()      [self popFloat]
+#define POP_DOUBLE()     [self popDouble]
 
 #define PUSH(obj)      [self.assembly push:(id)(obj)]
 #define PUSH_BOOL(yn)  [self pushBool:(BOOL)(yn)]
@@ -228,9 +229,7 @@
     [self matchQuotedString:NO]; 
     [self execute:^{
     
-    NSString *str = POP_STR();
-    str = [str substringWithRange:NSMakeRange(1, [str length]-2)]; // trim quotes
-    PUSH([XPStringValue stringValueWithString:str]);
+    PUSH([XPStringValue stringValueWithString:POP_QUOTED_STR()]);
 
     }];
 
