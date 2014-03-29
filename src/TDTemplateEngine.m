@@ -149,7 +149,7 @@
                     tok = [t nextToken];
                 }
                 s = tok.stringValue;
-                fragType = [s isEqualToString:@"/"] ? TDFragmentTypeEndBlock : TDFragmentTypeStartBlock; // TODO
+                fragType = [s hasPrefix:@"end"] ? TDFragmentTypeEndBlock : TDFragmentTypeStartBlock; // TODO
             }
             [fragStr appendString:s];
             [fragToks addObject:tok];

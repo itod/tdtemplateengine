@@ -54,7 +54,7 @@
 }
 
 - (void)testIf1 {
-    NSString *input = @"{% if 1 %} text {% /if %}";
+    NSString *input = @"{% if 1 %} text {% endif %}";
     id vars = nil;
     
     NSString *res = [_engine processTemplateString:input withVariables:vars];
@@ -63,7 +63,7 @@
 }
 
 - (void)testIf0 {
-    NSString *input = @"{% if 0 %} text {% /if %}";
+    NSString *input = @"{% if 0 %} text {% endif %}";
     id vars = nil;
     
     NSString *res = [_engine processTemplateString:input withVariables:vars];
