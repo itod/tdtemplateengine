@@ -107,4 +107,22 @@
     TDEqualObjects(@"", res);
 }
 
+- (void)testIfOpenTrueClose {
+    NSString *input = @"{% if (true) %} text {% endif %}";
+    id vars = nil;
+    
+    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    TDNotNil(res);
+    TDEqualObjects(@" text ", res);
+}
+
+- (void)testIfOpenFalseClose {
+    NSString *input = @"{% if (false) %} text {% endif %}";
+    id vars = nil;
+    
+    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    TDNotNil(res);
+    TDEqualObjects(@"", res);
+}
+
 @end

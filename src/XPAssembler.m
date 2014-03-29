@@ -48,13 +48,14 @@
 }
 
 
-- (void)parser:(PKParser *)p didSubExpr:(PKAssembly *)a {
+- (void)parser:(PKParser *)p didMatchSubExpr:(PKAssembly *)a {
     //NSLog(@"%s", __PRETTY_FUNCTION__);
     
-//    NSArray *objs = [a objectsAbove:_openParen];
-//    for (id obj in objs) {
-//        
-//    }
+    NSArray *objs = [a objectsAbove:_openParen];
+    [a pop]; // discard `(`
+    for (id obj in [objs reverseObjectEnumerator]) {
+        [a push:obj];
+    }
 }
 
 
