@@ -25,6 +25,7 @@
 #import <PEGKit/PKAssembly.h>
 #import <PEGKit/PKToken.h>
 #import <TDTemplateEngine/XPNumericValue.h>
+#import <TDTemplateEngine/XPBooleanValue.h>
 
 @implementation XPAssembler
 
@@ -33,6 +34,22 @@
     
     PKToken *tok = [a pop];
     XPValue *val = [XPNumericValue numericValueWithNumber:tok.doubleValue];
+    [a push:val];
+}
+
+
+- (void)parser:(PKParser *)p didMatchTrue:(PKAssembly *)a {
+    //NSLog(@"%s", __PRETTY_FUNCTION__);
+    
+    XPValue *val = [XPBooleanValue booleanValueWithBoolean:YES];
+    [a push:val];
+}
+
+
+- (void)parser:(PKParser *)p didMatchFalse:(PKAssembly *)a {
+    //NSLog(@"%s", __PRETTY_FUNCTION__);
+    
+    XPValue *val = [XPBooleanValue booleanValueWithBoolean:NO];
     [a push:val];
 }
 

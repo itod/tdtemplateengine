@@ -1,2 +1,6 @@
-expr = num;
+expr = literal;
+literal = num | bool;
+bool = true | false;
+true = "true" | "YES";
+false = "false" | "NO";
 num = Number;

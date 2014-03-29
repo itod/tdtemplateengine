@@ -71,4 +71,40 @@
     TDEqualObjects(@"", res);
 }
 
+- (void)testIfYES {
+    NSString *input = @"{% if YES %} text {% endif %}";
+    id vars = nil;
+    
+    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    TDNotNil(res);
+    TDEqualObjects(@" text ", res);
+}
+
+- (void)testIfNO {
+    NSString *input = @"{% if NO %} text {% endif %}";
+    id vars = nil;
+    
+    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    TDNotNil(res);
+    TDEqualObjects(@"", res);
+}
+
+- (void)testIfTrue {
+    NSString *input = @"{% if true %} text {% endif %}";
+    id vars = nil;
+    
+    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    TDNotNil(res);
+    TDEqualObjects(@" text ", res);
+}
+
+- (void)testIfFalse {
+    NSString *input = @"{% if false %} text {% endif %}";
+    id vars = nil;
+    
+    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    TDNotNil(res);
+    TDEqualObjects(@"", res);
+}
+
 @end

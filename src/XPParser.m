@@ -65,7 +65,15 @@
     self = [super initWithDelegate:d];
     if (self) {
         self.startRuleName = @"expr";
+        self.tokenKindTab[@"YES"] = @(XP_TOKEN_KIND_YES_UPPER);
+        self.tokenKindTab[@"true"] = @(XP_TOKEN_KIND_TRUE);
+        self.tokenKindTab[@"false"] = @(XP_TOKEN_KIND_FALSE);
+        self.tokenKindTab[@"NO"] = @(XP_TOKEN_KIND_NO_UPPER);
 
+        self.tokenKindNameTab[XP_TOKEN_KIND_YES_UPPER] = @"YES";
+        self.tokenKindNameTab[XP_TOKEN_KIND_TRUE] = @"true";
+        self.tokenKindNameTab[XP_TOKEN_KIND_FALSE] = @"false";
+        self.tokenKindNameTab[XP_TOKEN_KIND_NO_UPPER] = @"NO";
 
     }
     return self;
@@ -78,9 +86,61 @@
 
 - (void)expr_ {
     
-    [self num_]; 
+    [self literal_]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchExpr:)];
+}
+
+- (void)literal_ {
+    
+    if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, 0]) {
+        [self num_]; 
+    } else if ([self predicts:XP_TOKEN_KIND_FALSE, XP_TOKEN_KIND_NO_UPPER, XP_TOKEN_KIND_TRUE, XP_TOKEN_KIND_YES_UPPER, 0]) {
+        [self bool_]; 
+    } else {
+        [self raise:@"No viable alternative found in rule 'literal'."];
+    }
+
+    [self fireDelegateSelector:@selector(parser:didMatchLiteral:)];
+}
+
+- (void)bool_ {
+    
+    if ([self predicts:XP_TOKEN_KIND_TRUE, XP_TOKEN_KIND_YES_UPPER, 0]) {
+        [self true_]; 
+    } else if ([self predicts:XP_TOKEN_KIND_FALSE, XP_TOKEN_KIND_NO_UPPER, 0]) {
+        [self false_]; 
+    } else {
+        [self raise:@"No viable alternative found in rule 'bool'."];
+    }
+
+    [self fireDelegateSelector:@selector(parser:didMatchBool:)];
+}
+
+- (void)true_ {
+    
+    if ([self predicts:XP_TOKEN_KIND_TRUE, 0]) {
+        [self match:XP_TOKEN_KIND_TRUE discard:NO]; 
+    } else if ([self predicts:XP_TOKEN_KIND_YES_UPPER, 0]) {
+        [self match:XP_TOKEN_KIND_YES_UPPER discard:NO]; 
+    } else {
+        [self raise:@"No viable alternative found in rule 'true'."];
+    }
+
+    [self fireDelegateSelector:@selector(parser:didMatchTrue:)];
+}
+
+- (void)false_ {
+    
+    if ([self predicts:XP_TOKEN_KIND_FALSE, 0]) {
+        [self match:XP_TOKEN_KIND_FALSE discard:NO]; 
+    } else if ([self predicts:XP_TOKEN_KIND_NO_UPPER, 0]) {
+        [self match:XP_TOKEN_KIND_NO_UPPER discard:NO]; 
+    } else {
+        [self raise:@"No viable alternative found in rule 'false'."];
+    }
+
+    [self fireDelegateSelector:@selector(parser:didMatchFalse:)];
 }
 
 - (void)num_ {
