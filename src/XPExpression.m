@@ -88,11 +88,6 @@ static PKParser *sParser = nil;
 }
 
 
-- (BOOL)isContextDocumentNodeSet {
-    return NO;
-}
-
-
 - (XPExpression *)simplify {
     return self;
 }
