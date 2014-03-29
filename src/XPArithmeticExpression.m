@@ -48,7 +48,7 @@
             return n1 * n2;
         case XP_TOKEN_KIND_DIV:
             return n1 / n2;
-        case XP_TOKEN_KIND_PERCENT:
+        case XP_TOKEN_KIND_MOD:
             return lrint(n1) % lrint(n2);
 //        case XP_TOKEN_KIND_MINUS:
 //            return -n2;

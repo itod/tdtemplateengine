@@ -95,7 +95,7 @@
         self.tokenKindTab[@"ne"] = @(XP_TOKEN_KIND_NE);
         self.tokenKindTab[@"<="] = @(XP_TOKEN_KIND_LE_SYM);
         self.tokenKindTab[@"and"] = @(XP_TOKEN_KIND_AND);
-        self.tokenKindTab[@"%"] = @(XP_TOKEN_KIND_PERCENT);
+        self.tokenKindTab[@"%"] = @(XP_TOKEN_KIND_MOD);
         self.tokenKindTab[@"lt"] = @(XP_TOKEN_KIND_LT);
         self.tokenKindTab[@"false"] = @(XP_TOKEN_KIND_FALSE);
         self.tokenKindTab[@"le"] = @(XP_TOKEN_KIND_LE);
@@ -124,7 +124,7 @@
         self.tokenKindNameTab[XP_TOKEN_KIND_NE] = @"ne";
         self.tokenKindNameTab[XP_TOKEN_KIND_LE_SYM] = @"<=";
         self.tokenKindNameTab[XP_TOKEN_KIND_AND] = @"and";
-        self.tokenKindNameTab[XP_TOKEN_KIND_PERCENT] = @"%";
+        self.tokenKindNameTab[XP_TOKEN_KIND_MOD] = @"%";
         self.tokenKindNameTab[XP_TOKEN_KIND_LT] = @"lt";
         self.tokenKindNameTab[XP_TOKEN_KIND_FALSE] = @"false";
         self.tokenKindNameTab[XP_TOKEN_KIND_LE] = @"le";
@@ -454,16 +454,26 @@
     [self fireDelegateSelector:@selector(parser:didMatchDiv:)];
 }
 
+- (void)mod_ {
+    
+    [self match:XP_TOKEN_KIND_MOD discard:YES]; 
+    [self execute:^{
+     PUSH(@(XP_TOKEN_KIND_MOD)); 
+    }];
+
+    [self fireDelegateSelector:@selector(parser:didMatchMod:)];
+}
+
 - (void)multiplicativeExpr_ {
     
     [self unaryExpr_]; 
-    while ([self speculate:^{ if ([self predicts:XP_TOKEN_KIND_TIMES, 0]) {[self times_]; } else if ([self predicts:XP_TOKEN_KIND_DIV, 0]) {[self div_]; } else if ([self predicts:XP_TOKEN_KIND_PERCENT, 0]) {[self match:XP_TOKEN_KIND_PERCENT discard:NO]; } else {[self raise:@"No viable alternative found in rule 'multiplicativeExpr'."];}[self unaryExpr_]; }]) {
+    while ([self speculate:^{ if ([self predicts:XP_TOKEN_KIND_TIMES, 0]) {[self times_]; } else if ([self predicts:XP_TOKEN_KIND_DIV, 0]) {[self div_]; } else if ([self predicts:XP_TOKEN_KIND_MOD, 0]) {[self mod_]; } else {[self raise:@"No viable alternative found in rule 'multiplicativeExpr'."];}[self unaryExpr_]; }]) {
         if ([self predicts:XP_TOKEN_KIND_TIMES, 0]) {
             [self times_]; 
         } else if ([self predicts:XP_TOKEN_KIND_DIV, 0]) {
             [self div_]; 
-        } else if ([self predicts:XP_TOKEN_KIND_PERCENT, 0]) {
-            [self match:XP_TOKEN_KIND_PERCENT discard:NO]; 
+        } else if ([self predicts:XP_TOKEN_KIND_MOD, 0]) {
+            [self mod_]; 
         } else {
             [self raise:@"No viable alternative found in rule 'multiplicativeExpr'."];
         }

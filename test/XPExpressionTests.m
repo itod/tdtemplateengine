@@ -455,4 +455,48 @@
     TDEquals(0.0, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
 
+- (void)test2Times2 {
+    NSString *input = @"2*2";
+    NSArray *toks = [self tokenize:input];
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDEquals(4.0, [[expr simplify] evaluateAsNumberInContext:nil]);
+}
+
+- (void)test2Div2 {
+    NSString *input = @"2/2";
+    NSArray *toks = [self tokenize:input];
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDEquals(1.0, [[expr simplify] evaluateAsNumberInContext:nil]);
+}
+
+- (void)test3Plus2Times2 {
+    NSString *input = @"3+2*2";
+    NSArray *toks = [self tokenize:input];
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDEquals(7.0, [[expr simplify] evaluateAsNumberInContext:nil]);
+}
+
+- (void)testOpen3Plus2CloseTimes2 {
+    NSString *input = @"(3+2)*2";
+    NSArray *toks = [self tokenize:input];
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDEquals(10.0, [[expr simplify] evaluateAsNumberInContext:nil]);
+}
+
 @end

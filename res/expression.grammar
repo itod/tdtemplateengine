@@ -84,7 +84,9 @@ times	@after { PUSH(@(XP_TOKEN_KIND_TIMES)); }
 		= '*'!;
 div		@after { PUSH(@(XP_TOKEN_KIND_DIV)); }
 		= '/'!;
-multiplicativeExpr = unaryExpr ((times | div | '%') unaryExpr {
+mod		@after { PUSH(@(XP_TOKEN_KIND_MOD)); }
+		= '%'!;
+multiplicativeExpr = unaryExpr ((times | div | mod) unaryExpr {
 	XPValue *rhs = POP();
 	NSInteger op = POP_INT();
 	XPValue *lhs = POP();
