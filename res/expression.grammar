@@ -1,6 +1,9 @@
-expr = literal;
+expr = primary;
+primary = atom | subExpr;
+subExpr = '(' expr ')'!;
+atom = literal;
 literal = num | bool;
 bool = true | false;
-true = "true" | "YES";
-false = "false" | "NO";
+true = 'true'! | 'YES'!;
+false = 'false'! | 'NO'!;
 num = Number;

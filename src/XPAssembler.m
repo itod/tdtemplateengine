@@ -27,7 +27,36 @@
 #import <TDTemplateEngine/XPNumericValue.h>
 #import <TDTemplateEngine/XPBooleanValue.h>
 
+@interface XPAssembler ()
+@property (nonatomic, retain) PKToken *openParen;
+@end
+
 @implementation XPAssembler
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        self.openParen = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"(" doubleValue:0.0];
+    }
+    return self;
+}
+
+
+- (void)dealloc {
+    self.openParen = nil;
+    [super dealloc];
+}
+
+
+- (void)parser:(PKParser *)p didSubExpr:(PKAssembly *)a {
+    //NSLog(@"%s", __PRETTY_FUNCTION__);
+    
+//    NSArray *objs = [a objectsAbove:_openParen];
+//    for (id obj in objs) {
+//        
+//    }
+}
+
 
 - (void)parser:(PKParser *)p didMatchNum:(PKAssembly *)a {
     //NSLog(@"%s", __PRETTY_FUNCTION__);

@@ -66,13 +66,17 @@
     if (self) {
         self.startRuleName = @"expr";
         self.tokenKindTab[@"YES"] = @(XP_TOKEN_KIND_YES_UPPER);
+        self.tokenKindTab[@"("] = @(XP_TOKEN_KIND_OPEN_PAREN);
         self.tokenKindTab[@"true"] = @(XP_TOKEN_KIND_TRUE);
         self.tokenKindTab[@"false"] = @(XP_TOKEN_KIND_FALSE);
+        self.tokenKindTab[@")"] = @(XP_TOKEN_KIND_CLOSE_PAREN);
         self.tokenKindTab[@"NO"] = @(XP_TOKEN_KIND_NO_UPPER);
 
         self.tokenKindNameTab[XP_TOKEN_KIND_YES_UPPER] = @"YES";
+        self.tokenKindNameTab[XP_TOKEN_KIND_OPEN_PAREN] = @"(";
         self.tokenKindNameTab[XP_TOKEN_KIND_TRUE] = @"true";
         self.tokenKindNameTab[XP_TOKEN_KIND_FALSE] = @"false";
+        self.tokenKindNameTab[XP_TOKEN_KIND_CLOSE_PAREN] = @")";
         self.tokenKindNameTab[XP_TOKEN_KIND_NO_UPPER] = @"NO";
 
     }
@@ -86,9 +90,38 @@
 
 - (void)expr_ {
     
-    [self literal_]; 
+    [self primary_]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchExpr:)];
+}
+
+- (void)primary_ {
+    
+    if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, XP_TOKEN_KIND_FALSE, XP_TOKEN_KIND_NO_UPPER, XP_TOKEN_KIND_TRUE, XP_TOKEN_KIND_YES_UPPER, 0]) {
+        [self atom_]; 
+    } else if ([self predicts:XP_TOKEN_KIND_OPEN_PAREN, 0]) {
+        [self subExpr_]; 
+    } else {
+        [self raise:@"No viable alternative found in rule 'primary'."];
+    }
+
+    [self fireDelegateSelector:@selector(parser:didMatchPrimary:)];
+}
+
+- (void)subExpr_ {
+    
+    [self match:XP_TOKEN_KIND_OPEN_PAREN discard:NO]; 
+    [self expr_]; 
+    [self match:XP_TOKEN_KIND_CLOSE_PAREN discard:YES]; 
+
+    [self fireDelegateSelector:@selector(parser:didMatchSubExpr:)];
+}
+
+- (void)atom_ {
+    
+    [self literal_]; 
+
+    [self fireDelegateSelector:@selector(parser:didMatchAtom:)];
 }
 
 - (void)literal_ {
@@ -120,9 +153,9 @@
 - (void)true_ {
     
     if ([self predicts:XP_TOKEN_KIND_TRUE, 0]) {
-        [self match:XP_TOKEN_KIND_TRUE discard:NO]; 
+        [self match:XP_TOKEN_KIND_TRUE discard:YES]; 
     } else if ([self predicts:XP_TOKEN_KIND_YES_UPPER, 0]) {
-        [self match:XP_TOKEN_KIND_YES_UPPER discard:NO]; 
+        [self match:XP_TOKEN_KIND_YES_UPPER discard:YES]; 
     } else {
         [self raise:@"No viable alternative found in rule 'true'."];
     }
@@ -133,9 +166,9 @@
 - (void)false_ {
     
     if ([self predicts:XP_TOKEN_KIND_FALSE, 0]) {
-        [self match:XP_TOKEN_KIND_FALSE discard:NO]; 
+        [self match:XP_TOKEN_KIND_FALSE discard:YES]; 
     } else if ([self predicts:XP_TOKEN_KIND_NO_UPPER, 0]) {
-        [self match:XP_TOKEN_KIND_NO_UPPER discard:NO]; 
+        [self match:XP_TOKEN_KIND_NO_UPPER discard:YES]; 
     } else {
         [self raise:@"No viable alternative found in rule 'false'."];
     }
