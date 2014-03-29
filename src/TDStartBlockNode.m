@@ -23,6 +23,7 @@
 #import "TDStartBlockNode.h"
 #import "TDFragment.h"
 #import <TDTemplateEngine/TDTag.h>
+#import <TDTemplateEngine/XPExpression.h>
 #import <PEGKit/PKToken.h>
 
 @interface TDNode ()
@@ -82,6 +83,8 @@
     self.tagName = tagName;
     self.tokens = toks;
     self.tag = [TDTag tagForName:tagName];
+
+    _tag.expression = [XPExpression expressionFromTokens:toks error:nil];
     
     TDAssert([_tokens count]);
     TDAssert(_tag);
@@ -94,7 +97,7 @@
     TDAssert(_tag);
     
     NSString *result = nil;
-    BOOL test = [[_tag evaluate:_tokens inContext:ctx] boolValue];
+    BOOL test = [[_tag evaluateInContext:ctx] boolValue];
     if (test) {
         result = [self renderChildren:nil inContext:ctx];
     } else {

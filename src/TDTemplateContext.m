@@ -21,11 +21,10 @@
 // THE SOFTWARE.
 
 #import <TDTemplateEngine/TDTemplateContext.h>
-#import <TDTemplateEngine/TDEvaluator.h>
+//#import <TDTemplateEngine/XPExpression.h>
 
 @interface TDTemplateContext ()
 @property (nonatomic, retain) NSDictionary *vars;
-@property (nonatomic, retain, readwrite) TDEvaluator *evaluator;
 @end
 
 @implementation TDTemplateContext
@@ -33,7 +32,6 @@
 - (instancetype)initWithVariables:(NSDictionary *)vars {
     self = [super init];
     if (self) {
-        self.evaluator = [[[TDEvaluator alloc] init] autorelease];
         self.vars = vars;
     }
     return self;
@@ -41,7 +39,6 @@
 
 
 - (void)dealloc {
-    self.evaluator = nil;
     self.vars = nil;
     [super dealloc];
 }
@@ -53,5 +50,10 @@
 - (NSString *)resolveVariable:(NSString *)name {
     return _vars[name];
 }
+
+
+//- (XPExpression *)expressionFromTokens:(NSArray *)toks {
+//    return nil; // TODO
+//}
 
 @end

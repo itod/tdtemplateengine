@@ -23,10 +23,13 @@
 #import <Foundation/Foundation.h>
 
 @class TDTemplateContext;
+@class XPExpression;
 
 @interface TDTag : NSObject
 
 + (instancetype)tagForName:(NSString *)tagName;
 
-- (id)evaluate:(NSArray *)tokens inContext:(TDTemplateContext *)ctx;
+- (id)evaluateInContext:(TDTemplateContext *)ctx;
+
+@property (nonatomic, retain) XPExpression *expression;
 @end

@@ -22,12 +22,15 @@
 
 #import "TDIfTag.h"
 #import <TDTemplateEngine/TDTemplateContext.h>
-#import <TDTemplateEngine/TDEvaluator.h>
+#import <TDTemplateEngine/XPExpression.h>
 
 @implementation TDIfTag
 
-- (id)evaluate:(NSArray *)tokens inContext:(TDTemplateContext *)ctx {
-    BOOL result = [ctx.evaluator evaluateAsBoolean:tokens inContext:ctx];
+- (id)evaluateInContext:(TDTemplateContext *)ctx {
+    TDAssert(ctx);
+    TDAssert(self.expression);
+    
+    BOOL result = [self.expression evaluateAsBooleanInContext:ctx];
     return @(result);
 }
 

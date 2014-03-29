@@ -22,13 +22,12 @@
 
 #import <Foundation/Foundation.h>
 
-@class TDEvaluator;
+//@class XPExpression;
 
 @interface TDTemplateContext : NSObject
 
 - (instancetype)initWithVariables:(NSDictionary *)vars;
 
 - (NSString *)resolveVariable:(NSString *)name;
-
-@property (nonatomic, retain, readonly) TDEvaluator *evaluator;
+//- (XPExpression *)expressionFromTokens:(NSArray *)toks;
 @end
