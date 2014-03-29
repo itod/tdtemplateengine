@@ -44,9 +44,9 @@
             return n1 + n2;
         case XP_TOKEN_KIND_MINUS:
             return n1 - n2;
-        case XP_TOKEN_KIND_STAR:
+        case XP_TOKEN_KIND_TIMES:
             return n1 * n2;
-        case XP_TOKEN_KIND_FORWARD_SLASH:
+        case XP_TOKEN_KIND_DIV:
             return n1 / n2;
         case XP_TOKEN_KIND_PERCENT:
             return lrint(n1) % lrint(n2);

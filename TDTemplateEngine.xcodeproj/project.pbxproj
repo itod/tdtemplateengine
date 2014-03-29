@@ -58,6 +58,8 @@
 		D3A29E3018E75D3B00DC591E /* XPBooleanExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29E2818E75D3B00DC591E /* XPBooleanExpression.m */; };
 		D3A29E3118E75D3B00DC591E /* XPRelationalExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29E2918E75D3B00DC591E /* XPRelationalExpression.h */; };
 		D3A29E3218E75D3B00DC591E /* XPRelationalExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29E2A18E75D3B00DC591E /* XPRelationalExpression.m */; };
+		D3A29E3518E7700500DC591E /* XPExpressionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29E3418E7700500DC591E /* XPExpressionTests.m */; };
+		D3A29E3618E7725A00DC591E /* PEGKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3A29D9E18E5F6AB00DC591E /* PEGKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -170,6 +172,7 @@
 		D3A29E2818E75D3B00DC591E /* XPBooleanExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = XPBooleanExpression.m; path = src/XPBooleanExpression.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D3A29E2918E75D3B00DC591E /* XPRelationalExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = XPRelationalExpression.h; path = src/XPRelationalExpression.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		D3A29E2A18E75D3B00DC591E /* XPRelationalExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = XPRelationalExpression.m; path = src/XPRelationalExpression.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		D3A29E3418E7700500DC591E /* XPExpressionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPExpressionTests.m; path = test/XPExpressionTests.m; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,6 +189,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3A29E3618E7725A00DC591E /* PEGKit.framework in Frameworks */,
 				D367DFCD18E5EF6900F97BCC /* TDTemplateEngine.framework in Frameworks */,
 				D367DFC918E5EF6900F97BCC /* XCTest.framework in Frameworks */,
 			);
@@ -253,6 +257,7 @@
 			children = (
 				D3A29D8B18E5F5B300DC591E /* TDTestScaffold.h */,
 				D3A29D8D18E5F5C000DC591E /* TDTemplateEngineTests.m */,
+				D3A29E3418E7700500DC591E /* XPExpressionTests.m */,
 				D367DFCF18E5EF6900F97BCC /* Supporting Files */,
 			);
 			name = "TDTemplateEngine Tests";
@@ -568,6 +573,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3A29D8E18E5F5C000DC591E /* TDTemplateEngineTests.m in Sources */,
+				D3A29E3518E7700500DC591E /* XPExpressionTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

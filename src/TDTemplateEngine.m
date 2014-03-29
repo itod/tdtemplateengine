@@ -36,7 +36,7 @@
 #import <PEGKit/PKToken.h>
 
 @interface TDTemplateEngine ()
-
+- (PKTokenizer *)tokenizer;
 @end
 
 @implementation TDTemplateEngine
@@ -108,15 +108,22 @@
 #pragma mark -
 #pragma mark Private
 
-- (NSArray *)fragmentsFromString:(NSString *)inStr {
-    NSMutableArray *frags = [NSMutableArray array];
-    
-    PKTokenizer *t = [PKTokenizer tokenizerWithString:inStr];
+- (PKTokenizer *)tokenizer {
+    PKTokenizer *t = [PKTokenizer tokenizer];
     t.whitespaceState.reportsWhitespaceTokens = YES;
     [t.symbolState add:_varStartDelimiter];
     [t.symbolState add:_varEndDelimiter];
     [t.symbolState add:_blockStartDelimiter];
     [t.symbolState add:_blockEndDelimiter];
+    return t;
+}
+
+
+- (NSArray *)fragmentsFromString:(NSString *)inStr {
+    NSMutableArray *frags = [NSMutableArray array];
+    
+    PKTokenizer *t = [self tokenizer];
+    t.string = inStr;
     
     PKToken *tok = nil;
     PKToken *eof = [PKToken EOFToken];

@@ -87,7 +87,7 @@
         self.tokenKindTab[@"true"] = @(XP_TOKEN_KIND_TRUE);
         self.tokenKindTab[@"<"] = @(XP_TOKEN_KIND_LT_SYM);
         self.tokenKindTab[@"!="] = @(XP_TOKEN_KIND_NOT_EQUAL);
-        self.tokenKindTab[@"/"] = @(XP_TOKEN_KIND_FORWARD_SLASH);
+        self.tokenKindTab[@"/"] = @(XP_TOKEN_KIND_DIV);
         self.tokenKindTab[@"="] = @(XP_TOKEN_KIND_EQUALS);
         self.tokenKindTab[@"YES"] = @(XP_TOKEN_KIND_YES_UPPER);
         self.tokenKindTab[@"or"] = @(XP_TOKEN_KIND_OR);
@@ -104,7 +104,7 @@
         self.tokenKindTab[@"eq"] = @(XP_TOKEN_KIND_EQ);
         self.tokenKindTab[@"gt"] = @(XP_TOKEN_KIND_GT);
         self.tokenKindTab[@")"] = @(XP_TOKEN_KIND_CLOSE_PAREN);
-        self.tokenKindTab[@"*"] = @(XP_TOKEN_KIND_STAR);
+        self.tokenKindTab[@"*"] = @(XP_TOKEN_KIND_TIMES);
         self.tokenKindTab[@"NO"] = @(XP_TOKEN_KIND_NO_UPPER);
         self.tokenKindTab[@"+"] = @(XP_TOKEN_KIND_PLUS);
         self.tokenKindTab[@"||"] = @(XP_TOKEN_KIND_DOUBLE_PIPE);
@@ -116,7 +116,7 @@
         self.tokenKindNameTab[XP_TOKEN_KIND_TRUE] = @"true";
         self.tokenKindNameTab[XP_TOKEN_KIND_LT_SYM] = @"<";
         self.tokenKindNameTab[XP_TOKEN_KIND_NOT_EQUAL] = @"!=";
-        self.tokenKindNameTab[XP_TOKEN_KIND_FORWARD_SLASH] = @"/";
+        self.tokenKindNameTab[XP_TOKEN_KIND_DIV] = @"/";
         self.tokenKindNameTab[XP_TOKEN_KIND_EQUALS] = @"=";
         self.tokenKindNameTab[XP_TOKEN_KIND_YES_UPPER] = @"YES";
         self.tokenKindNameTab[XP_TOKEN_KIND_OR] = @"or";
@@ -133,7 +133,7 @@
         self.tokenKindNameTab[XP_TOKEN_KIND_EQ] = @"eq";
         self.tokenKindNameTab[XP_TOKEN_KIND_GT] = @"gt";
         self.tokenKindNameTab[XP_TOKEN_KIND_CLOSE_PAREN] = @")";
-        self.tokenKindNameTab[XP_TOKEN_KIND_STAR] = @"*";
+        self.tokenKindNameTab[XP_TOKEN_KIND_TIMES] = @"*";
         self.tokenKindNameTab[XP_TOKEN_KIND_NO_UPPER] = @"NO";
         self.tokenKindNameTab[XP_TOKEN_KIND_PLUS] = @"+";
         self.tokenKindNameTab[XP_TOKEN_KIND_DOUBLE_PIPE] = @"||";
@@ -434,20 +434,48 @@
     [self fireDelegateSelector:@selector(parser:didMatchAdditiveExpr:)];
 }
 
+- (void)times_ {
+    
+    [self match:XP_TOKEN_KIND_TIMES discard:YES]; 
+    [self execute:^{
+     PUSH(@(XP_TOKEN_KIND_TIMES)); 
+    }];
+
+    [self fireDelegateSelector:@selector(parser:didMatchTimes:)];
+}
+
+- (void)div_ {
+    
+    [self match:XP_TOKEN_KIND_DIV discard:YES]; 
+    [self execute:^{
+     PUSH(@(XP_TOKEN_KIND_DIV)); 
+    }];
+
+    [self fireDelegateSelector:@selector(parser:didMatchDiv:)];
+}
+
 - (void)multiplicativeExpr_ {
     
     [self unaryExpr_]; 
-    while ([self speculate:^{ if ([self predicts:XP_TOKEN_KIND_STAR, 0]) {[self match:XP_TOKEN_KIND_STAR discard:NO]; } else if ([self predicts:XP_TOKEN_KIND_FORWARD_SLASH, 0]) {[self match:XP_TOKEN_KIND_FORWARD_SLASH discard:NO]; } else if ([self predicts:XP_TOKEN_KIND_PERCENT, 0]) {[self match:XP_TOKEN_KIND_PERCENT discard:NO]; } else {[self raise:@"No viable alternative found in rule 'multiplicativeExpr'."];}[self unaryExpr_]; }]) {
-        if ([self predicts:XP_TOKEN_KIND_STAR, 0]) {
-            [self match:XP_TOKEN_KIND_STAR discard:NO]; 
-        } else if ([self predicts:XP_TOKEN_KIND_FORWARD_SLASH, 0]) {
-            [self match:XP_TOKEN_KIND_FORWARD_SLASH discard:NO]; 
+    while ([self speculate:^{ if ([self predicts:XP_TOKEN_KIND_TIMES, 0]) {[self times_]; } else if ([self predicts:XP_TOKEN_KIND_DIV, 0]) {[self div_]; } else if ([self predicts:XP_TOKEN_KIND_PERCENT, 0]) {[self match:XP_TOKEN_KIND_PERCENT discard:NO]; } else {[self raise:@"No viable alternative found in rule 'multiplicativeExpr'."];}[self unaryExpr_]; }]) {
+        if ([self predicts:XP_TOKEN_KIND_TIMES, 0]) {
+            [self times_]; 
+        } else if ([self predicts:XP_TOKEN_KIND_DIV, 0]) {
+            [self div_]; 
         } else if ([self predicts:XP_TOKEN_KIND_PERCENT, 0]) {
             [self match:XP_TOKEN_KIND_PERCENT discard:NO]; 
         } else {
             [self raise:@"No viable alternative found in rule 'multiplicativeExpr'."];
         }
         [self unaryExpr_]; 
+        [self execute:^{
+        
+	XPValue *rhs = POP();
+	NSInteger op = POP_INT();
+	XPValue *lhs = POP();
+    PUSH([XPArithmeticExpression arithmeticExpressionWithOperand:lhs operator:op operand:rhs]);
+
+        }];
     }
 
     [self fireDelegateSelector:@selector(parser:didMatchMultiplicativeExpr:)];

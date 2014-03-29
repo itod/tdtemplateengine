@@ -80,7 +80,16 @@ additiveExpr = multiplicativeExpr ((plus | minus) multiplicativeExpr {
     PUSH([XPArithmeticExpression arithmeticExpressionWithOperand:lhs operator:op operand:rhs]);
 })*;
 
-multiplicativeExpr = unaryExpr (('*' | '/' | '%') unaryExpr)*;
+times	@after { PUSH(@(XP_TOKEN_KIND_TIMES)); }
+		= '*'!;
+div		@after { PUSH(@(XP_TOKEN_KIND_DIV)); }
+		= '/'!;
+multiplicativeExpr = unaryExpr ((times | div | '%') unaryExpr {
+	XPValue *rhs = POP();
+	NSInteger op = POP_INT();
+	XPValue *lhs = POP();
+    PUSH([XPArithmeticExpression arithmeticExpressionWithOperand:lhs operator:op operand:rhs]);
+})*;
 unaryExpr = '-'* primary;
 primary = atom | subExpr;
 
