@@ -25,11 +25,27 @@
 }
 
 expr    = orExpr;
-orExpr  = andExpr ('or' andExpr)*;
-andExpr = equalityExpr ('and' equalityExpr)*;
+orExpr  = andExpr (orOp andExpr)*;
+andExpr = equalityExpr (andOp equalityExpr)*;
+orOp 	@after { PUSH(@"or"); }
+		=  'or'! | '||'!;
+andOp 	@after { PUSH(@"and"); }
+		= 'and'! | '&&'!;
 
-equalityExpr = relationalExpr (('=' | '!=') relationalExpr)*;
-relationalExpr = additiveExpr (('<' | '>' | '<=' | '>=') additiveExpr)*;
+equalityExpr = relationalExpr ((eqOp | neOp) relationalExpr)*;
+relationalExpr = additiveExpr ((ltOp | gtOp | leOp | geOp) additiveExpr)*;
+eqOp 	@after { PUSH(@"eq"); }
+		=  '='! | '=='! | 'eq'!;
+neOp 	@after { PUSH(@"ne"); }
+		= '!='! | '!='! | 'ne'!;
+ltOp 	@after { PUSH(@"lt"); }
+		=  '<'! | 'lt'!;
+gtOp 	@after { PUSH(@"gt"); }
+		=  '>'! | 'gt'!;
+leOp 	@after { PUSH(@"le"); }
+		= '<='! | 'le'!;
+geOp 	@after { PUSH(@"ge"); }
+		= '>='! | 'ge'!;
 
 additiveExpr = multiplicativeExpr (('+' | '-') multiplicativeExpr)*;
 multiplicativeExpr = unaryExpr (('*' | '/' | '%') unaryExpr)*;

@@ -212,8 +212,8 @@
 			children = (
 				D3A29D8118E5F57300DC591E /* TDTemplateEngine.h */,
 				D3A29D8318E5F57E00DC591E /* TDTemplateEngine.m */,
-				D3A29DE918E64FB800DC591E /* TDTemplateContext.h */,
 				D3A29DCF18E63A1C00DC591E /* TDTemplateContext.m */,
+				D3A29DE918E64FB800DC591E /* TDTemplateContext.h */,
 				D3A29DD218E63D2200DC591E /* Nodes */,
 				D3A29DD318E63D2900DC591E /* Tags */,
 				D3A29DEB18E6548200DC591E /* Expression */,
