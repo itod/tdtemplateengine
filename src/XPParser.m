@@ -73,21 +73,47 @@
     self = [super initWithDelegate:d];
     if (self) {
             
-        self.openParen = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"(" doubleValue:0.0];
+    self.openParen = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"(" doubleValue:0.0];
 
         self.startRuleName = @"expr";
-        self.tokenKindTab[@"YES"] = @(XP_TOKEN_KIND_YES_UPPER);
-        self.tokenKindTab[@"("] = @(XP_TOKEN_KIND_OPEN_PAREN);
-        self.tokenKindTab[@"true"] = @(XP_TOKEN_KIND_TRUE);
+        self.tokenKindTab[@"*"] = @(XP_TOKEN_KIND_STAR);
+        self.tokenKindTab[@"+"] = @(XP_TOKEN_KIND_PLUS);
+        self.tokenKindTab[@">="] = @(XP_TOKEN_KIND_GE);
         self.tokenKindTab[@"false"] = @(XP_TOKEN_KIND_FALSE);
+        self.tokenKindTab[@"or"] = @(XP_TOKEN_KIND_OR);
+        self.tokenKindTab[@"<"] = @(XP_TOKEN_KIND_LT);
+        self.tokenKindTab[@"<="] = @(XP_TOKEN_KIND_LE);
+        self.tokenKindTab[@"-"] = @(XP_TOKEN_KIND_MINUS);
+        self.tokenKindTab[@"="] = @(XP_TOKEN_KIND_EQUALS);
+        self.tokenKindTab[@"%"] = @(XP_TOKEN_KIND_PERCENT);
+        self.tokenKindTab[@"true"] = @(XP_TOKEN_KIND_TRUE);
+        self.tokenKindTab[@">"] = @(XP_TOKEN_KIND_GT);
+        self.tokenKindTab[@"/"] = @(XP_TOKEN_KIND_FORWARD_SLASH);
+        self.tokenKindTab[@"and"] = @(XP_TOKEN_KIND_AND);
+        self.tokenKindTab[@"("] = @(XP_TOKEN_KIND_OPEN_PAREN);
+        self.tokenKindTab[@"YES"] = @(XP_TOKEN_KIND_YES_UPPER);
         self.tokenKindTab[@")"] = @(XP_TOKEN_KIND_CLOSE_PAREN);
+        self.tokenKindTab[@"!="] = @(XP_TOKEN_KIND_NE);
         self.tokenKindTab[@"NO"] = @(XP_TOKEN_KIND_NO_UPPER);
 
-        self.tokenKindNameTab[XP_TOKEN_KIND_YES_UPPER] = @"YES";
-        self.tokenKindNameTab[XP_TOKEN_KIND_OPEN_PAREN] = @"(";
-        self.tokenKindNameTab[XP_TOKEN_KIND_TRUE] = @"true";
+        self.tokenKindNameTab[XP_TOKEN_KIND_STAR] = @"*";
+        self.tokenKindNameTab[XP_TOKEN_KIND_PLUS] = @"+";
+        self.tokenKindNameTab[XP_TOKEN_KIND_GE] = @">=";
         self.tokenKindNameTab[XP_TOKEN_KIND_FALSE] = @"false";
+        self.tokenKindNameTab[XP_TOKEN_KIND_OR] = @"or";
+        self.tokenKindNameTab[XP_TOKEN_KIND_LT] = @"<";
+        self.tokenKindNameTab[XP_TOKEN_KIND_LE] = @"<=";
+        self.tokenKindNameTab[XP_TOKEN_KIND_MINUS] = @"-";
+        self.tokenKindNameTab[XP_TOKEN_KIND_EQUALS] = @"=";
+        self.tokenKindNameTab[XP_TOKEN_KIND_PERCENT] = @"%";
+        self.tokenKindNameTab[XP_TOKEN_KIND_TRUE] = @"true";
+        self.tokenKindNameTab[XP_TOKEN_KIND_GT] = @">";
+        self.tokenKindNameTab[XP_TOKEN_KIND_FORWARD_SLASH] = @"/";
+        self.tokenKindNameTab[XP_TOKEN_KIND_AND] = @"and";
+        self.tokenKindNameTab[XP_TOKEN_KIND_OPEN_PAREN] = @"(";
+        self.tokenKindNameTab[XP_TOKEN_KIND_YES_UPPER] = @"YES";
         self.tokenKindNameTab[XP_TOKEN_KIND_CLOSE_PAREN] = @")";
+        self.tokenKindNameTab[XP_TOKEN_KIND_NE] = @"!=";
         self.tokenKindNameTab[XP_TOKEN_KIND_NO_UPPER] = @"NO";
 
     }
@@ -103,15 +129,132 @@
 }
 
 - (void)start {
+    [self execute:^{
+    
+    PKTokenizer *t = self.tokenizer;
+    [t.symbolState add:@"=="];
+    [t.symbolState add:@"!="];
+    [t.symbolState add:@"<="];
+    [t.symbolState add:@">="];
+
+    }];
+
     [self expr_]; 
     [self matchEOF:YES]; 
+
 }
 
 - (void)expr_ {
     
-    [self primary_]; 
+    [self orExpr_]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchExpr:)];
+}
+
+- (void)orExpr_ {
+    
+    [self andExpr_]; 
+    while ([self speculate:^{ [self match:XP_TOKEN_KIND_OR discard:NO]; [self andExpr_]; }]) {
+        [self match:XP_TOKEN_KIND_OR discard:NO]; 
+        [self andExpr_]; 
+    }
+
+    [self fireDelegateSelector:@selector(parser:didMatchOrExpr:)];
+}
+
+- (void)andExpr_ {
+    
+    [self equalityExpr_]; 
+    while ([self speculate:^{ [self match:XP_TOKEN_KIND_AND discard:NO]; [self equalityExpr_]; }]) {
+        [self match:XP_TOKEN_KIND_AND discard:NO]; 
+        [self equalityExpr_]; 
+    }
+
+    [self fireDelegateSelector:@selector(parser:didMatchAndExpr:)];
+}
+
+- (void)equalityExpr_ {
+    
+    [self relationalExpr_]; 
+    while ([self speculate:^{ if ([self predicts:XP_TOKEN_KIND_EQUALS, 0]) {[self match:XP_TOKEN_KIND_EQUALS discard:NO]; } else if ([self predicts:XP_TOKEN_KIND_NE, 0]) {[self match:XP_TOKEN_KIND_NE discard:NO]; } else {[self raise:@"No viable alternative found in rule 'equalityExpr'."];}[self relationalExpr_]; }]) {
+        if ([self predicts:XP_TOKEN_KIND_EQUALS, 0]) {
+            [self match:XP_TOKEN_KIND_EQUALS discard:NO]; 
+        } else if ([self predicts:XP_TOKEN_KIND_NE, 0]) {
+            [self match:XP_TOKEN_KIND_NE discard:NO]; 
+        } else {
+            [self raise:@"No viable alternative found in rule 'equalityExpr'."];
+        }
+        [self relationalExpr_]; 
+    }
+
+    [self fireDelegateSelector:@selector(parser:didMatchEqualityExpr:)];
+}
+
+- (void)relationalExpr_ {
+    
+    [self additiveExpr_]; 
+    while ([self speculate:^{ if ([self predicts:XP_TOKEN_KIND_LT, 0]) {[self match:XP_TOKEN_KIND_LT discard:NO]; } else if ([self predicts:XP_TOKEN_KIND_GT, 0]) {[self match:XP_TOKEN_KIND_GT discard:NO]; } else if ([self predicts:XP_TOKEN_KIND_LE, 0]) {[self match:XP_TOKEN_KIND_LE discard:NO]; } else if ([self predicts:XP_TOKEN_KIND_GE, 0]) {[self match:XP_TOKEN_KIND_GE discard:NO]; } else {[self raise:@"No viable alternative found in rule 'relationalExpr'."];}[self additiveExpr_]; }]) {
+        if ([self predicts:XP_TOKEN_KIND_LT, 0]) {
+            [self match:XP_TOKEN_KIND_LT discard:NO]; 
+        } else if ([self predicts:XP_TOKEN_KIND_GT, 0]) {
+            [self match:XP_TOKEN_KIND_GT discard:NO]; 
+        } else if ([self predicts:XP_TOKEN_KIND_LE, 0]) {
+            [self match:XP_TOKEN_KIND_LE discard:NO]; 
+        } else if ([self predicts:XP_TOKEN_KIND_GE, 0]) {
+            [self match:XP_TOKEN_KIND_GE discard:NO]; 
+        } else {
+            [self raise:@"No viable alternative found in rule 'relationalExpr'."];
+        }
+        [self additiveExpr_]; 
+    }
+
+    [self fireDelegateSelector:@selector(parser:didMatchRelationalExpr:)];
+}
+
+- (void)additiveExpr_ {
+    
+    [self multiplicativeExpr_]; 
+    while ([self speculate:^{ if ([self predicts:XP_TOKEN_KIND_PLUS, 0]) {[self match:XP_TOKEN_KIND_PLUS discard:NO]; } else if ([self predicts:XP_TOKEN_KIND_MINUS, 0]) {[self match:XP_TOKEN_KIND_MINUS discard:NO]; } else {[self raise:@"No viable alternative found in rule 'additiveExpr'."];}[self multiplicativeExpr_]; }]) {
+        if ([self predicts:XP_TOKEN_KIND_PLUS, 0]) {
+            [self match:XP_TOKEN_KIND_PLUS discard:NO]; 
+        } else if ([self predicts:XP_TOKEN_KIND_MINUS, 0]) {
+            [self match:XP_TOKEN_KIND_MINUS discard:NO]; 
+        } else {
+            [self raise:@"No viable alternative found in rule 'additiveExpr'."];
+        }
+        [self multiplicativeExpr_]; 
+    }
+
+    [self fireDelegateSelector:@selector(parser:didMatchAdditiveExpr:)];
+}
+
+- (void)multiplicativeExpr_ {
+    
+    [self unaryExpr_]; 
+    while ([self speculate:^{ if ([self predicts:XP_TOKEN_KIND_STAR, 0]) {[self match:XP_TOKEN_KIND_STAR discard:NO]; } else if ([self predicts:XP_TOKEN_KIND_FORWARD_SLASH, 0]) {[self match:XP_TOKEN_KIND_FORWARD_SLASH discard:NO]; } else if ([self predicts:XP_TOKEN_KIND_PERCENT, 0]) {[self match:XP_TOKEN_KIND_PERCENT discard:NO]; } else {[self raise:@"No viable alternative found in rule 'multiplicativeExpr'."];}[self unaryExpr_]; }]) {
+        if ([self predicts:XP_TOKEN_KIND_STAR, 0]) {
+            [self match:XP_TOKEN_KIND_STAR discard:NO]; 
+        } else if ([self predicts:XP_TOKEN_KIND_FORWARD_SLASH, 0]) {
+            [self match:XP_TOKEN_KIND_FORWARD_SLASH discard:NO]; 
+        } else if ([self predicts:XP_TOKEN_KIND_PERCENT, 0]) {
+            [self match:XP_TOKEN_KIND_PERCENT discard:NO]; 
+        } else {
+            [self raise:@"No viable alternative found in rule 'multiplicativeExpr'."];
+        }
+        [self unaryExpr_]; 
+    }
+
+    [self fireDelegateSelector:@selector(parser:didMatchMultiplicativeExpr:)];
+}
+
+- (void)unaryExpr_ {
+    
+    while ([self predicts:XP_TOKEN_KIND_MINUS, 0]) {
+        [self match:XP_TOKEN_KIND_MINUS discard:NO]; 
+    }
+    [self primary_]; 
+
+    [self fireDelegateSelector:@selector(parser:didMatchUnaryExpr:)];
 }
 
 - (void)primary_ {

@@ -9,14 +9,31 @@
 }
 
 @init {
-        self.openParen = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"(" doubleValue:0.0];
+    self.openParen = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"(" doubleValue:0.0];
 }
 
 @dealloc {
     self.openParen = nil;
 }
 
-expr    = primary;
+@before {
+    PKTokenizer *t = self.tokenizer;
+    [t.symbolState add:@"=="];
+    [t.symbolState add:@"!="];
+    [t.symbolState add:@"<="];
+    [t.symbolState add:@">="];
+}
+
+expr    = orExpr;
+orExpr  = andExpr ('or' andExpr)*;
+andExpr = equalityExpr ('and' equalityExpr)*;
+
+equalityExpr = relationalExpr (('=' | '!=') relationalExpr)*;
+relationalExpr = additiveExpr (('<' | '>' | '<=' | '>=') additiveExpr)*;
+
+additiveExpr = multiplicativeExpr (('+' | '-') multiplicativeExpr)*;
+multiplicativeExpr = unaryExpr (('*' | '/' | '%') unaryExpr)*;
+unaryExpr = '-'* primary;
 primary = atom | subExpr;
 
 subExpr
