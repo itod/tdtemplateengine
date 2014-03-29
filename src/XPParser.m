@@ -158,6 +158,8 @@
     [t.symbolState add:@"!="];
     [t.symbolState add:@"<="];
     [t.symbolState add:@">="];
+    [t.symbolState add:@"&&"];
+    [t.symbolState add:@"||"];
 
     }];
 
