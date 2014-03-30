@@ -495,10 +495,10 @@
         
 		double d = POP_DOUBLE();
 		id obj = POP();
-		while (EQ(_minus, obj)) {
+		do {
 			d = -d;
 			obj = POP();
-		}
+		} while (EQ(_minus, obj));
 		PUSH(obj);
 		PUSH([XPNumericValue numericValueWithNumber:d]);
 	
