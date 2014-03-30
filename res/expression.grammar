@@ -137,13 +137,16 @@ subExpr
 
 atom = literal | pathExpr;
 
-pathExpr 	@before { PUSH(_openParen); }
-			@after {
+pathExpr 	
+@before {
+	PUSH(_openParen);
+}
+@after {
 	id toks = REV(ABOVE(_openParen));
 	POP(); // discard `_openParen`
 	PUSH([XPPathExpression pathExpressionWithSteps:toks]);
 }
-			= initialStep ('.'! step)*;
+	= initialStep ('.'! step)*;
 
 initialStep = identifier;
 step = identifier | num;
