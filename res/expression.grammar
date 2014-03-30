@@ -19,6 +19,7 @@
 @extension {
 @property (nonatomic, retain) PKToken *openParen;
 @property (nonatomic, retain) PKToken *minus;
+@property (nonatomic, assign) BOOL negative;
 }
 
 @implementation {
@@ -114,18 +115,20 @@ multiplicativeExpr = unaryExpr ((times | div | mod) unaryExpr {
     PUSH([XPArithmeticExpression arithmeticExpressionWithOperand:lhs operator:op operand:rhs]);
 })*;
 unaryExpr 
-	= '-'+ primary {
-		double d = POP_DOUBLE();
-		id obj = POP();
-		do {
-			d = -d;
-			obj = POP();
-		\} while (EQ(_minus, obj));
-		PUSH(obj);
-		PUSH([XPNumericValue numericValueWithNumber:d]);
-	}
+	= negPrimary
 	| primary
 	;
+negPrimary 
+@before {
+	ASSERT(!_negative); 
+	self.negative = NO; 
+}
+	= ('-' { _negative = !_negative; })+ primary {
+	double d = POP_DOUBLE();
+	d = (_negative) ? -d : d;
+	PUSH([XPNumericValue numericValueWithNumber:d]);
+	self.negative = NO;
+};
 primary = atom | subExpr;
 
 subExpr
