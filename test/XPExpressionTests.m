@@ -606,6 +606,50 @@
     TDEquals(1.0, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
 
+- (void)test1PlusMinusMinus1 {
+    NSString *input = @"1 + --1";
+    NSArray *toks = [self tokenize:input];
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDEquals(2.0, [[expr simplify] evaluateAsNumberInContext:nil]);
+}
+
+- (void)test1MinusMinusMinus1 {
+    NSString *input = @"1 - --1";
+    NSArray *toks = [self tokenize:input];
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDEquals(0.0, [[expr simplify] evaluateAsNumberInContext:nil]);
+}
+
+- (void)testMinusMinus1Plus1 {
+    NSString *input = @"--1 + 1";
+    NSArray *toks = [self tokenize:input];
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDEquals(2.0, [[expr simplify] evaluateAsNumberInContext:nil]);
+}
+
+- (void)testMinusMinus1Minus1 {
+    NSString *input = @"--1 - 1";
+    NSArray *toks = [self tokenize:input];
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDEquals(0.0, [[expr simplify] evaluateAsNumberInContext:nil]);
+}
+
 - (void)testMinusMinusMinus1 {
     NSString *input = @"---1";
     NSArray *toks = [self tokenize:input];

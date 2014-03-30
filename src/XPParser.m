@@ -212,11 +212,9 @@
 
 - (void)neOp_ {
     
-    if ([self speculate:^{ [self match:XP_TOKEN_KIND_NOT_EQUAL discard:YES]; }]) {
+    if ([self predicts:XP_TOKEN_KIND_NOT_EQUAL, 0]) {
         [self match:XP_TOKEN_KIND_NOT_EQUAL discard:YES]; 
-    } else if ([self speculate:^{ [self match:XP_TOKEN_KIND_NOT_EQUAL discard:YES]; }]) {
-        [self match:XP_TOKEN_KIND_NOT_EQUAL discard:YES]; 
-    } else if ([self speculate:^{ [self match:XP_TOKEN_KIND_NE discard:YES]; }]) {
+    } else if ([self predicts:XP_TOKEN_KIND_NE, 0]) {
         [self match:XP_TOKEN_KIND_NE discard:YES]; 
     } else {
         [self raise:@"No viable alternative found in rule 'neOp'."];
@@ -470,7 +468,7 @@
 
     }];
     do {
-        [self match:XP_TOKEN_KIND_MINUS discard:NO]; 
+        [self match:XP_TOKEN_KIND_MINUS discard:YES]; 
         [self execute:^{
          _negative = !_negative; 
         }];
@@ -537,7 +535,7 @@
 	PUSH(_openParen);
 
     }];
-    [self initialStep_]; 
+    [self identifier_]; 
     while ([self speculate:^{ [self match:XP_TOKEN_KIND_DOT discard:YES]; [self step_]; }]) {
         [self match:XP_TOKEN_KIND_DOT discard:YES]; 
         [self step_]; 
@@ -551,13 +549,6 @@
     }];
 
     [self fireDelegateSelector:@selector(parser:didMatchPathExpr:)];
-}
-
-- (void)initialStep_ {
-    
-    [self identifier_]; 
-
-    [self fireDelegateSelector:@selector(parser:didMatchInitialStep:)];
 }
 
 - (void)step_ {

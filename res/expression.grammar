@@ -68,7 +68,7 @@ andExpr = equalityExpr (andOp equalityExpr {
 eqOp 	@after { PUSH(@(XP_TOKEN_KIND_EQ)); }
 		=  '='! | '=='! | 'eq'!;
 neOp 	@after { PUSH(@(XP_TOKEN_KIND_NE)); }
-		= '!='! | '!='! | 'ne'!;
+		= '!='! | 'ne'!;
 equalityExpr = relationalExpr ((eqOp | neOp) relationalExpr {
 	XPValue *rhs = POP();
 	NSInteger op = POP_INT();
@@ -123,7 +123,7 @@ negPrimary
 	ASSERT(!_negative); 
 	self.negative = NO; 
 }
-	= ('-' { _negative = !_negative; })+ primary {
+	= ('-'! { _negative = !_negative; })+ primary {
 	double d = POP_DOUBLE();
 	d = (_negative) ? -d : d;
 	PUSH([XPNumericValue numericValueWithNumber:d]);
@@ -140,7 +140,7 @@ subExpr
 
 atom = literal | pathExpr;
 
-pathExpr 	
+pathExpr
 @before {
 	PUSH(_openParen);
 }
@@ -149,9 +149,8 @@ pathExpr
 	POP(); // discard `_openParen`
 	PUSH([XPPathExpression pathExpressionWithSteps:toks]);
 }
-	= initialStep ('.'! step)*;
+	= identifier ('.'! step)*;
 
-initialStep = identifier;
 step = identifier | num;
 identifier = Word;
 
