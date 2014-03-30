@@ -19,7 +19,6 @@
 @extension {
 @property (nonatomic, retain) PKToken *openParen;
 @property (nonatomic, retain) PKToken *minus;
-@property (nonatomic, retain) PKToken *dot;
 }
 
 @implementation {
@@ -42,13 +41,11 @@
 	self.tokenizer = [[self class] makeTokenizer];
     self.openParen = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"(" doubleValue:0.0];
     self.minus = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"-" doubleValue:0.0];
-    self.dot = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"." doubleValue:0.0];
 }
 
 @dealloc {
     self.openParen = nil;
 	self.minus = nil;
-	self.dot = nil;
 }
 
 expr    = orExpr;
@@ -133,22 +130,18 @@ primary = atom | pathExpr | subExpr;
 
 subExpr
     = '(' expr ')'! {
-    NSArray *objs = ABOVE(_openParen);
+    id objs = ABOVE(_openParen);
     POP(); // discard `(`
     for (id obj in [objs reverseObjectEnumerator]) {
         PUSH(obj);
     \}
 };
 
-pathExpr 	@before { PUSH(_dot); }
+pathExpr 	@before { PUSH(_openParen); }
 			@after {
-	id toks = ABOVE(_dot);
-	id steps = [NSMutableArray arrayWithCapacity:[toks count]];
-	POP(); // `.`
-	for (PKToken *tok in [toks reverseObjectEnumerator]) {
-		[steps addObject:tok.stringValue];
-	\}
-	PUSH([XPPathExpression pathExpressionWithSteps:steps]);
+	id toks = REV(ABOVE(_openParen));
+	POP(); // discard `_openParen`
+	PUSH([XPPathExpression pathExpressionWithSteps:toks]);
 }
 			= step ('.'! step)*;
 

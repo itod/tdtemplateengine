@@ -31,6 +31,8 @@
 #define PUSH_FLOAT(f)  [self pushFloat:(float)(f)]
 #define PUSH_DOUBLE(d) [self pushDouble:(double)(d)]
 
+#define REV(a) [self reversedArray:a]
+
 #define EQ(a, b) [(a) isEqual:(b)]
 #define NE(a, b) (![(a) isEqual:(b)])
 #define EQ_IGNORE_CASE(a, b) (NSOrderedSame == [(a) compare:(b)])
@@ -44,33 +46,10 @@
 #define LOG(obj) do { NSLog(@"%@", (obj)); } while (0);
 #define PRINT(str) do { printf("%s\n", (str)); } while (0);
 
-@interface PKParser ()
-@property (nonatomic, retain) NSMutableDictionary *tokenKindTab;
-@property (nonatomic, retain) NSMutableArray *tokenKindNameTab;
-@property (nonatomic, retain) NSString *startRuleName;
-@property (nonatomic, retain) NSString *statementTerminator;
-@property (nonatomic, retain) NSString *singleLineCommentMarker;
-@property (nonatomic, retain) NSString *blockStartMarker;
-@property (nonatomic, retain) NSString *blockEndMarker;
-@property (nonatomic, retain) NSString *braces;
-
-- (BOOL)popBool;
-- (NSInteger)popInteger;
-- (double)popDouble;
-- (PKToken *)popToken;
-- (NSString *)popString;
-- (NSString *)popQuotedString;
-
-- (void)pushBool:(BOOL)yn;
-- (void)pushInteger:(NSInteger)i;
-- (void)pushDouble:(double)d;
-@end
-
 @interface XPParser ()
     
 @property (nonatomic, retain) PKToken *openParen;
 @property (nonatomic, retain) PKToken *minus;
-@property (nonatomic, retain) PKToken *dot;
 
 @end
 
@@ -97,7 +76,6 @@
 	self.tokenizer = [[self class] makeTokenizer];
     self.openParen = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"(" doubleValue:0.0];
     self.minus = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"-" doubleValue:0.0];
-    self.dot = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"." doubleValue:0.0];
 
         self.startRuleName = @"expr";
         self.tokenKindTab[@"ge"] = @(XP_TOKEN_KIND_GE);
@@ -168,7 +146,6 @@
         
     self.openParen = nil;
 	self.minus = nil;
-	self.dot = nil;
 
 
     [super dealloc];
@@ -556,7 +533,7 @@
     [self match:XP_TOKEN_KIND_CLOSE_PAREN discard:YES]; 
     [self execute:^{
     
-    NSArray *objs = ABOVE(_openParen);
+    id objs = ABOVE(_openParen);
     POP(); // discard `(`
     for (id obj in [objs reverseObjectEnumerator]) {
         PUSH(obj);
@@ -570,7 +547,7 @@
 - (void)pathExpr_ {
     
     [self execute:^{
-     PUSH(_dot); 
+     PUSH(_openParen); 
     }];
     [self step_]; 
     while ([self speculate:^{ [self match:XP_TOKEN_KIND_DOT discard:YES]; [self step_]; }]) {
@@ -579,13 +556,9 @@
     }
     [self execute:^{
     
-	id toks = ABOVE(_dot);
-	id steps = [NSMutableArray arrayWithCapacity:[toks count]];
-	POP(); // `.`
-	for (PKToken *tok in [toks reverseObjectEnumerator]) {
-		[steps addObject:tok.stringValue];
-	}
-	PUSH([XPPathExpression pathExpressionWithSteps:steps]);
+	id toks = REV(ABOVE(_openParen));
+	POP(); // discard `_openParen`
+	PUSH([XPPathExpression pathExpressionWithSteps:toks]);
 
     }];
 
