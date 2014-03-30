@@ -60,6 +60,8 @@
 		D3A29E3218E75D3B00DC591E /* XPRelationalExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29E2A18E75D3B00DC591E /* XPRelationalExpression.m */; };
 		D3A29E3518E7700500DC591E /* XPExpressionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29E3418E7700500DC591E /* XPExpressionTests.m */; };
 		D3A29E3618E7725A00DC591E /* PEGKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3A29D9E18E5F6AB00DC591E /* PEGKit.framework */; };
+		D3A29E3918E7AA3100DC591E /* XPPathExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29E3718E7AA3100DC591E /* XPPathExpression.h */; };
+		D3A29E3A18E7AA3100DC591E /* XPPathExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29E3818E7AA3100DC591E /* XPPathExpression.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -173,6 +175,8 @@
 		D3A29E2918E75D3B00DC591E /* XPRelationalExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = XPRelationalExpression.h; path = src/XPRelationalExpression.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		D3A29E2A18E75D3B00DC591E /* XPRelationalExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = XPRelationalExpression.m; path = src/XPRelationalExpression.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D3A29E3418E7700500DC591E /* XPExpressionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPExpressionTests.m; path = test/XPExpressionTests.m; sourceTree = SOURCE_ROOT; };
+		D3A29E3718E7AA3100DC591E /* XPPathExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPPathExpression.h; path = src/XPPathExpression.h; sourceTree = SOURCE_ROOT; };
+		D3A29E3818E7AA3100DC591E /* XPPathExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPPathExpression.m; path = src/XPPathExpression.m; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -325,6 +329,8 @@
 				D3A29E1618E6659D00DC591E /* Parser */,
 				D3A29DF418E6583600DC591E /* XPExpression.h */,
 				D3A29DF818E6584D00DC591E /* XPExpression.m */,
+				D3A29E3718E7AA3100DC591E /* XPPathExpression.h */,
+				D3A29E3818E7AA3100DC591E /* XPPathExpression.m */,
 				D3A29E2218E75D2E00DC591E /* Value */,
 				D3A29E3318E75D4000DC591E /* Binary Expr */,
 			);
@@ -395,6 +401,7 @@
 				D3A29DF518E6583600DC591E /* XPExpression.h in Headers */,
 				D3A29DDD18E63D6D00DC591E /* TDTag.h in Headers */,
 				D3A29D8218E5F57300DC591E /* TDTemplateEngine.h in Headers */,
+				D3A29E3918E7AA3100DC591E /* XPPathExpression.h in Headers */,
 				D3A29DE018E6423500DC591E /* TDIfTag.h in Headers */,
 				D3A29E0E18E65AC400DC591E /* XPParser.h in Headers */,
 				D3A29E0218E6584D00DC591E /* XPNumericValue.h in Headers */,
@@ -561,6 +568,7 @@
 				D3A29E0F18E65AC400DC591E /* XPParser.m in Sources */,
 				D3A29E0318E6584D00DC591E /* XPNumericValue.m in Sources */,
 				D3A29E2C18E75D3B00DC591E /* XPArithmeticExpression.m in Sources */,
+				D3A29E3A18E7AA3100DC591E /* XPPathExpression.m in Sources */,
 				D3A29DC718E6285800DC591E /* TDStartBlockNode.m in Sources */,
 				D3A29DAB18E609E700DC591E /* TDNode.m in Sources */,
 				D3A29DDB18E63D5B00DC591E /* TDTag.m in Sources */,

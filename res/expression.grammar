@@ -13,11 +13,13 @@
 #import <TDTemplateEngine/XPBooleanExpression.h>
 #import <TDTemplateEngine/XPRelationalExpression.h>
 #import <TDTemplateEngine/XPArithmeticExpression.h>
+#import <TDTemplateEngine/XPPathExpression.h>
 }
 
 @extension {
 @property (nonatomic, retain) PKToken *openParen;
 @property (nonatomic, retain) PKToken *minus;
+@property (nonatomic, retain) PKToken *dot;
 }
 
 @implementation {
@@ -40,11 +42,13 @@
 	self.tokenizer = [[self class] makeTokenizer];
     self.openParen = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"(" doubleValue:0.0];
     self.minus = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"-" doubleValue:0.0];
+    self.dot = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"." doubleValue:0.0];
 }
 
 @dealloc {
     self.openParen = nil;
 	self.minus = nil;
+	self.dot = nil;
 }
 
 expr    = orExpr;
@@ -125,7 +129,7 @@ unaryExpr
 	}
 	| primary
 	;
-primary = atom | subExpr;
+primary = atom | pathExpr | subExpr;
 
 subExpr
     = '(' expr ')'! {
@@ -135,6 +139,21 @@ subExpr
         PUSH(obj);
     \}
 };
+
+pathExpr 	@before { PUSH(_dot); }
+			@after {
+	id toks = ABOVE(_dot);
+	id steps = [NSMutableArray arrayWithCapacity:[toks count]];
+	POP(); // `.`
+	for (PKToken *tok in [toks reverseObjectEnumerator]) {
+		[steps addObject:tok.stringValue];
+	\}
+	PUSH([XPPathExpression pathExpressionWithSteps:steps]);
+}
+			= step ('.'! step)*;
+
+step = identifier | num;
+identifier = Word;
 
 atom    = literal;
 literal = str | num | bool;

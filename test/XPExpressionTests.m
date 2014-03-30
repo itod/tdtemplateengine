@@ -9,6 +9,7 @@
 #import "TDTestScaffold.h"
 #import "XPExpression.h"
 #import "XPParser.h"
+#import <TDTemplateEngine/TDTemplateContext.h>
 
 @interface XPExpressionTests : XCTestCase
 @property (nonatomic, retain) XPExpression *expr;
@@ -625,6 +626,20 @@
     TDNil(err);
     TDNotNil(expr);
     TDEquals(4.0, [[expr simplify] evaluateAsNumberInContext:nil]);
+}
+
+- (void)testPath {
+    NSString *input = @"foo.bar";
+    NSArray *toks = [self tokenize:input];
+    
+    id vars = @{@"foo": @{@"bar": @(8)}};
+    id ctx = [[[TDTemplateContext alloc] initWithVariables:vars] autorelease];
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDEquals(8.0, [[expr simplify] evaluateAsNumberInContext:ctx]);
 }
 
 @end

@@ -7,6 +7,7 @@
 #import <TDTemplateEngine/XPBooleanExpression.h>
 #import <TDTemplateEngine/XPRelationalExpression.h>
 #import <TDTemplateEngine/XPArithmeticExpression.h>
+#import <TDTemplateEngine/XPPathExpression.h>
 
 #define LT(i) [self LT:(i)]
 #define LA(i) [self LA:(i)]
@@ -69,6 +70,7 @@
     
 @property (nonatomic, retain) PKToken *openParen;
 @property (nonatomic, retain) PKToken *minus;
+@property (nonatomic, retain) PKToken *dot;
 
 @end
 
@@ -95,20 +97,22 @@
 	self.tokenizer = [[self class] makeTokenizer];
     self.openParen = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"(" doubleValue:0.0];
     self.minus = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"-" doubleValue:0.0];
+    self.dot = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"." doubleValue:0.0];
 
         self.startRuleName = @"expr";
         self.tokenKindTab[@"ge"] = @(XP_TOKEN_KIND_GE);
         self.tokenKindTab[@"-"] = @(XP_TOKEN_KIND_MINUS);
         self.tokenKindTab[@">="] = @(XP_TOKEN_KIND_GE_SYM);
         self.tokenKindTab[@"&&"] = @(XP_TOKEN_KIND_DOUBLE_AMPERSAND);
-        self.tokenKindTab[@"true"] = @(XP_TOKEN_KIND_TRUE);
+        self.tokenKindTab[@"."] = @(XP_TOKEN_KIND_DOT);
         self.tokenKindTab[@"<"] = @(XP_TOKEN_KIND_LT_SYM);
         self.tokenKindTab[@"!="] = @(XP_TOKEN_KIND_NOT_EQUAL);
         self.tokenKindTab[@"/"] = @(XP_TOKEN_KIND_DIV);
         self.tokenKindTab[@"="] = @(XP_TOKEN_KIND_EQUALS);
-        self.tokenKindTab[@"YES"] = @(XP_TOKEN_KIND_YES_UPPER);
+        self.tokenKindTab[@"true"] = @(XP_TOKEN_KIND_TRUE);
         self.tokenKindTab[@"or"] = @(XP_TOKEN_KIND_OR);
         self.tokenKindTab[@">"] = @(XP_TOKEN_KIND_GT_SYM);
+        self.tokenKindTab[@"YES"] = @(XP_TOKEN_KIND_YES_UPPER);
         self.tokenKindTab[@"ne"] = @(XP_TOKEN_KIND_NE);
         self.tokenKindTab[@"<="] = @(XP_TOKEN_KIND_LE_SYM);
         self.tokenKindTab[@"and"] = @(XP_TOKEN_KIND_AND);
@@ -130,14 +134,15 @@
         self.tokenKindNameTab[XP_TOKEN_KIND_MINUS] = @"-";
         self.tokenKindNameTab[XP_TOKEN_KIND_GE_SYM] = @">=";
         self.tokenKindNameTab[XP_TOKEN_KIND_DOUBLE_AMPERSAND] = @"&&";
-        self.tokenKindNameTab[XP_TOKEN_KIND_TRUE] = @"true";
+        self.tokenKindNameTab[XP_TOKEN_KIND_DOT] = @".";
         self.tokenKindNameTab[XP_TOKEN_KIND_LT_SYM] = @"<";
         self.tokenKindNameTab[XP_TOKEN_KIND_NOT_EQUAL] = @"!=";
         self.tokenKindNameTab[XP_TOKEN_KIND_DIV] = @"/";
         self.tokenKindNameTab[XP_TOKEN_KIND_EQUALS] = @"=";
-        self.tokenKindNameTab[XP_TOKEN_KIND_YES_UPPER] = @"YES";
+        self.tokenKindNameTab[XP_TOKEN_KIND_TRUE] = @"true";
         self.tokenKindNameTab[XP_TOKEN_KIND_OR] = @"or";
         self.tokenKindNameTab[XP_TOKEN_KIND_GT_SYM] = @">";
+        self.tokenKindNameTab[XP_TOKEN_KIND_YES_UPPER] = @"YES";
         self.tokenKindNameTab[XP_TOKEN_KIND_NE] = @"ne";
         self.tokenKindNameTab[XP_TOKEN_KIND_LE_SYM] = @"<=";
         self.tokenKindNameTab[XP_TOKEN_KIND_AND] = @"and";
@@ -163,6 +168,7 @@
         
     self.openParen = nil;
 	self.minus = nil;
+	self.dot = nil;
 
 
     [super dealloc];
@@ -519,7 +525,7 @@
 		PUSH([XPNumericValue numericValueWithNumber:d]);
 	
         }];
-    } else if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, XP_TOKEN_KIND_FALSE, XP_TOKEN_KIND_NO_UPPER, XP_TOKEN_KIND_OPEN_PAREN, XP_TOKEN_KIND_TRUE, XP_TOKEN_KIND_YES_UPPER, 0]) {
+    } else if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, XP_TOKEN_KIND_FALSE, XP_TOKEN_KIND_NO_UPPER, XP_TOKEN_KIND_OPEN_PAREN, XP_TOKEN_KIND_TRUE, XP_TOKEN_KIND_YES_UPPER, 0]) {
         [self primary_]; 
     } else {
         [self raise:@"No viable alternative found in rule 'unaryExpr'."];
@@ -530,9 +536,11 @@
 
 - (void)primary_ {
     
-    if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, XP_TOKEN_KIND_FALSE, XP_TOKEN_KIND_NO_UPPER, XP_TOKEN_KIND_TRUE, XP_TOKEN_KIND_YES_UPPER, 0]) {
+    if ([self speculate:^{ [self atom_]; }]) {
         [self atom_]; 
-    } else if ([self predicts:XP_TOKEN_KIND_OPEN_PAREN, 0]) {
+    } else if ([self speculate:^{ [self pathExpr_]; }]) {
+        [self pathExpr_]; 
+    } else if ([self speculate:^{ [self subExpr_]; }]) {
         [self subExpr_]; 
     } else {
         [self raise:@"No viable alternative found in rule 'primary'."];
@@ -557,6 +565,51 @@
     }];
 
     [self fireDelegateSelector:@selector(parser:didMatchSubExpr:)];
+}
+
+- (void)pathExpr_ {
+    
+    [self execute:^{
+     PUSH(_dot); 
+    }];
+    [self step_]; 
+    while ([self speculate:^{ [self match:XP_TOKEN_KIND_DOT discard:YES]; [self step_]; }]) {
+        [self match:XP_TOKEN_KIND_DOT discard:YES]; 
+        [self step_]; 
+    }
+    [self execute:^{
+    
+	id toks = ABOVE(_dot);
+	id steps = [NSMutableArray arrayWithCapacity:[toks count]];
+	POP(); // `.`
+	for (PKToken *tok in [toks reverseObjectEnumerator]) {
+		[steps addObject:tok.stringValue];
+	}
+	PUSH([XPPathExpression pathExpressionWithSteps:steps]);
+
+    }];
+
+    [self fireDelegateSelector:@selector(parser:didMatchPathExpr:)];
+}
+
+- (void)step_ {
+    
+    if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
+        [self identifier_]; 
+    } else if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, 0]) {
+        [self num_]; 
+    } else {
+        [self raise:@"No viable alternative found in rule 'step'."];
+    }
+
+    [self fireDelegateSelector:@selector(parser:didMatchStep:)];
+}
+
+- (void)identifier_ {
+    
+    [self matchWord:NO]; 
+
+    [self fireDelegateSelector:@selector(parser:didMatchIdentifier:)];
 }
 
 - (void)atom_ {
