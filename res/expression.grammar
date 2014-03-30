@@ -126,7 +126,7 @@ unaryExpr
 	}
 	| primary
 	;
-primary = atom | pathExpr | subExpr;
+primary = atom | subExpr;
 
 subExpr
     = '(' expr ')'! {
@@ -137,18 +137,20 @@ subExpr
     \}
 };
 
+atom = literal | pathExpr;
+
 pathExpr 	@before { PUSH(_openParen); }
 			@after {
 	id toks = REV(ABOVE(_openParen));
 	POP(); // discard `_openParen`
 	PUSH([XPPathExpression pathExpressionWithSteps:toks]);
 }
-			= step ('.'! step)*;
+			= initialStep ('.'! step)*;
 
+initialStep = identifier;
 step = identifier | num;
 identifier = Word;
 
-atom    = literal;
 literal = str | num | bool;
 bool
     = true { PUSH([XPBooleanValue booleanValueWithBoolean:YES]); }

@@ -513,11 +513,9 @@
 
 - (void)primary_ {
     
-    if ([self speculate:^{ [self atom_]; }]) {
+    if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, XP_TOKEN_KIND_FALSE, XP_TOKEN_KIND_NO_UPPER, XP_TOKEN_KIND_TRUE, XP_TOKEN_KIND_YES_UPPER, 0]) {
         [self atom_]; 
-    } else if ([self speculate:^{ [self pathExpr_]; }]) {
-        [self pathExpr_]; 
-    } else if ([self speculate:^{ [self subExpr_]; }]) {
+    } else if ([self predicts:XP_TOKEN_KIND_OPEN_PAREN, 0]) {
         [self subExpr_]; 
     } else {
         [self raise:@"No viable alternative found in rule 'primary'."];
@@ -544,12 +542,25 @@
     [self fireDelegateSelector:@selector(parser:didMatchSubExpr:)];
 }
 
+- (void)atom_ {
+    
+    if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, XP_TOKEN_KIND_FALSE, XP_TOKEN_KIND_NO_UPPER, XP_TOKEN_KIND_TRUE, XP_TOKEN_KIND_YES_UPPER, 0]) {
+        [self literal_]; 
+    } else if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
+        [self pathExpr_]; 
+    } else {
+        [self raise:@"No viable alternative found in rule 'atom'."];
+    }
+
+    [self fireDelegateSelector:@selector(parser:didMatchAtom:)];
+}
+
 - (void)pathExpr_ {
     
     [self execute:^{
      PUSH(_openParen); 
     }];
-    [self step_]; 
+    [self initialStep_]; 
     while ([self speculate:^{ [self match:XP_TOKEN_KIND_DOT discard:YES]; [self step_]; }]) {
         [self match:XP_TOKEN_KIND_DOT discard:YES]; 
         [self step_]; 
@@ -563,6 +574,13 @@
     }];
 
     [self fireDelegateSelector:@selector(parser:didMatchPathExpr:)];
+}
+
+- (void)initialStep_ {
+    
+    [self identifier_]; 
+
+    [self fireDelegateSelector:@selector(parser:didMatchInitialStep:)];
 }
 
 - (void)step_ {
@@ -583,13 +601,6 @@
     [self matchWord:NO]; 
 
     [self fireDelegateSelector:@selector(parser:didMatchIdentifier:)];
-}
-
-- (void)atom_ {
-    
-    [self literal_]; 
-
-    [self fireDelegateSelector:@selector(parser:didMatchAtom:)];
 }
 
 - (void)literal_ {
