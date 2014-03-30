@@ -121,13 +121,13 @@ unaryExpr
 negPrimary 
 @before {
 	ASSERT(!_negative); 
-	self.negative = NO; 
+	_negative = NO; 
 }
 	= ('-'! { _negative = !_negative; })+ primary {
 	double d = POP_DOUBLE();
 	d = (_negative) ? -d : d;
 	PUSH([XPNumericValue numericValueWithNumber:d]);
-	self.negative = NO;
+	_negative = NO;
 };
 primary = atom | subExpr;
 

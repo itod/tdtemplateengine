@@ -464,7 +464,7 @@
     [self execute:^{
     
 	ASSERT(!_negative); 
-	self.negative = NO; 
+	_negative = NO; 
 
     }];
     do {
@@ -479,7 +479,7 @@
 	double d = POP_DOUBLE();
 	d = (_negative) ? -d : d;
 	PUSH([XPNumericValue numericValueWithNumber:d]);
-	self.negative = NO;
+	_negative = NO;
 
     }];
 
