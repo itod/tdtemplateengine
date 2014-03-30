@@ -132,9 +132,7 @@ subExpr
     = '(' expr ')'! {
     id objs = ABOVE(_openParen);
     POP(); // discard `(`
-    for (id obj in [objs reverseObjectEnumerator]) {
-        PUSH(obj);
-    \}
+	PUSH_ALL(REV(objs));
 };
 
 atom = literal | pathExpr;

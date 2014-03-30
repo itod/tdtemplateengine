@@ -30,6 +30,7 @@
 #define PUSH_UINT(u)   [self pushUnsignedInteger:(NSUInteger)(u)]
 #define PUSH_FLOAT(f)  [self pushFloat:(float)(f)]
 #define PUSH_DOUBLE(d) [self pushDouble:(double)(d)]
+#define PUSH_ALL(a)    [self pushAll:(a)]
 
 #define REV(a) [self reversedArray:a]
 
@@ -533,9 +534,7 @@
     
     id objs = ABOVE(_openParen);
     POP(); // discard `(`
-    for (id obj in [objs reverseObjectEnumerator]) {
-        PUSH(obj);
-    }
+	PUSH_ALL(REV(objs));
 
     }];
 
