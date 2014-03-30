@@ -628,7 +628,7 @@
     TDEquals(4.0, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
 
-- (void)testPath {
+- (void)testPathFooBar8 {
     NSString *input = @"foo.bar";
     NSArray *toks = [self tokenize:input];
     
@@ -640,6 +640,20 @@
     TDNil(err);
     TDNotNil(expr);
     TDEquals(8.0, [[expr simplify] evaluateAsNumberInContext:ctx]);
+}
+
+- (void)testPathFooBar8Plus2 {
+    NSString *input = @"foo.bar+2";
+    NSArray *toks = [self tokenize:input];
+    
+    id vars = @{@"foo": @{@"bar": @(8)}};
+    id ctx = [[[TDTemplateContext alloc] initWithVariables:vars] autorelease];
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDEquals(10.0, [[expr simplify] evaluateAsNumberInContext:ctx]);
 }
 
 @end

@@ -20,11 +20,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "XPExpression.h"
+#import "XPValue.h"
 
-@interface XPPathExpression : XPExpression
+@interface XPObjectValue : XPValue
 
-+ (XPPathExpression *)pathExpressionWithSteps:(NSArray *)steps;
++ (XPObjectValue *)objectValueWithObject:(id)o;
 
-- (id)initWithSteps:(NSArray *)steps;
+- (id)initWithObject:(id)o;
 @end

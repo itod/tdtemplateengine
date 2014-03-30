@@ -62,6 +62,8 @@
 		D3A29E3618E7725A00DC591E /* PEGKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3A29D9E18E5F6AB00DC591E /* PEGKit.framework */; };
 		D3A29E3918E7AA3100DC591E /* XPPathExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29E3718E7AA3100DC591E /* XPPathExpression.h */; };
 		D3A29E3A18E7AA3100DC591E /* XPPathExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29E3818E7AA3100DC591E /* XPPathExpression.m */; };
+		D3A29E3D18E7B31A00DC591E /* XPObjectValue.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29E3B18E7B31A00DC591E /* XPObjectValue.h */; };
+		D3A29E3E18E7B31A00DC591E /* XPObjectValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29E3C18E7B31A00DC591E /* XPObjectValue.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -177,6 +179,8 @@
 		D3A29E3418E7700500DC591E /* XPExpressionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPExpressionTests.m; path = test/XPExpressionTests.m; sourceTree = SOURCE_ROOT; };
 		D3A29E3718E7AA3100DC591E /* XPPathExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPPathExpression.h; path = src/XPPathExpression.h; sourceTree = SOURCE_ROOT; };
 		D3A29E3818E7AA3100DC591E /* XPPathExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPPathExpression.m; path = src/XPPathExpression.m; sourceTree = SOURCE_ROOT; };
+		D3A29E3B18E7B31A00DC591E /* XPObjectValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPObjectValue.h; path = src/XPObjectValue.h; sourceTree = SOURCE_ROOT; };
+		D3A29E3C18E7B31A00DC591E /* XPObjectValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPObjectValue.m; path = src/XPObjectValue.m; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -358,6 +362,8 @@
 				D3A29DFA18E6584D00DC591E /* XPNumericValue.m */,
 				D3A29DFB18E6584D00DC591E /* XPStringValue.h */,
 				D3A29DFC18E6584D00DC591E /* XPStringValue.m */,
+				D3A29E3B18E7B31A00DC591E /* XPObjectValue.h */,
+				D3A29E3C18E7B31A00DC591E /* XPObjectValue.m */,
 			);
 			name = Value;
 			sourceTree = "<group>";
@@ -393,6 +399,7 @@
 				D3A29DBE18E61ACA00DC591E /* TDTextNode.h in Headers */,
 				D3A29E3118E75D3B00DC591E /* XPRelationalExpression.h in Headers */,
 				D3A29DBA18E60F9F00DC591E /* TDRootNode.h in Headers */,
+				D3A29E3D18E7B31A00DC591E /* XPObjectValue.h in Headers */,
 				D3A29DAA18E609E700DC591E /* TDNode.h in Headers */,
 				D3A29DD618E63D4F00DC591E /* TDForTag.h in Headers */,
 				D3A29DB618E60E4500DC591E /* TDVariableNode.h in Headers */,
@@ -556,6 +563,7 @@
 				D3A29E0718E6584D00DC591E /* XPValue.m in Sources */,
 				D3A29E3218E75D3B00DC591E /* XPRelationalExpression.m in Sources */,
 				D3A29DC318E6206600DC591E /* TDFragment.m in Sources */,
+				D3A29E3E18E7B31A00DC591E /* XPObjectValue.m in Sources */,
 				D3A29E2E18E75D3B00DC591E /* XPBinaryExpression.m in Sources */,
 				D3A29D8418E5F57E00DC591E /* TDTemplateEngine.m in Sources */,
 				D3A29E0018E6584D00DC591E /* XPBooleanValue.m in Sources */,

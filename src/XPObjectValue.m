@@ -20,11 +20,36 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "XPExpression.h"
+#import "XPObjectValue.h"
 
-@interface XPPathExpression : XPExpression
+@interface XPObjectValue ()
+@property (nonatomic, retain) id value;
+@end
 
-+ (XPPathExpression *)pathExpressionWithSteps:(NSArray *)steps;
+@implementation XPObjectValue
 
-- (id)initWithSteps:(NSArray *)steps;
++ (XPObjectValue *)objectValueWithObject:(id)o {
+    return [[[self alloc] initWithObject:o] autorelease];
+}
+
+
+- (id)initWithObject:(id)o {
+    self = [super init];
+    if (self) {
+        self.value = o;
+    }
+    return self;
+}
+
+
+- (void)dealloc {
+    self.value = nil;
+    [super dealloc];
+}
+
+
+- (XPDataType)dataType {
+    return XPDataTypeObject;
+}
+
 @end

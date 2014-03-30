@@ -24,7 +24,7 @@
 #import "XPBooleanValue.h"
 #import "XPNumericValue.h"
 #import "XPStringValue.h"
-#import "XPBooleanValue.h"
+#import "XPObjectValue.h"
 #import <TDTemplateEngine/TDTemplateContext.h>
 
 @interface XPPathExpression ()
@@ -33,11 +33,6 @@
 @end
 
 @implementation XPPathExpression
-
-+ (XPPathExpression *)pathExpression {
-    return [[[self alloc] initWithSteps:nil] autorelease];
-}
-
 
 + (XPPathExpression *)pathExpressionWithSteps:(NSArray *)steps {
     return [[[self alloc] initWithSteps:steps] autorelease];
@@ -69,8 +64,6 @@
 
 
 - (XPExpression *)simplify {
-    
-    // TODO
     return self;
 }
 
@@ -91,20 +84,11 @@
         } else if ([obj isKindOfClass:[NSNumber class]]) {
             result = [XPNumericValue numericValueWithNumber:[obj doubleValue]];
         } else {
-            //result = [XPObjectValue objectValueWithObject:obj];
+            result = [XPObjectValue objectValueWithObject:obj];
         }
     }
     
     return result;
-}
-
-
-- (BOOL)evaluateAsBooleanInContext:(TDTemplateContext *)ctx {
-//    XPValue *s1 = [self.p1 evaluateInContext:ctx];
-//    XPValue *s2 = [self.p2 evaluateInContext:ctx];
-//    
-//    return [s1 compareToValue:s2 usingOperator:self.operator];
-    return NO;
 }
 
 
