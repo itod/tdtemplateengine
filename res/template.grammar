@@ -1,0 +1,29 @@
+template 
+	= out
+	| tag 
+	| text
+	;
+
+out 
+	= 'out'
+	;
+
+tag 
+	= openTag tagBody closeTag
+	;
+
+openTag 
+	= 'openTag'
+	;
+
+closeTag
+	= 'closeTag'
+	;
+
+tagBody 
+	= template
+	;
+
+text 
+	= Any
+	;
