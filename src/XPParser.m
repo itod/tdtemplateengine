@@ -226,24 +226,39 @@
     [self fireDelegateSelector:@selector(parser:didMatchNeOp:)];
 }
 
+- (void)eqExpr_ {
+    
+    [self eqOp_]; 
+    [self relationalExpr_]; 
+
+    [self fireDelegateSelector:@selector(parser:didMatchEqExpr:)];
+}
+
+- (void)neExpr_ {
+    
+    [self neOp_]; 
+    [self relationalExpr_]; 
+
+    [self fireDelegateSelector:@selector(parser:didMatchNeExpr:)];
+}
+
 - (void)equalityExpr_ {
     
     [self relationalExpr_]; 
-    while ([self speculate:^{ if ([self predicts:XP_TOKEN_KIND_DOUBLE_EQUALS, XP_TOKEN_KIND_EQ, XP_TOKEN_KIND_EQUALS, 0]) {[self eqOp_]; } else if ([self predicts:XP_TOKEN_KIND_NE, XP_TOKEN_KIND_NOT_EQUAL, 0]) {[self neOp_]; } else {[self raise:@"No viable alternative found in rule 'equalityExpr'."];}[self relationalExpr_]; }]) {
+    while ([self speculate:^{ if ([self predicts:XP_TOKEN_KIND_DOUBLE_EQUALS, XP_TOKEN_KIND_EQ, XP_TOKEN_KIND_EQUALS, 0]) {[self eqExpr_]; } else if ([self predicts:XP_TOKEN_KIND_NE, XP_TOKEN_KIND_NOT_EQUAL, 0]) {[self neExpr_]; } else {[self raise:@"No viable alternative found in rule 'equalityExpr'."];}}]) {
         if ([self predicts:XP_TOKEN_KIND_DOUBLE_EQUALS, XP_TOKEN_KIND_EQ, XP_TOKEN_KIND_EQUALS, 0]) {
-            [self eqOp_]; 
+            [self eqExpr_]; 
         } else if ([self predicts:XP_TOKEN_KIND_NE, XP_TOKEN_KIND_NOT_EQUAL, 0]) {
-            [self neOp_]; 
+            [self neExpr_]; 
         } else {
             [self raise:@"No viable alternative found in rule 'equalityExpr'."];
         }
-        [self relationalExpr_]; 
         [self execute:^{
         
-	XPValue *rhs = POP();
-	NSInteger op = POP_INT();
-	XPValue *lhs = POP();
-    PUSH([XPRelationalExpression relationalExpressionWithOperand:lhs operator:op operand:rhs]);
+		XPValue *rhs = POP();
+		NSInteger op = POP_INT();
+		XPValue *lhs = POP();
+	    PUSH([XPRelationalExpression relationalExpressionWithOperand:lhs operator:op operand:rhs]);
 
         }];
     }
