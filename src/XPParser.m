@@ -127,7 +127,6 @@
     
     [self orExpr_]; 
 
-    [self fireDelegateSelector:@selector(parser:didMatchExpr:)];
 }
 
 - (void)orOp_ {
@@ -140,7 +139,6 @@
         [self raise:@"No viable alternative found in rule 'orOp'."];
     }
 
-    [self fireDelegateSelector:@selector(parser:didMatchOrOp:)];
 }
 
 - (void)orExpr_ {
@@ -158,7 +156,6 @@
         }];
     }
 
-    [self fireDelegateSelector:@selector(parser:didMatchOrExpr:)];
 }
 
 - (void)andOp_ {
@@ -171,7 +168,6 @@
         [self raise:@"No viable alternative found in rule 'andOp'."];
     }
 
-    [self fireDelegateSelector:@selector(parser:didMatchAndOp:)];
 }
 
 - (void)andExpr_ {
@@ -189,7 +185,6 @@
         }];
     }
 
-    [self fireDelegateSelector:@selector(parser:didMatchAndExpr:)];
 }
 
 - (void)eqOp_ {
@@ -207,7 +202,6 @@
      PUSH(@(XP_TOKEN_KIND_EQ)); 
     }];
 
-    [self fireDelegateSelector:@selector(parser:didMatchEqOp:)];
 }
 
 - (void)neOp_ {
@@ -223,7 +217,6 @@
      PUSH(@(XP_TOKEN_KIND_NE)); 
     }];
 
-    [self fireDelegateSelector:@selector(parser:didMatchNeOp:)];
 }
 
 - (void)equalityExpr_ {
@@ -248,7 +241,6 @@
         }];
     }
 
-    [self fireDelegateSelector:@selector(parser:didMatchEqualityExpr:)];
 }
 
 - (void)ltOp_ {
@@ -264,7 +256,6 @@
      PUSH(@(XP_TOKEN_KIND_LT)); 
     }];
 
-    [self fireDelegateSelector:@selector(parser:didMatchLtOp:)];
 }
 
 - (void)gtOp_ {
@@ -280,7 +271,6 @@
      PUSH(@(XP_TOKEN_KIND_GT)); 
     }];
 
-    [self fireDelegateSelector:@selector(parser:didMatchGtOp:)];
 }
 
 - (void)leOp_ {
@@ -296,7 +286,6 @@
      PUSH(@(XP_TOKEN_KIND_LE)); 
     }];
 
-    [self fireDelegateSelector:@selector(parser:didMatchLeOp:)];
 }
 
 - (void)geOp_ {
@@ -312,7 +301,6 @@
      PUSH(@(XP_TOKEN_KIND_GE)); 
     }];
 
-    [self fireDelegateSelector:@selector(parser:didMatchGeOp:)];
 }
 
 - (void)relationalExpr_ {
@@ -341,7 +329,6 @@
         }];
     }
 
-    [self fireDelegateSelector:@selector(parser:didMatchRelationalExpr:)];
 }
 
 - (void)plus_ {
@@ -351,7 +338,6 @@
      PUSH(@(XP_TOKEN_KIND_PLUS)); 
     }];
 
-    [self fireDelegateSelector:@selector(parser:didMatchPlus:)];
 }
 
 - (void)minus_ {
@@ -361,7 +347,6 @@
      PUSH(@(XP_TOKEN_KIND_MINUS)); 
     }];
 
-    [self fireDelegateSelector:@selector(parser:didMatchMinus:)];
 }
 
 - (void)additiveExpr_ {
@@ -386,7 +371,6 @@
         }];
     }
 
-    [self fireDelegateSelector:@selector(parser:didMatchAdditiveExpr:)];
 }
 
 - (void)times_ {
@@ -396,7 +380,6 @@
      PUSH(@(XP_TOKEN_KIND_TIMES)); 
     }];
 
-    [self fireDelegateSelector:@selector(parser:didMatchTimes:)];
 }
 
 - (void)div_ {
@@ -406,7 +389,6 @@
      PUSH(@(XP_TOKEN_KIND_DIV)); 
     }];
 
-    [self fireDelegateSelector:@selector(parser:didMatchDiv:)];
 }
 
 - (void)mod_ {
@@ -416,7 +398,6 @@
      PUSH(@(XP_TOKEN_KIND_MOD)); 
     }];
 
-    [self fireDelegateSelector:@selector(parser:didMatchMod:)];
 }
 
 - (void)multiplicativeExpr_ {
@@ -443,7 +424,6 @@
         }];
     }
 
-    [self fireDelegateSelector:@selector(parser:didMatchMultiplicativeExpr:)];
 }
 
 - (void)unaryExpr_ {
@@ -456,7 +436,6 @@
         [self raise:@"No viable alternative found in rule 'unaryExpr'."];
     }
 
-    [self fireDelegateSelector:@selector(parser:didMatchUnaryExpr:)];
 }
 
 - (void)negPrimary_ {
@@ -481,7 +460,6 @@
 
     }];
 
-    [self fireDelegateSelector:@selector(parser:didMatchNegPrimary:)];
 }
 
 - (void)primary_ {
@@ -494,7 +472,6 @@
         [self raise:@"No viable alternative found in rule 'primary'."];
     }
 
-    [self fireDelegateSelector:@selector(parser:didMatchPrimary:)];
 }
 
 - (void)subExpr_ {
@@ -510,7 +487,6 @@
 
     }];
 
-    [self fireDelegateSelector:@selector(parser:didMatchSubExpr:)];
 }
 
 - (void)atom_ {
@@ -523,7 +499,6 @@
         [self raise:@"No viable alternative found in rule 'atom'."];
     }
 
-    [self fireDelegateSelector:@selector(parser:didMatchAtom:)];
 }
 
 - (void)pathExpr_ {
@@ -546,7 +521,6 @@
 
     }];
 
-    [self fireDelegateSelector:@selector(parser:didMatchPathExpr:)];
 }
 
 - (void)step_ {
@@ -559,14 +533,12 @@
         [self raise:@"No viable alternative found in rule 'step'."];
     }
 
-    [self fireDelegateSelector:@selector(parser:didMatchStep:)];
 }
 
 - (void)identifier_ {
     
     [self matchWord:NO]; 
 
-    [self fireDelegateSelector:@selector(parser:didMatchIdentifier:)];
 }
 
 - (void)literal_ {
@@ -581,7 +553,6 @@
         [self raise:@"No viable alternative found in rule 'literal'."];
     }
 
-    [self fireDelegateSelector:@selector(parser:didMatchLiteral:)];
 }
 
 - (void)bool_ {
@@ -600,7 +571,6 @@
         [self raise:@"No viable alternative found in rule 'bool'."];
     }
 
-    [self fireDelegateSelector:@selector(parser:didMatchBool:)];
 }
 
 - (void)true_ {
@@ -613,7 +583,6 @@
         [self raise:@"No viable alternative found in rule 'true'."];
     }
 
-    [self fireDelegateSelector:@selector(parser:didMatchTrue:)];
 }
 
 - (void)false_ {
@@ -626,7 +595,6 @@
         [self raise:@"No viable alternative found in rule 'false'."];
     }
 
-    [self fireDelegateSelector:@selector(parser:didMatchFalse:)];
 }
 
 - (void)num_ {
@@ -638,7 +606,6 @@
 
     }];
 
-    [self fireDelegateSelector:@selector(parser:didMatchNum:)];
 }
 
 - (void)str_ {
@@ -650,7 +617,6 @@
 
     }];
 
-    [self fireDelegateSelector:@selector(parser:didMatchStr:)];
 }
 
 @end
