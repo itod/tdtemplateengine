@@ -114,21 +114,19 @@ multiplicativeExpr = unaryExpr ((times | div | mod) unaryExpr {
 	XPValue *lhs = POP();
     PUSH([XPArithmeticExpression arithmeticExpressionWithOperand:lhs operator:op operand:rhs]);
 })*;
-unaryExpr 
-	= negPrimary
-	| primary
-	;
+
+unaryExpr = negPrimary | primary;
 negPrimary 
 @before {
-	ASSERT(!_negative); 
 	_negative = NO; 
 }
-	= ('-'! { _negative = !_negative; })+ primary {
+@after {
 	double d = POP_DOUBLE();
 	d = (_negative) ? -d : d;
 	PUSH([XPNumericValue numericValueWithNumber:d]);
-	_negative = NO;
-};
+}
+	= ('-'! { _negative = !_negative; })+ primary;
+
 primary = atom | subExpr;
 
 subExpr
