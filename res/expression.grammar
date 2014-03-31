@@ -31,101 +31,101 @@
     [t.symbolState add:@">="];
     [t.symbolState add:@"&&"];
     [t.symbolState add:@"||"];
-	
-	[t setTokenizerState:t.symbolState from:'-' to:'-'];
-	return t;
+    
+    [t setTokenizerState:t.symbolState from:'-' to:'-'];
+    return t;
 \}
 
 }
 
 @init {
-	self.tokenizer = [[self class] makeTokenizer];
+    self.tokenizer = [[self class] makeTokenizer];
     self.openParen = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"(" doubleValue:0.0];
     self.minus = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"-" doubleValue:0.0];
 }
 
 @dealloc {
     self.openParen = nil;
-	self.minus = nil;
+    self.minus = nil;
 }
 
 expr    = orExpr;
 
-orOp 	=  'or'! | '||'!;
+orOp    =  'or'! | '||'!;
 orExpr  = andExpr (orOp andExpr {
-	XPValue *rhs = POP();
-	XPValue *lhs = POP();
+    XPValue *rhs = POP();
+    XPValue *lhs = POP();
     PUSH([XPBooleanExpression booleanExpressionWithOperand:lhs operator:XP_TOKEN_KIND_OR operand:rhs]);
 })*;
 
-andOp 	= 'and'! | '&&'!;
+andOp   = 'and'! | '&&'!;
 andExpr = equalityExpr (andOp equalityExpr {
-	XPValue *rhs = POP();
-	XPValue *lhs = POP();
+    XPValue *rhs = POP();
+    XPValue *lhs = POP();
     PUSH([XPBooleanExpression booleanExpressionWithOperand:lhs operator:XP_TOKEN_KIND_AND operand:rhs]);
 })*;
 
-eqOp 	@after { PUSH(@(XP_TOKEN_KIND_EQ)); }
-		=  '='! | '=='! | 'eq'!;
-neOp 	@after { PUSH(@(XP_TOKEN_KIND_NE)); }
-		= '!='! | 'ne'!;
+eqOp    @after { PUSH(@(XP_TOKEN_KIND_EQ)); }
+        =  '='! | '=='! | 'eq'!;
+neOp    @after { PUSH(@(XP_TOKEN_KIND_NE)); }
+        = '!='! | 'ne'!;
 equalityExpr = relationalExpr ((eqOp | neOp) relationalExpr {
-	XPValue *rhs = POP();
-	NSInteger op = POP_INT();
-	XPValue *lhs = POP();
+    XPValue *rhs = POP();
+    NSInteger op = POP_INT();
+    XPValue *lhs = POP();
     PUSH([XPRelationalExpression relationalExpressionWithOperand:lhs operator:op operand:rhs]);
 })*;
 
-ltOp 	@after { PUSH(@(XP_TOKEN_KIND_LT)); }
-		=  '<'! | 'lt'!;
-gtOp 	@after { PUSH(@(XP_TOKEN_KIND_GT)); }
-		=  '>'! | 'gt'!;
-leOp 	@after { PUSH(@(XP_TOKEN_KIND_LE)); }
-		= '<='! | 'le'!;
-geOp 	@after { PUSH(@(XP_TOKEN_KIND_GE)); }
-		= '>='! | 'ge'!;
+ltOp    @after { PUSH(@(XP_TOKEN_KIND_LT)); }
+        =  '<'! | 'lt'!;
+gtOp    @after { PUSH(@(XP_TOKEN_KIND_GT)); }
+        =  '>'! | 'gt'!;
+leOp    @after { PUSH(@(XP_TOKEN_KIND_LE)); }
+        = '<='! | 'le'!;
+geOp    @after { PUSH(@(XP_TOKEN_KIND_GE)); }
+        = '>='! | 'ge'!;
 relationalExpr = additiveExpr ((ltOp | gtOp | leOp | geOp) additiveExpr {
-	XPValue *rhs = POP();
-	NSInteger op = POP_INT();
-	XPValue *lhs = POP();
+    XPValue *rhs = POP();
+    NSInteger op = POP_INT();
+    XPValue *lhs = POP();
     PUSH([XPRelationalExpression relationalExpressionWithOperand:lhs operator:op operand:rhs]);
 })*;
 
-plus	@after { PUSH(@(XP_TOKEN_KIND_PLUS)); }
-		= '+'!;
-minus	@after { PUSH(@(XP_TOKEN_KIND_MINUS)); }
-		= '-'!;
+plus    @after { PUSH(@(XP_TOKEN_KIND_PLUS)); }
+        = '+'!;
+minus   @after { PUSH(@(XP_TOKEN_KIND_MINUS)); }
+        = '-'!;
 additiveExpr = multiplicativeExpr ((plus | minus) multiplicativeExpr {
-	XPValue *rhs = POP();
-	NSInteger op = POP_INT();
-	XPValue *lhs = POP();
+    XPValue *rhs = POP();
+    NSInteger op = POP_INT();
+    XPValue *lhs = POP();
     PUSH([XPArithmeticExpression arithmeticExpressionWithOperand:lhs operator:op operand:rhs]);
 })*;
 
-times	@after { PUSH(@(XP_TOKEN_KIND_TIMES)); }
-		= '*'!;
-div		@after { PUSH(@(XP_TOKEN_KIND_DIV)); }
-		= '/'!;
-mod		@after { PUSH(@(XP_TOKEN_KIND_MOD)); }
-		= '%'!;
+times   @after { PUSH(@(XP_TOKEN_KIND_TIMES)); }
+        = '*'!;
+div     @after { PUSH(@(XP_TOKEN_KIND_DIV)); }
+        = '/'!;
+mod     @after { PUSH(@(XP_TOKEN_KIND_MOD)); }
+        = '%'!;
 multiplicativeExpr = unaryExpr ((times | div | mod) unaryExpr {
-	XPValue *rhs = POP();
-	NSInteger op = POP_INT();
-	XPValue *lhs = POP();
+    XPValue *rhs = POP();
+    NSInteger op = POP_INT();
+    XPValue *lhs = POP();
     PUSH([XPArithmeticExpression arithmeticExpressionWithOperand:lhs operator:op operand:rhs]);
 })*;
 
 unaryExpr = negPrimary | primary;
 negPrimary 
 @before {
-	_negative = NO; 
+    _negative = NO; 
 }
 @after {
-	double d = POP_DOUBLE();
-	d = (_negative) ? -d : d;
-	PUSH([XPNumericValue numericValueWithNumber:d]);
+    double d = POP_DOUBLE();
+    d = (_negative) ? -d : d;
+    PUSH([XPNumericValue numericValueWithNumber:d]);
 }
-	= ('-'! { _negative = !_negative; })+ primary;
+    = ('-'! { _negative = !_negative; })+ primary;
 
 primary = atom | subExpr;
 
@@ -133,21 +133,21 @@ subExpr
     = '(' expr ')'! {
     id objs = ABOVE(_openParen);
     POP(); // discard `(`
-	PUSH_ALL(REV(objs));
+    PUSH_ALL(REV(objs));
 };
 
 atom = literal | pathExpr;
 
 pathExpr
 @before {
-	PUSH(_openParen);
+    PUSH(_openParen);
 }
 @after {
-	id toks = REV(ABOVE(_openParen));
-	POP(); // discard `_openParen`
-	PUSH([XPPathExpression pathExpressionWithSteps:toks]);
+    id toks = REV(ABOVE(_openParen));
+    POP(); // discard `_openParen`
+    PUSH([XPPathExpression pathExpressionWithSteps:toks]);
 }
-	= identifier ('.'! step)*;
+    = identifier ('.'! step)*;
 
 step = identifier | num;
 identifier = Word;
