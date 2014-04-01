@@ -156,10 +156,6 @@
         return nil;
     }
 
-//    TDAssert(_delimiterRegex);
-//    NSArray *frags = [_delimiterRegex matchesInString:str options:NSMatchingReportCompletion range:NSMakeRange(0, [str length])];
-//    TDAssert([frags count]);
-
     NSUInteger varStartDelimLen = [_varStartDelimiter length];
     NSUInteger varEndDelimLen = [_varEndDelimiter length];
     NSUInteger tagStartDelimLen = [_tagStartDelimiter length];
@@ -174,7 +170,7 @@
         NSString *str = [inStr substringWithRange:currRange];
         NSUInteger len = [str length];
         if (!len) return;
-        NSLog(@"%@", str);
+        //NSLog(@"%@", str);
 
         // detect text node
         NSUInteger diff = currRange.location - NSMaxRange(lastRange);
@@ -202,18 +198,14 @@
             str = [str stringByTrimmingCharactersInSet:wsSet];
             
             if ([str hasPrefix:@"/"]) {
-//                str = [str substringFromIndex:1];
+                //str = [str substringFromIndex:1];
                 kind = TDTEMPLATE_TOKEN_KIND_BLOCK_END_TAG;
             } else {
                 kind = TDTEMPLATE_TOKEN_KIND_BLOCK_START_TAG;
             }
 
-//        } else if ([str hasPrefix:_tagEndDelimiter]) {
-//            kind = TDTEMPLATE_TOKEN_KIND_BLOCK_START_TAG;
-//            kind = TDTEMPLATE_TOKEN_KIND_BLOCK_END_TAG;
         } else {
             TDAssert(0);
-            kind = TDTEMPLATE_TOKEN_KIND_TEXT;
         }
         
         PKToken *frag = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:str doubleValue:0.0];
@@ -254,38 +246,10 @@
 
 - (TDNode *)compile:(NSArray *)frags {
     
-    TDNode *root = nil;
-    
     TDTemplateParser *p = [[[TDTemplateParser alloc] initWithDelegate:nil] autorelease];
     
     NSError *err = nil;
-    root = [p parseTokens:frags error:&err];
-    
-//    NSMutableArray *scopeStack = [NSMutableArray arrayWithObject:root];
-//    
-//    for (PKToken *frag in frags) {
-//        if (![scopeStack count]) {
-//            TDAssert(0);
-//            //raise TemplateError('nesting issues')
-//        }
-//    
-//        TDNode *parentScope = [scopeStack lastObject];
-//        if (frag.tokenKind == TDTEMPLATE_TOKEN_KIND_BLOCK_END_TAG) {
-//            [parentScope exitScope];
-//            [scopeStack removeLastObject];
-//            continue;
-//        }
-//        
-//        TDNode *newNode = [self makeNode:frag];
-//        
-//        if (newNode) {
-//            [parentScope.children addObject:newNode];
-//            if (newNode.createsScope) {
-//                [scopeStack addObject:newNode];
-//                [newNode enterScope];
-//            }
-//        }
-//    }
+    TDNode *root = [p parseTokens:frags error:&err];
     
     return root;
 }
