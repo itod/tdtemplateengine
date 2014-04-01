@@ -20,7 +20,7 @@
 		D3A29D8E18E5F5C000DC591E /* TDTemplateEngineTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29D8D18E5F5C000DC591E /* TDTemplateEngineTests.m */; };
 		D3A29D9218E5F5D900DC591E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D3A29D9018E5F5D900DC591E /* InfoPlist.strings */; };
 		D3A29D9418E5F60100DC591E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3A29D9318E5F60100DC591E /* Foundation.framework */; };
-		D3A29DAA18E609E700DC591E /* TDNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29DA818E609E700DC591E /* TDNode.h */; };
+		D3A29DAA18E609E700DC591E /* TDNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29DA818E609E700DC591E /* TDNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3A29DAB18E609E700DC591E /* TDNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29DA918E609E700DC591E /* TDNode.m */; };
 		D3A29DB318E60C1B00DC591E /* PEGKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3A29D9E18E5F6AB00DC591E /* PEGKit.framework */; };
 		D3A29DB618E60E4500DC591E /* TDVariableNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29DB418E60E4500DC591E /* TDVariableNode.h */; };

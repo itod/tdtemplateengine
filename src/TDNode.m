@@ -24,7 +24,9 @@
 #import <PEGKit/PKToken.h>
 
 @interface TDNode ()
-
+- (void)processFragment;
+- (void)enterScope;
+- (void)exitScope;
 @end
 
 @implementation TDNode

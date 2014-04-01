@@ -29,9 +29,5 @@
 
 + (instancetype)nodeWithToken:(PKToken *)frag;
 
-- (void)processFragment;
 - (NSString *)renderInContext:(id <TDScope>)ctx;
-
-- (void)enterScope;
-- (void)exitScope;
 @end
