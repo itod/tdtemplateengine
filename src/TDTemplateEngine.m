@@ -98,7 +98,11 @@
     TDAssert([_tagStartDelimiter length]);
     TDAssert([_tagEndDelimiter length]);
 
+    // lex
     NSArray *frags = [self fragmentsFromString:inStr];
+    TDAssert(frags);
+    
+    // compile
     TDNode *root = [self compile:frags];
     return root;
 }
@@ -106,8 +110,8 @@
 
 - (NSString *)renderTemplateTree:(TDNode *)root withVariables:(NSDictionary *)vars {
     NSParameterAssert([root isKindOfClass:[TDRootNode class]]);
-    TDTemplateContext *dynamicContext = [[[TDTemplateContext alloc] initWithVariables:vars] autorelease];
 
+    TDTemplateContext *dynamicContext = [[[TDTemplateContext alloc] initWithVariables:vars] autorelease];
     TDAssert(_staticContext);
     dynamicContext.enclosingScope = _staticContext;
     
