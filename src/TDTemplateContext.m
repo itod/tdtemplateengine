@@ -23,7 +23,6 @@
 #import <TDTemplateEngine/TDTemplateContext.h>
 
 @interface TDTemplateContext ()
-@property (nonatomic, retain) NSDictionary *vars;
 @end
 
 @implementation TDTemplateContext
@@ -31,23 +30,15 @@
 - (instancetype)initWithVariables:(NSDictionary *)vars {
     self = [super init];
     if (self) {
-        self.vars = vars;
+        [self.vars addEntriesFromDictionary:vars];
     }
     return self;
 }
 
 
 - (void)dealloc {
-    self.vars = nil;
+    
     [super dealloc];
-}
-
-
-#pragma mark -
-#pragma mark Public
-
-- (NSString *)resolveVariable:(NSString *)name {
-    return _vars[name];
 }
 
 @end

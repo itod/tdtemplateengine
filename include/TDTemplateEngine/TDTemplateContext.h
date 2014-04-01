@@ -20,11 +20,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <Foundation/Foundation.h>
+#import <TDTemplateEngine/TDBaseScope.h>
 
-@interface TDTemplateContext : NSObject
+@interface TDTemplateContext : TDBaseScope
 
 - (instancetype)initWithVariables:(NSDictionary *)vars;
 
-- (NSString *)resolveVariable:(NSString *)name;
 @end
