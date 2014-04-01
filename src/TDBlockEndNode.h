@@ -22,6 +22,6 @@
 
 #import "TDNode.h"
 
-@interface TDEndBlockNode : TDNode
+@interface TDBlockEndNode : TDNode
 
 @end

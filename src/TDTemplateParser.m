@@ -3,6 +3,9 @@
     
 #import "TDRootNode.h"
 #import "TDVariableNode.h"
+#import "TDTextNode.h"
+#import "TDBlockEndNode.h"
+#import "TDBlockStartNode.h"
 
 
 @interface TDTemplateParser ()
@@ -51,7 +54,9 @@
 	PUSH(root);
 
     }];
-    [self content_]; 
+    do {
+        [self content_]; 
+    } while ([self predicts:TOKEN_KIND_BUILTIN_ANY, 0]);
     [self execute:^{
     
 	TDNode *root = POP();
@@ -82,8 +87,7 @@
     
 	PKToken *tok = POP();
 	TDNode *parent = POP();
-	TDVariableNode *node = [TDVariableNode nodeWithFragment:tok];
-	[parent addChild:node];
+	[parent addChild:[TDVariableNode nodeWithFragment:tok]];
 	PUSH(parent);
 
     }];
@@ -101,12 +105,28 @@
 - (void)block_start_tag_ {
     
     [self match:TDTEMPLATE_TOKEN_KIND_BLOCK_START_TAG discard:NO]; 
+    [self execute:^{
+    
+	PKToken *tok = POP();
+	TDNode *parent = POP();
+	[parent addChild:[TDBlockStartNode nodeWithFragment:tok]];
+	PUSH(parent);
+
+    }];
 
 }
 
 - (void)block_end_tag_ {
     
     [self match:TDTEMPLATE_TOKEN_KIND_BLOCK_END_TAG discard:NO]; 
+    [self execute:^{
+    
+	PKToken *tok = POP();
+	TDNode *parent = POP();
+	[parent addChild:[TDBlockEndNode nodeWithFragment:tok]];
+	PUSH(parent);
+
+    }];
 
 }
 
@@ -119,6 +139,14 @@
 - (void)text_ {
     
     [self match:TDTEMPLATE_TOKEN_KIND_TEXT discard:NO]; 
+    [self execute:^{
+    
+	PKToken *tok = POP();
+	TDNode *parent = POP();
+	[parent addChild:[TDTextNode nodeWithFragment:tok]];
+	PUSH(parent);
+
+    }];
 
 }
 

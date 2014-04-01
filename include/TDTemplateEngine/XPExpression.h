@@ -35,6 +35,7 @@ typedef NS_ENUM(NSUInteger, XPDataType) {
 
 @interface XPExpression : NSObject
 
++ (XPExpression *)expressionFromString:(NSString *)str error:(NSError **)outErr;
 + (XPExpression *)expressionFromTokens:(NSArray *)toks error:(NSError **)outErr;
 
 - (XPValue *)evaluateInContext:(TDTemplateContext *)ctx;

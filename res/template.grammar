@@ -1,6 +1,9 @@
 @m {
 #import "TDRootNode.h"
 #import "TDVariableNode.h"
+#import "TDTextNode.h"
+#import "TDBlockEndNode.h"
+#import "TDBlockStartNode.h"
 }
 
 template
@@ -12,7 +15,7 @@ template
 	TDNode *root = POP();
 	self.assembly.target = root;
 }
-	= content
+	= content+
 	;
 	
 content
@@ -25,28 +28,38 @@ var
 	= 'var' {
 	PKToken *tok = POP();
 	TDNode *parent = POP();
-	TDVariableNode *node = [TDVariableNode nodeWithFragment:tok];
-	[parent.children addObject:node];
+	[parent addChild:[TDVariableNode nodeWithFragment:tok]];
 	PUSH(parent);
-}
-	;
+};
 
 block 
 	= block_start_tag block_body block_end_tag
 	;
 
 block_start_tag 
-	= 'block_start_tag'
-	;
+	= 'block_start_tag' {
+	PKToken *tok = POP();
+	TDNode *parent = POP();
+	[parent addChild:[TDBlockStartNode nodeWithFragment:tok]];
+	PUSH(parent);
+};
 
 block_end_tag
-	= 'block_end_tag'
-	;
+	= 'block_end_tag' {
+	PKToken *tok = POP();
+	TDNode *parent = POP();
+	[parent addChild:[TDBlockEndNode nodeWithFragment:tok]];
+	PUSH(parent);
+};
 
 block_body 
 	= content
 	;
 
 text 
-	= 'text'
-	;
+	= 'text' {
+	PKToken *tok = POP();
+	TDNode *parent = POP();
+	[parent addChild:[TDTextNode nodeWithFragment:tok]];
+	PUSH(parent);
+};

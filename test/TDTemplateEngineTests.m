@@ -54,7 +54,7 @@
 }
 
 - (void)testIf1 {
-    NSString *input = @"{% if 1 %} text {% endif %}";
+    NSString *input = @"{% if 1 %} text {%/if %}";
     id vars = nil;
     
     NSString *res = [_engine processTemplateString:input withVariables:vars];
@@ -63,7 +63,7 @@
 }
 
 - (void)testIf0 {
-    NSString *input = @"{% if 0 %} text {% endif %}";
+    NSString *input = @"{% if 0 %} text {%/if %}";
     id vars = nil;
     
     NSString *res = [_engine processTemplateString:input withVariables:vars];
@@ -72,7 +72,7 @@
 }
 
 - (void)testIfYES {
-    NSString *input = @"{% if YES %} text {% endif %}";
+    NSString *input = @"{% if YES %} text {%/if %}";
     id vars = nil;
     
     NSString *res = [_engine processTemplateString:input withVariables:vars];
@@ -81,7 +81,7 @@
 }
 
 - (void)testIfNO {
-    NSString *input = @"{% if NO %} text {% endif %}";
+    NSString *input = @"{% if NO %} text {%/if %}";
     id vars = nil;
     
     NSString *res = [_engine processTemplateString:input withVariables:vars];
@@ -90,7 +90,7 @@
 }
 
 - (void)testIfTrue {
-    NSString *input = @"{% if true %} text {% endif %}";
+    NSString *input = @"{% if true %} text {%/if %}";
     id vars = nil;
     
     NSString *res = [_engine processTemplateString:input withVariables:vars];
@@ -99,7 +99,7 @@
 }
 
 - (void)testIfFalse {
-    NSString *input = @"{% if false %} text {% endif %}";
+    NSString *input = @"{% if false %} text {%/if %}";
     id vars = nil;
     
     NSString *res = [_engine processTemplateString:input withVariables:vars];
@@ -108,7 +108,7 @@
 }
 
 - (void)testIfOpenTrueClose {
-    NSString *input = @"{% if (true) %} text {% endif %}";
+    NSString *input = @"{% if (true) %} text {%/if %}";
     id vars = nil;
     
     NSString *res = [_engine processTemplateString:input withVariables:vars];
@@ -117,7 +117,7 @@
 }
 
 - (void)testIfOpenFalseClose {
-    NSString *input = @"{% if (false) %} text {% endif %}";
+    NSString *input = @"{% if (false) %} text {%/if %}";
     id vars = nil;
     
     NSString *res = [_engine processTemplateString:input withVariables:vars];
@@ -126,7 +126,7 @@
 }
 
 - (void)testIfSQString {
-    NSString *input = @"{% if 'hello' %} text {% endif %}";
+    NSString *input = @"{% if 'hello' %} text {%/if %}";
     id vars = nil;
     
     NSString *res = [_engine processTemplateString:input withVariables:vars];
@@ -135,7 +135,7 @@
 }
 
 - (void)testIfEmptySQString {
-    NSString *input = @"{% if '' %} text {% endif %}";
+    NSString *input = @"{% if '' %} text {%/if %}";
     id vars = nil;
     
     NSString *res = [_engine processTemplateString:input withVariables:vars];
@@ -144,7 +144,7 @@
 }
 
 - (void)testIf1Eq1 {
-    NSString *input = @"{% if 1 eq 1 %} text {% endif %}";
+    NSString *input = @"{% if 1 eq 1 %} text {%/if %}";
     id vars = nil;
     
     NSString *res = [_engine processTemplateString:input withVariables:vars];
@@ -153,7 +153,7 @@
 }
 
 - (void)testIf1EqSign1 {
-    NSString *input = @"{% if 1 = 1 %} text {% endif %}";
+    NSString *input = @"{% if 1 = 1 %} text {%/if %}";
     id vars = nil;
     
     NSString *res = [_engine processTemplateString:input withVariables:vars];
@@ -162,7 +162,7 @@
 }
 
 - (void)testIf1EqEqSign1 {
-    NSString *input = @"{% if 1 == 1 %} text {% endif %}";
+    NSString *input = @"{% if 1 == 1 %} text {%/if %}";
     id vars = nil;
     
     NSString *res = [_engine processTemplateString:input withVariables:vars];
@@ -171,7 +171,7 @@
 }
 
 - (void)testIf1Eq2 {
-    NSString *input = @"{% if 1 eq 2 %} text {% endif %}";
+    NSString *input = @"{% if 1 eq 2 %} text {%/if %}";
     id vars = nil;
     
     NSString *res = [_engine processTemplateString:input withVariables:vars];
@@ -180,7 +180,7 @@
 }
 
 - (void)testIf1EqSign2 {
-    NSString *input = @"{% if 1 = 2 %} text {% endif %}";
+    NSString *input = @"{% if 1 = 2 %} text {%/if %}";
     id vars = nil;
     
     NSString *res = [_engine processTemplateString:input withVariables:vars];
@@ -189,7 +189,7 @@
 }
 
 - (void)testIf1EqEqSign2 {
-    NSString *input = @"{% if 1 == 2 %} text {% endif %}";
+    NSString *input = @"{% if 1 == 2 %} text {%/if %}";
     id vars = nil;
     
     NSString *res = [_engine processTemplateString:input withVariables:vars];
@@ -198,7 +198,7 @@
 }
 
 - (void)testIf1Ne1 {
-    NSString *input = @"{% if 1 ne 1 %} text {% endif %}";
+    NSString *input = @"{% if 1 ne 1 %} text {%/if %}";
     id vars = nil;
     
     NSString *res = [_engine processTemplateString:input withVariables:vars];
@@ -207,7 +207,7 @@
 }
 
 - (void)testIf1NeSign1 {
-    NSString *input = @"{% if 1 != 1 %} text {% endif %}";
+    NSString *input = @"{% if 1 != 1 %} text {%/if %}";
     id vars = nil;
     
     NSString *res = [_engine processTemplateString:input withVariables:vars];
@@ -216,7 +216,7 @@
 }
 
 - (void)testIf1Ne2 {
-    NSString *input = @"{% if 1 ne 2 %} text {% endif %}";
+    NSString *input = @"{% if 1 ne 2 %} text {%/if %}";
     id vars = nil;
     
     NSString *res = [_engine processTemplateString:input withVariables:vars];
@@ -225,7 +225,7 @@
 }
 
 - (void)testIf1NeSign2 {
-    NSString *input = @"{% if 1 != 2 %} text {% endif %}";
+    NSString *input = @"{% if 1 != 2 %} text {%/if %}";
     id vars = nil;
     
     NSString *res = [_engine processTemplateString:input withVariables:vars];
@@ -234,7 +234,7 @@
 }
 
 - (void)testIf1Lt1 {
-    NSString *input = @"{% if 1 < 1 %} text {% endif %}";
+    NSString *input = @"{% if 1 < 1 %} text {%/if %}";
     id vars = nil;
     
     NSString *res = [_engine processTemplateString:input withVariables:vars];
@@ -243,7 +243,7 @@
 }
 
 - (void)testIf1LtEq1 {
-    NSString *input = @"{% if 1 <= 1 %} text {% endif %}";
+    NSString *input = @"{% if 1 <= 1 %} text {%/if %}";
     id vars = nil;
     
     NSString *res = [_engine processTemplateString:input withVariables:vars];
@@ -252,7 +252,7 @@
 }
 
 - (void)testIf1Lt2 {
-    NSString *input = @"{% if 1 < 2 %} text {% endif %}";
+    NSString *input = @"{% if 1 < 2 %} text {%/if %}";
     id vars = nil;
     
     NSString *res = [_engine processTemplateString:input withVariables:vars];
@@ -261,7 +261,7 @@
 }
 
 - (void)testIf1LtEq2 {
-    NSString *input = @"{% if 1 <= 2 %} text {% endif %}";
+    NSString *input = @"{% if 1 <= 2 %} text {%/if %}";
     id vars = nil;
     
     NSString *res = [_engine processTemplateString:input withVariables:vars];
@@ -270,7 +270,7 @@
 }
 
 - (void)testIf1Gt1 {
-    NSString *input = @"{% if 1 > 1 %} text {% endif %}";
+    NSString *input = @"{% if 1 > 1 %} text {%/if %}";
     id vars = nil;
     
     NSString *res = [_engine processTemplateString:input withVariables:vars];
@@ -279,7 +279,7 @@
 }
 
 - (void)testIf1GtEq1 {
-    NSString *input = @"{% if 1 >= 1 %} text {% endif %}";
+    NSString *input = @"{% if 1 >= 1 %} text {%/if %}";
     id vars = nil;
     
     NSString *res = [_engine processTemplateString:input withVariables:vars];
@@ -288,7 +288,7 @@
 }
 
 - (void)testIf1Gt2 {
-    NSString *input = @"{% if 1 > 2 %} text {% endif %}";
+    NSString *input = @"{% if 1 > 2 %} text {%/if %}";
     id vars = nil;
     
     NSString *res = [_engine processTemplateString:input withVariables:vars];
@@ -297,7 +297,7 @@
 }
 
 - (void)testIf1GtEq2 {
-    NSString *input = @"{% if 1 >= 2 %} text {% endif %}";
+    NSString *input = @"{% if 1 >= 2 %} text {%/if %}";
     id vars = nil;
     
     NSString *res = [_engine processTemplateString:input withVariables:vars];
@@ -306,7 +306,7 @@
 }
 
 - (void)testIf1And0 {
-    NSString *input = @"{% if 1 and 0 %} text {% endif %}";
+    NSString *input = @"{% if 1 and 0 %} text {%/if %}";
     id vars = nil;
     
     NSString *res = [_engine processTemplateString:input withVariables:vars];
@@ -315,7 +315,7 @@
 }
 
 - (void)testIf0And1 {
-    NSString *input = @"{% if 0 and 1 %} text {% endif %}";
+    NSString *input = @"{% if 0 and 1 %} text {%/if %}";
     id vars = nil;
     
     NSString *res = [_engine processTemplateString:input withVariables:vars];
@@ -324,7 +324,7 @@
 }
 
 - (void)testIf1And1 {
-    NSString *input = @"{% if 1 and 1 %} text {% endif %}";
+    NSString *input = @"{% if 1 and 1 %} text {%/if %}";
     id vars = nil;
     
     NSString *res = [_engine processTemplateString:input withVariables:vars];
@@ -333,7 +333,7 @@
 }
 
 - (void)testIf1Or0 {
-    NSString *input = @"{% if 1 or 0 %} text {% endif %}";
+    NSString *input = @"{% if 1 or 0 %} text {%/if %}";
     id vars = nil;
     
     NSString *res = [_engine processTemplateString:input withVariables:vars];
@@ -342,7 +342,7 @@
 }
 
 - (void)testIf0Or1 {
-    NSString *input = @"{% if 0 or 1 %} text {% endif %}";
+    NSString *input = @"{% if 0 or 1 %} text {%/if %}";
     id vars = nil;
     
     NSString *res = [_engine processTemplateString:input withVariables:vars];
@@ -351,7 +351,7 @@
 }
 
 - (void)testIf1Or1 {
-    NSString *input = @"{% if 1 or 1 %} text {% endif %}";
+    NSString *input = @"{% if 1 or 1 %} text {%/if %}";
     id vars = nil;
     
     NSString *res = [_engine processTemplateString:input withVariables:vars];
@@ -360,7 +360,7 @@
 }
 
 - (void)testIf1SpacePlusSpace2 {
-    NSString *input = @"{% if 1 + 2 %} text {% endif %}";
+    NSString *input = @"{% if 1 + 2 %} text {%/if %}";
     id vars = nil;
     
     NSString *res = [_engine processTemplateString:input withVariables:vars];
@@ -369,7 +369,7 @@
 }
 
 - (void)testIf1Plus2 {
-    NSString *input = @"{% if 1+2 %} text {% endif %}";
+    NSString *input = @"{% if 1+2 %} text {%/if %}";
     id vars = nil;
     
     NSString *res = [_engine processTemplateString:input withVariables:vars];
@@ -378,7 +378,7 @@
 }
 
 - (void)testIf1SpaceMinusSpace1 {
-    NSString *input = @"{% if 1 - 1 %} text {% endif %}";
+    NSString *input = @"{% if 1 - 1 %} text {%/if %}";
     id vars = nil;
     
     NSString *res = [_engine processTemplateString:input withVariables:vars];

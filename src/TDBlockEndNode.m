@@ -20,9 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "TDNode.h"
+#import "TDBlockEndNode.h"
 
-@interface TDStartBlockNode : TDNode
+@implementation TDBlockEndNode
 
-@property (nonatomic, retain) NSString *tagName;
 @end

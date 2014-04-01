@@ -37,8 +37,7 @@
 
 - (void)processFragment:(PKToken *)frag {
     NSParameterAssert(frag);
-//    TDAssert(!frag.tokens);
-//    TDAssert([frag.string length]);
+    TDAssert([frag.stringValue length]);
 
     self.string = frag.stringValue;
 }

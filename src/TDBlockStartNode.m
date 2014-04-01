@@ -20,21 +20,23 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "TDStartBlockNode.h"
+#import "TDBlockStartNode.h"
 #import <TDTemplateEngine/TDTag.h>
 #import <TDTemplateEngine/XPExpression.h>
 #import <PEGKit/PKToken.h>
+#import <PEGKit/PKTokenizer.h>
+#import "XPParser.h"
 
 @interface TDNode ()
 - (NSString *)renderChildren:(NSArray *)children inContext:(TDTemplateContext *)ctx;
 @end
 
-@interface TDStartBlockNode ()
+@interface TDBlockStartNode ()
 @property (nonatomic, retain) TDTag *tag;
 @property (nonatomic, retain) NSArray *tokens;
 @end
 
-@implementation TDStartBlockNode
+@implementation TDBlockStartNode
 
 - (instancetype)initWithFragment:(PKToken *)frag {
     self = [super initWithFragment:frag];
@@ -58,32 +60,31 @@
 
 - (void)processFragment:(PKToken *)frag {
     NSParameterAssert(frag);
-//    TDAssert([frag.tokens count] > 1);
-//    
-//    NSUInteger i = 0;
-//    NSUInteger c = [frag.tokens count];
-//    
-//    NSMutableArray *toks = [NSMutableArray arrayWithCapacity:c-2];
-//    NSString *tagName = nil;
-//    
-//    for (PKToken *tok in frag.tokens) {
-//        ++i;
-//        if (1 == i || i == c) continue; // trim delimiter tokens.
-//        if (PKTokenTypeWhitespace == tok.tokenType) continue;
-//        
-//        if (!tagName && PKTokenTypeWord == tok.tokenType) {
-//            tagName = tok.stringValue;
-//            continue;
-//        }
-//        
-//        [toks addObject:tok];
-//    }
-//    
-//    self.tagName = tagName;
-//    self.tokens = toks;
-//    self.tag = [TDTag tagForName:tagName];
-//
-//    _tag.expression = [XPExpression expressionFromTokens:toks error:nil];
+    TDAssert([frag.stringValue length]);
+    
+    NSMutableArray *toks = [NSMutableArray array];
+
+    NSString *tagName = nil;
+
+    PKTokenizer *t = [XPParser makeTokenizer];
+    PKToken *tok = nil;
+    PKToken *eof = [PKToken EOFToken];
+    while (eof != (tok = [t nextToken])) {
+        if (PKTokenTypeWhitespace == tok.tokenType) continue;
+        
+        if (!tagName && PKTokenTypeWord == tok.tokenType) {
+            tagName = tok.stringValue;
+            continue;
+        }
+        
+        [toks addObject:tok];
+    }
+    
+    self.tagName = tagName;
+    self.tokens = toks;
+    self.tag = [TDTag tagForName:tagName];
+
+    _tag.expression = [XPExpression expressionFromTokens:toks error:nil];
     
     TDAssert([_tokens count]);
     TDAssert(_tag);

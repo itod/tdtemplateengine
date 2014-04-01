@@ -26,8 +26,8 @@
 #import "TDRootNode.h"
 #import "TDTextNode.h"
 #import "TDVariableNode.h"
-#import "TDStartBlockNode.h"
-#import "TDEndBlockNode.h"
+#import "TDBlockStartNode.h"
+#import "TDBlockEndNode.h"
 
 #import <TDTemplateEngine/TDTemplateContext.h>
 
@@ -153,7 +153,7 @@
     NSError *err = nil;
     if (![self setUpDelimiterRegex:&err]) {
         NSLog(@"%@", err);
-        goto done;
+        return nil;
     }
 
 //    TDAssert(_delimiterRegex);
@@ -162,16 +162,32 @@
 
     NSUInteger varStartDelimLen = [_varStartDelimiter length];
     NSUInteger varEndDelimLen = [_varEndDelimiter length];
+    NSUInteger tagStartDelimLen = [_tagStartDelimiter length];
+    NSUInteger tagEndDelimLen = [_tagEndDelimiter length];
     
     NSCharacterSet *wsSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
 
-    NSRange r = NSMakeRange(0, [inStr length]);
-    [_delimiterRegex enumerateMatchesInString:inStr options:NSMatchingReportCompletion range:r usingBlock:^(NSTextCheckingResult *current, NSMatchingFlags flags, BOOL *stop) {
-        NSString *str = [inStr substringWithRange:current.range];
+    __block NSRange lastRange = NSMakeRange(0, 0);
+    [_delimiterRegex enumerateMatchesInString:inStr options:NSMatchingReportCompletion range:NSMakeRange(0, [inStr length]) usingBlock:^(NSTextCheckingResult *current, NSMatchingFlags flags, BOOL *stop) {
+        NSRange currRange = current.range;
+
+        NSString *str = [inStr substringWithRange:currRange];
         NSUInteger len = [str length];
         if (!len) return;
-        
         NSLog(@"%@", str);
+
+        // detect text node
+        NSUInteger diff = currRange.location - NSMaxRange(lastRange);
+        if (diff > 0) {
+            NSString *txt = [inStr substringWithRange:NSMakeRange(NSMaxRange(lastRange), diff)];
+            
+            PKToken *txtFrag = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:txt doubleValue:0.0];
+            txtFrag.tokenKind = TDTEMPLATE_TOKEN_KIND_TEXT;
+            
+            [frags addObject:txtFrag];
+        }
+        
+        lastRange = currRange;
         NSUInteger kind = 0;
         
         if ([str hasPrefix:_varStartDelimiter]) {
@@ -181,11 +197,23 @@
             str = [str stringByTrimmingCharactersInSet:wsSet];
             
         } else if ([str hasPrefix:_tagStartDelimiter]) {
-            kind = TDTEMPLATE_TOKEN_KIND_BLOCK_START_TAG;
-            kind = TDTEMPLATE_TOKEN_KIND_BLOCK_END_TAG;
+            str = [str substringToIndex:len - tagEndDelimLen];
+            str = [str substringFromIndex:tagStartDelimLen];
+            str = [str stringByTrimmingCharactersInSet:wsSet];
+            
+            if ([str hasPrefix:@"/"]) {
+//                str = [str substringFromIndex:1];
+                kind = TDTEMPLATE_TOKEN_KIND_BLOCK_END_TAG;
+            } else {
+                kind = TDTEMPLATE_TOKEN_KIND_BLOCK_START_TAG;
+            }
+
 //        } else if ([str hasPrefix:_tagEndDelimiter]) {
 //            kind = TDTEMPLATE_TOKEN_KIND_BLOCK_START_TAG;
 //            kind = TDTEMPLATE_TOKEN_KIND_BLOCK_END_TAG;
+        } else {
+            TDAssert(0);
+            kind = TDTEMPLATE_TOKEN_KIND_TEXT;
         }
         
         PKToken *frag = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:str doubleValue:0.0];
@@ -210,10 +238,10 @@ done:
             cls = [TDVariableNode class];
             break;
         case TDTEMPLATE_TOKEN_KIND_BLOCK_START_TAG:
-            cls = [TDStartBlockNode class];
+            cls = [TDBlockStartNode class];
             break;
         case TDTEMPLATE_TOKEN_KIND_BLOCK_END_TAG:
-            cls = [TDEndBlockNode class];
+            cls = [TDBlockEndNode class];
             break;
         default:
             TDAssert(0);
