@@ -21,7 +21,7 @@
 // THE SOFTWARE.
 
 #import "TDTemplateEngine.h"
-#import "TDFragment.h"
+#import "TDTemplateParser.h"
 #import "TDNode.h"
 #import "TDRootNode.h"
 #import "TDTextNode.h"
@@ -38,6 +38,10 @@
 #import <PEGKit/PKSymbolState.h>
 #import <PEGKit/PKToken.h>
 
+@interface TDTemplateEngine ()
+@property (nonatomic, retain) NSRegularExpression *delimiterRegex;
+@end
+
 @implementation TDTemplateEngine
 
 + (instancetype)templateEngine {
@@ -50,8 +54,8 @@
     if (self) {
         self.varStartDelimiter = @"{{";
         self.varEndDelimiter = @"}}";
-        self.blockStartDelimiter = @"{%";
-        self.blockEndDelimiter = @"%}";
+        self.tagStartDelimiter = @"{%";
+        self.tagEndDelimiter = @"%}";
     }
     return self;
 }
@@ -60,8 +64,9 @@
 - (void)dealloc {
     self.varStartDelimiter = nil;
     self.varEndDelimiter = nil;
-    self.blockStartDelimiter = nil;
-    self.blockEndDelimiter = nil;
+    self.tagStartDelimiter = nil;
+    self.tagEndDelimiter = nil;
+    self.delimiterRegex = nil;
     [super dealloc];
 }
 
@@ -74,8 +79,8 @@
     TDAssertMainThread();
     TDAssert([_varStartDelimiter length]);
     TDAssert([_varEndDelimiter length]);
-    TDAssert([_blockStartDelimiter length]);
-    TDAssert([_blockEndDelimiter length]);
+    TDAssert([_tagStartDelimiter length]);
+    TDAssert([_tagEndDelimiter length]);
 
     NSString *result = nil;
 
@@ -107,99 +112,107 @@
 #pragma mark -
 #pragma mark Private
 
-- (PKTokenizer *)tokenizer {
-    PKTokenizer *t = [XPParser makeTokenizer];
-    TDAssert(t);
-
-    t.whitespaceState.reportsWhitespaceTokens = YES;
-    [t.symbolState add:_varStartDelimiter];
-    [t.symbolState add:_varEndDelimiter];
-    [t.symbolState add:_blockStartDelimiter];
-    [t.symbolState add:_blockEndDelimiter];
-
-    return t;
+- (NSString *)cleanRegex:(NSString *)inStr {
+    NSMutableString *outSr = [[inStr mutableCopy] autorelease];
+    [outSr replaceOccurrencesOfString:@"{" withString:@"\\{" options:0 range:NSMakeRange(0, [outSr length])];
+    [outSr replaceOccurrencesOfString:@"}" withString:@"\\}" options:0 range:NSMakeRange(0, [outSr length])];
+    [outSr replaceOccurrencesOfString:@"[" withString:@"\\[" options:0 range:NSMakeRange(0, [outSr length])];
+    [outSr replaceOccurrencesOfString:@"]" withString:@"\\]" options:0 range:NSMakeRange(0, [outSr length])];
+    [outSr replaceOccurrencesOfString:@"(" withString:@"\\(" options:0 range:NSMakeRange(0, [outSr length])];
+    [outSr replaceOccurrencesOfString:@")" withString:@"\\)" options:0 range:NSMakeRange(0, [outSr length])];
+    [outSr replaceOccurrencesOfString:@"." withString:@"\\." options:0 range:NSMakeRange(0, [outSr length])];
+    [outSr replaceOccurrencesOfString:@"+" withString:@"\\+" options:0 range:NSMakeRange(0, [outSr length])];
+    [outSr replaceOccurrencesOfString:@"?" withString:@"\\?" options:0 range:NSMakeRange(0, [outSr length])];
+    [outSr replaceOccurrencesOfString:@"*" withString:@"\\*" options:0 range:NSMakeRange(0, [outSr length])];
+    return outSr;
 }
 
 
-- (NSArray *)fragmentsFromString:(NSString *)inStr {
-    NSMutableArray *frags = [NSMutableArray array];
+- (BOOL)setUpDelimiterRegex:(NSError **)outErr {
+    TDAssertMainThread();
     
-    PKTokenizer *t = [self tokenizer];
-    t.string = inStr;
+    NSString *varStartDelimiter   = [self cleanRegex:_varStartDelimiter];
+    NSString *varEndDelimiter     = [self cleanRegex:_varEndDelimiter];
+    NSString *tagStartDelimiter   = [self cleanRegex:_tagStartDelimiter];
+    NSString *tagEndDelimiter     = [self cleanRegex:_tagEndDelimiter];
     
-    PKToken *tok = nil;
-    PKToken *eof = [PKToken EOFToken];
-    
-    TDFragmentType fragType = TDFragmentTypeText;
-    NSMutableString *fragStr = nil;
-    NSMutableArray *fragToks = nil;
-    
-    while (eof != (tok = [t nextToken])) {
-        NSString *s = tok.stringValue;
-        
-        if ([s isEqualToString:_varStartDelimiter] || [s isEqualToString:_blockStartDelimiter]) {
-            if (fragStr) {
-                TDFragment *frag = [[[TDFragment alloc] initWithType:fragType string:fragStr tokens:fragToks] autorelease];
-                [frags addObject:frag];
-            }
-            fragToks = [NSMutableArray array];
-            fragStr = [NSMutableString string];
-            
-            if ([s isEqualToString:_varStartDelimiter]) {
-                fragType = TDFragmentTypeVariable;
-            } else {
-                [fragStr appendString:s];
-                [fragToks addObject:tok];
+    NSString *pattern = [NSString stringWithFormat:@"(%@.*?%@|%@.*?%@)", varStartDelimiter, varEndDelimiter, tagStartDelimiter, tagEndDelimiter];
 
-                tok = [t nextToken];
-                while (PKTokenTypeWhitespace == tok.tokenType) {
-                    [fragStr appendString:tok.stringValue];
-                    [fragToks addObject:tok];
-                    tok = [t nextToken];
-                }
-                s = tok.stringValue;
-                fragType = [s hasPrefix:@"end"] ? TDFragmentTypeEndBlock : TDFragmentTypeStartBlock; // TODO
-            }
-            [fragStr appendString:s];
-            [fragToks addObject:tok];
-        } else if ([s isEqualToString:_varEndDelimiter] || [s isEqualToString:_blockEndDelimiter]) {
-            [fragStr appendString:s];
-            [fragToks addObject:tok];
-            
-            TDFragment *frag = [[[TDFragment alloc] initWithType:fragType string:fragStr tokens:fragToks] autorelease];
-            [frags addObject:frag];
-            fragStr = nil;
-            fragToks = nil;
-        } else {
-            if (!fragStr) {
-                fragType = TDFragmentTypeText;
-                fragStr = [NSMutableString string];
-                fragToks = nil;
-            }
-            [fragStr appendString:s];
-            [fragToks addObject:tok];
-        }
+    self.delimiterRegex = [[[NSRegularExpression alloc] initWithPattern:pattern options:0 error:outErr] autorelease];
+
+    BOOL success = nil != _delimiterRegex;
+    return success;
+}
+
+
+
+- (NSArray *)fragmentsFromString:(NSString *)inStr {
+
+    NSMutableArray *frags = [NSMutableArray array];
+
+    NSError *err = nil;
+    if (![self setUpDelimiterRegex:&err]) {
+        NSLog(@"%@", err);
+        goto done;
     }
 
-    //NSLog(@"%@", frags);
+//    TDAssert(_delimiterRegex);
+//    NSArray *frags = [_delimiterRegex matchesInString:str options:NSMatchingReportCompletion range:NSMakeRange(0, [str length])];
+//    TDAssert([frags count]);
+
+    NSUInteger varStartDelimLen = [_varStartDelimiter length];
+    NSUInteger varEndDelimLen = [_varEndDelimiter length];
+    
+    NSCharacterSet *wsSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+
+    NSRange r = NSMakeRange(0, [inStr length]);
+    [_delimiterRegex enumerateMatchesInString:inStr options:NSMatchingReportCompletion range:r usingBlock:^(NSTextCheckingResult *current, NSMatchingFlags flags, BOOL *stop) {
+        NSString *str = [inStr substringWithRange:current.range];
+        NSUInteger len = [str length];
+        if (!len) return;
+        
+        NSLog(@"%@", str);
+        NSUInteger kind = 0;
+        
+        if ([str hasPrefix:_varStartDelimiter]) {
+            kind = TDTEMPLATE_TOKEN_KIND_VAR;
+            str = [str substringToIndex:len - varEndDelimLen];
+            str = [str substringFromIndex:varStartDelimLen];
+            str = [str stringByTrimmingCharactersInSet:wsSet];
+            
+        } else if ([str hasPrefix:_tagStartDelimiter]) {
+            kind = TDTEMPLATE_TOKEN_KIND_BLOCK_START_TAG;
+            kind = TDTEMPLATE_TOKEN_KIND_BLOCK_END_TAG;
+//        } else if ([str hasPrefix:_tagEndDelimiter]) {
+//            kind = TDTEMPLATE_TOKEN_KIND_BLOCK_START_TAG;
+//            kind = TDTEMPLATE_TOKEN_KIND_BLOCK_END_TAG;
+        }
+        
+        PKToken *frag = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:str doubleValue:0.0];
+        frag.tokenKind = kind;
+        
+        [frags addObject:frag];
+    }];
+    
+done:
     return frags;
 }
 
 
-- (TDNode *)makeNode:(TDFragment *)frag {
+- (TDNode *)makeNode:(PKToken *)frag {
     
     Class cls = Nil;
-    switch (frag.type) {
-        case TDFragmentTypeText:
+    switch (frag.tokenKind) {
+        case TDTEMPLATE_TOKEN_KIND_TEXT:
             cls = [TDTextNode class];
             break;
-        case TDFragmentTypeVariable:
+        case TDTEMPLATE_TOKEN_KIND_VAR:
             cls = [TDVariableNode class];
             break;
-        case TDFragmentTypeStartBlock:
+        case TDTEMPLATE_TOKEN_KIND_BLOCK_START_TAG:
             cls = [TDStartBlockNode class];
             break;
-        case TDFragmentTypeEndBlock:
+        case TDTEMPLATE_TOKEN_KIND_BLOCK_END_TAG:
             cls = [TDEndBlockNode class];
             break;
         default:
@@ -214,33 +227,38 @@
 
 - (TDNode *)compile:(NSArray *)frags {
     
-    TDNode *root = [TDRootNode rootNode];
+    TDNode *root = nil;
     
-    NSMutableArray *scopeStack = [NSMutableArray arrayWithObject:root];
+    TDTemplateParser *p = [[[TDTemplateParser alloc] initWithDelegate:nil] autorelease];
     
-    for (TDFragment *frag in frags) {
-        if (![scopeStack count]) {
-            TDAssert(0);
-            //raise TemplateError('nesting issues')
-        }
+    NSError *err = nil;
+    root = [p parseTokens:frags error:&err];
     
-        TDNode *parentScope = [scopeStack lastObject];
-        if (frag.type == TDFragmentTypeEndBlock) {
-            [parentScope exitScope];
-            [scopeStack removeLastObject];
-            continue;
-        }
-        
-        TDNode *newNode = [self makeNode:frag];
-        
-        if (newNode) {
-            [parentScope.children addObject:newNode];
-            if (newNode.createsScope) {
-                [scopeStack addObject:newNode];
-                [newNode enterScope];
-            }
-        }
-    }
+//    NSMutableArray *scopeStack = [NSMutableArray arrayWithObject:root];
+//    
+//    for (PKToken *frag in frags) {
+//        if (![scopeStack count]) {
+//            TDAssert(0);
+//            //raise TemplateError('nesting issues')
+//        }
+//    
+//        TDNode *parentScope = [scopeStack lastObject];
+//        if (frag.tokenKind == TDTEMPLATE_TOKEN_KIND_BLOCK_END_TAG) {
+//            [parentScope exitScope];
+//            [scopeStack removeLastObject];
+//            continue;
+//        }
+//        
+//        TDNode *newNode = [self makeNode:frag];
+//        
+//        if (newNode) {
+//            [parentScope.children addObject:newNode];
+//            if (newNode.createsScope) {
+//                [scopeStack addObject:newNode];
+//                [newNode enterScope];
+//            }
+//        }
+//    }
     
     return root;
 }

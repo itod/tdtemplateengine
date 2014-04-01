@@ -1,5 +1,8 @@
 #import "TDTemplateParser.h"
 #import <PEGKit/PEGKit.h>
+    
+#import "TDRootNode.h"
+#import "TDVariableNode.h"
 
 
 @interface TDTemplateParser ()
@@ -13,13 +16,15 @@
     if (self) {
         
         self.startRuleName = @"template";
-        self.tokenKindTab[@"out"] = @(TDTEMPLATE_TOKEN_KIND_OUT);
-        self.tokenKindTab[@"openTag"] = @(TDTEMPLATE_TOKEN_KIND_OPENTAG);
-        self.tokenKindTab[@"closeTag"] = @(TDTEMPLATE_TOKEN_KIND_CLOSETAG);
+        self.tokenKindTab[@"block_start_tag"] = @(TDTEMPLATE_TOKEN_KIND_BLOCK_START_TAG);
+        self.tokenKindTab[@"var"] = @(TDTEMPLATE_TOKEN_KIND_VAR);
+        self.tokenKindTab[@"block_end_tag"] = @(TDTEMPLATE_TOKEN_KIND_BLOCK_END_TAG);
+        self.tokenKindTab[@"text"] = @(TDTEMPLATE_TOKEN_KIND_TEXT);
 
-        self.tokenKindNameTab[TDTEMPLATE_TOKEN_KIND_OUT] = @"out";
-        self.tokenKindNameTab[TDTEMPLATE_TOKEN_KIND_OPENTAG] = @"openTag";
-        self.tokenKindNameTab[TDTEMPLATE_TOKEN_KIND_CLOSETAG] = @"closeTag";
+        self.tokenKindNameTab[TDTEMPLATE_TOKEN_KIND_BLOCK_START_TAG] = @"block_start_tag";
+        self.tokenKindNameTab[TDTEMPLATE_TOKEN_KIND_VAR] = @"var";
+        self.tokenKindNameTab[TDTEMPLATE_TOKEN_KIND_BLOCK_END_TAG] = @"block_end_tag";
+        self.tokenKindNameTab[TDTEMPLATE_TOKEN_KIND_TEXT] = @"text";
 
     }
     return self;
@@ -40,53 +45,80 @@
 
 - (void)template_ {
     
-    if ([self predicts:TDTEMPLATE_TOKEN_KIND_OUT, 0]) {
-        [self out_]; 
-    } else if ([self predicts:TDTEMPLATE_TOKEN_KIND_OPENTAG, 0]) {
-        [self tag_]; 
-    } else if ([self predicts:TOKEN_KIND_BUILTIN_ANY, 0]) {
+    [self execute:^{
+    
+	TDNode *root = [TDRootNode rootNode];
+	PUSH(root);
+
+    }];
+    [self content_]; 
+    [self execute:^{
+    
+	TDNode *root = POP();
+	self.assembly.target = root;
+
+    }];
+
+}
+
+- (void)content_ {
+    
+    if ([self predicts:TDTEMPLATE_TOKEN_KIND_VAR, 0]) {
+        [self var_]; 
+    } else if ([self predicts:TDTEMPLATE_TOKEN_KIND_BLOCK_START_TAG, 0]) {
+        [self block_]; 
+    } else if ([self predicts:TDTEMPLATE_TOKEN_KIND_TEXT, 0]) {
         [self text_]; 
     } else {
-        [self raise:@"No viable alternative found in rule 'template'."];
+        [self raise:@"No viable alternative found in rule 'content'."];
     }
 
 }
 
-- (void)out_ {
+- (void)var_ {
     
-    [self match:TDTEMPLATE_TOKEN_KIND_OUT discard:NO]; 
+    [self match:TDTEMPLATE_TOKEN_KIND_VAR discard:NO]; 
+    [self execute:^{
+    
+	PKToken *tok = POP();
+	TDNode *parent = POP();
+	TDVariableNode *node = [TDVariableNode nodeWithFragment:tok];
+	[parent addChild:node];
+	PUSH(parent);
+
+    }];
 
 }
 
-- (void)tag_ {
+- (void)block_ {
     
-    [self openTag_]; 
-    [self tagBody_]; 
-    [self closeTag_]; 
+    [self block_start_tag_]; 
+    [self block_body_]; 
+    [self block_end_tag_]; 
 
 }
 
-- (void)openTag_ {
+- (void)block_start_tag_ {
     
-    [self match:TDTEMPLATE_TOKEN_KIND_OPENTAG discard:NO]; 
+    [self match:TDTEMPLATE_TOKEN_KIND_BLOCK_START_TAG discard:NO]; 
 
 }
 
-- (void)closeTag_ {
+- (void)block_end_tag_ {
     
-    [self match:TDTEMPLATE_TOKEN_KIND_CLOSETAG discard:NO]; 
+    [self match:TDTEMPLATE_TOKEN_KIND_BLOCK_END_TAG discard:NO]; 
 
 }
 
-- (void)tagBody_ {
+- (void)block_body_ {
     
-    [self template_]; 
+    [self content_]; 
 
 }
 
 - (void)text_ {
     
-    [self matchAny:NO]; 
+    [self match:TDTEMPLATE_TOKEN_KIND_TEXT discard:NO]; 
 
 }
 

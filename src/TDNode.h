@@ -20,22 +20,21 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <Foundation/Foundation.h>
+#import <PEGKit/PKAST.h>
 
-@class TDFragment;
+@class PKToken;
 @class TDTemplateContext;
 
-@interface TDNode : NSObject
+@interface TDNode : PKAST
 
-+ (instancetype)nodeWithFragment:(TDFragment *)frag;
-- (instancetype)initWithFragment:(TDFragment *)frag;
++ (instancetype)nodeWithFragment:(PKToken *)frag;
+- (instancetype)initWithFragment:(PKToken *)frag;
 
-- (void)processFragment:(TDFragment *)frag;
+- (void)processFragment:(PKToken *)frag;
 - (NSString *)renderInContext:(TDTemplateContext *)ctx;
 
 - (void)enterScope;
 - (void)exitScope;
 
-@property (nonatomic, retain) NSMutableArray *children;
 @property (nonatomic, assign) BOOL createsScope;
 @end

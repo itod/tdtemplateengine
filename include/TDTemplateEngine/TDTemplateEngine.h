@@ -31,6 +31,6 @@
 
 @property (nonatomic, retain) NSString *varStartDelimiter;
 @property (nonatomic, retain) NSString *varEndDelimiter;
-@property (nonatomic, retain) NSString *blockStartDelimiter;
-@property (nonatomic, retain) NSString *blockEndDelimiter;
+@property (nonatomic, retain) NSString *tagStartDelimiter;
+@property (nonatomic, retain) NSString *tagEndDelimiter;
 @end

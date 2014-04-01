@@ -24,5 +24,5 @@
 
 @interface TDVariableNode : TDNode
 
-@property (nonatomic, copy) NSString *name;
+@property (nonatomic, copy) NSString *varName;
 @end

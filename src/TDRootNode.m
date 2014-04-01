@@ -21,13 +21,12 @@
 // THE SOFTWARE.
 
 #import "TDRootNode.h"
-#import "TDFragment.h"
+#import <PEGKit/PKToken.h>
 
 @implementation TDRootNode
 
 + (instancetype)rootNode {
-    TDFragment *frag = [[[TDFragment alloc] init] autorelease];
-    frag.string = @"((ROOT))";
+    PKToken *frag = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"<ROOT>" doubleValue:0.0];
     return [self nodeWithFragment:frag];
 }
 

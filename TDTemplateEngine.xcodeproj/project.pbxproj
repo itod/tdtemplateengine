@@ -26,8 +26,6 @@
 		D3A29DBB18E60F9F00DC591E /* TDRootNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29DB918E60F9F00DC591E /* TDRootNode.m */; };
 		D3A29DBE18E61ACA00DC591E /* TDTextNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29DBC18E61ACA00DC591E /* TDTextNode.h */; };
 		D3A29DBF18E61ACA00DC591E /* TDTextNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29DBD18E61ACA00DC591E /* TDTextNode.m */; };
-		D3A29DC218E6206600DC591E /* TDFragment.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29DC018E6206600DC591E /* TDFragment.h */; };
-		D3A29DC318E6206600DC591E /* TDFragment.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29DC118E6206600DC591E /* TDFragment.m */; };
 		D3A29DC618E6285800DC591E /* TDStartBlockNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29DC418E6285800DC591E /* TDStartBlockNode.h */; };
 		D3A29DC718E6285800DC591E /* TDStartBlockNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29DC518E6285800DC591E /* TDStartBlockNode.m */; };
 		D3A29DCA18E6286600DC591E /* TDEndBlockNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29DC818E6286600DC591E /* TDEndBlockNode.h */; };
@@ -145,8 +143,6 @@
 		D3A29DB918E60F9F00DC591E /* TDRootNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDRootNode.m; path = src/TDRootNode.m; sourceTree = SOURCE_ROOT; };
 		D3A29DBC18E61ACA00DC591E /* TDTextNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDTextNode.h; path = src/TDTextNode.h; sourceTree = SOURCE_ROOT; };
 		D3A29DBD18E61ACA00DC591E /* TDTextNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDTextNode.m; path = src/TDTextNode.m; sourceTree = SOURCE_ROOT; };
-		D3A29DC018E6206600DC591E /* TDFragment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDFragment.h; path = src/TDFragment.h; sourceTree = SOURCE_ROOT; };
-		D3A29DC118E6206600DC591E /* TDFragment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDFragment.m; path = src/TDFragment.m; sourceTree = SOURCE_ROOT; };
 		D3A29DC418E6285800DC591E /* TDStartBlockNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDStartBlockNode.h; path = src/TDStartBlockNode.h; sourceTree = SOURCE_ROOT; };
 		D3A29DC518E6285800DC591E /* TDStartBlockNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDStartBlockNode.m; path = src/TDStartBlockNode.m; sourceTree = SOURCE_ROOT; };
 		D3A29DC818E6286600DC591E /* TDEndBlockNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDEndBlockNode.h; path = src/TDEndBlockNode.h; sourceTree = SOURCE_ROOT; };
@@ -302,8 +298,6 @@
 		D3A29DD218E63D2200DC591E /* Nodes */ = {
 			isa = PBXGroup;
 			children = (
-				D3A29DC018E6206600DC591E /* TDFragment.h */,
-				D3A29DC118E6206600DC591E /* TDFragment.m */,
 				D3A29DA818E609E700DC591E /* TDNode.h */,
 				D3A29DA918E609E700DC591E /* TDNode.m */,
 				D3A29DB818E60F9F00DC591E /* TDRootNode.h */,
@@ -399,7 +393,6 @@
 				D3A29DEA18E64FB800DC591E /* TDTemplateContext.h in Headers */,
 				D3A29E0418E6584D00DC591E /* XPStringValue.h in Headers */,
 				D3A29DFF18E6584D00DC591E /* XPBooleanValue.h in Headers */,
-				D3A29DC218E6206600DC591E /* TDFragment.h in Headers */,
 				D3A29E0618E6584D00DC591E /* XPValue.h in Headers */,
 				D3A29DC618E6285800DC591E /* TDStartBlockNode.h in Headers */,
 				D398E2EF18EA2C51004B883C /* TDTemplateParser.h in Headers */,
@@ -569,7 +562,6 @@
 				D3A29E3018E75D3B00DC591E /* XPBooleanExpression.m in Sources */,
 				D3A29E0718E6584D00DC591E /* XPValue.m in Sources */,
 				D3A29E3218E75D3B00DC591E /* XPRelationalExpression.m in Sources */,
-				D3A29DC318E6206600DC591E /* TDFragment.m in Sources */,
 				D398E2F018EA2C51004B883C /* TDTemplateParser.m in Sources */,
 				D3A29E3E18E7B31A00DC591E /* XPObjectValue.m in Sources */,
 				D3A29E2E18E75D3B00DC591E /* XPBinaryExpression.m in Sources */,

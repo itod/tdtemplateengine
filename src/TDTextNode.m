@@ -21,7 +21,7 @@
 // THE SOFTWARE.
 
 #import "TDTextNode.h"
-#import "TDFragment.h"
+#import <PEGKit/PKToken.h>
 
 @interface TDTextNode ()
 @property (nonatomic, retain) NSString *string;
@@ -35,12 +35,12 @@
 }
 
 
-- (void)processFragment:(TDFragment *)frag {
+- (void)processFragment:(PKToken *)frag {
     NSParameterAssert(frag);
-    TDAssert(!frag.tokens);
-    TDAssert([frag.string length]);
+//    TDAssert(!frag.tokens);
+//    TDAssert([frag.string length]);
 
-    self.string = frag.string;
+    self.string = frag.stringValue;
 }
 
 

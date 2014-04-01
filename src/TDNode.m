@@ -21,7 +21,7 @@
 // THE SOFTWARE.
 
 #import "TDNode.h"
-#import "TDFragment.h"
+#import <PEGKit/PKToken.h>
 
 @interface TDNode ()
 
@@ -29,16 +29,15 @@
 
 @implementation TDNode
 
-+ (instancetype)nodeWithFragment:(TDFragment *)frag {
++ (instancetype)nodeWithFragment:(PKToken *)frag {
     return [[[self alloc] initWithFragment:frag] autorelease];
 }
 
 
-- (instancetype)initWithFragment:(TDFragment *)frag {
+- (instancetype)initWithFragment:(PKToken *)frag {
     NSParameterAssert(frag);
-    self = [super init];
+    self = [super initWithToken:frag];
     if (self) {
-        self.children = [NSMutableArray array];
         self.createsScope = NO;
         [self processFragment:frag];
     }
@@ -47,20 +46,15 @@
 
 
 - (void)dealloc {
-    self.children = nil;
+
     [super dealloc];
-}
-
-
-- (NSString *)description {
-    return [NSString stringWithFormat:@"<%@ %p>", [self class], self];
 }
 
 
 #pragma mark -
 #pragma mark Public
 
-- (void)processFragment:(TDFragment *)frag {
+- (void)processFragment:(PKToken *)frag {
     //NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
 }
 
@@ -86,7 +80,7 @@
 #pragma mark Private
 
 - (NSString *)renderChildren:(NSArray *)children inContext:(TDTemplateContext *)ctx {
-    children = children ? children : _children;
+    children = children ? children : self.children;
     
     NSMutableString *buff = [NSMutableString string];
     for (TDNode *child in children) {

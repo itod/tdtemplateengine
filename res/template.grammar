@@ -1,29 +1,52 @@
-template 
-	= out
-	| tag 
+@m {
+#import "TDRootNode.h"
+#import "TDVariableNode.h"
+}
+
+template
+@before {
+	TDNode *root = [TDRootNode rootNode];
+	PUSH(root);
+}
+@after {
+	TDNode *root = POP();
+	self.assembly.target = root;
+}
+	= content
+	;
+	
+content
+	= var
+	| block 
 	| text
 	;
 
-out 
-	= 'out'
+var 
+	= 'var' {
+	PKToken *tok = POP();
+	TDNode *parent = POP();
+	TDVariableNode *node = [TDVariableNode nodeWithFragment:tok];
+	[parent.children addObject:node];
+	PUSH(parent);
+}
 	;
 
-tag 
-	= openTag tagBody closeTag
+block 
+	= block_start_tag block_body block_end_tag
 	;
 
-openTag 
-	= 'openTag'
+block_start_tag 
+	= 'block_start_tag'
 	;
 
-closeTag
-	= 'closeTag'
+block_end_tag
+	= 'block_end_tag'
 	;
 
-tagBody 
-	= template
+block_body 
+	= content
 	;
 
 text 
-	= Any
+	= 'text'
 	;

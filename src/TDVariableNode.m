@@ -22,13 +22,12 @@
 
 #import "TDVariableNode.h"
 #import <TDTemplateEngine/TDTemplateContext.h>
-#import "TDFragment.h"
 #import <PEGKit/PKToken.h>
 
 @implementation TDVariableNode
 
 - (void)dealloc {
-    self.name = nil;
+    self.varName = nil;
     [super dealloc];
 }
 
@@ -36,26 +35,18 @@
 #pragma mark -
 #pragma mark Public
 
-- (void)processFragment:(TDFragment *)frag {
+- (void)processFragment:(PKToken *)frag {
     NSParameterAssert(frag);
-    NSArray *toks = frag.tokens;
-    TDAssert([toks count] >= 3);
-    
-    for (PKToken *tok in toks) {
-        if (PKTokenTypeWord == tok.tokenType) {
-            self.name = tok.stringValue;
-            break;
-        }
-    }
-    TDAssert([_name length]);
+    self.varName = frag.stringValue;
+    TDAssert([self.varName length]);
 }
 
 
 - (NSString *)renderInContext:(TDTemplateContext *)ctx {
     NSParameterAssert(ctx);
-    TDAssert([_name length]);
+    TDAssert([_varName length]);
     
-    NSString *s = [ctx resolveVariable:_name];
+    NSString *s = [ctx resolveVariable:_varName];
     return s;
 }
 

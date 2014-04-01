@@ -21,7 +21,6 @@
 // THE SOFTWARE.
 
 #import "TDStartBlockNode.h"
-#import "TDFragment.h"
 #import <TDTemplateEngine/TDTag.h>
 #import <TDTemplateEngine/XPExpression.h>
 #import <PEGKit/PKToken.h>
@@ -37,7 +36,7 @@
 
 @implementation TDStartBlockNode
 
-- (instancetype)initWithFragment:(TDFragment *)frag {
+- (instancetype)initWithFragment:(PKToken *)frag {
     self = [super initWithFragment:frag];
     if (self) {
         self.createsScope = YES;
@@ -57,34 +56,34 @@
 }
 
 
-- (void)processFragment:(TDFragment *)frag {
+- (void)processFragment:(PKToken *)frag {
     NSParameterAssert(frag);
-    TDAssert([frag.tokens count] > 1);
-    
-    NSUInteger i = 0;
-    NSUInteger c = [frag.tokens count];
-    
-    NSMutableArray *toks = [NSMutableArray arrayWithCapacity:c-2];
-    NSString *tagName = nil;
-    
-    for (PKToken *tok in frag.tokens) {
-        ++i;
-        if (1 == i || i == c) continue; // trim delimiter tokens.
-        if (PKTokenTypeWhitespace == tok.tokenType) continue;
-        
-        if (!tagName && PKTokenTypeWord == tok.tokenType) {
-            tagName = tok.stringValue;
-            continue;
-        }
-        
-        [toks addObject:tok];
-    }
-    
-    self.tagName = tagName;
-    self.tokens = toks;
-    self.tag = [TDTag tagForName:tagName];
-
-    _tag.expression = [XPExpression expressionFromTokens:toks error:nil];
+//    TDAssert([frag.tokens count] > 1);
+//    
+//    NSUInteger i = 0;
+//    NSUInteger c = [frag.tokens count];
+//    
+//    NSMutableArray *toks = [NSMutableArray arrayWithCapacity:c-2];
+//    NSString *tagName = nil;
+//    
+//    for (PKToken *tok in frag.tokens) {
+//        ++i;
+//        if (1 == i || i == c) continue; // trim delimiter tokens.
+//        if (PKTokenTypeWhitespace == tok.tokenType) continue;
+//        
+//        if (!tagName && PKTokenTypeWord == tok.tokenType) {
+//            tagName = tok.stringValue;
+//            continue;
+//        }
+//        
+//        [toks addObject:tok];
+//    }
+//    
+//    self.tagName = tagName;
+//    self.tokens = toks;
+//    self.tag = [TDTag tagForName:tagName];
+//
+//    _tag.expression = [XPExpression expressionFromTokens:toks error:nil];
     
     TDAssert([_tokens count]);
     TDAssert(_tag);
