@@ -22,8 +22,8 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol TDScope;
 @class TDNode;
+@protocol TDScope;
 
 @interface TDTemplateEngine : NSObject
 
@@ -34,7 +34,7 @@
 - (TDNode *)compileTemplateFile:(NSString *)path encoding:(NSStringEncoding)enc error:(NSError **)err;
 
 // render pre-compiled tree with runtime vars
-- (NSString *)renderTemplateNode:(TDNode *)node withVariables:(NSDictionary *)vars;
+- (NSString *)renderTemplateTree:(TDNode *)node withVariables:(NSDictionary *)vars;
 
 // convenience. compile + render with runtime vars in one shot
 - (NSString *)processTemplateString:(NSString *)str withVariables:(NSDictionary *)vars;
