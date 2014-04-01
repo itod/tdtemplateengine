@@ -147,14 +147,14 @@
 
 
 - (NSArray *)fragmentsFromString:(NSString *)inStr {
-
-    NSMutableArray *frags = [NSMutableArray array];
-
+    
     NSError *err = nil;
     if (![self setUpDelimiterRegex:&err]) {
         NSLog(@"%@", err);
         return nil;
     }
+
+    NSMutableArray *frags = [NSMutableArray array];
 
     NSUInteger varStartDelimLen = [_varStartDelimiter length];
     NSUInteger varEndDelimLen = [_varEndDelimiter length];
@@ -203,7 +203,6 @@
             } else {
                 kind = TDTEMPLATE_TOKEN_KIND_BLOCK_START_TAG;
             }
-
         } else {
             TDAssert(0);
         }
@@ -215,32 +214,6 @@
     }];
     
     return frags;
-}
-
-
-- (TDNode *)makeNode:(PKToken *)frag {
-    
-    Class cls = Nil;
-    switch (frag.tokenKind) {
-        case TDTEMPLATE_TOKEN_KIND_TEXT:
-            cls = [TDTextNode class];
-            break;
-        case TDTEMPLATE_TOKEN_KIND_VAR:
-            cls = [TDVariableNode class];
-            break;
-        case TDTEMPLATE_TOKEN_KIND_BLOCK_START_TAG:
-            cls = [TDBlockStartNode class];
-            break;
-        case TDTEMPLATE_TOKEN_KIND_BLOCK_END_TAG:
-            cls = [TDBlockEndNode class];
-            break;
-        default:
-            TDAssert(0);
-            break;
-    }
-
-    TDNode *node = [cls nodeWithFragment:frag];
-    return node;
 }
 
 
