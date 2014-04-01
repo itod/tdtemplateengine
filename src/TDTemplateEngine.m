@@ -76,7 +76,21 @@
 #pragma mark -
 #pragma mark Public
 
-- (NSString *)processTemplateString:(NSString *)inStr withVariables:(NSDictionary *)vars {
+- (TDNode *)compileTemplateFile:(NSString *)path encoding:(NSStringEncoding)enc error:(NSError **)err {
+    NSParameterAssert([path length]);
+    
+    TDNode *root = nil;
+    NSString *str = [NSString stringWithContentsOfFile:path encoding:enc error:err];
+    
+    if (str) {
+        root = [self compileTemplateString:str];
+    }
+    
+    return root;
+}
+
+
+- (TDNode *)compileTemplateString:(NSString *)inStr {
     NSParameterAssert([inStr length]);
     TDAssertMainThread();
     TDAssert([_varStartDelimiter length]);
@@ -84,32 +98,40 @@
     TDAssert([_tagStartDelimiter length]);
     TDAssert([_tagEndDelimiter length]);
 
-    NSString *result = nil;
-
     NSArray *frags = [self fragmentsFromString:inStr];
-    
     TDNode *root = [self compile:frags];
-    TDTemplateContext *ctx = [[[TDTemplateContext alloc] initWithVariables:vars] autorelease];
+    return root;
+}
+
+
+- (NSString *)renderTemplateNode:(TDNode *)root withVariables:(NSDictionary *)vars {
+    TDTemplateContext *dynamicContext = [[[TDTemplateContext alloc] initWithVariables:vars] autorelease];
 
     TDAssert(_staticContext);
-    ctx.enclosingScope = _staticContext;
+    dynamicContext.enclosingScope = _staticContext;
     
-    result = [root renderInContext:ctx];
+    NSString *result = [root renderInContext:dynamicContext];
 
     return result;
 }
 
 
 - (NSString *)processTemplateFile:(NSString *)path withVariables:(NSDictionary *)vars encoding:(NSStringEncoding)enc error:(NSError **)err {
-    NSParameterAssert([path length]);
-    
+    TDNode *root = [self compileTemplateFile:path encoding:enc error:err];
+
     NSString *result = nil;
-    NSString *str = [NSString stringWithContentsOfFile:path encoding:enc error:err];
     
-    if (str) {
-        result = [self processTemplateString:str withVariables:vars];
+    if (root) {
+        result = [self renderTemplateNode:root withVariables:vars];
     }
     
+    return result;
+}
+
+
+- (NSString *)processTemplateString:(NSString *)str withVariables:(NSDictionary *)vars {
+    TDNode *root = [self compileTemplateString:str];
+    NSString *result = [self renderTemplateNode:root withVariables:vars];
     return result;
 }
 

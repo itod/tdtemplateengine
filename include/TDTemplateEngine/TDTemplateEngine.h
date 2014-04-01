@@ -23,18 +23,28 @@
 #import <Foundation/Foundation.h>
 
 @protocol TDScope;
+@class TDNode;
 
 @interface TDTemplateEngine : NSObject
 
 + (instancetype)templateEngine;
 
+// pre-compile template into a tree
+- (TDNode *)compileTemplateString:(NSString *)str;
+- (TDNode *)compileTemplateFile:(NSString *)path encoding:(NSStringEncoding)enc error:(NSError **)err;
+
+// render pre-compiled tree with runtime vars
+- (NSString *)renderTemplateNode:(TDNode *)node withVariables:(NSDictionary *)vars;
+
+// convenience. compile + render with runtime vars in one shot
 - (NSString *)processTemplateString:(NSString *)str withVariables:(NSDictionary *)vars;
 - (NSString *)processTemplateFile:(NSString *)path withVariables:(NSDictionary *)vars encoding:(NSStringEncoding)enc error:(NSError **)err;
 
-@property (nonatomic, retain) NSString *varStartDelimiter;
-@property (nonatomic, retain) NSString *varEndDelimiter;
-@property (nonatomic, retain) NSString *tagStartDelimiter;
-@property (nonatomic, retain) NSString *tagEndDelimiter;
-
+// static vars go here. this is the global scope at both compile time and runtime. persists across compiles and renders.
 @property (nonatomic, retain, readonly) id <TDScope>staticContext;
+
+@property (nonatomic, copy) NSString *varStartDelimiter;
+@property (nonatomic, copy) NSString *varEndDelimiter;
+@property (nonatomic, copy) NSString *tagStartDelimiter;
+@property (nonatomic, copy) NSString *tagEndDelimiter;
 @end
