@@ -29,7 +29,7 @@
 
 + (instancetype)nodeWithToken:(PKToken *)frag;
 
-- (void)processFragment:(PKToken *)frag;
+- (void)processFragment;
 - (NSString *)renderInContext:(TDTemplateContext *)ctx;
 
 - (void)enterScope;

@@ -59,16 +59,16 @@
 }
 
 
-- (void)processFragment:(PKToken *)frag {
-    NSParameterAssert(frag);
-    TDAssert([frag.stringValue length]);
+- (void)processFragment {
+    NSParameterAssert(self.token);
+    TDAssert([self.token.stringValue length]);
     
     NSMutableArray *toks = [NSMutableArray array];
 
     NSString *tagName = nil;
 
     PKTokenizer *t = [XPExpression tokenizer];
-    t.string = frag.stringValue;
+    t.string = self.token.stringValue;
     
     PKToken *tok = nil;
     PKToken *eof = [PKToken EOFToken];

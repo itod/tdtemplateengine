@@ -35,9 +35,9 @@
 #pragma mark -
 #pragma mark Public
 
-- (void)processFragment:(PKToken *)frag {
-    NSParameterAssert(frag);
-    self.varName = frag.stringValue;
+- (void)processFragment {
+    NSParameterAssert(self.token);
+    self.varName = self.token.stringValue;
     TDAssert([self.varName length]);
 }
 

@@ -38,7 +38,7 @@
     NSParameterAssert(frag);
     self = [super initWithToken:frag];
     if (self) {
-        [self processFragment:frag];
+        [self processFragment];
     }
     return self;
 }
@@ -53,7 +53,7 @@
 #pragma mark -
 #pragma mark Public
 
-- (void)processFragment:(PKToken *)frag {
+- (void)processFragment {
     //NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
 }
 
