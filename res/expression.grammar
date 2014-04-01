@@ -3,7 +3,7 @@
 }
 
 @interface {
-+ (PKTokenizer *)makeTokenizer;
++ (PKTokenizer *)tokenizer;
 }
 
 @m {
@@ -23,7 +23,7 @@
 }
 
 @implementation {
-+ (PKTokenizer *)makeTokenizer {
++ (PKTokenizer *)tokenizer {
     PKTokenizer *t = [PKTokenizer tokenizer];
     [t.symbolState add:@"=="];
     [t.symbolState add:@"!="];
@@ -39,7 +39,7 @@
 }
 
 @init {
-    self.tokenizer = [[self class] makeTokenizer];
+    self.tokenizer = [[self class] tokenizer];
     self.openParen = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"(" doubleValue:0.0];
     self.minus = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"-" doubleValue:0.0];
 }

@@ -36,7 +36,7 @@ enum {
 
 @interface XPParser : PKParser
 
-+ (PKTokenizer *)makeTokenizer;
++ (PKTokenizer *)tokenizer;
 
 @end
 

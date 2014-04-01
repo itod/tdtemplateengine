@@ -31,7 +31,7 @@
 }
 
 - (NSArray *)tokenize:(NSString *)input {
-    PKTokenizer *t = [XPParser makeTokenizer];
+    PKTokenizer *t = [XPParser tokenizer];
     t.string = input;
     
     PKToken *tok = nil;

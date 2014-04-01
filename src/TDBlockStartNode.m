@@ -25,6 +25,7 @@
 #import <TDTemplateEngine/XPExpression.h>
 #import <PEGKit/PKToken.h>
 #import <PEGKit/PKTokenizer.h>
+#import <PEGKit/PKWhitespaceState.h>
 #import "XPParser.h"
 
 @interface TDNode ()
@@ -33,7 +34,6 @@
 
 @interface TDBlockStartNode ()
 @property (nonatomic, retain) TDTag *tag;
-@property (nonatomic, retain) NSArray *tokens;
 @end
 
 @implementation TDBlockStartNode
@@ -66,14 +66,12 @@
 
     NSString *tagName = nil;
 
-    PKTokenizer *t = [XPParser makeTokenizer];
+    PKTokenizer *t = [XPParser tokenizer];
     t.string = frag.stringValue;
     
     PKToken *tok = nil;
     PKToken *eof = [PKToken EOFToken];
     while (eof != (tok = [t nextToken])) {
-        if (PKTokenTypeWhitespace == tok.tokenType) continue;
-        
         if (!tagName && PKTokenTypeWord == tok.tokenType) {
             tagName = tok.stringValue;
             continue;
@@ -83,19 +81,16 @@
     }
     
     self.tagName = tagName;
-    self.tokens = toks;
     self.tag = [TDTag tagForName:tagName];
 
     _tag.expression = [XPExpression expressionFromTokens:toks error:nil];
     
-    TDAssert([_tokens count]);
     TDAssert(_tag);
 }
 
 
 - (NSString *)renderInContext:(TDTemplateContext *)ctx {
     NSParameterAssert(ctx);
-    TDAssert([_tokens count]);
     TDAssert(_tag);
     
     NSString *result = nil;

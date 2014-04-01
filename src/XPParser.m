@@ -20,16 +20,21 @@
 
 @implementation XPParser { }
     
-+ (PKTokenizer *)makeTokenizer {
-    PKTokenizer *t = [PKTokenizer tokenizer];
-    [t.symbolState add:@"=="];
-    [t.symbolState add:@"!="];
-    [t.symbolState add:@"<="];
-    [t.symbolState add:@">="];
-    [t.symbolState add:@"&&"];
-    [t.symbolState add:@"||"];
-	
-	[t setTokenizerState:t.symbolState from:'-' to:'-'];
++ (PKTokenizer *)tokenizer {
+    static PKTokenizer *t = nil;
+    if (!t) {
+        t = [[PKTokenizer alloc] init];
+        [t.symbolState add:@"=="];
+        [t.symbolState add:@"!="];
+        [t.symbolState add:@"<="];
+        [t.symbolState add:@">="];
+        [t.symbolState add:@"&&"];
+        [t.symbolState add:@"||"];
+        
+        [t setTokenizerState:t.symbolState from:'-' to:'-'];
+        
+        t.whitespaceState.reportsWhitespaceTokens = NO;
+    }
 	return t;
 }
 
@@ -38,7 +43,7 @@
     self = [super initWithDelegate:d];
     if (self) {
             
-	self.tokenizer = [[self class] makeTokenizer];
+	self.tokenizer = [[self class] tokenizer];
     self.openParen = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"(" doubleValue:0.0];
     self.minus = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"-" doubleValue:0.0];
 
