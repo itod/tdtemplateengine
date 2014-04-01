@@ -35,6 +35,4 @@
 
 - (void)enterScope;
 - (void)exitScope;
-
-@property (nonatomic, assign) BOOL createsScope;
 @end

@@ -21,8 +21,9 @@
 // THE SOFTWARE.
 
 #import "TDNode.h"
+#import <TDTemplateEngine/TDScope.h>
 
-@interface TDBlockStartNode : TDNode
+@interface TDBlockStartNode : TDNode <TDScope>
 
 @property (nonatomic, retain) NSString *tagName;
 @end

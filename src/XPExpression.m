@@ -44,15 +44,9 @@ static PKParser *sParser = nil;
 }
 
 
-+ (XPExpression *)expressionFromString:(NSString *)str error:(NSError **)outErr; {
++ (PKTokenizer *)tokenizer {
     TDAssert(sParser);
-    PKAssembly *a = [sParser parseString:str error:outErr];
-    
-    XPExpression *expr = [a pop];
-    TDAssert([expr isKindOfClass:[XPExpression class]]);
-    
-    expr = [expr simplify];
-    return expr;
+    return [sParser tokenizer];
 }
 
 

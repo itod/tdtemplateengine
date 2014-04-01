@@ -24,6 +24,7 @@
 
 @class TDTemplateContext;
 @class XPValue;
+@class PKTokenizer;
 
 typedef NS_ENUM(NSUInteger, XPDataType) {
     XPDataTypeBoolean,
@@ -35,7 +36,7 @@ typedef NS_ENUM(NSUInteger, XPDataType) {
 
 @interface XPExpression : NSObject
 
-+ (XPExpression *)expressionFromString:(NSString *)str error:(NSError **)outErr;
++ (PKTokenizer *)tokenizer;
 + (XPExpression *)expressionFromTokens:(NSArray *)toks error:(NSError **)outErr;
 
 - (XPValue *)evaluateInContext:(TDTemplateContext *)ctx;

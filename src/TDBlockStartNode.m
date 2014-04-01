@@ -26,7 +26,6 @@
 #import <PEGKit/PKToken.h>
 #import <PEGKit/PKTokenizer.h>
 #import <PEGKit/PKWhitespaceState.h>
-#import "XPParser.h"
 
 @interface TDNode ()
 - (NSString *)renderChildren:(NSArray *)children inContext:(TDTemplateContext *)ctx;
@@ -34,6 +33,7 @@
 
 @interface TDBlockStartNode ()
 @property (nonatomic, retain) TDTag *tag;
+@property (nonatomic, retain) NSMutableDictionary *vars;
 @end
 
 @implementation TDBlockStartNode
@@ -41,7 +41,7 @@
 - (instancetype)initWithFragment:(PKToken *)frag {
     self = [super initWithFragment:frag];
     if (self) {
-        self.createsScope = YES;
+
     }
     return self;
 }
@@ -49,6 +49,7 @@
 
 - (void)dealloc {
     self.tagName = nil;
+    self.vars = nil;
     [super dealloc];
 }
 
@@ -66,7 +67,7 @@
 
     NSString *tagName = nil;
 
-    PKTokenizer *t = [XPParser tokenizer];
+    PKTokenizer *t = [XPExpression tokenizer];
     t.string = frag.stringValue;
     
     PKToken *tok = nil;
@@ -93,6 +94,8 @@
     NSParameterAssert(ctx);
     TDAssert(_tag);
     
+    [self enterScope];
+    
     NSString *result = nil;
     BOOL test = [[_tag evaluateInContext:ctx] boolValue];
     if (test) {
@@ -101,7 +104,37 @@
         result = @"";
     }
     
+    [self exitScope];
+    
     return result;
+}
+
+
+- (void)enterScope {
+    self.vars = [NSMutableDictionary dictionary];
+}
+
+
+- (void)exitScope {
+    self.vars = nil;
+}
+
+
+#pragma mark -
+#pragma mark TDScope
+
+- (id)resolveVariable:(NSString *)name {
+    NSParameterAssert([name length]);
+    TDAssert(_vars);
+    return _vars[name];
+}
+
+
+- (void)defineVariable:(NSString *)name withValue:(id)value {
+    NSParameterAssert([name length]);
+    NSParameterAssert(value);
+    TDAssert(_vars);
+    _vars[name] = value;
 }
 
 @end

@@ -31,8 +31,6 @@
 
 #import <TDTemplateEngine/TDTemplateContext.h>
 
-#import "XPParser.h"
-
 #import <PEGKit/PKTokenizer.h>
 #import <PEGKit/PKWhitespaceState.h>
 #import <PEGKit/PKSymbolState.h>

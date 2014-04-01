@@ -38,7 +38,6 @@
     NSParameterAssert(frag);
     self = [super initWithToken:frag];
     if (self) {
-        self.createsScope = NO;
         [self processFragment:frag];
     }
     return self;
