@@ -139,7 +139,7 @@
 #pragma mark -
 #pragma mark Private
 
-- (NSString *)cleanRegex:(NSString *)inStr {
+- (NSString *)cleanPattern:(NSString *)inStr {
     NSMutableString *outSr = [[inStr mutableCopy] autorelease];
     [outSr replaceOccurrencesOfString:@"{" withString:@"\\{" options:0 range:NSMakeRange(0, [outSr length])];
     [outSr replaceOccurrencesOfString:@"}" withString:@"\\}" options:0 range:NSMakeRange(0, [outSr length])];
@@ -158,10 +158,10 @@
 - (BOOL)setUpDelimiterRegex:(NSError **)outErr {
     TDAssertMainThread();
     
-    NSString *varStartDelimiter   = [self cleanRegex:_varStartDelimiter];
-    NSString *varEndDelimiter     = [self cleanRegex:_varEndDelimiter];
-    NSString *tagStartDelimiter   = [self cleanRegex:_tagStartDelimiter];
-    NSString *tagEndDelimiter     = [self cleanRegex:_tagEndDelimiter];
+    NSString *varStartDelimiter   = [self cleanPattern:_varStartDelimiter];
+    NSString *varEndDelimiter     = [self cleanPattern:_varEndDelimiter];
+    NSString *tagStartDelimiter   = [self cleanPattern:_tagStartDelimiter];
+    NSString *tagEndDelimiter     = [self cleanPattern:_tagEndDelimiter];
     
     NSString *pattern = [NSString stringWithFormat:@"(%@.*?%@|%@.*?%@)", varStartDelimiter, varEndDelimiter, tagStartDelimiter, tagEndDelimiter];
 
@@ -170,7 +170,6 @@
     BOOL success = nil != _delimiterRegex;
     return success;
 }
-
 
 
 - (NSArray *)fragmentsFromString:(NSString *)inStr {
