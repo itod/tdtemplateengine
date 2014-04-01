@@ -13,4 +13,5 @@
 - (id)resolveVariable:(NSString *)name;
 - (void)defineVariable:(NSString *)name withValue:(id)value;
 
+@property (nonatomic, retain) id <TDScope>enclosingScope;
 @end

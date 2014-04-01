@@ -21,6 +21,7 @@
 // THE SOFTWARE.
 
 #import "TDBlockStartNode.h"
+#import <TDTemplateEngine/TDTemplateContext.h>
 #import <TDTemplateEngine/TDTag.h>
 #import <TDTemplateEngine/XPExpression.h>
 #import <PEGKit/PKToken.h>
@@ -28,7 +29,7 @@
 #import <PEGKit/PKWhitespaceState.h>
 
 @interface TDNode ()
-- (NSString *)renderChildren:(NSArray *)children inContext:(TDTemplateContext *)ctx;
+- (NSString *)renderChildren:(NSArray *)children inContext:(id <TDScope>)ctx;
 @end
 
 @interface TDBlockStartNode ()
@@ -50,6 +51,7 @@
 - (void)dealloc {
     self.tagName = nil;
     self.vars = nil;
+    self.enclosingScope = nil;
     [super dealloc];
 }
 
@@ -90,20 +92,22 @@
 }
 
 
-- (NSString *)renderInContext:(TDTemplateContext *)ctx {
+- (NSString *)renderInContext:(id <TDScope>)ctx {
     NSParameterAssert(ctx);
     TDAssert(_tag);
     
     [self enterScope];
+    self.enclosingScope = ctx;
     
     NSString *result = nil;
-    BOOL test = [[_tag evaluateInContext:ctx] boolValue];
+    BOOL test = [[_tag evaluateInContext:self] boolValue];
     if (test) {
         result = [self renderChildren:nil inContext:ctx];
     } else {
         result = @"";
     }
     
+    self.enclosingScope = nil;
     [self exitScope];
     
     return result;
@@ -126,7 +130,13 @@
 - (id)resolveVariable:(NSString *)name {
     NSParameterAssert([name length]);
     TDAssert(_vars);
-    return _vars[name];
+    id result = _vars[name];
+    
+    if (!result && self.enclosingScope) {
+        result = [self.enclosingScope resolveVariable:name];
+    }
+    
+    return result;
 }
 
 
@@ -137,4 +147,5 @@
     _vars[name] = value;
 }
 
+@synthesize enclosingScope;
 @end

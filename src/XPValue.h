@@ -38,7 +38,7 @@ double XPNumberFromString(NSString *s);
 
 - (BOOL)compareNumber:(double)x toNumber:(double)y usingOperator:(NSInteger)op;
 
-- (XPExpression *)reduceDependencies:(NSUInteger)dep inContext:(TDTemplateContext *)ctx;
+- (XPExpression *)reduceDependencies:(NSUInteger)dep inContext:(id <TDScope>)ctx;
 
 // convenience
 - (BOOL)isBooleanValue;

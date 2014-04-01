@@ -30,7 +30,7 @@
 }
 
 
-- (NSString *)renderInContext:(TDTemplateContext *)ctx {
+- (NSString *)renderInContext:(id <TDScope>)ctx {
     NSParameterAssert(ctx);
     TDAssert([self.token.stringValue length]);
     return self.token.stringValue;

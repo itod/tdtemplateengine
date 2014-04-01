@@ -21,6 +21,7 @@
 
 - (void)dealloc {
     self.vars = nil;
+    self.enclosingScope = nil;
     [super dealloc];
 }
 
@@ -31,7 +32,13 @@
 - (id)resolveVariable:(NSString *)name {
     NSParameterAssert([name length]);
     TDAssert(_vars);
-    return _vars[name];
+    id result = _vars[name];
+    
+    if (!result && self.enclosingScope) {
+        result = [self.enclosingScope resolveVariable:name];
+    }
+    
+    return result;
 }
 
 
@@ -42,4 +49,5 @@
     _vars[name] = value;
 }
 
+@synthesize enclosingScope;
 @end

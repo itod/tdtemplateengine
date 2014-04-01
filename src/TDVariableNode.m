@@ -42,7 +42,7 @@
 }
 
 
-- (NSString *)renderInContext:(TDTemplateContext *)ctx {
+- (NSString *)renderInContext:(id <TDScope>)ctx {
     NSParameterAssert(ctx);
     TDAssert([_varName length]);
     

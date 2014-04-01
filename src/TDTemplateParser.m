@@ -1,11 +1,12 @@
 #import "TDTemplateParser.h"
 #import <PEGKit/PEGKit.h>
     
+#import <TDTemplateEngine/TDTemplateContext.h>
 #import "TDRootNode.h"
 #import "TDVariableNode.h"
-#import "TDTextNode.h"
-#import "TDBlockEndNode.h"
 #import "TDBlockStartNode.h"
+#import "TDBlockEndNode.h"
+#import "TDTextNode.h"
 
 
 @interface TDTemplateParser ()
@@ -34,7 +35,9 @@
 }
 
 - (void)dealloc {
-    
+        
+	self.staticContext = nil;
+
 
     [super dealloc];
 }
@@ -50,14 +53,15 @@
     
     [self execute:^{
     
-	TDNode *root = [TDRootNode rootNode];
+	TDAssert(_staticContext);
+    TDNode *root = [TDRootNode rootNodeWithStaticContext:_staticContext];
 	self.assembly.target = root;
     PUSH(root);
 
     }];
     do {
         [self content_]; 
-    } while ([self predicts:TOKEN_KIND_BUILTIN_ANY, 0]);
+    } while ([self speculate:^{ [self content_]; }]);
 
 }
 

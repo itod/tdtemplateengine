@@ -30,6 +30,7 @@
 - (instancetype)initWithVariables:(NSDictionary *)vars {
     self = [super init];
     if (self) {
+        TDAssert(self.vars);
         [self.vars addEntriesFromDictionary:vars];
     }
     return self;

@@ -22,6 +22,8 @@
 
 #import <Foundation/Foundation.h>
 
+@protocol TDScope;
+
 @interface TDTemplateEngine : NSObject
 
 + (instancetype)templateEngine;
@@ -33,4 +35,6 @@
 @property (nonatomic, retain) NSString *varEndDelimiter;
 @property (nonatomic, retain) NSString *tagStartDelimiter;
 @property (nonatomic, retain) NSString *tagEndDelimiter;
+
+@property (nonatomic, retain, readonly) id <TDScope>staticContext;
 @end

@@ -33,7 +33,7 @@ double XPNumberFromString(NSString *s) {
 
 @implementation XPValue
 
-- (XPValue *)evaluateInContext:(TDTemplateContext *)ctx {
+- (XPValue *)evaluateInContext:(id <TDScope>)ctx {
     return self;
 }
 
@@ -127,7 +127,7 @@ double XPNumberFromString(NSString *s) {
 }
 
 
-- (XPExpression *)reduceDependencies:(NSUInteger)dep inContext:(TDTemplateContext *)ctx {
+- (XPExpression *)reduceDependencies:(NSUInteger)dep inContext:(id <TDScope>)ctx {
     return self;
 }
 

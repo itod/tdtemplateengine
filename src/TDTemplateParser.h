@@ -1,5 +1,7 @@
 #import <PEGKit/PKParser.h>
 
+@class TDTemplateContext;
+
 enum {
     TDTEMPLATE_TOKEN_KIND_BLOCK_START_TAG = 14,
     TDTEMPLATE_TOKEN_KIND_VAR,
@@ -8,6 +10,8 @@ enum {
 };
 
 @interface TDTemplateParser : PKParser
+
+@property (nonatomic, retain) TDTemplateContext *staticContext;
 
 @end
 

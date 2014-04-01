@@ -44,6 +44,26 @@
     TDEqualObjects(@"foo", res);
 }
 
+- (void)testStaticContext {
+    NSString *input = @"{{baz}}";
+    id vars = @{@"bar": @"foo"};
+    
+    [_engine.staticContext defineVariable:@"baz" withValue:@"bat"];
+    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    TDNotNil(res);
+    TDEqualObjects(@"bat", res);
+}
+
+- (void)testStaticContextShadow {
+    NSString *input = @"{{baz}}";
+    id vars = @{@"baz": @"foo"};
+    
+    [_engine.staticContext defineVariable:@"baz" withValue:@"bat"];
+    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    TDNotNil(res);
+    TDEqualObjects(@"foo", res);
+}
+
 - (void)testSimpleVarReplacementOneTextTwo {
     NSString *input = @"{{one}} text {{two}}";
     id vars = @{@"one": @"1", @"two": @"2"};

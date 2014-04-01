@@ -21,12 +21,12 @@
 // THE SOFTWARE.
 
 #import "TDIfTag.h"
-#import <TDTemplateEngine/TDTemplateContext.h>
+#import <TDTemplateEngine/TDScope.h>
 #import <TDTemplateEngine/XPExpression.h>
 
 @implementation TDIfTag
 
-- (id)evaluateInContext:(TDTemplateContext *)ctx {
+- (id)evaluateInContext:(id <TDScope>)ctx {
     TDAssert(ctx);
     TDAssert(self.expression);
     

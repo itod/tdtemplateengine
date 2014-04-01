@@ -22,7 +22,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class TDTemplateContext;
+@protocol TDScope;
 @class XPValue;
 @class PKTokenizer;
 
@@ -39,16 +39,16 @@ typedef NS_ENUM(NSUInteger, XPDataType) {
 + (PKTokenizer *)tokenizer;
 + (XPExpression *)expressionFromTokens:(NSArray *)toks error:(NSError **)outErr;
 
-- (XPValue *)evaluateInContext:(TDTemplateContext *)ctx;
-- (BOOL)evaluateAsBooleanInContext:(TDTemplateContext *)ctx;
-- (double)evaluateAsNumberInContext:(TDTemplateContext *)ctx;
-- (NSString *)evaluateAsStringInContext:(TDTemplateContext *)ctx;
+- (XPValue *)evaluateInContext:(id <TDScope>)ctx;
+- (BOOL)evaluateAsBooleanInContext:(id <TDScope>)ctx;
+- (double)evaluateAsNumberInContext:(id <TDScope>)ctx;
+- (NSString *)evaluateAsStringInContext:(id <TDScope>)ctx;
 
 - (BOOL)isValue;
 
 - (XPExpression *)simplify;
 - (NSUInteger)dependencies;
-- (XPExpression *)reduceDependencies:(NSUInteger)dep inContext:(TDTemplateContext *)ctx;
+- (XPExpression *)reduceDependencies:(NSUInteger)dep inContext:(id <TDScope>)ctx;
 
 - (XPDataType)dataType;
 

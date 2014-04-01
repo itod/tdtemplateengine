@@ -56,13 +56,13 @@
 }
 
 
-- (XPValue *)evaluateInContext:(TDTemplateContext *)ctx {
+- (XPValue *)evaluateInContext:(id <TDScope>)ctx {
     BOOL b = [self evaluateAsBooleanInContext:ctx];
     return [XPBooleanValue booleanValueWithBoolean:b];
 }
 
 
-- (BOOL)evaluateAsBooleanInContext:(TDTemplateContext *)ctx {
+- (BOOL)evaluateAsBooleanInContext:(id <TDScope>)ctx {
     BOOL b1 = [self.p1 evaluateAsBooleanInContext:ctx];
     BOOL b2 = [self.p2 evaluateAsBooleanInContext:ctx];
     

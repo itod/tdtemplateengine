@@ -29,6 +29,7 @@
 #import "TDBlockStartNode.h"
 #import "TDBlockEndNode.h"
 
+#import <TDTemplateEngine/TDScope.h>
 #import <TDTemplateEngine/TDTemplateContext.h>
 
 #import <PEGKit/PKTokenizer.h>
@@ -38,6 +39,7 @@
 
 @interface TDTemplateEngine ()
 @property (nonatomic, retain) NSRegularExpression *delimiterRegex;
+@property (nonatomic, retain, readwrite) id <TDScope>staticContext;
 @end
 
 @implementation TDTemplateEngine
@@ -54,6 +56,7 @@
         self.varEndDelimiter = @"}}";
         self.tagStartDelimiter = @"{%";
         self.tagEndDelimiter = @"%}";
+        self.staticContext = [[[TDTemplateContext alloc] init] autorelease];
     }
     return self;
 }
@@ -65,6 +68,7 @@
     self.tagStartDelimiter = nil;
     self.tagEndDelimiter = nil;
     self.delimiterRegex = nil;
+    self.staticContext = nil;
     [super dealloc];
 }
 
@@ -86,6 +90,9 @@
     
     TDNode *root = [self compile:frags];
     TDTemplateContext *ctx = [[[TDTemplateContext alloc] initWithVariables:vars] autorelease];
+
+    TDAssert(_staticContext);
+    ctx.enclosingScope = _staticContext;
     
     result = [root renderInContext:ctx];
 
@@ -218,6 +225,9 @@
 - (TDNode *)compile:(NSArray *)frags {
     
     TDTemplateParser *p = [[[TDTemplateParser alloc] initWithDelegate:nil] autorelease];
+
+    TDAssert(_staticContext);
+    p.staticContext = _staticContext;
     
     NSError *err = nil;
     TDNode *root = [p parseTokens:frags error:&err];

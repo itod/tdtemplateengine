@@ -1,14 +1,28 @@
+@h {
+@class TDTemplateContext;
+}
+
+@interface {
+@property (nonatomic, retain) TDTemplateContext *staticContext;
+}
+
 @m {
+#import <TDTemplateEngine/TDTemplateContext.h>
 #import "TDRootNode.h"
 #import "TDVariableNode.h"
-#import "TDTextNode.h"
-#import "TDBlockEndNode.h"
 #import "TDBlockStartNode.h"
+#import "TDBlockEndNode.h"
+#import "TDTextNode.h"
+}
+
+@dealloc {
+	self.staticContext = nil;
 }
 
 template
 @before {
-	TDNode *root = [TDRootNode rootNode];
+	TDAssert(_staticContext);
+    TDNode *root = [TDRootNode rootNodeWithStaticContext:_staticContext];
 	self.assembly.target = root;
     PUSH(root);
 }
