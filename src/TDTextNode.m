@@ -23,30 +23,17 @@
 #import "TDTextNode.h"
 #import <PEGKit/PKToken.h>
 
-@interface TDTextNode ()
-@property (nonatomic, retain) NSString *string;
-@end
-
 @implementation TDTextNode
 
 - (void)dealloc {
-    self.string = nil;
     [super dealloc];
-}
-
-
-- (void)processFragment:(PKToken *)frag {
-    NSParameterAssert(frag);
-    TDAssert([frag.stringValue length]);
-
-    self.string = frag.stringValue;
 }
 
 
 - (NSString *)renderInContext:(TDTemplateContext *)ctx {
     NSParameterAssert(ctx);
-    TDAssert([_string length]);
-    return _string;
+    TDAssert([self.token.stringValue length]);
+    return self.token.stringValue;
 }
 
 @end
