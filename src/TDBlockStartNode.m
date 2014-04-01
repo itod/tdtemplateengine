@@ -38,8 +38,8 @@
 
 @implementation TDBlockStartNode
 
-- (instancetype)initWithFragment:(PKToken *)frag {
-    self = [super initWithFragment:frag];
+- (instancetype)initWithToken:(PKToken *)frag {
+    self = [super initWithToken:frag];
     if (self) {
 
     }

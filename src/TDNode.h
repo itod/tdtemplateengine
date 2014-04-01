@@ -27,8 +27,7 @@
 
 @interface TDNode : PKAST
 
-+ (instancetype)nodeWithFragment:(PKToken *)frag;
-- (instancetype)initWithFragment:(PKToken *)frag;
++ (instancetype)nodeWithToken:(PKToken *)frag;
 
 - (void)processFragment:(PKToken *)frag;
 - (NSString *)renderInContext:(TDTemplateContext *)ctx;

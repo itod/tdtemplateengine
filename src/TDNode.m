@@ -29,12 +29,12 @@
 
 @implementation TDNode
 
-+ (instancetype)nodeWithFragment:(PKToken *)frag {
-    return [[[self alloc] initWithFragment:frag] autorelease];
++ (instancetype)nodeWithToken:(PKToken *)frag {
+    return [[[self alloc] initWithToken:frag] autorelease];
 }
 
 
-- (instancetype)initWithFragment:(PKToken *)frag {
+- (instancetype)initWithToken:(PKToken *)frag {
     NSParameterAssert(frag);
     self = [super initWithToken:frag];
     if (self) {

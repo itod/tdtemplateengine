@@ -27,7 +27,7 @@
 
 + (instancetype)rootNode {
     PKToken *frag = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"<ROOT>" doubleValue:0.0];
-    return [self nodeWithFragment:frag];
+    return [self nodeWithToken:frag];
 }
 
 @end

@@ -82,7 +82,7 @@
     
 	PKToken *tok = POP();
 	TDNode *parent = POP();
-	[parent addChild:[TDVariableNode nodeWithFragment:tok]];
+	[parent addChild:[TDVariableNode nodeWithToken:tok]];
 	PUSH(parent);
 
     }];
@@ -104,7 +104,7 @@
     
 	PKToken *tok = POP();
 	TDNode *parent = POP();
-	TDNode *startTagNode = [TDBlockStartNode nodeWithFragment:tok];
+	TDNode *startTagNode = [TDBlockStartNode nodeWithToken:tok];
 	[parent addChild:startTagNode];
 	PUSH(parent);
 	PUSH(startTagNode);
@@ -121,7 +121,7 @@
 	PKToken *tok = POP();
     POP(); // startTagNode
 	TDNode *parent = POP();
-	TDNode *endTagNode = [TDBlockEndNode nodeWithFragment:tok];
+	TDNode *endTagNode = [TDBlockEndNode nodeWithToken:tok];
 	[parent addChild:endTagNode];
 	PUSH(parent);
 
@@ -142,7 +142,7 @@
     
 	PKToken *tok = POP();
 	TDNode *parent = POP();
-	[parent addChild:[TDTextNode nodeWithFragment:tok]];
+	[parent addChild:[TDTextNode nodeWithToken:tok]];
 	PUSH(parent);
 
     }];
