@@ -51,18 +51,13 @@
     [self execute:^{
     
 	TDNode *root = [TDRootNode rootNode];
-	PUSH(root);
+	self.assembly.target = root;
+    PUSH(root);
 
     }];
     do {
         [self content_]; 
     } while ([self predicts:TOKEN_KIND_BUILTIN_ANY, 0]);
-    [self execute:^{
-    
-	TDNode *root = POP();
-	self.assembly.target = root;
-
-    }];
 
 }
 
@@ -109,8 +104,10 @@
     
 	PKToken *tok = POP();
 	TDNode *parent = POP();
-	[parent addChild:[TDBlockStartNode nodeWithFragment:tok]];
+	TDNode *startTagNode = [TDBlockStartNode nodeWithFragment:tok];
+	[parent addChild:startTagNode];
 	PUSH(parent);
+	PUSH(startTagNode);
 
     }];
 
@@ -122,8 +119,10 @@
     [self execute:^{
     
 	PKToken *tok = POP();
+    POP(); // startTagNode
 	TDNode *parent = POP();
-	[parent addChild:[TDBlockEndNode nodeWithFragment:tok]];
+	TDNode *endTagNode = [TDBlockEndNode nodeWithFragment:tok];
+	[parent addChild:endTagNode];
 	PUSH(parent);
 
     }];

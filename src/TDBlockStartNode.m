@@ -67,6 +67,8 @@
     NSString *tagName = nil;
 
     PKTokenizer *t = [XPParser makeTokenizer];
+    t.string = frag.stringValue;
+    
     PKToken *tok = nil;
     PKToken *eof = [PKToken EOFToken];
     while (eof != (tok = [t nextToken])) {
