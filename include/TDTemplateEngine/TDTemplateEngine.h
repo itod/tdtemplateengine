@@ -33,14 +33,14 @@
 - (TDNode *)compileTemplateString:(NSString *)str;
 - (TDNode *)compileTemplateFile:(NSString *)path encoding:(NSStringEncoding)enc error:(NSError **)err;
 
-// render pre-compiled tree with runtime vars
+// render pre-compiled tree with rendertime vars
 - (NSString *)renderTemplateTree:(TDNode *)node withVariables:(NSDictionary *)vars;
 
-// convenience. compile + render with runtime vars in one shot
+// convenience. compile + render with rendertime vars in one shot
 - (NSString *)processTemplateString:(NSString *)str withVariables:(NSDictionary *)vars;
 - (NSString *)processTemplateFile:(NSString *)path withVariables:(NSDictionary *)vars encoding:(NSStringEncoding)enc error:(NSError **)err;
 
-// static vars go here. this is the global scope at both compile time and runtime. persists across compiles and renders.
+// static vars go here. this is the global scope at both compile time and rendertime. persists across compiles and renders.
 @property (nonatomic, retain, readonly) id <TDScope>staticContext;
 
 @property (nonatomic, copy) NSString *varStartDelimiter;

@@ -105,12 +105,14 @@
 
 
 - (NSString *)renderTemplateTree:(TDNode *)root withVariables:(NSDictionary *)vars {
+    NSParameterAssert([root isKindOfClass:[TDRootNode class]]);
     TDTemplateContext *dynamicContext = [[[TDTemplateContext alloc] initWithVariables:vars] autorelease];
 
     TDAssert(_staticContext);
     dynamicContext.enclosingScope = _staticContext;
     
     NSString *result = [root renderInContext:dynamicContext];
+    TDAssert(result);
 
     return result;
 }
@@ -131,7 +133,13 @@
 
 - (NSString *)processTemplateString:(NSString *)str withVariables:(NSDictionary *)vars {
     TDNode *root = [self compileTemplateString:str];
-    NSString *result = [self renderTemplateTree:root withVariables:vars];
+    
+    NSString *result = nil;
+    
+    if (root) {
+        result = [self renderTemplateTree:root withVariables:vars];
+    }
+    
     return result;
 }
 
