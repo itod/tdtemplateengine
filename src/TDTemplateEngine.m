@@ -122,7 +122,7 @@
 }
 
 
-- (NSString *)processTemplateFile:(NSString *)path withVariables:(NSDictionary *)vars encoding:(NSStringEncoding)enc error:(NSError **)err {
+- (NSString *)processTemplateFile:(NSString *)path encoding:(NSStringEncoding)enc withVariables:(NSDictionary *)vars error:(NSError **)err {
     TDNode *root = [self compileTemplateFile:path encoding:enc error:err];
 
     NSString *result = nil;

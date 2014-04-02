@@ -38,7 +38,7 @@
 
 // convenience. compile + render with render-time vars in one shot
 - (NSString *)processTemplateString:(NSString *)str withVariables:(NSDictionary *)vars error:(NSError **)err;
-- (NSString *)processTemplateFile:(NSString *)path withVariables:(NSDictionary *)vars encoding:(NSStringEncoding)enc error:(NSError **)err;
+- (NSString *)processTemplateFile:(NSString *)path encoding:(NSStringEncoding)enc withVariables:(NSDictionary *)vars error:(NSError **)err;
 
 // static/compile-time vars go here. this is the global scope at both compile-time and render-time. persists across compiles and renders.
 @property (nonatomic, retain, readonly) id <TDScope>staticContext;

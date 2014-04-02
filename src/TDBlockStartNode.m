@@ -100,7 +100,7 @@
     self.enclosingScope = ctx;
     
     NSString *result = nil;
-    BOOL test = [[_tag evaluateInContext:self] boolValue];
+    BOOL test = [[_tag evaluateInContext:(id)self] boolValue]; // TODO
     if (test) {
         result = [self renderChildren:nil inContext:ctx];
     } else {
