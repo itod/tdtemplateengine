@@ -144,9 +144,9 @@
 
 - (void)enumExpr_ {
     
-    if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, 0]) {
+    if ([self speculate:^{ [self rangeExpr_]; }]) {
         [self rangeExpr_]; 
-    } else if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
+    } else if ([self speculate:^{ [self collectionExpr_]; }]) {
         [self collectionExpr_]; 
     } else {
         [self raise:@"No viable alternative found in rule 'enumExpr'."];
@@ -170,9 +170,9 @@
 
 - (void)rangeExpr_ {
     
-    [self num_]; 
+    [self orExpr_]; 
     [self match:XP_TOKEN_KIND_TO discard:YES]; 
-    [self num_]; 
+    [self orExpr_]; 
     [self optBy_]; 
     [self execute:^{
     
@@ -189,7 +189,7 @@
     
     if ([self predicts:XP_TOKEN_KIND_BY, 0]) {
         [self match:XP_TOKEN_KIND_BY discard:YES]; 
-        [self num_]; 
+        [self orExpr_]; 
     } else {
         [self matchEmpty:NO]; 
         [self execute:^{

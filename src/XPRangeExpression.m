@@ -8,6 +8,10 @@
 
 #import "XPRangeExpression.h"
 
+@interface XPRangeExpression ()
+@property (nonatomic, assign) NSInteger current;
+@end
+
 @implementation XPRangeExpression
 
 + (instancetype)rangeExpressionWithStart:(XPExpression *)start stop:(XPExpression *)stop by:(XPExpression *)by {

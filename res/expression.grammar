@@ -59,13 +59,13 @@ collectionExpr = identifier 'in'! collection;
 collection = identifier;
 
 rangeExpr
-		= num 'to'! num optBy {
+		= orExpr 'to'! orExpr optBy {
 	id by = POP();
 	id stop = POP();
 	id start = POP();
 	PUSH([XPRangeExpression rangeExpressionWithStart:start stop:stop by:by]);
 };
-optBy 	= 'by'! num
+optBy 	= 'by'! orExpr
 		| Empty { PUSH([XPNumericValue numericValueWithNumber:1.0]); }
 		;
 
