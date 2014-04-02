@@ -30,14 +30,14 @@
 + (instancetype)templateEngine;
 
 // pre-compile template into a tree
-- (TDNode *)compileTemplateString:(NSString *)str;
+- (TDNode *)compileTemplateString:(NSString *)str error:(NSError **)err;
 - (TDNode *)compileTemplateFile:(NSString *)path encoding:(NSStringEncoding)enc error:(NSError **)err;
 
 // render pre-compiled tree with rendertime vars
-- (NSString *)renderTemplateTree:(TDNode *)node withVariables:(NSDictionary *)vars;
+- (NSString *)renderTemplateTree:(TDNode *)node withVariables:(NSDictionary *)vars error:(NSError **)err;
 
 // convenience. compile + render with rendertime vars in one shot
-- (NSString *)processTemplateString:(NSString *)str withVariables:(NSDictionary *)vars;
+- (NSString *)processTemplateString:(NSString *)str withVariables:(NSDictionary *)vars error:(NSError **)err;
 - (NSString *)processTemplateFile:(NSString *)path withVariables:(NSDictionary *)vars encoding:(NSStringEncoding)enc error:(NSError **)err;
 
 // static vars go here. this is the global scope at both compile time and rendertime. persists across compiles and renders.

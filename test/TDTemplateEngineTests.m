@@ -30,8 +30,10 @@
     NSString *input = @"{{foo}}";
     id vars = @{@"foo": @"bar"};
     
-    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    NSError *err = nil;
+    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
     TDNotNil(res);
+    TDNil(err);
     TDEqualObjects(@"bar", res);
 }
 
@@ -39,8 +41,10 @@
     NSString *input = @"{{bar}}";
     id vars = @{@"bar": @"foo"};
     
-    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    NSError *err = nil;
+    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
     TDNotNil(res);
+    TDNil(err);
     TDEqualObjects(@"foo", res);
 }
 
@@ -49,8 +53,10 @@
     id vars = @{@"bar": @"foo"};
     
     [_engine.staticContext defineVariable:@"baz" withValue:@"bat"];
-    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    NSError *err = nil;
+    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
     TDNotNil(res);
+    TDNil(err);
     TDEqualObjects(@"bat", res);
 }
 
@@ -59,8 +65,10 @@
     id vars = @{@"baz": @"foo"};
     
     [_engine.staticContext defineVariable:@"baz" withValue:@"bat"];
-    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    NSError *err = nil;
+    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
     TDNotNil(res);
+    TDNil(err);
     TDEqualObjects(@"foo", res);
 }
 
@@ -68,8 +76,10 @@
     NSString *input = @"{{one}} text {{two}}";
     id vars = @{@"one": @"1", @"two": @"2"};
     
-    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    NSError *err = nil;
+    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
     TDNotNil(res);
+    TDNil(err);
     TDEqualObjects(@"1 text 2", res);
 }
 
@@ -77,8 +87,10 @@
     NSString *input = @"{% if 1 %} text {%/if %}";
     id vars = nil;
     
-    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    NSError *err = nil;
+    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
     TDNotNil(res);
+    TDNil(err);
     TDEqualObjects(@" text ", res);
 }
 
@@ -86,8 +98,10 @@
     NSString *input = @"{% if 0 %} text {%/if %}";
     id vars = nil;
     
-    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    NSError *err = nil;
+    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
     TDNotNil(res);
+    TDNil(err);
     TDEqualObjects(@"", res);
 }
 
@@ -95,8 +109,10 @@
     NSString *input = @"{% if YES %} text {%/if %}";
     id vars = nil;
     
-    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    NSError *err = nil;
+    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
     TDNotNil(res);
+    TDNil(err);
     TDEqualObjects(@" text ", res);
 }
 
@@ -104,8 +120,10 @@
     NSString *input = @"{% if NO %} text {%/if %}";
     id vars = nil;
     
-    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    NSError *err = nil;
+    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
     TDNotNil(res);
+    TDNil(err);
     TDEqualObjects(@"", res);
 }
 
@@ -113,8 +131,10 @@
     NSString *input = @"{% if true %} text {%/if %}";
     id vars = nil;
     
-    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    NSError *err = nil;
+    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
     TDNotNil(res);
+    TDNil(err);
     TDEqualObjects(@" text ", res);
 }
 
@@ -122,8 +142,10 @@
     NSString *input = @"{% if false %} text {%/if %}";
     id vars = nil;
     
-    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    NSError *err = nil;
+    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
     TDNotNil(res);
+    TDNil(err);
     TDEqualObjects(@"", res);
 }
 
@@ -131,8 +153,10 @@
     NSString *input = @"{% if (true) %} text {%/if %}";
     id vars = nil;
     
-    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    NSError *err = nil;
+    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
     TDNotNil(res);
+    TDNil(err);
     TDEqualObjects(@" text ", res);
 }
 
@@ -140,8 +164,10 @@
     NSString *input = @"{% if (false) %} text {%/if %}";
     id vars = nil;
     
-    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    NSError *err = nil;
+    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
     TDNotNil(res);
+    TDNil(err);
     TDEqualObjects(@"", res);
 }
 
@@ -149,8 +175,10 @@
     NSString *input = @"{% if 'hello' %} text {%/if %}";
     id vars = nil;
     
-    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    NSError *err = nil;
+    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
     TDNotNil(res);
+    TDNil(err);
     TDEqualObjects(@" text ", res);
 }
 
@@ -158,8 +186,10 @@
     NSString *input = @"{% if '' %} text {%/if %}";
     id vars = nil;
     
-    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    NSError *err = nil;
+    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
     TDNotNil(res);
+    TDNil(err);
     TDEqualObjects(@"", res);
 }
 
@@ -167,8 +197,10 @@
     NSString *input = @"{% if 1 eq 1 %} text {%/if %}";
     id vars = nil;
     
-    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    NSError *err = nil;
+    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
     TDNotNil(res);
+    TDNil(err);
     TDEqualObjects(@" text ", res);
 }
 
@@ -176,8 +208,10 @@
     NSString *input = @"{% if 1 = 1 %} text {%/if %}";
     id vars = nil;
     
-    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    NSError *err = nil;
+    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
     TDNotNil(res);
+    TDNil(err);
     TDEqualObjects(@" text ", res);
 }
 
@@ -185,8 +219,10 @@
     NSString *input = @"{% if 1 == 1 %} text {%/if %}";
     id vars = nil;
     
-    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    NSError *err = nil;
+    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
     TDNotNil(res);
+    TDNil(err);
     TDEqualObjects(@" text ", res);
 }
 
@@ -194,8 +230,10 @@
     NSString *input = @"{% if 1 eq 2 %} text {%/if %}";
     id vars = nil;
     
-    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    NSError *err = nil;
+    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
     TDNotNil(res);
+    TDNil(err);
     TDEqualObjects(@"", res);
 }
 
@@ -203,8 +241,10 @@
     NSString *input = @"{% if 1 = 2 %} text {%/if %}";
     id vars = nil;
     
-    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    NSError *err = nil;
+    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
     TDNotNil(res);
+    TDNil(err);
     TDEqualObjects(@"", res);
 }
 
@@ -212,8 +252,10 @@
     NSString *input = @"{% if 1 == 2 %} text {%/if %}";
     id vars = nil;
     
-    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    NSError *err = nil;
+    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
     TDNotNil(res);
+    TDNil(err);
     TDEqualObjects(@"", res);
 }
 
@@ -221,8 +263,10 @@
     NSString *input = @"{% if 1 ne 1 %} text {%/if %}";
     id vars = nil;
     
-    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    NSError *err = nil;
+    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
     TDNotNil(res);
+    TDNil(err);
     TDEqualObjects(@"", res);
 }
 
@@ -230,8 +274,10 @@
     NSString *input = @"{% if 1 != 1 %} text {%/if %}";
     id vars = nil;
     
-    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    NSError *err = nil;
+    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
     TDNotNil(res);
+    TDNil(err);
     TDEqualObjects(@"", res);
 }
 
@@ -239,8 +285,10 @@
     NSString *input = @"{% if 1 ne 2 %} text {%/if %}";
     id vars = nil;
     
-    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    NSError *err = nil;
+    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
     TDNotNil(res);
+    TDNil(err);
     TDEqualObjects(@" text ", res);
 }
 
@@ -248,8 +296,10 @@
     NSString *input = @"{% if 1 != 2 %} text {%/if %}";
     id vars = nil;
     
-    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    NSError *err = nil;
+    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
     TDNotNil(res);
+    TDNil(err);
     TDEqualObjects(@" text ", res);
 }
 
@@ -257,8 +307,10 @@
     NSString *input = @"{% if 1 < 1 %} text {%/if %}";
     id vars = nil;
     
-    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    NSError *err = nil;
+    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
     TDNotNil(res);
+    TDNil(err);
     TDEqualObjects(@"", res);
 }
 
@@ -266,8 +318,10 @@
     NSString *input = @"{% if 1 <= 1 %} text {%/if %}";
     id vars = nil;
     
-    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    NSError *err = nil;
+    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
     TDNotNil(res);
+    TDNil(err);
     TDEqualObjects(@" text ", res);
 }
 
@@ -275,8 +329,10 @@
     NSString *input = @"{% if 1 < 2 %} text {%/if %}";
     id vars = nil;
     
-    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    NSError *err = nil;
+    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
     TDNotNil(res);
+    TDNil(err);
     TDEqualObjects(@" text ", res);
 }
 
@@ -284,8 +340,10 @@
     NSString *input = @"{% if 1 <= 2 %} text {%/if %}";
     id vars = nil;
     
-    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    NSError *err = nil;
+    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
     TDNotNil(res);
+    TDNil(err);
     TDEqualObjects(@" text ", res);
 }
 
@@ -293,8 +351,10 @@
     NSString *input = @"{% if 1 > 1 %} text {%/if %}";
     id vars = nil;
     
-    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    NSError *err = nil;
+    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
     TDNotNil(res);
+    TDNil(err);
     TDEqualObjects(@"", res);
 }
 
@@ -302,8 +362,10 @@
     NSString *input = @"{% if 1 >= 1 %} text {%/if %}";
     id vars = nil;
     
-    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    NSError *err = nil;
+    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
     TDNotNil(res);
+    TDNil(err);
     TDEqualObjects(@" text ", res);
 }
 
@@ -311,8 +373,10 @@
     NSString *input = @"{% if 1 > 2 %} text {%/if %}";
     id vars = nil;
     
-    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    NSError *err = nil;
+    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
     TDNotNil(res);
+    TDNil(err);
     TDEqualObjects(@"", res);
 }
 
@@ -320,8 +384,10 @@
     NSString *input = @"{% if 1 >= 2 %} text {%/if %}";
     id vars = nil;
     
-    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    NSError *err = nil;
+    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
     TDNotNil(res);
+    TDNil(err);
     TDEqualObjects(@"", res);
 }
 
@@ -329,8 +395,10 @@
     NSString *input = @"{% if 1 and 0 %} text {%/if %}";
     id vars = nil;
     
-    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    NSError *err = nil;
+    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
     TDNotNil(res);
+    TDNil(err);
     TDEqualObjects(@"", res);
 }
 
@@ -338,8 +406,10 @@
     NSString *input = @"{% if 0 and 1 %} text {%/if %}";
     id vars = nil;
     
-    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    NSError *err = nil;
+    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
     TDNotNil(res);
+    TDNil(err);
     TDEqualObjects(@"", res);
 }
 
@@ -347,8 +417,10 @@
     NSString *input = @"{% if 1 and 1 %} text {%/if %}";
     id vars = nil;
     
-    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    NSError *err = nil;
+    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
     TDNotNil(res);
+    TDNil(err);
     TDEqualObjects(@" text ", res);
 }
 
@@ -356,8 +428,10 @@
     NSString *input = @"{% if 1 or 0 %} text {%/if %}";
     id vars = nil;
     
-    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    NSError *err = nil;
+    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
     TDNotNil(res);
+    TDNil(err);
     TDEqualObjects(@" text ", res);
 }
 
@@ -365,8 +439,10 @@
     NSString *input = @"{% if 0 or 1 %} text {%/if %}";
     id vars = nil;
     
-    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    NSError *err = nil;
+    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
     TDNotNil(res);
+    TDNil(err);
     TDEqualObjects(@" text ", res);
 }
 
@@ -374,8 +450,10 @@
     NSString *input = @"{% if 1 or 1 %} text {%/if %}";
     id vars = nil;
     
-    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    NSError *err = nil;
+    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
     TDNotNil(res);
+    TDNil(err);
     TDEqualObjects(@" text ", res);
 }
 
@@ -383,8 +461,10 @@
     NSString *input = @"{% if 1 + 2 %} text {%/if %}";
     id vars = nil;
     
-    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    NSError *err = nil;
+    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
     TDNotNil(res);
+    TDNil(err);
     TDEqualObjects(@" text ", res);
 }
 
@@ -392,8 +472,10 @@
     NSString *input = @"{% if 1+2 %} text {%/if %}";
     id vars = nil;
     
-    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    NSError *err = nil;
+    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
     TDNotNil(res);
+    TDNil(err);
     TDEqualObjects(@" text ", res);
 }
 
@@ -401,8 +483,10 @@
     NSString *input = @"{% if 1 - 1 %} text {%/if %}";
     id vars = nil;
     
-    NSString *res = [_engine processTemplateString:input withVariables:vars];
+    NSError *err = nil;
+    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
     TDNotNil(res);
+    TDNil(err);
     TDEqualObjects(@"", res);
 }
 

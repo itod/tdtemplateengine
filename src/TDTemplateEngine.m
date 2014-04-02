@@ -83,15 +83,15 @@
     NSString *str = [NSString stringWithContentsOfFile:path encoding:enc error:err];
     
     if (str) {
-        root = [self compileTemplateString:str];
+        root = [self compileTemplateString:str error:err];
     }
     
     return root;
 }
 
 
-- (TDNode *)compileTemplateString:(NSString *)inStr {
-    NSParameterAssert([inStr length]);
+- (TDNode *)compileTemplateString:(NSString *)str error:(NSError **)err {
+    NSParameterAssert([str length]);
     TDAssertMainThread();
     TDAssert([_varStartDelimiter length]);
     TDAssert([_varEndDelimiter length]);
@@ -99,16 +99,16 @@
     TDAssert([_tagEndDelimiter length]);
 
     // lex
-    NSArray *frags = [self fragmentsFromString:inStr];
+    NSArray *frags = [self fragmentsFromString:str];
     TDAssert(frags);
     
     // compile
-    TDNode *root = [self compile:frags];
+    TDNode *root = [self compile:frags error:err];
     return root;
 }
 
 
-- (NSString *)renderTemplateTree:(TDNode *)root withVariables:(NSDictionary *)vars {
+- (NSString *)renderTemplateTree:(TDNode *)root withVariables:(NSDictionary *)vars error:(NSError **)err {
     NSParameterAssert([root isKindOfClass:[TDRootNode class]]);
 
     TDTemplateContext *dynamicContext = [[[TDTemplateContext alloc] initWithVariables:vars] autorelease];
@@ -128,20 +128,20 @@
     NSString *result = nil;
     
     if (root) {
-        result = [self renderTemplateTree:root withVariables:vars];
+        result = [self renderTemplateTree:root withVariables:vars error:err];
     }
     
     return result;
 }
 
 
-- (NSString *)processTemplateString:(NSString *)str withVariables:(NSDictionary *)vars {
-    TDNode *root = [self compileTemplateString:str];
+- (NSString *)processTemplateString:(NSString *)str withVariables:(NSDictionary *)vars error:(NSError **)err {
+    TDNode *root = [self compileTemplateString:str error:err];
     
     NSString *result = nil;
     
     if (root) {
-        result = [self renderTemplateTree:root withVariables:vars];
+        result = [self renderTemplateTree:root withVariables:vars error:err];
     }
     
     return result;
@@ -170,10 +170,10 @@
 - (BOOL)setUpDelimiterRegex:(NSError **)outErr {
     TDAssertMainThread();
     
-    NSString *varStartDelimiter   = [self cleanPattern:_varStartDelimiter];
-    NSString *varEndDelimiter     = [self cleanPattern:_varEndDelimiter];
-    NSString *tagStartDelimiter   = [self cleanPattern:_tagStartDelimiter];
-    NSString *tagEndDelimiter     = [self cleanPattern:_tagEndDelimiter];
+    NSString *varStartDelimiter = [self cleanPattern:_varStartDelimiter];
+    NSString *varEndDelimiter   = [self cleanPattern:_varEndDelimiter];
+    NSString *tagStartDelimiter = [self cleanPattern:_tagStartDelimiter];
+    NSString *tagEndDelimiter   = [self cleanPattern:_tagEndDelimiter];
     
     NSString *pattern = [NSString stringWithFormat:@"(%@.*?%@|%@.*?%@)", varStartDelimiter, varEndDelimiter, tagStartDelimiter, tagEndDelimiter];
 
@@ -195,9 +195,9 @@
     NSMutableArray *frags = [NSMutableArray array];
 
     NSUInteger varStartDelimLen = [_varStartDelimiter length];
-    NSUInteger varEndDelimLen = [_varEndDelimiter length];
+    NSUInteger varEndDelimLen   = [_varEndDelimiter length];
     NSUInteger tagStartDelimLen = [_tagStartDelimiter length];
-    NSUInteger tagEndDelimLen = [_tagEndDelimiter length];
+    NSUInteger tagEndDelimLen   = [_tagEndDelimiter length];
     
     NSCharacterSet *wsSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
 
@@ -255,15 +255,14 @@
 }
 
 
-- (TDNode *)compile:(NSArray *)frags {
+- (TDNode *)compile:(NSArray *)frags error:(NSError **)err {
     
     TDTemplateParser *p = [[[TDTemplateParser alloc] initWithDelegate:nil] autorelease];
 
     TDAssert(_staticContext);
     p.staticContext = _staticContext;
     
-    NSError *err = nil;
-    TDNode *root = [p parseTokens:frags error:&err];
+    TDNode *root = [p parseTokens:frags error:err];
     
     return root;
 }
