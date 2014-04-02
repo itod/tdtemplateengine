@@ -10,6 +10,7 @@
 
 @interface TDVarTagTests : XCTestCase
 @property (nonatomic, retain) TDTemplateEngine *engine;
+@property (nonatomic, retain) NSOutputStream *output;
 @end
 
 @implementation TDVarTagTests
@@ -18,12 +19,19 @@
     [super setUp];
     
     self.engine = [TDTemplateEngine templateEngine];
+    self.output = [NSOutputStream outputStreamToMemory];
 }
 
 - (void)tearDown {
     self.engine = nil;
+    self.output = nil;
     
     [super tearDown];
+}
+
+- (NSString *)outputString {
+    NSString *str = [[[NSString alloc] initWithData:[_output propertyForKey:NSStreamDataWrittenToMemoryStreamKey] encoding:NSUTF8StringEncoding] autorelease];
+    return str;
 }
 
 - (void)testSimpleVarReplacementFoo {
@@ -31,9 +39,10 @@
     id vars = @{@"foo": @"bar"};
     
     NSError *err = nil;
-    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
-    TDNotNil(res);
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
     TDNil(err);
+    NSString *res = [self outputString];
     TDEqualObjects(@"bar", res);
 }
 
@@ -42,9 +51,10 @@
     id vars = @{@"bar": @"foo"};
     
     NSError *err = nil;
-    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
-    TDNotNil(res);
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
     TDNil(err);
+    NSString *res = [self outputString];
     TDEqualObjects(@"foo", res);
 }
 
@@ -54,9 +64,10 @@
     
     [_engine.staticContext defineVariable:@"baz" withValue:@"bat"];
     NSError *err = nil;
-    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
-    TDNotNil(res);
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
     TDNil(err);
+    NSString *res = [self outputString];
     TDEqualObjects(@"bat", res);
 }
 
@@ -66,9 +77,10 @@
     
     [_engine.staticContext defineVariable:@"baz" withValue:@"bat"];
     NSError *err = nil;
-    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
-    TDNotNil(res);
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
     TDNil(err);
+    NSString *res = [self outputString];
     TDEqualObjects(@"foo", res);
 }
 
@@ -77,9 +89,10 @@
     id vars = @{@"one": @"1", @"two": @"2"};
     
     NSError *err = nil;
-    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
-    TDNotNil(res);
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
     TDNil(err);
+    NSString *res = [self outputString];
     TDEqualObjects(@"1 text 2", res);
 }
 

@@ -10,6 +10,7 @@
 
 @interface TDIfTagTests : XCTestCase
 @property (nonatomic, retain) TDTemplateEngine *engine;
+@property (nonatomic, retain) NSOutputStream *output;
 @end
 
 @implementation TDIfTagTests
@@ -18,12 +19,19 @@
     [super setUp];
     
     self.engine = [TDTemplateEngine templateEngine];
+    self.output = [NSOutputStream outputStreamToMemory];
 }
 
 - (void)tearDown {
     self.engine = nil;
+    self.output = nil;
     
     [super tearDown];
+}
+
+- (NSString *)outputString {
+    NSString *str = [[[NSString alloc] initWithData:[_output propertyForKey:NSStreamDataWrittenToMemoryStreamKey] encoding:NSUTF8StringEncoding] autorelease];
+    return str;
 }
 
 - (void)testIf1 {
@@ -31,9 +39,10 @@
     id vars = nil;
     
     NSError *err = nil;
-    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
-    TDNotNil(res);
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
     TDNil(err);
+    NSString *res = [self outputString];
     TDEqualObjects(@" text ", res);
 }
 
@@ -42,9 +51,10 @@
     id vars = nil;
     
     NSError *err = nil;
-    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
-    TDNotNil(res);
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
     TDNil(err);
+    NSString *res = [self outputString];
     TDEqualObjects(@"", res);
 }
 
@@ -53,9 +63,10 @@
     id vars = nil;
     
     NSError *err = nil;
-    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
-    TDNotNil(res);
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
     TDNil(err);
+    NSString *res = [self outputString];
     TDEqualObjects(@" text ", res);
 }
 
@@ -64,9 +75,10 @@
     id vars = nil;
     
     NSError *err = nil;
-    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
-    TDNotNil(res);
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
     TDNil(err);
+    NSString *res = [self outputString];
     TDEqualObjects(@"", res);
 }
 
@@ -75,9 +87,10 @@
     id vars = nil;
     
     NSError *err = nil;
-    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
-    TDNotNil(res);
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
     TDNil(err);
+    NSString *res = [self outputString];
     TDEqualObjects(@" text ", res);
 }
 
@@ -86,9 +99,10 @@
     id vars = nil;
     
     NSError *err = nil;
-    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
-    TDNotNil(res);
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
     TDNil(err);
+    NSString *res = [self outputString];
     TDEqualObjects(@"", res);
 }
 
@@ -97,9 +111,10 @@
     id vars = nil;
     
     NSError *err = nil;
-    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
-    TDNotNil(res);
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
     TDNil(err);
+    NSString *res = [self outputString];
     TDEqualObjects(@" text ", res);
 }
 
@@ -108,9 +123,10 @@
     id vars = nil;
     
     NSError *err = nil;
-    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
-    TDNotNil(res);
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
     TDNil(err);
+    NSString *res = [self outputString];
     TDEqualObjects(@"", res);
 }
 
@@ -119,9 +135,10 @@
     id vars = nil;
     
     NSError *err = nil;
-    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
-    TDNotNil(res);
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
     TDNil(err);
+    NSString *res = [self outputString];
     TDEqualObjects(@" text ", res);
 }
 
@@ -130,9 +147,10 @@
     id vars = nil;
     
     NSError *err = nil;
-    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
-    TDNotNil(res);
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
     TDNil(err);
+    NSString *res = [self outputString];
     TDEqualObjects(@"", res);
 }
 
@@ -141,9 +159,10 @@
     id vars = nil;
     
     NSError *err = nil;
-    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
-    TDNotNil(res);
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
     TDNil(err);
+    NSString *res = [self outputString];
     TDEqualObjects(@" text ", res);
 }
 
@@ -152,9 +171,10 @@
     id vars = nil;
     
     NSError *err = nil;
-    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
-    TDNotNil(res);
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
     TDNil(err);
+    NSString *res = [self outputString];
     TDEqualObjects(@" text ", res);
 }
 
@@ -163,9 +183,10 @@
     id vars = nil;
     
     NSError *err = nil;
-    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
-    TDNotNil(res);
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
     TDNil(err);
+    NSString *res = [self outputString];
     TDEqualObjects(@" text ", res);
 }
 
@@ -174,9 +195,10 @@
     id vars = nil;
     
     NSError *err = nil;
-    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
-    TDNotNil(res);
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
     TDNil(err);
+    NSString *res = [self outputString];
     TDEqualObjects(@"", res);
 }
 
@@ -185,9 +207,10 @@
     id vars = nil;
     
     NSError *err = nil;
-    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
-    TDNotNil(res);
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
     TDNil(err);
+    NSString *res = [self outputString];
     TDEqualObjects(@"", res);
 }
 
@@ -196,9 +219,10 @@
     id vars = nil;
     
     NSError *err = nil;
-    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
-    TDNotNil(res);
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
     TDNil(err);
+    NSString *res = [self outputString];
     TDEqualObjects(@"", res);
 }
 
@@ -207,9 +231,10 @@
     id vars = nil;
     
     NSError *err = nil;
-    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
-    TDNotNil(res);
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
     TDNil(err);
+    NSString *res = [self outputString];
     TDEqualObjects(@"", res);
 }
 
@@ -218,9 +243,10 @@
     id vars = nil;
     
     NSError *err = nil;
-    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
-    TDNotNil(res);
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
     TDNil(err);
+    NSString *res = [self outputString];
     TDEqualObjects(@"", res);
 }
 
@@ -229,9 +255,10 @@
     id vars = nil;
     
     NSError *err = nil;
-    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
-    TDNotNil(res);
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
     TDNil(err);
+    NSString *res = [self outputString];
     TDEqualObjects(@" text ", res);
 }
 
@@ -240,9 +267,10 @@
     id vars = nil;
     
     NSError *err = nil;
-    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
-    TDNotNil(res);
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
     TDNil(err);
+    NSString *res = [self outputString];
     TDEqualObjects(@" text ", res);
 }
 
@@ -251,9 +279,10 @@
     id vars = nil;
     
     NSError *err = nil;
-    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
-    TDNotNil(res);
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
     TDNil(err);
+    NSString *res = [self outputString];
     TDEqualObjects(@"", res);
 }
 
@@ -262,9 +291,10 @@
     id vars = nil;
     
     NSError *err = nil;
-    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
-    TDNotNil(res);
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
     TDNil(err);
+    NSString *res = [self outputString];
     TDEqualObjects(@" text ", res);
 }
 
@@ -273,9 +303,10 @@
     id vars = nil;
     
     NSError *err = nil;
-    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
-    TDNotNil(res);
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
     TDNil(err);
+    NSString *res = [self outputString];
     TDEqualObjects(@" text ", res);
 }
 
@@ -284,9 +315,10 @@
     id vars = nil;
     
     NSError *err = nil;
-    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
-    TDNotNil(res);
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
     TDNil(err);
+    NSString *res = [self outputString];
     TDEqualObjects(@" text ", res);
 }
 
@@ -295,9 +327,10 @@
     id vars = nil;
     
     NSError *err = nil;
-    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
-    TDNotNil(res);
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
     TDNil(err);
+    NSString *res = [self outputString];
     TDEqualObjects(@"", res);
 }
 
@@ -306,9 +339,10 @@
     id vars = nil;
     
     NSError *err = nil;
-    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
-    TDNotNil(res);
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
     TDNil(err);
+    NSString *res = [self outputString];
     TDEqualObjects(@" text ", res);
 }
 
@@ -317,9 +351,10 @@
     id vars = nil;
     
     NSError *err = nil;
-    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
-    TDNotNil(res);
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
     TDNil(err);
+    NSString *res = [self outputString];
     TDEqualObjects(@"", res);
 }
 
@@ -328,9 +363,10 @@
     id vars = nil;
     
     NSError *err = nil;
-    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
-    TDNotNil(res);
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
     TDNil(err);
+    NSString *res = [self outputString];
     TDEqualObjects(@"", res);
 }
 
@@ -339,9 +375,10 @@
     id vars = nil;
     
     NSError *err = nil;
-    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
-    TDNotNil(res);
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
     TDNil(err);
+    NSString *res = [self outputString];
     TDEqualObjects(@"", res);
 }
 
@@ -350,9 +387,10 @@
     id vars = nil;
     
     NSError *err = nil;
-    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
-    TDNotNil(res);
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
     TDNil(err);
+    NSString *res = [self outputString];
     TDEqualObjects(@"", res);
 }
 
@@ -361,9 +399,10 @@
     id vars = nil;
     
     NSError *err = nil;
-    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
-    TDNotNil(res);
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
     TDNil(err);
+    NSString *res = [self outputString];
     TDEqualObjects(@" text ", res);
 }
 
@@ -372,9 +411,10 @@
     id vars = nil;
     
     NSError *err = nil;
-    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
-    TDNotNil(res);
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
     TDNil(err);
+    NSString *res = [self outputString];
     TDEqualObjects(@" text ", res);
 }
 
@@ -383,9 +423,10 @@
     id vars = nil;
     
     NSError *err = nil;
-    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
-    TDNotNil(res);
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
     TDNil(err);
+    NSString *res = [self outputString];
     TDEqualObjects(@" text ", res);
 }
 
@@ -394,9 +435,10 @@
     id vars = nil;
     
     NSError *err = nil;
-    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
-    TDNotNil(res);
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
     TDNil(err);
+    NSString *res = [self outputString];
     TDEqualObjects(@" text ", res);
 }
 
@@ -405,9 +447,10 @@
     id vars = nil;
     
     NSError *err = nil;
-    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
-    TDNotNil(res);
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
     TDNil(err);
+    NSString *res = [self outputString];
     TDEqualObjects(@" text ", res);
 }
 
@@ -416,9 +459,10 @@
     id vars = nil;
     
     NSError *err = nil;
-    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
-    TDNotNil(res);
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
     TDNil(err);
+    NSString *res = [self outputString];
     TDEqualObjects(@" text ", res);
 }
 
@@ -427,9 +471,10 @@
     id vars = nil;
     
     NSError *err = nil;
-    NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
-    TDNotNil(res);
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
     TDNil(err);
+    NSString *res = [self outputString];
     TDEqualObjects(@"", res);
 }
 

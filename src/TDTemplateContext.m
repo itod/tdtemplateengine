@@ -21,6 +21,7 @@
 // THE SOFTWARE.
 
 #import <TDTemplateEngine/TDTemplateContext.h>
+#import <TDTemplateEngine/TDWriter.h>
 
 @interface TDTemplateContext ()
 @property (nonatomic, retain) NSMutableDictionary *vars;
@@ -29,16 +30,18 @@
 @implementation TDTemplateContext
 
 - (instancetype)init {
-    self = [self initWithVariables:nil];
+    self = [self initWithVariables:nil output:nil];
     return self;
 }
 
 
-- (instancetype)initWithVariables:(NSDictionary *)vars {
+- (instancetype)initWithVariables:(NSDictionary *)vars output:(NSOutputStream *)output {
     self = [super init];
     if (self) {
         self.vars = [NSMutableDictionary dictionary];
         [_vars addEntriesFromDictionary:vars];
+
+        self.writer = [TDWriter writerWithOutputStream:output];
     }
     return self;
 }
@@ -46,6 +49,7 @@
 
 - (void)dealloc {
     self.vars = nil;
+    self.writer = nil;
     self.enclosingScope = nil;
     [super dealloc];
 }

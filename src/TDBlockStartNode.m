@@ -29,7 +29,7 @@
 #import <PEGKit/PKWhitespaceState.h>
 
 @interface TDNode ()
-- (NSString *)renderChildren:(NSArray *)children inContext:(TDTemplateContext *)ctx;
+- (void)renderChildren:(NSArray *)children inContext:(TDTemplateContext *)ctx;
 @end
 
 @interface TDBlockStartNode ()
@@ -92,25 +92,20 @@
 }
 
 
-- (NSString *)renderInContext:(TDTemplateContext *)ctx {
+- (void)renderInContext:(TDTemplateContext *)ctx {
     NSParameterAssert(ctx);
     TDAssert(_tag);
     
     [self enterScope];
     self.enclosingScope = ctx;
     
-    NSString *result = nil;
     BOOL test = [[_tag evaluateInContext:(id)self] boolValue]; // TODO
     if (test) {
-        result = [self renderChildren:nil inContext:ctx];
-    } else {
-        result = @"";
+        [self renderChildren:nil inContext:ctx];
     }
     
     self.enclosingScope = nil;
     [self exitScope];
-    
-    return result;
 }
 
 

@@ -22,6 +22,7 @@
 
 #import "TDVariableNode.h"
 #import <TDTemplateEngine/TDTemplateContext.h>
+#import <TDTemplateEngine/TDWriter.h>
 #import <PEGKit/PKToken.h>
 
 @implementation TDVariableNode
@@ -42,12 +43,15 @@
 }
 
 
-- (NSString *)renderInContext:(TDTemplateContext *)ctx {
+- (void)renderInContext:(TDTemplateContext *)ctx {
     NSParameterAssert(ctx);
     TDAssert([_varName length]);
     
     NSString *s = [ctx resolveVariable:_varName];
-    return s;
+    TDWriter *writer = ctx.writer;
+    
+    TDAssert(writer);
+    [writer appendString:s];
 }
 
 @end

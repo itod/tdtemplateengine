@@ -37,6 +37,9 @@
 #import <PEGKit/PKSymbolState.h>
 #import <PEGKit/PKToken.h>
 
+NSString * const TDTemplateEngineErrorDomain = @"TDTemplateEngineErrorDomain";
+NSInteger TDTemplateEngineRenderingErrorCode = 1;
+
 @interface TDTemplateEngine ()
 @property (nonatomic, retain) NSRegularExpression *delimiterRegex;
 @property (nonatomic, retain, readwrite) id <TDScope>staticContext;
@@ -108,43 +111,54 @@
 }
 
 
-- (NSString *)renderTemplateTree:(TDNode *)root withVariables:(NSDictionary *)vars error:(NSError **)err {
+- (BOOL)renderTemplateTree:(TDNode *)root withVariables:(NSDictionary *)vars toStream:(NSOutputStream *)output error:(NSError **)err {
     NSParameterAssert([root isKindOfClass:[TDRootNode class]]);
-
-    TDTemplateContext *dynamicContext = [[[TDTemplateContext alloc] initWithVariables:vars] autorelease];
+    NSParameterAssert(output);
+    
+    [output open];
+    TDAssert([output hasSpaceAvailable]);
+    
+    TDTemplateContext *dynamicContext = [[[TDTemplateContext alloc] initWithVariables:vars output:output] autorelease];
     TDAssert(_staticContext);
     dynamicContext.enclosingScope = _staticContext;
     
-    NSString *result = [root renderInContext:dynamicContext];
-    TDAssert(result);
+    BOOL success = YES;
 
-    return result;
+    @try {
+        [root renderInContext:dynamicContext];
+    }
+    @catch (NSException *ex) {
+        success = NO;
+        *err = [NSError errorWithDomain:TDTemplateEngineErrorDomain code:TDTemplateEngineRenderingErrorCode userInfo:[[[ex userInfo] copy] autorelease]];
+    }
+    
+    return success;;
 }
 
 
-- (NSString *)processTemplateFile:(NSString *)path encoding:(NSStringEncoding)enc withVariables:(NSDictionary *)vars error:(NSError **)err {
+- (BOOL)processTemplateFile:(NSString *)path encoding:(NSStringEncoding)enc withVariables:(NSDictionary *)vars toStream:(NSOutputStream *)output error:(NSError **)err {
     TDNode *root = [self compileTemplateFile:path encoding:enc error:err];
 
-    NSString *result = nil;
+    BOOL success = NO;
     
     if (root) {
-        result = [self renderTemplateTree:root withVariables:vars error:err];
+        success = [self renderTemplateTree:root withVariables:vars toStream:output error:err];
     }
     
-    return result;
+    return success;
 }
 
 
-- (NSString *)processTemplateString:(NSString *)str withVariables:(NSDictionary *)vars error:(NSError **)err {
+- (BOOL)processTemplateString:(NSString *)str withVariables:(NSDictionary *)vars toStream:(NSOutputStream *)output error:(NSError **)err {
     TDNode *root = [self compileTemplateString:str error:err];
     
-    NSString *result = nil;
+    BOOL success = NO;
     
     if (root) {
-        result = [self renderTemplateTree:root withVariables:vars error:err];
+        success = [self renderTemplateTree:root withVariables:vars toStream:output error:err];
     }
     
-    return result;
+    return success;
 }
 
 

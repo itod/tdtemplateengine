@@ -29,5 +29,5 @@
 
 + (instancetype)nodeWithToken:(PKToken *)frag;
 
-- (NSString *)renderInContext:(TDTemplateContext *)ctx;
+- (void)renderInContext:(TDTemplateContext *)ctx;
 @end

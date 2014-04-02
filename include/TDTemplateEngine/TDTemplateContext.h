@@ -22,8 +22,11 @@
 
 #import <TDTemplateEngine/TDScope.h>
 
+@class TDWriter;
+
 @interface TDTemplateContext : NSObject <TDScope>
 
-- (instancetype)initWithVariables:(NSDictionary *)vars;
+- (instancetype)initWithVariables:(NSDictionary *)vars output:(NSOutputStream *)output;
 
+@property (nonatomic, retain) TDWriter *writer;
 @end

@@ -677,7 +677,7 @@
     NSArray *toks = [self tokenize:input];
     
     id vars = @{@"foo": @{@"bar": @(8)}};
-    id ctx = [[[TDTemplateContext alloc] initWithVariables:vars] autorelease];
+    id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     
     NSError *err = nil;
     XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
@@ -691,7 +691,7 @@
     NSArray *toks = [self tokenize:input];
     
     id vars = @{@"foo": @{@"bar": @(8)}};
-    id ctx = [[[TDTemplateContext alloc] initWithVariables:vars] autorelease];
+    id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     
     NSError *err = nil;
     XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];

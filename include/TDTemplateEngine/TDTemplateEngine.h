@@ -22,6 +22,9 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString * const TDTemplateEngineErrorDomain;
+extern NSInteger TDTemplateEngineRenderingErrorCode;
+
 @class TDNode;
 @protocol TDScope;
 
@@ -34,11 +37,15 @@
 - (TDNode *)compileTemplateFile:(NSString *)path encoding:(NSStringEncoding)enc error:(NSError **)err;
 
 // render pre-compiled tree with render-time vars
-- (NSString *)renderTemplateTree:(TDNode *)node withVariables:(NSDictionary *)vars error:(NSError **)err;
+//- (NSString *)renderTemplateTree:(TDNode *)root withVariables:(NSDictionary *)vars error:(NSError **)err;
+- (BOOL)renderTemplateTree:(TDNode *)root withVariables:(NSDictionary *)vars toStream:(NSOutputStream *)output error:(NSError **)err;
 
 // convenience. compile + render with render-time vars in one shot
-- (NSString *)processTemplateString:(NSString *)str withVariables:(NSDictionary *)vars error:(NSError **)err;
-- (NSString *)processTemplateFile:(NSString *)path encoding:(NSStringEncoding)enc withVariables:(NSDictionary *)vars error:(NSError **)err;
+//- (NSString *)processTemplateString:(NSString *)str withVariables:(NSDictionary *)vars error:(NSError **)err;
+//- (NSString *)processTemplateFile:(NSString *)path encoding:(NSStringEncoding)enc withVariables:(NSDictionary *)vars error:(NSError **)err;
+- (BOOL)processTemplateString:(NSString *)str withVariables:(NSDictionary *)vars toStream:(NSOutputStream *)output error:(NSError **)err;
+- (BOOL)processTemplateFile:(NSString *)path encoding:(NSStringEncoding)enc withVariables:(NSDictionary *)vars toStream:(NSOutputStream *)output error:(NSError **)err;
+
 
 // static/compile-time vars go here. this is the global scope at both compile-time and render-time. persists across compiles and renders.
 @property (nonatomic, retain, readonly) id <TDScope>staticContext;
