@@ -35,12 +35,12 @@
 
 @implementation XPPathExpression
 
-+ (XPPathExpression *)pathExpressionWithSteps:(NSArray *)steps {
++ (instancetype)pathExpressionWithSteps:(NSArray *)steps {
     return [[[self alloc] initWithSteps:steps] autorelease];
 }
 
 
-- (id)initWithSteps:(NSArray *)steps {
+- (instancetype)initWithSteps:(NSArray *)steps {
     self = [super init];
     if (self) {
         NSUInteger c = [steps count];

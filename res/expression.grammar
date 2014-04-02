@@ -14,6 +14,7 @@
 #import <TDTemplateEngine/XPRelationalExpression.h>
 #import <TDTemplateEngine/XPArithmeticExpression.h>
 #import <TDTemplateEngine/XPPathExpression.h>
+#import <TDTemplateEngine/XPRangeExpression.h>
 }
 
 @extension {
@@ -49,7 +50,25 @@
     self.minus = nil;
 }
 
-expr    = orExpr;
+expr    = enumExpr | orExpr;
+
+enumExpr 
+		= rangeExpr | collectionExpr;
+		
+collectionExpr = identifier 'in'! collection;
+collection = identifier;
+
+rangeExpr
+@after {
+	id by = POP();
+	id stop = POP();
+	id start = POP();
+	PUSH([XPRangeExpression rangeExpressionWithStart:start stop:stop by:by]);
+}
+		= num 'to'! num optBy;
+optBy 	= 'by'! num
+		| Empty { PUSH([XPNumericValue numericValueWithNumber:1.0]); }
+		;
 
 orOp    =  'or'! | '||'!;
 orExpr  = andExpr (orOp andExpr {

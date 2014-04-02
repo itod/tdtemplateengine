@@ -8,6 +8,7 @@
 #import <TDTemplateEngine/XPRelationalExpression.h>
 #import <TDTemplateEngine/XPArithmeticExpression.h>
 #import <TDTemplateEngine/XPPathExpression.h>
+#import <TDTemplateEngine/XPRangeExpression.h>
 
 
 @interface XPParser ()
@@ -21,21 +22,16 @@
 @implementation XPParser { }
     
 + (PKTokenizer *)tokenizer {
-    static PKTokenizer *t = nil;
-    if (!t) {
-        t = [[PKTokenizer alloc] init];
-        [t.symbolState add:@"=="];
-        [t.symbolState add:@"!="];
-        [t.symbolState add:@"<="];
-        [t.symbolState add:@">="];
-        [t.symbolState add:@"&&"];
-        [t.symbolState add:@"||"];
-        
-        [t setTokenizerState:t.symbolState from:'-' to:'-'];
-        
-        t.whitespaceState.reportsWhitespaceTokens = NO;
-    }
-	return t;
+    PKTokenizer *t = [PKTokenizer tokenizer];
+    [t.symbolState add:@"=="];
+    [t.symbolState add:@"!="];
+    [t.symbolState add:@"<="];
+    [t.symbolState add:@">="];
+    [t.symbolState add:@"&&"];
+    [t.symbolState add:@"||"];
+    
+    [t setTokenizerState:t.symbolState from:'-' to:'-'];
+    return t;
 }
 
 
@@ -43,7 +39,7 @@
     self = [super initWithDelegate:d];
     if (self) {
             
-	self.tokenizer = [[self class] tokenizer];
+    self.tokenizer = [[self class] tokenizer];
     self.openParen = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"(" doubleValue:0.0];
     self.minus = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"-" doubleValue:0.0];
 
@@ -67,13 +63,16 @@
         self.tokenKindTab[@"%"] = @(XP_TOKEN_KIND_MOD);
         self.tokenKindTab[@"lt"] = @(XP_TOKEN_KIND_LT);
         self.tokenKindTab[@"false"] = @(XP_TOKEN_KIND_FALSE);
+        self.tokenKindTab[@"to"] = @(XP_TOKEN_KIND_TO);
         self.tokenKindTab[@"le"] = @(XP_TOKEN_KIND_LE);
+        self.tokenKindTab[@"by"] = @(XP_TOKEN_KIND_BY);
         self.tokenKindTab[@"("] = @(XP_TOKEN_KIND_OPEN_PAREN);
+        self.tokenKindTab[@"in"] = @(XP_TOKEN_KIND_IN);
         self.tokenKindTab[@"=="] = @(XP_TOKEN_KIND_DOUBLE_EQUALS);
         self.tokenKindTab[@"eq"] = @(XP_TOKEN_KIND_EQ);
         self.tokenKindTab[@"gt"] = @(XP_TOKEN_KIND_GT);
-        self.tokenKindTab[@")"] = @(XP_TOKEN_KIND_CLOSE_PAREN);
         self.tokenKindTab[@"*"] = @(XP_TOKEN_KIND_TIMES);
+        self.tokenKindTab[@")"] = @(XP_TOKEN_KIND_CLOSE_PAREN);
         self.tokenKindTab[@"NO"] = @(XP_TOKEN_KIND_NO_UPPER);
         self.tokenKindTab[@"+"] = @(XP_TOKEN_KIND_PLUS);
         self.tokenKindTab[@"||"] = @(XP_TOKEN_KIND_DOUBLE_PIPE);
@@ -97,13 +96,16 @@
         self.tokenKindNameTab[XP_TOKEN_KIND_MOD] = @"%";
         self.tokenKindNameTab[XP_TOKEN_KIND_LT] = @"lt";
         self.tokenKindNameTab[XP_TOKEN_KIND_FALSE] = @"false";
+        self.tokenKindNameTab[XP_TOKEN_KIND_TO] = @"to";
         self.tokenKindNameTab[XP_TOKEN_KIND_LE] = @"le";
+        self.tokenKindNameTab[XP_TOKEN_KIND_BY] = @"by";
         self.tokenKindNameTab[XP_TOKEN_KIND_OPEN_PAREN] = @"(";
+        self.tokenKindNameTab[XP_TOKEN_KIND_IN] = @"in";
         self.tokenKindNameTab[XP_TOKEN_KIND_DOUBLE_EQUALS] = @"==";
         self.tokenKindNameTab[XP_TOKEN_KIND_EQ] = @"eq";
         self.tokenKindNameTab[XP_TOKEN_KIND_GT] = @"gt";
-        self.tokenKindNameTab[XP_TOKEN_KIND_CLOSE_PAREN] = @")";
         self.tokenKindNameTab[XP_TOKEN_KIND_TIMES] = @"*";
+        self.tokenKindNameTab[XP_TOKEN_KIND_CLOSE_PAREN] = @")";
         self.tokenKindNameTab[XP_TOKEN_KIND_NO_UPPER] = @"NO";
         self.tokenKindNameTab[XP_TOKEN_KIND_PLUS] = @"+";
         self.tokenKindNameTab[XP_TOKEN_KIND_DOUBLE_PIPE] = @"||";
@@ -115,7 +117,7 @@
 - (void)dealloc {
         
     self.openParen = nil;
-	self.minus = nil;
+    self.minus = nil;
 
 
     [super dealloc];
@@ -130,7 +132,70 @@
 
 - (void)expr_ {
     
-    [self orExpr_]; 
+    if ([self speculate:^{ [self enumExpr_]; }]) {
+        [self enumExpr_]; 
+    } else if ([self speculate:^{ [self orExpr_]; }]) {
+        [self orExpr_]; 
+    } else {
+        [self raise:@"No viable alternative found in rule 'expr'."];
+    }
+
+}
+
+- (void)enumExpr_ {
+    
+    if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, 0]) {
+        [self rangeExpr_]; 
+    } else if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
+        [self collectionExpr_]; 
+    } else {
+        [self raise:@"No viable alternative found in rule 'enumExpr'."];
+    }
+
+}
+
+- (void)collectionExpr_ {
+    
+    [self identifier_]; 
+    [self match:XP_TOKEN_KIND_IN discard:YES]; 
+    [self collection_]; 
+
+}
+
+- (void)collection_ {
+    
+    [self identifier_]; 
+
+}
+
+- (void)rangeExpr_ {
+    
+    [self num_]; 
+    [self match:XP_TOKEN_KIND_TO discard:YES]; 
+    [self num_]; 
+    [self optBy_]; 
+    [self execute:^{
+    
+	id by = POP();
+	id stop = POP();
+	id start = POP();
+	PUSH([XPRangeExpression rangeExpressionWithStart:start stop:stop by:by]);
+
+    }];
+
+}
+
+- (void)optBy_ {
+    
+    if ([self predicts:XP_TOKEN_KIND_BY, 0]) {
+        [self match:XP_TOKEN_KIND_BY discard:YES]; 
+        [self num_]; 
+    } else {
+        [self matchEmpty:NO]; 
+        [self execute:^{
+         PUSH([XPNumericValue numericValueWithNumber:1.0]); 
+        }];
+    }
 
 }
 
@@ -154,8 +219,8 @@
         [self andExpr_]; 
         [self execute:^{
         
-	XPValue *rhs = POP();
-	XPValue *lhs = POP();
+    XPValue *rhs = POP();
+    XPValue *lhs = POP();
     PUSH([XPBooleanExpression booleanExpressionWithOperand:lhs operator:XP_TOKEN_KIND_OR operand:rhs]);
 
         }];
@@ -183,8 +248,8 @@
         [self equalityExpr_]; 
         [self execute:^{
         
-	XPValue *rhs = POP();
-	XPValue *lhs = POP();
+    XPValue *rhs = POP();
+    XPValue *lhs = POP();
     PUSH([XPBooleanExpression booleanExpressionWithOperand:lhs operator:XP_TOKEN_KIND_AND operand:rhs]);
 
         }];
@@ -238,9 +303,9 @@
         [self relationalExpr_]; 
         [self execute:^{
         
-	XPValue *rhs = POP();
-	NSInteger op = POP_INT();
-	XPValue *lhs = POP();
+    XPValue *rhs = POP();
+    NSInteger op = POP_INT();
+    XPValue *lhs = POP();
     PUSH([XPRelationalExpression relationalExpressionWithOperand:lhs operator:op operand:rhs]);
 
         }];
@@ -326,9 +391,9 @@
         [self additiveExpr_]; 
         [self execute:^{
         
-	XPValue *rhs = POP();
-	NSInteger op = POP_INT();
-	XPValue *lhs = POP();
+    XPValue *rhs = POP();
+    NSInteger op = POP_INT();
+    XPValue *lhs = POP();
     PUSH([XPRelationalExpression relationalExpressionWithOperand:lhs operator:op operand:rhs]);
 
         }];
@@ -368,9 +433,9 @@
         [self multiplicativeExpr_]; 
         [self execute:^{
         
-	XPValue *rhs = POP();
-	NSInteger op = POP_INT();
-	XPValue *lhs = POP();
+    XPValue *rhs = POP();
+    NSInteger op = POP_INT();
+    XPValue *lhs = POP();
     PUSH([XPArithmeticExpression arithmeticExpressionWithOperand:lhs operator:op operand:rhs]);
 
         }];
@@ -421,9 +486,9 @@
         [self unaryExpr_]; 
         [self execute:^{
         
-	XPValue *rhs = POP();
-	NSInteger op = POP_INT();
-	XPValue *lhs = POP();
+    XPValue *rhs = POP();
+    NSInteger op = POP_INT();
+    XPValue *lhs = POP();
     PUSH([XPArithmeticExpression arithmeticExpressionWithOperand:lhs operator:op operand:rhs]);
 
         }];
@@ -447,7 +512,7 @@
     
     [self execute:^{
     
-	_negative = NO; 
+    _negative = NO; 
 
     }];
     do {
@@ -459,9 +524,9 @@
     [self primary_]; 
     [self execute:^{
     
-	double d = POP_DOUBLE();
-	d = (_negative) ? -d : d;
-	PUSH([XPNumericValue numericValueWithNumber:d]);
+    double d = POP_DOUBLE();
+    d = (_negative) ? -d : d;
+    PUSH([XPNumericValue numericValueWithNumber:d]);
 
     }];
 
@@ -488,7 +553,7 @@
     
     id objs = ABOVE(_openParen);
     POP(); // discard `(`
-	PUSH_ALL(REV(objs));
+    PUSH_ALL(REV(objs));
 
     }];
 
@@ -510,7 +575,7 @@
     
     [self execute:^{
     
-	PUSH(_openParen);
+    PUSH(_openParen);
 
     }];
     [self identifier_]; 
@@ -520,9 +585,9 @@
     }
     [self execute:^{
     
-	id toks = REV(ABOVE(_openParen));
-	POP(); // discard `_openParen`
-	PUSH([XPPathExpression pathExpressionWithSteps:toks]);
+    id toks = REV(ABOVE(_openParen));
+    POP(); // discard `_openParen`
+    PUSH([XPPathExpression pathExpressionWithSteps:toks]);
 
     }];
 

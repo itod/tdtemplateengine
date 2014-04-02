@@ -69,6 +69,9 @@
 		D3A3E54D18EC5706004FEB2C /* TDForTagTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A3E54A18EC5706004FEB2C /* TDForTagTests.m */; };
 		D3A3E54E18EC5706004FEB2C /* TDIfTagTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A3E54B18EC5706004FEB2C /* TDIfTagTests.m */; };
 		D3A3E54F18EC5706004FEB2C /* TDVarTagTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A3E54C18EC5706004FEB2C /* TDVarTagTests.m */; };
+		D3F5063818EC5C9800BAC93B /* XPRangeExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F5063618EC5C9800BAC93B /* XPRangeExpression.h */; };
+		D3F5063918EC5C9800BAC93B /* XPRangeExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F5063718EC5C9800BAC93B /* XPRangeExpression.m */; };
+		D3F5064018EC60B700BAC93B /* XPEnumeration.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F5063E18EC60B700BAC93B /* XPEnumeration.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -191,6 +194,9 @@
 		D3A3E54A18EC5706004FEB2C /* TDForTagTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDForTagTests.m; path = test/TDForTagTests.m; sourceTree = SOURCE_ROOT; };
 		D3A3E54B18EC5706004FEB2C /* TDIfTagTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDIfTagTests.m; path = test/TDIfTagTests.m; sourceTree = SOURCE_ROOT; };
 		D3A3E54C18EC5706004FEB2C /* TDVarTagTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDVarTagTests.m; path = test/TDVarTagTests.m; sourceTree = SOURCE_ROOT; };
+		D3F5063618EC5C9800BAC93B /* XPRangeExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPRangeExpression.h; path = src/XPRangeExpression.h; sourceTree = SOURCE_ROOT; };
+		D3F5063718EC5C9800BAC93B /* XPRangeExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPRangeExpression.m; path = src/XPRangeExpression.m; sourceTree = SOURCE_ROOT; };
+		D3F5063E18EC60B700BAC93B /* XPEnumeration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPEnumeration.h; path = src/XPEnumeration.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -350,6 +356,9 @@
 				D3A29DF818E6584D00DC591E /* XPExpression.m */,
 				D3A29E3718E7AA3100DC591E /* XPPathExpression.h */,
 				D3A29E3818E7AA3100DC591E /* XPPathExpression.m */,
+				D3F5063E18EC60B700BAC93B /* XPEnumeration.h */,
+				D3F5063618EC5C9800BAC93B /* XPRangeExpression.h */,
+				D3F5063718EC5C9800BAC93B /* XPRangeExpression.m */,
 				D3A29E2218E75D2E00DC591E /* Value */,
 				D3A29E3318E75D4000DC591E /* Binary Expr */,
 			);
@@ -413,6 +422,7 @@
 				D398E2EF18EA2C51004B883C /* TDTemplateParser.h in Headers */,
 				D398E2F918EA57E4004B883C /* TDBaseScope.h in Headers */,
 				D3A29DBE18E61ACA00DC591E /* TDTextNode.h in Headers */,
+				D3F5064018EC60B700BAC93B /* XPEnumeration.h in Headers */,
 				D3A29E3118E75D3B00DC591E /* XPRelationalExpression.h in Headers */,
 				D3A29DBA18E60F9F00DC591E /* TDRootNode.h in Headers */,
 				D3A29E3D18E7B31A00DC591E /* XPObjectValue.h in Headers */,
@@ -423,6 +433,7 @@
 				D3A29E2B18E75D3B00DC591E /* XPArithmeticExpression.h in Headers */,
 				D3A29DF518E6583600DC591E /* XPExpression.h in Headers */,
 				D3A29DDD18E63D6D00DC591E /* TDTag.h in Headers */,
+				D3F5063818EC5C9800BAC93B /* XPRangeExpression.h in Headers */,
 				D3A29D8218E5F57300DC591E /* TDTemplateEngine.h in Headers */,
 				D398E2F618EA5714004B883C /* TDScope.h in Headers */,
 				D3A29E3918E7AA3100DC591E /* XPPathExpression.h in Headers */,
@@ -599,6 +610,7 @@
 				D3A29DDB18E63D5B00DC591E /* TDTag.m in Sources */,
 				D398E2FA18EA57E4004B883C /* TDBaseScope.m in Sources */,
 				D3A29DB718E60E4500DC591E /* TDVariableNode.m in Sources */,
+				D3F5063918EC5C9800BAC93B /* XPRangeExpression.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

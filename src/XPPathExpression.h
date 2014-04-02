@@ -24,7 +24,7 @@
 
 @interface XPPathExpression : XPExpression
 
-+ (XPPathExpression *)pathExpressionWithSteps:(NSArray *)steps;
++ (instancetype)pathExpressionWithSteps:(NSArray *)steps;
 
-- (id)initWithSteps:(NSArray *)steps;
+- (instancetype)initWithSteps:(NSArray *)steps;
 @end
