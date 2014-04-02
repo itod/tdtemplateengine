@@ -17,7 +17,6 @@
 		D3A29D8218E5F57300DC591E /* TDTemplateEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29D8118E5F57300DC591E /* TDTemplateEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3A29D8418E5F57E00DC591E /* TDTemplateEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29D8318E5F57E00DC591E /* TDTemplateEngine.m */; };
 		D3A29D8A18E5F5A500DC591E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D3A29D8818E5F5A500DC591E /* InfoPlist.strings */; };
-		D3A29D8E18E5F5C000DC591E /* TDTemplateEngineTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29D8D18E5F5C000DC591E /* TDTemplateEngineTests.m */; };
 		D3A29D9218E5F5D900DC591E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D3A29D9018E5F5D900DC591E /* InfoPlist.strings */; };
 		D3A29D9418E5F60100DC591E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3A29D9318E5F60100DC591E /* Foundation.framework */; };
 		D3A29DAA18E609E700DC591E /* TDNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29DA818E609E700DC591E /* TDNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -67,6 +66,9 @@
 		D3A29E3A18E7AA3100DC591E /* XPPathExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29E3818E7AA3100DC591E /* XPPathExpression.m */; };
 		D3A29E3D18E7B31A00DC591E /* XPObjectValue.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29E3B18E7B31A00DC591E /* XPObjectValue.h */; };
 		D3A29E3E18E7B31A00DC591E /* XPObjectValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29E3C18E7B31A00DC591E /* XPObjectValue.m */; };
+		D3A3E54D18EC5706004FEB2C /* TDForTagTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A3E54A18EC5706004FEB2C /* TDForTagTests.m */; };
+		D3A3E54E18EC5706004FEB2C /* TDIfTagTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A3E54B18EC5706004FEB2C /* TDIfTagTests.m */; };
+		D3A3E54F18EC5706004FEB2C /* TDVarTagTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A3E54C18EC5706004FEB2C /* TDVarTagTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -136,7 +138,6 @@
 		D3A29D8618E5F5A000DC591E /* TDTemplateEngine-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TDTemplateEngine-Prefix.pch"; path = "res/TDTemplateEngine-Prefix.pch"; sourceTree = SOURCE_ROOT; };
 		D3A29D8918E5F5A500DC591E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = res/en.lproj/InfoPlist.strings; sourceTree = SOURCE_ROOT; };
 		D3A29D8B18E5F5B300DC591E /* TDTestScaffold.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDTestScaffold.h; path = test/TDTestScaffold.h; sourceTree = SOURCE_ROOT; };
-		D3A29D8D18E5F5C000DC591E /* TDTemplateEngineTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDTemplateEngineTests.m; path = test/TDTemplateEngineTests.m; sourceTree = SOURCE_ROOT; };
 		D3A29D8F18E5F5CC00DC591E /* TDTemplateEngineTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "TDTemplateEngineTests-Info.plist"; path = "test/TDTemplateEngineTests-Info.plist"; sourceTree = SOURCE_ROOT; };
 		D3A29D9118E5F5D900DC591E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = test/en.lproj/InfoPlist.strings; sourceTree = SOURCE_ROOT; };
 		D3A29D9318E5F60100DC591E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -187,6 +188,9 @@
 		D3A29E3818E7AA3100DC591E /* XPPathExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPPathExpression.m; path = src/XPPathExpression.m; sourceTree = SOURCE_ROOT; };
 		D3A29E3B18E7B31A00DC591E /* XPObjectValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPObjectValue.h; path = src/XPObjectValue.h; sourceTree = SOURCE_ROOT; };
 		D3A29E3C18E7B31A00DC591E /* XPObjectValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPObjectValue.m; path = src/XPObjectValue.m; sourceTree = SOURCE_ROOT; };
+		D3A3E54A18EC5706004FEB2C /* TDForTagTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDForTagTests.m; path = test/TDForTagTests.m; sourceTree = SOURCE_ROOT; };
+		D3A3E54B18EC5706004FEB2C /* TDIfTagTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDIfTagTests.m; path = test/TDIfTagTests.m; sourceTree = SOURCE_ROOT; };
+		D3A3E54C18EC5706004FEB2C /* TDVarTagTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDVarTagTests.m; path = test/TDVarTagTests.m; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -275,8 +279,10 @@
 			isa = PBXGroup;
 			children = (
 				D3A29D8B18E5F5B300DC591E /* TDTestScaffold.h */,
-				D3A29D8D18E5F5C000DC591E /* TDTemplateEngineTests.m */,
 				D3A29E3418E7700500DC591E /* XPExpressionTests.m */,
+				D3A3E54C18EC5706004FEB2C /* TDVarTagTests.m */,
+				D3A3E54B18EC5706004FEB2C /* TDIfTagTests.m */,
+				D3A3E54A18EC5706004FEB2C /* TDForTagTests.m */,
 				D367DFCF18E5EF6900F97BCC /* Supporting Files */,
 			);
 			name = "TDTemplateEngine Tests";
@@ -600,8 +606,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D3A29D8E18E5F5C000DC591E /* TDTemplateEngineTests.m in Sources */,
 				D3A29E3518E7700500DC591E /* XPExpressionTests.m in Sources */,
+				D3A3E54D18EC5706004FEB2C /* TDForTagTests.m in Sources */,
+				D3A3E54F18EC5706004FEB2C /* TDVarTagTests.m in Sources */,
+				D3A3E54E18EC5706004FEB2C /* TDIfTagTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
