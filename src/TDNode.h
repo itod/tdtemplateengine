@@ -23,11 +23,11 @@
 #import <PEGKit/PKAST.h>
 
 @class PKToken;
-@protocol TDScope;
+@class TDTemplateContext;
 
 @interface TDNode : PKAST
 
 + (instancetype)nodeWithToken:(PKToken *)frag;
 
-- (NSString *)renderInContext:(id <TDScope>)ctx;
+- (NSString *)renderInContext:(TDTemplateContext *)ctx;
 @end

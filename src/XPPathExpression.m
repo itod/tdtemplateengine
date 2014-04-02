@@ -69,7 +69,7 @@
 }
 
 
-- (XPValue *)evaluateInContext:(id <TDScope>)ctx {
+- (XPValue *)evaluateInContext:(TDTemplateContext *)ctx {
     TDAssert([_head length]);
     id obj = [ctx resolveVariable:_head];
     

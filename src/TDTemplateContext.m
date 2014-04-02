@@ -23,23 +23,56 @@
 #import <TDTemplateEngine/TDTemplateContext.h>
 
 @interface TDTemplateContext ()
+@property (nonatomic, retain) NSMutableDictionary *vars;
 @end
 
 @implementation TDTemplateContext
 
+- (instancetype)init {
+    self = [self initWithVariables:nil];
+    return self;
+}
+
+
 - (instancetype)initWithVariables:(NSDictionary *)vars {
     self = [super init];
     if (self) {
-        TDAssert(self.vars);
-        [self.vars addEntriesFromDictionary:vars];
+        self.vars = [NSMutableDictionary dictionary];
+        [_vars addEntriesFromDictionary:vars];
     }
     return self;
 }
 
 
 - (void)dealloc {
-    
+    self.vars = nil;
+    self.enclosingScope = nil;
     [super dealloc];
 }
 
+
+#pragma mark -
+#pragma mark TDScope
+
+- (id)resolveVariable:(NSString *)name {
+    NSParameterAssert([name length]);
+    TDAssert(_vars);
+    id result = _vars[name];
+    
+    if (!result && self.enclosingScope) {
+        result = [self.enclosingScope resolveVariable:name];
+    }
+    
+    return result;
+}
+
+
+- (void)defineVariable:(NSString *)name withValue:(id)value {
+    NSParameterAssert([name length]);
+    NSParameterAssert(value);
+    TDAssert(_vars);
+    _vars[name] = value;
+}
+
+@synthesize enclosingScope;
 @end

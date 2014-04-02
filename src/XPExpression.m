@@ -68,23 +68,23 @@ static PKParser *sParser = nil;
 }
 
 
-- (XPValue *)evaluateInContext:(id <TDScope>)ctx {
+- (XPValue *)evaluateInContext:(TDTemplateContext *)ctx {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
     return NO;
 }
 
 
-- (BOOL)evaluateAsBooleanInContext:(id <TDScope>)ctx {
+- (BOOL)evaluateAsBooleanInContext:(TDTemplateContext *)ctx {
     return [[self evaluateInContext:ctx] boolValue];
 }
 
 
-- (double)evaluateAsNumberInContext:(id <TDScope>)ctx {
+- (double)evaluateAsNumberInContext:(TDTemplateContext *)ctx {
     return [[self evaluateInContext:ctx] doubleValue];
 }
 
 
-- (NSString *)evaluateAsStringInContext:(id <TDScope>)ctx {
+- (NSString *)evaluateAsStringInContext:(TDTemplateContext *)ctx {
     return [[self evaluateInContext:ctx] stringValue];
 }
 
@@ -105,7 +105,7 @@ static PKParser *sParser = nil;
 }
 
 
-- (XPExpression *)reduceDependencies:(NSUInteger)dep inContext:(id <TDScope>)ctx {
+- (XPExpression *)reduceDependencies:(NSUInteger)dep inContext:(TDTemplateContext *)ctx {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
     return nil;
 }

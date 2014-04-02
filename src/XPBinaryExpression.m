@@ -87,7 +87,7 @@
 }
 
 
-- (XPExpression *)reduceDependencies:(NSUInteger)dep inContext:(id <TDScope>)ctx {
+- (XPExpression *)reduceDependencies:(NSUInteger)dep inContext:(TDTemplateContext *)ctx {
     if (([self dependencies] & dep) != 0) {
         XPExpression *expr = [[[[self class] alloc] initWithOperand:[_p1 reduceDependencies:dep inContext:ctx]
                                                            operator:_operator

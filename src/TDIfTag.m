@@ -26,7 +26,7 @@
 
 @implementation TDIfTag
 
-- (id)evaluateInContext:(id <TDScope>)ctx {
+- (id)evaluateInContext:(TDTemplateContext *)ctx {
     TDAssert(ctx);
     TDAssert(self.expression);
     

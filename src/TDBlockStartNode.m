@@ -29,7 +29,7 @@
 #import <PEGKit/PKWhitespaceState.h>
 
 @interface TDNode ()
-- (NSString *)renderChildren:(NSArray *)children inContext:(id <TDScope>)ctx;
+- (NSString *)renderChildren:(NSArray *)children inContext:(TDTemplateContext *)ctx;
 @end
 
 @interface TDBlockStartNode ()
@@ -92,7 +92,7 @@
 }
 
 
-- (NSString *)renderInContext:(id <TDScope>)ctx {
+- (NSString *)renderInContext:(TDTemplateContext *)ctx {
     NSParameterAssert(ctx);
     TDAssert(_tag);
     

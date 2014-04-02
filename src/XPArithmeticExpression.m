@@ -43,13 +43,13 @@
 }
 
 
-- (XPValue *)evaluateInContext:(id <TDScope>)ctx {
+- (XPValue *)evaluateInContext:(TDTemplateContext *)ctx {
     double n = [self evaluateAsNumberInContext:ctx];
     return [XPNumericValue numericValueWithNumber:n];
 }
 
 
-- (double)evaluateAsNumberInContext:(id <TDScope>)ctx {
+- (double)evaluateAsNumberInContext:(TDTemplateContext *)ctx {
     double n1 = [self.p1 evaluateAsNumberInContext:ctx];
     double n2 = [self.p2 evaluateAsNumberInContext:ctx];
 

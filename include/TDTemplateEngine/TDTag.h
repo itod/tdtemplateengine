@@ -22,14 +22,14 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol TDScope;
+@class TDTemplateContext;
 @class XPExpression;
 
 @interface TDTag : NSObject
 
 + (instancetype)tagForName:(NSString *)tagName;
 
-- (id)evaluateInContext:(id <TDScope>)scope;
+- (id)evaluateInContext:(TDTemplateContext *)scope;
 
 @property (nonatomic, retain) XPExpression *expression;
 @end

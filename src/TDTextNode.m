@@ -21,6 +21,7 @@
 // THE SOFTWARE.
 
 #import "TDTextNode.h"
+#import <TDTemplateEngine/TDTemplateContext.h>
 #import <PEGKit/PKToken.h>
 
 @implementation TDTextNode
@@ -30,7 +31,7 @@
 }
 
 
-- (NSString *)renderInContext:(id <TDScope>)ctx {
+- (NSString *)renderInContext:(TDTemplateContext *)ctx {
     NSParameterAssert(ctx);
     TDAssert([self.token.stringValue length]);
     return self.token.stringValue;

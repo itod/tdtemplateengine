@@ -12,8 +12,6 @@
 		D398E2EF18EA2C51004B883C /* TDTemplateParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D398E2ED18EA2C51004B883C /* TDTemplateParser.h */; };
 		D398E2F018EA2C51004B883C /* TDTemplateParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D398E2EE18EA2C51004B883C /* TDTemplateParser.m */; };
 		D398E2F618EA5714004B883C /* TDScope.h in Headers */ = {isa = PBXBuildFile; fileRef = D398E2F518EA5714004B883C /* TDScope.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D398E2F918EA57E4004B883C /* TDBaseScope.h in Headers */ = {isa = PBXBuildFile; fileRef = D398E2F718EA57E4004B883C /* TDBaseScope.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D398E2FA18EA57E4004B883C /* TDBaseScope.m in Sources */ = {isa = PBXBuildFile; fileRef = D398E2F818EA57E4004B883C /* TDBaseScope.m */; };
 		D3A29D8218E5F57300DC591E /* TDTemplateEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29D8118E5F57300DC591E /* TDTemplateEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3A29D8418E5F57E00DC591E /* TDTemplateEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29D8318E5F57E00DC591E /* TDTemplateEngine.m */; };
 		D3A29D8A18E5F5A500DC591E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D3A29D8818E5F5A500DC591E /* InfoPlist.strings */; };
@@ -133,8 +131,6 @@
 		D398E2ED18EA2C51004B883C /* TDTemplateParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDTemplateParser.h; path = src/TDTemplateParser.h; sourceTree = SOURCE_ROOT; };
 		D398E2EE18EA2C51004B883C /* TDTemplateParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDTemplateParser.m; path = src/TDTemplateParser.m; sourceTree = SOURCE_ROOT; };
 		D398E2F518EA5714004B883C /* TDScope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDScope.h; path = src/TDScope.h; sourceTree = SOURCE_ROOT; };
-		D398E2F718EA57E4004B883C /* TDBaseScope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDBaseScope.h; path = src/TDBaseScope.h; sourceTree = SOURCE_ROOT; };
-		D398E2F818EA57E4004B883C /* TDBaseScope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDBaseScope.m; path = src/TDBaseScope.m; sourceTree = SOURCE_ROOT; };
 		D3A29D8118E5F57300DC591E /* TDTemplateEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDTemplateEngine.h; path = include/TDTemplateEngine/TDTemplateEngine.h; sourceTree = SOURCE_ROOT; };
 		D3A29D8318E5F57E00DC591E /* TDTemplateEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDTemplateEngine.m; path = src/TDTemplateEngine.m; sourceTree = SOURCE_ROOT; };
 		D3A29D8518E5F58700DC591E /* TDTemplateEngine-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "TDTemplateEngine-Info.plist"; path = "res/TDTemplateEngine-Info.plist"; sourceTree = SOURCE_ROOT; };
@@ -257,8 +253,6 @@
 				D3A29D8118E5F57300DC591E /* TDTemplateEngine.h */,
 				D3A29D8318E5F57E00DC591E /* TDTemplateEngine.m */,
 				D398E2F518EA5714004B883C /* TDScope.h */,
-				D398E2F718EA57E4004B883C /* TDBaseScope.h */,
-				D398E2F818EA57E4004B883C /* TDBaseScope.m */,
 				D3A29DE918E64FB800DC591E /* TDTemplateContext.h */,
 				D3A29DCF18E63A1C00DC591E /* TDTemplateContext.m */,
 				D398E2ED18EA2C51004B883C /* TDTemplateParser.h */,
@@ -420,7 +414,6 @@
 				D3A29E0618E6584D00DC591E /* XPValue.h in Headers */,
 				D3A29DC618E6285800DC591E /* TDBlockStartNode.h in Headers */,
 				D398E2EF18EA2C51004B883C /* TDTemplateParser.h in Headers */,
-				D398E2F918EA57E4004B883C /* TDBaseScope.h in Headers */,
 				D3A29DBE18E61ACA00DC591E /* TDTextNode.h in Headers */,
 				D3F5064018EC60B700BAC93B /* XPEnumeration.h in Headers */,
 				D3A29E3118E75D3B00DC591E /* XPRelationalExpression.h in Headers */,
@@ -608,7 +601,6 @@
 				D3A29DC718E6285800DC591E /* TDBlockStartNode.m in Sources */,
 				D3A29DAB18E609E700DC591E /* TDNode.m in Sources */,
 				D3A29DDB18E63D5B00DC591E /* TDTag.m in Sources */,
-				D398E2FA18EA57E4004B883C /* TDBaseScope.m in Sources */,
 				D3A29DB718E60E4500DC591E /* TDVariableNode.m in Sources */,
 				D3F5063918EC5C9800BAC93B /* XPRangeExpression.m in Sources */,
 			);
