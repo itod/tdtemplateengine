@@ -26,15 +26,15 @@
     [super tearDown];
 }
 
-- (void)testIf1 {
-    NSString *input = @"{% if 1 %} text {%/if %}";
+- (void)testFor0To4F {
+    NSString *input = @"{% for 0 to 4 %}f{%/if %}";
     id vars = nil;
     
     NSError *err = nil;
     NSString *res = [_engine processTemplateString:input withVariables:vars error:&err];
     TDNotNil(res);
     TDNil(err);
-    TDEqualObjects(@" text ", res);
+    TDEqualObjects(@"ffff", res);
 }
 
 @end
