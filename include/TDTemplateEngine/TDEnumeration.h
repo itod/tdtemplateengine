@@ -12,7 +12,7 @@
 
 @protocol TDEnumeration <NSObject>
 
-- (void)begin:(TDTemplateContext *)ctx;
+- (NSString *)begin:(TDTemplateContext *)ctx;
 - (id)next;
 - (BOOL)hasMore;
 @end

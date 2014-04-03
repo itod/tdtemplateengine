@@ -21,17 +21,19 @@
 // THE SOFTWARE.
 
 #import "TDIfTag.h"
-#import <TDTemplateEngine/TDScope.h>
+#import <TDTemplateEngine/TDTemplateContext.h>
 #import <TDTemplateEngine/XPExpression.h>
 
 @implementation TDIfTag
 
-- (id)evaluateInContext:(TDTemplateContext *)ctx {
+- (void)doTagInContext:(TDTemplateContext *)ctx {
     TDAssert(ctx);
     TDAssert(self.expression);
     
-    BOOL result = [self.expression evaluateAsBooleanInContext:ctx];
-    return @(result);
+    BOOL test = [self.expression evaluateAsBooleanInContext:ctx];
+    if (test) {
+        [ctx renderBody:self];
+    }
 }
 
 @end

@@ -31,36 +31,22 @@
 @implementation TDForTag
 
 - (void)dealloc {
-    self.var = nil;
+//    self.var = nil;
     [super dealloc];
 }
 
 
-- (id)evaluateInContext:(TDTemplateContext *)ctx {    
+- (void)doTagInContext:(TDTemplateContext *)ctx {
     
-    return nil;
-}
-
-
-#pragma mark -
-#pragma mark TDEnumeration
-
-- (void)begin:(TDTemplateContext *)ctx {
-    XPRangeExpression *expr = (id)self.expression;
-    self.var = expr.var;
-    [expr begin:ctx];
-}
-
-
-- (id)next {
-    XPRangeExpression *expr = (id)self.expression;
-    return [expr next];
-}
-
-
-- (BOOL)hasMore {
-    XPRangeExpression *expr = (id)self.expression;
-    return [expr hasMore];
+    id <TDEnumeration>expr = (id)self.expression;
+    
+    NSString *varName = [expr begin:ctx];
+    
+    while ([expr hasMore]) {
+        id val = [expr next];
+        [ctx defineVariable:varName withValue:val];
+        [ctx renderBody:self];
+    }
 }
 
 @end

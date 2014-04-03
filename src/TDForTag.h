@@ -23,8 +23,8 @@
 #import <TDTemplateEngine/TDTag.h>
 #import <TDTemplateEngine/TDEnumeration.h>
 
-@interface TDForTag : TDTag <TDEnumeration>
+@interface TDForTag : TDTag
 
-@property (nonatomic, copy) NSString *var;
-
+//@property (nonatomic, copy) NSString *var;
+//
 @end

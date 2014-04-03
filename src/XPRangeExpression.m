@@ -42,7 +42,7 @@
 }
 
 
-- (void)begin:(TDTemplateContext *)ctx {
+- (NSString *)begin:(TDTemplateContext *)ctx {
     NSInteger start = [_start evaluateAsNumberInContext:ctx];
     NSInteger stop = [_stop evaluateAsNumberInContext:ctx];
     NSInteger step = [_by evaluateAsNumberInContext:ctx];
@@ -82,6 +82,9 @@
 
     self.range = range;
     self.current = 0;
+    
+    TDAssert([_var length]);
+    return _var;
 }
 
 

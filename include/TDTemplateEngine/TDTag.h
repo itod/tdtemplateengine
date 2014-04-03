@@ -29,7 +29,7 @@
 
 + (instancetype)tagForName:(NSString *)tagName;
 
-- (id)evaluateInContext:(TDTemplateContext *)scope;
+- (void)doTagInContext:(TDTemplateContext *)ctx;
 
 @property (nonatomic, retain) XPExpression *expression;
 @end

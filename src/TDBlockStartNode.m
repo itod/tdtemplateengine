@@ -22,6 +22,7 @@
 
 #import "TDBlockStartNode.h"
 #import <TDTemplateEngine/TDTemplateContext.h>
+#import <TDTemplateEngine/TDEnumeration.h>
 #import <TDTemplateEngine/TDWriter.h>
 #import <TDTemplateEngine/TDTag.h>
 #import <TDTemplateEngine/XPExpression.h>
@@ -29,8 +30,8 @@
 #import <PEGKit/PKTokenizer.h>
 #import <PEGKit/PKWhitespaceState.h>
 
-@interface TDNode ()
-- (void)renderChildren:(NSArray *)children inContext:(TDTemplateContext *)ctx;
+@interface TDTemplateContext ()
+@property (nonatomic, retain) TDNode *currentNode;
 @end
 
 @interface TDBlockStartNode ()
@@ -98,13 +99,10 @@
     
     TDTemplateContext *local = [[[TDTemplateContext alloc] initWithVariables:nil output:ctx.writer.output] autorelease];
     local.enclosingScope = ctx;
+    local.currentNode = self;
     
-    [_tag begin:ctx];
+    [_tag doTagInContext:local];
     
-    BOOL test = [[_tag evaluateInContext:local] boolValue]; // TODO
-    if (test) {
-        [self renderChildren:nil inContext:ctx];
-    }
     
 //    [self exitScope];
 }

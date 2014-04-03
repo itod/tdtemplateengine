@@ -21,9 +21,16 @@
 // THE SOFTWARE.
 
 #import <TDTemplateEngine/TDTemplateContext.h>
+#import <TDTemplateEngine/TDTag.h>
 #import <TDTemplateEngine/TDWriter.h>
+#import "TDNode.h"
+
+@interface TDNode ()
+- (void)renderChildren:(NSArray *)children inContext:(TDTemplateContext *)ctx;
+@end
 
 @interface TDTemplateContext ()
+@property (nonatomic, retain) TDNode *currentNode;
 @property (nonatomic, retain) NSMutableDictionary *vars;
 @property (nonatomic, retain, readwrite) TDWriter *writer;
 @end
@@ -53,6 +60,12 @@
     self.writer = nil;
     self.enclosingScope = nil;
     [super dealloc];
+}
+
+
+- (void)renderBody:(TDTag *)tag {
+    TDAssert(_currentNode);
+    [_currentNode renderChildren:nil inContext:self];
 }
 
 
