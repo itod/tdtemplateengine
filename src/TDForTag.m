@@ -23,7 +23,8 @@
 #import "TDForTag.h"
 #import <TDTemplateEngine/TDTemplateContext.h>
 
-#import "XPRangeExpression.h"
+#import "XPLoopExpression.h"
+#import "XPEnumeration.h"
 
 @interface TDForTag ()
 @end
@@ -37,14 +38,23 @@
 
 
 - (void)doTagInContext:(TDTemplateContext *)ctx {
+    TDAssert(ctx);
+//    TDAssert([_var length]);
     
-    id <TDEnumeration>expr = (id)self.expression;
+    XPLoopExpression *expr = (id)self.expression;
+    TDAssert([expr isKindOfClass:[XPLoopExpression class]]);
     
-    NSString *varName = [expr begin:ctx];
+    NSString *var = expr.var;
+    TDAssert([var length]);
     
-    while ([expr hasMore]) {
-        id val = [expr next];
-        [ctx defineVariable:varName withValue:val];
+    id <XPEnumeration>e = expr.enumeration;
+    TDAssert(e);
+    
+    [e begin:ctx];
+    
+    while ([e hasMore]) {
+        id val = [e next];
+        [ctx defineVariable:var withValue:val];
         [ctx renderBody:self];
     }
 }

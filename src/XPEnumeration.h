@@ -10,9 +10,9 @@
 
 @class TDTemplateContext;
 
-@protocol TDEnumeration <NSObject>
+@protocol XPEnumeration <NSObject>
 
-- (NSString *)begin:(TDTemplateContext *)ctx;
+- (void)begin:(TDTemplateContext *)ctx;
 - (id)next;
 - (BOOL)hasMore;
 @end

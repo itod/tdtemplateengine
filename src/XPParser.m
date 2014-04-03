@@ -8,6 +8,8 @@
 #import <TDTemplateEngine/XPRelationalExpression.h>
 #import <TDTemplateEngine/XPArithmeticExpression.h>
 #import <TDTemplateEngine/XPPathExpression.h>
+#import <TDTemplateEngine/XPLoopExpression.h>
+#import <TDTemplateEngine/XPCollectionExpression.h>
 #import <TDTemplateEngine/XPRangeExpression.h>
 
 
@@ -132,13 +134,28 @@
 
 - (void)expr_ {
     
-    if ([self speculate:^{ [self enumExpr_]; }]) {
-        [self enumExpr_]; 
+    if ([self speculate:^{ [self loopExpr_]; }]) {
+        [self loopExpr_]; 
     } else if ([self speculate:^{ [self orExpr_]; }]) {
         [self orExpr_]; 
     } else {
         [self raise:@"No viable alternative found in rule 'expr'."];
     }
+
+}
+
+- (void)loopExpr_ {
+    
+    [self identifier_]; 
+    [self match:XP_TOKEN_KIND_IN discard:YES]; 
+    [self enumExpr_]; 
+    [self execute:^{
+    
+	id enumExpr = POP();
+	id var = POP_STR();
+    PUSH([XPLoopExpression loopExpressionWithVarName:var enumeration:enumExpr]);
+
+    }];
 
 }
 
@@ -157,21 +174,17 @@
 - (void)collectionExpr_ {
     
     [self identifier_]; 
-    [self match:XP_TOKEN_KIND_IN discard:YES]; 
-    [self collection_]; 
-
-}
-
-- (void)collection_ {
+    [self execute:^{
     
-    [self identifier_]; 
+	id var = POP_STR();
+	PUSH([XPCollectionExpression collectionExpressionWithVarName:var]);
+
+    }];
 
 }
 
 - (void)rangeExpr_ {
     
-    [self identifier_]; 
-    [self match:XP_TOKEN_KIND_IN discard:YES]; 
     [self orExpr_]; 
     [self match:XP_TOKEN_KIND_TO discard:YES]; 
     [self orExpr_]; 
@@ -181,8 +194,7 @@
 	id by = POP();
 	id stop = POP();
 	id start = POP();
-	id var = POP_STR();
-	PUSH([XPRangeExpression rangeExpressionWithVar:var start:start stop:stop by:by]);
+	PUSH([XPRangeExpression rangeExpressionWithStart:start stop:stop by:by]);
 
     }];
 

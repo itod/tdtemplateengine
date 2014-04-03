@@ -15,15 +15,14 @@
 
 @implementation XPRangeExpression
 
-+ (instancetype)rangeExpressionWithVar:(NSString *)var start:(XPExpression *)start stop:(XPExpression *)stop by:(XPExpression *)by {
-    return [[[self alloc] initWithVar:var start:start stop:stop by:by] autorelease];
++ (instancetype)rangeExpressionWithStart:(XPExpression *)start stop:(XPExpression *)stop by:(XPExpression *)by {
+    return [[[self alloc] initWithStart:start stop:stop by:by] autorelease];
 }
 
 
-- (instancetype)initWithVar:(NSString *)var start:(XPExpression *)start stop:(XPExpression *)stop by:(XPExpression *)by {
+- (instancetype)initWithStart:(XPExpression *)start stop:(XPExpression *)stop by:(XPExpression *)by {
     self = [super init];
     if (self) {
-        self.var = var;
         self.start = start;
         self.stop = stop;
         self.by = by;
@@ -33,7 +32,6 @@
 
 
 - (void)dealloc {
-    self.var = nil;
     self.start = nil;
     self.stop = nil;
     self.by = nil;
@@ -42,7 +40,10 @@
 }
 
 
-- (NSString *)begin:(TDTemplateContext *)ctx {
+#pragma mark -
+#pragma mark XPEnumeration
+
+- (void)begin:(TDTemplateContext *)ctx {
     NSInteger start = [_start evaluateAsNumberInContext:ctx];
     NSInteger stop = [_stop evaluateAsNumberInContext:ctx];
     NSInteger step = [_by evaluateAsNumberInContext:ctx];
@@ -82,9 +83,6 @@
 
     self.range = range;
     self.current = 0;
-    
-    TDAssert([_var length]);
-    return _var;
 }
 
 

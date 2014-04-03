@@ -14,6 +14,8 @@
 #import <TDTemplateEngine/XPRelationalExpression.h>
 #import <TDTemplateEngine/XPArithmeticExpression.h>
 #import <TDTemplateEngine/XPPathExpression.h>
+#import <TDTemplateEngine/XPLoopExpression.h>
+#import <TDTemplateEngine/XPCollectionExpression.h>
 #import <TDTemplateEngine/XPRangeExpression.h>
 }
 
@@ -50,21 +52,27 @@
     self.minus = nil;
 }
 
-expr    = enumExpr | orExpr;
+expr    = loopExpr | orExpr;
 
-enumExpr 
+loopExpr 
+		= identifier 'in'! enumExpr {
+	id enumExpr = POP();
+	id var = POP_STR();
+	PUSH([XPLoopExpression loopExpressionWithVarName:var enumeration:enumExpr]);
+};
+enumExpr
 		= rangeExpr | collectionExpr;
 		
-collectionExpr = identifier 'in'! collection;
-collection = identifier;
-
+collectionExpr = identifier {
+	id var = POP_STR();
+	PUSH([XPCollectionExpression collectionExpressionWithVarName:var]);
+};
 rangeExpr
-		= identifier 'in'! orExpr 'to'! orExpr optBy {
+		= orExpr 'to'! orExpr optBy {
 	id by = POP();
 	id stop = POP();
 	id start = POP();
-	id var = POP_STR();
-	PUSH([XPRangeExpression rangeExpressionWithVar:var start:start stop:stop by:by]);
+	PUSH([XPRangeExpression rangeExpressionWithStart:start stop:stop by:by]);
 };
 optBy 	= 'by'! orExpr
 		| Empty { PUSH([XPNumericValue numericValueWithNumber:1.0]); }
