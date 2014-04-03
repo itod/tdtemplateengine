@@ -95,26 +95,11 @@
     NSParameterAssert(ctx);
     TDAssert(_tag);
     
-//    [self enterScope];
-    
     TDTemplateContext *local = [[[TDTemplateContext alloc] initWithVariables:nil output:ctx.writer.output] autorelease];
     local.enclosingScope = ctx;
     local.currentNode = self;
     
     [_tag doTagInContext:local];
-    
-    
-//    [self exitScope];
 }
-
-
-//- (void)enterScope {
-//    self.vars = [NSMutableDictionary dictionary];
-//}
-//
-//
-//- (void)exitScope {
-//    self.vars = nil;
-//}
 
 @end

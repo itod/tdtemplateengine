@@ -25,8 +25,6 @@
 
 @interface TDNode ()
 - (void)processFragment;
-- (void)enterScope;
-- (void)exitScope;
 @end
 
 @implementation TDNode
@@ -64,16 +62,6 @@
     //NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
 
     [self renderChildren:nil inContext:ctx];
-}
-
-
-- (void)enterScope {
-    
-}
-
-
-- (void)exitScope {
-    
 }
 
 
