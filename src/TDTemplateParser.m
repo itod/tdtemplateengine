@@ -10,7 +10,10 @@
 
 
 @interface TDTemplateParser ()
+    
 @property (nonatomic, retain) TDNode *currentParent;
+@property (nonatomic, retain) TDNode *currentGrandParent;
+
 @end
 
 @implementation TDTemplateParser { }
@@ -38,6 +41,8 @@
         
 	self.staticContext = nil;
     self.currentParent = nil;
+    self.currentGrandParent = nil;
+
 
     [super dealloc];
 }
@@ -53,10 +58,10 @@
     
     [self execute:^{
     
-        TDAssert(_staticContext);
-        TDNode *root = [TDRootNode rootNodeWithStaticContext:_staticContext];
-        self.assembly.target = root;
-        self.currentParent = root;
+	TDAssert(_staticContext);
+    TDNode *root = [TDRootNode rootNodeWithStaticContext:_staticContext];
+	self.assembly.target = root;
+    self.currentParent = root;
 
     }];
     do {
@@ -92,19 +97,17 @@
 }
 
 - (void)block_ {
-    [self execute:^{
-        id cur = self.currentParent;
-        PUSH(cur);
-    }];
     
+    [self execute:^{
+     PUSH(_currentParent); 
+    }];
     [self block_start_tag_]; 
     [self block_body_]; 
     [self block_end_tag_]; 
-
     [self execute:^{
-        id cur = POP();
-        self.currentParent = cur;
+     self.currentParent = POP(); 
     }];
+
 }
 
 - (void)block_start_tag_ {
@@ -115,8 +118,7 @@
 	PKToken *tok = POP();
 	TDNode *startTagNode = [TDBlockStartNode nodeWithToken:tok];
 	[_currentParent addChild:startTagNode];
-	
-        self.currentParent = startTagNode;
+	self.currentParent = startTagNode;
 
     }];
 
@@ -127,8 +129,9 @@
     [self match:TDTEMPLATE_TOKEN_KIND_BLOCK_END_TAG discard:NO]; 
     [self execute:^{
     
-        PKToken *tok = POP();
-        ASSERT([_currentParent.name hasPrefix:[tok.stringValue substringFromIndex:1]]);
+    PKToken *tok = POP();
+    ASSERT([_currentParent.name hasPrefix:[tok.stringValue substringFromIndex:1]]);
+
     }];
 
 }

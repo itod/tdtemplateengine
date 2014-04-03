@@ -49,6 +49,8 @@ var
 };
 
 block 
+@before { PUSH(_currentParent); }
+@after { self.currentParent = POP(); }
 	= block_start_tag block_body block_end_tag
 	;
 
@@ -57,18 +59,13 @@ block_start_tag
 	PKToken *tok = POP();
 	TDNode *startTagNode = [TDBlockStartNode nodeWithToken:tok];
 	[_currentParent addChild:startTagNode];
-	PUSH(parent);
-	PUSH(startTagNode);
+	self.currentParent = startTagNode;
 };
 
 block_end_tag
 	= 'block_end_tag' {
-	PKToken *tok = POP();
-    POP(); // startTagNode
-	TDNode *parent = POP();
-	TDNode *endTagNode = [TDBlockEndNode nodeWithToken:tok];
-	[parent addChild:endTagNode];
-	PUSH(parent);
+    PKToken *tok = POP();
+    ASSERT([_currentParent.name hasPrefix:[tok.stringValue substringFromIndex:1]]);
 };
 
 block_body 
@@ -78,7 +75,5 @@ block_body
 text 
 	= 'text' {
 	PKToken *tok = POP();
-	TDNode *parent = POP();
-	[parent addChild:[TDTextNode nodeWithToken:tok]];
-	PUSH(parent);
+	[_currentParent addChild:[TDTextNode nodeWithToken:tok]];
 };
