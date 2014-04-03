@@ -46,4 +46,16 @@
     TDEqualObjects(@"ffff", res);
 }
 
+- (void)testFor0To4I {
+    NSString *input = @"{% for i in 0 to 4 %}{{i}}{%/if %}";
+    id vars = nil;
+    
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"0123", res);
+}
+
 @end

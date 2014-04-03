@@ -24,6 +24,4 @@
 
 @interface TDForTag : TDTag
 
-//@property (nonatomic, copy) NSString *var;
-
 @end

@@ -32,14 +32,12 @@
 @implementation TDForTag
 
 - (void)dealloc {
-//    self.var = nil;
     [super dealloc];
 }
 
 
 - (void)doTagInContext:(TDTemplateContext *)ctx {
     TDAssert(ctx);
-//    TDAssert([_var length]);
     
     XPLoopExpression *expr = (id)self.expression;
     TDAssert([expr isKindOfClass:[XPLoopExpression class]]);

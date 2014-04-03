@@ -153,7 +153,7 @@
     
 	id enumExpr = POP();
 	id var = POP_STR();
-    PUSH([XPLoopExpression loopExpressionWithVarName:var enumeration:enumExpr]);
+	PUSH([XPLoopExpression loopExpressionWithVarName:var enumeration:enumExpr]);
 
     }];
 
@@ -185,9 +185,9 @@
 
 - (void)rangeExpr_ {
     
-    [self orExpr_]; 
+    [self unaryExpr_]; 
     [self match:XP_TOKEN_KIND_TO discard:YES]; 
-    [self orExpr_]; 
+    [self unaryExpr_]; 
     [self optBy_]; 
     [self execute:^{
     
@@ -204,7 +204,7 @@
     
     if ([self predicts:XP_TOKEN_KIND_BY, 0]) {
         [self match:XP_TOKEN_KIND_BY discard:YES]; 
-        [self orExpr_]; 
+        [self unaryExpr_]; 
     } else {
         [self matchEmpty:NO]; 
         [self execute:^{

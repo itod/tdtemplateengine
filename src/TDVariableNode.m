@@ -47,11 +47,11 @@
     NSParameterAssert(ctx);
     TDAssert([_varName length]);
     
-    NSString *s = [ctx resolveVariable:_varName];
+    id val = [ctx resolveVariable:_varName];
     TDWriter *writer = ctx.writer;
     
     TDAssert(writer);
-    [writer appendString:s];
+    [writer appendObject:val];
 }
 
 @end

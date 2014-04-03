@@ -68,13 +68,13 @@ collectionExpr = identifier {
 	PUSH([XPCollectionExpression collectionExpressionWithVarName:var]);
 };
 rangeExpr
-		= orExpr 'to'! orExpr optBy {
+		= unaryExpr 'to'! unaryExpr optBy {
 	id by = POP();
 	id stop = POP();
 	id start = POP();
 	PUSH([XPRangeExpression rangeExpressionWithStart:start stop:stop by:by]);
 };
-optBy 	= 'by'! orExpr
+optBy 	= 'by'! unaryExpr
 		| Empty { PUSH([XPNumericValue numericValueWithNumber:1.0]); }
 		;
 

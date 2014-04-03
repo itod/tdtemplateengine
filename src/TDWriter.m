@@ -30,6 +30,19 @@
 }
 
 
+- (void)appendObject:(id)obj {
+    NSString *str = nil;
+    if ([obj isKindOfClass:[NSString class]]) {
+        str = obj;
+    } else if ([obj respondsToSelector:@selector(stringValue)]) {
+        str = [obj stringValue];
+    } else {
+        str = [obj description];
+    }
+    [self appendString:str];
+}
+
+
 - (void)appendString:(NSString *)str {
     TDAssert(_output);
     TDAssert(str);

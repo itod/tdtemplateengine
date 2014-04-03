@@ -15,6 +15,7 @@
 
 @property (nonatomic, retain) NSOutputStream *output;
 
+- (void)appendObject:(id)obj;
 - (void)appendString:(NSString *)str;
 - (void)appendFormat:(NSString *)fmt, ... NS_FORMAT_FUNCTION(1,2);
 
