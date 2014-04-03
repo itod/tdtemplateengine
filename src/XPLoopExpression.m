@@ -31,4 +31,9 @@
     [super dealloc];
 }
 
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"<%@ %p %@>", [self class], self, _var];
+}
+
 @end

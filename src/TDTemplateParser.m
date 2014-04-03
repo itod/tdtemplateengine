@@ -10,7 +10,7 @@
 
 
 @interface TDTemplateParser ()
-
+@property (nonatomic, retain) TDNode *currentParent;
 @end
 
 @implementation TDTemplateParser { }
@@ -37,7 +37,7 @@
 - (void)dealloc {
         
 	self.staticContext = nil;
-
+    self.currentParent = nil;
 
     [super dealloc];
 }
@@ -53,10 +53,10 @@
     
     [self execute:^{
     
-	TDAssert(_staticContext);
-    TDNode *root = [TDRootNode rootNodeWithStaticContext:_staticContext];
-	self.assembly.target = root;
-    PUSH(root);
+        TDAssert(_staticContext);
+        TDNode *root = [TDRootNode rootNodeWithStaticContext:_staticContext];
+        self.assembly.target = root;
+        self.currentParent = root;
 
     }];
     do {
@@ -85,9 +85,7 @@
     [self execute:^{
     
 	PKToken *tok = POP();
-	TDNode *parent = POP();
-	[parent addChild:[TDVariableNode nodeWithToken:tok]];
-	PUSH(parent);
+	[_currentParent addChild:[TDVariableNode nodeWithToken:tok]];
 
     }];
 
@@ -95,10 +93,13 @@
 
 - (void)block_ {
     
+    id cur = self.currentParent;
+    
     [self block_start_tag_]; 
     [self block_body_]; 
     [self block_end_tag_]; 
 
+    self.currentParent = cur;
 }
 
 - (void)block_start_tag_ {
@@ -107,11 +108,10 @@
     [self execute:^{
     
 	PKToken *tok = POP();
-	TDNode *parent = POP();
 	TDNode *startTagNode = [TDBlockStartNode nodeWithToken:tok];
-	[parent addChild:startTagNode];
-	PUSH(parent);
-	PUSH(startTagNode);
+	[_currentParent addChild:startTagNode];
+	
+        self.currentParent = startTagNode;
 
     }];
 
@@ -122,13 +122,8 @@
     [self match:TDTEMPLATE_TOKEN_KIND_BLOCK_END_TAG discard:NO]; 
     [self execute:^{
     
-	PKToken *tok = POP();
-    POP(); // startTagNode
-	TDNode *parent = POP();
-	TDNode *endTagNode = [TDBlockEndNode nodeWithToken:tok];
-	[parent addChild:endTagNode];
-	PUSH(parent);
-
+        PKToken *tok = POP();
+        ASSERT([_currentParent.name hasPrefix:[tok.stringValue substringFromIndex:1]]);
     }];
 
 }
@@ -147,9 +142,7 @@
     [self execute:^{
     
 	PKToken *tok = POP();
-	TDNode *parent = POP();
-	[parent addChild:[TDTextNode nodeWithToken:tok]];
-	PUSH(parent);
+	[_currentParent addChild:[TDTextNode nodeWithToken:tok]];
 
     }];
 

@@ -35,7 +35,7 @@
 }
 
 - (void)testFor0To4F {
-    NSString *input = @"{% for i in 0 to 4 %}f{% /if %}";
+    NSString *input = @"{% for i in 0 to 4 %}f{% /for %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -47,7 +47,7 @@
 }
 
 - (void)testFor0To4I {
-    NSString *input = @"{% for i in 0 to 4 %}{{i}}{% /if %}";
+    NSString *input = @"{% for i in 0 to 4 %}{{i}}{% /for %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -59,11 +59,11 @@
 }
 
 - (void)testNestedFor {
-    NSString *input =   @"{% for i in 0 to 1 %}"
-                            @"{% for j in 0 to 2 %}"
+    NSString *input =   @"{% for i in 0 to 2 %}"
+                            @"{% for j in 0 to 3 %}"
                                 @"{{i}}:{{j}}\n"
-                            @"{% /if %}"
-                        @"{% /if %}";
+                            @"{% /for %}"
+                        @"{% /for %}";
     id vars = nil;
     NSError *err = nil;
     BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
