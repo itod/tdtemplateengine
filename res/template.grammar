@@ -68,7 +68,7 @@ block_end_tag
 };
 
 block_body 
-	= content
+	= content+
 	;
 
 text 

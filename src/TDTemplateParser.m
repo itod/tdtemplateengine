@@ -135,7 +135,9 @@
 
 - (void)block_body_ {
     
-    [self content_]; 
+    do {
+        [self content_]; 
+    } while ([self speculate:^{ [self content_]; }]);
 
 }
 
