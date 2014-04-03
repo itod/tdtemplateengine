@@ -23,11 +23,44 @@
 #import "TDForTag.h"
 #import <TDTemplateEngine/TDTemplateContext.h>
 
+#import "XPRangeExpression.h"
+
+@interface TDForTag ()
+@end
+
 @implementation TDForTag
 
-- (id)evaluateInContext:(TDTemplateContext *)ctx {
-    NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
+- (void)dealloc {
+    self.var = nil;
+    [super dealloc];
+}
+
+
+- (id)evaluateInContext:(TDTemplateContext *)ctx {    
+    
     return nil;
+}
+
+
+#pragma mark -
+#pragma mark TDEnumeration
+
+- (void)begin:(TDTemplateContext *)ctx {
+    XPRangeExpression *expr = (id)self.expression;
+    self.var = expr.var;
+    [expr begin:ctx];
+}
+
+
+- (id)next {
+    XPRangeExpression *expr = (id)self.expression;
+    return [expr next];
+}
+
+
+- (BOOL)hasMore {
+    XPRangeExpression *expr = (id)self.expression;
+    return [expr hasMore];
 }
 
 @end

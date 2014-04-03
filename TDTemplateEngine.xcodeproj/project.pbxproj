@@ -69,9 +69,9 @@
 		D3A3E54F18EC5706004FEB2C /* TDVarTagTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A3E54C18EC5706004FEB2C /* TDVarTagTests.m */; };
 		D3F5063818EC5C9800BAC93B /* XPRangeExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F5063618EC5C9800BAC93B /* XPRangeExpression.h */; };
 		D3F5063918EC5C9800BAC93B /* XPRangeExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F5063718EC5C9800BAC93B /* XPRangeExpression.m */; };
-		D3F5064018EC60B700BAC93B /* XPEnumeration.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F5063E18EC60B700BAC93B /* XPEnumeration.h */; };
 		D3F5064518ECA12500BAC93B /* TDWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F5064318ECA12500BAC93B /* TDWriter.m */; };
 		D3F5064818ECA36B00BAC93B /* TDWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F5064718ECA36B00BAC93B /* TDWriter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D3F5065318EDB78100BAC93B /* TDEnumeration.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F5065218EDB78100BAC93B /* TDEnumeration.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -194,9 +194,9 @@
 		D3A3E54C18EC5706004FEB2C /* TDVarTagTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDVarTagTests.m; path = test/TDVarTagTests.m; sourceTree = SOURCE_ROOT; };
 		D3F5063618EC5C9800BAC93B /* XPRangeExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPRangeExpression.h; path = src/XPRangeExpression.h; sourceTree = SOURCE_ROOT; };
 		D3F5063718EC5C9800BAC93B /* XPRangeExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPRangeExpression.m; path = src/XPRangeExpression.m; sourceTree = SOURCE_ROOT; };
-		D3F5063E18EC60B700BAC93B /* XPEnumeration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPEnumeration.h; path = src/XPEnumeration.h; sourceTree = SOURCE_ROOT; };
 		D3F5064318ECA12500BAC93B /* TDWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDWriter.m; path = src/TDWriter.m; sourceTree = SOURCE_ROOT; };
 		D3F5064718ECA36B00BAC93B /* TDWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDWriter.h; path = include/TDTemplateEngine/TDWriter.h; sourceTree = SOURCE_ROOT; };
+		D3F5065218EDB78100BAC93B /* TDEnumeration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDEnumeration.h; path = include/TDTemplateEngine/TDEnumeration.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -338,6 +338,7 @@
 		D3A29DD318E63D2900DC591E /* Tags */ = {
 			isa = PBXGroup;
 			children = (
+				D3F5065218EDB78100BAC93B /* TDEnumeration.h */,
 				D3A29DDC18E63D6D00DC591E /* TDTag.h */,
 				D3A29DD918E63D5B00DC591E /* TDTag.m */,
 				D3A29DDE18E6423500DC591E /* TDIfTag.h */,
@@ -356,7 +357,6 @@
 				D3A29DF818E6584D00DC591E /* XPExpression.m */,
 				D3A29E3718E7AA3100DC591E /* XPPathExpression.h */,
 				D3A29E3818E7AA3100DC591E /* XPPathExpression.m */,
-				D3F5063E18EC60B700BAC93B /* XPEnumeration.h */,
 				D3F5063618EC5C9800BAC93B /* XPRangeExpression.h */,
 				D3F5063718EC5C9800BAC93B /* XPRangeExpression.m */,
 				D3A29E2218E75D2E00DC591E /* Value */,
@@ -421,7 +421,6 @@
 				D3A29DC618E6285800DC591E /* TDBlockStartNode.h in Headers */,
 				D398E2EF18EA2C51004B883C /* TDTemplateParser.h in Headers */,
 				D3A29DBE18E61ACA00DC591E /* TDTextNode.h in Headers */,
-				D3F5064018EC60B700BAC93B /* XPEnumeration.h in Headers */,
 				D3A29E3118E75D3B00DC591E /* XPRelationalExpression.h in Headers */,
 				D3A29DBA18E60F9F00DC591E /* TDRootNode.h in Headers */,
 				D3A29E3D18E7B31A00DC591E /* XPObjectValue.h in Headers */,
@@ -430,6 +429,7 @@
 				D3A29DB618E60E4500DC591E /* TDVariableNode.h in Headers */,
 				D3F5064818ECA36B00BAC93B /* TDWriter.h in Headers */,
 				D3A29DCA18E6286600DC591E /* TDBlockEndNode.h in Headers */,
+				D3F5065318EDB78100BAC93B /* TDEnumeration.h in Headers */,
 				D3A29E2B18E75D3B00DC591E /* XPArithmeticExpression.h in Headers */,
 				D3A29DF518E6583600DC591E /* XPExpression.h in Headers */,
 				D3A29DDD18E63D6D00DC591E /* TDTag.h in Headers */,

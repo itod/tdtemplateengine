@@ -28,5 +28,5 @@
 
 - (instancetype)initWithVariables:(NSDictionary *)vars output:(NSOutputStream *)output;
 
-@property (nonatomic, retain) TDWriter *writer;
+@property (nonatomic, retain, readonly) TDWriter *writer;
 @end

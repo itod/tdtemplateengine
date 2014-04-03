@@ -7,14 +7,15 @@
 //
 
 #import "XPExpression.h"
-#import "XPEnumeration.h"
+#import <TDTemplateEngine/TDEnumeration.h>
 
-@interface XPRangeExpression : XPExpression <XPEnumeration>
+@interface XPRangeExpression : XPExpression <TDEnumeration>
 
-+ (instancetype)rangeExpressionWithStart:(XPExpression *)start stop:(XPExpression *)stop by:(XPExpression *)by;
++ (instancetype)rangeExpressionWithVar:(NSString *)var start:(XPExpression *)start stop:(XPExpression *)stop by:(XPExpression *)by;
 
-- (instancetype)initWithStart:(XPExpression *)start stop:(XPExpression *)stop by:(XPExpression *)by;
+- (instancetype)initWithVar:(NSString *)var start:(XPExpression *)start stop:(XPExpression *)stop by:(XPExpression *)by;
 
+@property (nonatomic, copy) NSString *var;
 @property (nonatomic, retain) XPExpression *start;
 @property (nonatomic, retain) XPExpression *stop;
 @property (nonatomic, retain) XPExpression *by;

@@ -22,6 +22,7 @@
 
 #import "TDBlockStartNode.h"
 #import <TDTemplateEngine/TDTemplateContext.h>
+#import <TDTemplateEngine/TDWriter.h>
 #import <TDTemplateEngine/TDTag.h>
 #import <TDTemplateEngine/XPExpression.h>
 #import <PEGKit/PKToken.h>
@@ -34,7 +35,6 @@
 
 @interface TDBlockStartNode ()
 @property (nonatomic, retain) TDTag *tag;
-@property (nonatomic, retain) NSMutableDictionary *vars;
 @end
 
 @implementation TDBlockStartNode
@@ -50,8 +50,6 @@
 
 - (void)dealloc {
     self.tagName = nil;
-    self.vars = nil;
-    self.enclosingScope = nil;
     [super dealloc];
 }
 
@@ -96,51 +94,29 @@
     NSParameterAssert(ctx);
     TDAssert(_tag);
     
-    [self enterScope];
-    self.enclosingScope = ctx;
+//    [self enterScope];
     
-    BOOL test = [[_tag evaluateInContext:(id)self] boolValue]; // TODO
+    TDTemplateContext *local = [[[TDTemplateContext alloc] initWithVariables:nil output:ctx.writer.output] autorelease];
+    local.enclosingScope = ctx;
+    
+    [_tag begin:ctx];
+    
+    BOOL test = [[_tag evaluateInContext:local] boolValue]; // TODO
     if (test) {
         [self renderChildren:nil inContext:ctx];
     }
     
-    self.enclosingScope = nil;
-    [self exitScope];
+//    [self exitScope];
 }
 
 
-- (void)enterScope {
-    self.vars = [NSMutableDictionary dictionary];
-}
+//- (void)enterScope {
+//    self.vars = [NSMutableDictionary dictionary];
+//}
+//
+//
+//- (void)exitScope {
+//    self.vars = nil;
+//}
 
-
-- (void)exitScope {
-    self.vars = nil;
-}
-
-
-#pragma mark -
-#pragma mark TDScope
-
-- (id)resolveVariable:(NSString *)name {
-    NSParameterAssert([name length]);
-    TDAssert(_vars);
-    id result = _vars[name];
-    
-    if (!result && self.enclosingScope) {
-        result = [self.enclosingScope resolveVariable:name];
-    }
-    
-    return result;
-}
-
-
-- (void)defineVariable:(NSString *)name withValue:(id)value {
-    NSParameterAssert([name length]);
-    NSParameterAssert(value);
-    TDAssert(_vars);
-    _vars[name] = value;
-}
-
-@synthesize enclosingScope;
 @end

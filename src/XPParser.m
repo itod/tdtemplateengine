@@ -170,6 +170,8 @@
 
 - (void)rangeExpr_ {
     
+    [self identifier_]; 
+    [self match:XP_TOKEN_KIND_IN discard:YES]; 
     [self orExpr_]; 
     [self match:XP_TOKEN_KIND_TO discard:YES]; 
     [self orExpr_]; 
@@ -179,7 +181,8 @@
 	id by = POP();
 	id stop = POP();
 	id start = POP();
-	PUSH([XPRangeExpression rangeExpressionWithStart:start stop:stop by:by]);
+	id var = POP_STR();
+	PUSH([XPRangeExpression rangeExpressionWithVar:var start:start stop:stop by:by]);
 
     }];
 

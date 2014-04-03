@@ -35,7 +35,7 @@
 }
 
 - (void)testFor0To4F {
-    NSString *input = @"{% for 0 to 4 %}f{%/if %}";
+    NSString *input = @"{% for i in 0 to 4 %}f{%/if %}";
     id vars = nil;
     
     NSError *err = nil;

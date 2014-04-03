@@ -8,8 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol XPEnumeration <NSObject>
+@class TDTemplateContext;
 
+@protocol TDEnumeration <NSObject>
+
+- (void)begin:(TDTemplateContext *)ctx;
 - (id)next;
 - (BOOL)hasMore;
 @end

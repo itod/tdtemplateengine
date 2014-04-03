@@ -25,6 +25,7 @@
 
 @interface TDTemplateContext ()
 @property (nonatomic, retain) NSMutableDictionary *vars;
+@property (nonatomic, retain, readwrite) TDWriter *writer;
 @end
 
 @implementation TDTemplateContext

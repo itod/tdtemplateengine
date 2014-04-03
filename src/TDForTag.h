@@ -21,7 +21,10 @@
 // THE SOFTWARE.
 
 #import <TDTemplateEngine/TDTag.h>
+#import <TDTemplateEngine/TDEnumeration.h>
 
-@interface TDForTag : TDTag
+@interface TDForTag : TDTag <TDEnumeration>
+
+@property (nonatomic, copy) NSString *var;
 
 @end
