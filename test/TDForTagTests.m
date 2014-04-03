@@ -73,4 +73,21 @@
     TDEqualObjects(@"0:0\n0:1\n0:2\n1:0\n1:1\n1:2\n", res);
 }
 
+- (void)test2NestedFors {
+    NSString *input =   @"{% for i in 0 to 1 %}"
+                            @"{% for j in 0 to 2 %}"
+                                @"{% for k in 0 to 3 %}"
+                                    @"{{i}}:{{j}}:{{k}}\n"
+                                @"{% /for %}"
+                            @"{% /for %}"
+                        @"{% /for %}";
+    id vars = nil;
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"0:0:0\n0:0:1\n0:0:2\n0:1:0\n0:1:1\n0:1:2\n", res);
+}
+
 @end

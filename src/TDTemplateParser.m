@@ -11,7 +11,6 @@
 
 @interface TDTemplateParser ()
 @property (nonatomic, retain) TDNode *currentParent;
-@property (nonatomic, retain) TDNode *currentGrandParent;
 @end
 
 @implementation TDTemplateParser { }
@@ -39,7 +38,6 @@
         
 	self.staticContext = nil;
     self.currentParent = nil;
-    self.currentGrandParent = nil;
 
     [super dealloc];
 }
@@ -94,14 +92,19 @@
 }
 
 - (void)block_ {
-    
-    self.currentGrandParent = self.currentParent;
+    [self execute:^{
+        id cur = self.currentParent;
+        PUSH(cur);
+    }];
     
     [self block_start_tag_]; 
     [self block_body_]; 
     [self block_end_tag_]; 
 
-    self.currentParent = self.currentGrandParent;
+    [self execute:^{
+        id cur = POP();
+        self.currentParent = cur;
+    }];
 }
 
 - (void)block_start_tag_ {
