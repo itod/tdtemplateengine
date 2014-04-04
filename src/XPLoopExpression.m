@@ -7,15 +7,16 @@
 //
 
 #import "XPLoopExpression.h"
+#import <TDTemplateEngine/TDTemplateContext.h>
 
 @implementation XPLoopExpression
 
-+ (instancetype)loopExpressionWithVariable:(NSString *)var enumeration:(id <XPEnumeration>)e {
++ (instancetype)loopExpressionWithVariable:(NSString *)var enumeration:(XPExpression *)e {
     return [[[self alloc] initWithVariable:var enumeration:e] autorelease];
 }
 
 
-- (instancetype)initWithVariable:(NSString *)var enumeration:(id <XPEnumeration>)e {
+- (instancetype)initWithVariable:(NSString *)var enumeration:(XPExpression *)e {
     self = [super init];
     if (self) {
         self.variable = var;
@@ -33,7 +34,18 @@
 
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<%@ %p %@>", [self class], self, _variable];
+    return [NSString stringWithFormat:@"%@ in %@", _variable, _enumeration];
+//    return [NSString stringWithFormat:@"<%@ %p `%@ in %@`>", [self class], self, _variable, _enumeration];
+}
+
+
+- (id)evaluateInContext:(TDTemplateContext *)ctx {
+    TDAssert([_variable length]);
+    TDAssert(_enumeration);
+    
+    id val = [_enumeration evaluateInContext:ctx];
+    [ctx defineVariable:_variable withValue:val];
+    return val;
 }
 
 @end

@@ -49,7 +49,7 @@
 }
 
 
-- (id)next {
+- (id)evaluateInContext:(TDTemplateContext *)ctx {
     id result = nil;
     if ([self hasMore]) {
         result = _collection[_current];

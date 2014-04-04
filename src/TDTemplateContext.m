@@ -63,6 +63,11 @@
 }
 
 
+- (NSString *)description {
+    return [NSString stringWithFormat:@"<%@ %p global: %d, %@>", [self class], self, nil == self.enclosingScope, self.vars];
+}
+
+
 - (void)renderBody:(TDTag *)tag {
     TDAssert(_currentNode);
     [_currentNode renderChildren:nil inContext:self];
@@ -86,10 +91,16 @@
 
 
 - (void)defineVariable:(NSString *)name withValue:(id)value {
+    NSLog(@"%s %@=%@", __PRETTY_FUNCTION__, name, value);
+
     NSParameterAssert([name length]);
-    NSParameterAssert(value);
     TDAssert(_vars);
-    _vars[name] = value;
+    if (value) {
+        _vars[name] = value;
+    } else {
+        TDAssert(_vars[name]);
+        [_vars removeObjectForKey:name];
+    }
 }
 
 @synthesize enclosingScope;

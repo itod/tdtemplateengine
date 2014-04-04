@@ -11,6 +11,7 @@
 @interface XPRangeExpression ()
 @property (nonatomic, retain) NSArray *range;
 @property (nonatomic, assign) NSInteger current;
+@property (nonatomic, assign) BOOL started;
 @end
 
 @implementation XPRangeExpression
@@ -38,6 +39,12 @@
     self.range = nil;
     [super dealloc];
 }
+
+
+//- (NSString *)description {
+//    return [NSString stringWithFormat:@"%@ to %@ [%@]", _range[0], [_range lastObject], _range[_current]];
+////    return [NSString stringWithFormat:@"<%@ %p %@ to %@>", [self class], self, _range[0], [_range lastObject]];
+//}
 
 
 #pragma mark -
@@ -86,12 +93,20 @@
 }
 
 
-- (id)next {
+- (id)evaluateInContext:(TDTemplateContext *)ctx; {
+    if (!_started) {
+        [self beginInContext:ctx];
+        self.started = YES;
+    }
+    
     id result = nil;
     if ([self hasMore]) {
         result = _range[_current];
         self.current++;
+    } else {
+        self.started = NO;
     }
+    
     return result;
 }
 

@@ -7,9 +7,8 @@
 //
 
 #import "XPExpression.h"
-#import "XPEnumeration.h"
 
-@interface XPCollectionExpression : XPExpression <XPEnumeration>
+@interface XPCollectionExpression : XPExpression
 
 + (instancetype)collectionExpressionWithVariable:(NSString *)var;
 - (instancetype)initWithVariable:(NSString *)var;

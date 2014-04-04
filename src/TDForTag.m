@@ -24,35 +24,41 @@
 #import <TDTemplateEngine/TDTemplateContext.h>
 
 #import "XPLoopExpression.h"
-#import "XPEnumeration.h"
 
 @interface TDForTag ()
 @end
 
 @implementation TDForTag
 
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        
+    }
+    return self;
+}
+
+
 - (void)dealloc {
     [super dealloc];
 }
 
 
+- (NSString *)description {
+    return [NSString stringWithFormat:@"%p for %@", self, self.expression];
+}
+
+
+
 - (void)doTagInContext:(TDTemplateContext *)ctx {
+    //NSLog(@"%s %@", __PRETTY_FUNCTION__, self);
     TDAssert(ctx);
     
-    XPLoopExpression *expr = (id)self.expression;
+    XPExpression *expr = self.expression;
     TDAssert([expr isKindOfClass:[XPLoopExpression class]]);
     
-    NSString *var = expr.variable;
-    TDAssert([var length]);
-    
-    id <XPEnumeration>e = expr.enumeration;
-    TDAssert(e);
-    
-    [e beginInContext:ctx];
-    
-    while ([e hasMore]) {
-        id val = [e next];
-        [ctx defineVariable:var withValue:val];
+    while ([expr evaluateInContext:ctx]) {
+        NSLog(@"rendering body of %@", self);
         [ctx renderBody:self];
     }
 }

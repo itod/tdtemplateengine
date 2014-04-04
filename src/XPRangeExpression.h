@@ -7,9 +7,8 @@
 //
 
 #import "XPExpression.h"
-#import "XPEnumeration.h"
 
-@interface XPRangeExpression : XPExpression <XPEnumeration>
+@interface XPRangeExpression : XPExpression
 
 + (instancetype)rangeExpressionWithStart:(XPExpression *)start stop:(XPExpression *)stop by:(XPExpression *)by;
 
