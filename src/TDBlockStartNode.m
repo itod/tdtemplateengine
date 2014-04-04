@@ -21,6 +21,7 @@
 // THE SOFTWARE.
 
 #import "TDBlockStartNode.h"
+#import <TDTemplateEngine/TDTemplateEngine.h>
 #import <TDTemplateEngine/TDTemplateContext.h>
 #import <TDTemplateEngine/TDWriter.h>
 #import <TDTemplateEngine/TDTag.h>
@@ -82,7 +83,7 @@
     }
     
     self.tagName = tagName;
-    self.tag = [TDTag makeTagForName:tagName];
+    self.tag = [[TDTemplateEngine currentTemplateEngine] makeTagForName:tagName];
 
     _tag.expression = [XPExpression expressionFromTokens:toks error:nil];
     

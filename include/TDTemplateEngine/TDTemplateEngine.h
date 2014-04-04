@@ -26,11 +26,13 @@ extern NSString * const TDTemplateEngineErrorDomain;
 extern NSInteger TDTemplateEngineRenderingErrorCode;
 
 @class TDNode;
+@class TDTag;
 @protocol TDScope;
 
 @interface TDTemplateEngine : NSObject
 
 + (instancetype)templateEngine;
++ (instancetype)currentTemplateEngine;
 
 // pre-compile template into a tree
 - (TDNode *)compileTemplateString:(NSString *)str error:(NSError **)err;
@@ -50,4 +52,9 @@ extern NSInteger TDTemplateEngineRenderingErrorCode;
 @property (nonatomic, copy) NSString *varEndDelimiter;
 @property (nonatomic, copy) NSString *tagStartDelimiter;
 @property (nonatomic, copy) NSString *tagEndDelimiter;
+@end
+
+@interface TDTemplateEngine (TagRegistration)
+- (void)registerTagClass:(Class)cls forName:(NSString *)tagName;
+- (TDTag *)makeTagForName:(NSString *)tagName;
 @end

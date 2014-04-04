@@ -27,8 +27,6 @@
 
 @interface TDTag : NSObject
 
-+ (instancetype)makeTagForName:(NSString *)tagName;
-
 - (void)doTagInContext:(TDTemplateContext *)ctx;
 
 @property (nonatomic, retain) XPExpression *expression;

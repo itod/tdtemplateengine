@@ -31,6 +31,8 @@
 
 #import <TDTemplateEngine/TDScope.h>
 #import <TDTemplateEngine/TDTemplateContext.h>
+#import <TDTemplateEngine/TDIfTag.h>
+#import <TDTemplateEngine/TDForTag.h>
 
 #import <PEGKit/PKTokenizer.h>
 #import <PEGKit/PKWhitespaceState.h>
@@ -43,12 +45,20 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
 @interface TDTemplateEngine ()
 @property (nonatomic, retain) NSRegularExpression *delimiterRegex;
 @property (nonatomic, retain, readwrite) id <TDScope>staticContext;
+@property (nonatomic, retain) NSMutableDictionary *tagTab;
 @end
 
 @implementation TDTemplateEngine
 
 + (instancetype)templateEngine {
     return [[[TDTemplateEngine alloc] init] autorelease];
+}
+
+
++ (instancetype)currentTemplateEngine {
+    id eng = [[NSThread currentThread] threadDictionary][@"TDTemplateEngine"];
+    TDAssert(eng);
+    return eng;
 }
 
 
@@ -60,6 +70,12 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
         self.tagStartDelimiter = @"{%";
         self.tagEndDelimiter = @"%}";
         self.staticContext = [[[TDTemplateContext alloc] init] autorelease];
+        
+        self.tagTab = [NSMutableDictionary dictionary];
+        [self registerTagClass:[TDIfTag class] forName:@"if"];
+        [self registerTagClass:[TDForTag class] forName:@"for"];
+        
+        [[NSThread currentThread] threadDictionary][@"TDTemplateEngine"] = self;
     }
     return self;
 }
@@ -72,6 +88,7 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
     self.tagEndDelimiter = nil;
     self.delimiterRegex = nil;
     self.staticContext = nil;
+    self.tagTab = nil;
     [super dealloc];
 }
 
@@ -279,6 +296,24 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
     TDNode *root = [p parseTokens:frags error:err];
     
     return root;
+}
+
+
+#pragma mark -
+#pragma mark TagRegistration
+
+- (void)registerTagClass:(Class)cls forName:(NSString *)tagName {
+    TDAssert(_tagTab);
+    _tagTab[tagName] = cls;
+}
+
+
+- (TDTag *)makeTagForName:(NSString *)tagName {
+    Class cls = _tagTab[tagName];
+    TDAssert(cls);
+    TDTag *tag = [[[cls alloc] init] autorelease];
+    TDAssert(tag);
+    return tag;
 }
 
 @end

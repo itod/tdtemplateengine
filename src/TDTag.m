@@ -24,17 +24,6 @@
 
 @implementation TDTag
 
-+ (instancetype)makeTagForName:(NSString *)tagName {
-    // TODO make this extensible
-    NSString *clsName = [NSString stringWithFormat:@"TD%@Tag", [tagName capitalizedString]];
-    Class cls = NSClassFromString(clsName);
-    TDAssert(cls);
-    TDTag *tag = [[[cls alloc] init] autorelease];
-    TDAssert(tag);
-    return tag;
-}
-
-
 - (void)dealloc {
     self.expression = nil;
     [super dealloc];
