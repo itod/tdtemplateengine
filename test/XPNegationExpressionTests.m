@@ -397,27 +397,27 @@
     TDTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
 }
 
-- (void)test1Eq1 {
-    NSString *input = @"1 eq 1";
+- (void)testNotOpen1Eq1Close {
+    NSString *input = @"not(1 eq 1)";
     NSArray *toks = [self tokenize:input];
     
     NSError *err = nil;
     XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
     TDNil(err);
     TDNotNil(expr);
-    TDTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
+    TDFalse([[expr simplify] evaluateAsBooleanInContext:nil]);
 }
-
-- (void)test1EqSign1 {
-    NSString *input = @"1 = 1";
-    NSArray *toks = [self tokenize:input];
-    
-    NSError *err = nil;
-    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
-    TDNil(err);
-    TDNotNil(expr);
-    TDTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
-}
+//
+//- (void)testBangOpen1EqSign1Close {
+//    NSString *input = @"!(1 = 1)";
+//    NSArray *toks = [self tokenize:input];
+//    
+//    NSError *err = nil;
+//    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+//    TDNil(err);
+//    TDNotNil(expr);
+//    TDFalse([[expr simplify] evaluateAsBooleanInContext:nil]);
+//}
 
 - (void)test1EqEqSign1 {
     NSString *input = @"1 == 1";
