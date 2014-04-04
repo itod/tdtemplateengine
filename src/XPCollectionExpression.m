@@ -10,7 +10,8 @@
 #import <TDTemplateEngine/TDTemplateContext.h>
 
 @interface XPCollectionExpression ()
-@property (nonatomic, retain) id collection;
+@property (nonatomic, retain) NSArray *keys;
+@property (nonatomic, retain) NSArray *values;
 @property (nonatomic, assign) NSInteger current;
 @property (nonatomic, assign) BOOL started;
 @end
@@ -33,7 +34,8 @@
 
 - (void)dealloc {
     self.var = nil;
-    self.collection = nil;
+    self.keys = nil;
+    self.values = nil;
     [super dealloc];
 }
 
@@ -43,7 +45,21 @@
 
 - (void)beginInContext:(TDTemplateContext *)ctx {
     TDAssert([_var length]);
-    self.collection = [ctx resolveVariable:_var];
+    id col = [ctx resolveVariable:_var];
+    
+    if ([col isKindOfClass:[NSArray class]]) {
+        self.keys = nil;
+        self.values = col;
+    } else if ([col isKindOfClass:[NSSet class]]) {
+        self.keys = nil;
+        self.values = [col allObjects];
+    } else if ([col isKindOfClass:[NSDictionary class]]) {
+        self.keys = [col allKeys];
+        self.values = [col allObjects];
+    } else {
+        [NSException raise:@"" format:@""]; // TODO
+    }
+    
     self.current = 0;
 }
 
@@ -56,7 +72,7 @@
     
     id result = nil;
     if ([self hasMore]) {
-        result = _collection[_current];
+        result = _values[_current];
         self.current++;
     } else {
         self.started = NO;
@@ -67,7 +83,7 @@
 
 
 - (BOOL)hasMore {
-    return _current < [_collection count];
+    return _current < [_values count];
 }
 
 @end
