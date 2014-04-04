@@ -21,11 +21,10 @@
     if (self) {
         NSUInteger c = [vars count];
         if (2 == c) {
-            self.keyVariable = vars[0];
-            self.valueVariable = vars[1];
+            self.firstVariable = vars[0];
+            self.secondVariable = vars[1];
         } else if (1 == c) {
-            self.keyVariable = nil;
-            self.valueVariable = vars[0];
+            self.firstVariable = vars[0];
         } else {
             [NSException raise:@"" format:@""]; // TODO
         }
@@ -37,8 +36,8 @@
 
 
 - (void)dealloc {
-    self.keyVariable = nil;
-    self.valueVariable = nil;
+    self.firstVariable = nil;
+    self.secondVariable = nil;
     self.enumeration = nil;
     [super dealloc];
 }
@@ -46,28 +45,38 @@
 
 - (NSString *)description {
     NSString *result = nil;
-    if (_keyVariable) {
-        result = [NSString stringWithFormat:@"%@,%@ in %@", _keyVariable, _valueVariable, _enumeration];
+    if (_firstVariable) {
+        result = [NSString stringWithFormat:@"%@,%@ in %@", _firstVariable, _secondVariable, _enumeration];
     } else {
-        result = [NSString stringWithFormat:@"%@ in %@", _valueVariable, _enumeration];
+        result = [NSString stringWithFormat:@"%@ in %@", _secondVariable, _enumeration];
     }
     return result;
 }
 
 
 - (id)evaluateInContext:(TDTemplateContext *)ctx {
-    TDAssert([_valueVariable length]);
+    TDAssert([_firstVariable length]);
     TDAssert(_enumeration);
     
-    id res = nil;
-    if (_keyVariable) {
-        TDAssert([_keyVariable length]);
-        res = [_enumeration evaluateInContext:ctx];
-        TDAssert([res isKindOfClass:[NSArray class]]);
-        
+    id res = [_enumeration evaluateInContext:ctx];
+    id firstObj = nil;
+    id secondObj = nil;
+
+    if ([res isKindOfClass:[NSArray class]]) {
+        TDAssert(2 == [res count]);
+        firstObj = res[0];
+        secondObj = res[1];
     } else {
-        res = [_enumeration evaluateInContext:ctx];
-        [ctx defineVariable:_valueVariable withValue:res];
+        firstObj = res;
+    }
+    
+    if (_secondVariable) {
+        TDAssert([_secondVariable length]);
+        [ctx defineVariable:_firstVariable withValue:firstObj];
+        [ctx defineVariable:_secondVariable withValue:secondObj];
+    } else {
+        res = firstObj;
+        [ctx defineVariable:_firstVariable withValue:firstObj];
     }
     return res;
 }

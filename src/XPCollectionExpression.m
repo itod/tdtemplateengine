@@ -72,7 +72,16 @@
     
     id result = nil;
     if ([self hasMore]) {
-        result = _values[_current];
+        if (_keys) {
+            id key = _keys[_current];
+            TDAssert(key);
+            id val = _values[_current];
+            TDAssert(val);
+            result = @[key, val];
+        } else {
+            result = _values[_current];
+            TDAssert(result);
+        }
         self.current++;
     } else {
         self.started = NO;

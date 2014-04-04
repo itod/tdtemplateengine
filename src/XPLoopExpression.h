@@ -13,8 +13,8 @@
 + (instancetype)loopExpressionWithVariables:(NSArray *)vars enumeration:(XPExpression *)e;
 - (instancetype)initWithVariables:(NSArray *)vars enumeration:(XPExpression *)e;
 
-@property (nonatomic, copy) NSString *keyVariable;
-@property (nonatomic, copy) NSString *valueVariable;
+@property (nonatomic, copy) NSString *firstVariable;
+@property (nonatomic, copy) NSString *secondVariable;
 @property (nonatomic, retain) XPExpression *enumeration;
 
 @end
