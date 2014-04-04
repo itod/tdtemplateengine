@@ -71,6 +71,7 @@
 		D3CAF8AC18EDF27F00166A95 /* XPCollectionExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D3CAF8AA18EDF27F00166A95 /* XPCollectionExpression.m */; };
 		D3CAF8AF18EDF39200166A95 /* XPLoopExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3CAF8AD18EDF39200166A95 /* XPLoopExpression.h */; };
 		D3CAF8B018EDF39200166A95 /* XPLoopExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D3CAF8AE18EDF39200166A95 /* XPLoopExpression.m */; };
+		D3CAF8B518EF3B5C00166A95 /* XPCollectionExpressionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3CAF8B318EF3ABD00166A95 /* XPCollectionExpressionTests.m */; };
 		D3F5063818EC5C9800BAC93B /* XPRangeExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F5063618EC5C9800BAC93B /* XPRangeExpression.h */; };
 		D3F5063918EC5C9800BAC93B /* XPRangeExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F5063718EC5C9800BAC93B /* XPRangeExpression.m */; };
 		D3F5064518ECA12500BAC93B /* TDWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F5064318ECA12500BAC93B /* TDWriter.m */; };
@@ -199,6 +200,7 @@
 		D3CAF8AA18EDF27F00166A95 /* XPCollectionExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPCollectionExpression.m; path = src/XPCollectionExpression.m; sourceTree = SOURCE_ROOT; };
 		D3CAF8AD18EDF39200166A95 /* XPLoopExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPLoopExpression.h; path = src/XPLoopExpression.h; sourceTree = SOURCE_ROOT; };
 		D3CAF8AE18EDF39200166A95 /* XPLoopExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPLoopExpression.m; path = src/XPLoopExpression.m; sourceTree = SOURCE_ROOT; };
+		D3CAF8B318EF3ABD00166A95 /* XPCollectionExpressionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPCollectionExpressionTests.m; path = test/XPCollectionExpressionTests.m; sourceTree = SOURCE_ROOT; };
 		D3F5063618EC5C9800BAC93B /* XPRangeExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPRangeExpression.h; path = src/XPRangeExpression.h; sourceTree = SOURCE_ROOT; };
 		D3F5063718EC5C9800BAC93B /* XPRangeExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPRangeExpression.m; path = src/XPRangeExpression.m; sourceTree = SOURCE_ROOT; };
 		D3F5064318ECA12500BAC93B /* TDWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDWriter.m; path = src/TDWriter.m; sourceTree = SOURCE_ROOT; };
@@ -292,6 +294,7 @@
 			children = (
 				D3A29D8B18E5F5B300DC591E /* TDTestScaffold.h */,
 				D3A29E3418E7700500DC591E /* XPExpressionTests.m */,
+				D3CAF8B318EF3ABD00166A95 /* XPCollectionExpressionTests.m */,
 				D3A3E54C18EC5706004FEB2C /* TDVarTagTests.m */,
 				D3A3E54B18EC5706004FEB2C /* TDIfTagTests.m */,
 				D3A3E54A18EC5706004FEB2C /* TDForTagTests.m */,
@@ -631,6 +634,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3A29E3518E7700500DC591E /* XPExpressionTests.m in Sources */,
+				D3CAF8B518EF3B5C00166A95 /* XPCollectionExpressionTests.m in Sources */,
 				D3A3E54D18EC5706004FEB2C /* TDForTagTests.m in Sources */,
 				D3A3E54F18EC5706004FEB2C /* TDVarTagTests.m in Sources */,
 				D3A3E54E18EC5706004FEB2C /* TDIfTagTests.m in Sources */,

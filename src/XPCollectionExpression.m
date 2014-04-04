@@ -12,6 +12,7 @@
 @interface XPCollectionExpression ()
 @property (nonatomic, retain) id collection;
 @property (nonatomic, assign) NSInteger current;
+@property (nonatomic, assign) BOOL started;
 @end
 
 @implementation XPCollectionExpression
@@ -41,20 +42,26 @@
 #pragma mark XPEnumeration
 
 - (void)beginInContext:(TDTemplateContext *)ctx {
-    TDAssert(ctx);
     TDAssert([_var length]);
-    
     self.collection = [ctx resolveVariable:_var];
     self.current = 0;
 }
 
 
-- (id)evaluateInContext:(TDTemplateContext *)ctx {
+- (id)evaluateInContext:(TDTemplateContext *)ctx; {
+    if (!_started) {
+        [self beginInContext:ctx];
+        self.started = YES;
+    }
+    
     id result = nil;
     if ([self hasMore]) {
         result = _collection[_current];
         self.current++;
+    } else {
+        self.started = NO;
     }
+    
     return result;
 }
 

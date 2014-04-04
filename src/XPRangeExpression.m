@@ -42,7 +42,7 @@
 
 
 - (NSString *)description {
-    // be very careful trying to print `_current` here
+    // be very careful trying to print `range[_current]` here
     return [NSString stringWithFormat:@"<%@ %p %@ to %@>", [self class], self, _range[0], [_range lastObject]];
 }
 
