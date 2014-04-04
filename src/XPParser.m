@@ -35,6 +35,7 @@
     [t.symbolState add:@"||"];
     
     [t setTokenizerState:t.symbolState from:'-' to:'-'];
+	[t.wordState setWordChars:NO from:'\'' to:'\''];
     return t;
 }
 

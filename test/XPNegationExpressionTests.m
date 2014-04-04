@@ -111,19 +111,8 @@
     TDTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
 }
 
-- (void)testYES {
-    NSString *input = @"YES";
-    NSArray *toks = [self tokenize:input];
-    
-    NSError *err = nil;
-    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
-    TDNil(err);
-    TDNotNil(expr);
-    TDTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
-}
-
-- (void)testNO {
-    NSString *input = @"NO";
+- (void)testNotYES {
+    NSString *input = @"not YES";
     NSArray *toks = [self tokenize:input];
     
     NSError *err = nil;
@@ -133,19 +122,8 @@
     TDFalse([[expr simplify] evaluateAsBooleanInContext:nil]);
 }
 
-- (void)testTrue {
-    NSString *input = @"true";
-    NSArray *toks = [self tokenize:input];
-    
-    NSError *err = nil;
-    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
-    TDNil(err);
-    TDNotNil(expr);
-    TDTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
-}
-
-- (void)testFalse {
-    NSString *input = @"false";
+- (void)testBangSpaceYES {
+    NSString *input = @"! YES";
     NSArray *toks = [self tokenize:input];
     
     NSError *err = nil;
@@ -155,19 +133,8 @@
     TDFalse([[expr simplify] evaluateAsBooleanInContext:nil]);
 }
 
-- (void)testOpenTrueClose {
-    NSString *input = @"(true)";
-    NSArray *toks = [self tokenize:input];
-    
-    NSError *err = nil;
-    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
-    TDNil(err);
-    TDNotNil(expr);
-    TDTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
-}
-
-- (void)testOpenFalseClose {
-    NSString *input = @"(false)";
+- (void)testBangYES {
+    NSString *input = @"!YES";
     NSArray *toks = [self tokenize:input];
     
     NSError *err = nil;
@@ -177,8 +144,8 @@
     TDFalse([[expr simplify] evaluateAsBooleanInContext:nil]);
 }
 
-- (void)testSQString {
-    NSString *input = @"'hello'";
+- (void)testNotNO {
+    NSString *input = @"not NO";
     NSArray *toks = [self tokenize:input];
     
     NSError *err = nil;
@@ -188,8 +155,30 @@
     TDTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
 }
 
-- (void)testEmptySQString {
-    NSString *input = @"''";
+- (void)testBangSpaceNO {
+    NSString *input = @"! NO";
+    NSArray *toks = [self tokenize:input];
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
+}
+
+- (void)testBangNO {
+    NSString *input = @"!NO";
+    NSArray *toks = [self tokenize:input];
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
+}
+
+- (void)testNotTrue {
+    NSString *input = @"not true";
     NSArray *toks = [self tokenize:input];
     
     NSError *err = nil;
@@ -197,6 +186,215 @@
     TDNil(err);
     TDNotNil(expr);
     TDFalse([[expr simplify] evaluateAsBooleanInContext:nil]);
+}
+
+- (void)testBangSpaceTrue {
+    NSString *input = @"! true";
+    NSArray *toks = [self tokenize:input];
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDFalse([[expr simplify] evaluateAsBooleanInContext:nil]);
+}
+
+- (void)testBangTrue {
+    NSString *input = @"!true";
+    NSArray *toks = [self tokenize:input];
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDFalse([[expr simplify] evaluateAsBooleanInContext:nil]);
+}
+
+- (void)testNotFalse {
+    NSString *input = @"not false";
+    NSArray *toks = [self tokenize:input];
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
+}
+
+- (void)testBangSpaceFalse {
+    NSString *input = @"! false";
+    NSArray *toks = [self tokenize:input];
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
+}
+
+- (void)testBangFalse {
+    NSString *input = @"!false";
+    NSArray *toks = [self tokenize:input];
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
+}
+
+- (void)testNotOpenTrueClose {
+    NSString *input = @"not(true)";
+    NSArray *toks = [self tokenize:input];
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDFalse([[expr simplify] evaluateAsBooleanInContext:nil]);
+}
+
+- (void)testNotSpaceOpenTrueClose {
+    NSString *input = @"not(true)";
+    NSArray *toks = [self tokenize:input];
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDFalse([[expr simplify] evaluateAsBooleanInContext:nil]);
+}
+
+- (void)testBangSpaceOpenTrueClose {
+    NSString *input = @"! (true)";
+    NSArray *toks = [self tokenize:input];
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDFalse([[expr simplify] evaluateAsBooleanInContext:nil]);
+}
+
+- (void)testBangOpenTrueClose {
+    NSString *input = @"!(true)";
+    NSArray *toks = [self tokenize:input];
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDFalse([[expr simplify] evaluateAsBooleanInContext:nil]);
+}
+
+- (void)testNotOpenFalseClose {
+    NSString *input = @"not(false)";
+    NSArray *toks = [self tokenize:input];
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
+}
+
+- (void)testNotSpaceOpenFalseClose {
+    NSString *input = @"not (false)";
+    NSArray *toks = [self tokenize:input];
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
+}
+
+- (void)testBangOpenFalseClose {
+    NSString *input = @"!(false)";
+    NSArray *toks = [self tokenize:input];
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
+}
+
+- (void)testBangSpaceOpenFalseClose {
+    NSString *input = @"! (false)";
+    NSArray *toks = [self tokenize:input];
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
+}
+
+- (void)testNotSpaceSQString {
+    NSString *input = @"not 'hello'";
+    NSArray *toks = [self tokenize:input];
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDFalse([[expr simplify] evaluateAsBooleanInContext:nil]);
+}
+
+- (void)testNotSQString {
+    NSString *input = @"not'hello'";
+    NSArray *toks = [self tokenize:input];
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDFalse([[expr simplify] evaluateAsBooleanInContext:nil]);
+}
+
+- (void)testBangSpaceSQString {
+    NSString *input = @"! 'hello'";
+    NSArray *toks = [self tokenize:input];
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDFalse([[expr simplify] evaluateAsBooleanInContext:nil]);
+}
+
+- (void)testBangSQString {
+    NSString *input = @"!'hello'";
+    NSArray *toks = [self tokenize:input];
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDFalse([[expr simplify] evaluateAsBooleanInContext:nil]);
+}
+
+- (void)testNotSpaceEmptySQString {
+    NSString *input = @"not ''";
+    NSArray *toks = [self tokenize:input];
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
+}
+
+- (void)testNotEmptySQString {
+    NSString *input = @"not''";
+    NSArray *toks = [self tokenize:input];
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
 }
 
 - (void)test1Eq1 {
