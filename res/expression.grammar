@@ -10,6 +10,7 @@
 #import <TDTemplateEngine/XPBooleanValue.h>
 #import <TDTemplateEngine/XPNumericValue.h>
 #import <TDTemplateEngine/XPStringValue.h>
+#import <TDTemplateEngine/XPNegationExpression.h>
 #import <TDTemplateEngine/XPBooleanExpression.h>
 #import <TDTemplateEngine/XPRelationalExpression.h>
 #import <TDTemplateEngine/XPArithmeticExpression.h>
@@ -22,6 +23,7 @@
 @extension {
 @property (nonatomic, retain) PKToken *openParen;
 @property (nonatomic, retain) PKToken *minus;
+@property (nonatomic, assign) BOOL negation;
 @property (nonatomic, assign) BOOL negative;
 }
 
@@ -149,8 +151,22 @@ multiplicativeExpr = unaryExpr ((times | div | mod) unaryExpr {
     PUSH([XPArithmeticExpression arithmeticExpressionWithOperand:lhs operator:op operand:rhs]);
 })*;
 
-unaryExpr = negPrimary | primary;
-negPrimary 
+unaryExpr 
+	= negatedUnary
+	| unary
+	;
+	
+negatedUnary 
+@before { _negation = NO; }
+@after {
+    if (_negation)
+		PUSH([XPNegationExpression negationExpressionWithExpression:POP()]);
+}
+	= (('not'! | '!'!) { _negation = !_negation; })+ unary {
+};
+
+unary = signedPrimary | primary;
+signedPrimary 
 @before {
     _negative = NO; 
 }

@@ -4,6 +4,7 @@
 #import <TDTemplateEngine/XPBooleanValue.h>
 #import <TDTemplateEngine/XPNumericValue.h>
 #import <TDTemplateEngine/XPStringValue.h>
+#import <TDTemplateEngine/XPNegationExpression.h>
 #import <TDTemplateEngine/XPBooleanExpression.h>
 #import <TDTemplateEngine/XPRelationalExpression.h>
 #import <TDTemplateEngine/XPArithmeticExpression.h>
@@ -17,6 +18,7 @@
     
 @property (nonatomic, retain) PKToken *openParen;
 @property (nonatomic, retain) PKToken *minus;
+@property (nonatomic, assign) BOOL negation;
 @property (nonatomic, assign) BOOL negative;
 
 @end
@@ -51,6 +53,7 @@
         self.tokenKindTab[@"&&"] = @(XP_TOKEN_KIND_DOUBLE_AMPERSAND);
         self.tokenKindTab[@"true"] = @(XP_TOKEN_KIND_TRUE);
         self.tokenKindTab[@"!="] = @(XP_TOKEN_KIND_NOT_EQUAL);
+        self.tokenKindTab[@"!"] = @(XP_TOKEN_KIND_BANG);
         self.tokenKindTab[@"<"] = @(XP_TOKEN_KIND_LT_SYM);
         self.tokenKindTab[@"%"] = @(XP_TOKEN_KIND_MOD);
         self.tokenKindTab[@"="] = @(XP_TOKEN_KIND_EQUALS);
@@ -60,20 +63,21 @@
         self.tokenKindTab[@"("] = @(XP_TOKEN_KIND_OPEN_PAREN);
         self.tokenKindTab[@"eq"] = @(XP_TOKEN_KIND_EQ);
         self.tokenKindTab[@")"] = @(XP_TOKEN_KIND_CLOSE_PAREN);
-        self.tokenKindTab[@"YES"] = @(XP_TOKEN_KIND_YES_UPPER);
-        self.tokenKindTab[@"or"] = @(XP_TOKEN_KIND_OR);
         self.tokenKindTab[@"ne"] = @(XP_TOKEN_KIND_NE);
+        self.tokenKindTab[@"or"] = @(XP_TOKEN_KIND_OR);
+        self.tokenKindTab[@"YES"] = @(XP_TOKEN_KIND_YES_UPPER);
+        self.tokenKindTab[@"not"] = @(XP_TOKEN_KIND_NOT);
         self.tokenKindTab[@"*"] = @(XP_TOKEN_KIND_TIMES);
         self.tokenKindTab[@"+"] = @(XP_TOKEN_KIND_PLUS);
-        self.tokenKindTab[@"||"] = @(XP_TOKEN_KIND_DOUBLE_PIPE);
         self.tokenKindTab[@","] = @(XP_TOKEN_KIND_COMMA);
         self.tokenKindTab[@"and"] = @(XP_TOKEN_KIND_AND);
+        self.tokenKindTab[@"||"] = @(XP_TOKEN_KIND_DOUBLE_PIPE);
         self.tokenKindTab[@"-"] = @(XP_TOKEN_KIND_MINUS);
         self.tokenKindTab[@"in"] = @(XP_TOKEN_KIND_IN);
         self.tokenKindTab[@"."] = @(XP_TOKEN_KIND_DOT);
         self.tokenKindTab[@"/"] = @(XP_TOKEN_KIND_DIV);
-        self.tokenKindTab[@"false"] = @(XP_TOKEN_KIND_FALSE);
         self.tokenKindTab[@"by"] = @(XP_TOKEN_KIND_BY);
+        self.tokenKindTab[@"false"] = @(XP_TOKEN_KIND_FALSE);
         self.tokenKindTab[@"<="] = @(XP_TOKEN_KIND_LE_SYM);
         self.tokenKindTab[@"to"] = @(XP_TOKEN_KIND_TO);
         self.tokenKindTab[@"ge"] = @(XP_TOKEN_KIND_GE);
@@ -85,6 +89,7 @@
         self.tokenKindNameTab[XP_TOKEN_KIND_DOUBLE_AMPERSAND] = @"&&";
         self.tokenKindNameTab[XP_TOKEN_KIND_TRUE] = @"true";
         self.tokenKindNameTab[XP_TOKEN_KIND_NOT_EQUAL] = @"!=";
+        self.tokenKindNameTab[XP_TOKEN_KIND_BANG] = @"!";
         self.tokenKindNameTab[XP_TOKEN_KIND_LT_SYM] = @"<";
         self.tokenKindNameTab[XP_TOKEN_KIND_MOD] = @"%";
         self.tokenKindNameTab[XP_TOKEN_KIND_EQUALS] = @"=";
@@ -94,20 +99,21 @@
         self.tokenKindNameTab[XP_TOKEN_KIND_OPEN_PAREN] = @"(";
         self.tokenKindNameTab[XP_TOKEN_KIND_EQ] = @"eq";
         self.tokenKindNameTab[XP_TOKEN_KIND_CLOSE_PAREN] = @")";
-        self.tokenKindNameTab[XP_TOKEN_KIND_YES_UPPER] = @"YES";
-        self.tokenKindNameTab[XP_TOKEN_KIND_OR] = @"or";
         self.tokenKindNameTab[XP_TOKEN_KIND_NE] = @"ne";
+        self.tokenKindNameTab[XP_TOKEN_KIND_OR] = @"or";
+        self.tokenKindNameTab[XP_TOKEN_KIND_YES_UPPER] = @"YES";
+        self.tokenKindNameTab[XP_TOKEN_KIND_NOT] = @"not";
         self.tokenKindNameTab[XP_TOKEN_KIND_TIMES] = @"*";
         self.tokenKindNameTab[XP_TOKEN_KIND_PLUS] = @"+";
-        self.tokenKindNameTab[XP_TOKEN_KIND_DOUBLE_PIPE] = @"||";
         self.tokenKindNameTab[XP_TOKEN_KIND_COMMA] = @",";
         self.tokenKindNameTab[XP_TOKEN_KIND_AND] = @"and";
+        self.tokenKindNameTab[XP_TOKEN_KIND_DOUBLE_PIPE] = @"||";
         self.tokenKindNameTab[XP_TOKEN_KIND_MINUS] = @"-";
         self.tokenKindNameTab[XP_TOKEN_KIND_IN] = @"in";
         self.tokenKindNameTab[XP_TOKEN_KIND_DOT] = @".";
         self.tokenKindNameTab[XP_TOKEN_KIND_DIV] = @"/";
-        self.tokenKindNameTab[XP_TOKEN_KIND_FALSE] = @"false";
         self.tokenKindNameTab[XP_TOKEN_KIND_BY] = @"by";
+        self.tokenKindNameTab[XP_TOKEN_KIND_FALSE] = @"false";
         self.tokenKindNameTab[XP_TOKEN_KIND_LE_SYM] = @"<=";
         self.tokenKindNameTab[XP_TOKEN_KIND_TO] = @"to";
         self.tokenKindNameTab[XP_TOKEN_KIND_GE] = @"ge";
@@ -535,17 +541,60 @@
 
 - (void)unaryExpr_ {
     
-    if ([self predicts:XP_TOKEN_KIND_MINUS, 0]) {
-        [self negPrimary_]; 
-    } else if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, XP_TOKEN_KIND_FALSE, XP_TOKEN_KIND_NO_UPPER, XP_TOKEN_KIND_OPEN_PAREN, XP_TOKEN_KIND_TRUE, XP_TOKEN_KIND_YES_UPPER, 0]) {
-        [self primary_]; 
+    if ([self predicts:XP_TOKEN_KIND_BANG, XP_TOKEN_KIND_NOT, 0]) {
+        [self negatedUnary_]; 
+    } else if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, XP_TOKEN_KIND_FALSE, XP_TOKEN_KIND_MINUS, XP_TOKEN_KIND_NO_UPPER, XP_TOKEN_KIND_OPEN_PAREN, XP_TOKEN_KIND_TRUE, XP_TOKEN_KIND_YES_UPPER, 0]) {
+        [self unary_]; 
     } else {
         [self raise:@"No viable alternative found in rule 'unaryExpr'."];
     }
 
 }
 
-- (void)negPrimary_ {
+- (void)negatedUnary_ {
+    
+    [self execute:^{
+     _negation = NO; 
+    }];
+    do {
+        if ([self predicts:XP_TOKEN_KIND_NOT, 0]) {
+            [self match:XP_TOKEN_KIND_NOT discard:YES]; 
+        } else if ([self predicts:XP_TOKEN_KIND_BANG, 0]) {
+            [self match:XP_TOKEN_KIND_BANG discard:YES]; 
+        } else {
+            [self raise:@"No viable alternative found in rule 'negatedUnary'."];
+        }
+        [self execute:^{
+         _negation = !_negation; 
+        }];
+    } while ([self predicts:XP_TOKEN_KIND_BANG, XP_TOKEN_KIND_NOT, 0]);
+    [self unary_]; 
+    [self execute:^{
+    
+
+    }];
+    [self execute:^{
+    
+    if (_negation)
+		PUSH([XPNegationExpression negationExpressionWithExpression:POP()]);
+
+    }];
+
+}
+
+- (void)unary_ {
+    
+    if ([self predicts:XP_TOKEN_KIND_MINUS, 0]) {
+        [self signedPrimary_]; 
+    } else if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, XP_TOKEN_KIND_FALSE, XP_TOKEN_KIND_NO_UPPER, XP_TOKEN_KIND_OPEN_PAREN, XP_TOKEN_KIND_TRUE, XP_TOKEN_KIND_YES_UPPER, 0]) {
+        [self primary_]; 
+    } else {
+        [self raise:@"No viable alternative found in rule 'unary'."];
+    }
+
+}
+
+- (void)signedPrimary_ {
     
     [self execute:^{
     
