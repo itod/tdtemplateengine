@@ -58,7 +58,7 @@
     TDAssert([expr isKindOfClass:[XPLoopExpression class]]);
     
     while ([expr evaluateInContext:ctx]) {
-        NSLog(@"rendering body of %@", self);
+        //NSLog(@"rendering body of %@", self);
         [ctx renderBody:self];
     }
 }

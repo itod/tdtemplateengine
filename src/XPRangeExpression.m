@@ -41,10 +41,9 @@
 }
 
 
-//- (NSString *)description {
-//    return [NSString stringWithFormat:@"%@ to %@ [%@]", _range[0], [_range lastObject], _range[_current]];
-////    return [NSString stringWithFormat:@"<%@ %p %@ to %@>", [self class], self, _range[0], [_range lastObject]];
-//}
+- (NSString *)description {
+    return [NSString stringWithFormat:@"<%@ %p %@ to %@>", [self class], self, _range[0], [_range lastObject]];
+}
 
 
 #pragma mark -

@@ -91,7 +91,7 @@
 
 
 - (void)defineVariable:(NSString *)name withValue:(id)value {
-    NSLog(@"%s %@=%@", __PRETTY_FUNCTION__, name, value);
+    //NSLog(@"%s %@=%@", __PRETTY_FUNCTION__, name, value);
 
     NSParameterAssert([name length]);
     TDAssert(_vars);
