@@ -11,8 +11,8 @@
 
 @interface XPCollectionExpression : XPExpression <XPEnumeration>
 
-+ (instancetype)collectionExpressionWithVarName:(NSString *)var;
-- (instancetype)initWithVarName:(NSString *)var;
++ (instancetype)collectionExpressionWithVariable:(NSString *)var;
+- (instancetype)initWithVariable:(NSString *)var;
 
 @property (nonatomic, copy) NSString *var;
 @end

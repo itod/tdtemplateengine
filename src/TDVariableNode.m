@@ -28,7 +28,7 @@
 @implementation TDVariableNode
 
 - (void)dealloc {
-    self.varName = nil;
+    self.variable = nil;
     [super dealloc];
 }
 
@@ -38,16 +38,16 @@
 
 - (void)processFragment {
     NSParameterAssert(self.token);
-    self.varName = self.token.stringValue;
-    TDAssert([self.varName length]);
+    self.variable = self.token.stringValue;
+    TDAssert([self.variable length]);
 }
 
 
 - (void)renderInContext:(TDTemplateContext *)ctx {
     NSParameterAssert(ctx);
-    TDAssert([_varName length]);
+    TDAssert([_variable length]);
     
-    id val = [ctx resolveVariable:_varName];
+    id val = [ctx resolveVariable:_variable];
     TDWriter *writer = ctx.writer;
     
     TDAssert(writer);

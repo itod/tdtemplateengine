@@ -16,12 +16,12 @@
 
 @implementation XPCollectionExpression
 
-+ (instancetype)collectionExpressionWithVarName:(NSString *)var {
-    return [[[self alloc] initWithVarName:var] autorelease];
++ (instancetype)collectionExpressionWithVariable:(NSString *)var {
+    return [[[self alloc] initWithVariable:var] autorelease];
 }
 
 
-- (instancetype)initWithVarName:(NSString *)var {
+- (instancetype)initWithVariable:(NSString *)var {
     self = [super init];
     if (self) {
         self.var = var;
@@ -40,7 +40,7 @@
 #pragma mark -
 #pragma mark XPEnumeration
 
-- (void)begin:(TDTemplateContext *)ctx {
+- (void)beginInContext:(TDTemplateContext *)ctx {
     TDAssert(ctx);
     TDAssert([_var length]);
     

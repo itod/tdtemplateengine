@@ -82,7 +82,7 @@
     }
     
     self.tagName = tagName;
-    self.tag = [TDTag tagForName:tagName];
+    self.tag = [TDTag makeTagForName:tagName];
 
     _tag.expression = [XPExpression expressionFromTokens:toks error:nil];
     

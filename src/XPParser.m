@@ -153,7 +153,7 @@
     
 	id enumExpr = POP();
 	id var = POP_STR();
-	PUSH([XPLoopExpression loopExpressionWithVarName:var enumeration:enumExpr]);
+	PUSH([XPLoopExpression loopExpressionWithVariable:var enumeration:enumExpr]);
 
     }];
 
@@ -177,7 +177,7 @@
     [self execute:^{
     
 	id var = POP_STR();
-	PUSH([XPCollectionExpression collectionExpressionWithVarName:var]);
+	PUSH([XPCollectionExpression collectionExpressionWithVariable:var]);
 
     }];
 

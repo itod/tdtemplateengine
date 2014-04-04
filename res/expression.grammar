@@ -58,14 +58,14 @@ loopExpr
 		= identifier 'in'! enumExpr {
 	id enumExpr = POP();
 	id var = POP_STR();
-	PUSH([XPLoopExpression loopExpressionWithVarName:var enumeration:enumExpr]);
+	PUSH([XPLoopExpression loopExpressionWithVariable:var enumeration:enumExpr]);
 };
 enumExpr
 		= rangeExpr | collectionExpr;
 		
 collectionExpr = identifier {
 	id var = POP_STR();
-	PUSH([XPCollectionExpression collectionExpressionWithVarName:var]);
+	PUSH([XPCollectionExpression collectionExpressionWithVariable:var]);
 };
 rangeExpr
 		= unaryExpr 'to'! unaryExpr optBy {

@@ -24,7 +24,7 @@
 
 @implementation TDTag
 
-+ (instancetype)tagForName:(NSString *)tagName {
++ (instancetype)makeTagForName:(NSString *)tagName {
     // TODO make this extensible
     NSString *clsName = [NSString stringWithFormat:@"TD%@Tag", [tagName capitalizedString]];
     Class cls = NSClassFromString(clsName);

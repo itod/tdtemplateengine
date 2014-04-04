@@ -42,13 +42,13 @@
     XPLoopExpression *expr = (id)self.expression;
     TDAssert([expr isKindOfClass:[XPLoopExpression class]]);
     
-    NSString *var = expr.var;
+    NSString *var = expr.variable;
     TDAssert([var length]);
     
     id <XPEnumeration>e = expr.enumeration;
     TDAssert(e);
     
-    [e begin:ctx];
+    [e beginInContext:ctx];
     
     while ([e hasMore]) {
         id val = [e next];

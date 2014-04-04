@@ -27,7 +27,7 @@
 
 @interface TDTag : NSObject
 
-+ (instancetype)tagForName:(NSString *)tagName;
++ (instancetype)makeTagForName:(NSString *)tagName;
 
 - (void)doTagInContext:(TDTemplateContext *)ctx;
 

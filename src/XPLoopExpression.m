@@ -10,15 +10,15 @@
 
 @implementation XPLoopExpression
 
-+ (instancetype)loopExpressionWithVarName:(NSString *)var enumeration:(id <XPEnumeration>)e {
-    return [[[self alloc] initWithVarName:var enumeration:e] autorelease];
++ (instancetype)loopExpressionWithVariable:(NSString *)var enumeration:(id <XPEnumeration>)e {
+    return [[[self alloc] initWithVariable:var enumeration:e] autorelease];
 }
 
 
-- (instancetype)initWithVarName:(NSString *)var enumeration:(id <XPEnumeration>)e {
+- (instancetype)initWithVariable:(NSString *)var enumeration:(id <XPEnumeration>)e {
     self = [super init];
     if (self) {
-        self.var = var;
+        self.variable = var;
         self.enumeration = e;
     }
     return self;
@@ -26,14 +26,14 @@
 
 
 - (void)dealloc {
-    self.var = nil;
+    self.variable = nil;
     self.enumeration = nil;
     [super dealloc];
 }
 
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<%@ %p %@>", [self class], self, _var];
+    return [NSString stringWithFormat:@"<%@ %p %@>", [self class], self, _variable];
 }
 
 @end

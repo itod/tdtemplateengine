@@ -12,7 +12,8 @@
 
 @protocol XPEnumeration <NSObject>
 
-- (void)begin:(TDTemplateContext *)ctx;
+- (void)beginInContext:(TDTemplateContext *)ctx;
+
 - (id)next;
 - (BOOL)hasMore;
 @end
