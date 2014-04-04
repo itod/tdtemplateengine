@@ -10,10 +10,11 @@
 
 @interface XPLoopExpression : XPExpression
 
-+ (instancetype)loopExpressionWithVariable:(NSString *)var enumeration:(XPExpression *)e;
-- (instancetype)initWithVariable:(NSString *)var enumeration:(XPExpression *)e;
++ (instancetype)loopExpressionWithVariables:(NSArray *)vars enumeration:(XPExpression *)e;
+- (instancetype)initWithVariables:(NSArray *)vars enumeration:(XPExpression *)e;
 
-@property (nonatomic, copy) NSString *variable;
+@property (nonatomic, copy) NSString *keyVariable;
+@property (nonatomic, copy) NSString *valueVariable;
 @property (nonatomic, retain) XPExpression *enumeration;
 
 @end

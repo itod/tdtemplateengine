@@ -11,15 +11,25 @@
 
 @implementation XPLoopExpression
 
-+ (instancetype)loopExpressionWithVariable:(NSString *)var enumeration:(XPExpression *)e {
-    return [[[self alloc] initWithVariable:var enumeration:e] autorelease];
++ (instancetype)loopExpressionWithVariables:(NSArray *)vars enumeration:(XPExpression *)e {
+    return [[[self alloc] initWithVariables:vars enumeration:e] autorelease];
 }
 
 
-- (instancetype)initWithVariable:(NSString *)var enumeration:(XPExpression *)e {
+- (instancetype)initWithVariables:(NSArray *)vars enumeration:(XPExpression *)e {
     self = [super init];
     if (self) {
-        self.variable = var;
+        NSUInteger c = [vars count];
+        if (2 == c) {
+            self.keyVariable = vars[0];
+            self.valueVariable = vars[1];
+        } else if (1 == c) {
+            self.keyVariable = nil;
+            self.valueVariable = vars[0];
+        } else {
+            [NSException raise:@"" format:@""]; // TODO
+        }
+
         self.enumeration = e;
     }
     return self;
@@ -27,25 +37,39 @@
 
 
 - (void)dealloc {
-    self.variable = nil;
+    self.keyVariable = nil;
+    self.valueVariable = nil;
     self.enumeration = nil;
     [super dealloc];
 }
 
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"%@ in %@", _variable, _enumeration];
-//    return [NSString stringWithFormat:@"<%@ %p `%@ in %@`>", [self class], self, _variable, _enumeration];
+    NSString *result = nil;
+    if (_keyVariable) {
+        result = [NSString stringWithFormat:@"%@,%@ in %@", _keyVariable, _valueVariable, _enumeration];
+    } else {
+        result = [NSString stringWithFormat:@"%@ in %@", _valueVariable, _enumeration];
+    }
+    return result;
 }
 
 
 - (id)evaluateInContext:(TDTemplateContext *)ctx {
-    TDAssert([_variable length]);
+    TDAssert([_valueVariable length]);
     TDAssert(_enumeration);
     
-    id val = [_enumeration evaluateInContext:ctx];
-    [ctx defineVariable:_variable withValue:val];
-    return val;
+    id res = nil;
+    if (_keyVariable) {
+        TDAssert([_keyVariable length]);
+        res = [_enumeration evaluateInContext:ctx];
+        TDAssert([res isKindOfClass:[NSArray class]]);
+        
+    } else {
+        res = [_enumeration evaluateInContext:ctx];
+        [ctx defineVariable:_valueVariable withValue:res];
+    }
+    return res;
 }
 
 @end

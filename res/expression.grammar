@@ -55,10 +55,17 @@
 expr    = loopExpr | orExpr;
 
 loopExpr 
-		= identifier 'in'! enumExpr {
+		= identifiers 'in'! enumExpr {
 	id enumExpr = POP();
-	id var = POP_STR();
-	PUSH([XPLoopExpression loopExpressionWithVariable:var enumeration:enumExpr]);
+	id vars = POP();
+	PUSH([XPLoopExpression loopExpressionWithVariables:vars enumeration:enumExpr]);
+};
+identifiers
+@before { PUSH(_openParen); }
+		= identifier (','! identifier)? {
+	id strs = REV(ABOVE(_openParen));
+	POP(); // discard `(`
+	PUSH(strs);
 };
 enumExpr
 		= rangeExpr | collectionExpr;
@@ -177,7 +184,7 @@ pathExpr
     = identifier ('.'! step)*;
 
 step = identifier | num;
-identifier = Word;
+identifier = Word { PUSH(POP_STR()); };
 
 literal = str | num | bool;
 bool

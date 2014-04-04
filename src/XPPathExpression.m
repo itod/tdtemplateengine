@@ -25,7 +25,7 @@
 #import "XPNumericValue.h"
 #import "XPStringValue.h"
 #import "XPObjectValue.h"
-#import <PEGKit/PKToken.h>
+//#import <PEGKit/PKToken.h>
 #import <TDTemplateEngine/TDTemplateContext.h>
 
 @interface XPPathExpression ()
@@ -46,7 +46,8 @@
         NSUInteger c = [steps count];
         TDAssert(c);
         TDAssert(NSNotFound != c);
-        self.head = [[steps firstObject] stringValue];
+//        self.head = [[steps firstObject] stringValue];
+        self.head = [steps firstObject];
         TDAssert([_head length]);
         if (c > 1) {
             self.tail = [steps subarrayWithRange:NSMakeRange(1, c-1)];
@@ -78,11 +79,12 @@
     if (obj) {
         if (_tail) {
             // TODO
-            NSMutableArray *strs = [NSMutableArray arrayWithCapacity:[_tail count]];
-            for (PKToken *tok in _tail) {
-                [strs addObject:tok.stringValue];
-            }
-            obj = [obj valueForKeyPath:[strs componentsJoinedByString:@"."]];
+//            NSMutableArray *strs = [NSMutableArray arrayWithCapacity:[_tail count]];
+//            for (PKToken *tok in _tail) {
+//                [strs addObject:tok.stringValue];
+//            }
+//            obj = [obj valueForKeyPath:[strs componentsJoinedByString:@"."]];
+            obj = [obj valueForKeyPath:[_tail componentsJoinedByString:@"."]];
         }
         
         if ([obj isKindOfClass:[NSString class]]) {
