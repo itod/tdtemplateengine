@@ -35,7 +35,7 @@
 }
 
 - (void)testFor0To4F {
-    NSString *input = @"{% for i in 0 to 4 %}f{% /for %}";
+    NSString *input = @"{% for i in 0 to 3 %}f{% /for %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -47,7 +47,7 @@
 }
 
 - (void)testFor0To4I {
-    NSString *input = @"{% for i in 0 to 4 %}{{i}}{% /for %}";
+    NSString *input = @"{% for i in 0 to 3 %}{{i}}{% /for %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -59,8 +59,8 @@
 }
 
 - (void)testNestedFor {
-    NSString *input =   @"{% for i in 0 to 2 %}"
-                            @"{% for j in 0 to 3 %}"
+    NSString *input =   @"{% for i in 0 to 1 %}"
+                            @"{% for j in 0 to 2 %}"
                                 @"{{i}}:{{j}}\n"
                             @"{% /for %}"
                         @"{% /for %}";
@@ -74,9 +74,9 @@
 }
 
 - (void)test2NestedFors {
-    NSString *input =   @"{% for i in 0 to 1 %}"
-                            @"{% for j in 0 to 2 %}"
-                                @"{% for k in 0 to 3 %}"
+    NSString *input =   @"{% for i in 0 to 0 %}"
+                            @"{% for j in 0 to 1 %}"
+                                @"{% for k in 0 to 2 %}"
                                     @"{{i}}:{{j}}:{{k}}\n"
                                 @"{% /for %}"
                             @"{% /for %}"

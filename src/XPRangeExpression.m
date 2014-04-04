@@ -62,11 +62,11 @@
     
     if (step > 0) {
         test = ^BOOL(NSInteger val) {
-            return val < stop;
+            return val <= stop;
         };
     } else if (step < 0) {
         test = ^BOOL(NSInteger val) {
-            return val > stop;
+            return val >= stop;
         };
     } else {
         [NSException raise:@"" format:@""]; // TODO

@@ -1,5 +1,5 @@
 //
-//  XPCollectionExpressionTests.m
+//  XPRangeExpressionTests.m
 //  TDTemplateEngineTests
 //
 //  Created by Todd Ditchendorf on 3/28/14.
@@ -8,16 +8,16 @@
 
 #import "TDTestScaffold.h"
 #import "XPLoopExpression.h"
-#import "XPCollectionExpression.h"
+#import "XPRangeExpression.h"
 #import "XPParser.h"
 #import <TDTemplateEngine/TDTemplateContext.h>
 
-@interface XPCollectionExpressionTests : XCTestCase
+@interface XPRangeExpressionTests : XCTestCase
 @property (nonatomic, retain) XPExpression *expr;
 @property (nonatomic, retain) PKTokenizer *t;
 @end
 
-@implementation XPCollectionExpressionTests
+@implementation XPRangeExpressionTests
 
 - (void)setUp {
     [super setUp];
@@ -46,11 +46,11 @@
     return toks;
 }
 
-- (void)testIIn4Thru6 {
-    NSString *input = @"i in foo";
+- (void)testIIn0To4 {
+    NSString *input = @"i in 0 to 4";
     NSArray *toks = [self tokenize:input];
     
-    id foo = @[@(4), @(5), @(6)];
+    id foo = @[@(0), @(1), @(2), @(3)];
     id vars = @{@"foo": foo};
     TDTemplateContext *ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     
