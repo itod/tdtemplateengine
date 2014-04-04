@@ -66,4 +66,25 @@
     }
 }
 
+
+- (void)testIIn5To2 {
+    NSString *input = @"i in 5 to 2";
+    NSArray *toks = [self tokenize:input];
+    
+    id foo = @[@(5), @(4), @(3), @(2)];
+    id vars = @{@"foo": foo};
+    TDTemplateContext *ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
+    
+    NSError *err = nil;
+    XPExpression *expr = [[XPExpression expressionFromTokens:toks error:&err] simplify];
+    TDNil(err);
+    TDNotNil(expr);
+    TDTrue([expr isKindOfClass:[XPLoopExpression class]]);
+    
+    for (id obj in foo) {
+        id res = [expr evaluateInContext:ctx];
+        TDEqualObjects(obj, res);
+    }
+}
+
 @end

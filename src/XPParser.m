@@ -208,7 +208,7 @@
     } else {
         [self matchEmpty:NO]; 
         [self execute:^{
-         PUSH([XPNumericValue numericValueWithNumber:1.0]); 
+         PUSH([XPNumericValue numericValueWithNumber:0.0]);
         }];
     }
 

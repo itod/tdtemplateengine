@@ -75,7 +75,7 @@ rangeExpr
 	PUSH([XPRangeExpression rangeExpressionWithStart:start stop:stop by:by]);
 };
 optBy 	= 'by'! unaryExpr
-		| Empty { PUSH([XPNumericValue numericValueWithNumber:1.0]); }
+		| Empty { PUSH([XPNumericValue numericValueWithNumber:0.0]); }
 		;
 
 orOp    =  'or'! | '||'!;

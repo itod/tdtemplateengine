@@ -98,7 +98,7 @@
     if (value) {
         _vars[name] = value;
     } else {
-        TDAssert(_vars[name]);
+        //TDAssert(_vars[name]);
         [_vars removeObjectForKey:name];
     }
 }

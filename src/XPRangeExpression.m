@@ -55,6 +55,10 @@
     NSInteger stop = [_stop evaluateAsNumberInContext:ctx];
     NSInteger step = [_by evaluateAsNumberInContext:ctx];
     
+    if (0 == step) {
+        step = start <= stop ? 1 : -1;
+    }
+    
     NSMutableArray *range = [NSMutableArray array];
     NSInteger val = 0;
     
