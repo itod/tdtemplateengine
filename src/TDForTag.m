@@ -58,8 +58,8 @@
         NSLog(@"rendering body of %@", self);
         [ctx renderBody:self];
         
-        _forloop.counter = _forloop.counter+1;
-        _forloop.counter0 = _forloop.counter0+1;
+        _forloop.counter++;
+        _forloop.counter0++;
         _forloop.first = NO;
     }
 
