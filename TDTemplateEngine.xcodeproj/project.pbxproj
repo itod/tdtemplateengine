@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D33915DE18F0818500BDA4FD /* XPArithmeticExpressionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D33915DD18F0818500BDA4FD /* XPArithmeticExpressionTests.m */; };
+		D33915E418F081ED00BDA4FD /* XPPathExpressionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D33915E318F081ED00BDA4FD /* XPPathExpressionTests.m */; };
 		D367DFC918E5EF6900F97BCC /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D367DFC818E5EF6900F97BCC /* XCTest.framework */; };
 		D367DFCD18E5EF6900F97BCC /* TDTemplateEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D367DFB018E5EF6900F97BCC /* TDTemplateEngine.framework */; };
 		D369BD4218EF7F6A003E715B /* TDForLoop.h in Headers */ = {isa = PBXBuildFile; fileRef = D369BD4018EF7F6A003E715B /* TDForLoop.h */; };
@@ -146,6 +148,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D33915DD18F0818500BDA4FD /* XPArithmeticExpressionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPArithmeticExpressionTests.m; path = test/XPArithmeticExpressionTests.m; sourceTree = SOURCE_ROOT; };
+		D33915E318F081ED00BDA4FD /* XPPathExpressionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPPathExpressionTests.m; path = test/XPPathExpressionTests.m; sourceTree = SOURCE_ROOT; };
 		D367DFB018E5EF6900F97BCC /* TDTemplateEngine.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TDTemplateEngine.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D367DFC718E5EF6900F97BCC /* TDTemplateEngineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TDTemplateEngineTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D367DFC818E5EF6900F97BCC /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -324,11 +328,13 @@
 			children = (
 				D3A29D8B18E5F5B300DC591E /* TDTestScaffold.h */,
 				D3B9830218F080BE00EEFE99 /* XPBooleanExpressionTests.m */,
+				D3CAF8BC18EF59EB00166A95 /* XPNegationExpressionTests.m */,
 				D3A29E3418E7700500DC591E /* XPEqualityExpressionTests.m */,
 				D3B982FC18F0804D00EEFE99 /* XPRelationalExpressionTests.m */,
-				D3CAF8BC18EF59EB00166A95 /* XPNegationExpressionTests.m */,
+				D33915DD18F0818500BDA4FD /* XPArithmeticExpressionTests.m */,
 				D3CAF8B618EF3C9100166A95 /* XPRangeExpressionTests.m */,
 				D3CAF8B318EF3ABD00166A95 /* XPCollectionExpressionTests.m */,
+				D33915E318F081ED00BDA4FD /* XPPathExpressionTests.m */,
 				D3A3E54C18EC5706004FEB2C /* TDVarTagTests.m */,
 				D3A3E54B18EC5706004FEB2C /* TDIfTagTests.m */,
 				D3A3E54A18EC5706004FEB2C /* TDForTagTests.m */,
@@ -692,11 +698,13 @@
 				D3A29E3518E7700500DC591E /* XPEqualityExpressionTests.m in Sources */,
 				D3B9830318F080BE00EEFE99 /* XPBooleanExpressionTests.m in Sources */,
 				D3CAF8B718EF3C9100166A95 /* XPRangeExpressionTests.m in Sources */,
+				D33915DE18F0818500BDA4FD /* XPArithmeticExpressionTests.m in Sources */,
 				D3CAF8B518EF3B5C00166A95 /* XPCollectionExpressionTests.m in Sources */,
 				D3B982FD18F0804D00EEFE99 /* XPRelationalExpressionTests.m in Sources */,
 				D3A3E54D18EC5706004FEB2C /* TDForTagTests.m in Sources */,
 				D3CAF8BE18EF5A0000166A95 /* XPNegationExpressionTests.m in Sources */,
 				D3A3E54F18EC5706004FEB2C /* TDVarTagTests.m in Sources */,
+				D33915E418F081ED00BDA4FD /* XPPathExpressionTests.m in Sources */,
 				D3A3E54E18EC5706004FEB2C /* TDIfTagTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
