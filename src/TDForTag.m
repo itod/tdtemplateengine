@@ -27,24 +27,7 @@
 #import "XPLoopExpression.h"
 #import "XPEnumeration.h"
 
-@interface TDForTag ()
-@end
-
 @implementation TDForTag
-
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        
-    }
-    return self;
-}
-
-
-- (void)dealloc {
-    [super dealloc];
-}
-
 
 - (NSString *)description {
     return [NSString stringWithFormat:@"%p for %@", self, self.expression];
