@@ -24,5 +24,4 @@
 
 @interface TDVariableNode : TDNode
 
-@property (nonatomic, copy) NSString *variable;
 @end

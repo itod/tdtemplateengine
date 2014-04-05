@@ -21,14 +21,19 @@
 // THE SOFTWARE.
 
 #import "TDVariableNode.h"
+#import "XPExpression.h"
 #import <TDTemplateEngine/TDTemplateContext.h>
 #import <TDTemplateEngine/TDWriter.h>
 #import <PEGKit/PKToken.h>
 
+@interface TDVariableNode ()
+@property (nonatomic, retain) XPExpression *expression;
+@end
+
 @implementation TDVariableNode
 
 - (void)dealloc {
-    self.variable = nil;
+    self.expression = nil;
     [super dealloc];
 }
 
@@ -38,16 +43,22 @@
 
 - (void)processFragment {
     NSParameterAssert(self.token);
-    self.variable = self.token.stringValue;
-    TDAssert([self.variable length]);
+    NSString *str = self.token.stringValue;
+    TDAssert([str length]);
+    
+    NSError *err = nil;
+    self.expression = [XPExpression expressionFromString:str error:&err];
+    if (!_expression) {
+        [NSException raise:@"" format:@"%@", [err localizedFailureReason]];
+    }
 }
 
 
 - (void)renderInContext:(TDTemplateContext *)ctx {
     NSParameterAssert(ctx);
-    TDAssert([_variable length]);
+    TDAssert(_expression);
     
-    id val = [ctx resolveVariable:_variable];
+    id val = [_expression evaluateInContext:ctx];
     TDWriter *writer = ctx.writer;
     
     TDAssert(writer);

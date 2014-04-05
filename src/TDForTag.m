@@ -21,6 +21,7 @@
 // THE SOFTWARE.
 
 #import "TDForTag.h"
+#import "TDForLoop.h"
 #import <TDTemplateEngine/TDTemplateContext.h>
 
 #import "XPLoopExpression.h"
@@ -57,9 +58,15 @@
     XPExpression *expr = self.expression;
     TDAssert([expr isKindOfClass:[XPLoopExpression class]]);
     
+    TDForLoop *forloop = [[[TDForLoop alloc] init] autorelease];
+    [ctx defineVariable:@"forloop" withValue:forloop];
+    
     while ([expr evaluateInContext:ctx]) {
         //NSLog(@"rendering body of %@", self);
         [ctx renderBody:self];
+        
+        forloop.counter++;
+        forloop.counter0++;
     }
 }
 

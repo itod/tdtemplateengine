@@ -9,6 +9,7 @@
 #import "TDTestScaffold.h"
 #import "XPLoopExpression.h"
 #import "XPRangeExpression.h"
+#import "XPPathExpression.h"
 #import "XPParser.h"
 #import <TDTemplateEngine/TDTemplateContext.h>
 
