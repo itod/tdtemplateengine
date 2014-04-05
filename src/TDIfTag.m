@@ -26,6 +26,11 @@
 
 @implementation TDIfTag
 
++ (NSString *)tagName {
+    return @"if";
+}
+
+
 - (void)doTagInContext:(TDTemplateContext *)ctx {
     TDAssert(ctx);
     TDAssert(self.expression);

@@ -20,41 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "TDTag.h"
+#import <TDTemplateEngine/TDTag.h>
 
-@implementation TDTag
-
-+ (NSString *)tagName {
-    NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
-    return nil;
-}
-
-
-- (void)dealloc {
-    self.expression = nil;
-    self.parent = nil;
-    [super dealloc];
-}
-
-
-- (void)doTagInContext:(TDTemplateContext *)ctx {
-    NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
-}
-
-
-- (TDTag *)firstAncestorOfTagName:(NSString *)tagName {
-    NSParameterAssert([tagName length]);
-
-    TDTag *result = _parent;
-    while (result && ![result.tagName isEqualToString:tagName]) {
-        result = result.parent;
-    }
-    return result;
-}
-
-
-- (NSString *)tagName {
-    return [[self class] tagName];
-}
+@interface TDCommentTag : TDTag
 
 @end

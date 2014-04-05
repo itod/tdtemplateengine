@@ -33,6 +33,11 @@
 
 @implementation TDForTag
 
++ (NSString *)tagName {
+    return @"for";
+}
+
+
 - (void)dealloc {
     self.currentLoop = nil;
     [super dealloc];

@@ -27,11 +27,13 @@
 
 @interface TDTag : NSObject
 
++ (NSString *)tagName;
+
 - (void)doTagInContext:(TDTemplateContext *)ctx;
 
 - (TDTag *)firstAncestorOfTagName:(NSString *)tagName;
 
-@property (nonatomic, copy) NSString *tagName;
+@property (nonatomic, copy, readonly) NSString *tagName;
 @property (nonatomic, retain) XPExpression *expression;
 @property (nonatomic, retain) TDTag *parent;
 @end

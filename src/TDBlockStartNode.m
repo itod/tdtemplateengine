@@ -88,7 +88,10 @@
 
     TDBlockStartNode *enclosingBlockStartNode = (id)[self firstAncestorOfClass:[TDBlockStartNode class]];
     _tag.parent = enclosingBlockStartNode.tag;
-    _tag.expression = [XPExpression expressionFromTokens:toks error:nil];
+    
+    if ([toks count]) {
+        _tag.expression = [XPExpression expressionFromTokens:toks error:nil];
+    }
 }
 
 

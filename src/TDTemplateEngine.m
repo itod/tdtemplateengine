@@ -33,8 +33,9 @@
 
 #import <TDTemplateEngine/TDScope.h>
 #import <TDTemplateEngine/TDTemplateContext.h>
-#import <TDTemplateEngine/TDIfTag.h>
-#import <TDTemplateEngine/TDForTag.h>
+#import "TDIfTag.h"
+#import "TDForTag.h"
+#import "TDCommentTag.h"
 
 #import <PEGKit/PKTokenizer.h>
 #import <PEGKit/PKWhitespaceState.h>
@@ -75,8 +76,9 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
         self.staticContext = [[[TDTemplateContext alloc] init] autorelease];
         
         self.tagTab = [NSMutableDictionary dictionary];
-        [self registerTagClass:[TDIfTag class] forName:@"if"];
-        [self registerTagClass:[TDForTag class] forName:@"for"];
+        [self registerTagClass:[TDIfTag class] forName:[TDIfTag tagName]];
+        [self registerTagClass:[TDForTag class] forName:[TDForTag tagName]];
+        [self registerTagClass:[TDCommentTag class] forName:[TDCommentTag tagName]];
         
         self.expressionParser = [[[XPParser alloc] initWithDelegate:nil] autorelease];
 
@@ -318,8 +320,8 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
     Class cls = _tagTab[tagName];
     TDAssert(cls);
     TDTag *tag = [[[cls alloc] init] autorelease];
-    tag.tagName = tagName;
     TDAssert(tag);
+    TDAssert([tag.tagName isEqualToString:tagName]);
     return tag;
 }
 
