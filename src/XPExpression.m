@@ -21,55 +21,26 @@
 // THE SOFTWARE.
 
 #import <TDTemplateEngine/XPExpression.h>
+#import "TDTemplateEngine+XPExpressionSupport.h"
 #import <TDTemplateEngine/TDTemplateContext.h>
 #import "XPValue.h"
 #import "XPParser.h"
-#import <PEGKit/PKAssembly.h>
-
-static PKParser *sParser = nil;
-
-@interface XPExpression ()
-
-@end
+#import <PEGKit/PKTokenizer.h>
 
 @implementation XPExpression
 
-+ (void)initialize {
-    if ([XPExpression class] == self) {
-        sParser = [[XPParser alloc] initWithDelegate:nil];
-        TDAssert(sParser);
-    }
-}
-
-
 + (PKTokenizer *)tokenizer {
-    TDAssert(sParser);
-    return [sParser tokenizer];
+    return [[TDTemplateEngine currentTemplateEngine] tokenizer];
 }
-
 
 
 + (XPExpression *)expressionFromString:(NSString *)str error:(NSError **)outErr {
-    TDAssert(sParser);
-    PKAssembly *a = [sParser parseString:str error:outErr];
-    
-    XPExpression *expr = [a pop];
-    TDAssert([expr isKindOfClass:[XPExpression class]]);
-    
-    expr = [expr simplify];
-    return expr;
+    return [[TDTemplateEngine currentTemplateEngine] expressionFromString:str error:outErr];
 }
 
 
 + (XPExpression *)expressionFromTokens:(NSArray *)toks error:(NSError **)outErr {
-    TDAssert(sParser);
-    PKAssembly *a = [sParser parseTokens:toks error:outErr];
-    
-    XPExpression *expr = [a pop];
-    TDAssert([expr isKindOfClass:[XPExpression class]]);
-    
-    expr = [expr simplify];
-    return expr;
+    return [[TDTemplateEngine currentTemplateEngine] expressionFromTokens:toks error:outErr];
 }
 
 

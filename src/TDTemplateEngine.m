@@ -29,6 +29,8 @@
 #import "TDBlockStartNode.h"
 #import "TDBlockEndNode.h"
 
+#import "XPParser.h"
+
 #import <TDTemplateEngine/TDScope.h>
 #import <TDTemplateEngine/TDTemplateContext.h>
 #import <TDTemplateEngine/TDIfTag.h>
@@ -46,6 +48,7 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
 @property (nonatomic, retain) NSRegularExpression *delimiterRegex;
 @property (nonatomic, retain, readwrite) id <TDScope>staticContext;
 @property (nonatomic, retain) NSMutableDictionary *tagTab;
+@property (nonatomic, retain) XPParser *expressionParser;
 @end
 
 @implementation TDTemplateEngine
@@ -75,6 +78,8 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
         [self registerTagClass:[TDIfTag class] forName:@"if"];
         [self registerTagClass:[TDForTag class] forName:@"for"];
         
+        self.expressionParser = [[[XPParser alloc] initWithDelegate:nil] autorelease];
+
         [[NSThread currentThread] threadDictionary][@"TDTemplateEngine"] = self;
     }
     return self;
@@ -89,6 +94,7 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
     self.delimiterRegex = nil;
     self.staticContext = nil;
     self.tagTab = nil;
+    self.expressionParser = nil;
     [super dealloc];
 }
 
