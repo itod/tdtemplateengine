@@ -58,6 +58,7 @@
 - (void)dealloc {
     self.vars = nil;
     self.writer = nil;
+    self.currentNode = nil;
     self.enclosingScope = nil;
     [super dealloc];
 }

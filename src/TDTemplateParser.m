@@ -12,7 +12,6 @@
 @interface TDTemplateParser ()
     
 @property (nonatomic, retain) TDNode *currentParent;
-@property (nonatomic, retain) TDNode *currentGrandParent;
 
 @end
 
@@ -41,7 +40,6 @@
         
 	self.staticContext = nil;
     self.currentParent = nil;
-    self.currentGrandParent = nil;
 
 
     [super dealloc];

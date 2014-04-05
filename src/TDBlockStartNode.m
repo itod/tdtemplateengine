@@ -84,10 +84,11 @@
     
     self.tagName = tagName;
     self.tag = [[TDTemplateEngine currentTemplateEngine] makeTagForName:tagName];
+    TDAssert(_tag);
 
     _tag.expression = [XPExpression expressionFromTokens:toks error:nil];
     
-    TDAssert(_tag);
+    
 }
 
 
