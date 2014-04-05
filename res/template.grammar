@@ -20,89 +20,89 @@
 }
 
 @dealloc {
-	self.staticContext = nil;
+    self.staticContext = nil;
     self.currentParent = nil;
 }
 
 template
 @before {
-	TDAssert(_staticContext);
+    TDAssert(_staticContext);
     TDNode *root = [TDRootNode rootNodeWithStaticContext:_staticContext];
-	self.assembly.target = root;
+    self.assembly.target = root;
     self.currentParent = root;
 }
-	= content+
-	;
-	
+    = content+
+    ;
+    
 content
-	= var
-	| empty_tag
-	| block 
-	| text
-	;
+    = var
+    | empty_tag
+    | block 
+    | text
+    ;
 
 body_content
-	= var
-	| empty_tag
-	| helper_tag
-	| block 
-	| text
-	;
+    = var
+    | empty_tag
+    | helper_tag
+    | block 
+    | text
+    ;
 
 var 
-	= 'var' {
-	PKToken *tok = POP();
-	TDNode *varNode = [TDVariableNode nodeWithToken:tok parent:_currentParent];
-	[_currentParent addChild:varNode];
+    = 'var' {
+    PKToken *tok = POP();
+    TDNode *varNode = [TDVariableNode nodeWithToken:tok parent:_currentParent];
+    [_currentParent addChild:varNode];
 };
 
 empty_tag
-	= 'empty_tag' {
-	PKToken *tok = POP();
-	TDNode *startTagNode = [TDBlockStartNode nodeWithToken:tok parent:_currentParent];
-	[_currentParent addChild:startTagNode];
-	//self.currentParent = startTagNode;
+    = 'empty_tag' {
+    PKToken *tok = POP();
+    TDNode *startTagNode = [TDBlockStartNode nodeWithToken:tok parent:_currentParent];
+    [_currentParent addChild:startTagNode];
+    //self.currentParent = startTagNode;
 };
 
 helper_tag
-	= helper_start_tag content+;
+    = helper_start_tag content+;
 
 helper_start_tag
-	= 'helper_start_tag' {
-	PKToken *tok = POP();
-	TDNode *startTagNode = [TDBlockStartNode nodeWithToken:tok parent:_currentParent];
-	[_currentParent addChild:startTagNode];
-	PUSH(_currentParent);
-	self.currentParent = startTagNode;
+    = 'helper_start_tag' {
+    PKToken *tok = POP();
+    TDNode *startTagNode = [TDBlockStartNode nodeWithToken:tok parent:_currentParent];
+    [_currentParent addChild:startTagNode];
+    PUSH(_currentParent);
+    self.currentParent = startTagNode;
 };
 
 block 
 @before { PUSH(_currentParent); }
 @after { self.currentParent = POP(); }
-	= block_start_tag body_content+block_end_tag 
-	;
+    = block_start_tag body_content+block_end_tag 
+    ;
 
 block_start_tag 
-	= 'block_start_tag' {
-	PKToken *tok = POP();
-	TDNode *startTagNode = [TDBlockStartNode nodeWithToken:tok parent:_currentParent];
-	[_currentParent addChild:startTagNode];
-	self.currentParent = startTagNode;
+    = 'block_start_tag' {
+    PKToken *tok = POP();
+    TDNode *startTagNode = [TDBlockStartNode nodeWithToken:tok parent:_currentParent];
+    [_currentParent addChild:startTagNode];
+    self.currentParent = startTagNode;
 };
 
 block_end_tag
-	= 'block_end_tag' {
-	PKToken *tok = POP();
-	NSString *tagName = [tok.stringValue substringFromIndex:3];
-	while (![_currentParent.name hasPrefix:tagName])
-	    self.currentParent = POP();
+    = 'block_end_tag' {
+    PKToken *tok = POP();
+    NSString *tagName = [tok.stringValue substringFromIndex:3];
+    while (![_currentParent.name hasPrefix:tagName])
+        self.currentParent = POP();
 
-	ASSERT([_currentParent.name hasPrefix:tagName]);
+    ASSERT([_currentParent.name hasPrefix:tagName]);
 };
 
 text 
-	= 'text' {
-	PKToken *tok = POP();
-	TDNode *txtNode = [TDTextNode nodeWithToken:tok parent:_currentParent];
-	[_currentParent addChild:txtNode];
+    = 'text' {
+    PKToken *tok = POP();
+    TDNode *txtNode = [TDTextNode nodeWithToken:tok parent:_currentParent];
+    [_currentParent addChild:txtNode];
 };
