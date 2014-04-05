@@ -24,7 +24,6 @@
 #import <TDTemplateEngine/TDTemplateContext.h>
 #import "XPValue.h"
 #import "XPParser.h"
-//#import "XPAssembler.h"
 #import <PEGKit/PKAssembly.h>
 
 static PKParser *sParser = nil;
@@ -37,7 +36,6 @@ static PKParser *sParser = nil;
 
 + (void)initialize {
     if ([XPExpression class] == self) {
-//        XPAssembler *sAssembler = [[XPAssembler alloc] init];
         sParser = [[XPParser alloc] initWithDelegate:nil];
         TDAssert(sParser);
     }
@@ -52,10 +50,8 @@ static PKParser *sParser = nil;
 
 
 + (XPExpression *)expressionFromString:(NSString *)str error:(NSError **)outErr {
-//    TDAssert(sParser);
-//    PKAssembly *a = [sParser parseString:str error:outErr];
-    XPParser *p = [[[XPParser alloc] initWithDelegate:nil] autorelease];
-    PKAssembly *a = [p parseString:str error:outErr];
+    TDAssert(sParser);
+    PKAssembly *a = [sParser parseString:str error:outErr];
     
     XPExpression *expr = [a pop];
     TDAssert([expr isKindOfClass:[XPExpression class]]);
@@ -66,10 +62,8 @@ static PKParser *sParser = nil;
 
 
 + (XPExpression *)expressionFromTokens:(NSArray *)toks error:(NSError **)outErr {
-//    TDAssert(sParser);
-//    PKAssembly *a = [sParser parseTokens:toks error:outErr];
-    XPParser *p = [[[XPParser alloc] initWithDelegate:nil] autorelease];
-    PKAssembly *a = [p parseTokens:toks error:outErr];
+    TDAssert(sParser);
+    PKAssembly *a = [sParser parseTokens:toks error:outErr];
     
     XPExpression *expr = [a pop];
     TDAssert([expr isKindOfClass:[XPExpression class]]);
