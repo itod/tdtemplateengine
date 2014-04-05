@@ -129,7 +129,7 @@
     [self execute:^{
     
     PKToken *tok = POP();
-    ASSERT([_currentParent.name hasPrefix:[tok.stringValue substringFromIndex:1]]);
+    ASSERT([_currentParent.name hasPrefix:[tok.stringValue substringFromIndex:3]]);
 
     }];
 
