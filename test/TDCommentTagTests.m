@@ -46,7 +46,19 @@
     TDEqualObjects(@"", res);
 }
 
-- (void)testCommentMixedContent {
+- (void)testCommentMixedContent1 {
+    NSString *input = @"foo {% comment %}bar {% /comment %} baz.";
+    id vars = nil;
+    
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"foo  baz.", res);
+}
+
+- (void)testCommentMixedContent2 {
     NSString *input = @"foo {% comment %}bar {% /comment %}baz.";
     id vars = nil;
     
@@ -56,6 +68,42 @@
     TDNil(err);
     NSString *res = [self outputString];
     TDEqualObjects(@"foo baz.", res);
+}
+
+- (void)testCommentMixedContent3 {
+    NSString *input = @"foo{% comment %}bar {% /comment %}baz.";
+    id vars = nil;
+    
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"foobaz.", res);
+}
+
+- (void)testCommentMixedContent4 {
+    NSString *input = @"foo{% comment %}bar{% /comment %}baz.";
+    id vars = nil;
+    
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"foobaz.", res);
+}
+
+- (void)testCommentMixedContent5 {
+    NSString *input = @"foo{% comment %}bar{% /comment %}baz{% comment %}bat{% /comment %}.";
+    id vars = nil;
+    
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"foobaz.", res);
 }
 
 @end

@@ -241,16 +241,9 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
     NSCharacterSet *wsSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
 
     __block NSRange lastRange = NSMakeRange(0, 0);
-    [_delimiterRegex enumerateMatchesInString:inStr options:NSMatchingReportCompletion range:NSMakeRange(0, [inStr length]) usingBlock:^(NSTextCheckingResult *current, NSMatchingFlags flags, BOOL *stop) {
-        NSRange currRange = current.range;
-
-        NSString *str = [inStr substringWithRange:currRange];
-        NSUInteger len = [str length];
-        if (!len) return;
-        //NSLog(@"%@", str);
-
-        // detect text node
-        NSUInteger diff = currRange.location - NSMaxRange(lastRange);
+    
+    void(^textNodeDetector)(NSUInteger) = ^(NSUInteger currLoc) {
+        NSUInteger diff = currLoc - NSMaxRange(lastRange);
         if (diff > 0) {
             NSString *txt = [inStr substringWithRange:NSMakeRange(NSMaxRange(lastRange), diff)];
             
@@ -259,6 +252,19 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
             
             [frags addObject:txtFrag];
         }
+    };
+    
+    NSRange entireRange = NSMakeRange(0, [inStr length]);
+    [_delimiterRegex enumerateMatchesInString:inStr options:NSMatchingReportCompletion range:entireRange usingBlock:^(NSTextCheckingResult *current, NSMatchingFlags flags, BOOL *stop) {
+        NSRange currRange = current.range;
+
+        NSString *str = [inStr substringWithRange:currRange];
+        NSUInteger len = [str length];
+        if (!len) return;
+        //NSLog(@"%@", str);
+
+        // detect text node
+        textNodeDetector(currRange.location);
         
         lastRange = currRange;
         NSUInteger kind = 0;
@@ -289,6 +295,9 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
         
         [frags addObject:frag];
     }];
+    
+    // detect trailing text node
+    textNodeDetector(NSMaxRange(entireRange));
     
     return frags;
 }
