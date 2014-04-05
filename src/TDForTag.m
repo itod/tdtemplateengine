@@ -51,7 +51,6 @@
 }
 
 
-
 - (void)doTagInContext:(TDTemplateContext *)ctx {
     //NSLog(@"%s %@", __PRETTY_FUNCTION__, self);
     TDAssert(ctx);
@@ -71,6 +70,8 @@
         forloop.counter0++;
         forloop.first = NO;
     }
+    
+    [ctx defineVariable:@"forloop" withValue:nil];
 }
 
 @end
