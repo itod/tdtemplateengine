@@ -414,9 +414,8 @@
     
     NSError *err = nil;
     XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
-    TDNil(err);
-    TDNotNil(expr);
-    TDFalse([[expr simplify] evaluateAsBooleanInContext:nil]);
+    TDNotNil(err);
+    TDNil(expr);
 }
 
 - (void)testBang1EqEqSign1 {

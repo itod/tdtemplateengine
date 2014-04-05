@@ -172,9 +172,8 @@
     
     NSError *err = nil;
     XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
-    TDNil(err);
-    TDNotNil(expr);
-    TDTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
+    TDNotNil(err);
+    TDNil(expr);
 }
 
 - (void)test0EqEqSignNeg0 {
@@ -216,9 +215,8 @@
     
     NSError *err = nil;
     XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
-    TDNil(err);
-    TDNotNil(expr);
-    TDTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
+    TDNotNil(err);
+    TDNil(expr);
 }
 
 - (void)test1EqEqSign1 {
@@ -249,9 +247,8 @@
     
     NSError *err = nil;
     XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
-    TDNil(err);
-    TDNotNil(expr);
-    TDFalse([[expr simplify] evaluateAsBooleanInContext:nil]);
+    TDNotNil(err);
+    TDNil(expr);
 }
 
 - (void)test1EqEqSign2 {

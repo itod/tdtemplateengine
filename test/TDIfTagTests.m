@@ -172,10 +172,8 @@
     
     NSError *err = nil;
     BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
-    TDTrue(success);
-    TDNil(err);
-    NSString *res = [self outputString];
-    TDEqualObjects(@" text ", res);
+    TDFalse(success);
+    TDNotNil(err);
 }
 
 - (void)testIf1EqEqSign1 {
@@ -208,10 +206,8 @@
     
     NSError *err = nil;
     BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
-    TDTrue(success);
-    TDNil(err);
-    NSString *res = [self outputString];
-    TDEqualObjects(@"", res);
+    TDFalse(success);
+    TDNotNil(err);
 }
 
 - (void)testIf1EqEqSign2 {

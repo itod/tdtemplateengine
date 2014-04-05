@@ -44,7 +44,6 @@
     PKAssembly *a = [self.expressionParser parseString:str error:outErr];
     
     XPExpression *expr = [a pop];
-    TDAssert([expr isKindOfClass:[XPExpression class]]);
     
     expr = [expr simplify];
     return expr;
@@ -56,7 +55,6 @@
     PKAssembly *a = [self.expressionParser parseTokens:toks error:outErr];
     
     XPExpression *expr = [a pop];
-    TDAssert([expr isKindOfClass:[XPExpression class]]);
     
     expr = [expr simplify];
     return expr;
