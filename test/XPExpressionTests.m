@@ -584,6 +584,72 @@
     TDEquals(10.0, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
 
+- (void)testNeg1Mod2 {
+    NSString *input = @"-1%2";
+    NSArray *toks = [self tokenize:input];
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDEquals(1.0, [[expr simplify] evaluateAsNumberInContext:nil]);
+}
+
+- (void)test0Mod2 {
+    NSString *input = @"0%2";
+    NSArray *toks = [self tokenize:input];
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDEquals(0.0, [[expr simplify] evaluateAsNumberInContext:nil]);
+}
+
+- (void)test1Mod2 {
+    NSString *input = @"1%2";
+    NSArray *toks = [self tokenize:input];
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDEquals(1.0, [[expr simplify] evaluateAsNumberInContext:nil]);
+}
+
+- (void)test2Mod2 {
+    NSString *input = @"2%2";
+    NSArray *toks = [self tokenize:input];
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDEquals(0.0, [[expr simplify] evaluateAsNumberInContext:nil]);
+}
+
+- (void)test3Mod2 {
+    NSString *input = @"3%2";
+    NSArray *toks = [self tokenize:input];
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDEquals(1.0, [[expr simplify] evaluateAsNumberInContext:nil]);
+}
+
+- (void)test4Mod2 {
+    NSString *input = @"4%2";
+    NSArray *toks = [self tokenize:input];
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDEquals(0.0, [[expr simplify] evaluateAsNumberInContext:nil]);
+}
+
 - (void)testMinus1 {
     NSString *input = @"-1";
     NSArray *toks = [self tokenize:input];
