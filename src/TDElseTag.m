@@ -31,7 +31,7 @@
 
 
 + (BOOL)isEmpty {
-    return NO;
+    return YES;
 }
 
 

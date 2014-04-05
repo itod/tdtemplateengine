@@ -34,6 +34,8 @@
 #import <TDTemplateEngine/TDScope.h>
 #import <TDTemplateEngine/TDTemplateContext.h>
 #import "TDIfTag.h"
+#import "TDElseTag.h"
+#import "TDElseIfTag.h"
 #import "TDForTag.h"
 #import "TDCommentTag.h"
 
@@ -77,6 +79,8 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
         
         self.tagTab = [NSMutableDictionary dictionary];
         [self registerTagClass:[TDIfTag class] forName:[TDIfTag tagName]];
+        [self registerTagClass:[TDElseTag class] forName:[TDElseTag tagName]];
+        [self registerTagClass:[TDElseIfTag class] forName:[TDElseIfTag tagName]];
         [self registerTagClass:[TDForTag class] forName:[TDForTag tagName]];
         [self registerTagClass:[TDCommentTag class] forName:[TDCommentTag tagName]];
         
@@ -284,7 +288,11 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
                 //str = [str substringFromIndex:1];
                 kind = TDTEMPLATE_TOKEN_KIND_BLOCK_END_TAG;
             } else {
-                Class tagCls = [self registerdTagClassForName:str];
+                NSString *tagName = [str componentsSeparatedByCharactersInSet:wsSet][0]; // TODO
+                Class tagCls = [self registerdTagClassForName:tagName];
+                if (!tagCls) {
+                    [NSException raise:TDTemplateEngineErrorDomain format:@"Unknown tag name '%@'", str];
+                }
                 if ([tagCls isEmpty]) {
                     kind = TDTEMPLATE_TOKEN_KIND_EMPTY_TAG;
                 } else {

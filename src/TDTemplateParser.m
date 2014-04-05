@@ -107,7 +107,7 @@
 	PKToken *tok = POP();
 	TDNode *startTagNode = [TDBlockStartNode nodeWithToken:tok parent:_currentParent];
 	[_currentParent addChild:startTagNode];
-	self.currentParent = startTagNode;
+	//self.currentParent = startTagNode;
 
     }];
 
