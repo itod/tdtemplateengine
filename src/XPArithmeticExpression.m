@@ -53,24 +53,29 @@
     double n1 = [self.p1 evaluateAsNumberInContext:ctx];
     double n2 = [self.p2 evaluateAsNumberInContext:ctx];
 
+    double res = 0.0;
     switch (self.operator) {
         case XP_TOKEN_KIND_PLUS:
-            return n1 + n2;
+            res = n1 + n2;
+            break;
         case XP_TOKEN_KIND_MINUS:
-            return n1 - n2;
+            res = n1 - n2;
+            break;
         case XP_TOKEN_KIND_TIMES:
-            return n1 * n2;
+            res = n1 * n2;
+            break;
         case XP_TOKEN_KIND_DIV:
-            return n1 / n2;
+            res = n1 / n2;
+            break;
         case XP_TOKEN_KIND_MOD:
-            return lrint(n1) % lrint(n2);
-//        case XP_TOKEN_KIND_MINUS:
-//            return -n2;
+            res = lrint(n1) % lrint(n2);
+            break;
         default:
-            [NSException raise:@"XPathException" format:@"invalid operator in arithmetic expr"];
-            return NAN;
+            [NSException raise:@"TDTemplateEngineErrorDomain" format:@"invalid operator in arithmetic expr"];
+            res = NAN;
             break;
     }
+    return res;
 }
 
 
