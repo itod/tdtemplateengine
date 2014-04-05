@@ -11,12 +11,12 @@
 
 @implementation XPLoopExpression
 
-+ (instancetype)loopExpressionWithVariables:(NSArray *)vars enumeration:(XPExpression *)e {
++ (instancetype)loopExpressionWithVariables:(NSArray *)vars enumeration:(XPEnumeration *)e {
     return [[[self alloc] initWithVariables:vars enumeration:e] autorelease];
 }
 
 
-- (instancetype)initWithVariables:(NSArray *)vars enumeration:(XPExpression *)e {
+- (instancetype)initWithVariables:(NSArray *)vars enumeration:(XPEnumeration *)e {
     self = [super init];
     if (self) {
         NSUInteger c = [vars count];

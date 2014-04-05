@@ -8,13 +8,14 @@
 
 #import "XPExpression.h"
 
+@class XPEnumeration;
+
 @interface XPLoopExpression : XPExpression
 
-+ (instancetype)loopExpressionWithVariables:(NSArray *)vars enumeration:(XPExpression *)e;
-- (instancetype)initWithVariables:(NSArray *)vars enumeration:(XPExpression *)e;
++ (instancetype)loopExpressionWithVariables:(NSArray *)vars enumeration:(XPEnumeration *)e;
+- (instancetype)initWithVariables:(NSArray *)vars enumeration:(XPEnumeration *)e;
 
 @property (nonatomic, copy) NSString *firstVariable;
 @property (nonatomic, copy) NSString *secondVariable;
-@property (nonatomic, retain) XPExpression *enumeration;
-
+@property (nonatomic, retain) XPEnumeration *enumeration;
 @end

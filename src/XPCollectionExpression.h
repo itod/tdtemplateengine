@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 Todd Ditchendorf. All rights reserved.
 //
 
-#import "XPExpression.h"
+#import "XPEnumeration.h"
 
-@interface XPCollectionExpression : XPExpression
+@interface XPCollectionExpression : XPEnumeration
 
 + (instancetype)collectionExpressionWithVariable:(NSString *)var;
 - (instancetype)initWithVariable:(NSString *)var;

@@ -25,6 +25,7 @@
 #import <TDTemplateEngine/TDTemplateContext.h>
 
 #import "XPLoopExpression.h"
+#import "XPEnumeration.h"
 
 @interface TDForTag ()
 @end
@@ -55,18 +56,20 @@
     //NSLog(@"%s %@", __PRETTY_FUNCTION__, self);
     TDAssert(ctx);
     
-    XPExpression *expr = self.expression;
+    XPLoopExpression *expr = (id)self.expression;
     TDAssert([expr isKindOfClass:[XPLoopExpression class]]);
     
     TDForLoop *forloop = [[[TDForLoop alloc] init] autorelease];
     [ctx defineVariable:@"forloop" withValue:forloop];
     
     while ([expr evaluateInContext:ctx]) {
+        forloop.last = ![expr.enumeration hasMore];
         //NSLog(@"rendering body of %@", self);
         [ctx renderBody:self];
         
         forloop.counter++;
         forloop.counter0++;
+        forloop.first = NO;
     }
 }
 

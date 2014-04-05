@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 Todd Ditchendorf. All rights reserved.
 //
 
-#import "XPExpression.h"
+#import "XPEnumeration.h"
 
-@interface XPRangeExpression : XPExpression
+@interface XPRangeExpression : XPEnumeration
 
 + (instancetype)rangeExpressionWithStart:(XPExpression *)start stop:(XPExpression *)stop by:(XPExpression *)by;
 

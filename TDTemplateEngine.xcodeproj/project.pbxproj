@@ -11,6 +11,8 @@
 		D367DFCD18E5EF6900F97BCC /* TDTemplateEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D367DFB018E5EF6900F97BCC /* TDTemplateEngine.framework */; };
 		D369BD4218EF7F6A003E715B /* TDForLoop.h in Headers */ = {isa = PBXBuildFile; fileRef = D369BD4018EF7F6A003E715B /* TDForLoop.h */; };
 		D369BD4318EF7F6A003E715B /* TDForLoop.m in Sources */ = {isa = PBXBuildFile; fileRef = D369BD4118EF7F6A003E715B /* TDForLoop.m */; };
+		D369BD4A18EF8921003E715B /* XPEnumeration.h in Headers */ = {isa = PBXBuildFile; fileRef = D369BD4818EF8921003E715B /* XPEnumeration.h */; };
+		D369BD4B18EF8921003E715B /* XPEnumeration.m in Sources */ = {isa = PBXBuildFile; fileRef = D369BD4918EF8921003E715B /* XPEnumeration.m */; };
 		D398E2EF18EA2C51004B883C /* TDTemplateParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D398E2ED18EA2C51004B883C /* TDTemplateParser.h */; };
 		D398E2F018EA2C51004B883C /* TDTemplateParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D398E2EE18EA2C51004B883C /* TDTemplateParser.m */; };
 		D398E2F618EA5714004B883C /* TDScope.h in Headers */ = {isa = PBXBuildFile; fileRef = D398E2F518EA5714004B883C /* TDScope.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -142,6 +144,8 @@
 		D367DFC818E5EF6900F97BCC /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		D369BD4018EF7F6A003E715B /* TDForLoop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDForLoop.h; path = src/TDForLoop.h; sourceTree = SOURCE_ROOT; };
 		D369BD4118EF7F6A003E715B /* TDForLoop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDForLoop.m; path = src/TDForLoop.m; sourceTree = SOURCE_ROOT; };
+		D369BD4818EF8921003E715B /* XPEnumeration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPEnumeration.h; path = src/XPEnumeration.h; sourceTree = SOURCE_ROOT; };
+		D369BD4918EF8921003E715B /* XPEnumeration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPEnumeration.m; path = src/XPEnumeration.m; sourceTree = SOURCE_ROOT; };
 		D398E2ED18EA2C51004B883C /* TDTemplateParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDTemplateParser.h; path = src/TDTemplateParser.h; sourceTree = SOURCE_ROOT; };
 		D398E2EE18EA2C51004B883C /* TDTemplateParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDTemplateParser.m; path = src/TDTemplateParser.m; sourceTree = SOURCE_ROOT; };
 		D398E2F518EA5714004B883C /* TDScope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDScope.h; path = src/TDScope.h; sourceTree = SOURCE_ROOT; };
@@ -385,6 +389,8 @@
 				D3A29E3818E7AA3100DC591E /* XPPathExpression.m */,
 				D3CAF8AD18EDF39200166A95 /* XPLoopExpression.h */,
 				D3CAF8AE18EDF39200166A95 /* XPLoopExpression.m */,
+				D369BD4818EF8921003E715B /* XPEnumeration.h */,
+				D369BD4918EF8921003E715B /* XPEnumeration.m */,
 				D3CAF8A918EDF27F00166A95 /* XPCollectionExpression.h */,
 				D3CAF8AA18EDF27F00166A95 /* XPCollectionExpression.m */,
 				D3F5063618EC5C9800BAC93B /* XPRangeExpression.h */,
@@ -464,6 +470,7 @@
 				D3A29DCA18E6286600DC591E /* TDBlockEndNode.h in Headers */,
 				D3A29E2B18E75D3B00DC591E /* XPArithmeticExpression.h in Headers */,
 				D3A29DF518E6583600DC591E /* XPExpression.h in Headers */,
+				D369BD4A18EF8921003E715B /* XPEnumeration.h in Headers */,
 				D3A29DDD18E63D6D00DC591E /* TDTag.h in Headers */,
 				D3F5063818EC5C9800BAC93B /* XPRangeExpression.h in Headers */,
 				D3A29D8218E5F57300DC591E /* TDTemplateEngine.h in Headers */,
@@ -622,6 +629,7 @@
 				D3A29DBF18E61ACA00DC591E /* TDTextNode.m in Sources */,
 				D3A29E3018E75D3B00DC591E /* XPBooleanExpression.m in Sources */,
 				D3A29E0718E6584D00DC591E /* XPValue.m in Sources */,
+				D369BD4B18EF8921003E715B /* XPEnumeration.m in Sources */,
 				D3A29E3218E75D3B00DC591E /* XPRelationalExpression.m in Sources */,
 				D398E2F018EA2C51004B883C /* TDTemplateParser.m in Sources */,
 				D3A29E3E18E7B31A00DC591E /* XPObjectValue.m in Sources */,

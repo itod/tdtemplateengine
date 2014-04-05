@@ -14,6 +14,7 @@
 @property (nonatomic, assign) NSInteger counter0;
 @property (nonatomic, assign) NSInteger revcounter;
 @property (nonatomic, assign) NSInteger revcounter0;
-@property (nonatomic, assign) NSInteger first;
+@property (nonatomic, assign) BOOL first;
+@property (nonatomic, assign) BOOL last;
 @property (nonatomic, retain) TDForLoop *parentloop;
 @end

@@ -70,6 +70,30 @@
     TDEqualObjects(@"0123", res);
 }
 
+- (void)testForloopFirst {
+    NSString *input = @"{% for i in 5 to 2 %}{{forloop.first}}{% /for %}";
+    id vars = nil;
+    
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"1000", res);
+}
+
+- (void)testForloopLast {
+    NSString *input = @"{% for i in 5 to 2 %}{{forloop.last}}{% /for %}";
+    id vars = nil;
+    
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"0001", res);
+}
+
 - (void)testFor0To4I {
     NSString *input = @"{% for i in 0 to 3 %}{{i}}{% /for %}";
     id vars = nil;

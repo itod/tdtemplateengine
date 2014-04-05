@@ -11,8 +11,6 @@
 
 @interface XPCollectionExpression ()
 @property (nonatomic, retain) NSArray *keys;
-@property (nonatomic, retain) NSArray *values;
-@property (nonatomic, assign) NSInteger current;
 @property (nonatomic, assign) BOOL started;
 @end
 
@@ -35,7 +33,6 @@
 - (void)dealloc {
     self.var = nil;
     self.keys = nil;
-    self.values = nil;
     [super dealloc];
 }
 
@@ -59,7 +56,7 @@
     } else {
         [NSException raise:@"" format:@""]; // TODO
     }
-    
+
     self.current = 0;
 }
 
@@ -73,13 +70,13 @@
     id result = nil;
     if ([self hasMore]) {
         if (_keys) {
-            id key = _keys[_current];
+            id key = _keys[self.current];
             TDAssert(key);
-            id val = _values[_current];
+            id val = self.values[self.current];
             TDAssert(val);
             result = @[key, val];
         } else {
-            result = _values[_current];
+            result = self.values[self.current];
             TDAssert(result);
         }
         self.current++;
@@ -88,11 +85,6 @@
     }
     
     return result;
-}
-
-
-- (BOOL)hasMore {
-    return _current < [_values count];
 }
 
 @end

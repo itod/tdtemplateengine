@@ -9,8 +9,6 @@
 #import "XPRangeExpression.h"
 
 @interface XPRangeExpression ()
-@property (nonatomic, retain) NSArray *range;
-@property (nonatomic, assign) NSInteger current;
 @property (nonatomic, assign) BOOL started;
 @end
 
@@ -36,14 +34,13 @@
     self.start = nil;
     self.stop = nil;
     self.by = nil;
-    self.range = nil;
     [super dealloc];
 }
 
 
 - (NSString *)description {
-    // be very careful trying to print `range[_current]` here
-    return [NSString stringWithFormat:@"<%@ %p %@ to %@>", [self class], self, _range[0], [_range lastObject]];
+    // be very careful trying to print `self.values[self.current]` here
+    return [NSString stringWithFormat:@"<%@ %p %@ to %@>", [self class], self, self.values[0], [self.values lastObject]];
 }
 
 
@@ -92,7 +89,7 @@
         }
     }
 
-    self.range = range;
+    self.values = range;
     self.current = 0;
 }
 
@@ -105,18 +102,13 @@
     
     id result = nil;
     if ([self hasMore]) {
-        result = _range[_current];
+        result = self.values[self.current];
         self.current++;
     } else {
         self.started = NO;
     }
     
     return result;
-}
-
-
-- (BOOL)hasMore {
-    return _current < [_range count];
 }
 
 @end
