@@ -88,7 +88,9 @@
     [self execute:^{
     
 	PKToken *tok = POP();
-	[_currentParent addChild:[TDVariableNode nodeWithToken:tok]];
+	TDNode *varNode = [TDVariableNode nodeWithToken:tok];
+	varNode.parent = _currentParent;
+	[_currentParent addChild:varNode];
 
     }];
 
@@ -115,6 +117,7 @@
     
 	PKToken *tok = POP();
 	TDNode *startTagNode = [TDBlockStartNode nodeWithToken:tok];
+	startTagNode.parent = _currentParent;
 	[_currentParent addChild:startTagNode];
 	self.currentParent = startTagNode;
 
@@ -148,7 +151,9 @@
     [self execute:^{
     
 	PKToken *tok = POP();
-	[_currentParent addChild:[TDTextNode nodeWithToken:tok]];
+	TDNode *txtNode = [TDTextNode nodeWithToken:tok];
+	txtNode.parent = _currentParent;
+	[_currentParent addChild:txtNode];
 
     }];
 
