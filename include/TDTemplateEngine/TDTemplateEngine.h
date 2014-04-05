@@ -56,5 +56,6 @@ extern NSInteger TDTemplateEngineRenderingErrorCode;
 
 @interface TDTemplateEngine (TagRegistration)
 - (void)registerTagClass:(Class)cls forName:(NSString *)tagName;
+- (Class)registerdTagClassForName:(NSString *)tagName;
 - (TDTag *)makeTagForName:(NSString *)tagName;
 @end

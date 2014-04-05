@@ -31,6 +31,11 @@
 }
 
 
++ (BOOL)isEmpty {
+    return NO;
+}
+
+
 - (void)doTagInContext:(TDTemplateContext *)ctx {
     TDAssert(ctx);
     TDAssert(self.expression);

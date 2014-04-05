@@ -284,7 +284,12 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
                 //str = [str substringFromIndex:1];
                 kind = TDTEMPLATE_TOKEN_KIND_BLOCK_END_TAG;
             } else {
-                kind = TDTEMPLATE_TOKEN_KIND_BLOCK_START_TAG;
+                Class tagCls = [self registerdTagClassForName:str];
+                if ([tagCls isEmpty]) {
+                    kind = TDTEMPLATE_TOKEN_KIND_EMPTY_TAG;
+                } else {
+                    kind = TDTEMPLATE_TOKEN_KIND_BLOCK_START_TAG;
+                }
             }
         } else {
             TDAssert(0);
@@ -325,9 +330,18 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
 }
 
 
+- (Class)registerdTagClassForName:(NSString *)tagName {
+    TDAssert(_tagTab);
+    Class cls = _tagTab[tagName];
+    return cls;
+}
+
+
 - (TDTag *)makeTagForName:(NSString *)tagName {
     Class cls = _tagTab[tagName];
-    TDAssert(cls);
+    if (!cls) {
+        [NSException raise:TDTemplateEngineErrorDomain format:@"Unknown tag name '%@'", tagName];
+    }
     TDTag *tag = [[[cls alloc] init] autorelease];
     TDAssert(tag);
     TDAssert([tag.tagName isEqualToString:tagName]);

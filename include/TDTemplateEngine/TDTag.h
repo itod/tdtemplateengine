@@ -28,6 +28,7 @@
 @interface TDTag : NSObject
 
 + (NSString *)tagName;
++ (BOOL)isEmpty;
 
 - (void)doTagInContext:(TDTemplateContext *)ctx;
 

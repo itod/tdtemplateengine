@@ -36,6 +36,7 @@ template
 	
 content
 	= var
+	| empty_tag
 	| block 
 	| text
 	;
@@ -45,6 +46,14 @@ var
 	PKToken *tok = POP();
 	TDNode *varNode = [TDVariableNode nodeWithToken:tok parent:_currentParent];
 	[_currentParent addChild:varNode];
+};
+
+empty_tag
+	= 'empty_tag' {
+	PKToken *tok = POP();
+	TDNode *startTagNode = [TDBlockStartNode nodeWithToken:tok parent:_currentParent];
+	[_currentParent addChild:startTagNode];
+	self.currentParent = startTagNode;
 };
 
 block 
@@ -64,7 +73,7 @@ block_start_tag
 block_end_tag
 	= 'block_end_tag' {
     PKToken *tok = POP();
-    ASSERT([_currentParent.name hasPrefix:[tok.stringValue substringFromIndex:1]]);
+    ASSERT([_currentParent.name hasPrefix:[tok.stringValue substringFromIndex:3]]);
 };
 
 block_body 

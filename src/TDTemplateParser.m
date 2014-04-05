@@ -25,11 +25,13 @@
         self.tokenKindTab[@"block_start_tag"] = @(TDTEMPLATE_TOKEN_KIND_BLOCK_START_TAG);
         self.tokenKindTab[@"var"] = @(TDTEMPLATE_TOKEN_KIND_VAR);
         self.tokenKindTab[@"block_end_tag"] = @(TDTEMPLATE_TOKEN_KIND_BLOCK_END_TAG);
+        self.tokenKindTab[@"empty_tag"] = @(TDTEMPLATE_TOKEN_KIND_EMPTY_TAG);
         self.tokenKindTab[@"text"] = @(TDTEMPLATE_TOKEN_KIND_TEXT);
 
         self.tokenKindNameTab[TDTEMPLATE_TOKEN_KIND_BLOCK_START_TAG] = @"block_start_tag";
         self.tokenKindNameTab[TDTEMPLATE_TOKEN_KIND_VAR] = @"var";
         self.tokenKindNameTab[TDTEMPLATE_TOKEN_KIND_BLOCK_END_TAG] = @"block_end_tag";
+        self.tokenKindNameTab[TDTEMPLATE_TOKEN_KIND_EMPTY_TAG] = @"empty_tag";
         self.tokenKindNameTab[TDTEMPLATE_TOKEN_KIND_TEXT] = @"text";
 
     }
@@ -72,6 +74,8 @@
     
     if ([self predicts:TDTEMPLATE_TOKEN_KIND_VAR, 0]) {
         [self var_]; 
+    } else if ([self predicts:TDTEMPLATE_TOKEN_KIND_EMPTY_TAG, 0]) {
+        [self empty_tag_]; 
     } else if ([self predicts:TDTEMPLATE_TOKEN_KIND_BLOCK_START_TAG, 0]) {
         [self block_]; 
     } else if ([self predicts:TDTEMPLATE_TOKEN_KIND_TEXT, 0]) {
@@ -90,6 +94,20 @@
 	PKToken *tok = POP();
 	TDNode *varNode = [TDVariableNode nodeWithToken:tok parent:_currentParent];
 	[_currentParent addChild:varNode];
+
+    }];
+
+}
+
+- (void)empty_tag_ {
+    
+    [self match:TDTEMPLATE_TOKEN_KIND_EMPTY_TAG discard:NO]; 
+    [self execute:^{
+    
+	PKToken *tok = POP();
+	TDNode *startTagNode = [TDBlockStartNode nodeWithToken:tok parent:_currentParent];
+	[_currentParent addChild:startTagNode];
+	self.currentParent = startTagNode;
 
     }];
 

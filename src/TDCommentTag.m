@@ -33,6 +33,11 @@
 }
 
 
++ (BOOL)isEmpty {
+    return NO;
+}
+
+
 - (void)dealloc {
 
     [super dealloc];

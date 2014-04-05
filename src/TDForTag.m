@@ -38,6 +38,11 @@
 }
 
 
++ (BOOL)isEmpty {
+    return NO;
+}
+
+
 - (void)dealloc {
     self.currentLoop = nil;
     [super dealloc];
