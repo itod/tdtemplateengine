@@ -28,5 +28,5 @@
 @property (nonatomic, assign) NSInteger counter0;
 @property (nonatomic, assign) BOOL first;
 @property (nonatomic, assign) BOOL last;
-@property (nonatomic, retain) TDForLoop *parentLoop;
+@property (nonatomic, assign) TDForLoop *parentLoop; // weakref
 @end

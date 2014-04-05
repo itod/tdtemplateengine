@@ -25,13 +25,27 @@
 @implementation TDTag
 
 - (void)dealloc {
+    self.tagName = nil;
     self.expression = nil;
+    self.parent = nil;
     [super dealloc];
 }
 
 
 - (void)doTagInContext:(TDTemplateContext *)ctx {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
+}
+
+
+- (TDTag *)firstAncestorOfTagName:(NSString *)tagName {
+    NSParameterAssert([tagName length]);
+    TDAssert(_parent);
+
+    TDTag *result = _parent;
+    while (result && ![result.tagName isEqualToString:tagName]) {
+        result = result.parent;
+    }
+    return result;
 }
 
 @end

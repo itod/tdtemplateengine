@@ -27,7 +27,17 @@
 #import "XPLoopExpression.h"
 #import "XPEnumeration.h"
 
+@interface TDForTag ()
+@property (nonatomic, retain) TDForLoop *forloop;
+@end
+
 @implementation TDForTag
+
+- (void)dealloc {
+    self.forloop = nil;
+    [super dealloc];
+}
+
 
 - (NSString *)description {
     return [NSString stringWithFormat:@"%p for %@", self, self.expression];
@@ -41,20 +51,36 @@
     XPLoopExpression *expr = (id)self.expression;
     TDAssert([expr isKindOfClass:[XPLoopExpression class]]);
     
-    TDForLoop *forloop = [[[TDForLoop alloc] init] autorelease];
-    [ctx defineVariable:@"forloop" withValue:forloop];
+    [self setUpForLoop:ctx];
     
     while ([expr evaluateInContext:ctx]) {
-        forloop.last = ![expr.enumeration hasMore];
+        _forloop.last = ![expr.enumeration hasMore];
         //NSLog(@"rendering body of %@", self);
         [ctx renderBody:self];
         
-        forloop.counter++;
-        forloop.counter0++;
-        forloop.first = NO;
+        _forloop.counter++;
+        _forloop.counter0++;
+        _forloop.first = NO;
     }
+
+    [self tearDownForLoop:ctx];
+}
+
+
+- (void)setUpForLoop:(TDTemplateContext *)ctx {
+    self.forloop = [[[TDForLoop alloc] init] autorelease];
     
+//    TDForTag *enclosingForTag = (id)[self firstAncestorOfTagName:@"for"];
+//    _forloop.parentLoop = enclosingForTag.forloop;
+
+    [ctx defineVariable:@"forloop" withValue:_forloop];
+}
+
+
+- (void)tearDownForLoop:(TDTemplateContext *)ctx {
     [ctx defineVariable:@"forloop" withValue:nil];
+    _forloop.parentLoop = nil;
+    self.forloop = nil;
 }
 
 @end
