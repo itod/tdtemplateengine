@@ -26,7 +26,7 @@
 #import "TDNode.h"
 
 @interface TDNode ()
-- (void)renderChildren:(NSArray *)children inContext:(TDTemplateContext *)ctx;
+- (void)renderChildrenInContext:(TDTemplateContext *)ctx;
 @end
 
 @interface TDTemplateContext ()
@@ -70,7 +70,7 @@
 
 - (void)renderBody:(TDTag *)tag {
     TDAssert(_currentNode);
-    [_currentNode renderChildren:nil inContext:self];
+    [_currentNode renderChildrenInContext:self];
 }
 
 

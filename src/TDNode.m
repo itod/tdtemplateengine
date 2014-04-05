@@ -54,24 +54,20 @@
 #pragma mark Public
 
 - (void)processFragment {
-    //NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
+
 }
 
 
 - (void)renderInContext:(TDTemplateContext *)ctx {
-    //NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
-
-    [self renderChildren:nil inContext:ctx];
+    [self renderChildrenInContext:ctx];
 }
 
 
 #pragma mark -
 #pragma mark Private
 
-- (void)renderChildren:(NSArray *)children inContext:(TDTemplateContext *)ctx {
-    children = children ? children : self.children;
-    
-    for (TDNode *child in children) {
+- (void)renderChildrenInContext:(TDTemplateContext *)ctx {
+    for (TDNode *child in self.children) {
         [child renderInContext:ctx];
     }
 }
