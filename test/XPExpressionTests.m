@@ -166,6 +166,50 @@
     TDTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
 }
 
+- (void)test0EqSignNeg0 {
+    NSString *input = @"0 = -0";
+    NSArray *toks = [self tokenize:input];
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
+}
+
+- (void)test0EqEqSignNeg0 {
+    NSString *input = @"0 == -0";
+    NSArray *toks = [self tokenize:input];
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
+}
+
+- (void)testNeg0EqEqSign0 {
+    NSString *input = @"-0 == 0";
+    NSArray *toks = [self tokenize:input];
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
+}
+
+- (void)testNeg0EqEqSignNeg0 {
+    NSString *input = @"-0==-0";
+    NSArray *toks = [self tokenize:input];
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
+}
+
 - (void)test1EqSign1 {
     NSString *input = @"1 = 1";
     NSArray *toks = [self tokenize:input];
@@ -584,6 +628,17 @@
     TDEquals(10.0, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
 
+- (void)testNeg2Mod2 {
+    NSString *input = @"-2%2";
+    NSArray *toks = [self tokenize:input];
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDEquals(-0.0, [[expr simplify] evaluateAsNumberInContext:nil]);
+}
+
 - (void)testNeg1Mod2 {
     NSString *input = @"-1%2";
     NSArray *toks = [self tokenize:input];
@@ -592,7 +647,7 @@
     XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
     TDNil(err);
     TDNotNil(expr);
-    TDEquals(1.0, [[expr simplify] evaluateAsNumberInContext:nil]);
+    TDEquals(-1.0, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
 
 - (void)test0Mod2 {

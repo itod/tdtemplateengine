@@ -68,7 +68,7 @@
             res = n1 / n2;
             break;
         case XP_TOKEN_KIND_MOD:
-            res = fabs(lrint(n1) % lrint(n2));
+            res = lrint(n1) % lrint(n2);
             break;
         default:
             [NSException raise:@"TDTemplateEngineErrorDomain" format:@"invalid operator in arithmetic expr"];
