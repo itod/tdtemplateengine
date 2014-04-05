@@ -33,8 +33,8 @@
 }
 
 
-+ (BOOL)isEmpty {
-    return NO;
++ (TDTagType)tagType {
+    return TDTagTypeBlock;
 }
 
 

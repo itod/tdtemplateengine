@@ -41,6 +41,14 @@ content
 	| text
 	;
 
+body_content
+	= var
+	| empty_tag
+	| helper_tag
+	| block 
+	| text
+	;
+
 var 
 	= 'var' {
 	PKToken *tok = POP();
@@ -56,10 +64,22 @@ empty_tag
 	//self.currentParent = startTagNode;
 };
 
+helper_tag
+	= helper_start_tag content+;
+
+helper_start_tag
+	= 'helper_start_tag' {
+	PKToken *tok = POP();
+	TDNode *startTagNode = [TDBlockStartNode nodeWithToken:tok parent:_currentParent];
+	[_currentParent addChild:startTagNode];
+	PUSH(_currentParent);
+	self.currentParent = startTagNode;
+};
+
 block 
 @before { PUSH(_currentParent); }
 @after { self.currentParent = POP(); }
-	= block_start_tag block_body block_end_tag
+	= block_start_tag body_content+block_end_tag 
 	;
 
 block_start_tag 
@@ -72,13 +92,13 @@ block_start_tag
 
 block_end_tag
 	= 'block_end_tag' {
-    PKToken *tok = POP();
-    ASSERT([_currentParent.name hasPrefix:[tok.stringValue substringFromIndex:3]]);
-};
+	PKToken *tok = POP();
+	NSString *tagName = [tok.stringValue substringFromIndex:3];
+	while (![_currentParent.name hasPrefix:tagName])
+	    self.currentParent = POP();
 
-block_body 
-	= content+
-	;
+	ASSERT([_currentParent.name hasPrefix:tagName]);
+};
 
 text 
 	= 'text' {

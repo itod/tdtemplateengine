@@ -21,6 +21,7 @@
 // THE SOFTWARE.
 
 #import "TDElseTag.h"
+#import "TDIfTag.h"
 #import <TDTemplateEngine/TDTemplateContext.h>
 
 @implementation TDElseTag
@@ -30,8 +31,8 @@
 }
 
 
-+ (BOOL)isEmpty {
-    return YES;
++ (TDTagType)tagType {
+    return TDTagTypeHelper;
 }
 
 
@@ -45,7 +46,10 @@
     //NSLog(@"%s %@", __PRETTY_FUNCTION__, self);
     TDAssert(ctx);
     
-    // TODO
+    TDIfTag *ifTag = (id)[self firstAncestorOfTagName:@"if"];
+    if (!ifTag.done) {
+        [ctx renderBody:self];
+    }
 }
 
 @end

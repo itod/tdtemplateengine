@@ -25,10 +25,16 @@
 @class TDTemplateContext;
 @class XPExpression;
 
+typedef NS_ENUM(NSUInteger, TDTagType) {
+    TDTagTypeEmpty,
+    TDTagTypeHelper,
+    TDTagTypeBlock,
+};
+
 @interface TDTag : NSObject
 
 + (NSString *)tagName;
-+ (BOOL)isEmpty;
++ (TDTagType)tagType;
 
 - (void)doTagInContext:(TDTemplateContext *)ctx;
 

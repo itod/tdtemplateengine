@@ -31,8 +31,8 @@
 }
 
 
-+ (BOOL)isEmpty {
-    return NO;
++ (TDTagType)tagType {
+    return TDTagTypeBlock;
 }
 
 
@@ -42,7 +42,10 @@
     
     BOOL test = [self.expression evaluateAsBooleanInContext:ctx];
     if (test) {
+        self.done = YES;
         [ctx renderBody:self];
+    } else {
+        self.done = NO;
     }
 }
 

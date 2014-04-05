@@ -22,14 +22,16 @@
     if (self) {
         
         self.startRuleName = @"template";
-        self.tokenKindTab[@"block_start_tag"] = @(TDTEMPLATE_TOKEN_KIND_BLOCK_START_TAG);
+        self.tokenKindTab[@"helper_start_tag"] = @(TDTEMPLATE_TOKEN_KIND_HELPER_START_TAG);
         self.tokenKindTab[@"var"] = @(TDTEMPLATE_TOKEN_KIND_VAR);
+        self.tokenKindTab[@"block_start_tag"] = @(TDTEMPLATE_TOKEN_KIND_BLOCK_START_TAG);
         self.tokenKindTab[@"block_end_tag"] = @(TDTEMPLATE_TOKEN_KIND_BLOCK_END_TAG);
         self.tokenKindTab[@"empty_tag"] = @(TDTEMPLATE_TOKEN_KIND_EMPTY_TAG);
         self.tokenKindTab[@"text"] = @(TDTEMPLATE_TOKEN_KIND_TEXT);
 
-        self.tokenKindNameTab[TDTEMPLATE_TOKEN_KIND_BLOCK_START_TAG] = @"block_start_tag";
+        self.tokenKindNameTab[TDTEMPLATE_TOKEN_KIND_HELPER_START_TAG] = @"helper_start_tag";
         self.tokenKindNameTab[TDTEMPLATE_TOKEN_KIND_VAR] = @"var";
+        self.tokenKindNameTab[TDTEMPLATE_TOKEN_KIND_BLOCK_START_TAG] = @"block_start_tag";
         self.tokenKindNameTab[TDTEMPLATE_TOKEN_KIND_BLOCK_END_TAG] = @"block_end_tag";
         self.tokenKindNameTab[TDTEMPLATE_TOKEN_KIND_EMPTY_TAG] = @"empty_tag";
         self.tokenKindNameTab[TDTEMPLATE_TOKEN_KIND_TEXT] = @"text";
@@ -86,6 +88,24 @@
 
 }
 
+- (void)body_content_ {
+    
+    if ([self predicts:TDTEMPLATE_TOKEN_KIND_VAR, 0]) {
+        [self var_]; 
+    } else if ([self predicts:TDTEMPLATE_TOKEN_KIND_EMPTY_TAG, 0]) {
+        [self empty_tag_]; 
+    } else if ([self predicts:TDTEMPLATE_TOKEN_KIND_HELPER_START_TAG, 0]) {
+        [self helper_tag_]; 
+    } else if ([self predicts:TDTEMPLATE_TOKEN_KIND_BLOCK_START_TAG, 0]) {
+        [self block_]; 
+    } else if ([self predicts:TDTEMPLATE_TOKEN_KIND_TEXT, 0]) {
+        [self text_]; 
+    } else {
+        [self raise:@"No viable alternative found in rule 'body_content'."];
+    }
+
+}
+
 - (void)var_ {
     
     [self match:TDTEMPLATE_TOKEN_KIND_VAR discard:NO]; 
@@ -113,13 +133,39 @@
 
 }
 
+- (void)helper_tag_ {
+    
+    [self helper_start_tag_]; 
+    do {
+        [self content_]; 
+    } while ([self speculate:^{ [self content_]; }]);
+
+}
+
+- (void)helper_start_tag_ {
+    
+    [self match:TDTEMPLATE_TOKEN_KIND_HELPER_START_TAG discard:NO]; 
+    [self execute:^{
+    
+	PKToken *tok = POP();
+	TDNode *startTagNode = [TDBlockStartNode nodeWithToken:tok parent:_currentParent];
+	[_currentParent addChild:startTagNode];
+    PUSH(_currentParent);
+	self.currentParent = startTagNode;
+
+    }];
+
+}
+
 - (void)block_ {
     
     [self execute:^{
      PUSH(_currentParent); 
     }];
     [self block_start_tag_]; 
-    [self block_body_]; 
+    do {
+        [self body_content_]; 
+    } while ([self speculate:^{ [self body_content_]; }]);
     [self block_end_tag_]; 
     [self execute:^{
      self.currentParent = POP(); 
@@ -147,17 +193,13 @@
     [self execute:^{
     
     PKToken *tok = POP();
-    ASSERT([_currentParent.name hasPrefix:[tok.stringValue substringFromIndex:3]]);
+    NSString *tagName = [tok.stringValue substringFromIndex:3];
+	while (![_currentParent.name hasPrefix:tagName])
+        self.currentParent = POP();
+	
+    ASSERT([_currentParent.name hasPrefix:tagName]);
 
     }];
-
-}
-
-- (void)block_body_ {
-    
-    do {
-        [self content_]; 
-    } while ([self speculate:^{ [self content_]; }]);
 
 }
 
