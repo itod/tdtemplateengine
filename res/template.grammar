@@ -43,8 +43,7 @@ content
 var 
 	= 'var' {
 	PKToken *tok = POP();
-	TDNode *varNode = [TDVariableNode nodeWithToken:tok];
-	varNode.parent = _currentParent;
+	TDNode *varNode = [TDVariableNode nodeWithToken:tok parent:_currentParent];
 	[_currentParent addChild:varNode];
 };
 
@@ -57,8 +56,7 @@ block
 block_start_tag 
 	= 'block_start_tag' {
 	PKToken *tok = POP();
-	TDNode *startTagNode = [TDBlockStartNode nodeWithToken:tok];
-	startTagNode.parent = _currentParent;
+	TDNode *startTagNode = [TDBlockStartNode nodeWithToken:tok parent:_currentParent];
 	[_currentParent addChild:startTagNode];
 	self.currentParent = startTagNode;
 };
@@ -76,7 +74,6 @@ block_body
 text 
 	= 'text' {
 	PKToken *tok = POP();
-	TDNode *txtNode = [TDTextNode nodeWithToken:tok];
-	txtNode.parent = _currentParent;
+	TDNode *txtNode = [TDTextNode nodeWithToken:tok parent:_currentParent];
 	[_currentParent addChild:txtNode];
 };

@@ -54,7 +54,7 @@
 
 - (NSString *)description {
     // be very careful trying to print `self.values[self.current]` here
-    return [NSString stringWithFormat:@"<%@ %p %@ to %@>", [self class], self, self.values[0], [self.values lastObject]];
+    return [NSString stringWithFormat:@"%@ to %@", self.values[0], [self.values lastObject]];
 }
 
 

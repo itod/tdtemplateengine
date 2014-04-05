@@ -61,8 +61,8 @@
 
 
 - (void)processFragment {
-    NSParameterAssert(self.token);
     TDAssert([self.token.stringValue length]);
+    TDAssert(self.parent);
     
     NSMutableArray *toks = [NSMutableArray array];
 
@@ -86,9 +86,9 @@
     self.tag = [[TDTemplateEngine currentTemplateEngine] makeTagForName:tagName];
     TDAssert(_tag);
 
+    TDBlockStartNode *enclosingBlockStartNode = (id)[self firstAncestorOfClass:[TDBlockStartNode class]];
+    _tag.parent = enclosingBlockStartNode.tag;
     _tag.expression = [XPExpression expressionFromTokens:toks error:nil];
-    
-    
 }
 
 

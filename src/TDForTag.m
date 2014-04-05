@@ -55,11 +55,11 @@
     
     while ([expr evaluateInContext:ctx]) {
         _forloop.last = ![expr.enumeration hasMore];
-        //NSLog(@"rendering body of %@", self);
+        NSLog(@"rendering body of %@", self);
         [ctx renderBody:self];
         
-        _forloop.counter++;
-        _forloop.counter0++;
+        _forloop.counter = _forloop.counter+1;
+        _forloop.counter0 = _forloop.counter0+1;
         _forloop.first = NO;
     }
 
@@ -70,16 +70,22 @@
 - (void)setUpForLoop:(TDTemplateContext *)ctx {
     self.forloop = [[[TDForLoop alloc] init] autorelease];
     
-//    TDForTag *enclosingForTag = (id)[self firstAncestorOfTagName:@"for"];
-//    _forloop.parentLoop = enclosingForTag.forloop;
+    TDForTag *enclosingForTag = (id)[self firstAncestorOfTagName:@"for"];
+    _forloop.parentloop = enclosingForTag.forloop;
 
     [ctx defineVariable:@"forloop" withValue:_forloop];
+
+//    (lldb) p (double)[[XPPathExpression pathExpressionWithSteps:@[@"forloop", @"parentLoop", @"counter"]] evaluateAsNumberInContext:ctx]
+//    (double) $13 = 1
+//    (lldb) p (double)[[XPPathExpression pathExpressionWithSteps:@[@"forloop", @"parentLoop", @"counter0"]] evaluateAsNumberInContext:ctx]
+//    (double) $14 = 0
+
 }
 
 
 - (void)tearDownForLoop:(TDTemplateContext *)ctx {
     [ctx defineVariable:@"forloop" withValue:nil];
-    _forloop.parentLoop = nil;
+    _forloop.parentloop = nil;
     self.forloop = nil;
 }
 

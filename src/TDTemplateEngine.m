@@ -318,6 +318,7 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
     Class cls = _tagTab[tagName];
     TDAssert(cls);
     TDTag *tag = [[[cls alloc] init] autorelease];
+    tag.tagName = tagName;
     TDAssert(tag);
     return tag;
 }

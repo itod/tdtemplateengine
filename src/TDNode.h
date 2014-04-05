@@ -27,7 +27,8 @@
 
 @interface TDNode : PKAST
 
-+ (instancetype)nodeWithToken:(PKToken *)frag;
++ (instancetype)nodeWithToken:(PKToken *)frag parent:(TDNode *)parent;
+- (instancetype)initWithToken:(PKToken *)frag parent:(TDNode *)parent;
 
 - (void)renderInContext:(TDTemplateContext *)ctx;
 

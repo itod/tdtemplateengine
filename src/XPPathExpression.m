@@ -84,7 +84,8 @@
 //                [strs addObject:tok.stringValue];
 //            }
 //            obj = [obj valueForKeyPath:[strs componentsJoinedByString:@"."]];
-            obj = [obj valueForKeyPath:[_tail componentsJoinedByString:@"."]];
+            NSString *path = [_tail componentsJoinedByString:@"."];
+            obj = [obj valueForKeyPath:path];
         }
         
         if ([obj isKindOfClass:[NSString class]]) {

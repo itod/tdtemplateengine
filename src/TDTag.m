@@ -39,7 +39,6 @@
 
 - (TDTag *)firstAncestorOfTagName:(NSString *)tagName {
     NSParameterAssert([tagName length]);
-    TDAssert(_parent);
 
     TDTag *result = _parent;
     while (result && ![result.tagName isEqualToString:tagName]) {

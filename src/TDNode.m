@@ -29,15 +29,16 @@
 
 @implementation TDNode
 
-+ (instancetype)nodeWithToken:(PKToken *)frag {
-    return [[[self alloc] initWithToken:frag] autorelease];
++ (instancetype)nodeWithToken:(PKToken *)frag parent:(TDNode *)parent {
+    return [[[self alloc] initWithToken:frag parent:parent] autorelease];
 }
 
 
-- (instancetype)initWithToken:(PKToken *)frag {
+- (instancetype)initWithToken:(PKToken *)frag parent:(TDNode *)parent {
     NSParameterAssert(frag);
     self = [super initWithToken:frag];
     if (self) {
+        self.parent = parent;
         [self processFragment];
     }
     return self;
