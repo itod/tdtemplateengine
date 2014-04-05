@@ -30,4 +30,8 @@
 + (instancetype)nodeWithToken:(PKToken *)frag;
 
 - (void)renderInContext:(TDTemplateContext *)ctx;
+
+- (TDNode *)firstAncestorOfClass:(Class)cls;
+
+@property (nonatomic, assign) TDNode *parent; // weakref
 @end

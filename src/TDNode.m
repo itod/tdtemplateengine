@@ -45,7 +45,7 @@
 
 
 - (void)dealloc {
-
+    self.parent = nil;
     [super dealloc];
 }
 
@@ -60,6 +60,18 @@
 
 - (void)renderInContext:(TDTemplateContext *)ctx {
     [self renderChildrenInContext:ctx];
+}
+
+
+- (TDNode *)firstAncestorOfClass:(Class)cls {
+    NSParameterAssert(cls);
+    TDAssert(_parent);
+    
+    TDNode *result = _parent;
+    while (result && ![result isKindOfClass:cls]) {
+        result = result.parent;
+    }
+    return result;
 }
 
 
