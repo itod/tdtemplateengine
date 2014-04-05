@@ -28,13 +28,13 @@
 #import "XPEnumeration.h"
 
 @interface TDForTag ()
-@property (nonatomic, retain) TDForLoop *forloop;
+@property (nonatomic, retain) TDForLoop *currentLoop;
 @end
 
 @implementation TDForTag
 
 - (void)dealloc {
-    self.forloop = nil;
+    self.currentLoop = nil;
     [super dealloc];
 }
 
@@ -54,13 +54,13 @@
     [self setUpForLoop:ctx];
     
     while ([expr evaluateInContext:ctx]) {
-        _forloop.last = ![expr.enumeration hasMore];
-        NSLog(@"rendering body of %@", self);
+        _currentLoop.last = ![expr.enumeration hasMore];
+        //NSLog(@"rendering body of %@", self);
         [ctx renderBody:self];
         
-        _forloop.counter++;
-        _forloop.counter0++;
-        _forloop.first = NO;
+        _currentLoop.counter++;
+        _currentLoop.counter0++;
+        _currentLoop.first = NO;
     }
 
     [self tearDownForLoop:ctx];
@@ -68,25 +68,19 @@
 
 
 - (void)setUpForLoop:(TDTemplateContext *)ctx {
-    self.forloop = [[[TDForLoop alloc] init] autorelease];
+    self.currentLoop = [[[TDForLoop alloc] init] autorelease];
     
     TDForTag *enclosingForTag = (id)[self firstAncestorOfTagName:@"for"];
-    _forloop.parentloop = enclosingForTag.forloop;
+    _currentLoop.parentLoop = enclosingForTag.currentLoop;
 
-    [ctx defineVariable:@"forloop" withValue:_forloop];
-
-//    (lldb) p (double)[[XPPathExpression pathExpressionWithSteps:@[@"forloop", @"parentLoop", @"counter"]] evaluateAsNumberInContext:ctx]
-//    (double) $13 = 1
-//    (lldb) p (double)[[XPPathExpression pathExpressionWithSteps:@[@"forloop", @"parentLoop", @"counter0"]] evaluateAsNumberInContext:ctx]
-//    (double) $14 = 0
-
+    [ctx defineVariable:@"currentLoop" withValue:_currentLoop];
 }
 
 
 - (void)tearDownForLoop:(TDTemplateContext *)ctx {
-    [ctx defineVariable:@"forloop" withValue:nil];
-    _forloop.parentloop = nil;
-    self.forloop = nil;
+    [ctx defineVariable:@"currentLoop" withValue:nil];
+    _currentLoop.parentLoop = nil;
+    self.currentLoop = nil;
 }
 
 @end

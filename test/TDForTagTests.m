@@ -47,7 +47,7 @@
 }
 
 - (void)testForloopCounter {
-    NSString *input = @"{% for i in 5 to 2 %}{{forloop.counter}}{% /for %}";
+    NSString *input = @"{% for i in 5 to 2 %}{{currentLoop.counter}}{% /for %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -59,7 +59,7 @@
 }
 
 - (void)testForloopCounter0 {
-    NSString *input = @"{% for i in 5 to 2 %}{{forloop.counter0}}{% /for %}";
+    NSString *input = @"{% for i in 5 to 2 %}{{currentLoop.counter0}}{% /for %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -71,7 +71,7 @@
 }
 
 - (void)testForloopFirst {
-    NSString *input = @"{% for i in 5 to 2 %}{{forloop.first}}{% /for %}";
+    NSString *input = @"{% for i in 5 to 2 %}{{currentLoop.first}}{% /for %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -83,7 +83,7 @@
 }
 
 - (void)testForloopLast {
-    NSString *input = @"{% for i in 5 to 2 %}{{forloop.last}}{% /for %}";
+    NSString *input = @"{% for i in 5 to 2 %}{{currentLoop.last}}{% /for %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -141,7 +141,7 @@
 - (void)testNestedForParentloop {
     NSString *input =   @"{% for i in 0 to 1 %}"
                             @"{% for j in 0 to 2 %}"
-                                @"{{forloop.parentloop.counter0}}:{{forloop.counter0}}\n"
+                                @"{{currentLoop.parentLoop.counter0}}:{{currentLoop.counter0}}\n"
                             @"{% /for %}"
                         @"{% /for %}";
     id vars = nil;
