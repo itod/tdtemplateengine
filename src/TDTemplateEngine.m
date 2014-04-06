@@ -41,6 +41,7 @@
 #import "TDCommentTag.h"
 
 #import "TDLowercaseFilter.h"
+#import "TDUppercaseFilter.h"
 #import "TDCapitalizeFilter.h"
 
 #import <PEGKit/PKTokenizer.h>
@@ -91,6 +92,7 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
         
         self.filterTab = [NSMutableDictionary dictionary];
         [self registerFilterClass:[TDLowercaseFilter class] forName:[TDLowercaseFilter filterName]];
+        [self registerFilterClass:[TDUppercaseFilter class] forName:[TDUppercaseFilter filterName]];
         [self registerFilterClass:[TDCapitalizeFilter class] forName:[TDCapitalizeFilter filterName]];
         
         self.expressionParser = [[[XPParser alloc] initWithDelegate:nil] autorelease];

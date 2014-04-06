@@ -101,4 +101,32 @@
     TDEqualObjects(@"foo", [expr evaluateAsStringInContext:ctx]);
 }
 
+- (void)testFooVarUppercase {
+    NSString *input = @"foo|uppercase";
+    NSArray *toks = [self tokenize:input];
+    
+    id vars = @{@"foo": @"bAr"};
+    id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDEqualObjects(@"BAR", [expr evaluateAsStringInContext:ctx]);
+}
+
+- (void)testFooLiteralUppercase {
+    NSString *input = @"'fOO'|uppercase";
+    NSArray *toks = [self tokenize:input];
+    
+    id vars = nil;
+    id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDEqualObjects(@"FOO", [expr evaluateAsStringInContext:ctx]);
+}
+
 @end

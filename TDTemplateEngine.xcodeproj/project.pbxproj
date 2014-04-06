@@ -18,6 +18,8 @@
 		D319138818F1A80300430BAD /* XPFilterExpressionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D319138718F1A80300430BAD /* XPFilterExpressionTests.m */; };
 		D319138B18F1AC4500430BAD /* TDLowercaseFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = D319138918F1AC4500430BAD /* TDLowercaseFilter.h */; };
 		D319138C18F1AC4500430BAD /* TDLowercaseFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D319138A18F1AC4500430BAD /* TDLowercaseFilter.m */; };
+		D319138F18F1AD1500430BAD /* TDUppercaseFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = D319138D18F1AD1500430BAD /* TDUppercaseFilter.h */; };
+		D319139018F1AD1500430BAD /* TDUppercaseFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D319138E18F1AD1500430BAD /* TDUppercaseFilter.m */; };
 		D33915DE18F0818500BDA4FD /* XPArithmeticExpressionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D33915DD18F0818500BDA4FD /* XPArithmeticExpressionTests.m */; };
 		D33915E418F081ED00BDA4FD /* XPPathExpressionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D33915E318F081ED00BDA4FD /* XPPathExpressionTests.m */; };
 		D33915E618F09DFF00BDA4FD /* TDElseTagTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D33915E518F09DFF00BDA4FD /* TDElseTagTests.m */; };
@@ -130,6 +132,8 @@
 		D319138718F1A80300430BAD /* XPFilterExpressionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPFilterExpressionTests.m; path = test/XPFilterExpressionTests.m; sourceTree = SOURCE_ROOT; };
 		D319138918F1AC4500430BAD /* TDLowercaseFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDLowercaseFilter.h; path = src/TDLowercaseFilter.h; sourceTree = SOURCE_ROOT; };
 		D319138A18F1AC4500430BAD /* TDLowercaseFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDLowercaseFilter.m; path = src/TDLowercaseFilter.m; sourceTree = SOURCE_ROOT; };
+		D319138D18F1AD1500430BAD /* TDUppercaseFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDUppercaseFilter.h; path = src/TDUppercaseFilter.h; sourceTree = SOURCE_ROOT; };
+		D319138E18F1AD1500430BAD /* TDUppercaseFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDUppercaseFilter.m; path = src/TDUppercaseFilter.m; sourceTree = SOURCE_ROOT; };
 		D33915DD18F0818500BDA4FD /* XPArithmeticExpressionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPArithmeticExpressionTests.m; path = test/XPArithmeticExpressionTests.m; sourceTree = SOURCE_ROOT; };
 		D33915E318F081ED00BDA4FD /* XPPathExpressionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPPathExpressionTests.m; path = test/XPPathExpressionTests.m; sourceTree = SOURCE_ROOT; };
 		D33915E518F09DFF00BDA4FD /* TDElseTagTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDElseTagTests.m; path = test/TDElseTagTests.m; sourceTree = SOURCE_ROOT; };
@@ -257,6 +261,8 @@
 				D319137A18F1A46100430BAD /* TDFilter.m */,
 				D319138918F1AC4500430BAD /* TDLowercaseFilter.h */,
 				D319138A18F1AC4500430BAD /* TDLowercaseFilter.m */,
+				D319138D18F1AD1500430BAD /* TDUppercaseFilter.h */,
+				D319138E18F1AD1500430BAD /* TDUppercaseFilter.m */,
 				D319138118F1A58A00430BAD /* TDCapitalizeFilter.h */,
 				D319138218F1A58A00430BAD /* TDCapitalizeFilter.m */,
 			);
@@ -497,6 +503,7 @@
 				D369BD4A18EF8921003E715B /* XPEnumeration.h in Headers */,
 				D3A29DDD18E63D6D00DC591E /* TDTag.h in Headers */,
 				D3F5063818EC5C9800BAC93B /* XPRangeExpression.h in Headers */,
+				D319138F18F1AD1500430BAD /* TDUppercaseFilter.h in Headers */,
 				D33915E918F0A08000BDA4FD /* TDElseTag.h in Headers */,
 				D3A29D8218E5F57300DC591E /* TDTemplateEngine.h in Headers */,
 				D398E2F618EA5714004B883C /* TDScope.h in Headers */,
@@ -647,6 +654,7 @@
 				D3A29DB718E60E4500DC591E /* TDVariableNode.m in Sources */,
 				D33915EA18F0A08000BDA4FD /* TDElseTag.m in Sources */,
 				D3F5063918EC5C9800BAC93B /* XPRangeExpression.m in Sources */,
+				D319139018F1AD1500430BAD /* TDUppercaseFilter.m in Sources */,
 				D3A7E27418F07782009BFD96 /* TDCommentTag.m in Sources */,
 				D319138C18F1AC4500430BAD /* TDLowercaseFilter.m in Sources */,
 				D319138418F1A58A00430BAD /* TDCapitalizeFilter.m in Sources */,
