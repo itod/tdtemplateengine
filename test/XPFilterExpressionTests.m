@@ -129,4 +129,18 @@
     TDEqualObjects(@"FOO", [expr evaluateAsStringInContext:ctx]);
 }
 
+- (void)testmonteSerenoLiteralUppercase {
+    NSString *input = @"'monteSereno'|capitalize";
+    NSArray *toks = [self tokenize:input];
+    
+    id vars = nil;
+    id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDEqualObjects(@"MonteSereno", [expr evaluateAsStringInContext:ctx]);
+}
+
 @end

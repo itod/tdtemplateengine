@@ -32,8 +32,16 @@
 - (id)doFilter:(id)input {
     TDAssert(input);
     NSString *inStr = TDStringFromObject(input);
-    
-    NSString *result = [inStr capitalizedString];
+    NSString *result = inStr;
+    NSUInteger len = [result length];
+    if (len) {
+        unichar head = toupper([result characterAtIndex:0]);
+        NSString *tail = @"";
+        if (len > 1) {
+            tail = [result substringFromIndex:1];
+        }
+        result = [NSString stringWithFormat:@"%C%@", head, tail];
+    }
     return result;
 }
 
