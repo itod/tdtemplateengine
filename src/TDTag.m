@@ -22,6 +22,10 @@
 
 #import "TDTag.h"
 
+@interface TDTag ()
+@property (nonatomic, assign) BOOL incomplete;
+@end
+
 @implementation TDTag
 
 + (NSString *)tagName {
@@ -39,6 +43,7 @@
 - (void)dealloc {
     self.expression = nil;
     self.parent = nil;
+    self.children = nil;
     [super dealloc];
 }
 
@@ -56,6 +61,14 @@
         result = result.parent;
     }
     return result;
+}
+
+
+- (void)addChild:(TDTag *)child {
+    if (!_children) {
+        self.children = [NSMutableArray array];
+    }
+    [_children addObject:child];
 }
 
 

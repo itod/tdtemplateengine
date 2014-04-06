@@ -21,8 +21,13 @@
 // THE SOFTWARE.
 
 #import "TDIfTag.h"
+#import "TDElseTag.h"
 #import <TDTemplateEngine/TDTemplateContext.h>
 #import <TDTemplateEngine/XPExpression.h>
+
+@interface TDTag ()
+@property (nonatomic, assign) BOOL incomplete;
+@end
 
 @implementation TDIfTag
 
@@ -40,12 +45,14 @@
     TDAssert(ctx);
     TDAssert(self.expression);
     
-    BOOL test = [self.expression evaluateAsBooleanInContext:ctx];
-    if (test) {
-        self.done = YES;
-        [ctx renderBody:self];
-    } else {
-        self.done = NO;
+    TDIfTag *ifTag = (id)[self firstAncestorOfTagName:@"if"];
+    if (!ifTag || ifTag.incomplete) {
+        BOOL test = [self.expression evaluateAsBooleanInContext:ctx];
+        if (test) {
+            [ctx renderBody:self];
+        } else {
+            self.incomplete = YES;
+        }
     }
 }
 

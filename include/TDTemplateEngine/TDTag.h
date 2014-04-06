@@ -40,7 +40,10 @@ typedef NS_ENUM(NSUInteger, TDTagType) {
 
 - (TDTag *)firstAncestorOfTagName:(NSString *)tagName;
 
+- (void)addChild:(TDTag *)child;
+
 @property (nonatomic, copy, readonly) NSString *tagName;
 @property (nonatomic, retain) XPExpression *expression;
-@property (nonatomic, retain) TDTag *parent;
+@property (nonatomic, assign) TDTag *parent; // weakref
+@property (nonatomic, retain) NSMutableArray *children;
 @end

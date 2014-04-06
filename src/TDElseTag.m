@@ -24,6 +24,10 @@
 #import "TDIfTag.h"
 #import <TDTemplateEngine/TDTemplateContext.h>
 
+@interface TDTag ()
+@property (nonatomic, assign) BOOL incomplete;
+@end
+
 @implementation TDElseTag
 
 + (NSString *)tagName {
@@ -47,7 +51,7 @@
     TDAssert(ctx);
     
     TDIfTag *ifTag = (id)[self firstAncestorOfTagName:@"if"];
-    if (!ifTag.done) {
+    if (ifTag.incomplete) {
         [ctx renderBody:self];
     }
 }

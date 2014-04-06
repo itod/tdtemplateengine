@@ -34,7 +34,7 @@
     return str;
 }
 
-- (void)testIf1 {
+- (void)testIf1Else {
     NSString *input = @"{% if 1 %}foo{% else %}bar{% endif %}";
     id vars = nil;
     
@@ -44,6 +44,42 @@
     TDNil(err);
     NSString *res = [self outputString];
     TDEqualObjects(@"foo", res);
+}
+
+- (void)testIf0Else {
+    NSString *input = @"{% if 0 %}foo{% else %}bar{% endif %}";
+    id vars = nil;
+    
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"bar", res);
+}
+
+- (void)testIf0Elif0Else {
+    NSString *input = @"{% if 0 %}foo{% elif 0 %}bar{% else %}baz{% endif %}";
+    id vars = nil;
+    
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"baz", res);
+}
+
+- (void)testIf0Elif1Else {
+    NSString *input = @"{% if 0 %}foo{% elif 1 %}bar{% else %}baz{% endif %}";
+    id vars = nil;
+    
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"bar", res);
 }
 
 @end

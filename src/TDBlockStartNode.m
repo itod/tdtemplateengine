@@ -21,6 +21,7 @@
 // THE SOFTWARE.
 
 #import "TDBlockStartNode.h"
+#import "TDTag.h"
 #import <TDTemplateEngine/TDTemplateEngine.h>
 #import <TDTemplateEngine/TDTemplateContext.h>
 #import <TDTemplateEngine/TDWriter.h>
@@ -32,6 +33,10 @@
 
 @interface TDTemplateContext ()
 @property (nonatomic, retain) TDNode *currentNode;
+@end
+
+@interface TDTag ()
+@property (nonatomic, assign) BOOL incomplete;
 @end
 
 @interface TDBlockStartNode ()
@@ -64,8 +69,8 @@
     TDAssert([self.token.stringValue length]);
     TDAssert(self.parent);
     
+    // tokenize
     NSMutableArray *toks = [NSMutableArray array];
-
     NSString *tagName = nil;
 
     PKTokenizer *t = [XPExpression tokenizer];
@@ -82,13 +87,20 @@
         [toks addObject:tok];
     }
     
+    // create tag
     self.tagName = tagName;
     self.tag = [[TDTemplateEngine currentTemplateEngine] makeTagForName:tagName];
     TDAssert(_tag);
 
+    // attach tag to parent and vice versa if present
     TDBlockStartNode *enclosingBlockStartNode = (id)[self firstAncestorOfClass:[TDBlockStartNode class]];
-    _tag.parent = enclosingBlockStartNode.tag;
+    TDTag *parent = enclosingBlockStartNode.tag;
+    if (parent) {
+        _tag.parent = parent;
+        [parent addChild:_tag];
+    }
     
+    // compile expression if present
     if ([toks count]) {
         _tag.expression = [XPExpression expressionFromTokens:toks error:nil];
     }
@@ -104,6 +116,17 @@
     local.currentNode = self;
     
     [_tag doTagInContext:local];
+    
+    if (_tag.incomplete) {
+        for (TDNode *child in self.children) {
+            if ([child isKindOfClass:[TDBlockStartNode class]]) {
+                TDTag *tag = [(id)child tag];
+                if (tag && TDTagTypeHelper == [[tag class] tagType]) {
+                    [child renderInContext:ctx];
+                }
+            }
+        }
+    }
 }
 
 @end
