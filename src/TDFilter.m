@@ -22,6 +22,19 @@
 
 #import <TDTemplateEngine/TDFilter.h>
 
+NSString *TDStringFromObject(id obj) {
+    assert(obj);
+    NSString *str = nil;
+    if ([obj isKindOfClass:[NSString class]]) {
+        str = obj;
+    } else if ([obj respondsToSelector:@selector(stringValue)]) {
+        str = [obj stringValue];
+    } else {
+        str = [obj description];
+    }
+    return str;
+}
+
 @implementation TDFilter
 
 + (NSString *)filterName {

@@ -31,17 +31,9 @@
 
 - (id)doFilter:(id)input {
     TDAssert(input);
-    NSString *inStr = nil;
+    NSString *inStr = TDStringFromObject(input);
     
-    if ([input isKindOfClass:[NSString class]]) {
-        inStr = input;
-    } else if ([input respondsToSelector:@selector(stringValue)]) {
-        inStr = [input stringValue];
-    } else {
-        inStr = [input description];
-    }
-    
-    NSString *result = [input capitalizedString];
+    NSString *result = [inStr capitalizedString];
     return result;
 }
 

@@ -15,6 +15,7 @@
 		D319138318F1A58A00430BAD /* TDCapitalizeFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = D319138118F1A58A00430BAD /* TDCapitalizeFilter.h */; };
 		D319138418F1A58A00430BAD /* TDCapitalizeFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D319138218F1A58A00430BAD /* TDCapitalizeFilter.m */; };
 		D319138618F1A5C700430BAD /* TDFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = D319138518F1A5C700430BAD /* TDFilter.h */; };
+		D319138818F1A80300430BAD /* XPFilterExpressionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D319138718F1A80300430BAD /* XPFilterExpressionTests.m */; };
 		D33915DE18F0818500BDA4FD /* XPArithmeticExpressionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D33915DD18F0818500BDA4FD /* XPArithmeticExpressionTests.m */; };
 		D33915E418F081ED00BDA4FD /* XPPathExpressionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D33915E318F081ED00BDA4FD /* XPPathExpressionTests.m */; };
 		D33915E618F09DFF00BDA4FD /* TDElseTagTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D33915E518F09DFF00BDA4FD /* TDElseTagTests.m */; };
@@ -124,6 +125,7 @@
 		D319138118F1A58A00430BAD /* TDCapitalizeFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDCapitalizeFilter.h; path = src/TDCapitalizeFilter.h; sourceTree = SOURCE_ROOT; };
 		D319138218F1A58A00430BAD /* TDCapitalizeFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDCapitalizeFilter.m; path = src/TDCapitalizeFilter.m; sourceTree = SOURCE_ROOT; };
 		D319138518F1A5C700430BAD /* TDFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDFilter.h; path = include/TDTemplateEngine/TDFilter.h; sourceTree = SOURCE_ROOT; };
+		D319138718F1A80300430BAD /* XPFilterExpressionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPFilterExpressionTests.m; path = test/XPFilterExpressionTests.m; sourceTree = SOURCE_ROOT; };
 		D33915DD18F0818500BDA4FD /* XPArithmeticExpressionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPArithmeticExpressionTests.m; path = test/XPArithmeticExpressionTests.m; sourceTree = SOURCE_ROOT; };
 		D33915E318F081ED00BDA4FD /* XPPathExpressionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPPathExpressionTests.m; path = test/XPPathExpressionTests.m; sourceTree = SOURCE_ROOT; };
 		D33915E518F09DFF00BDA4FD /* TDElseTagTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDElseTagTests.m; path = test/TDElseTagTests.m; sourceTree = SOURCE_ROOT; };
@@ -327,6 +329,7 @@
 				D3CAF8B618EF3C9100166A95 /* XPRangeExpressionTests.m */,
 				D3CAF8B318EF3ABD00166A95 /* XPCollectionExpressionTests.m */,
 				D33915E318F081ED00BDA4FD /* XPPathExpressionTests.m */,
+				D319138718F1A80300430BAD /* XPFilterExpressionTests.m */,
 				D3A3E54C18EC5706004FEB2C /* TDVarTagTests.m */,
 				D3A3E54B18EC5706004FEB2C /* TDIfTagTests.m */,
 				D33915E518F09DFF00BDA4FD /* TDElseTagTests.m */,
@@ -659,6 +662,7 @@
 				D33915E418F081ED00BDA4FD /* XPPathExpressionTests.m in Sources */,
 				D3A3E54E18EC5706004FEB2C /* TDIfTagTests.m in Sources */,
 				D33915E618F09DFF00BDA4FD /* TDElseTagTests.m in Sources */,
+				D319138818F1A80300430BAD /* XPFilterExpressionTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

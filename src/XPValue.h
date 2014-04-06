@@ -22,6 +22,9 @@
 
 #import <TDTemplateEngine/XPExpression.h>
 
+@class XPValue;
+
+XPValue *XPValueFromObject(id obj);
 double XPNumberFromString(NSString *s);
 
 @interface XPValue : XPExpression

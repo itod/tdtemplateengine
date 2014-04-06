@@ -24,7 +24,7 @@
 
 @interface XPFilterExpression : XPExpression
 
-+ (instancetype)filterExpressionWithExpression:(XPExpression *)expr;
++ (instancetype)filterExpressionWithExpression:(XPExpression *)expr filterName:(NSString *)filterName;
 
-- (instancetype)initWithExpression:(XPExpression *)expr;
+- (instancetype)initWithExpression:(XPExpression *)expr filterName:(NSString *)filterName;
 @end

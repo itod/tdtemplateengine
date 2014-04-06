@@ -21,22 +21,33 @@
 // THE SOFTWARE.
 
 #import "XPFilterExpression.h"
-#import "XPBooleanValue.h"
+#import "XPValue.h"
+#import <TDTemplateEngine/TDTemplateEngine.h>
+#import <TDTemplateEngine/TDFilter.h>
 
 @interface XPFilterExpression ()
 @property (nonatomic, retain) XPExpression *expr;
+@property (nonatomic, retain) TDFilter *filter;
 @end
 
 @implementation XPFilterExpression
 
-+ (instancetype)filterExpressionWithExpression:(XPExpression *)expr {
-    return [[[self alloc] initWithExpression:expr] autorelease];
++ (instancetype)filterExpressionWithExpression:(XPExpression *)expr filterName:(NSString *)filterName {
+    return [[[self alloc] initWithExpression:expr filterName:filterName] autorelease];
 }
 
-- (instancetype)initWithExpression:(XPExpression *)expr {
+
+- (instancetype)initWithExpression:(XPExpression *)expr filterName:(NSString *)filterName {
     self = [super init];
     if (self) {
+        TDAssert([expr isKindOfClass:[XPExpression class]]);
         self.expr = expr;
+        
+        TDFilter *f = [[TDTemplateEngine currentTemplateEngine] makeFilterForName:filterName];
+        if (!f) {
+            [NSException raise:TDTemplateEngineErrorDomain format:@"Unknown filter name: '%@'", filterName];
+        }
+        self.filter = f;
     }
     return self;
 }
@@ -44,14 +55,21 @@
 
 - (void)dealloc {
     self.expr = nil;
+    self.filter = nil;
     [super dealloc];
 }
 
 
 - (XPValue *)evaluateInContext:(TDTemplateContext *)ctx {
-    BOOL b = [_expr evaluateAsBooleanInContext:ctx];
-    XPValue *res = [XPBooleanValue booleanValueWithBoolean:!b];
-    return res;
+    TDAssert(ctx);
+    TDAssert(_expr);
+    TDAssert(_filter);
+
+    id obj = [_expr evaluateInContext:ctx];
+    obj = [_filter doFilter:obj];
+    
+    XPValue *val = XPValueFromObject(obj);
+    return val;
 }
 
 @end

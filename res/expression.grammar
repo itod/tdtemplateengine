@@ -14,10 +14,11 @@
 #import <TDTemplateEngine/XPBooleanExpression.h>
 #import <TDTemplateEngine/XPRelationalExpression.h>
 #import <TDTemplateEngine/XPArithmeticExpression.h>
-#import <TDTemplateEngine/XPPathExpression.h>
 #import <TDTemplateEngine/XPLoopExpression.h>
 #import <TDTemplateEngine/XPCollectionExpression.h>
 #import <TDTemplateEngine/XPRangeExpression.h>
+#import <TDTemplateEngine/XPPathExpression.h>
+#import <TDTemplateEngine/XPFilterExpression.h>
 }
 
 @extension {
@@ -178,9 +179,10 @@ signedFilterExpr
 }
     = ('-'! { _negative = !_negative; })+ filterExpr;
 	
-filterExpr = primaryExpr ('|' Word {
+filterExpr = primaryExpr ('|'! Word {
 	NSString *filterName = POP_STR();
-	
+	id expr = POP();
+	PUSH([XPFilterExpression filterExpressionWithExpression:expr filterName:filterName]);
 })?;
 
 primaryExpr = atom | subExpr;

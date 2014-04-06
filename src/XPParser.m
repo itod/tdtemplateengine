@@ -8,10 +8,11 @@
 #import <TDTemplateEngine/XPBooleanExpression.h>
 #import <TDTemplateEngine/XPRelationalExpression.h>
 #import <TDTemplateEngine/XPArithmeticExpression.h>
-#import <TDTemplateEngine/XPPathExpression.h>
 #import <TDTemplateEngine/XPLoopExpression.h>
 #import <TDTemplateEngine/XPCollectionExpression.h>
 #import <TDTemplateEngine/XPRangeExpression.h>
+#import <TDTemplateEngine/XPPathExpression.h>
+#import <TDTemplateEngine/XPFilterExpression.h>
 
 
 @interface XPParser ()
@@ -52,6 +53,7 @@
         self.tokenKindTab[@"gt"] = @(XP_TOKEN_KIND_GT);
         self.tokenKindTab[@">="] = @(XP_TOKEN_KIND_GE_SYM);
         self.tokenKindTab[@"&&"] = @(XP_TOKEN_KIND_DOUBLE_AMPERSAND);
+        self.tokenKindTab[@"|"] = @(XP_TOKEN_KIND_PIPE);
         self.tokenKindTab[@"true"] = @(XP_TOKEN_KIND_TRUE);
         self.tokenKindTab[@"!="] = @(XP_TOKEN_KIND_NOT_EQUAL);
         self.tokenKindTab[@"!"] = @(XP_TOKEN_KIND_BANG);
@@ -61,8 +63,8 @@
         self.tokenKindTab[@">"] = @(XP_TOKEN_KIND_GT_SYM);
         self.tokenKindTab[@"lt"] = @(XP_TOKEN_KIND_LT);
         self.tokenKindTab[@"("] = @(XP_TOKEN_KIND_OPEN_PAREN);
-        self.tokenKindTab[@"eq"] = @(XP_TOKEN_KIND_EQ);
         self.tokenKindTab[@")"] = @(XP_TOKEN_KIND_CLOSE_PAREN);
+        self.tokenKindTab[@"eq"] = @(XP_TOKEN_KIND_EQ);
         self.tokenKindTab[@"YES"] = @(XP_TOKEN_KIND_YES_UPPER);
         self.tokenKindTab[@"or"] = @(XP_TOKEN_KIND_OR);
         self.tokenKindTab[@"ne"] = @(XP_TOKEN_KIND_NE);
@@ -76,8 +78,8 @@
         self.tokenKindTab[@"in"] = @(XP_TOKEN_KIND_IN);
         self.tokenKindTab[@"."] = @(XP_TOKEN_KIND_DOT);
         self.tokenKindTab[@"/"] = @(XP_TOKEN_KIND_DIV);
-        self.tokenKindTab[@"false"] = @(XP_TOKEN_KIND_FALSE);
         self.tokenKindTab[@"by"] = @(XP_TOKEN_KIND_BY);
+        self.tokenKindTab[@"false"] = @(XP_TOKEN_KIND_FALSE);
         self.tokenKindTab[@"<="] = @(XP_TOKEN_KIND_LE_SYM);
         self.tokenKindTab[@"to"] = @(XP_TOKEN_KIND_TO);
         self.tokenKindTab[@"ge"] = @(XP_TOKEN_KIND_GE);
@@ -87,6 +89,7 @@
         self.tokenKindNameTab[XP_TOKEN_KIND_GT] = @"gt";
         self.tokenKindNameTab[XP_TOKEN_KIND_GE_SYM] = @">=";
         self.tokenKindNameTab[XP_TOKEN_KIND_DOUBLE_AMPERSAND] = @"&&";
+        self.tokenKindNameTab[XP_TOKEN_KIND_PIPE] = @"|";
         self.tokenKindNameTab[XP_TOKEN_KIND_TRUE] = @"true";
         self.tokenKindNameTab[XP_TOKEN_KIND_NOT_EQUAL] = @"!=";
         self.tokenKindNameTab[XP_TOKEN_KIND_BANG] = @"!";
@@ -96,8 +99,8 @@
         self.tokenKindNameTab[XP_TOKEN_KIND_GT_SYM] = @">";
         self.tokenKindNameTab[XP_TOKEN_KIND_LT] = @"lt";
         self.tokenKindNameTab[XP_TOKEN_KIND_OPEN_PAREN] = @"(";
-        self.tokenKindNameTab[XP_TOKEN_KIND_EQ] = @"eq";
         self.tokenKindNameTab[XP_TOKEN_KIND_CLOSE_PAREN] = @")";
+        self.tokenKindNameTab[XP_TOKEN_KIND_EQ] = @"eq";
         self.tokenKindNameTab[XP_TOKEN_KIND_YES_UPPER] = @"YES";
         self.tokenKindNameTab[XP_TOKEN_KIND_OR] = @"or";
         self.tokenKindNameTab[XP_TOKEN_KIND_NE] = @"ne";
@@ -111,8 +114,8 @@
         self.tokenKindNameTab[XP_TOKEN_KIND_IN] = @"in";
         self.tokenKindNameTab[XP_TOKEN_KIND_DOT] = @".";
         self.tokenKindNameTab[XP_TOKEN_KIND_DIV] = @"/";
-        self.tokenKindNameTab[XP_TOKEN_KIND_FALSE] = @"false";
         self.tokenKindNameTab[XP_TOKEN_KIND_BY] = @"by";
+        self.tokenKindNameTab[XP_TOKEN_KIND_FALSE] = @"false";
         self.tokenKindNameTab[XP_TOKEN_KIND_LE_SYM] = @"<=";
         self.tokenKindNameTab[XP_TOKEN_KIND_TO] = @"to";
         self.tokenKindNameTab[XP_TOKEN_KIND_GE] = @"ge";
@@ -618,6 +621,17 @@
 - (void)filterExpr_ {
     
     [self primaryExpr_]; 
+    if ([self speculate:^{ [self match:XP_TOKEN_KIND_PIPE discard:YES]; [self matchWord:NO]; }]) {
+        [self match:XP_TOKEN_KIND_PIPE discard:YES]; 
+        [self matchWord:NO]; 
+        [self execute:^{
+        
+	NSString *filterName = POP_STR();
+	id expr = POP();
+	PUSH([XPFilterExpression filterExpressionWithExpression:expr filterName:filterName]);
+
+        }];
+    }
 
 }
 

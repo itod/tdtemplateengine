@@ -24,8 +24,24 @@
 #import "XPBooleanValue.h"
 #import "XPNumericValue.h"
 #import "XPStringValue.h"
+#import "XPObjectValue.h"
 #import "TDTemplateContext.h"
 #import "XPParser.h"
+
+XPValue *XPValueFromObject(id obj) {
+    assert(obj);
+    
+    XPValue *result = nil;
+    if ([obj isKindOfClass:[NSString class]]) {
+        result = [XPStringValue stringValueWithString:obj];
+    } else if ([obj isKindOfClass:[NSNumber class]]) {
+        result = [XPNumericValue numericValueWithNumber:[obj doubleValue]];
+    } else {
+        result = [XPObjectValue objectValueWithObject:obj];
+    }
+    return result;
+}
+
 
 double XPNumberFromString(NSString *s) {
     return [s doubleValue];

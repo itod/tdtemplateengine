@@ -22,6 +22,8 @@
 
 #import <Foundation/Foundation.h>
 
+NSString *TDStringFromObject(id obj);
+
 @interface TDFilter : NSObject
 
 @property (nonatomic, assign, readonly) NSString *filterName; // convenience for class method

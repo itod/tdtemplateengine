@@ -88,13 +88,7 @@
             obj = [obj valueForKeyPath:path];
         }
         
-        if ([obj isKindOfClass:[NSString class]]) {
-            result = [XPStringValue stringValueWithString:obj];
-        } else if ([obj isKindOfClass:[NSNumber class]]) {
-            result = [XPNumericValue numericValueWithNumber:[obj doubleValue]];
-        } else {
-            result = [XPObjectValue objectValueWithObject:obj];
-        }
+        result = XPValueFromObject(obj);
     }
     
     return result;
