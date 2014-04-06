@@ -45,14 +45,11 @@
     TDAssert(ctx);
     TDAssert(self.expression);
     
-    TDIfTag *ifTag = (id)[self firstAncestorOfTagName:@"if"];
-    if (!ifTag || ifTag.incomplete) {
-        BOOL test = [self.expression evaluateAsBooleanInContext:ctx];
-        if (test) {
-            [ctx renderBody:self];
-        } else {
-            self.incomplete = YES;
-        }
+    BOOL test = [self.expression evaluateAsBooleanInContext:ctx];
+    if (test) {
+        [ctx renderBody:self];
+    } else {
+        self.incomplete = YES;
     }
 }
 
