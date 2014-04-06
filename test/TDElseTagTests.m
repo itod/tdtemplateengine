@@ -70,6 +70,42 @@
     TDEqualObjects(@"baz", res);
 }
 
+- (void)testIf0Elif0Elif0Else {
+    NSString *input = @"{% if 0 %}foo{% elif 0 %}bar{% elif 0 %}baz{% else %}bat{% endif %}";
+    id vars = nil;
+    
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"bat", res);
+}
+
+- (void)testIf1Elif1Else {
+    NSString *input = @"{% if 1 %}foo{% elif 1 %}bar{% else %}baz{% endif %}";
+    id vars = nil;
+    
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"foo", res);
+}
+
+- (void)testIf1Elif0Else {
+    NSString *input = @"{% if 1 %}foo{% elif 0 %}bar{% else %}baz{% endif %}";
+    id vars = nil;
+    
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"foo", res);
+}
+
 - (void)testIf0Elif1Else {
     NSString *input = @"{% if 0 %}foo{% elif 1 %}bar{% else %}baz{% endif %}";
     id vars = nil;
