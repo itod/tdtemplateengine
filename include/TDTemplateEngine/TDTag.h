@@ -33,14 +33,17 @@ typedef NS_ENUM(NSUInteger, TDTagType) {
 
 @interface TDTag : NSObject
 
+- (TDTag *)firstAncestorOfTagName:(NSString *)tagName;
+
+@property (nonatomic, copy, readonly) NSString *tagName; // convenience for class method
+@property (nonatomic, retain) XPExpression *expression;
+@property (nonatomic, assign) TDTag *parent; // weakref
+@end
+
+// Subclasses must override these methods
+@interface TDTag (Override)
 + (NSString *)tagName;
 + (TDTagType)tagType;
 
 - (void)doTagInContext:(TDTemplateContext *)ctx;
-
-- (TDTag *)firstAncestorOfTagName:(NSString *)tagName;
-
-@property (nonatomic, copy, readonly) NSString *tagName;
-@property (nonatomic, retain) XPExpression *expression;
-@property (nonatomic, assign) TDTag *parent; // weakref
 @end
