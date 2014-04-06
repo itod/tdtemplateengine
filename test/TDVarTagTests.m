@@ -71,7 +71,7 @@
 }
 
 - (void)testSimpleVarReplacementFooUppercase {
-    NSString *input = @"{{foo|uppercase}}";
+    NSString *input = @"{{foo | uppercase}}";
     id vars = @{@"foo": @"bar"};
     
     NSError *err = nil;
