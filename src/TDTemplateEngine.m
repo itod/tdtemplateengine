@@ -33,11 +33,14 @@
 
 #import <TDTemplateEngine/TDScope.h>
 #import <TDTemplateEngine/TDTemplateContext.h>
+
 #import "TDIfTag.h"
 #import "TDElseTag.h"
 #import "TDElseIfTag.h"
 #import "TDForTag.h"
 #import "TDCommentTag.h"
+
+#import "TDCapitalizeFilter.h"
 
 #import <PEGKit/PKTokenizer.h>
 #import <PEGKit/PKWhitespaceState.h>
@@ -51,6 +54,7 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
 @property (nonatomic, retain) NSRegularExpression *delimiterRegex;
 @property (nonatomic, retain, readwrite) id <TDScope>staticContext;
 @property (nonatomic, retain) NSMutableDictionary *tagTab;
+@property (nonatomic, retain) NSMutableDictionary *filterTab;
 @property (nonatomic, retain) XPParser *expressionParser;
 @end
 
@@ -83,6 +87,9 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
         [self registerTagClass:[TDElseIfTag class] forName:[TDElseIfTag tagName]];
         [self registerTagClass:[TDForTag class] forName:[TDForTag tagName]];
         [self registerTagClass:[TDCommentTag class] forName:[TDCommentTag tagName]];
+        
+        self.filterTab = [NSMutableDictionary dictionary];
+        [self registerFilterClass:[TDCapitalizeFilter class] forName:[TDCapitalizeFilter filterName]];
         
         self.expressionParser = [[[XPParser alloc] initWithDelegate:nil] autorelease];
 
@@ -364,6 +371,34 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
     TDAssert(tag);
     TDAssert([tag.tagName isEqualToString:tagName]);
     return tag;
+}
+
+
+#pragma mark -
+#pragma mark Filter Registration
+
+- (void)registerFilterClass:(Class)cls forName:(NSString *)filterName {
+    TDAssert(_filterTab);
+    _filterTab[filterName] = cls;
+}
+
+
+- (Class)registerdFilterClassForName:(NSString *)filterName {
+    TDAssert(_filterTab);
+    Class cls = _filterTab[filterName];
+    return cls;
+}
+
+
+- (TDFilter *)makeFilterForName:(NSString *)filterName {
+    Class cls = _filterTab[filterName];
+    if (!cls) {
+        [NSException raise:TDTemplateEngineErrorDomain format:@"Unknown tag name '%@'", filterName];
+    }
+    TDFilter *filter = [[[cls alloc] init] autorelease];
+    TDAssert(filter);
+    TDAssert([filter.filterName isEqualToString:filterName]);
+    return filter;
 }
 
 @end

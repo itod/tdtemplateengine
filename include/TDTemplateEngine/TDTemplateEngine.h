@@ -29,6 +29,7 @@ extern NSInteger TDTemplateEngineRenderingErrorCode;
 
 @class TDNode;
 @class TDTag;
+@class TDFilter;
 @protocol TDScope;
 
 @interface TDTemplateEngine : NSObject
@@ -60,4 +61,10 @@ extern NSInteger TDTemplateEngineRenderingErrorCode;
 - (void)registerTagClass:(Class)cls forName:(NSString *)tagName;
 - (Class)registerdTagClassForName:(NSString *)tagName;
 - (TDTag *)makeTagForName:(NSString *)tagName;
+@end
+
+@interface TDTemplateEngine (FilterRegistration)
+- (void)registerFilterClass:(Class)cls forName:(NSString *)filterName;
+- (Class)registerdFilterClassForName:(NSString *)filterName;
+- (TDFilter *)makeFilterForName:(NSString *)filterName;
 @end

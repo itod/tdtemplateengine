@@ -178,7 +178,10 @@ signedFilterExpr
 }
     = ('-'! { _negative = !_negative; })+ filterExpr;
 	
-filterExpr = primaryExpr;
+filterExpr = primaryExpr ('|' Word {
+	NSString *filterName = POP_STR();
+	
+})?;
 
 primaryExpr = atom | subExpr;
 
