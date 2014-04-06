@@ -46,6 +46,18 @@
     TDEqualObjects(@"ffff", res);
 }
 
+- (void)testFor0To4FNoSpace {
+    NSString *input = @"{%for i in 0 to 3%}f{%/for%}";
+    id vars = nil;
+    
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"ffff", res);
+}
+
 - (void)testForloopCounter {
     NSString *input = @"{% for i in 5 to 2 %}{{currentLoop.counter}}{% /for %}";
     id vars = nil;
