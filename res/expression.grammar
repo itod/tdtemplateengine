@@ -103,7 +103,7 @@ andExpr = equalityExpr (andOp equalityExpr {
 })*;
 
 eqOp    @after { PUSH(@(XP_TOKEN_KIND_EQ)); }
-        =  '='! | '=='! | 'eq'!;
+        =  '=='! | 'eq'!;
 neOp    @after { PUSH(@(XP_TOKEN_KIND_NE)); }
         = '!='! | 'ne'!;
 equalityExpr = relationalExpr ((eqOp | neOp) relationalExpr {
@@ -166,8 +166,8 @@ negatedUnary
 	= (('not'! | '!'!) { _negation = !_negation; })+ unary {
 };
 
-unary = signedPrimary | primary;
-signedPrimary 
+unary = signedFilterExpr | filterExpr;
+signedFilterExpr 
 @before {
     _negative = NO; 
 }
@@ -176,9 +176,11 @@ signedPrimary
     d = (_negative) ? -d : d;
     PUSH([XPNumericValue numericValueWithNumber:d]);
 }
-    = ('-'! { _negative = !_negative; })+ primary;
+    = ('-'! { _negative = !_negative; })+ filterExpr;
+	
+filterExpr = primaryExpr;
 
-primary = atom | subExpr;
+primaryExpr = atom | subExpr;
 
 subExpr
     = '(' expr ')'! {

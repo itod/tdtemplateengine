@@ -582,16 +582,16 @@
 - (void)unary_ {
     
     if ([self predicts:XP_TOKEN_KIND_MINUS, 0]) {
-        [self signedPrimary_]; 
+        [self signedFilterExpr_]; 
     } else if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, XP_TOKEN_KIND_FALSE, XP_TOKEN_KIND_NO_UPPER, XP_TOKEN_KIND_OPEN_PAREN, XP_TOKEN_KIND_TRUE, XP_TOKEN_KIND_YES_UPPER, 0]) {
-        [self primary_]; 
+        [self filterExpr_]; 
     } else {
         [self raise:@"No viable alternative found in rule 'unary'."];
     }
 
 }
 
-- (void)signedPrimary_ {
+- (void)signedFilterExpr_ {
     
     [self execute:^{
     
@@ -604,7 +604,7 @@
          _negative = !_negative; 
         }];
     } while ([self predicts:XP_TOKEN_KIND_MINUS, 0]);
-    [self primary_]; 
+    [self filterExpr_]; 
     [self execute:^{
     
     double d = POP_DOUBLE();
@@ -615,14 +615,20 @@
 
 }
 
-- (void)primary_ {
+- (void)filterExpr_ {
+    
+    [self primaryExpr_]; 
+
+}
+
+- (void)primaryExpr_ {
     
     if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, XP_TOKEN_KIND_FALSE, XP_TOKEN_KIND_NO_UPPER, XP_TOKEN_KIND_TRUE, XP_TOKEN_KIND_YES_UPPER, 0]) {
         [self atom_]; 
     } else if ([self predicts:XP_TOKEN_KIND_OPEN_PAREN, 0]) {
         [self subExpr_]; 
     } else {
-        [self raise:@"No viable alternative found in rule 'primary'."];
+        [self raise:@"No viable alternative found in rule 'primaryExpr'."];
     }
 
 }

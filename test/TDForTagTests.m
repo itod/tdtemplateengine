@@ -58,6 +58,18 @@
     TDEqualObjects(@"ffff", res);
 }
 
+- (void)testFor0ToDepthF {
+    NSString *input = @"{% for i in 0 to depth %}f{% /for %}";
+    id vars = @{@"depth": @(3)};
+    
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"ffff", res);
+}
+
 - (void)testForloopCounter {
     NSString *input = @"{% for i in 5 to 2 %}{{currentLoop.counter}}{% /for %}";
     id vars = nil;
