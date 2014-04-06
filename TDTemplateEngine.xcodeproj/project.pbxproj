@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D319137118F197D400430BAD /* PEGKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D319137018F197D400430BAD /* PEGKit.framework */; };
+		D319137218F197F200430BAD /* PEGKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D319137018F197D400430BAD /* PEGKit.framework */; };
 		D33915DE18F0818500BDA4FD /* XPArithmeticExpressionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D33915DD18F0818500BDA4FD /* XPArithmeticExpressionTests.m */; };
 		D33915E418F081ED00BDA4FD /* XPPathExpressionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D33915E318F081ED00BDA4FD /* XPPathExpressionTests.m */; };
 		D33915E618F09DFF00BDA4FD /* TDElseTagTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D33915E518F09DFF00BDA4FD /* TDElseTagTests.m */; };
@@ -30,7 +32,6 @@
 		D3A29D9418E5F60100DC591E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3A29D9318E5F60100DC591E /* Foundation.framework */; };
 		D3A29DAA18E609E700DC591E /* TDNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29DA818E609E700DC591E /* TDNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3A29DAB18E609E700DC591E /* TDNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29DA918E609E700DC591E /* TDNode.m */; };
-		D3A29DB318E60C1B00DC591E /* PEGKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3A29D9E18E5F6AB00DC591E /* PEGKit.framework */; };
 		D3A29DB618E60E4500DC591E /* TDVariableNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29DB418E60E4500DC591E /* TDVariableNode.h */; };
 		D3A29DB718E60E4500DC591E /* TDVariableNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29DB518E60E4500DC591E /* TDVariableNode.m */; };
 		D3A29DBA18E60F9F00DC591E /* TDRootNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29DB818E60F9F00DC591E /* TDRootNode.h */; };
@@ -70,7 +71,6 @@
 		D3A29E3118E75D3B00DC591E /* XPRelationalExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29E2918E75D3B00DC591E /* XPRelationalExpression.h */; };
 		D3A29E3218E75D3B00DC591E /* XPRelationalExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29E2A18E75D3B00DC591E /* XPRelationalExpression.m */; };
 		D3A29E3518E7700500DC591E /* XPEqualityExpressionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29E3418E7700500DC591E /* XPEqualityExpressionTests.m */; };
-		D3A29E3618E7725A00DC591E /* PEGKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3A29D9E18E5F6AB00DC591E /* PEGKit.framework */; };
 		D3A29E3918E7AA3100DC591E /* XPPathExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29E3718E7AA3100DC591E /* XPPathExpression.h */; };
 		D3A29E3A18E7AA3100DC591E /* XPPathExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29E3818E7AA3100DC591E /* XPPathExpression.m */; };
 		D3A29E3D18E7B31A00DC591E /* XPObjectValue.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29E3B18E7B31A00DC591E /* XPObjectValue.h */; };
@@ -108,51 +108,10 @@
 			remoteGlobalIDString = D367DFAF18E5EF6900F97BCC;
 			remoteInfo = TDTemplateEngine;
 		};
-		D3A29D9D18E5F6AB00DC591E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D3A29D9518E5F6AB00DC591E /* PEGKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D3F8A48D175817DF00056188;
-			remoteInfo = PEGKit;
-		};
-		D3A29D9F18E5F6AB00DC591E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D3A29D9518E5F6AB00DC591E /* PEGKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D366C55418D1F29D00AF3EFB;
-			remoteInfo = libPEGKitOSX;
-		};
-		D3A29DA118E5F6AB00DC591E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D3A29D9518E5F6AB00DC591E /* PEGKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D317C12B18D1F5EB0036BE75;
-			remoteInfo = libPEGKitIOS;
-		};
-		D3A29DA318E5F6AB00DC591E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D3A29D9518E5F6AB00DC591E /* PEGKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D37D8DC61571A4F700CDB822;
-			remoteInfo = PEGKitTests;
-		};
-		D3A29DA518E5F6AB00DC591E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D3A29D9518E5F6AB00DC591E /* PEGKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D338302F171C923700CCE513;
-			remoteInfo = ParserGenApp;
-		};
-		D3A29DB118E60C1700DC591E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D3A29D9518E5F6AB00DC591E /* PEGKit.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = D3F8A3DA175817DF00056188;
-			remoteInfo = PEGKit;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D319137018F197D400430BAD /* PEGKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PEGKit.framework; path = "../../../Library/Developer/Xcode/DerivedData/TDTemplateEngine-fzzezlziivpwkibrtiisnixrvvso/Build/Products/Debug/PEGKit.framework"; sourceTree = "<group>"; };
 		D33915DD18F0818500BDA4FD /* XPArithmeticExpressionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPArithmeticExpressionTests.m; path = test/XPArithmeticExpressionTests.m; sourceTree = SOURCE_ROOT; };
 		D33915E318F081ED00BDA4FD /* XPPathExpressionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPPathExpressionTests.m; path = test/XPPathExpressionTests.m; sourceTree = SOURCE_ROOT; };
 		D33915E518F09DFF00BDA4FD /* TDElseTagTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDElseTagTests.m; path = test/TDElseTagTests.m; sourceTree = SOURCE_ROOT; };
@@ -179,7 +138,6 @@
 		D3A29D8F18E5F5CC00DC591E /* TDTemplateEngineTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "TDTemplateEngineTests-Info.plist"; path = "test/TDTemplateEngineTests-Info.plist"; sourceTree = SOURCE_ROOT; };
 		D3A29D9118E5F5D900DC591E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = test/en.lproj/InfoPlist.strings; sourceTree = SOURCE_ROOT; };
 		D3A29D9318E5F60100DC591E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		D3A29D9518E5F6AB00DC591E /* PEGKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PEGKit.xcodeproj; path = lib/pegkit/PEGKit.xcodeproj; sourceTree = "<group>"; };
 		D3A29DA818E609E700DC591E /* TDNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDNode.h; path = src/TDNode.h; sourceTree = SOURCE_ROOT; };
 		D3A29DA918E609E700DC591E /* TDNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDNode.m; path = src/TDNode.m; sourceTree = SOURCE_ROOT; };
 		D3A29DB418E60E4500DC591E /* TDVariableNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDVariableNode.h; path = src/TDVariableNode.h; sourceTree = SOURCE_ROOT; };
@@ -256,7 +214,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D3A29DB318E60C1B00DC591E /* PEGKit.framework in Frameworks */,
+				D319137118F197D400430BAD /* PEGKit.framework in Frameworks */,
 				D3A29D9418E5F60100DC591E /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -265,7 +223,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D3A29E3618E7725A00DC591E /* PEGKit.framework in Frameworks */,
+				D319137218F197F200430BAD /* PEGKit.framework in Frameworks */,
 				D367DFCD18E5EF6900F97BCC /* TDTemplateEngine.framework in Frameworks */,
 				D367DFC918E5EF6900F97BCC /* XCTest.framework in Frameworks */,
 			);
@@ -277,7 +235,6 @@
 		D367DFA618E5EF6800F97BCC = {
 			isa = PBXGroup;
 			children = (
-				D3A29D9518E5F6AB00DC591E /* PEGKit.xcodeproj */,
 				D367DFB918E5EF6900F97BCC /* TDTemplateEngine */,
 				D367DFCE18E5EF6900F97BCC /* TDTemplateEngine Tests */,
 				D367DFB218E5EF6900F97BCC /* Frameworks */,
@@ -297,6 +254,7 @@
 		D367DFB218E5EF6900F97BCC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D319137018F197D400430BAD /* PEGKit.framework */,
 				D3A29D9318E5F60100DC591E /* Foundation.framework */,
 				D367DFC818E5EF6900F97BCC /* XCTest.framework */,
 			);
@@ -363,18 +321,6 @@
 				D3A29D9018E5F5D900DC591E /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		D3A29D9618E5F6AB00DC591E /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				D3A29D9E18E5F6AB00DC591E /* PEGKit.framework */,
-				D3A29DA018E5F6AB00DC591E /* libPEGKitOSX.a */,
-				D3A29DA218E5F6AB00DC591E /* libPEGKitIOS.a */,
-				D3A29DA418E5F6AB00DC591E /* PEGKitTests.xctest */,
-				D3A29DA618E5F6AB00DC591E /* ParserGenApp.app */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		D3A29DD218E63D2200DC591E /* Nodes */ = {
@@ -546,7 +492,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				D3A29DB218E60C1700DC591E /* PBXTargetDependency */,
 			);
 			name = TDTemplateEngine;
 			productName = TDTemplateEngine;
@@ -595,12 +540,6 @@
 			mainGroup = D367DFA618E5EF6800F97BCC;
 			productRefGroup = D367DFB118E5EF6900F97BCC /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = D3A29D9618E5F6AB00DC591E /* Products */;
-					ProjectRef = D3A29D9518E5F6AB00DC591E /* PEGKit.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				D367DFAF18E5EF6900F97BCC /* TDTemplateEngine */,
@@ -608,44 +547,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		D3A29D9E18E5F6AB00DC591E /* PEGKit.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = PEGKit.framework;
-			remoteRef = D3A29D9D18E5F6AB00DC591E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		D3A29DA018E5F6AB00DC591E /* libPEGKitOSX.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libPEGKitOSX.a;
-			remoteRef = D3A29D9F18E5F6AB00DC591E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		D3A29DA218E5F6AB00DC591E /* libPEGKitIOS.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libPEGKitIOS.a;
-			remoteRef = D3A29DA118E5F6AB00DC591E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		D3A29DA418E5F6AB00DC591E /* PEGKitTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = PEGKitTests.xctest;
-			remoteRef = D3A29DA318E5F6AB00DC591E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		D3A29DA618E5F6AB00DC591E /* ParserGenApp.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = ParserGenApp.app;
-			remoteRef = D3A29DA518E5F6AB00DC591E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		D367DFAE18E5EF6900F97BCC /* Resources */ = {
@@ -736,11 +637,6 @@
 			isa = PBXTargetDependency;
 			target = D367DFAF18E5EF6900F97BCC /* TDTemplateEngine */;
 			targetProxy = D367DFCB18E5EF6900F97BCC /* PBXContainerItemProxy */;
-		};
-		D3A29DB218E60C1700DC591E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = PEGKit;
-			targetProxy = D3A29DB118E60C1700DC591E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -847,6 +743,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath/";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/TDTemplateEngine-fzzezlziivpwkibrtiisnixrvvso/Build/Products/Debug",
+				);
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "res/TDTemplateEngine-Prefix.pch";
@@ -864,6 +764,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath/";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/TDTemplateEngine-fzzezlziivpwkibrtiisnixrvvso/Build/Products/Debug",
+				);
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "res/TDTemplateEngine-Prefix.pch";
@@ -882,6 +786,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/TDTemplateEngine-fzzezlziivpwkibrtiisnixrvvso/Build/Products/Debug",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "res/TDTemplateEngine-Prefix.pch";
@@ -908,6 +813,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/TDTemplateEngine-fzzezlziivpwkibrtiisnixrvvso/Build/Products/Debug",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "res/TDTemplateEngine-Prefix.pch";
