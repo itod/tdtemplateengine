@@ -29,6 +29,7 @@
     if (self) {
         self.counter = 1;
         self.counter0 = 0;
+        self.currentIndex = 0;
         self.first = YES;
         self.last = NO;
     }
