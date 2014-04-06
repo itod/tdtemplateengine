@@ -92,13 +92,9 @@
     self.tag = [[TDTemplateEngine currentTemplateEngine] makeTagForName:tagName];
     TDAssert(_tag);
 
-    // attach tag to parent and vice versa if present
+    // attach tag to parent if present
     TDBlockStartNode *enclosingBlockStartNode = (id)[self firstAncestorOfClass:[TDBlockStartNode class]];
-    TDTag *parent = enclosingBlockStartNode.tag;
-    if (parent) {
-        _tag.parent = parent;
-        [parent addChild:_tag];
-    }
+    _tag.parent = enclosingBlockStartNode.tag;
     
     // compile expression if present
     if ([toks count]) {
