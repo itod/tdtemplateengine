@@ -28,7 +28,7 @@
 #import "XPEnumeration.h"
 
 @interface TDForTag ()
-@property (nonatomic, retain) TDForLoop *currentLoop;
+@property (nonatomic, retain) TDForLoop *forloop;
 @end
 
 @implementation TDForTag
@@ -44,7 +44,7 @@
 
 
 - (void)dealloc {
-    self.currentLoop = nil;
+    self.forloop = nil;
     [super dealloc];
 }
 
@@ -64,13 +64,13 @@
     [self setUpForLoop:ctx];
     
     while ([expr evaluateInContext:ctx]) {
-        _currentLoop.last = ![expr.enumeration hasMore];
+        _forloop.last = ![expr.enumeration hasMore];
         //NSLog(@"rendering body of %@", self);
         [ctx renderBody:self];
         
-        _currentLoop.counter++;
-        _currentLoop.counter0++;
-        _currentLoop.first = NO;
+        _forloop.counter++;
+        _forloop.counter0++;
+        _forloop.first = NO;
     }
 
     [self tearDownForLoop:ctx];
@@ -78,19 +78,19 @@
 
 
 - (void)setUpForLoop:(TDTemplateContext *)ctx {
-    self.currentLoop = [[[TDForLoop alloc] init] autorelease];
+    self.forloop = [[[TDForLoop alloc] init] autorelease];
     
     TDForTag *enclosingForTag = (id)[self firstAncestorOfTagName:@"for"];
-    _currentLoop.parentLoop = enclosingForTag.currentLoop;
+    _forloop.parentloop = enclosingForTag.forloop;
 
-    [ctx defineVariable:@"currentLoop" withValue:_currentLoop];
+    [ctx defineVariable:@"forloop" withValue:_forloop];
 }
 
 
 - (void)tearDownForLoop:(TDTemplateContext *)ctx {
-    [ctx defineVariable:@"currentLoop" withValue:nil];
-    _currentLoop.parentLoop = nil;
-    self.currentLoop = nil;
+    [ctx defineVariable:@"forloop" withValue:nil];
+    _forloop.parentloop = nil;
+    self.forloop = nil;
 }
 
 @end

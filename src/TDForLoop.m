@@ -37,7 +37,7 @@
 
 
 - (void)dealloc {
-    self.parentLoop = nil;
+    self.parentloop = nil;
     [super dealloc];
 }
 
