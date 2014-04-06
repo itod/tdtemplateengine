@@ -46,6 +46,42 @@
     TDEqualObjects(@"bar", res);
 }
 
+- (void)testSimpleVarReplacementFooCapitalize {
+    NSString *input = @"{{foo|capitalize}}";
+    id vars = @{@"foo": @"bar"};
+    
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"Bar", res);
+}
+
+- (void)testSimpleVarReplacementFooLowercase {
+    NSString *input = @"{{foo|lowercase}}";
+    id vars = @{@"foo": @"BAR"};
+    
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"bar", res);
+}
+
+- (void)testSimpleVarReplacementFooUppercase {
+    NSString *input = @"{{foo|uppercase}}";
+    id vars = @{@"foo": @"bar"};
+    
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"BAR", res);
+}
+
 - (void)testSimpleVarReplacementBar {
     NSString *input = @"{{bar}}";
     id vars = @{@"bar": @"foo"};
