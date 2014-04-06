@@ -59,4 +59,46 @@
     TDEqualObjects(@"Bar", [expr evaluateAsStringInContext:ctx]);
 }
 
+- (void)testFooLiteralCapitalized {
+    NSString *input = @"'foo'|capitalize";
+    NSArray *toks = [self tokenize:input];
+    
+    id vars = nil;
+    id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDEqualObjects(@"Foo", [expr evaluateAsStringInContext:ctx]);
+}
+
+- (void)testFooVarLowercase {
+    NSString *input = @"foo|lowercase";
+    NSArray *toks = [self tokenize:input];
+    
+    id vars = @{@"foo": @"BAR"};
+    id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDEqualObjects(@"bar", [expr evaluateAsStringInContext:ctx]);
+}
+
+- (void)testFooLiteralLowercase {
+    NSString *input = @"'fOO'|lowercase";
+    NSArray *toks = [self tokenize:input];
+    
+    id vars = nil;
+    id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDEqualObjects(@"foo", [expr evaluateAsStringInContext:ctx]);
+}
+
 @end
