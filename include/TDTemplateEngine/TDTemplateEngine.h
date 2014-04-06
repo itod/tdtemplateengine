@@ -22,6 +22,8 @@
 
 #import <Foundation/Foundation.h>
 
+#define TD_END_TAG_PREFIX @"/"
+
 extern NSString * const TDTemplateEngineErrorDomain;
 extern NSInteger TDTemplateEngineRenderingErrorCode;
 

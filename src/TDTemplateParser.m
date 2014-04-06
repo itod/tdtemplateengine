@@ -1,6 +1,7 @@
 #import "TDTemplateParser.h"
 #import <PEGKit/PEGKit.h>
     
+#import <TDTemplateEngine/TDTemplateEngine.h>
 #import <TDTemplateEngine/TDTemplateContext.h>
 #import "TDRootNode.h"
 #import "TDVariableNode.h"
@@ -193,7 +194,7 @@
     [self execute:^{
     
     PKToken *tok = POP();
-    NSString *tagName = [tok.stringValue substringFromIndex:3];
+    NSString *tagName = [tok.stringValue substringFromIndex:[TD_END_TAG_PREFIX length]];
     while (![_currentParent.name hasPrefix:tagName])
         self.currentParent = POP();
 

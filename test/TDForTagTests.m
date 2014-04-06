@@ -35,7 +35,7 @@
 }
 
 - (void)testFor0To4F {
-    NSString *input = @"{% for i in 0 to 3 %}f{% endfor %}";
+    NSString *input = @"{% for i in 0 to 3 %}f{% /for %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -47,7 +47,7 @@
 }
 
 - (void)testForloopCounter {
-    NSString *input = @"{% for i in 5 to 2 %}{{forloop.counter}}{% endfor %}";
+    NSString *input = @"{% for i in 5 to 2 %}{{forloop.counter}}{% /for %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -59,7 +59,7 @@
 }
 
 - (void)testForloopCounter0 {
-    NSString *input = @"{% for i in 5 to 2 %}{{forloop.counter0}}{% endfor %}";
+    NSString *input = @"{% for i in 5 to 2 %}{{forloop.counter0}}{% /for %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -71,7 +71,7 @@
 }
 
 - (void)testForloopFirst {
-    NSString *input = @"{% for i in 5 to 2 %}{{forloop.first}}{% endfor %}";
+    NSString *input = @"{% for i in 5 to 2 %}{{forloop.first}}{% /for %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -83,7 +83,7 @@
 }
 
 - (void)testForloopLast {
-    NSString *input = @"{% for i in 5 to 2 %}{{forloop.last}}{% endfor %}";
+    NSString *input = @"{% for i in 5 to 2 %}{{forloop.last}}{% /for %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -95,7 +95,7 @@
 }
 
 - (void)testFor0To4I {
-    NSString *input = @"{% for i in 0 to 3 %}{{i}}{% endfor %}";
+    NSString *input = @"{% for i in 0 to 3 %}{{i}}{% /for %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -110,8 +110,8 @@
     NSString *input =   @"{% for i in 0 to 1 %}"
                             @"{% for j in 0 to 2 %}"
                                 @"{{i}}:{{j}}\n"
-                            @"{% endfor %}"
-                        @"{% endfor %}";
+                            @"{% /for %}"
+                        @"{% /for %}";
     id vars = nil;
     NSError *err = nil;
     BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
@@ -126,9 +126,9 @@
                             @"{% for j in 0 to 1 %}"
                                 @"{% for k in 0 to 2 %}"
                                     @"{{i}}:{{j}}:{{k}}\n"
-                                @"{% endfor %}"
-                            @"{% endfor %}"
-                        @"{% endfor %}";
+                                @"{% /for %}"
+                            @"{% /for %}"
+                        @"{% /for %}";
     id vars = nil;
     NSError *err = nil;
     BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
@@ -142,8 +142,8 @@
     NSString *input =   @"{% for i in 0 to 1 %}"
                             @"{% for j in 0 to 2 %}"
                                 @"{{forloop.parentloop.counter0}}:{{forloop.counter0}}\n"
-                            @"{% endfor %}"
-                        @"{% endfor %}";
+                            @"{% /for %}"
+                        @"{% /for %}";
     id vars = nil;
     NSError *err = nil;
     BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];

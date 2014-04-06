@@ -284,7 +284,7 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
             str = [str substringFromIndex:tagStartDelimLen];
             str = [str stringByTrimmingCharactersInSet:wsSet];
             
-            if ([str hasPrefix:@"end"]) {
+            if ([str hasPrefix:TD_END_TAG_PREFIX]) {
                 //str = [str substringFromIndex:1];
                 kind = TDTEMPLATE_TOKEN_KIND_BLOCK_END_TAG;
             } else {
