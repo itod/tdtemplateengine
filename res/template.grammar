@@ -38,7 +38,7 @@ template
 content
     = var
     | empty_tag
-    | block 
+    | block_tag 
     | text
     ;
 
@@ -46,7 +46,7 @@ body_content
     = var
     | empty_tag
     | helper_tag
-    | block 
+    | block_tag 
     | text
     ;
 
@@ -77,7 +77,7 @@ helper_start_tag
     self.currentParent = startTagNode;
 };
 
-block 
+block_tag
 @before { PUSH(_currentParent); }
 @after { self.currentParent = POP(); }
     = block_start_tag body_content+block_end_tag 
