@@ -27,7 +27,7 @@
 
 @interface TDNode ()
 - (void)renderChildrenInContext:(TDTemplateContext *)ctx;
-- (void)renderVerbatimInContext:(TDTemplateContext *)ctx;
+- (void)renderChildrenVerbatimInContext:(TDTemplateContext *)ctx;
 @end
 
 @interface TDTemplateContext ()
