@@ -16,11 +16,8 @@
 
 @property (nonatomic, retain) NSMutableDictionary *template_memo;
 @property (nonatomic, retain) NSMutableDictionary *content_memo;
-@property (nonatomic, retain) NSMutableDictionary *body_content_memo;
 @property (nonatomic, retain) NSMutableDictionary *var_memo;
 @property (nonatomic, retain) NSMutableDictionary *empty_tag_memo;
-@property (nonatomic, retain) NSMutableDictionary *helper_tag_memo;
-@property (nonatomic, retain) NSMutableDictionary *helper_start_tag_memo;
 @property (nonatomic, retain) NSMutableDictionary *block_tag_memo;
 @property (nonatomic, retain) NSMutableDictionary *block_start_tag_memo;
 @property (nonatomic, retain) NSMutableDictionary *block_end_tag_memo;
@@ -34,27 +31,22 @@
     if (self) {
         
         self.startRuleName = @"template";
-        self.tokenKindTab[@"helper_start_tag"] = @(TDTEMPLATE_TOKEN_KIND_HELPER_START_TAG);
-        self.tokenKindTab[@"var"] = @(TDTEMPLATE_TOKEN_KIND_VAR);
         self.tokenKindTab[@"block_start_tag"] = @(TDTEMPLATE_TOKEN_KIND_BLOCK_START_TAG);
+        self.tokenKindTab[@"var"] = @(TDTEMPLATE_TOKEN_KIND_VAR);
         self.tokenKindTab[@"block_end_tag"] = @(TDTEMPLATE_TOKEN_KIND_BLOCK_END_TAG);
         self.tokenKindTab[@"empty_tag"] = @(TDTEMPLATE_TOKEN_KIND_EMPTY_TAG);
         self.tokenKindTab[@"text"] = @(TDTEMPLATE_TOKEN_KIND_TEXT);
 
-        self.tokenKindNameTab[TDTEMPLATE_TOKEN_KIND_HELPER_START_TAG] = @"helper_start_tag";
-        self.tokenKindNameTab[TDTEMPLATE_TOKEN_KIND_VAR] = @"var";
         self.tokenKindNameTab[TDTEMPLATE_TOKEN_KIND_BLOCK_START_TAG] = @"block_start_tag";
+        self.tokenKindNameTab[TDTEMPLATE_TOKEN_KIND_VAR] = @"var";
         self.tokenKindNameTab[TDTEMPLATE_TOKEN_KIND_BLOCK_END_TAG] = @"block_end_tag";
         self.tokenKindNameTab[TDTEMPLATE_TOKEN_KIND_EMPTY_TAG] = @"empty_tag";
         self.tokenKindNameTab[TDTEMPLATE_TOKEN_KIND_TEXT] = @"text";
 
         self.template_memo = [NSMutableDictionary dictionary];
         self.content_memo = [NSMutableDictionary dictionary];
-        self.body_content_memo = [NSMutableDictionary dictionary];
         self.var_memo = [NSMutableDictionary dictionary];
         self.empty_tag_memo = [NSMutableDictionary dictionary];
-        self.helper_tag_memo = [NSMutableDictionary dictionary];
-        self.helper_start_tag_memo = [NSMutableDictionary dictionary];
         self.block_tag_memo = [NSMutableDictionary dictionary];
         self.block_start_tag_memo = [NSMutableDictionary dictionary];
         self.block_end_tag_memo = [NSMutableDictionary dictionary];
@@ -70,11 +62,8 @@
 
     self.template_memo = nil;
     self.content_memo = nil;
-    self.body_content_memo = nil;
     self.var_memo = nil;
     self.empty_tag_memo = nil;
-    self.helper_tag_memo = nil;
-    self.helper_start_tag_memo = nil;
     self.block_tag_memo = nil;
     self.block_start_tag_memo = nil;
     self.block_end_tag_memo = nil;
@@ -86,11 +75,8 @@
 - (void)clearMemo {
     [_template_memo removeAllObjects];
     [_content_memo removeAllObjects];
-    [_body_content_memo removeAllObjects];
     [_var_memo removeAllObjects];
     [_empty_tag_memo removeAllObjects];
-    [_helper_tag_memo removeAllObjects];
-    [_helper_start_tag_memo removeAllObjects];
     [_block_tag_memo removeAllObjects];
     [_block_start_tag_memo removeAllObjects];
     [_block_end_tag_memo removeAllObjects];
@@ -144,28 +130,6 @@
     [self parseRule:@selector(__content) withMemo:_content_memo];
 }
 
-- (void)__body_content {
-    
-    if ([self predicts:TDTEMPLATE_TOKEN_KIND_VAR, 0]) {
-        [self var_]; 
-    } else if ([self predicts:TDTEMPLATE_TOKEN_KIND_EMPTY_TAG, 0]) {
-        [self empty_tag_]; 
-    } else if ([self predicts:TDTEMPLATE_TOKEN_KIND_HELPER_START_TAG, 0]) {
-        [self helper_tag_]; 
-    } else if ([self predicts:TDTEMPLATE_TOKEN_KIND_BLOCK_START_TAG, 0]) {
-        [self block_tag_]; 
-    } else if ([self predicts:TDTEMPLATE_TOKEN_KIND_TEXT, 0]) {
-        [self text_]; 
-    } else {
-        [self raise:@"No viable alternative found in rule 'body_content'."];
-    }
-
-}
-
-- (void)body_content_ {
-    [self parseRule:@selector(__body_content) withMemo:_body_content_memo];
-}
-
 - (void)__var {
     
     [self match:TDTEMPLATE_TOKEN_KIND_VAR discard:NO]; 
@@ -201,38 +165,6 @@
     [self parseRule:@selector(__empty_tag) withMemo:_empty_tag_memo];
 }
 
-- (void)__helper_tag {
-    
-    [self helper_start_tag_]; 
-    while (![self predicts:TDTEMPLATE_TOKEN_KIND_BLOCK_END_TAG, TDTEMPLATE_TOKEN_KIND_HELPER_START_TAG, 0]) {
-        [self content_]; 
-    }
-
-}
-
-- (void)helper_tag_ {
-    [self parseRule:@selector(__helper_tag) withMemo:_helper_tag_memo];
-}
-
-- (void)__helper_start_tag {
-    
-    [self match:TDTEMPLATE_TOKEN_KIND_HELPER_START_TAG discard:NO]; 
-    [self execute:^{
-    
-    PKToken *tok = POP();
-    TDNode *startTagNode = [TDBlockStartNode nodeWithToken:tok parent:_currentParent];
-    [_currentParent addChild:startTagNode];
-    PUSH(_currentParent);
-    self.currentParent = startTagNode;
-
-    }];
-
-}
-
-- (void)helper_start_tag_ {
-    [self parseRule:@selector(__helper_start_tag) withMemo:_helper_start_tag_memo];
-}
-
 - (void)__block_tag {
     
     [self execute:^{
@@ -240,7 +172,7 @@
     }];
     [self block_start_tag_]; 
     while (![self predicts:TDTEMPLATE_TOKEN_KIND_BLOCK_END_TAG, 0]) {
-        [self body_content_]; 
+        [self content_]; 
     }
     [self block_end_tag_]; 
     [self execute:^{

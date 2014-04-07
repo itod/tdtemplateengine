@@ -30,10 +30,6 @@
 - (void)renderChildrenVerbatimInContext:(TDTemplateContext *)ctx;
 @end
 
-@interface TDTag ()
-@property (nonatomic, assign) TDNode *node;
-@end
-
 @interface TDTemplateContext ()
 @property (nonatomic, retain) NSMutableDictionary *vars;
 @property (nonatomic, retain, readwrite) TDWriter *writer;

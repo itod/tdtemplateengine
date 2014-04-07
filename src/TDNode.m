@@ -79,11 +79,21 @@
 #pragma mark Render
 
 - (void)renderInContext:(TDTemplateContext *)ctx {
+    NSParameterAssert(ctx);
+    if (_suppressRendering) {
+        self.suppressRendering = NO;
+        return;
+    }
     [self renderChildrenInContext:ctx];
 }
 
 
 - (void)renderChildrenInContext:(TDTemplateContext *)ctx {
+    NSParameterAssert(ctx);
+    if (_suppressRendering) {
+        self.suppressRendering = NO;
+        return;
+    }
     for (TDNode *child in self.children) {
         [child renderInContext:ctx];
     }
@@ -95,6 +105,10 @@
 
 - (void)renderVerbatimInContext:(TDTemplateContext *)ctx {
     NSParameterAssert(ctx);
+    if (_suppressRendering) {
+        self.suppressRendering = NO;
+        return;
+    }
     
     TDWriter *writer = ctx.writer;
     TDFragment *frag = (id)self.token;
@@ -111,6 +125,12 @@
 
 
 - (void)renderChildrenVerbatimInContext:(TDTemplateContext *)ctx {
+    NSParameterAssert(ctx);
+    if (_suppressRendering) {
+        self.suppressRendering = NO;
+        return;
+    }
+
     for (TDNode *child in self.children) {
         [child renderVerbatimInContext:ctx];
     }

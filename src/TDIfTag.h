@@ -24,5 +24,5 @@
 
 @interface TDIfTag : TDTag
 
-@property (nonatomic, assign) BOOL incomplete;
+//@property (nonatomic, assign) BOOL incomplete;
 @end

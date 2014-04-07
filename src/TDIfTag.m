@@ -23,6 +23,7 @@
 #import "TDIfTag.h"
 #import "TDElseTag.h"
 #import "TDElseIfTag.h"
+#import "TDBlockStartNode.h"
 #import <TDTemplateEngine/TDTemplateContext.h>
 #import <TDTemplateEngine/XPExpression.h>
 
@@ -43,17 +44,47 @@
     TDAssert(self.expression);
     
     BOOL test = [self.expression evaluateAsBooleanInContext:ctx];
+    
     if (test) {
-        [ctx renderBody:self];
-    } else {
-        self.incomplete = YES;
-        
-        for (TDTag *child in self.children) {
-            if ([child isKindOfClass:[TDElseTag class]] || [child isKindOfClass:[TDElseIfTag class]]) {
-                [child doTagInContext:ctx];
+//        self.incomplete = NO;
+        BOOL foundElse = NO;
+        for (TDNode *child in self.node.children) {
+            if (foundElse) {
+                child.suppressRendering = YES;
+            } else {
+                if ([child isMemberOfClass:[TDBlockStartNode class]]) {
+                    TDTag *tag = [(id)child tag];
+                    BOOL isElse = [tag isMemberOfClass:[TDElseIfTag class]] || [tag isMemberOfClass:[TDElseTag class]];
+                    if (isElse) {
+                        foundElse = YES;
+                        child.suppressRendering = YES;
+                    }
+                }
             }
         }
+    } else {
+//        self.incomplete = YES;
+        BOOL suppress = YES;
+        for (TDNode *child in self.node.children) {
+            if ([child isMemberOfClass:[TDBlockStartNode class]]) {
+                TDTag *tag = [(id)child tag];
+                BOOL isElif = [tag isMemberOfClass:[TDElseIfTag class]];
+                if (isElif) {
+                    suppress = ![tag.expression evaluateAsBooleanInContext:ctx];
+                    if (test) continue;
+                }
+                BOOL isElse = [tag isMemberOfClass:[TDElseTag class]];
+                if (isElse) {
+                    suppress = !suppress;
+                }
+            }
+            child.suppressRendering = suppress;
+        }
     }
+
+    [ctx renderBody:self];
+    
+//    self.incomplete = NO;
 }
 
 @end

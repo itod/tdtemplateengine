@@ -35,4 +35,5 @@
 - (TDNode *)firstAncestorOfClass:(Class)cls;
 
 @property (nonatomic, assign) TDNode *parent; // weakref
+@property (nonatomic, assign) BOOL suppressRendering;
 @end

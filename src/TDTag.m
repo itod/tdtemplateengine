@@ -23,10 +23,6 @@
 #import "TDTag.h"
 #import "TDNode.h"
 
-@interface TDTag ()
-@property (nonatomic, assign) TDNode *node; // node backpointer. weakref
-@end
-
 @implementation TDTag
 
 + (NSString *)tagName {

@@ -33,11 +33,6 @@
 
 @interface TDTag ()
 @property (nonatomic, assign) BOOL incomplete;
-@property (nonatomic, assign) TDNode *node;
-@end
-
-@interface TDBlockStartNode ()
-@property (nonatomic, retain) TDTag *tag;
 @end
 
 @implementation TDBlockStartNode

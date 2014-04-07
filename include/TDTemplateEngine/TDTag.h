@@ -24,10 +24,10 @@
 
 @class TDTemplateContext;
 @class XPExpression;
+@class TDNode;
 
 typedef NS_ENUM(NSUInteger, TDTagType) {
     TDTagTypeEmpty,
-    TDTagTypeHelper,
     TDTagTypeBlock,
 };
 
@@ -41,6 +41,8 @@ typedef NS_ENUM(NSUInteger, TDTagType) {
 
 - (void)addChild:(TDTag *)child;
 @property (nonatomic, retain) NSMutableArray *children;
+
+@property (nonatomic, assign) TDNode *node; // node backpointer. weakref
 @end
 
 // Subclasses must override these methods

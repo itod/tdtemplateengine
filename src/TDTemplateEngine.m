@@ -310,9 +310,6 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
                     case TDTagTypeBlock:
                         kind = TDTEMPLATE_TOKEN_KIND_BLOCK_START_TAG;
                         break;
-                    case TDTagTypeHelper:
-                        kind = TDTEMPLATE_TOKEN_KIND_HELPER_START_TAG;
-                        break;
                     case TDTagTypeEmpty:
                         kind = TDTEMPLATE_TOKEN_KIND_EMPTY_TAG;
                         break;

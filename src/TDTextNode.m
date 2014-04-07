@@ -34,6 +34,11 @@
 
 - (void)renderInContext:(TDTemplateContext *)ctx {
     NSParameterAssert(ctx);
+    if (self.suppressRendering) {
+        self.suppressRendering = NO;
+        return;
+    }
+
     TDAssert([self.token.stringValue length]);
     
     TDWriter *writer = ctx.writer;

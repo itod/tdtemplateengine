@@ -24,6 +24,8 @@
 #import "TDIfTag.h"
 #import "TDElseTag.h"
 
+#import "TDNode.h"
+
 #import <TDTemplateEngine/TDTemplateContext.h>
 #import <TDTemplateEngine/XPExpression.h>
 
@@ -35,7 +37,7 @@
 
 
 + (TDTagType)tagType {
-    return TDTagTypeHelper;
+    return TDTagTypeEmpty;
 }
 
 
@@ -49,22 +51,19 @@
     //NSLog(@"%s %@", __PRETTY_FUNCTION__, self);
     TDAssert(ctx);
     
-    TDIfTag *ifTag = (id)[self firstAncestorOfTagName:@"if"];
-    if (0 || ifTag.incomplete) {
-        BOOL test = [self.expression evaluateAsBooleanInContext:ctx];
-        if (test) {
-            ifTag.incomplete = NO;
-            [ctx renderBody:self];
-        } else {
-            self.incomplete = YES;
-            
-            for (TDTag *child in self.children) {
-                if ([child isKindOfClass:[TDElseTag class]] || [child isKindOfClass:[TDElseIfTag class]]) {
-                    [child doTagInContext:ctx];
-                }
-            }
-        }
-    }
+//    TDIfTag *ifTag = (id)[self firstAncestorOfTagName:@"if"];
+//    if (ifTag.incomplete) {
+//        BOOL test = [self.expression evaluateAsBooleanInContext:ctx];
+//        
+//        if (test) {
+//            ifTag.node.suppressRendering = NO;
+//            ifTag.incomplete = NO;
+//        } else {
+//            ifTag.node.suppressRendering = YES;
+//            ifTag.incomplete = YES;
+//        }
+//
+//    }
 }
 
 @end

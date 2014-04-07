@@ -22,7 +22,10 @@
 
 #import "TDNode.h"
 
+@class TDTag;
+
 @interface TDBlockStartNode : TDNode
 
 @property (nonatomic, retain) NSString *tagName;
+@property (nonatomic, retain) TDTag *tag;
 @end

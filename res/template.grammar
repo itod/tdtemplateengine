@@ -42,14 +42,6 @@ content
     | text
     ;
 
-body_content
-    = var
-    | empty_tag
-    | helper_tag
-    | block_tag 
-    | text
-    ;
-
 var 
     = 'var' {
     PKToken *tok = POP();
@@ -65,22 +57,10 @@ empty_tag
     //self.currentParent = startTagNode;
 };
 
-helper_tag
-    = helper_start_tag content*;
-
-helper_start_tag
-    = 'helper_start_tag' {
-    PKToken *tok = POP();
-    TDNode *startTagNode = [TDBlockStartNode nodeWithToken:tok parent:_currentParent];
-    [_currentParent addChild:startTagNode];
-    PUSH(_currentParent);
-    self.currentParent = startTagNode;
-};
-
 block_tag
 @before { PUSH(_currentParent); }
 @after { self.currentParent = POP(); }
-    = block_start_tag body_content* block_end_tag 
+    = block_start_tag content* block_end_tag 
     ;
 
 block_start_tag 
