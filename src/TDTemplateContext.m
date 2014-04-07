@@ -33,6 +33,7 @@
 @property (nonatomic, assign) TDNode *currentNode; // weakref
 @property (nonatomic, retain) NSMutableDictionary *vars;
 @property (nonatomic, retain, readwrite) TDWriter *writer;
+@property (nonatomic, assign) BOOL verbatim;
 @end
 
 @implementation TDTemplateContext

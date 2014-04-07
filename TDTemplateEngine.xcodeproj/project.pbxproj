@@ -20,6 +20,8 @@
 		D319138C18F1AC4500430BAD /* TDLowercaseFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D319138A18F1AC4500430BAD /* TDLowercaseFilter.m */; };
 		D319138F18F1AD1500430BAD /* TDUppercaseFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = D319138D18F1AD1500430BAD /* TDUppercaseFilter.h */; };
 		D319139018F1AD1500430BAD /* TDUppercaseFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D319138E18F1AD1500430BAD /* TDUppercaseFilter.m */; };
+		D319139418F2ED3300430BAD /* TDVerbatimTag.h in Headers */ = {isa = PBXBuildFile; fileRef = D319139218F2ED3300430BAD /* TDVerbatimTag.h */; };
+		D319139518F2ED3300430BAD /* TDVerbatimTag.m in Sources */ = {isa = PBXBuildFile; fileRef = D319139318F2ED3300430BAD /* TDVerbatimTag.m */; };
 		D33915DE18F0818500BDA4FD /* XPArithmeticExpressionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D33915DD18F0818500BDA4FD /* XPArithmeticExpressionTests.m */; };
 		D33915E418F081ED00BDA4FD /* XPPathExpressionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D33915E318F081ED00BDA4FD /* XPPathExpressionTests.m */; };
 		D33915E618F09DFF00BDA4FD /* TDElseTagTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D33915E518F09DFF00BDA4FD /* TDElseTagTests.m */; };
@@ -105,6 +107,7 @@
 		D3CAF8BA18EF577100166A95 /* XPNegationExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3CAF8B818EF577000166A95 /* XPNegationExpression.h */; };
 		D3CAF8BB18EF577100166A95 /* XPNegationExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D3CAF8B918EF577100166A95 /* XPNegationExpression.m */; };
 		D3CAF8BE18EF5A0000166A95 /* XPNegationExpressionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3CAF8BC18EF59EB00166A95 /* XPNegationExpressionTests.m */; };
+		D3E8E92918F2F01F0091C98D /* TDVerbatimTagTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D319139618F2EF7000430BAD /* TDVerbatimTagTests.m */; };
 		D3F5063818EC5C9800BAC93B /* XPRangeExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F5063618EC5C9800BAC93B /* XPRangeExpression.h */; };
 		D3F5063918EC5C9800BAC93B /* XPRangeExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F5063718EC5C9800BAC93B /* XPRangeExpression.m */; };
 		D3F5064518ECA12500BAC93B /* TDWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F5064318ECA12500BAC93B /* TDWriter.m */; };
@@ -134,6 +137,9 @@
 		D319138A18F1AC4500430BAD /* TDLowercaseFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDLowercaseFilter.m; path = src/TDLowercaseFilter.m; sourceTree = SOURCE_ROOT; };
 		D319138D18F1AD1500430BAD /* TDUppercaseFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDUppercaseFilter.h; path = src/TDUppercaseFilter.h; sourceTree = SOURCE_ROOT; };
 		D319138E18F1AD1500430BAD /* TDUppercaseFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDUppercaseFilter.m; path = src/TDUppercaseFilter.m; sourceTree = SOURCE_ROOT; };
+		D319139218F2ED3300430BAD /* TDVerbatimTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDVerbatimTag.h; path = src/TDVerbatimTag.h; sourceTree = SOURCE_ROOT; };
+		D319139318F2ED3300430BAD /* TDVerbatimTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDVerbatimTag.m; path = src/TDVerbatimTag.m; sourceTree = SOURCE_ROOT; };
+		D319139618F2EF7000430BAD /* TDVerbatimTagTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDVerbatimTagTests.m; path = test/TDVerbatimTagTests.m; sourceTree = SOURCE_ROOT; };
 		D33915DD18F0818500BDA4FD /* XPArithmeticExpressionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPArithmeticExpressionTests.m; path = test/XPArithmeticExpressionTests.m; sourceTree = SOURCE_ROOT; };
 		D33915E318F081ED00BDA4FD /* XPPathExpressionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPPathExpressionTests.m; path = test/XPPathExpressionTests.m; sourceTree = SOURCE_ROOT; };
 		D33915E518F09DFF00BDA4FD /* TDElseTagTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDElseTagTests.m; path = test/TDElseTagTests.m; sourceTree = SOURCE_ROOT; };
@@ -347,6 +353,7 @@
 				D33915E518F09DFF00BDA4FD /* TDElseTagTests.m */,
 				D3A3E54A18EC5706004FEB2C /* TDForTagTests.m */,
 				D3A7E27518F0788D009BFD96 /* TDCommentTagTests.m */,
+				D319139618F2EF7000430BAD /* TDVerbatimTagTests.m */,
 				D367DFCF18E5EF6900F97BCC /* Supporting Files */,
 			);
 			name = "TDTemplateEngine Tests";
@@ -398,6 +405,8 @@
 				D369BD4118EF7F6A003E715B /* TDForLoop.m */,
 				D3A7E27118F07782009BFD96 /* TDCommentTag.h */,
 				D3A7E27218F07782009BFD96 /* TDCommentTag.m */,
+				D319139218F2ED3300430BAD /* TDVerbatimTag.h */,
+				D319139318F2ED3300430BAD /* TDVerbatimTag.m */,
 			);
 			name = Tags;
 			sourceTree = "<group>";
@@ -484,6 +493,7 @@
 				D3A29E0418E6584D00DC591E /* XPStringValue.h in Headers */,
 				D3A29DFF18E6584D00DC591E /* XPBooleanValue.h in Headers */,
 				D3CAF8BA18EF577100166A95 /* XPNegationExpression.h in Headers */,
+				D319139418F2ED3300430BAD /* TDVerbatimTag.h in Headers */,
 				D3A29E0618E6584D00DC591E /* XPValue.h in Headers */,
 				D3CAF8AB18EDF27F00166A95 /* XPCollectionExpression.h in Headers */,
 				D3A29DC618E6285800DC591E /* TDBlockStartNode.h in Headers */,
@@ -642,6 +652,7 @@
 				D3A29E0118E6584D00DC591E /* XPExpression.m in Sources */,
 				D3A29E1718E6678500DC591E /* TDIfTag.m in Sources */,
 				D3A29DD118E63A1C00DC591E /* TDTemplateContext.m in Sources */,
+				D319139518F2ED3300430BAD /* TDVerbatimTag.m in Sources */,
 				D3A29E0F18E65AC400DC591E /* XPParser.m in Sources */,
 				D3A29E0318E6584D00DC591E /* XPNumericValue.m in Sources */,
 				D3F5064518ECA12500BAC93B /* TDWriter.m in Sources */,
@@ -678,6 +689,7 @@
 				D33915E418F081ED00BDA4FD /* XPPathExpressionTests.m in Sources */,
 				D3A3E54E18EC5706004FEB2C /* TDIfTagTests.m in Sources */,
 				D33915E618F09DFF00BDA4FD /* TDElseTagTests.m in Sources */,
+				D3E8E92918F2F01F0091C98D /* TDVerbatimTagTests.m in Sources */,
 				D319138818F1A80300430BAD /* XPFilterExpressionTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

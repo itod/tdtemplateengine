@@ -39,6 +39,7 @@
 #import "TDElseIfTag.h"
 #import "TDForTag.h"
 #import "TDCommentTag.h"
+#import "TDVerbatimTag.h"
 
 #import "TDLowercaseFilter.h"
 #import "TDUppercaseFilter.h"
@@ -89,6 +90,7 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
         [self registerTagClass:[TDElseIfTag class] forName:[TDElseIfTag tagName]];
         [self registerTagClass:[TDForTag class] forName:[TDForTag tagName]];
         [self registerTagClass:[TDCommentTag class] forName:[TDCommentTag tagName]];
+        [self registerTagClass:[TDVerbatimTag class] forName:[TDVerbatimTag tagName]];
         
         self.filterTab = [NSMutableDictionary dictionary];
         [self registerFilterClass:[TDLowercaseFilter class] forName:[TDLowercaseFilter filterName]];
@@ -395,7 +397,7 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
 - (TDFilter *)makeFilterForName:(NSString *)filterName {
     Class cls = _filterTab[filterName];
     if (!cls) {
-        [NSException raise:TDTemplateEngineErrorDomain format:@"Unknown tag name '%@'", filterName];
+        [NSException raise:TDTemplateEngineErrorDomain format:@"Unknown filter name '%@'", filterName];
     }
     TDFilter *filter = [[[cls alloc] init] autorelease];
     TDAssert(filter);
