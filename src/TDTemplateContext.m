@@ -30,7 +30,7 @@
 @end
 
 @interface TDTemplateContext ()
-@property (nonatomic, retain) TDNode *currentNode;
+@property (nonatomic, assign) TDNode *currentNode; // weakref
 @property (nonatomic, retain) NSMutableDictionary *vars;
 @property (nonatomic, retain, readwrite) TDWriter *writer;
 @end

@@ -56,6 +56,7 @@
 
 - (void)dealloc {
     self.tagName = nil;
+    self.tag = nil;
     [super dealloc];
 }
 

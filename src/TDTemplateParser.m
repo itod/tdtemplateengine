@@ -12,7 +12,7 @@
 
 @interface TDTemplateParser ()
     
-@property (nonatomic, retain) TDNode *currentParent;
+@property (nonatomic, assign) TDNode *currentParent; // weakref
 
 @end
 
