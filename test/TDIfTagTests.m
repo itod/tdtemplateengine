@@ -47,7 +47,7 @@
 }
 
 - (void)testIf0Var {
-    NSString *input = @"{% if 0 %}{{var}}{% /if %}";
+    NSString *input = @"{% if 0 %}{{foo}}{% /if %}";
     id vars = @{@"foo": @"bar"};
     
     NSError *err = nil;
@@ -56,6 +56,42 @@
     TDNil(err);
     NSString *res = [self outputString];
     TDEqualObjects(@"", res);
+}
+
+- (void)testIf1FooIf0Baz {
+    NSString *input = @"{% if 1 %}{{foo}}{% /if %}{% if 0 %}{{baz}}{% /if %}";
+    id vars = @{@"foo": @"bar", @"baz": @"bat"};
+    
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"bar", res);
+}
+
+- (void)testIf1FooIf1Baz {
+    NSString *input = @"{% if 1 %}{{foo}}{% /if %}{% if 1 %}{{baz}}{% /if %}";
+    id vars = @{@"foo": @"bar", @"baz": @"bat"};
+    
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"barbat", res);
+}
+
+- (void)testIf0FooIf1Baz {
+    NSString *input = @"{% if 0 %}{{foo}}{% /if %}{% if 1 %}{{baz}}{% /if %}";
+    id vars = @{@"foo": @"bar", @"baz": @"bat"};
+    
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"bat", res);
 }
 
 - (void)testIf1 {
