@@ -111,6 +111,7 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
     self.delimiterRegex = nil;
     self.staticContext = nil;
     self.tagTab = nil;
+    self.filterTab = nil;
     self.expressionParser = nil;
     [super dealloc];
 }
