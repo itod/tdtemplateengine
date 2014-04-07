@@ -7,6 +7,7 @@
 //
 
 #import "TDWriter.h"
+#import "TDTemplateEngine.h"
 
 @implementation TDWriter
 
@@ -50,14 +51,18 @@
     NSUInteger len = [str lengthOfBytesUsingEncoding:NSUTF8StringEncoding];
     if (len) {
         const uint8_t *zstr = (const uint8_t *)[str UTF8String];
-        NSInteger c = len;
+        NSUInteger remaining = len;
         do {
-            NSInteger res = [_output write:zstr maxLength:c];
-            if (-1 == res) {
-                [NSException raise:@"TODO" format:@"TODO"];
+            NSInteger trim = remaining - len;
+            if (trim > 0) {
+                zstr += trim;
             }
-            c -= res;
-        } while (c > 0);
+            NSInteger written = [_output write:zstr maxLength:remaining];
+            if (-1 == written) {
+                [NSException raise:TDTemplateEngineErrorDomain format:@"Error while writing template output string"];
+            }
+            remaining -= written;
+        } while (remaining > 0);
     }
 }
 
