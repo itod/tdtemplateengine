@@ -204,9 +204,9 @@
 - (void)__helper_tag {
     
     [self helper_start_tag_]; 
-    do {
+    while (![self predicts:TDTEMPLATE_TOKEN_KIND_BLOCK_END_TAG, TDTEMPLATE_TOKEN_KIND_HELPER_START_TAG, 0]) {
         [self content_]; 
-    } while ([self speculate:^{ [self content_]; }]);
+    }
 
 }
 

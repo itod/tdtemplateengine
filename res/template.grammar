@@ -66,7 +66,7 @@ empty_tag
 };
 
 helper_tag
-    = helper_start_tag content+;
+    = helper_start_tag content*;
 
 helper_start_tag
     = 'helper_start_tag' {
