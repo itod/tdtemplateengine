@@ -46,7 +46,6 @@
     BOOL test = [self.expression evaluateAsBooleanInContext:ctx];
     
     if (test) {
-//        self.incomplete = NO;
         BOOL foundElse = NO;
         for (TDNode *child in self.node.children) {
             if (foundElse) {
@@ -63,7 +62,6 @@
             }
         }
     } else {
-//        self.incomplete = YES;
         BOOL suppress = YES;
         for (TDNode *child in self.node.children) {
             if ([child isMemberOfClass:[TDBlockStartNode class]]) {
@@ -82,8 +80,6 @@
     }
 
     [ctx renderBody:self];
-    
-//    self.incomplete = NO;
 }
 
 @end
