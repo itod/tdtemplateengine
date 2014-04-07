@@ -39,6 +39,26 @@
 }
 
 
+- (BOOL)isElse:(TDNode *)node {
+    return [self isNode:node ofType:[TDElseTag class]];
+}
+
+
+- (BOOL)isElif:(TDNode *)node {
+    return [self isNode:node ofType:[TDElseIfTag class]];
+}
+
+
+- (BOOL)isNode:(TDNode *)node ofType:(Class)cls {
+    BOOL isElse = NO;
+    if ([node isMemberOfClass:[TDBlockStartNode class]]) {
+        TDTag *tag = [(id)node tag];
+        isElse = [tag isMemberOfClass:cls];
+    }
+    return isElse;
+}
+
+
 - (void)doTagInContext:(TDTemplateContext *)ctx {
     TDAssert(ctx);
     TDAssert(self.expression);
@@ -51,29 +71,19 @@
             if (foundElse) {
                 child.suppressRendering = YES;
             } else {
-                if ([child isMemberOfClass:[TDBlockStartNode class]]) {
-                    TDTag *tag = [(id)child tag];
-                    BOOL isElse = [tag isMemberOfClass:[TDElseIfTag class]] || [tag isMemberOfClass:[TDElseTag class]];
-                    if (isElse) {
-                        foundElse = YES;
-                        child.suppressRendering = YES;
-                    }
+                if ([self isElse:child] || [self isElif:child]) {
+                    foundElse = YES;
+                    child.suppressRendering = YES;
                 }
             }
         }
     } else {
         BOOL suppress = YES;
         for (TDNode *child in self.node.children) {
-            if ([child isMemberOfClass:[TDBlockStartNode class]]) {
-                TDTag *tag = [(id)child tag];
-                BOOL isElif = [tag isMemberOfClass:[TDElseIfTag class]];
-                if (isElif) {
-                    suppress = ![tag.expression evaluateAsBooleanInContext:ctx];
-                }
-                BOOL isElse = [tag isMemberOfClass:[TDElseTag class]];
-                if (isElse) {
-                    suppress = !suppress;
-                }
+            if ([self isElif:child]) {
+                suppress = ![[[(id)child tag] expression] evaluateAsBooleanInContext:ctx];
+            } else if ([self isElse:child]) {
+                suppress = !suppress;
             }
             child.suppressRendering = suppress;
         }
