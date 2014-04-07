@@ -104,6 +104,11 @@
 
 - (void)renderInContext:(TDTemplateContext *)ctx {
     NSParameterAssert(ctx);
+    if (self.suppressRendering) {
+        self.suppressRendering = NO;
+        return;
+    }
+    
     TDAssert(_tag);
     
     TDTemplateContext *local = [[[TDTemplateContext alloc] initWithVariables:nil output:ctx.writer.output] autorelease];
