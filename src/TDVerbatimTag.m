@@ -9,6 +9,10 @@
 #import "TDVerbatimTag.h"
 #import <TDTemplateEngine/TDTemplateContext.h>
 
+@interface TDTemplateContext ()
+@property (nonatomic, assign) BOOL verbatim;
+@end
+
 @implementation TDVerbatimTag
 
 + (NSString *)tagName {
@@ -31,7 +35,9 @@
     //NSLog(@"%s %@", __PRETTY_FUNCTION__, self);
     TDAssert(ctx);
     
+    ctx.verbatim = YES;
     [ctx renderBody:self];
+    ctx.verbatim = NO;
 }
 
 @end

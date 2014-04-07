@@ -24,4 +24,21 @@
 
 @implementation TDBlockEndNode
 
+#pragma mark -
+#pragma mark Render
+
+- (void)renderInContext:(TDTemplateContext *)ctx {
+    // no-op
+}
+
+
+- (void)renderChildrenInContext:(TDTemplateContext *)ctx {
+    // no-op
+}
+
+
+- (void)renderChildrenVerbatimInContext:(TDTemplateContext *)ctx {
+    // no-op
+}
+
 @end

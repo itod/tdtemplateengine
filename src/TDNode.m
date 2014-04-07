@@ -21,7 +21,9 @@
 // THE SOFTWARE.
 
 #import "TDNode.h"
-#import <PEGKit/PKToken.h>
+#import <TDTemplateEngine/TDTemplateContext.h>
+#import <TDTemplateEngine/TDWriter.h>
+#import <TDTemplateEngine/TDFragment.h>
 
 @interface TDNode ()
 - (void)processFragment;
@@ -59,11 +61,6 @@
 }
 
 
-- (void)renderInContext:(TDTemplateContext *)ctx {
-    [self renderChildrenInContext:ctx];
-}
-
-
 - (TDNode *)firstAncestorOfClass:(Class)cls {
     NSParameterAssert(cls);
     TDAssert(_parent);
@@ -77,11 +74,43 @@
 
 
 #pragma mark -
-#pragma mark Private
+#pragma mark Render
+
+- (void)renderInContext:(TDTemplateContext *)ctx {
+    [self renderChildrenInContext:ctx];
+}
+
 
 - (void)renderChildrenInContext:(TDTemplateContext *)ctx {
     for (TDNode *child in self.children) {
         [child renderInContext:ctx];
+    }
+}
+
+
+#pragma mark -
+#pragma mark Render Verbatim
+
+- (void)renderVerbatimInContext:(TDTemplateContext *)ctx {
+    NSParameterAssert(ctx);
+    
+    TDWriter *writer = ctx.writer;
+    TDFragment *frag = (id)self.token;
+    NSString *str = frag.verbatimString;
+    
+    // text nodes don't store separate verbStr
+    if (!str) {
+        str = frag.stringValue;
+    }
+    [writer appendString:str];
+    
+    [self renderChildrenVerbatimInContext:ctx];
+}
+
+
+- (void)renderChildrenVerbatimInContext:(TDTemplateContext *)ctx {
+    for (TDNode *child in self.children) {
+        [child renderVerbatimInContext:ctx];
     }
 }
 

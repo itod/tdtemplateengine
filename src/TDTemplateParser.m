@@ -116,7 +116,7 @@
     }];
     do {
         [self content_]; 
-    } while ([self predicts:TOKEN_KIND_BUILTIN_ANY, 0]);
+    } while ([self speculate:^{ [self content_]; }]);
 
 }
 
@@ -282,6 +282,8 @@
         self.currentParent = POP();
 
     ASSERT([_currentParent.name hasPrefix:tagName]);
+    TDNode *endTagNode = [TDBlockEndNode nodeWithToken:tok parent:_currentParent.parent];
+    [_currentParent.parent addChild:endTagNode];
 
     }];
 

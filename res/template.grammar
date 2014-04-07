@@ -99,6 +99,8 @@ block_end_tag
         self.currentParent = POP();
 
     ASSERT([_currentParent.name hasPrefix:tagName]);
+    TDNode *endTagNode = [TDBlockEndNode nodeWithToken:tok parent:_currentParent.parent];
+    [_currentParent.parent addChild:endTagNode];
 };
 
 text 

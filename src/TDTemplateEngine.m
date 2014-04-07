@@ -20,9 +20,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "TDTemplateEngine.h"
-#import "TDTemplateParser.h"
-#import "TDNode.h"
+#import <TDTemplateEngine/TDTemplateEngine.h>
+#import <TDTemplateEngine/TDTemplateParser.h>
+#import <TDTemplateEngine/TDFragment.h>
+#import <TDTemplateEngine/TDNode.h>
+#import <TDTemplateEngine/TDScope.h>
+#import <TDTemplateEngine/TDTemplateContext.h>
+
 #import "TDRootNode.h"
 #import "TDTextNode.h"
 #import "TDVariableNode.h"
@@ -30,9 +34,6 @@
 #import "TDBlockEndNode.h"
 
 #import "XPParser.h"
-
-#import <TDTemplateEngine/TDScope.h>
-#import <TDTemplateEngine/TDTemplateContext.h>
 
 #import "TDIfTag.h"
 #import "TDElseTag.h"
@@ -262,7 +263,7 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
         if (diff > 0) {
             NSString *txt = [inStr substringWithRange:NSMakeRange(NSMaxRange(lastRange), diff)];
             
-            PKToken *txtFrag = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:txt doubleValue:0.0];
+            TDFragment *txtFrag = [TDFragment tokenWithTokenType:PKTokenTypeSymbol stringValue:txt doubleValue:0.0];
             txtFrag.tokenKind = TDTEMPLATE_TOKEN_KIND_TEXT;
             
             [frags addObject:txtFrag];
@@ -273,8 +274,8 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
     [_delimiterRegex enumerateMatchesInString:inStr options:NSMatchingReportCompletion range:entireRange usingBlock:^(NSTextCheckingResult *current, NSMatchingFlags flags, BOOL *stop) {
         NSRange currRange = current.range;
 
-        NSString *str = [inStr substringWithRange:currRange];
-        NSUInteger len = [str length];
+        NSString *verbStr = [inStr substringWithRange:currRange];
+        NSUInteger len = [verbStr length];
         if (!len) return;
         //NSLog(@"%@", str);
 
@@ -284,6 +285,7 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
         lastRange = currRange;
         NSUInteger kind = 0;
         
+        NSString *str = [[verbStr copy] autorelease];
         if ([str hasPrefix:_varStartDelimiter]) {
             kind = TDTEMPLATE_TOKEN_KIND_VAR;
             str = [str substringToIndex:len - varEndDelimLen];
@@ -296,7 +298,6 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
             str = [str stringByTrimmingCharactersInSet:wsSet];
             
             if ([str hasPrefix:TD_END_TAG_PREFIX]) {
-                //str = [str substringFromIndex:1];
                 kind = TDTEMPLATE_TOKEN_KIND_BLOCK_END_TAG;
             } else {
                 NSString *tagName = [str componentsSeparatedByCharactersInSet:wsSet][0]; // TODO
@@ -324,7 +325,8 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
             TDAssert(0);
         }
         
-        PKToken *frag = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:str doubleValue:0.0];
+        TDFragment *frag = [TDFragment tokenWithTokenType:PKTokenTypeSymbol stringValue:str doubleValue:0.0];
+        frag.verbatimString = verbStr;
         frag.tokenKind = kind;
         
         [frags addObject:frag];

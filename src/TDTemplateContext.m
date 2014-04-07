@@ -72,7 +72,11 @@
 
 - (void)renderBody:(TDTag *)tag {
     TDAssert(_currentNode);
-    [_currentNode renderChildrenInContext:self];
+    if (_verbatim) {
+        [_currentNode renderChildrenVerbatimInContext:self];
+    } else {
+        [_currentNode renderChildrenInContext:self];
+    }
 }
 
 

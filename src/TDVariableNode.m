@@ -22,6 +22,7 @@
 
 #import "TDVariableNode.h"
 #import "XPExpression.h"
+#import <TDTemplateEngine/TDTemplateEngine.h>
 #import <TDTemplateEngine/TDTemplateContext.h>
 #import <TDTemplateEngine/TDWriter.h>
 #import <PEGKit/PKToken.h>
@@ -49,7 +50,7 @@
     NSError *err = nil;
     self.expression = [XPExpression expressionFromString:str error:&err];
     if (!_expression) {
-        [NSException raise:@"" format:@"%@", [err localizedFailureReason]];
+        [NSException raise:TDTemplateEngineErrorDomain format:@"Error while compiling var tag expression `%@` : %@", str, [err localizedFailureReason]];
     }
 }
 
@@ -63,6 +64,16 @@
     
     TDAssert(writer);
     [writer appendObject:val];
+}
+
+
+- (void)renderChildrenInContext:(TDTemplateContext *)ctx {
+    // no-op
+}
+
+
+- (void)renderChildrenVerbatimInContext:(TDTemplateContext *)ctx {
+    // no-op
 }
 
 @end
