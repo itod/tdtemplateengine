@@ -70,8 +70,8 @@
         
         TDAssert(writer);
         [writer appendObject:val];
-    } else {
-        [NSException raise:TDTemplateEngineErrorDomain format:@"Unknown variable reference : `%@`", self.expression];
+//    } else {
+//        [NSException raise:TDTemplateEngineErrorDomain format:@"Unknown variable reference : `%@`", self.expression];
     }
 }
 

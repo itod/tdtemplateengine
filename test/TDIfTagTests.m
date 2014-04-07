@@ -94,6 +94,54 @@
     TDEqualObjects(@"bat", res);
 }
 
+- (void)testNestedIf1 {
+    NSString *input = @"{% if 1 %}{% if 1 %}foo{% /if %}{% /if %}";
+    id vars = nil;
+    
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"foo", res);
+}
+
+- (void)testNestedIf2 {
+    NSString *input = @"{% if 1 %}{% if 0 %}foo{% /if %}{% /if %}";
+    id vars = nil;
+    
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"", res);
+}
+
+- (void)testNestedIf3 {
+    NSString *input = @"{% if 0 %}{% if 0 %}foo{% /if %}{% /if %}";
+    id vars = nil;
+    
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"", res);
+}
+
+- (void)testNestedIf4 {
+    NSString *input = @"{% if 0 %}{% if 1 %}foo{% /if %}{% /if %}";
+    id vars = nil;
+    
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"", res);
+}
+
 - (void)testIf1 {
     NSString *input = @"{% if 1 %} text {% /if %}";
     id vars = nil;
