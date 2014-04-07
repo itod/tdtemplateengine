@@ -1,5 +1,5 @@
 #import <PEGKit/PKParser.h>
-
+        
 @class TDTemplateContext;
 
 enum {
@@ -12,7 +12,7 @@ enum {
 };
 
 @interface TDTemplateParser : PKParser
-
+        
 @property (nonatomic, retain) TDTemplateContext *staticContext;
 
 @end
