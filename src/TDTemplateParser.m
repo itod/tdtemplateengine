@@ -116,7 +116,7 @@
     }];
     do {
         [self content_]; 
-    } while ([self speculate:^{ [self content_]; }]);
+    } while ([self predicts:TOKEN_KIND_BUILTIN_ANY, 0]);
 
 }
 
