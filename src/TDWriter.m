@@ -47,12 +47,12 @@
     TDAssert(_output);
     TDAssert(str);
     
-    NSUInteger len = [str length];
+    NSUInteger len = [str lengthOfBytesUsingEncoding:NSUTF8StringEncoding];
     if (len) {
         const uint8_t *zstr = (const uint8_t *)[str UTF8String];
         NSInteger c = len;
         do {
-            NSInteger res = [_output write:zstr maxLength:len];
+            NSInteger res = [_output write:zstr maxLength:c];
             if (-1 == res) {
                 [NSException raise:@"TODO" format:@"TODO"];
             }

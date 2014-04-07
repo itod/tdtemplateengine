@@ -34,6 +34,30 @@
     return str;
 }
 
+- (void)testAsciiPassthru {
+    NSString *input = @"foo";
+    id vars = nil;
+    
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"foo", res);
+}
+
+- (void)testNonLatin1Passthru {
+    NSString *input = @"…";
+    id vars = nil;
+    
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"…", res);
+}
+
 - (void)testSimpleVarReplacementFoo {
     NSString *input = @"{{foo}}";
     id vars = @{@"foo": @"bar"};
