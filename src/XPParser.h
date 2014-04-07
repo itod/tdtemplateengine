@@ -1,5 +1,5 @@
 #import <PEGKit/PKParser.h>
-
+        
 @class PKTokenizer;
 
 enum {
@@ -41,7 +41,7 @@ enum {
 };
 
 @interface XPParser : PKParser
-
+        
 + (PKTokenizer *)tokenizer;
 
 @end
