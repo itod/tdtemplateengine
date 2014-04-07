@@ -78,6 +78,7 @@
             }
         }
     } else {
+        self.node.suppressRendering = YES;
         BOOL suppress = YES;
         for (TDNode *child in self.node.children) {
             if ([self isElif:child]) {
