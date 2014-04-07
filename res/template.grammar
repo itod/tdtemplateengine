@@ -80,7 +80,7 @@ helper_start_tag
 block_tag
 @before { PUSH(_currentParent); }
 @after { self.currentParent = POP(); }
-    = block_start_tag body_content+block_end_tag 
+    = block_start_tag body_content* block_end_tag 
     ;
 
 block_start_tag 

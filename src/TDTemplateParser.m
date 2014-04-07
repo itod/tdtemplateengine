@@ -239,9 +239,9 @@
      PUSH(_currentParent); 
     }];
     [self block_start_tag_]; 
-    do {
+    while (![self predicts:TDTEMPLATE_TOKEN_KIND_BLOCK_END_TAG, 0]) {
         [self body_content_]; 
-    } while ([self speculate:^{ [self body_content_]; }]);
+    }
     [self block_end_tag_]; 
     [self execute:^{
      self.currentParent = POP(); 
