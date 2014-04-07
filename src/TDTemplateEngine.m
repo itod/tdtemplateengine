@@ -135,7 +135,6 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
 
 - (TDNode *)compileTemplateString:(NSString *)str error:(NSError **)err {
     NSParameterAssert([str length]);
-    TDAssertMainThread();
     TDAssert([_varStartDelimiter length]);
     TDAssert([_varEndDelimiter length]);
     TDAssert([_tagStartDelimiter length]);
@@ -221,9 +220,7 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
 }
 
 
-- (BOOL)setUpDelimiterRegex:(NSError **)outErr {
-    TDAssertMainThread();
-    
+- (BOOL)setUpDelimiterRegex:(NSError **)outErr {    
     NSString *varStartDelimiter = [self cleanPattern:_varStartDelimiter];
     NSString *varEndDelimiter   = [self cleanPattern:_varEndDelimiter];
     NSString *tagStartDelimiter = [self cleanPattern:_tagStartDelimiter];
