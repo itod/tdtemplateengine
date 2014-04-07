@@ -26,10 +26,6 @@
 #import <TDTemplateEngine/TDTemplateContext.h>
 #import <TDTemplateEngine/XPExpression.h>
 
-@interface TDTag ()
-@property (nonatomic, assign) BOOL incomplete;
-@end
-
 @implementation TDIfTag
 
 + (NSString *)tagName {

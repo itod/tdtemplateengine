@@ -24,7 +24,6 @@
 #import "TDNode.h"
 
 @interface TDTag ()
-@property (nonatomic, assign) BOOL incomplete;
 @property (nonatomic, assign) TDNode *node; // node backpointer. weakref
 @end
 

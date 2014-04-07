@@ -27,10 +27,6 @@
 #import <TDTemplateEngine/TDTemplateContext.h>
 #import <TDTemplateEngine/XPExpression.h>
 
-@interface TDTag ()
-@property (nonatomic, assign) BOOL incomplete;
-@end
-
 @implementation TDElseIfTag
 
 + (NSString *)tagName {
@@ -54,7 +50,7 @@
     TDAssert(ctx);
     
     TDIfTag *ifTag = (id)[self firstAncestorOfTagName:@"if"];
-    if (ifTag.incomplete) {
+    if (0 || ifTag.incomplete) {
         BOOL test = [self.expression evaluateAsBooleanInContext:ctx];
         if (test) {
             ifTag.incomplete = NO;
