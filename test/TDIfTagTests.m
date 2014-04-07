@@ -34,6 +34,30 @@
     return str;
 }
 
+- (void)testIf1Var {
+    NSString *input = @"{% if 1 %}{{foo}}{% /if %}";
+    id vars = @{@"foo": @"bar"};
+    
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"bar", res);
+}
+
+- (void)testIf0Var {
+    NSString *input = @"{% if 0 %}{{var}}{% /if %}";
+    id vars = @{@"foo": @"bar"};
+    
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"", res);
+}
+
 - (void)testIf1 {
     NSString *input = @"{% if 1 %} text {% /if %}";
     id vars = nil;

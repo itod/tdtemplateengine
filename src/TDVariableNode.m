@@ -57,13 +57,22 @@
 
 - (void)renderInContext:(TDTemplateContext *)ctx {
     NSParameterAssert(ctx);
+    if (self.suppressRendering) {
+        self.suppressRendering = NO;
+        return;
+    }
+    
     TDAssert(_expression);
     
     id val = [_expression evaluateInContext:ctx];
-    TDWriter *writer = ctx.writer;
-    
-    TDAssert(writer);
-    [writer appendObject:val];
+    if (val) {
+        TDWriter *writer = ctx.writer;
+        
+        TDAssert(writer);
+        [writer appendObject:val];
+    } else {
+        [NSException raise:TDTemplateEngineErrorDomain format:@"Unknown variable reference : `%@`", self.expression];
+    }
 }
 
 
