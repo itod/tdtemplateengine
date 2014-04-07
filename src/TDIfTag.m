@@ -71,7 +71,6 @@
                 BOOL isElif = [tag isMemberOfClass:[TDElseIfTag class]];
                 if (isElif) {
                     suppress = ![tag.expression evaluateAsBooleanInContext:ctx];
-                    if (test) continue;
                 }
                 BOOL isElse = [tag isMemberOfClass:[TDElseTag class]];
                 if (isElse) {
