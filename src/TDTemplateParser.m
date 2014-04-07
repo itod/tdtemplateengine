@@ -14,14 +14,6 @@
     
 @property (nonatomic, assign) TDNode *currentParent; // weakref
 
-@property (nonatomic, retain) NSMutableDictionary *template_memo;
-@property (nonatomic, retain) NSMutableDictionary *content_memo;
-@property (nonatomic, retain) NSMutableDictionary *var_memo;
-@property (nonatomic, retain) NSMutableDictionary *empty_tag_memo;
-@property (nonatomic, retain) NSMutableDictionary *block_tag_memo;
-@property (nonatomic, retain) NSMutableDictionary *block_start_tag_memo;
-@property (nonatomic, retain) NSMutableDictionary *block_end_tag_memo;
-@property (nonatomic, retain) NSMutableDictionary *text_memo;
 @end
 
 @implementation TDTemplateParser { }
@@ -43,14 +35,6 @@
         self.tokenKindNameTab[TDTEMPLATE_TOKEN_KIND_EMPTY_TAG] = @"empty_tag";
         self.tokenKindNameTab[TDTEMPLATE_TOKEN_KIND_TEXT] = @"text";
 
-        self.template_memo = [NSMutableDictionary dictionary];
-        self.content_memo = [NSMutableDictionary dictionary];
-        self.var_memo = [NSMutableDictionary dictionary];
-        self.empty_tag_memo = [NSMutableDictionary dictionary];
-        self.block_tag_memo = [NSMutableDictionary dictionary];
-        self.block_start_tag_memo = [NSMutableDictionary dictionary];
-        self.block_end_tag_memo = [NSMutableDictionary dictionary];
-        self.text_memo = [NSMutableDictionary dictionary];
     }
     return self;
 }
@@ -60,27 +44,8 @@
     self.staticContext = nil;
     self.currentParent = nil;
 
-    self.template_memo = nil;
-    self.content_memo = nil;
-    self.var_memo = nil;
-    self.empty_tag_memo = nil;
-    self.block_tag_memo = nil;
-    self.block_start_tag_memo = nil;
-    self.block_end_tag_memo = nil;
-    self.text_memo = nil;
 
     [super dealloc];
-}
-
-- (void)clearMemo {
-    [_template_memo removeAllObjects];
-    [_content_memo removeAllObjects];
-    [_var_memo removeAllObjects];
-    [_empty_tag_memo removeAllObjects];
-    [_block_tag_memo removeAllObjects];
-    [_block_start_tag_memo removeAllObjects];
-    [_block_end_tag_memo removeAllObjects];
-    [_text_memo removeAllObjects];
 }
 
 - (void)start {
@@ -90,7 +55,7 @@
 
 }
 
-- (void)__template {
+- (void)template_ {
     
     [self execute:^{
     
@@ -106,11 +71,7 @@
 
 }
 
-- (void)template_ {
-    [self parseRule:@selector(__template) withMemo:_template_memo];
-}
-
-- (void)__content {
+- (void)content_ {
     
     if ([self predicts:TDTEMPLATE_TOKEN_KIND_VAR, 0]) {
         [self var_]; 
@@ -126,11 +87,7 @@
 
 }
 
-- (void)content_ {
-    [self parseRule:@selector(__content) withMemo:_content_memo];
-}
-
-- (void)__var {
+- (void)var_ {
     
     [self match:TDTEMPLATE_TOKEN_KIND_VAR discard:NO]; 
     [self execute:^{
@@ -143,11 +100,7 @@
 
 }
 
-- (void)var_ {
-    [self parseRule:@selector(__var) withMemo:_var_memo];
-}
-
-- (void)__empty_tag {
+- (void)empty_tag_ {
     
     [self match:TDTEMPLATE_TOKEN_KIND_EMPTY_TAG discard:NO]; 
     [self execute:^{
@@ -161,11 +114,7 @@
 
 }
 
-- (void)empty_tag_ {
-    [self parseRule:@selector(__empty_tag) withMemo:_empty_tag_memo];
-}
-
-- (void)__block_tag {
+- (void)block_tag_ {
     
     [self execute:^{
      PUSH(_currentParent); 
@@ -181,11 +130,7 @@
 
 }
 
-- (void)block_tag_ {
-    [self parseRule:@selector(__block_tag) withMemo:_block_tag_memo];
-}
-
-- (void)__block_start_tag {
+- (void)block_start_tag_ {
     
     [self match:TDTEMPLATE_TOKEN_KIND_BLOCK_START_TAG discard:NO]; 
     [self execute:^{
@@ -199,11 +144,7 @@
 
 }
 
-- (void)block_start_tag_ {
-    [self parseRule:@selector(__block_start_tag) withMemo:_block_start_tag_memo];
-}
-
-- (void)__block_end_tag {
+- (void)block_end_tag_ {
     
     [self match:TDTEMPLATE_TOKEN_KIND_BLOCK_END_TAG discard:NO]; 
     [self execute:^{
@@ -221,11 +162,7 @@
 
 }
 
-- (void)block_end_tag_ {
-    [self parseRule:@selector(__block_end_tag) withMemo:_block_end_tag_memo];
-}
-
-- (void)__text {
+- (void)text_ {
     
     [self match:TDTEMPLATE_TOKEN_KIND_TEXT discard:NO]; 
     [self execute:^{
@@ -236,10 +173,6 @@
 
     }];
 
-}
-
-- (void)text_ {
-    [self parseRule:@selector(__text) withMemo:_text_memo];
 }
 
 @end
