@@ -35,15 +35,4 @@
 - (TDNode *)firstAncestorOfClass:(Class)cls;
 
 @property (nonatomic, assign) TDNode *parent; // weakref
-
-
-
-
-
-
-
-
-- (void)renderVerbatimInContext:(TDTemplateContext *)ctx;
-- (void)renderChildrenVerbatimInContext:(TDTemplateContext *)ctx;
-
 @end

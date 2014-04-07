@@ -27,6 +27,8 @@
 
 @interface TDNode ()
 - (void)processFragment;
+- (void)renderVerbatimInContext:(TDTemplateContext *)ctx;
+- (void)renderChildrenVerbatimInContext:(TDTemplateContext *)ctx;
 @end
 
 @implementation TDNode
