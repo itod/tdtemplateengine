@@ -31,12 +31,9 @@
 #import <PEGKit/PKTokenizer.h>
 #import <PEGKit/PKWhitespaceState.h>
 
-@interface TDTemplateContext ()
-@property (nonatomic, retain) TDNode *currentNode;
-@end
-
 @interface TDTag ()
 @property (nonatomic, assign) BOOL incomplete;
+@property (nonatomic, assign) TDNode *node;
 @end
 
 @interface TDBlockStartNode ()
@@ -92,10 +89,16 @@
     self.tagName = tagName;
     self.tag = [[TDTemplateEngine currentTemplateEngine] makeTagForName:tagName];
     TDAssert(_tag);
+    _tag.node = self;
 
     // attach tag to parent if present
     TDBlockStartNode *enclosingBlockStartNode = (id)[self firstAncestorOfClass:[TDBlockStartNode class]];
-    _tag.parent = enclosingBlockStartNode.tag;
+    
+    if (enclosingBlockStartNode) {
+        TDTag *parentTag = enclosingBlockStartNode.tag;
+        _tag.parent = parentTag;
+        [parentTag addChild:_tag];
+    }
     
     // compile expression if present
     if ([toks count]) {
@@ -110,20 +113,8 @@
     
     TDTemplateContext *local = [[[TDTemplateContext alloc] initWithVariables:nil output:ctx.writer.output] autorelease];
     local.enclosingScope = ctx;
-    local.currentNode = self;
     
     [_tag doTagInContext:local];
-    
-    if (_tag.incomplete) {
-        for (TDNode *child in self.children) {
-            if ([child isKindOfClass:[TDBlockStartNode class]]) {
-                TDTag *tag = [(id)child tag];
-                if (tag && TDTagTypeHelper == [[tag class] tagType]) {
-                    [child renderInContext:ctx];
-                }
-            }
-        }
-    }
 }
 
 @end

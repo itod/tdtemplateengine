@@ -38,6 +38,9 @@ typedef NS_ENUM(NSUInteger, TDTagType) {
 @property (nonatomic, copy, readonly) NSString *tagName; // convenience for class method
 @property (nonatomic, retain) XPExpression *expression;
 @property (nonatomic, assign) TDTag *parent; // weakref
+
+- (void)addChild:(TDTag *)child;
+@property (nonatomic, retain) NSMutableArray *children;
 @end
 
 // Subclasses must override these methods

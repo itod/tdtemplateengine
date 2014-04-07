@@ -22,6 +22,7 @@
 
 #import "TDIfTag.h"
 #import "TDElseTag.h"
+#import "TDElseIfTag.h"
 #import <TDTemplateEngine/TDTemplateContext.h>
 #import <TDTemplateEngine/XPExpression.h>
 
@@ -50,6 +51,12 @@
         [ctx renderBody:self];
     } else {
         self.incomplete = YES;
+        
+        for (TDTag *child in self.children) {
+            if ([child isKindOfClass:[TDElseTag class]] || [child isKindOfClass:[TDElseIfTag class]]) {
+                [child doTagInContext:ctx];
+            }
+        }
     }
 }
 

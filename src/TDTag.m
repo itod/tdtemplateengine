@@ -21,9 +21,11 @@
 // THE SOFTWARE.
 
 #import "TDTag.h"
+#import "TDNode.h"
 
 @interface TDTag ()
 @property (nonatomic, assign) BOOL incomplete;
+@property (nonatomic, assign) TDNode *node; // node backpointer. weakref
 @end
 
 @implementation TDTag
@@ -43,6 +45,8 @@
 - (void)dealloc {
     self.expression = nil;
     self.parent = nil;
+    self.children = nil;
+    self.node = nil;
     [super dealloc];
 }
 
@@ -65,6 +69,15 @@
 
 - (NSString *)tagName {
     return [[self class] tagName];
+}
+
+
+- (void)addChild:(TDTag *)child {
+    TDAssert(child);
+    if (!_children) {
+        self.children = [NSMutableArray array];
+    }
+    [_children addObject:child];
 }
 
 @end

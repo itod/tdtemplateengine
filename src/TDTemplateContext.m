@@ -30,8 +30,11 @@
 - (void)renderChildrenVerbatimInContext:(TDTemplateContext *)ctx;
 @end
 
+@interface TDTag ()
+@property (nonatomic, assign) TDNode *node;
+@end
+
 @interface TDTemplateContext ()
-@property (nonatomic, assign) TDNode *currentNode; // weakref
 @property (nonatomic, retain) NSMutableDictionary *vars;
 @property (nonatomic, retain, readwrite) TDWriter *writer;
 @property (nonatomic, assign) BOOL verbatim;
@@ -60,7 +63,6 @@
 - (void)dealloc {
     self.vars = nil;
     self.writer = nil;
-    self.currentNode = nil;
     self.enclosingScope = nil;
     [super dealloc];
 }
@@ -72,11 +74,13 @@
 
 
 - (void)renderBody:(TDTag *)tag {
-    TDAssert(_currentNode);
+    TDAssert(tag);
+    TDNode *node = tag.node;
+    TDAssert(node);
     if (_verbatim) {
-        [_currentNode renderChildrenVerbatimInContext:self];
+        [node renderChildrenVerbatimInContext:self];
     } else {
-        [_currentNode renderChildrenInContext:self];
+        [node renderChildrenInContext:self];
     }
 }
 
