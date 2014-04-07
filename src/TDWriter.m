@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Todd Ditchendorf. All rights reserved.
 //
 
-#import "TDWriter.h"
-#import "TDTemplateEngine.h"
+#import <TDTemplateEngine/TDWriter.h>
+#import <TDTemplateEngine/TDTemplateEngine.h>
 
 @implementation TDWriter
 
@@ -57,7 +57,7 @@
             if (trim > 0) {
                 zstr += trim;
             }
-            NSInteger written = [_output write:zstr maxLength:remaining];
+            NSInteger written = [_output write:zstr maxLength:len];
             if (-1 == written) {
                 [NSException raise:TDTemplateEngineErrorDomain format:@"Error while writing template output string"];
             }
