@@ -60,4 +60,17 @@
     return expr;
 }
 
+
+- (XPExpression *)loopExpressionFromTokens:(NSArray *)toks error:(NSError **)outErr {
+    TDAssert(self.expressionParser);
+    self.expressionParser.doLoopExpr = YES;
+    PKAssembly *a = [self.expressionParser parseTokens:toks error:outErr];
+    self.expressionParser.doLoopExpr = NO;
+    
+    XPExpression *expr = [a pop];
+    
+    expr = [expr simplify];
+    return expr;
+}
+
 @end

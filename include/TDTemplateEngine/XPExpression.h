@@ -39,6 +39,7 @@ typedef NS_ENUM(NSUInteger, XPDataType) {
 + (PKTokenizer *)tokenizer;
 + (XPExpression *)expressionFromString:(NSString *)str error:(NSError **)outErr;
 + (XPExpression *)expressionFromTokens:(NSArray *)toks error:(NSError **)outErr;
++ (XPExpression *)loopExpressionFromTokens:(NSArray *)toks error:(NSError **)outErr;
 
 - (XPValue *)evaluateInContext:(TDTemplateContext *)ctx;
 - (BOOL)evaluateAsBooleanInContext:(TDTemplateContext *)ctx;

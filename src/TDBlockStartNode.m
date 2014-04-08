@@ -97,7 +97,12 @@
     
     // compile expression if present
     if ([toks count]) {
-        _tag.expression = [XPExpression expressionFromTokens:toks error:nil];
+        BOOL doLoop = [tagName isEqualToString:@"for"];
+        if (doLoop) {
+            _tag.expression = [XPExpression loopExpressionFromTokens:toks error:nil];
+        } else {
+            _tag.expression = [XPExpression expressionFromTokens:toks error:nil];
+        }
     }
 }
 

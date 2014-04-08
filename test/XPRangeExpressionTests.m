@@ -56,7 +56,7 @@
     TDTemplateContext *ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     
     NSError *err = nil;
-    XPExpression *expr = [[XPExpression expressionFromTokens:toks error:&err] simplify];
+    XPExpression *expr = [[XPExpression loopExpressionFromTokens:toks error:&err] simplify];
     TDNil(err);
     TDNotNil(expr);
     TDTrue([expr isKindOfClass:[XPLoopExpression class]]);
@@ -76,7 +76,7 @@
     TDTemplateContext *ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     
     NSError *err = nil;
-    XPExpression *expr = [[XPExpression expressionFromTokens:toks error:&err] simplify];
+    XPExpression *expr = [[XPExpression loopExpressionFromTokens:toks error:&err] simplify];
     TDNil(err);
     TDNotNil(expr);
     TDTrue([expr isKindOfClass:[XPLoopExpression class]]);
@@ -96,7 +96,7 @@
     TDTemplateContext *ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     
     NSError *err = nil;
-    XPExpression *expr = [[XPExpression expressionFromTokens:toks error:&err] simplify];
+    XPExpression *expr = [[XPExpression loopExpressionFromTokens:toks error:&err] simplify];
     TDNil(err);
     TDNotNil(expr);
     TDTrue([expr isKindOfClass:[XPLoopExpression class]]);
@@ -116,7 +116,7 @@
     TDTemplateContext *ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     
     NSError *err = nil;
-    XPExpression *expr = [[XPExpression expressionFromTokens:toks error:&err] simplify];
+    XPExpression *expr = [[XPExpression loopExpressionFromTokens:toks error:&err] simplify];
     TDNil(err);
     TDNotNil(expr);
     TDTrue([expr isKindOfClass:[XPLoopExpression class]]);

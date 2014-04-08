@@ -44,5 +44,6 @@ enum {
         
 + (PKTokenizer *)tokenizer;
 
+@property (nonatomic, assign) BOOL doLoopExpr;
 @end
 

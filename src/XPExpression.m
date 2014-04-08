@@ -44,6 +44,11 @@
 }
 
 
++ (XPExpression *)loopExpressionFromTokens:(NSArray *)toks error:(NSError **)outErr {
+    return [[TDTemplateEngine currentTemplateEngine] loopExpressionFromTokens:toks error:outErr];
+}
+
+
 - (void)dealloc {
 
     [super dealloc];

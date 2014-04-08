@@ -319,12 +319,10 @@
 
 - (void)__expr {
     
-    if ([self speculate:^{ [self loopExpr_]; }]) {
+    if (self.doLoopExpr) {
         [self loopExpr_]; 
-    } else if ([self speculate:^{ [self orExpr_]; }]) {
-        [self orExpr_]; 
     } else {
-        [self raise:@"No viable alternative found in rule 'expr'."];
+        [self orExpr_]; 
     }
 
 }
