@@ -23,9 +23,11 @@
 #import "TDNode.h"
 
 @class TDTag;
+@class PKToken;
 
 @interface TDBlockStartNode : TDNode
 
 @property (nonatomic, retain) NSString *tagName;
+@property (nonatomic, retain) PKToken *endTagToken;
 @property (nonatomic, retain) TDTag *tag;
 @end

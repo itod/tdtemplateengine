@@ -21,6 +21,7 @@
 // THE SOFTWARE.
 
 #import "TDBlockStartNode.h"
+#import "TDFragment.h"
 #import "TDTag.h"
 #import <TDTemplateEngine/TDTemplateEngine.h>
 #import <TDTemplateEngine/TDTemplateContext.h>
@@ -33,6 +34,10 @@
 
 @interface TDTag ()
 @property (nonatomic, assign) BOOL incomplete;
+@end
+
+@interface TDNode ()
+- (void)renderVerbatimInContext:(TDTemplateContext *)ctx;
 @end
 
 @implementation TDBlockStartNode
@@ -48,6 +53,7 @@
 
 - (void)dealloc {
     self.tagName = nil;
+    self.endTagToken = nil;
     self.tag = nil;
     [super dealloc];
 }
@@ -120,6 +126,27 @@
     local.enclosingScope = ctx;
     
     [_tag doTagInContext:local];
+}
+
+
+- (void)renderVerbatimInContext:(TDTemplateContext *)ctx {
+    NSParameterAssert(ctx);
+    if (self.suppressRendering) {
+        self.suppressRendering = NO;
+        return;
+    }
+    
+    [super renderVerbatimInContext:ctx];
+    
+    TDWriter *writer = ctx.writer;
+    TDFragment *frag = (id)self.endTagToken;
+    NSString *str = frag.verbatimString;
+    
+    // text nodes don't store separate verbStr
+    if (!str) {
+        str = frag.stringValue;
+    }
+    [writer appendString:str];
 }
 
 @end

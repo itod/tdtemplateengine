@@ -6,7 +6,6 @@
 #import "TDRootNode.h"
 #import "TDVariableNode.h"
 #import "TDBlockStartNode.h"
-#import "TDBlockEndNode.h"
 #import "TDTextNode.h"
 
 
@@ -155,8 +154,9 @@
         self.currentParent = POP();
 
     ASSERT([_currentParent.name hasPrefix:tagName]);
-    TDNode *endTagNode = [TDBlockEndNode nodeWithToken:tok parent:_currentParent.parent];
-    [_currentParent.parent addChild:endTagNode];
+    ASSERT([_currentParent isKindOfClass:[TDBlockStartNode class]]);
+    TDBlockStartNode *startNode = (id)_currentParent;
+    startNode.endTagToken = tok;
 
     }];
 

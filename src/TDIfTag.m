@@ -24,7 +24,6 @@
 #import "TDElseTag.h"
 #import "TDElseIfTag.h"
 #import "TDBlockStartNode.h"
-#import "TDBlockEndNode.h"
 #import <TDTemplateEngine/TDTemplateContext.h>
 #import <TDTemplateEngine/XPExpression.h>
 
@@ -47,16 +46,6 @@
 
 - (BOOL)isElif:(TDNode *)node {
     return [self isNode:node ofType:[TDElseIfTag class]];
-}
-
-
-- (BOOL)isEndIf:(TDNode *)node {
-    BOOL isEnd = NO;
-    if ([node isMemberOfClass:[TDBlockEndNode class]]) {
-        NSString *tagName = [(id)node tagName];
-        isEnd = [tagName isEqualToString:@"if"];
-    }
-    return isEnd;
 }
 
 
