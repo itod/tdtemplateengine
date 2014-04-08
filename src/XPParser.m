@@ -173,7 +173,7 @@
      PUSH(_openParen); 
     }];
     [self identifier_]; 
-    if ([self speculate:^{ [self match:XP_TOKEN_KIND_COMMA discard:YES]; [self identifier_]; }]) {
+    if ([self predicts:XP_TOKEN_KIND_COMMA, 0]) {
         [self match:XP_TOKEN_KIND_COMMA discard:YES]; 
         [self identifier_]; 
     }
@@ -257,7 +257,7 @@
 - (void)orExpr_ {
     
     [self andExpr_]; 
-    while ([self speculate:^{ [self orOp_]; [self andExpr_]; }]) {
+    while ([self predicts:XP_TOKEN_KIND_OR, XP_TOKEN_KIND_DOUBLE_PIPE, 0]) {
         [self orOp_]; 
         [self andExpr_]; 
         [self execute:^{
@@ -286,7 +286,7 @@
 - (void)andExpr_ {
     
     [self equalityExpr_]; 
-    while ([self speculate:^{ [self andOp_]; [self equalityExpr_]; }]) {
+    while ([self predicts:XP_TOKEN_KIND_AND, XP_TOKEN_KIND_DOUBLE_AMPERSAND, 0]) {
         [self andOp_]; 
         [self equalityExpr_]; 
         [self execute:^{
@@ -619,7 +619,7 @@
 - (void)filterExpr_ {
     
     [self primaryExpr_]; 
-    if ([self speculate:^{ [self match:XP_TOKEN_KIND_PIPE discard:YES]; [self matchWord:NO]; }]) {
+    if ([self predicts:XP_TOKEN_KIND_PIPE, 0]) {
         [self match:XP_TOKEN_KIND_PIPE discard:YES]; 
         [self matchWord:NO]; 
         [self execute:^{
