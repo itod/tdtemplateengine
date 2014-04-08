@@ -2,9 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:lib/pegkit/PEGKit.xcodeproj">
+      location = "group:TDTemplateEngine.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:TDTemplateEngine.xcodeproj">
+      location = "group:lib/pegkit/PEGKit.xcodeproj">
    </FileRef>
 </Workspace>
