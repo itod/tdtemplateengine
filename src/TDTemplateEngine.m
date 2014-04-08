@@ -57,6 +57,7 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
 
 @interface TDTemplateEngine ()
 @property (nonatomic, retain) NSRegularExpression *delimiterRegex;
+@property (nonatomic, retain) NSRegularExpression *cleanerRegex;
 @property (nonatomic, retain, readwrite) id <TDScope>staticContext;
 @property (nonatomic, retain) NSMutableDictionary *tagTab;
 @property (nonatomic, retain) NSMutableDictionary *filterTab;
@@ -86,6 +87,11 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
         self.tagEndDelimiter = @"%}";
         self.staticContext = [[[TDTemplateContext alloc] init] autorelease];
         
+        NSError *err = nil;
+        self.cleanerRegex = [NSRegularExpression regularExpressionWithPattern:@"([{}\\[\\]\\(\\).+?*])" options:NSRegularExpressionAnchorsMatchLines error:&err];
+        TDAssert(!err);
+        TDAssert(_cleanerRegex);
+        
         self.tagTab = [NSMutableDictionary dictionary];
         [self registerTagClass:[TDIfTag class] forName:[TDIfTag tagName]];
         [self registerTagClass:[TDElseTag class] forName:[TDElseTag tagName]];
@@ -114,6 +120,7 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
     self.tagStartDelimiter = nil;
     self.tagEndDelimiter = nil;
     self.delimiterRegex = nil;
+    self.cleanerRegex = nil;
     self.staticContext = nil;
     self.tagTab = nil;
     self.filterTab = nil;
@@ -211,18 +218,24 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
 #pragma mark Private
 
 - (NSString *)cleanPattern:(NSString *)inStr {
-    NSMutableString *outSr = [[inStr mutableCopy] autorelease];
-    [outSr replaceOccurrencesOfString:@"{" withString:@"\\{" options:0 range:NSMakeRange(0, [outSr length])];
-    [outSr replaceOccurrencesOfString:@"}" withString:@"\\}" options:0 range:NSMakeRange(0, [outSr length])];
-    [outSr replaceOccurrencesOfString:@"[" withString:@"\\[" options:0 range:NSMakeRange(0, [outSr length])];
-    [outSr replaceOccurrencesOfString:@"]" withString:@"\\]" options:0 range:NSMakeRange(0, [outSr length])];
-    [outSr replaceOccurrencesOfString:@"(" withString:@"\\(" options:0 range:NSMakeRange(0, [outSr length])];
-    [outSr replaceOccurrencesOfString:@")" withString:@"\\)" options:0 range:NSMakeRange(0, [outSr length])];
-    [outSr replaceOccurrencesOfString:@"." withString:@"\\." options:0 range:NSMakeRange(0, [outSr length])];
-    [outSr replaceOccurrencesOfString:@"+" withString:@"\\+" options:0 range:NSMakeRange(0, [outSr length])];
-    [outSr replaceOccurrencesOfString:@"?" withString:@"\\?" options:0 range:NSMakeRange(0, [outSr length])];
-    [outSr replaceOccurrencesOfString:@"*" withString:@"\\*" options:0 range:NSMakeRange(0, [outSr length])];
-    return outSr;
+    TDAssert([inStr length]);
+    TDAssert(_cleanerRegex);
+    
+    NSString *result = [_cleanerRegex stringByReplacingMatchesInString:inStr options:0 range:NSMakeRange(0, [inStr length]) withTemplate:@"\\\\$1"];
+    return result;
+    
+//    NSMutableString *outSr = [[inStr mutableCopy] autorelease];
+//    [outSr replaceOccurrencesOfString:@"{" withString:@"\\{" options:0 range:NSMakeRange(0, [outSr length])];
+//    [outSr replaceOccurrencesOfString:@"}" withString:@"\\}" options:0 range:NSMakeRange(0, [outSr length])];
+//    [outSr replaceOccurrencesOfString:@"[" withString:@"\\[" options:0 range:NSMakeRange(0, [outSr length])];
+//    [outSr replaceOccurrencesOfString:@"]" withString:@"\\]" options:0 range:NSMakeRange(0, [outSr length])];
+//    [outSr replaceOccurrencesOfString:@"(" withString:@"\\(" options:0 range:NSMakeRange(0, [outSr length])];
+//    [outSr replaceOccurrencesOfString:@")" withString:@"\\)" options:0 range:NSMakeRange(0, [outSr length])];
+//    [outSr replaceOccurrencesOfString:@"." withString:@"\\." options:0 range:NSMakeRange(0, [outSr length])];
+//    [outSr replaceOccurrencesOfString:@"+" withString:@"\\+" options:0 range:NSMakeRange(0, [outSr length])];
+//    [outSr replaceOccurrencesOfString:@"?" withString:@"\\?" options:0 range:NSMakeRange(0, [outSr length])];
+//    [outSr replaceOccurrencesOfString:@"*" withString:@"\\*" options:0 range:NSMakeRange(0, [outSr length])];
+//    return outSr;
 }
 
 
