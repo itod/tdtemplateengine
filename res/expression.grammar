@@ -181,11 +181,19 @@ signedFilterExpr
 }
     = ('-'! { _negative = !_negative; })+ filterExpr;
 	
-filterExpr = primaryExpr ('|'! Word {
+filterExpr 
+	= primaryExpr (filter {
+	NSArray *args = POP();
 	NSString *filterName = POP_STR();
 	id expr = POP();
-	PUSH([XPFilterExpression filterExpressionWithExpression:expr filterName:filterName]);
+	PUSH([XPFilterExpression filterExpressionWithExpression:expr filterName:filterName arguments:args]);
 })?;
+
+filter = '|'! Word filterArg;
+filterArg 
+	= ':'! QuotedString { PUSH(@[POP_QUOTED_STR()]); }
+	| Empty { PUSH(@[]); }
+	;
 
 primaryExpr = atom | subExpr;
 

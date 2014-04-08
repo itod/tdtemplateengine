@@ -32,5 +32,5 @@ NSString *TDStringFromObject(id obj);
 @interface TDFilter (Override)
 + (NSString *)filterName;
 
-- (id)doFilter:(id)input;
+- (id)doFilter:(id)input withArguments:(NSArray *)args;
 @end

@@ -57,6 +57,7 @@
         self.tokenKindTab[@"true"] = @(XP_TOKEN_KIND_TRUE);
         self.tokenKindTab[@"!="] = @(XP_TOKEN_KIND_NOT_EQUAL);
         self.tokenKindTab[@"!"] = @(XP_TOKEN_KIND_BANG);
+        self.tokenKindTab[@":"] = @(XP_TOKEN_KIND_COLON);
         self.tokenKindTab[@"<"] = @(XP_TOKEN_KIND_LT_SYM);
         self.tokenKindTab[@"%"] = @(XP_TOKEN_KIND_MOD);
         self.tokenKindTab[@"le"] = @(XP_TOKEN_KIND_LE);
@@ -65,15 +66,15 @@
         self.tokenKindTab[@"("] = @(XP_TOKEN_KIND_OPEN_PAREN);
         self.tokenKindTab[@")"] = @(XP_TOKEN_KIND_CLOSE_PAREN);
         self.tokenKindTab[@"eq"] = @(XP_TOKEN_KIND_EQ);
-        self.tokenKindTab[@"YES"] = @(XP_TOKEN_KIND_YES_UPPER);
-        self.tokenKindTab[@"or"] = @(XP_TOKEN_KIND_OR);
         self.tokenKindTab[@"ne"] = @(XP_TOKEN_KIND_NE);
+        self.tokenKindTab[@"or"] = @(XP_TOKEN_KIND_OR);
         self.tokenKindTab[@"not"] = @(XP_TOKEN_KIND_NOT);
         self.tokenKindTab[@"*"] = @(XP_TOKEN_KIND_TIMES);
         self.tokenKindTab[@"+"] = @(XP_TOKEN_KIND_PLUS);
+        self.tokenKindTab[@"||"] = @(XP_TOKEN_KIND_DOUBLE_PIPE);
         self.tokenKindTab[@","] = @(XP_TOKEN_KIND_COMMA);
         self.tokenKindTab[@"and"] = @(XP_TOKEN_KIND_AND);
-        self.tokenKindTab[@"||"] = @(XP_TOKEN_KIND_DOUBLE_PIPE);
+        self.tokenKindTab[@"YES"] = @(XP_TOKEN_KIND_YES_UPPER);
         self.tokenKindTab[@"-"] = @(XP_TOKEN_KIND_MINUS);
         self.tokenKindTab[@"in"] = @(XP_TOKEN_KIND_IN);
         self.tokenKindTab[@"."] = @(XP_TOKEN_KIND_DOT);
@@ -93,6 +94,7 @@
         self.tokenKindNameTab[XP_TOKEN_KIND_TRUE] = @"true";
         self.tokenKindNameTab[XP_TOKEN_KIND_NOT_EQUAL] = @"!=";
         self.tokenKindNameTab[XP_TOKEN_KIND_BANG] = @"!";
+        self.tokenKindNameTab[XP_TOKEN_KIND_COLON] = @":";
         self.tokenKindNameTab[XP_TOKEN_KIND_LT_SYM] = @"<";
         self.tokenKindNameTab[XP_TOKEN_KIND_MOD] = @"%";
         self.tokenKindNameTab[XP_TOKEN_KIND_LE] = @"le";
@@ -101,15 +103,15 @@
         self.tokenKindNameTab[XP_TOKEN_KIND_OPEN_PAREN] = @"(";
         self.tokenKindNameTab[XP_TOKEN_KIND_CLOSE_PAREN] = @")";
         self.tokenKindNameTab[XP_TOKEN_KIND_EQ] = @"eq";
-        self.tokenKindNameTab[XP_TOKEN_KIND_YES_UPPER] = @"YES";
-        self.tokenKindNameTab[XP_TOKEN_KIND_OR] = @"or";
         self.tokenKindNameTab[XP_TOKEN_KIND_NE] = @"ne";
+        self.tokenKindNameTab[XP_TOKEN_KIND_OR] = @"or";
         self.tokenKindNameTab[XP_TOKEN_KIND_NOT] = @"not";
         self.tokenKindNameTab[XP_TOKEN_KIND_TIMES] = @"*";
         self.tokenKindNameTab[XP_TOKEN_KIND_PLUS] = @"+";
+        self.tokenKindNameTab[XP_TOKEN_KIND_DOUBLE_PIPE] = @"||";
         self.tokenKindNameTab[XP_TOKEN_KIND_COMMA] = @",";
         self.tokenKindNameTab[XP_TOKEN_KIND_AND] = @"and";
-        self.tokenKindNameTab[XP_TOKEN_KIND_DOUBLE_PIPE] = @"||";
+        self.tokenKindNameTab[XP_TOKEN_KIND_YES_UPPER] = @"YES";
         self.tokenKindNameTab[XP_TOKEN_KIND_MINUS] = @"-";
         self.tokenKindNameTab[XP_TOKEN_KIND_IN] = @"in";
         self.tokenKindNameTab[XP_TOKEN_KIND_DOT] = @".";
@@ -620,14 +622,39 @@
     
     [self primaryExpr_]; 
     if ([self predicts:XP_TOKEN_KIND_PIPE, 0]) {
-        [self match:XP_TOKEN_KIND_PIPE discard:YES]; 
-        [self matchWord:NO]; 
+        [self filter_]; 
         [self execute:^{
         
+	NSArray *args = POP();
 	NSString *filterName = POP_STR();
 	id expr = POP();
-	PUSH([XPFilterExpression filterExpressionWithExpression:expr filterName:filterName]);
+	PUSH([XPFilterExpression filterExpressionWithExpression:expr filterName:filterName arguments:args]);
 
+        }];
+    }
+
+}
+
+- (void)filter_ {
+    
+    [self match:XP_TOKEN_KIND_PIPE discard:YES]; 
+    [self matchWord:NO]; 
+    [self filterArg_]; 
+
+}
+
+- (void)filterArg_ {
+    
+    if ([self predicts:XP_TOKEN_KIND_COLON, 0]) {
+        [self match:XP_TOKEN_KIND_COLON discard:YES]; 
+        [self matchQuotedString:NO]; 
+        [self execute:^{
+         PUSH(@[POP_QUOTED_STR()]); 
+        }];
+    } else {
+        [self matchEmpty:NO]; 
+        [self execute:^{
+         PUSH(@[]); 
         }];
     }
 

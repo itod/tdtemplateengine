@@ -28,16 +28,17 @@
 @interface XPFilterExpression ()
 @property (nonatomic, retain) XPExpression *expr;
 @property (nonatomic, retain) TDFilter *filter;
+@property (nonatomic, retain) NSArray *args;
 @end
 
 @implementation XPFilterExpression
 
-+ (instancetype)filterExpressionWithExpression:(XPExpression *)expr filterName:(NSString *)filterName {
-    return [[[self alloc] initWithExpression:expr filterName:filterName] autorelease];
++ (instancetype)filterExpressionWithExpression:(XPExpression *)expr filterName:(NSString *)filterName arguments:(NSArray *)args {
+    return [[[self alloc] initWithExpression:expr filterName:filterName arguments:args] autorelease];
 }
 
 
-- (instancetype)initWithExpression:(XPExpression *)expr filterName:(NSString *)filterName {
+- (instancetype)initWithExpression:(XPExpression *)expr filterName:(NSString *)filterName arguments:(NSArray *)args {
     self = [super init];
     if (self) {
         TDAssert([expr isKindOfClass:[XPExpression class]]);
@@ -48,6 +49,10 @@
             [NSException raise:TDTemplateEngineErrorDomain format:@"Unknown filter name: '%@'", filterName];
         }
         self.filter = f;
+        
+        if ([args count]) {
+            self.args = args;
+        }
     }
     return self;
 }
@@ -56,6 +61,7 @@
 - (void)dealloc {
     self.expr = nil;
     self.filter = nil;
+    self.args = nil;
     [super dealloc];
 }
 
@@ -66,7 +72,7 @@
     TDAssert(_filter);
 
     id obj = [_expr evaluateInContext:ctx];
-    obj = [_filter doFilter:obj];
+    obj = [_filter doFilter:obj withArguments:_args];
     
     XPValue *val = XPValueFromObject(obj);
     return val;
