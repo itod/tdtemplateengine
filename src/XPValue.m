@@ -59,11 +59,6 @@ double XPNumberFromString(NSString *s) {
 }
 
 
-- (NSUInteger)dependencies {
-    return 0;
-}
-
-
 - (NSString *)stringValue {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
     return NO;
@@ -140,11 +135,6 @@ double XPNumberFromString(NSString *s) {
         default:
             return NO;
     }
-}
-
-
-- (XPExpression *)reduceDependencies:(NSUInteger)dep inContext:(TDTemplateContext *)ctx {
-    return self;
 }
 
 

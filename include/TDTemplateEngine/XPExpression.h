@@ -49,10 +49,6 @@ typedef NS_ENUM(NSUInteger, XPDataType) {
 - (BOOL)isValue;
 
 - (XPExpression *)simplify;
-- (NSUInteger)dependencies;
-- (XPExpression *)reduceDependencies:(NSUInteger)dep inContext:(TDTemplateContext *)ctx;
 
 - (XPDataType)dataType;
-
-- (void)display:(NSInteger)level;
 @end

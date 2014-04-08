@@ -81,21 +81,4 @@
     return self;
 }
 
-
-- (NSUInteger)dependencies {
-    return [_p1 dependencies] | [_p2 dependencies];
-}
-
-
-- (XPExpression *)reduceDependencies:(NSUInteger)dep inContext:(TDTemplateContext *)ctx {
-    if (([self dependencies] & dep) != 0) {
-        XPExpression *expr = [[[[self class] alloc] initWithOperand:[_p1 reduceDependencies:dep inContext:ctx]
-                                                           operator:_operator
-                                                            operand:[_p2 reduceDependencies:dep inContext:ctx]] autorelease];
-        return [expr simplify];
-    } else {
-        return self;
-    }
-}
-
 @end
