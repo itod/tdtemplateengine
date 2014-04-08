@@ -333,7 +333,7 @@
 - (void)equalityExpr_ {
     
     [self relationalExpr_]; 
-    while ([self speculate:^{ if ([self predicts:XP_TOKEN_KIND_DOUBLE_EQUALS, XP_TOKEN_KIND_EQ, 0]) {[self eqOp_]; } else if ([self predicts:XP_TOKEN_KIND_NE, XP_TOKEN_KIND_NOT_EQUAL, 0]) {[self neOp_]; } else {[self raise:@"No viable alternative found in rule 'equalityExpr'."];}[self relationalExpr_]; }]) {
+    while ([self predicts:XP_TOKEN_KIND_DOUBLE_EQUALS, XP_TOKEN_KIND_EQ, XP_TOKEN_KIND_NE, XP_TOKEN_KIND_NOT_EQUAL, 0]) {
         if ([self predicts:XP_TOKEN_KIND_DOUBLE_EQUALS, XP_TOKEN_KIND_EQ, 0]) {
             [self eqOp_]; 
         } else if ([self predicts:XP_TOKEN_KIND_NE, XP_TOKEN_KIND_NOT_EQUAL, 0]) {
@@ -417,7 +417,7 @@
 - (void)relationalExpr_ {
     
     [self additiveExpr_]; 
-    while ([self speculate:^{ if ([self predicts:XP_TOKEN_KIND_LT, XP_TOKEN_KIND_LT_SYM, 0]) {[self ltOp_]; } else if ([self predicts:XP_TOKEN_KIND_GT, XP_TOKEN_KIND_GT_SYM, 0]) {[self gtOp_]; } else if ([self predicts:XP_TOKEN_KIND_LE, XP_TOKEN_KIND_LE_SYM, 0]) {[self leOp_]; } else if ([self predicts:XP_TOKEN_KIND_GE, XP_TOKEN_KIND_GE_SYM, 0]) {[self geOp_]; } else {[self raise:@"No viable alternative found in rule 'relationalExpr'."];}[self additiveExpr_]; }]) {
+    while ([self predicts:XP_TOKEN_KIND_LT, XP_TOKEN_KIND_LT_SYM, XP_TOKEN_KIND_GT, XP_TOKEN_KIND_GT_SYM, XP_TOKEN_KIND_LE, XP_TOKEN_KIND_LE_SYM, XP_TOKEN_KIND_GE, XP_TOKEN_KIND_GE_SYM, 0]) {
         if ([self predicts:XP_TOKEN_KIND_LT, XP_TOKEN_KIND_LT_SYM, 0]) {
             [self ltOp_]; 
         } else if ([self predicts:XP_TOKEN_KIND_GT, XP_TOKEN_KIND_GT_SYM, 0]) {
@@ -463,7 +463,7 @@
 - (void)additiveExpr_ {
     
     [self multiplicativeExpr_]; 
-    while ([self speculate:^{ if ([self predicts:XP_TOKEN_KIND_PLUS, 0]) {[self plus_]; } else if ([self predicts:XP_TOKEN_KIND_MINUS, 0]) {[self minus_]; } else {[self raise:@"No viable alternative found in rule 'additiveExpr'."];}[self multiplicativeExpr_]; }]) {
+    while ([self predicts:XP_TOKEN_KIND_PLUS, XP_TOKEN_KIND_MINUS, 0]) {
         if ([self predicts:XP_TOKEN_KIND_PLUS, 0]) {
             [self plus_]; 
         } else if ([self predicts:XP_TOKEN_KIND_MINUS, 0]) {
@@ -514,7 +514,7 @@
 - (void)multiplicativeExpr_ {
     
     [self unaryExpr_]; 
-    while ([self speculate:^{ if ([self predicts:XP_TOKEN_KIND_TIMES, 0]) {[self times_]; } else if ([self predicts:XP_TOKEN_KIND_DIV, 0]) {[self div_]; } else if ([self predicts:XP_TOKEN_KIND_MOD, 0]) {[self mod_]; } else {[self raise:@"No viable alternative found in rule 'multiplicativeExpr'."];}[self unaryExpr_]; }]) {
+    while ([self predicts:XP_TOKEN_KIND_TIMES, XP_TOKEN_KIND_DIV, XP_TOKEN_KIND_MOD, 0]) {
         if ([self predicts:XP_TOKEN_KIND_TIMES, 0]) {
             [self times_]; 
         } else if ([self predicts:XP_TOKEN_KIND_DIV, 0]) {
