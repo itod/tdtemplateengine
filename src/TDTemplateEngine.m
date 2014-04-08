@@ -80,8 +80,8 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.varStartDelimiter = @"{{";
-        self.varEndDelimiter = @"}}";
+        self.expressionStartDelimiter = @"{{";
+        self.expressionEndDelimiter = @"}}";
         self.tagStartDelimiter = @"{%";
         self.tagEndDelimiter = @"%}";
         self.staticContext = [[[TDTemplateContext alloc] init] autorelease];
@@ -109,8 +109,8 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
 
 
 - (void)dealloc {
-    self.varStartDelimiter = nil;
-    self.varEndDelimiter = nil;
+    self.expressionStartDelimiter = nil;
+    self.expressionEndDelimiter = nil;
     self.tagStartDelimiter = nil;
     self.tagEndDelimiter = nil;
     self.delimiterRegex = nil;
@@ -141,8 +141,8 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
 
 - (TDNode *)compileTemplateString:(NSString *)str error:(NSError **)err {
     NSParameterAssert([str length]);
-    TDAssert([_varStartDelimiter length]);
-    TDAssert([_varEndDelimiter length]);
+    TDAssert([_expressionStartDelimiter length]);
+    TDAssert([_expressionEndDelimiter length]);
     TDAssert([_tagStartDelimiter length]);
     TDAssert([_tagEndDelimiter length]);
 
@@ -227,12 +227,12 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
 
 
 - (BOOL)setUpDelimiterRegex:(NSError **)outErr {    
-    NSString *varStartDelimiter = [self cleanPattern:_varStartDelimiter];
-    NSString *varEndDelimiter   = [self cleanPattern:_varEndDelimiter];
+    NSString *expressionStartDelimiter = [self cleanPattern:_expressionStartDelimiter];
+    NSString *expressionEndDelimiter   = [self cleanPattern:_expressionEndDelimiter];
     NSString *tagStartDelimiter = [self cleanPattern:_tagStartDelimiter];
     NSString *tagEndDelimiter   = [self cleanPattern:_tagEndDelimiter];
     
-    NSString *pattern = [NSString stringWithFormat:@"(%@.*?%@|%@.*?%@)", varStartDelimiter, varEndDelimiter, tagStartDelimiter, tagEndDelimiter];
+    NSString *pattern = [NSString stringWithFormat:@"(%@.*?%@|%@.*?%@)", expressionStartDelimiter, expressionEndDelimiter, tagStartDelimiter, tagEndDelimiter];
 
     self.delimiterRegex = [[[NSRegularExpression alloc] initWithPattern:pattern options:0 error:outErr] autorelease];
 
@@ -251,8 +251,8 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
 
     NSMutableArray *frags = [NSMutableArray array];
 
-    NSUInteger varStartDelimLen = [_varStartDelimiter length];
-    NSUInteger varEndDelimLen   = [_varEndDelimiter length];
+    NSUInteger varStartDelimLen = [_expressionStartDelimiter length];
+    NSUInteger varEndDelimLen   = [_expressionEndDelimiter length];
     NSUInteger tagStartDelimLen = [_tagStartDelimiter length];
     NSUInteger tagEndDelimLen   = [_tagEndDelimiter length];
     
@@ -288,7 +288,7 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
         NSUInteger kind = 0;
         
         NSString *str = [[verbStr copy] autorelease];
-        if ([str hasPrefix:_varStartDelimiter]) {
+        if ([str hasPrefix:_expressionStartDelimiter]) {
             kind = TDTEMPLATE_TOKEN_KIND_VAR;
             str = [str substringToIndex:len - varEndDelimLen];
             str = [str substringFromIndex:varStartDelimLen];

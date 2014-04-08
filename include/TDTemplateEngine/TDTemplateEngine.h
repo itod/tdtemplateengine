@@ -51,8 +51,8 @@ extern NSInteger TDTemplateEngineRenderingErrorCode;
 // static/compile-time vars go here. this is the global scope at both compile-time and render-time. persists across compiles and renders.
 @property (nonatomic, retain, readonly) id <TDScope>staticContext;
 
-@property (nonatomic, copy) NSString *varStartDelimiter;
-@property (nonatomic, copy) NSString *varEndDelimiter;
+@property (nonatomic, copy) NSString *expressionStartDelimiter;
+@property (nonatomic, copy) NSString *expressionEndDelimiter;
 @property (nonatomic, copy) NSString *tagStartDelimiter;
 @property (nonatomic, copy) NSString *tagEndDelimiter;
 @end
