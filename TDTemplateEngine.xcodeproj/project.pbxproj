@@ -53,8 +53,6 @@
 		D3A29DBB18E60F9F00DC591E /* TDRootNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29DB918E60F9F00DC591E /* TDRootNode.m */; };
 		D3A29DBE18E61ACA00DC591E /* TDTextNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29DBC18E61ACA00DC591E /* TDTextNode.h */; };
 		D3A29DBF18E61ACA00DC591E /* TDTextNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29DBD18E61ACA00DC591E /* TDTextNode.m */; };
-		D3A29DC618E6285800DC591E /* TDBlockStartNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29DC418E6285800DC591E /* TDBlockStartNode.h */; };
-		D3A29DC718E6285800DC591E /* TDBlockStartNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29DC518E6285800DC591E /* TDBlockStartNode.m */; };
 		D3A29DD118E63A1C00DC591E /* TDTemplateContext.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29DCF18E63A1C00DC591E /* TDTemplateContext.m */; };
 		D3A29DD618E63D4F00DC591E /* TDForTag.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29DD418E63D4F00DC591E /* TDForTag.h */; };
 		D3A29DD718E63D4F00DC591E /* TDForTag.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29DD518E63D4F00DC591E /* TDForTag.m */; };
@@ -178,8 +176,6 @@
 		D3A29DB918E60F9F00DC591E /* TDRootNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDRootNode.m; path = src/TDRootNode.m; sourceTree = SOURCE_ROOT; };
 		D3A29DBC18E61ACA00DC591E /* TDTextNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDTextNode.h; path = src/TDTextNode.h; sourceTree = SOURCE_ROOT; };
 		D3A29DBD18E61ACA00DC591E /* TDTextNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDTextNode.m; path = src/TDTextNode.m; sourceTree = SOURCE_ROOT; };
-		D3A29DC418E6285800DC591E /* TDBlockStartNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDBlockStartNode.h; path = src/TDBlockStartNode.h; sourceTree = SOURCE_ROOT; };
-		D3A29DC518E6285800DC591E /* TDBlockStartNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDBlockStartNode.m; path = src/TDBlockStartNode.m; sourceTree = SOURCE_ROOT; };
 		D3A29DCF18E63A1C00DC591E /* TDTemplateContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDTemplateContext.m; path = src/TDTemplateContext.m; sourceTree = SOURCE_ROOT; };
 		D3A29DD418E63D4F00DC591E /* TDForTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDForTag.h; path = src/TDForTag.h; sourceTree = SOURCE_ROOT; };
 		D3A29DD518E63D4F00DC591E /* TDForTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDForTag.m; path = src/TDForTag.m; sourceTree = SOURCE_ROOT; };
@@ -388,8 +384,6 @@
 				D3A29DBD18E61ACA00DC591E /* TDTextNode.m */,
 				D3A29DB418E60E4500DC591E /* TDVariableNode.h */,
 				D3A29DB518E60E4500DC591E /* TDVariableNode.m */,
-				D3A29DC418E6285800DC591E /* TDBlockStartNode.h */,
-				D3A29DC518E6285800DC591E /* TDBlockStartNode.m */,
 			);
 			name = Nodes;
 			sourceTree = "<group>";
@@ -502,7 +496,6 @@
 				D319139418F2ED3300430BAD /* TDVerbatimTag.h in Headers */,
 				D3A29E0618E6584D00DC591E /* XPValue.h in Headers */,
 				D3CAF8AB18EDF27F00166A95 /* XPCollectionExpression.h in Headers */,
-				D3A29DC618E6285800DC591E /* TDBlockStartNode.h in Headers */,
 				D398E2EF18EA2C51004B883C /* TDTemplateParser.h in Headers */,
 				D3A29DBE18E61ACA00DC591E /* TDTextNode.h in Headers */,
 				D3A29E3118E75D3B00DC591E /* XPRelationalExpression.h in Headers */,
@@ -665,7 +658,6 @@
 				D3F5064518ECA12500BAC93B /* TDWriter.m in Sources */,
 				D3A29E2C18E75D3B00DC591E /* XPArithmeticExpression.m in Sources */,
 				D3A29E3A18E7AA3100DC591E /* XPPathExpression.m in Sources */,
-				D3A29DC718E6285800DC591E /* TDBlockStartNode.m in Sources */,
 				D3E8E92D18F2F5E70091C98D /* TDFragment.m in Sources */,
 				D3CAF8B018EDF39200166A95 /* XPLoopExpression.m in Sources */,
 				D3A29DAB18E609E700DC591E /* TDNode.m in Sources */,

@@ -21,7 +21,19 @@
 // THE SOFTWARE.
 
 #import "TDTag.h"
-#import "TDNode.h"
+#import "TDFragment.h"
+#import <TDTemplateEngine/TDTemplateEngine.h>
+#import <TDTemplateEngine/TDTemplateContext.h>
+#import <TDTemplateEngine/TDWriter.h>
+#import <TDTemplateEngine/XPExpression.h>
+#import <PEGKit/PKToken.h>
+#import <PEGKit/PKTokenizer.h>
+#import <PEGKit/PKWhitespaceState.h>
+
+@interface TDNode ()
+- (void)renderVerbatimInContext:(TDTemplateContext *)ctx;
+@end
+
 
 @implementation TDTag
 
@@ -37,14 +49,104 @@
 }
 
 
+- (instancetype)initWithToken:(PKToken *)frag {
+    self = [super initWithToken:frag];
+    if (self) {
+        
+    }
+    return self;
+}
+
+
 - (void)dealloc {
-    self.expression = nil;
-    self.parent = nil;
-    self.children = nil;
-    self.node = nil;
+    self.endTagToken = nil;
     [super dealloc];
 }
 
+
+#pragma mark -
+#pragma mark TDNode
+
+- (void)processFragment {
+    TDAssert([self.token.stringValue length]);
+    TDAssert(self.parent);
+    
+    // tokenize
+    NSMutableArray *toks = [NSMutableArray array];
+    NSString *tagName = nil;
+    
+    PKTokenizer *t = [XPExpression tokenizer];
+    t.string = self.token.stringValue;
+    
+    PKToken *tok = nil;
+    PKToken *eof = [PKToken EOFToken];
+    while (eof != (tok = [t nextToken])) {
+        if (!tagName && PKTokenTypeWord == tok.tokenType) {
+            tagName = tok.stringValue;
+            continue;
+        }
+        
+        [toks addObject:tok];
+    }
+    
+//    // attach tag to parent if present
+//    TDBlockStartNode *enclosingBlockStartNode = (id)[self firstAncestorOfClass:[TDBlockStartNode class]];
+//    
+//    if (enclosingBlockStartNode) {
+//        //        TDTag *parentTag = enclosingBlockStartNode.tag;
+//        //        _tag.parent = parentTag;
+//        //        [parentTag addChild:_tag];
+//    }
+    
+    // compile expression if present
+    if ([toks count]) {
+        BOOL doLoop = [tagName isEqualToString:@"for"];
+        if (doLoop) {
+            self.expression = [XPExpression loopExpressionFromTokens:toks error:nil];
+        } else {
+            self.expression = [XPExpression expressionFromTokens:toks error:nil];
+        }
+    }
+}
+
+
+- (void)renderInContext:(TDTemplateContext *)ctx {
+    NSParameterAssert(ctx);
+    if (self.suppressRendering) {
+        self.suppressRendering = NO;
+        return;
+    }
+    
+    TDTemplateContext *local = [[[TDTemplateContext alloc] initWithVariables:nil output:ctx.writer.output] autorelease];
+    local.enclosingScope = ctx;
+    
+    [self doTagInContext:local];
+}
+
+
+- (void)renderVerbatimInContext:(TDTemplateContext *)ctx {
+    NSParameterAssert(ctx);
+    if (self.suppressRendering) {
+        self.suppressRendering = NO;
+        return;
+    }
+    
+    [super renderVerbatimInContext:ctx];
+    
+    TDWriter *writer = ctx.writer;
+    TDFragment *frag = (id)self.endTagToken;
+    NSString *str = frag.verbatimString;
+    
+    // text nodes don't store separate verbStr
+    if (!str) {
+        str = frag.stringValue;
+    }
+    [writer appendString:str];
+}
+
+
+#pragma mark -
+#pragma mark TDTag
 
 - (void)doTagInContext:(TDTemplateContext *)ctx {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
@@ -54,9 +156,9 @@
 - (TDTag *)firstAncestorOfTagName:(NSString *)tagName {
     NSParameterAssert([tagName length]);
 
-    TDTag *result = _parent;
-    while (result && ![result.tagName isEqualToString:tagName]) {
-        result = result.parent;
+    id result = self.parent;
+    while (result && [result isKindOfClass:[TDTag class]] && ![[result tagName] isEqualToString:tagName]) {
+        result = [result parent];
     }
     return result;
 }
@@ -64,15 +166,6 @@
 
 - (NSString *)tagName {
     return [[self class] tagName];
-}
-
-
-- (void)addChild:(TDTag *)child {
-    TDAssert(child);
-    if (!_children) {
-        self.children = [NSMutableArray array];
-    }
-    [_children addObject:child];
 }
 
 @end

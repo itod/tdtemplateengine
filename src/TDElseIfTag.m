@@ -24,8 +24,6 @@
 #import "TDIfTag.h"
 #import "TDElseTag.h"
 
-#import "TDNode.h"
-
 #import <TDTemplateEngine/TDTemplateContext.h>
 #import <TDTemplateEngine/XPExpression.h>
 

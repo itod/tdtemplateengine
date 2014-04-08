@@ -5,8 +5,8 @@
 #import <TDTemplateEngine/TDTemplateContext.h>
 #import "TDRootNode.h"
 #import "TDVariableNode.h"
-#import "TDBlockStartNode.h"
 #import "TDTextNode.h"
+#import "TDTag.h"
 
 
 @interface TDTemplateParser ()
@@ -105,7 +105,10 @@
     [self execute:^{
     
     PKToken *tok = POP();
-    TDNode *startTagNode = [TDBlockStartNode nodeWithToken:tok parent:_currentParent];
+    NSString *tagName = tok.stringValue;
+    ASSERT([tagName length]);
+    TDTag *startTagNode = [[TDTemplateEngine currentTemplateEngine] makeTagForName:tagName];
+    startTagNode.parent = _currentParent;
     [_currentParent addChild:startTagNode];
     //self.currentParent = startTagNode;
 
@@ -135,10 +138,13 @@
     [self execute:^{
     
     PKToken *tok = POP();
-    TDNode *startTagNode = [TDBlockStartNode nodeWithToken:tok parent:_currentParent];
+
+    NSString *tagName = tok.stringValue;
+    ASSERT([tagName length]);
+    TDTag *startTagNode = [[TDTemplateEngine currentTemplateEngine] makeTagForName:tagName];
+    startTagNode.parent = _currentParent;
     [_currentParent addChild:startTagNode];
     self.currentParent = startTagNode;
-
     }];
 
 }
@@ -154,8 +160,8 @@
         self.currentParent = POP();
 
     ASSERT([_currentParent.name hasPrefix:tagName]);
-    ASSERT([_currentParent isKindOfClass:[TDBlockStartNode class]]);
-    TDBlockStartNode *startNode = (id)_currentParent;
+    ASSERT([_currentParent isKindOfClass:[TDTag class]]);
+    TDTag *startNode = (id)_currentParent;
     startNode.endTagToken = tok;
 
     }];

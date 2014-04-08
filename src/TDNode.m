@@ -51,6 +51,8 @@
 
 - (void)dealloc {
     self.parent = nil;
+    self.expression = nil;
+    
     [super dealloc];
 }
 
@@ -134,6 +136,11 @@
     for (TDNode *child in self.children) {
         [child renderVerbatimInContext:ctx];
     }
+}
+
+
+- (NSString *)tagName {
+    return nil;
 }
 
 @end

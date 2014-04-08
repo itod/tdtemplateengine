@@ -22,7 +22,6 @@
 
 #import "TDElseTag.h"
 #import "TDIfTag.h"
-#import "TDNode.h"
 #import <TDTemplateEngine/TDTemplateContext.h>
 
 @implementation TDElseTag

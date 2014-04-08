@@ -23,7 +23,6 @@
 #import "TDIfTag.h"
 #import "TDElseTag.h"
 #import "TDElseIfTag.h"
-#import "TDBlockStartNode.h"
 #import <TDTemplateEngine/TDTemplateContext.h>
 #import <TDTemplateEngine/XPExpression.h>
 
@@ -40,22 +39,12 @@
 
 
 - (BOOL)isElse:(TDNode *)node {
-    return [self isNode:node ofType:[TDElseTag class]];
+    return [node.tagName isEqualToString:[TDElseTag tagName]];
 }
 
 
 - (BOOL)isElif:(TDNode *)node {
-    return [self isNode:node ofType:[TDElseIfTag class]];
-}
-
-
-- (BOOL)isNode:(TDNode *)node ofType:(Class)cls {
-    BOOL isElse = NO;
-    if ([node isMemberOfClass:[TDBlockStartNode class]]) {
-        TDTag *tag = [(id)node tag];
-        isElse = [tag isMemberOfClass:cls];
-    }
-    return isElse;
+    return [node.tagName isEqualToString:[TDElseIfTag tagName]];
 }
 
 
@@ -67,7 +56,7 @@
     
     if (test) {
         BOOL foundElse = NO;
-        for (TDNode *child in self.node.children) {
+        for (TDNode *child in self.children) {
             if (foundElse) {
                 child.suppressRendering = YES;
             } else {
@@ -79,9 +68,9 @@
         }
     } else {
         BOOL suppress = YES;
-        for (TDNode *child in self.node.children) {
+        for (TDNode *child in self.children) {
             if ([self isElif:child]) {
-                suppress = ![[[(id)child tag] expression] evaluateAsBooleanInContext:ctx];
+                suppress = ![[child expression] evaluateAsBooleanInContext:ctx];
             } else if ([self isElse:child]) {
                 suppress = !suppress;
             }

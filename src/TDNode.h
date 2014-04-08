@@ -24,6 +24,7 @@
 
 @class PKToken;
 @class TDTemplateContext;
+@class XPExpression;
 
 @interface TDNode : PKAST
 
@@ -36,4 +37,7 @@
 
 @property (nonatomic, assign) TDNode *parent; // weakref
 @property (nonatomic, assign) BOOL suppressRendering;
+
+@property (nonatomic, copy, readonly) NSString *tagName;
+@property (nonatomic, retain) XPExpression *expression;
 @end

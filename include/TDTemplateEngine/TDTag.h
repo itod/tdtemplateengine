@@ -20,29 +20,22 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <Foundation/Foundation.h>
+#import <TDTemplateEngine/TDNode.h>
 
 @class TDTemplateContext;
 @class XPExpression;
-@class TDNode;
+@class PKToken;
 
 typedef NS_ENUM(NSUInteger, TDTagType) {
     TDTagTypeEmpty,
     TDTagTypeBlock,
 };
 
-@interface TDTag : NSObject
+@interface TDTag : TDNode
 
 - (TDTag *)firstAncestorOfTagName:(NSString *)tagName;
 
-@property (nonatomic, copy, readonly) NSString *tagName; // convenience for class method
-@property (nonatomic, retain) XPExpression *expression;
-@property (nonatomic, assign) TDTag *parent; // weakref
-
-- (void)addChild:(TDTag *)child;
-@property (nonatomic, retain) NSMutableArray *children;
-
-@property (nonatomic, assign) TDNode *node; // node backpointer. weakref
+@property (nonatomic, retain) PKToken *endTagToken;
 @end
 
 // Subclasses must override these methods

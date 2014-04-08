@@ -49,7 +49,7 @@
     
     NSError *err = nil;
     self.expression = [XPExpression expressionFromString:str error:&err];
-    if (!_expression) {
+    if (!self.expression) {
         [NSException raise:TDTemplateEngineErrorDomain format:@"Error while compiling var tag expression `%@` : %@", str, [err localizedFailureReason]];
     }
 }
@@ -62,9 +62,9 @@
         return;
     }
     
-    TDAssert(_expression);
+    TDAssert(self.expression);
     
-    id val = [_expression evaluateInContext:ctx];
+    id val = [self.expression evaluateInContext:ctx];
     if (val) {
         TDWriter *writer = ctx.writer;
         
