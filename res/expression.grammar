@@ -4,6 +4,8 @@
 
 @interface {
 + (PKTokenizer *)tokenizer;
+
+@property (nonatomic, assign) BOOL doLoopExpr;
 }
 
 @m {
