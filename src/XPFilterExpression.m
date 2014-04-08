@@ -44,11 +44,8 @@
         TDAssert([expr isKindOfClass:[XPExpression class]]);
         self.expr = expr;
         
-        TDFilter *f = [[TDTemplateEngine currentTemplateEngine] makeFilterForName:filterName];
-        if (!f) {
-            [NSException raise:TDTemplateEngineErrorDomain format:@"Unknown filter name: '%@'", filterName];
-        }
-        self.filter = f;
+        self.filter = [[TDTemplateEngine currentTemplateEngine] makeFilterForName:filterName];
+        TDAssert(_filter);
         
         if ([args count]) {
             self.args = args;

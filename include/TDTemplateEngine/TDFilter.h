@@ -26,6 +26,8 @@ NSString *TDStringFromObject(id obj);
 
 @interface TDFilter : NSObject
 
+- (void)validateArguments:(NSArray *)args min:(NSUInteger)min max:(NSUInteger)max;
+
 @property (nonatomic, assign, readonly) NSString *filterName; // convenience for class method
 @end
 

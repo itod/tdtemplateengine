@@ -45,6 +45,7 @@
 #import "TDLowercaseFilter.h"
 #import "TDUppercaseFilter.h"
 #import "TDCapitalizeFilter.h"
+#import "TDDateFormatFilter.h"
 
 #import <PEGKit/PKTokenizer.h>
 #import <PEGKit/PKWhitespaceState.h>
@@ -97,6 +98,7 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
         [self registerFilterClass:[TDLowercaseFilter class] forName:[TDLowercaseFilter filterName]];
         [self registerFilterClass:[TDUppercaseFilter class] forName:[TDUppercaseFilter filterName]];
         [self registerFilterClass:[TDCapitalizeFilter class] forName:[TDCapitalizeFilter filterName]];
+        [self registerFilterClass:[TDDateFormatFilter class] forName:[TDDateFormatFilter filterName]];
         
         self.expressionParser = [[[XPParser alloc] initWithDelegate:nil] autorelease];
 

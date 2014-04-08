@@ -35,6 +35,8 @@
 		D369BD4318EF7F6A003E715B /* TDForLoop.m in Sources */ = {isa = PBXBuildFile; fileRef = D369BD4118EF7F6A003E715B /* TDForLoop.m */; };
 		D369BD4A18EF8921003E715B /* XPEnumeration.h in Headers */ = {isa = PBXBuildFile; fileRef = D369BD4818EF8921003E715B /* XPEnumeration.h */; };
 		D369BD4B18EF8921003E715B /* XPEnumeration.m in Sources */ = {isa = PBXBuildFile; fileRef = D369BD4918EF8921003E715B /* XPEnumeration.m */; };
+		D37BC6B518F4415200938644 /* TDDateFormatFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = D37BC6B318F4415200938644 /* TDDateFormatFilter.h */; };
+		D37BC6B618F4415200938644 /* TDDateFormatFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D37BC6B418F4415200938644 /* TDDateFormatFilter.m */; };
 		D398E2EF18EA2C51004B883C /* TDTemplateParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D398E2ED18EA2C51004B883C /* TDTemplateParser.h */; };
 		D398E2F018EA2C51004B883C /* TDTemplateParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D398E2EE18EA2C51004B883C /* TDTemplateParser.m */; };
 		D398E2F618EA5714004B883C /* TDScope.h in Headers */ = {isa = PBXBuildFile; fileRef = D398E2F518EA5714004B883C /* TDScope.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -156,6 +158,8 @@
 		D369BD4118EF7F6A003E715B /* TDForLoop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDForLoop.m; path = src/TDForLoop.m; sourceTree = SOURCE_ROOT; };
 		D369BD4818EF8921003E715B /* XPEnumeration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPEnumeration.h; path = src/XPEnumeration.h; sourceTree = SOURCE_ROOT; };
 		D369BD4918EF8921003E715B /* XPEnumeration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPEnumeration.m; path = src/XPEnumeration.m; sourceTree = SOURCE_ROOT; };
+		D37BC6B318F4415200938644 /* TDDateFormatFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDDateFormatFilter.h; path = src/TDDateFormatFilter.h; sourceTree = SOURCE_ROOT; };
+		D37BC6B418F4415200938644 /* TDDateFormatFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDDateFormatFilter.m; path = src/TDDateFormatFilter.m; sourceTree = SOURCE_ROOT; };
 		D398E2ED18EA2C51004B883C /* TDTemplateParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDTemplateParser.h; path = src/TDTemplateParser.h; sourceTree = SOURCE_ROOT; };
 		D398E2EE18EA2C51004B883C /* TDTemplateParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDTemplateParser.m; path = src/TDTemplateParser.m; sourceTree = SOURCE_ROOT; };
 		D398E2F518EA5714004B883C /* TDScope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDScope.h; path = src/TDScope.h; sourceTree = SOURCE_ROOT; };
@@ -275,6 +279,8 @@
 				D319138E18F1AD1500430BAD /* TDUppercaseFilter.m */,
 				D319138118F1A58A00430BAD /* TDCapitalizeFilter.h */,
 				D319138218F1A58A00430BAD /* TDCapitalizeFilter.m */,
+				D37BC6B318F4415200938644 /* TDDateFormatFilter.h */,
+				D37BC6B418F4415200938644 /* TDDateFormatFilter.m */,
 			);
 			name = Filter;
 			sourceTree = "<group>";
@@ -533,6 +539,7 @@
 				D3A29E2D18E75D3B00DC591E /* XPBinaryExpression.h in Headers */,
 				D3A29E2F18E75D3B00DC591E /* XPBooleanExpression.h in Headers */,
 				D319137F18F1A4A900430BAD /* XPFilterExpression.h in Headers */,
+				D37BC6B518F4415200938644 /* TDDateFormatFilter.h in Headers */,
 				D319138B18F1AC4500430BAD /* TDLowercaseFilter.h in Headers */,
 				D3A7E26B18EF9286009BFD96 /* TDTemplateEngine+XPExpressionSupport.h in Headers */,
 				D369BD4218EF7F6A003E715B /* TDForLoop.h in Headers */,
@@ -651,6 +658,7 @@
 				D33915EE18F0A0C500BDA4FD /* TDElseIfTag.m in Sources */,
 				D3A29E0018E6584D00DC591E /* XPBooleanValue.m in Sources */,
 				D3CAF8AC18EDF27F00166A95 /* XPCollectionExpression.m in Sources */,
+				D37BC6B618F4415200938644 /* TDDateFormatFilter.m in Sources */,
 				D3A29DCB18E6286600DC591E /* TDBlockEndNode.m in Sources */,
 				D319138018F1A4AA00430BAD /* XPFilterExpression.m in Sources */,
 				D3A29E0518E6584D00DC591E /* XPStringValue.m in Sources */,

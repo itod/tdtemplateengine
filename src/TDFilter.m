@@ -21,6 +21,7 @@
 // THE SOFTWARE.
 
 #import <TDTemplateEngine/TDFilter.h>
+#import <TDTemplateEngine/TDTemplateEngine.h>
 
 NSString *TDStringFromObject(id obj) {
     assert(obj);
@@ -51,6 +52,21 @@ NSString *TDStringFromObject(id obj) {
 
 - (NSString *)filterName {
     return [[self class] filterName];
+}
+
+
+- (void)validateArguments:(NSArray *)args min:(NSUInteger)min max:(NSUInteger)max {
+    NSUInteger actual = [args count];
+    
+    NSString *plural = min > 1 ? @"s" : @"";
+    if (actual < min) {
+        [NSException raise:TDTemplateEngineErrorDomain format:@"Filter '%@' requires at least %lu argument%@. %lu given.", [[self class] filterName], min, plural, actual];
+    }
+
+    plural = (0 == max || max > 1) ? @"s" : @"";
+    if (actual > max) {
+        [NSException raise:TDTemplateEngineErrorDomain format:@"Filter '%@' requires at most %lu argument%@. %lu given.", [[self class] filterName], max, plural, actual];
+    }
 }
 
 @end
