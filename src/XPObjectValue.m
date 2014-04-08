@@ -63,7 +63,23 @@
         str = [_value description];
     }
     return str;
+}
 
+
+- (double)doubleValue {
+    double d = 0.0;
+    if ([_value respondsToSelector:@selector(doubleValue)]) {
+        d = [_value doubleValue];
+    } else {
+        d = XPNumberFromString([self stringValue]);
+    }
+    return d;
+}
+
+
+- (BOOL)boolValue {
+    double d = [self doubleValue];
+    return d != 0.0 && d != NAN;
 }
 
 @end
