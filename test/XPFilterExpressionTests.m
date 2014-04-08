@@ -147,7 +147,6 @@
 - (void)testDateFormatToday {
     NSString *fmtStr = @"EEE, MMM d, yy";
     NSString *input = [NSString stringWithFormat:@"'today'|dateFormat:'%@'", fmtStr];
-    //    NSString *input = @"'today'|dateFormat:'EEE, MMM d, \'yy'";
     NSArray *toks = [self tokenize:input];
     
     id vars = nil;
@@ -164,6 +163,31 @@
     NSString *expected = [fmt stringFromDate:now];
     NSString *actual = [expr evaluateAsStringInContext:ctx];
     TDEqualObjects(expected, actual);
+    TDTrue([actual length]);
+    TDTrue([actual rangeOfString:@","].length);
+}
+
+- (void)testDateFormatNow {
+    NSString *fmtStr = @"EEE, MMM d, yy";
+    NSString *input = [NSString stringWithFormat:@"'now'|dateFormat:'%@'", fmtStr];
+    NSArray *toks = [self tokenize:input];
+    
+    id vars = nil;
+    id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    
+    NSDate *now = [NSDate date];
+    NSDateFormatter *fmt = [[[NSDateFormatter alloc] init] autorelease];
+    [fmt setDateFormat:fmtStr];
+    NSString *expected = [fmt stringFromDate:now];
+    NSString *actual = [expr evaluateAsStringInContext:ctx];
+    TDEqualObjects(expected, actual);
+    TDTrue([actual length]);
+    TDTrue([actual rangeOfString:@","].length);
 }
 
 @end
