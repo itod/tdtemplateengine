@@ -190,4 +190,60 @@
     TDTrue([actual rangeOfString:@","].length);
 }
 
+- (void)testDateFormatOct26Literal {
+    NSString *fmtStr = @"EEE, MMM d, yy";
+    NSString *input = [NSString stringWithFormat:@"'Oct 26, 1977'|dateFormat:'%@'", fmtStr];
+    NSArray *toks = [self tokenize:input];
+    
+    id vars = nil;
+    id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    
+    NSString *expected = @"Wed, Oct 26, 77";
+    NSString *actual = [expr evaluateAsStringInContext:ctx];
+    TDEqualObjects(expected, actual);
+}
+
+- (void)testDateFormatApril25Var {
+    NSString *fmtStr = @"EEE, MMM d, yy";
+    NSString *input = [NSString stringWithFormat:@"mydate|dateFormat:'%@'", fmtStr];
+    NSArray *toks = [self tokenize:input];
+    
+    NSDate *date = [NSDate dateWithNaturalLanguageString:@"April 25 1996"];
+    id vars = @{@"mydate": date};
+    id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    
+    NSString *expected = @"Thu, Apr 25, 96";
+    NSString *actual = [expr evaluateAsStringInContext:ctx];
+    TDEqualObjects(expected, actual);
+}
+
+- (void)testDateFormatApril25Var2 {
+    NSString *fmtStr = @"yyyyy.MMMM.dd GGG hh:mm aaa";
+    NSString *input = [NSString stringWithFormat:@"mydate|dateFormat:'%@'", fmtStr];
+    NSArray *toks = [self tokenize:input];
+    
+    NSDate *date = [NSDate dateWithNaturalLanguageString:@"April 25 1996"];
+    id vars = @{@"mydate": date};
+    id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    
+    NSString *expected = @"01996.April.25 AD 12:00 PM";
+    NSString *actual = [expr evaluateAsStringInContext:ctx];
+    TDEqualObjects(expected, actual);
+}
+
 @end

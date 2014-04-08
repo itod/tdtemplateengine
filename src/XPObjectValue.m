@@ -52,4 +52,18 @@
     return XPDataTypeObject;
 }
 
+
+- (NSString *)stringValue {
+    NSString *str = nil;
+    if ([_value isKindOfClass:[NSString class]]) {
+        str = _value;
+    } else if ([_value respondsToSelector:@selector(stringValue)]) {
+        str = [_value stringValue];
+    } else {
+        str = [_value description];
+    }
+    return str;
+
+}
+
 @end
