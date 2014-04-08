@@ -680,7 +680,7 @@
 
     }];
     [self identifier_]; 
-    while ([self speculate:^{ [self match:XP_TOKEN_KIND_DOT discard:YES]; [self step_]; }]) {
+    while ([self predicts:XP_TOKEN_KIND_DOT, 0]) {
         [self match:XP_TOKEN_KIND_DOT discard:YES]; 
         [self step_]; 
     }
