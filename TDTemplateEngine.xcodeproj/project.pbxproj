@@ -281,6 +281,19 @@
 			name = "Expression Tests";
 			sourceTree = "<group>";
 		};
+		D306D9C618F5872500E32DDC /* Tag Tests */ = {
+			isa = PBXGroup;
+			children = (
+				D3A3E54C18EC5706004FEB2C /* TDVarTagTests.m */,
+				D3A3E54B18EC5706004FEB2C /* TDIfTagTests.m */,
+				D33915E518F09DFF00BDA4FD /* TDElseTagTests.m */,
+				D3A3E54A18EC5706004FEB2C /* TDForTagTests.m */,
+				D3A7E27518F0788D009BFD96 /* TDCommentTagTests.m */,
+				D319139618F2EF7000430BAD /* TDVerbatimTagTests.m */,
+			);
+			name = "Tag Tests";
+			sourceTree = "<group>";
+		};
 		D319137818F1A44E00430BAD /* Filter */ = {
 			isa = PBXGroup;
 			children = (
@@ -365,12 +378,7 @@
 			children = (
 				D3A29D8B18E5F5B300DC591E /* TDTestScaffold.h */,
 				D306D9C518F5859F00E32DDC /* Expression Tests */,
-				D3A3E54C18EC5706004FEB2C /* TDVarTagTests.m */,
-				D3A3E54B18EC5706004FEB2C /* TDIfTagTests.m */,
-				D33915E518F09DFF00BDA4FD /* TDElseTagTests.m */,
-				D3A3E54A18EC5706004FEB2C /* TDForTagTests.m */,
-				D3A7E27518F0788D009BFD96 /* TDCommentTagTests.m */,
-				D319139618F2EF7000430BAD /* TDVerbatimTagTests.m */,
+				D306D9C618F5872500E32DDC /* Tag Tests */,
 				D367DFCF18E5EF6900F97BCC /* Supporting Files */,
 			);
 			name = "TDTemplateEngine Tests";

@@ -11,8 +11,6 @@
 #import <TDTemplateEngine/TDTemplateContext.h>
 #import "TDRootNode.h"
 #import "TDVariableNode.h"
-#import "TDBlockStartNode.h"
-#import "TDBlockEndNode.h"
 #import "TDTextNode.h"
 }
 
@@ -52,7 +50,11 @@ var
 empty_tag
     = 'empty_tag' {
     PKToken *tok = POP();
-    TDNode *startTagNode = [TDBlockStartNode nodeWithToken:tok parent:_currentParent];
+    NSString *tagName = tok.stringValue;
+    ASSERT([tagName length]);
+    TDTag *startTagNode = [[TDTemplateEngine currentTemplateEngine] makeTagForName:tagName];
+    startTagNode.token = tok;
+    startTagNode.parent = _currentParent;
     [_currentParent addChild:startTagNode];
     //self.currentParent = startTagNode;
 };
@@ -66,7 +68,12 @@ block_tag
 block_start_tag 
     = 'block_start_tag' {
     PKToken *tok = POP();
-    TDNode *startTagNode = [TDBlockStartNode nodeWithToken:tok parent:_currentParent];
+    NSString *tagName = tok.stringValue;
+    ASSERT([tagName length]);
+    TDTag *startTagNode = [[TDTemplateEngine currentTemplateEngine] makeTagForName:tagName];
+    ASSERT(startTagNode);
+    startTagNode.token = tok;
+    startTagNode.parent = _currentParent;
     [_currentParent addChild:startTagNode];
     self.currentParent = startTagNode;
 };
@@ -75,12 +82,12 @@ block_end_tag
     = 'block_end_tag' {
     PKToken *tok = POP();
     NSString *tagName = [tok.stringValue substringFromIndex:[TD_END_TAG_PREFIX length]];
-    while (![_currentParent.name hasPrefix:tagName])
+    while (![_currentParent.tagName hasPrefix:tagName])
         self.currentParent = POP();
 
     ASSERT([_currentParent.name hasPrefix:tagName]);
-    ASSERT([_currentParent isKindOfClass:[TDBlockStartNode class]]);
-    TDBlockStartNode *startNode = (id)_currentParent;
+    ASSERT([_currentParent isKindOfClass:[TDTag class]]);
+    TDTag *startNode = (id)_currentParent;
     startNode.endTagToken = tok;
 };
 

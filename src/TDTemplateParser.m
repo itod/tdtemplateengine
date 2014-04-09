@@ -108,6 +108,7 @@
     NSString *tagName = tok.stringValue;
     ASSERT([tagName length]);
     TDTag *startTagNode = [[TDTemplateEngine currentTemplateEngine] makeTagForName:tagName];
+    startTagNode.token = tok;
     startTagNode.parent = _currentParent;
     [_currentParent addChild:startTagNode];
     //self.currentParent = startTagNode;
@@ -138,10 +139,11 @@
     [self execute:^{
     
     PKToken *tok = POP();
-
     NSString *tagName = tok.stringValue;
     ASSERT([tagName length]);
     TDTag *startTagNode = [[TDTemplateEngine currentTemplateEngine] makeTagForName:tagName];
+    ASSERT(startTagNode);
+    startTagNode.token = tok;
     startTagNode.parent = _currentParent;
     [_currentParent addChild:startTagNode];
     self.currentParent = startTagNode;
@@ -156,7 +158,7 @@
     
     PKToken *tok = POP();
     NSString *tagName = [tok.stringValue substringFromIndex:[TD_END_TAG_PREFIX length]];
-    while (![_currentParent.name hasPrefix:tagName])
+    while (![_currentParent.tagName hasPrefix:tagName])
         self.currentParent = POP();
 
     ASSERT([_currentParent.name hasPrefix:tagName]);
@@ -179,6 +181,14 @@
 
     }];
 
+}
+
+
+- (void)setCurrentParent:(TDNode *)n {
+    if (n != _currentParent) {
+        [_currentParent release];
+        _currentParent = [n retain];
+    }
 }
 
 @end
