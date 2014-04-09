@@ -368,8 +368,25 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
     NSParameterAssert(frag);
     NSParameterAssert(parent);
     
-    // tokenize
     NSMutableArray *toks = [NSMutableArray array];
+    NSString *tagName = [self tagNameFromTokens:toks inFragment:frag];
+    
+    // tokenize
+    TDTag *tag = [self makeTagForName:tagName];
+    TDAssert(tag);
+    tag.token = frag;
+    tag.parent = parent;
+    
+    // compile expression if present
+    if ([toks count]) {
+        tag.expression = [self expressionForTagName:tagName fromFragment:frag tokens:toks];
+    }
+    
+    return tag;
+}
+
+
+- (NSString *)tagNameFromTokens:(NSMutableArray *)outToks inFragment:(PKToken *)frag {
     NSString *tagName = nil;
     
     PKTokenizer *t = [XPExpression tokenizer];
@@ -383,32 +400,32 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
             continue;
         }
         
-        [toks addObject:tok];
+        [outToks addObject:tok];
     }
     
-    TDTag *tag = [self makeTagForName:tagName];
-    TDAssert(tag);
-    tag.token = frag;
-    tag.parent = parent;
+    TDAssert([tagName length]);
+    return tagName;
+}
+
+
+- (XPExpression *)expressionForTagName:(NSString *)tagName fromFragment:(PKToken *)frag tokens:(NSArray *)toks {
+    NSParameterAssert([toks count]);
     
-    // compile expression if present
-    if ([toks count]) {
-        XPExpression *expr = nil;
-        NSError *err = nil;
-        BOOL doLoop = [tagName isEqualToString:@"for"];
-        if (doLoop) {
-            expr = [XPExpression loopExpressionFromTokens:toks error:&err];
-        } else {
-            expr = [XPExpression expressionFromTokens:toks error:&err];
-        }
-        if (expr) {
-            tag.expression = expr;
-        } else {
-            [NSException raise:TDTemplateEngineErrorDomain format:@"Error while compiling var tag expression `%@` : %@", frag.stringValue, [err localizedFailureReason]];
-        }
+    XPExpression *expr = nil;
+    NSError *err = nil;
+    
+    BOOL doLoop = [tagName isEqualToString:@"for"];
+    if (doLoop) {
+        expr = [XPExpression loopExpressionFromTokens:toks error:&err];
+    } else {
+        expr = [XPExpression expressionFromTokens:toks error:&err];
     }
     
-    return tag;
+    if (!expr) {
+        [NSException raise:TDTemplateEngineErrorDomain format:@"Error while compiling var tag expression `%@` : %@", frag.stringValue, [err localizedFailureReason]];
+    }
+
+    return expr;
 }
 
 
