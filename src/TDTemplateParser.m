@@ -9,6 +9,7 @@
 #import "TDTag.h"
 
 @interface TDTemplateEngine ()
+- (TDVariableNode *)varNodeFromFragment:(PKToken *)frag withParent:(TDNode *)parent;
 - (TDTag *)tagFromFragment:(PKToken *)tok withParent:(TDNode *)parent;
 @end
 
@@ -95,7 +96,7 @@
     [self execute:^{
     
     PKToken *tok = POP();
-    TDNode *varNode = [TDVariableNode nodeWithToken:tok parent:_currentParent];
+    TDNode *varNode = [[TDTemplateEngine currentTemplateEngine] varNodeFromFragment:tok withParent:_currentParent];
     [_currentParent addChild:varNode];
 
     }];

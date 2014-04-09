@@ -15,6 +15,7 @@
 #import "TDTag.h"
 
 @interface TDTemplateEngine ()
+- (TDVariableNode *)varNodeFromFragment:(PKToken *)frag withParent:(TDNode *)parent;
 - (TDTag *)tagFromFragment:(PKToken *)tok withParent:(TDNode *)parent;
 @end
 }

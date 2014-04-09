@@ -43,15 +43,7 @@
 #pragma mark Public
 
 - (void)processFragment {
-    NSParameterAssert(self.token);
-    NSString *str = self.token.stringValue;
-    TDAssert([str length]);
-    
-    NSError *err = nil;
-    self.expression = [XPExpression expressionFromString:str error:&err];
-    if (!self.expression) {
-        [NSException raise:TDTemplateEngineErrorDomain format:@"Error while compiling var tag expression `%@` : %@", str, [err localizedFailureReason]];
-    }
+    TDAssert(self.token);
 }
 
 

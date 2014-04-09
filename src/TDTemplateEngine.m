@@ -364,6 +364,26 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
 #pragma mark -
 #pragma mark TDTemplateParser API
 
+- (TDVariableNode *)varNodeFromFragment:(PKToken *)frag withParent:(TDNode *)parent {
+    NSParameterAssert(frag);
+    NSParameterAssert(parent);
+    
+    NSString *str = frag.stringValue;
+    TDAssert([str length]);
+    
+    NSError *err = nil;
+    XPExpression *expr = [XPExpression expressionFromString:str error:&err];
+    if (!expr) {
+        [NSException raise:TDTemplateEngineErrorDomain format:@"Error while compiling var tag expression `%@` : %@", str, [err localizedFailureReason]];
+    }
+
+    TDAssert(expr);
+    TDVariableNode *varNode = [TDVariableNode nodeWithToken:frag parent:parent];
+    varNode.expression = expr;
+    return varNode;
+}
+
+
 - (TDTag *)tagFromFragment:(PKToken *)frag withParent:(TDNode *)parent {
     NSParameterAssert(frag);
     NSParameterAssert(parent);
