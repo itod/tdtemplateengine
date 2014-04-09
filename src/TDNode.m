@@ -25,11 +25,6 @@
 #import <TDTemplateEngine/TDWriter.h>
 #import <TDTemplateEngine/TDFragment.h>
 
-@interface TDNode ()
-- (void)renderVerbatimInContext:(TDTemplateContext *)ctx;
-- (void)renderChildrenVerbatimInContext:(TDTemplateContext *)ctx;
-@end
-
 @implementation TDNode
 
 + (instancetype)nodeWithToken:(PKToken *)frag parent:(TDNode *)parent {
@@ -95,35 +90,6 @@
     NSParameterAssert(ctx);
     for (TDNode *child in self.children) {
         [child renderInContext:ctx];
-    }
-}
-
-
-#pragma mark -
-#pragma mark Render Verbatim
-
-- (void)renderVerbatimInContext:(TDTemplateContext *)ctx {
-    NSParameterAssert(ctx);
-    
-    TDWriter *writer = ctx.writer;
-    TDFragment *frag = (id)self.token;
-    NSString *str = frag.verbatimString;
-    
-    // text nodes don't store separate verbStr
-    if (!str) {
-        str = frag.stringValue;
-    }
-    [writer appendString:str];
-    
-    [self renderChildrenVerbatimInContext:ctx];
-}
-
-
-- (void)renderChildrenVerbatimInContext:(TDTemplateContext *)ctx {
-    NSParameterAssert(ctx);
-
-    for (TDNode *child in self.children) {
-        [child renderVerbatimInContext:ctx];
     }
 }
 

@@ -63,9 +63,4 @@
     // no-op
 }
 
-
-- (void)renderChildrenVerbatimInContext:(TDTemplateContext *)ctx {
-    // no-op
-}
-
 @end

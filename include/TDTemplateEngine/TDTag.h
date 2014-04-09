@@ -33,8 +33,6 @@ typedef NS_ENUM(NSUInteger, TDTagType) {
 
 @interface TDTag : TDNode
 - (void)renderBodyInContext:(TDTemplateContext *)ctx;
-
-@property (nonatomic, assign) BOOL verbatim;
 @end
 
 // Subclasses must override these methods

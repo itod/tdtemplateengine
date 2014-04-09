@@ -26,10 +26,6 @@
 #import <TDTemplateEngine/TDTemplateContext.h>
 #import <TDTemplateEngine/XPExpression.h>
 
-@interface TDNode ()
-- (void)renderChildrenVerbatimInContext:(TDTemplateContext *)ctx;
-@end
-
 @implementation TDIfTag
 
 + (NSString *)tagName {
@@ -55,11 +51,6 @@
 - (void)doTagInContext:(TDTemplateContext *)ctx {
     TDAssert(ctx);
     TDAssert(self.expression);
-    
-    if (self.verbatim) {
-        [self renderChildrenVerbatimInContext:ctx];
-        return;
-    }
     
     BOOL test = [self.expression evaluateAsBooleanInContext:ctx];
     

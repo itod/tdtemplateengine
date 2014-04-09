@@ -31,9 +31,7 @@
 #import <PEGKit/PKWhitespaceState.h>
 
 @interface TDNode ()
-- (void)renderVerbatimInContext:(TDTemplateContext *)ctx;
 - (void)renderChildrenInContext:(TDTemplateContext *)ctx;
-- (void)renderChildrenVerbatimInContext:(TDTemplateContext *)ctx;
 @end
 
 @interface TDTag ()
@@ -71,11 +69,7 @@
 
 - (void)renderBodyInContext:(TDTemplateContext *)ctx {
     TDAssert(ctx);
-    if (self.verbatim) {
-        [self renderChildrenVerbatimInContext:ctx];
-    } else {
-        [self renderChildrenInContext:ctx];
-    }
+    [self renderChildrenInContext:ctx];
 }
 
 
@@ -90,24 +84,6 @@
     
     [self doTagInContext:local];
 }
-
-
-- (void)renderVerbatimInContext:(TDTemplateContext *)ctx {
-    NSParameterAssert(ctx);
-    
-    [super renderVerbatimInContext:ctx];
-    
-    TDWriter *writer = ctx.writer;
-    TDFragment *frag = (id)self.endTagToken;
-    NSString *str = frag.verbatimString;
-    
-    // text nodes don't store separate verbStr
-    if (!str) {
-        str = frag.stringValue;
-    }
-    [writer appendString:str];
-}
-
 
 #pragma mark -
 #pragma mark TDTag
