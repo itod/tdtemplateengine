@@ -6,15 +6,11 @@
 //  Copyright (c) 2014 Todd Ditchendorf. All rights reserved.
 //
 
-#import "TDTestScaffold.h"
+#import "XPBaseExpressionTests.h"
 #import "XPLoopExpression.h"
 #import "XPCollectionExpression.h"
-#import "XPParser.h"
-#import <TDTemplateEngine/TDTemplateContext.h>
 
-@interface XPCollectionExpressionTests : XCTestCase
-@property (nonatomic, retain) XPExpression *expr;
-@property (nonatomic, retain) PKTokenizer *t;
+@interface XPCollectionExpressionTests : XPBaseExpressionTests
 @end
 
 @implementation XPCollectionExpressionTests
@@ -22,28 +18,11 @@
 - (void)setUp {
     [super setUp];
     
-    self.expr = nil;
 }
 
 - (void)tearDown {
-    self.expr = nil;
     
     [super tearDown];
-}
-
-- (NSArray *)tokenize:(NSString *)input {
-    PKTokenizer *t = [XPParser tokenizer];
-    t.string = input;
-    
-    PKToken *tok = nil;
-    PKToken *eof = [PKToken EOFToken];
-    
-    NSMutableArray *toks = [NSMutableArray array];
-    
-    while (eof != (tok = [t nextToken])) {
-        [toks addObject:tok];
-    }
-    return toks;
 }
 
 - (void)testIInArray4Thru6 {

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D306D9C318F5851D00E32DDC /* XPBaseExpressionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D306D9C218F5851D00E32DDC /* XPBaseExpressionTests.m */; };
 		D319137118F197D400430BAD /* PEGKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D319137018F197D400430BAD /* PEGKit.framework */; };
 		D319137218F197F200430BAD /* PEGKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D319137018F197D400430BAD /* PEGKit.framework */; };
 		D319137C18F1A46100430BAD /* TDFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D319137A18F1A46100430BAD /* TDFilter.m */; };
@@ -125,6 +126,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D306D9C218F5851D00E32DDC /* XPBaseExpressionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPBaseExpressionTests.m; path = test/XPBaseExpressionTests.m; sourceTree = SOURCE_ROOT; };
+		D306D9C418F5854000E32DDC /* XPBaseExpressionTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPBaseExpressionTests.h; path = test/XPBaseExpressionTests.h; sourceTree = SOURCE_ROOT; };
 		D319137018F197D400430BAD /* PEGKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PEGKit.framework; path = "../../../Library/Developer/Xcode/DerivedData/TDTemplateEngine-fzzezlziivpwkibrtiisnixrvvso/Build/Products/Debug/PEGKit.framework"; sourceTree = "<group>"; };
 		D319137A18F1A46100430BAD /* TDFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDFilter.m; path = src/TDFilter.m; sourceTree = SOURCE_ROOT; };
 		D319137D18F1A4A900430BAD /* XPFilterExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPFilterExpression.h; path = src/XPFilterExpression.h; sourceTree = SOURCE_ROOT; };
@@ -260,6 +263,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D306D9C518F5859F00E32DDC /* Expression Tests */ = {
+			isa = PBXGroup;
+			children = (
+				D306D9C418F5854000E32DDC /* XPBaseExpressionTests.h */,
+				D306D9C218F5851D00E32DDC /* XPBaseExpressionTests.m */,
+				D3B9830218F080BE00EEFE99 /* XPBooleanExpressionTests.m */,
+				D3CAF8BC18EF59EB00166A95 /* XPNegationExpressionTests.m */,
+				D3A29E3418E7700500DC591E /* XPEqualityExpressionTests.m */,
+				D3B982FC18F0804D00EEFE99 /* XPRelationalExpressionTests.m */,
+				D33915DD18F0818500BDA4FD /* XPArithmeticExpressionTests.m */,
+				D3CAF8B618EF3C9100166A95 /* XPRangeExpressionTests.m */,
+				D3CAF8B318EF3ABD00166A95 /* XPCollectionExpressionTests.m */,
+				D33915E318F081ED00BDA4FD /* XPPathExpressionTests.m */,
+				D319138718F1A80300430BAD /* XPFilterExpressionTests.m */,
+			);
+			name = "Expression Tests";
+			sourceTree = "<group>";
+		};
 		D319137818F1A44E00430BAD /* Filter */ = {
 			isa = PBXGroup;
 			children = (
@@ -343,15 +364,7 @@
 			isa = PBXGroup;
 			children = (
 				D3A29D8B18E5F5B300DC591E /* TDTestScaffold.h */,
-				D3B9830218F080BE00EEFE99 /* XPBooleanExpressionTests.m */,
-				D3CAF8BC18EF59EB00166A95 /* XPNegationExpressionTests.m */,
-				D3A29E3418E7700500DC591E /* XPEqualityExpressionTests.m */,
-				D3B982FC18F0804D00EEFE99 /* XPRelationalExpressionTests.m */,
-				D33915DD18F0818500BDA4FD /* XPArithmeticExpressionTests.m */,
-				D3CAF8B618EF3C9100166A95 /* XPRangeExpressionTests.m */,
-				D3CAF8B318EF3ABD00166A95 /* XPCollectionExpressionTests.m */,
-				D33915E318F081ED00BDA4FD /* XPPathExpressionTests.m */,
-				D319138718F1A80300430BAD /* XPFilterExpressionTests.m */,
+				D306D9C518F5859F00E32DDC /* Expression Tests */,
 				D3A3E54C18EC5706004FEB2C /* TDVarTagTests.m */,
 				D3A3E54B18EC5706004FEB2C /* TDIfTagTests.m */,
 				D33915E518F09DFF00BDA4FD /* TDElseTagTests.m */,
@@ -684,6 +697,7 @@
 				D3CAF8B518EF3B5C00166A95 /* XPCollectionExpressionTests.m in Sources */,
 				D3B982FD18F0804D00EEFE99 /* XPRelationalExpressionTests.m in Sources */,
 				D3A3E54D18EC5706004FEB2C /* TDForTagTests.m in Sources */,
+				D306D9C318F5851D00E32DDC /* XPBaseExpressionTests.m in Sources */,
 				D3CAF8BE18EF5A0000166A95 /* XPNegationExpressionTests.m in Sources */,
 				D3A3E54F18EC5706004FEB2C /* TDVarTagTests.m in Sources */,
 				D33915E418F081ED00BDA4FD /* XPPathExpressionTests.m in Sources */,

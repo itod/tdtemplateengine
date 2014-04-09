@@ -6,14 +6,9 @@
 //  Copyright (c) 2014 Todd Ditchendorf. All rights reserved.
 //
 
-#import "TDTestScaffold.h"
-#import "XPExpression.h"
-#import "XPParser.h"
-#import <TDTemplateEngine/TDTemplateContext.h>
+#import "XPBaseExpressionTests.h"
 
-@interface XPPathExpressionTests : XCTestCase
-@property (nonatomic, retain) XPExpression *expr;
-@property (nonatomic, retain) PKTokenizer *t;
+@interface XPPathExpressionTests : XPBaseExpressionTests
 @end
 
 @implementation XPPathExpressionTests
@@ -21,28 +16,11 @@
 - (void)setUp {
     [super setUp];
     
-    self.expr = nil;
 }
 
 - (void)tearDown {
-    self.expr = nil;
     
     [super tearDown];
-}
-
-- (NSArray *)tokenize:(NSString *)input {
-    PKTokenizer *t = [XPParser tokenizer];
-    t.string = input;
-    
-    PKToken *tok = nil;
-    PKToken *eof = [PKToken EOFToken];
-    
-    NSMutableArray *toks = [NSMutableArray array];
-    
-    while (eof != (tok = [t nextToken])) {
-        [toks addObject:tok];
-    }
-    return toks;
 }
 
 - (void)testPathFooBar8 {
