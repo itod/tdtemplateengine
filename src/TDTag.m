@@ -84,11 +84,7 @@
 
 - (void)renderInContext:(TDTemplateContext *)ctx {
     NSParameterAssert(ctx);
-    if (self.suppressRendering) {
-        self.suppressRendering = NO;
-        return;
-    }
-    
+
     TDTemplateContext *local = [[[TDTemplateContext alloc] initWithVariables:nil output:ctx.writer.output] autorelease];
     local.enclosingScope = ctx;
     
@@ -98,10 +94,6 @@
 
 - (void)renderVerbatimInContext:(TDTemplateContext *)ctx {
     NSParameterAssert(ctx);
-    if (self.suppressRendering) {
-        self.suppressRendering = NO;
-        return;
-    }
     
     [super renderVerbatimInContext:ctx];
     

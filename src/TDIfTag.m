@@ -26,6 +26,10 @@
 #import <TDTemplateEngine/TDTemplateContext.h>
 #import <TDTemplateEngine/XPExpression.h>
 
+@interface TDNode ()
+- (void)renderChildrenVerbatimInContext:(TDTemplateContext *)ctx;
+@end
+
 @implementation TDIfTag
 
 + (NSString *)tagName {
@@ -52,33 +56,30 @@
     TDAssert(ctx);
     TDAssert(self.expression);
     
+    if (self.verbatim) {
+        [self renderChildrenVerbatimInContext:ctx];
+        return;
+    }
+    
     BOOL test = [self.expression evaluateAsBooleanInContext:ctx];
     
-    if (test) {
-        BOOL foundElse = NO;
-        for (TDNode *child in self.children) {
-            if (foundElse) {
-                child.suppressRendering = YES;
-            } else {
-                if ([self isElse:child] || [self isElif:child]) {
-                    foundElse = YES;
-                    child.suppressRendering = YES;
-                }
-            }
+    for (TDNode *child in self.children) {
+        if ([self isElif:child]) {
+            if (test) break;
+            TDElseIfTag *elseIf = (id)child;
+            test = [elseIf.expression evaluateAsBooleanInContext:ctx];
         }
-    } else {
-        BOOL suppress = YES;
-        for (TDNode *child in self.children) {
-            if ([self isElif:child]) {
-                suppress = ![[child expression] evaluateAsBooleanInContext:ctx];
-            } else if ([self isElse:child]) {
-                suppress = !suppress;
-            }
-            child.suppressRendering = suppress;
+        
+        if ([self isElse:child]) {
+            if (test) break;
+            test = YES;
+        }
+        
+        if (test) {
+            [child renderInContext:ctx];
         }
     }
 
-    [self renderBodyInContext:ctx];
 }
 
 @end

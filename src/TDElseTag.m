@@ -46,14 +46,6 @@
     //NSLog(@"%s %@", __PRETTY_FUNCTION__, self);
     TDAssert(ctx);
     
-//    TDIfTag *ifTag = (id)[self firstAncestorOfTagName:@"if"];
-//    if (ifTag.incomplete) {
-//        ifTag.node.suppressRendering = NO;
-//        ifTag.incomplete = NO;
-//    } else {
-//        ifTag.node.suppressRendering = YES;
-//        ifTag.incomplete = YES;
-//    }
 }
 
 @end

@@ -44,10 +44,6 @@
 
 - (void)renderInContext:(TDTemplateContext *)ctx {
     NSParameterAssert(ctx);
-    if (self.suppressRendering) {
-        self.suppressRendering = NO;
-        return;
-    }
     
     TDAssert(self.expression);
     

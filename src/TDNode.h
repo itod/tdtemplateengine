@@ -37,7 +37,6 @@
 - (TDNode *)firstAncestorOfTagName:(NSString *)tagName;
 
 @property (nonatomic, assign) TDNode *parent; // weakref
-@property (nonatomic, assign) BOOL suppressRendering;
 
 @property (nonatomic, copy, readonly) NSString *tagName;
 @property (nonatomic, retain) XPExpression *expression;
