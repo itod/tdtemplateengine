@@ -116,17 +116,6 @@
 }
 
 
-- (TDTag *)firstAncestorOfTagName:(NSString *)tagName {
-    NSParameterAssert([tagName length]);
-
-    id result = self.parent;
-    while (result && ![[result tagName] isEqualToString:tagName]) {
-        result = [result parent];
-    }
-    return result;
-}
-
-
 - (NSString *)tagName {
     return [[self class] tagName];
 }

@@ -33,8 +33,6 @@ typedef NS_ENUM(NSUInteger, TDTagType) {
 
 @interface TDTag : TDNode
 
-- (TDTag *)firstAncestorOfTagName:(NSString *)tagName;
-
 @property (nonatomic, retain) PKToken *endTagToken;
 @end
 

@@ -77,6 +77,18 @@
 }
 
 
+- (TDNode *)firstAncestorOfTagName:(NSString *)tagName {
+    NSParameterAssert([tagName length]);
+    TDAssert(_parent);
+    
+    TDNode *result = _parent;
+    while (result && ![result.tagName isEqualToString:tagName]) {
+        result = result.parent;
+    }
+    return result;
+}
+
+
 #pragma mark -
 #pragma mark Render
 
