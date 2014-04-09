@@ -32,6 +32,7 @@
 - (instancetype)initWithToken:(PKToken *)frag parent:(TDNode *)parent;
 
 - (void)renderInContext:(TDTemplateContext *)ctx;
+- (void)renderChildrenInContext:(TDTemplateContext *)ctx;
 
 - (TDNode *)firstAncestorOfClass:(Class)cls;
 - (TDNode *)firstAncestorOfTagName:(NSString *)tagName;

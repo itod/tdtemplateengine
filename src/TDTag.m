@@ -30,10 +30,6 @@
 #import <PEGKit/PKTokenizer.h>
 #import <PEGKit/PKWhitespaceState.h>
 
-@interface TDNode ()
-- (void)renderChildrenInContext:(TDTemplateContext *)ctx;
-@end
-
 @interface TDTag ()
 @property (nonatomic, retain) PKToken *endTagToken;
 @end
@@ -64,12 +60,6 @@
 - (void)dealloc {
     self.endTagToken = nil;
     [super dealloc];
-}
-
-
-- (void)renderBodyInContext:(TDTemplateContext *)ctx {
-    TDAssert(ctx);
-    [self renderChildrenInContext:ctx];
 }
 
 

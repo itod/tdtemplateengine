@@ -32,7 +32,7 @@ typedef NS_ENUM(NSUInteger, TDTagType) {
 };
 
 @interface TDTag : TDNode
-- (void)renderBodyInContext:(TDTemplateContext *)ctx;
+
 @end
 
 // Subclasses must override these methods
