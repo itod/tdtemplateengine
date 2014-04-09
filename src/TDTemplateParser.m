@@ -13,6 +13,7 @@
 - (TDTag *)tagFromFragment:(PKToken *)tok withParent:(TDNode *)parent;
 @end
 
+
 @interface TDTemplateParser ()
     
 @property (nonatomic, assign) TDNode *currentParent; // weakref
@@ -97,6 +98,7 @@
     
     PKToken *tok = POP();
     TDNode *varNode = [[TDTemplateEngine currentTemplateEngine] varNodeFromFragment:tok withParent:_currentParent];
+    ASSERT(varNode);
     [_currentParent addChild:varNode];
 
     }];
@@ -148,6 +150,7 @@
     ASSERT(startTagNode);
     [_currentParent addChild:startTagNode];
     self.currentParent = startTagNode;
+
     }];
 
 }
