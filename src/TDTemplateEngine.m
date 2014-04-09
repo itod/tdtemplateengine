@@ -264,6 +264,8 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
             
             TDFragment *txtFrag = [TDFragment tokenWithTokenType:PKTokenTypeSymbol stringValue:txt doubleValue:0.0];
             txtFrag.tokenKind = TDTEMPLATE_TOKEN_KIND_TEXT;
+            txtFrag.verbatimString = txt;
+            TDAssert(txtFrag.stringValue == txtFrag.verbatimString); // should be same pointer. no copy
             
             [frags addObject:txtFrag];
         }

@@ -8,9 +8,11 @@
 
 #import "TDVerbatimTag.h"
 #import <TDTemplateEngine/TDTemplateContext.h>
+#import <TDTemplateEngine/TDWriter.h>
+#import "TDFragment.h"
 
-@interface TDTemplateContext ()
-@property (nonatomic, assign) BOOL verbatim;
+@interface TDTag ()
+@property (nonatomic, retain) PKToken *endTagToken;
 @end
 
 @implementation TDVerbatimTag
@@ -35,9 +37,27 @@
     //NSLog(@"%s %@", __PRETTY_FUNCTION__, self);
     TDAssert(ctx);
     
-    self.verbatim = YES;
-    [self renderBodyInContext:ctx];
-    self.verbatim = NO;
+    TDWriter *writer = ctx.writer;
+    for (TDNode *child in self.children) {
+        [self render:child to:writer];
+    }
+}
+
+
+- (void)render:(TDNode *)node to:(TDWriter *)writer {
+    
+    TDFragment *frag = (id)node.token;
+    [writer appendString:frag.verbatimString];
+    
+    for (TDNode *child in node.children) {
+        [self render:child to:writer];
+    }
+    
+    if ([node isKindOfClass:[TDTag class]]) {
+        TDTag *tag = (id)node;
+        frag = (id)tag.endTagToken;
+        [writer appendString:frag.verbatimString];
+    }
 }
 
 @end
