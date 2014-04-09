@@ -32,6 +32,7 @@
 #import "TDVariableNode.h"
 
 #import "XPParser.h"
+#import "XPExpression.h"
 
 #import "TDIfTag.h"
 #import "TDElseTag.h"
@@ -46,8 +47,6 @@
 #import "TDDateFormatFilter.h"
 
 #import <PEGKit/PKTokenizer.h>
-#import <PEGKit/PKWhitespaceState.h>
-#import <PEGKit/PKSymbolState.h>
 #import <PEGKit/PKToken.h>
 
 NSString * const TDTemplateEngineErrorDomain = @"TDTemplateEngineErrorDomain";
@@ -363,6 +362,50 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
 
 
 #pragma mark -
+#pragma mark TDTemplateParser API
+
+- (TDTag *)tagFromFragment:(PKToken *)frag withParent:(TDNode *)parent {
+    NSParameterAssert(frag);
+    NSParameterAssert(parent);
+    
+    // tokenize
+    NSMutableArray *toks = [NSMutableArray array];
+    NSString *tagName = nil;
+    
+    PKTokenizer *t = [XPExpression tokenizer];
+    t.string = frag.stringValue;
+    
+    PKToken *tok = nil;
+    PKToken *eof = [PKToken EOFToken];
+    while (eof != (tok = [t nextToken])) {
+        if (!tagName && PKTokenTypeWord == tok.tokenType) {
+            tagName = tok.stringValue;
+            continue;
+        }
+        
+        [toks addObject:tok];
+    }
+    
+    TDTag *tag = [self makeTagForName:tagName];
+    TDAssert(tag);
+    tag.token = frag;
+    tag.parent = parent;
+    
+    // compile expression if present
+    if ([toks count]) {
+        BOOL doLoop = [tagName isEqualToString:@"for"];
+        if (doLoop) {
+            tag.expression = [XPExpression loopExpressionFromTokens:toks error:nil];
+        } else {
+            tag.expression = [XPExpression expressionFromTokens:toks error:nil];
+        }
+    }
+    
+    return tag;
+}
+
+
+#pragma mark -
 #pragma mark TagRegistration
 
 - (void)registerTagClass:(Class)cls forName:(NSString *)tagName {
@@ -379,6 +422,7 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
 
 
 - (TDTag *)makeTagForName:(NSString *)tagName {
+    TDAssert(_tagTab);
     Class cls = _tagTab[tagName];
     if (!cls) {
         [NSException raise:TDTemplateEngineErrorDomain format:@"Unknown tag name '%@'", tagName];

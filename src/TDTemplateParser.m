@@ -8,6 +8,9 @@
 #import "TDTextNode.h"
 #import "TDTag.h"
 
+@interface TDTemplateEngine ()
+- (TDTag *)tagFromFragment:(PKToken *)tok withParent:(TDNode *)parent;
+@end
 
 @interface TDTemplateParser ()
     
@@ -107,9 +110,8 @@
     PKToken *tok = POP();
     NSString *tagName = tok.stringValue;
     ASSERT([tagName length]);
-    TDTag *startTagNode = [[TDTemplateEngine currentTemplateEngine] makeTagForName:tagName];
-    startTagNode.token = tok;
-    startTagNode.parent = _currentParent;
+    TDTag *startTagNode = [[TDTemplateEngine currentTemplateEngine] tagFromFragment:tok withParent:_currentParent];
+    ASSERT(startTagNode);
     [_currentParent addChild:startTagNode];
     //self.currentParent = startTagNode;
 
@@ -141,10 +143,8 @@
     PKToken *tok = POP();
     NSString *tagName = tok.stringValue;
     ASSERT([tagName length]);
-    TDTag *startTagNode = [[TDTemplateEngine currentTemplateEngine] makeTagForName:tagName];
+    TDTag *startTagNode = [[TDTemplateEngine currentTemplateEngine] tagFromFragment:tok withParent:_currentParent];
     ASSERT(startTagNode);
-    startTagNode.token = tok;
-    startTagNode.parent = _currentParent;
     [_currentParent addChild:startTagNode];
     self.currentParent = startTagNode;
     }];
@@ -158,10 +158,10 @@
     
     PKToken *tok = POP();
     NSString *tagName = [tok.stringValue substringFromIndex:[TD_END_TAG_PREFIX length]];
-    while (![_currentParent.tagName hasPrefix:tagName])
+    while (![_currentParent.tagName isEqualToString:tagName])
         self.currentParent = POP();
 
-    ASSERT([_currentParent.name hasPrefix:tagName]);
+    ASSERT([_currentParent.tagName isEqualToString:tagName]);
     ASSERT([_currentParent isKindOfClass:[TDTag class]]);
     TDTag *startNode = (id)_currentParent;
     startNode.endTagToken = tok;
@@ -181,14 +181,6 @@
 
     }];
 
-}
-
-
-- (void)setCurrentParent:(TDNode *)n {
-    if (n != _currentParent) {
-        [_currentParent release];
-        _currentParent = [n retain];
-    }
 }
 
 @end
