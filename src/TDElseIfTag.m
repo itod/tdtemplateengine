@@ -38,15 +38,4 @@
     return TDTagTypeEmpty;
 }
 
-
-- (void)dealloc {
-    
-    [super dealloc];
-}
-
-
-- (void)renderInContext:(TDTemplateContext *)ctx {
-    // noop
-}
-
 @end

@@ -43,7 +43,7 @@
 }
 
 
-- (BOOL)isElif:(TDNode *)node {
+- (BOOL)isElseIf:(TDNode *)node {
     return [node.tagName isEqualToString:[TDElseIfTag tagName]];
 }
 
@@ -55,22 +55,17 @@
     BOOL test = [self.expression evaluateAsBooleanInContext:ctx];
     
     for (TDNode *child in self.children) {
-        if ([self isElif:child]) {
+        if ([self isElseIf:child]) {
             if (test) break;
             TDElseIfTag *elseIf = (id)child;
             test = [elseIf.expression evaluateAsBooleanInContext:ctx];
-        }
-        
-        if ([self isElse:child]) {
+        } else if ([self isElse:child]) {
             if (test) break;
             test = YES;
-        }
-        
-        if (test) {
+        } else if (test) {
             [child renderInContext:ctx];
         }
     }
-
 }
 
 @end
