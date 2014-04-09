@@ -45,10 +45,8 @@
 }
 
 
-- (void)doTagInContext:(TDTemplateContext *)ctx {
-    //NSLog(@"%s %@", __PRETTY_FUNCTION__, self);
-    TDAssert(ctx);
-    
+- (void)renderInContext:(TDTemplateContext *)ctx {
+    // noop
 }
 
 @end

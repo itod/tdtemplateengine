@@ -23,7 +23,6 @@
 #import "TDNode.h"
 #import <TDTemplateEngine/TDTemplateContext.h>
 #import <TDTemplateEngine/TDWriter.h>
-#import <TDTemplateEngine/TDFragment.h>
 
 @implementation TDNode
 
@@ -77,6 +76,10 @@
 }
 
 
+- (NSString *)tagName {
+    return nil;
+}
+
 #pragma mark -
 #pragma mark Render
 
@@ -91,11 +94,6 @@
     for (TDNode *child in self.children) {
         [child renderInContext:ctx];
     }
-}
-
-
-- (NSString *)tagName {
-    return nil;
 }
 
 @end

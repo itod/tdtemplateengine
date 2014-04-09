@@ -22,14 +22,8 @@
 
 #import "TDVariableNode.h"
 #import "XPExpression.h"
-#import <TDTemplateEngine/TDTemplateEngine.h>
 #import <TDTemplateEngine/TDTemplateContext.h>
 #import <TDTemplateEngine/TDWriter.h>
-#import <PEGKit/PKToken.h>
-
-@interface TDVariableNode ()
-@property (nonatomic, retain) XPExpression *expression;
-@end
 
 @implementation TDVariableNode
 

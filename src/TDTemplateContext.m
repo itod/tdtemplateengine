@@ -21,9 +21,7 @@
 // THE SOFTWARE.
 
 #import <TDTemplateEngine/TDTemplateContext.h>
-#import <TDTemplateEngine/TDTag.h>
 #import <TDTemplateEngine/TDWriter.h>
-#import "TDNode.h"
 
 @interface TDTemplateContext ()
 @property (nonatomic, retain) NSMutableDictionary *vars;
