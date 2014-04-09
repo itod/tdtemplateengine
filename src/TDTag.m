@@ -120,7 +120,7 @@
     NSParameterAssert([tagName length]);
 
     id result = self.parent;
-    while (result && [result isKindOfClass:[TDTag class]] && ![[result tagName] isEqualToString:tagName]) {
+    while (result && ![[result tagName] isEqualToString:tagName]) {
         result = [result parent];
     }
     return result;

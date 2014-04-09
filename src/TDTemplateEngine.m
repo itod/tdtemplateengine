@@ -393,11 +393,18 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
     
     // compile expression if present
     if ([toks count]) {
+        XPExpression *expr = nil;
+        NSError *err = nil;
         BOOL doLoop = [tagName isEqualToString:@"for"];
         if (doLoop) {
-            tag.expression = [XPExpression loopExpressionFromTokens:toks error:nil];
+            expr = [XPExpression loopExpressionFromTokens:toks error:&err];
         } else {
-            tag.expression = [XPExpression expressionFromTokens:toks error:nil];
+            expr = [XPExpression expressionFromTokens:toks error:&err];
+        }
+        if (expr) {
+            tag.expression = expr;
+        } else {
+            [NSException raise:TDTemplateEngineErrorDomain format:@"Error while compiling var tag expression `%@` : %@", frag.stringValue, [err localizedFailureReason]];
         }
     }
     
