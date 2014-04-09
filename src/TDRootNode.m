@@ -39,9 +39,4 @@
     [super dealloc];
 }
 
-
-- (TDNode *)firstAncestorOfClass:(Class)cls {
-    return nil;
-}
-
 @end
