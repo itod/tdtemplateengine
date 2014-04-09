@@ -22,14 +22,11 @@
 
 #import <TDTemplateEngine/TDScope.h>
 
-@class TDTag;
 @class TDWriter;
 
 @interface TDTemplateContext : NSObject <TDScope>
 
 - (instancetype)initWithVariables:(NSDictionary *)vars output:(NSOutputStream *)output;
-
-- (void)renderBody:(TDTag *)tag;
 
 @property (nonatomic, retain, readonly) TDWriter *writer;
 @end

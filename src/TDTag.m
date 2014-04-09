@@ -32,6 +32,8 @@
 
 @interface TDNode ()
 - (void)renderVerbatimInContext:(TDTemplateContext *)ctx;
+- (void)renderChildrenInContext:(TDTemplateContext *)ctx;
+- (void)renderChildrenVerbatimInContext:(TDTemplateContext *)ctx;
 @end
 
 @interface TDTag ()
@@ -64,6 +66,16 @@
 - (void)dealloc {
     self.endTagToken = nil;
     [super dealloc];
+}
+
+
+- (void)renderBodyInContext:(TDTemplateContext *)ctx {
+    TDAssert(ctx);
+    if (self.verbatim) {
+        [self renderChildrenVerbatimInContext:ctx];
+    } else {
+        [self renderChildrenInContext:ctx];
+    }
 }
 
 

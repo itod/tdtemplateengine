@@ -25,15 +25,9 @@
 #import <TDTemplateEngine/TDWriter.h>
 #import "TDNode.h"
 
-@interface TDNode ()
-- (void)renderChildrenInContext:(TDTemplateContext *)ctx;
-- (void)renderChildrenVerbatimInContext:(TDTemplateContext *)ctx;
-@end
-
 @interface TDTemplateContext ()
 @property (nonatomic, retain) NSMutableDictionary *vars;
 @property (nonatomic, retain, readwrite) TDWriter *writer;
-@property (nonatomic, assign) BOOL verbatim;
 @end
 
 @implementation TDTemplateContext
@@ -66,16 +60,6 @@
 
 - (NSString *)description {
     return [NSString stringWithFormat:@"<%@ %p global: %d, %@>", [self class], self, nil == self.enclosingScope, self.vars];
-}
-
-
-- (void)renderBody:(TDTag *)tag {
-    TDAssert(tag);
-    if (_verbatim) {
-        [tag renderChildrenVerbatimInContext:self];
-    } else {
-        [tag renderChildrenInContext:self];
-    }
 }
 
 

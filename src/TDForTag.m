@@ -66,7 +66,7 @@
     while ([expr evaluateInContext:ctx]) {
         _currentLoop.last = ![expr.enumeration hasMore];
         //NSLog(@"rendering body of %@", self);
-        [ctx renderBody:self];
+        [self renderBodyInContext:ctx];
         
         _currentLoop.counter++;
         _currentLoop.counter0++;

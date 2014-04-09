@@ -78,7 +78,7 @@
         }
     }
 
-    [ctx renderBody:self];
+    [self renderBodyInContext:ctx];
 }
 
 @end

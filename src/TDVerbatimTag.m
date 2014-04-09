@@ -35,9 +35,9 @@
     //NSLog(@"%s %@", __PRETTY_FUNCTION__, self);
     TDAssert(ctx);
     
-    ctx.verbatim = YES;
-    [ctx renderBody:self];
-    ctx.verbatim = NO;
+    self.verbatim = YES;
+    [self renderBodyInContext:ctx];
+    self.verbatim = NO;
 }
 
 @end
