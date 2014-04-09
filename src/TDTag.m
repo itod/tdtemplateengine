@@ -34,6 +34,9 @@
 - (void)renderVerbatimInContext:(TDTemplateContext *)ctx;
 @end
 
+@interface TDTag ()
+@property (nonatomic, retain) PKToken *endTagToken;
+@end
 
 @implementation TDTag
 

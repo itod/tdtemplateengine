@@ -18,6 +18,10 @@
 - (TDVariableNode *)varNodeFromFragment:(PKToken *)frag withParent:(TDNode *)parent;
 - (TDTag *)tagFromFragment:(PKToken *)tok withParent:(TDNode *)parent;
 @end
+
+@interface TDTag ()
+@property (nonatomic, retain) PKToken *endTagToken;
+@end
 }
 
 @extension {

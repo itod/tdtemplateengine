@@ -33,7 +33,6 @@ typedef NS_ENUM(NSUInteger, TDTagType) {
 
 @interface TDTag : TDNode
 
-@property (nonatomic, retain) PKToken *endTagToken;
 @end
 
 // Subclasses must override these methods

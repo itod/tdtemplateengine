@@ -13,6 +13,9 @@
 - (TDTag *)tagFromFragment:(PKToken *)tok withParent:(TDNode *)parent;
 @end
 
+@interface TDTag ()
+@property (nonatomic, retain) PKToken *endTagToken;
+@end
 
 @interface TDTemplateParser ()
     
