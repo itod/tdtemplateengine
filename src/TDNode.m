@@ -26,7 +26,6 @@
 #import <TDTemplateEngine/TDFragment.h>
 
 @interface TDNode ()
-- (void)processFragment;
 - (void)renderVerbatimInContext:(TDTemplateContext *)ctx;
 - (void)renderChildrenVerbatimInContext:(TDTemplateContext *)ctx;
 @end
@@ -43,7 +42,6 @@
     self = [super initWithToken:frag];
     if (self) {
         self.parent = parent;
-        [self processFragment];
     }
     return self;
 }
@@ -59,11 +57,6 @@
 
 #pragma mark -
 #pragma mark Public
-
-- (void)processFragment {
-
-}
-
 
 - (TDNode *)firstAncestorOfClass:(Class)cls {
     NSParameterAssert(cls);

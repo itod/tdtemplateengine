@@ -42,11 +42,6 @@
 #pragma mark -
 #pragma mark Public
 
-- (void)processFragment {
-    TDAssert(self.token);
-}
-
-
 - (void)renderInContext:(TDTemplateContext *)ctx {
     NSParameterAssert(ctx);
     if (self.suppressRendering) {

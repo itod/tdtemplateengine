@@ -67,12 +67,6 @@
 #pragma mark -
 #pragma mark TDNode
 
-- (void)processFragment {
-    TDAssert([self.token.stringValue length]);
-    TDAssert(self.parent);
-}
-
-
 - (void)renderInContext:(TDTemplateContext *)ctx {
     NSParameterAssert(ctx);
     if (self.suppressRendering) {
