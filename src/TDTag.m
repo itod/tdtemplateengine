@@ -70,43 +70,6 @@
 - (void)processFragment {
     TDAssert([self.token.stringValue length]);
     TDAssert(self.parent);
-    
-    // tokenize
-    NSMutableArray *toks = [NSMutableArray array];
-    NSString *tagName = nil;
-    
-    PKTokenizer *t = [XPExpression tokenizer];
-    t.string = self.token.stringValue;
-    
-    PKToken *tok = nil;
-    PKToken *eof = [PKToken EOFToken];
-    while (eof != (tok = [t nextToken])) {
-        if (!tagName && PKTokenTypeWord == tok.tokenType) {
-            tagName = tok.stringValue;
-            continue;
-        }
-        
-        [toks addObject:tok];
-    }
-    
-//    // attach tag to parent if present
-//    TDBlockStartNode *enclosingBlockStartNode = (id)[self firstAncestorOfClass:[TDBlockStartNode class]];
-//    
-//    if (enclosingBlockStartNode) {
-//        //        TDTag *parentTag = enclosingBlockStartNode.tag;
-//        //        _tag.parent = parentTag;
-//        //        [parentTag addChild:_tag];
-//    }
-    
-    // compile expression if present
-    if ([toks count]) {
-        BOOL doLoop = [tagName isEqualToString:@"for"];
-        if (doLoop) {
-            self.expression = [XPExpression loopExpressionFromTokens:toks error:nil];
-        } else {
-            self.expression = [XPExpression expressionFromTokens:toks error:nil];
-        }
-    }
 }
 
 

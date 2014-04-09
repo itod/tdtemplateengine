@@ -12,6 +12,7 @@
 #import "TDRootNode.h"
 #import "TDVariableNode.h"
 #import "TDTextNode.h"
+#import "TDTag.h"
 
 @interface TDTemplateEngine ()
 - (TDTag *)tagFromFragment:(PKToken *)tok withParent:(TDNode *)parent;
