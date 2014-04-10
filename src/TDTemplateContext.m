@@ -90,5 +90,4 @@
     }
 }
 
-@synthesize enclosingScope;
 @end

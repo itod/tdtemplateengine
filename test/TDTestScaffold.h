@@ -11,7 +11,7 @@
 #import <PEGKit/PEGKit.h>
 //#import <OCMock/OCMock.h>
 #import <TDTemplateEngine/TDTemplateEngine.h>
-#import <TDTemplateEngine/TDScope.h>
+#import <TDTemplateEngine/TDTemplateContext.h>
 
 #define TDTrue(e) XCTAssertTrue((e), @"")
 #define TDFalse(e) XCTAssertFalse((e), @"")

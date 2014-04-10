@@ -40,7 +40,6 @@
 		D37BC6B618F4415200938644 /* TDDateFormatFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D37BC6B418F4415200938644 /* TDDateFormatFilter.m */; };
 		D398E2EF18EA2C51004B883C /* TDTemplateParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D398E2ED18EA2C51004B883C /* TDTemplateParser.h */; };
 		D398E2F018EA2C51004B883C /* TDTemplateParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D398E2EE18EA2C51004B883C /* TDTemplateParser.m */; };
-		D398E2F618EA5714004B883C /* TDScope.h in Headers */ = {isa = PBXBuildFile; fileRef = D398E2F518EA5714004B883C /* TDScope.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3A29D8218E5F57300DC591E /* TDTemplateEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29D8118E5F57300DC591E /* TDTemplateEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3A29D8418E5F57E00DC591E /* TDTemplateEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29D8318E5F57E00DC591E /* TDTemplateEngine.m */; };
 		D3A29D8A18E5F5A500DC591E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D3A29D8818E5F5A500DC591E /* InfoPlist.strings */; };
@@ -161,7 +160,6 @@
 		D37BC6B418F4415200938644 /* TDDateFormatFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDDateFormatFilter.m; path = src/TDDateFormatFilter.m; sourceTree = SOURCE_ROOT; };
 		D398E2ED18EA2C51004B883C /* TDTemplateParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDTemplateParser.h; path = src/TDTemplateParser.h; sourceTree = SOURCE_ROOT; };
 		D398E2EE18EA2C51004B883C /* TDTemplateParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDTemplateParser.m; path = src/TDTemplateParser.m; sourceTree = SOURCE_ROOT; };
-		D398E2F518EA5714004B883C /* TDScope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDScope.h; path = src/TDScope.h; sourceTree = SOURCE_ROOT; };
 		D3A29D8118E5F57300DC591E /* TDTemplateEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDTemplateEngine.h; path = include/TDTemplateEngine/TDTemplateEngine.h; sourceTree = SOURCE_ROOT; };
 		D3A29D8318E5F57E00DC591E /* TDTemplateEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDTemplateEngine.m; path = src/TDTemplateEngine.m; sourceTree = SOURCE_ROOT; };
 		D3A29D8518E5F58700DC591E /* TDTemplateEngine-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "TDTemplateEngine-Info.plist"; path = "res/TDTemplateEngine-Info.plist"; sourceTree = SOURCE_ROOT; };
@@ -347,7 +345,6 @@
 				D3A29D8318E5F57E00DC591E /* TDTemplateEngine.m */,
 				D3F5064718ECA36B00BAC93B /* TDWriter.h */,
 				D3F5064318ECA12500BAC93B /* TDWriter.m */,
-				D398E2F518EA5714004B883C /* TDScope.h */,
 				D3A29DE918E64FB800DC591E /* TDTemplateContext.h */,
 				D3A29DCF18E63A1C00DC591E /* TDTemplateContext.m */,
 				D398E2ED18EA2C51004B883C /* TDTemplateParser.h */,
@@ -535,7 +532,6 @@
 				D319138F18F1AD1500430BAD /* TDUppercaseFilter.h in Headers */,
 				D33915E918F0A08000BDA4FD /* TDElseTag.h in Headers */,
 				D3A29D8218E5F57300DC591E /* TDTemplateEngine.h in Headers */,
-				D398E2F618EA5714004B883C /* TDScope.h in Headers */,
 				D3A29E3918E7AA3100DC591E /* XPPathExpression.h in Headers */,
 				D3A29DE018E6423500DC591E /* TDIfTag.h in Headers */,
 				D3A7E27318F07782009BFD96 /* TDCommentTag.h in Headers */,

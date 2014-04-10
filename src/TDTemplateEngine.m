@@ -24,7 +24,6 @@
 #import <TDTemplateEngine/TDTemplateParser.h>
 #import <TDTemplateEngine/TDFragment.h>
 #import <TDTemplateEngine/TDNode.h>
-#import <TDTemplateEngine/TDScope.h>
 #import <TDTemplateEngine/TDTemplateContext.h>
 
 #import "TDRootNode.h"
@@ -56,7 +55,7 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
 @interface TDTemplateEngine ()
 @property (nonatomic, retain) NSRegularExpression *delimiterRegex;
 @property (nonatomic, retain) NSRegularExpression *cleanerRegex;
-@property (nonatomic, retain, readwrite) id <TDScope>staticContext;
+@property (nonatomic, retain, readwrite) TDTemplateContext *staticContext;
 @property (nonatomic, retain) NSMutableDictionary *tagTab;
 @property (nonatomic, retain) NSMutableDictionary *filterTab;
 @property (nonatomic, retain) XPParser *expressionParser;

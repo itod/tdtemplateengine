@@ -20,13 +20,19 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <TDTemplateEngine/TDScope.h>
+#import <Foundation/Foundation.h>
 
 @class TDWriter;
 
-@interface TDTemplateContext : NSObject <TDScope>
+@interface TDTemplateContext : NSObject
 
 - (instancetype)initWithVariables:(NSDictionary *)vars output:(NSOutputStream *)output;
 
 @property (nonatomic, retain, readonly) TDWriter *writer;
+
+// Scope
+- (id)resolveVariable:(NSString *)name;
+- (void)defineVariable:(NSString *)name withValue:(id)value;
+
+@property (nonatomic, retain) TDTemplateContext *enclosingScope;
 @end
