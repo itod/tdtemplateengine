@@ -50,7 +50,7 @@
 
 NSString * const TDTemplateEngineTagEndPrefix = @"/";
 NSString * const TDTemplateEngineErrorDomain = @"TDTemplateEngineErrorDomain";
-NSInteger TDTemplateEngineRenderingErrorCode = 1;
+const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 
 @interface TDTemplateEngine ()
 @property (nonatomic, retain) NSRegularExpression *delimiterRegex;

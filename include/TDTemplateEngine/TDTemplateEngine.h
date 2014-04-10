@@ -29,7 +29,7 @@
 
 extern NSString * const TDTemplateEngineTagEndPrefix;
 extern NSString * const TDTemplateEngineErrorDomain;
-extern NSInteger TDTemplateEngineRenderingErrorCode;
+extern const NSInteger TDTemplateEngineRenderingErrorCode;
 
 @interface TDTemplateEngine : NSObject
 
