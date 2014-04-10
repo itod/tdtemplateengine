@@ -48,6 +48,15 @@
     TDAssert(_output);
     TDAssert(str);
     
+//    NSUInteger maxLen = [str maximumLengthOfBytesUsingEncoding:NSUTF8StringEncoding];
+//    if (maxLen) {
+//        const uint8_t *zstr = (const uint8_t *)[str UTF8String];
+//        NSInteger written = [_output write:zstr maxLength:maxLen];
+//        if (-1 == written) {
+//            [NSException raise:TDTemplateEngineErrorDomain format:@"Error while writing template output string"];
+//        }
+//    }
+    
     NSUInteger len = [str lengthOfBytesUsingEncoding:NSUTF8StringEncoding];
     if (len) {
         const uint8_t *zstr = (const uint8_t *)[str UTF8String];
