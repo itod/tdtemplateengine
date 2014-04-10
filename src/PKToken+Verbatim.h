@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Todd Ditchendorf. All rights reserved.
 //
 
-#import <PEGKit/PEGKit.h>
+#import <PEGKit/PKToken.h>
 
 @interface PKToken (Verbatim)
 @property (nonatomic, retain) NSString *verbatimString;
