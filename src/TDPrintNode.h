@@ -22,6 +22,6 @@
 
 #import "TDNode.h"
 
-@interface TDVariableNode : TDNode
+@interface TDPrintNode : TDNode
 
 @end

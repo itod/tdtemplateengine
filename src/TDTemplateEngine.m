@@ -29,7 +29,7 @@
 
 #import "TDRootNode.h"
 #import "TDTextNode.h"
-#import "TDVariableNode.h"
+#import "TDPrintNode.h"
 
 #import "XPParser.h"
 #import "XPExpression.h"
@@ -78,8 +78,8 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.expressionStartDelimiter = @"{{";
-        self.expressionEndDelimiter = @"}}";
+        self.printStartDelimiter = @"{{";
+        self.printEndDelimiter = @"}}";
         self.tagStartDelimiter = @"{%";
         self.tagEndDelimiter = @"%}";
         self.staticContext = [[[TDTemplateContext alloc] init] autorelease];
@@ -112,8 +112,8 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
 
 
 - (void)dealloc {
-    self.expressionStartDelimiter = nil;
-    self.expressionEndDelimiter = nil;
+    self.printStartDelimiter = nil;
+    self.printEndDelimiter = nil;
     self.tagStartDelimiter = nil;
     self.tagEndDelimiter = nil;
     self.delimiterRegex = nil;
@@ -145,8 +145,8 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
 
 - (TDNode *)compileTemplateString:(NSString *)str error:(NSError **)err {
     NSParameterAssert([str length]);
-    TDAssert([_expressionStartDelimiter length]);
-    TDAssert([_expressionEndDelimiter length]);
+    TDAssert([_printStartDelimiter length]);
+    TDAssert([_printEndDelimiter length]);
     TDAssert([_tagStartDelimiter length]);
     TDAssert([_tagEndDelimiter length]);
 
@@ -224,12 +224,12 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
 
 
 - (BOOL)setUpDelimiterRegex:(NSError **)outErr {    
-    NSString *expressionStartDelimiter = [self cleanPattern:_expressionStartDelimiter];
-    NSString *expressionEndDelimiter   = [self cleanPattern:_expressionEndDelimiter];
+    NSString *printStartDelimiter = [self cleanPattern:_printStartDelimiter];
+    NSString *printEndDelimiter   = [self cleanPattern:_printEndDelimiter];
     NSString *tagStartDelimiter = [self cleanPattern:_tagStartDelimiter];
     NSString *tagEndDelimiter   = [self cleanPattern:_tagEndDelimiter];
     
-    NSString *pattern = [NSString stringWithFormat:@"(%@.*?%@|%@.*?%@)", expressionStartDelimiter, expressionEndDelimiter, tagStartDelimiter, tagEndDelimiter];
+    NSString *pattern = [NSString stringWithFormat:@"(%@.*?%@|%@.*?%@)", printStartDelimiter, printEndDelimiter, tagStartDelimiter, tagEndDelimiter];
 
     self.delimiterRegex = [[[NSRegularExpression alloc] initWithPattern:pattern options:0 error:outErr] autorelease];
 
@@ -248,8 +248,8 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
 
     NSMutableArray *frags = [NSMutableArray array];
 
-    NSUInteger varStartDelimLen = [_expressionStartDelimiter length];
-    NSUInteger varEndDelimLen   = [_expressionEndDelimiter length];
+    NSUInteger printStartDelimLen = [_printStartDelimiter length];
+    NSUInteger printEndDelimLen   = [_printEndDelimiter length];
     NSUInteger tagStartDelimLen = [_tagStartDelimiter length];
     NSUInteger tagEndDelimLen   = [_tagEndDelimiter length];
     
@@ -287,10 +287,10 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
         NSUInteger kind = 0;
         
         NSString *str = [[verbStr copy] autorelease];
-        if ([str hasPrefix:_expressionStartDelimiter]) {
-            kind = TDTEMPLATE_TOKEN_KIND_VAR;
-            str = [str substringToIndex:len - varEndDelimLen];
-            str = [str substringFromIndex:varStartDelimLen];
+        if ([str hasPrefix:_printStartDelimiter]) {
+            kind = TDTEMPLATE_TOKEN_KIND_PRINT;
+            str = [str substringToIndex:len - printEndDelimLen];
+            str = [str substringFromIndex:printStartDelimLen];
             str = [str stringByTrimmingCharactersInSet:wsSet];
             
         } else if ([str hasPrefix:_tagStartDelimiter]) {
@@ -353,7 +353,7 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
 #pragma mark -
 #pragma mark TDTemplateParser API
 
-- (TDVariableNode *)varNodeFromFragment:(PKToken *)frag withParent:(TDNode *)parent {
+- (TDPrintNode *)printNodeFromFragment:(PKToken *)frag withParent:(TDNode *)parent {
     NSParameterAssert(frag);
     NSParameterAssert(parent);
     
@@ -363,13 +363,13 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
     NSError *err = nil;
     XPExpression *expr = [XPExpression expressionFromString:str error:&err];
     if (!expr) {
-        [NSException raise:TDTemplateEngineErrorDomain format:@"Error while compiling var tag expression `%@` : %@", str, [err localizedFailureReason]];
+        [NSException raise:TDTemplateEngineErrorDomain format:@"Error while compiling print node expression `%@` : %@", str, [err localizedFailureReason]];
     }
 
     TDAssert(expr);
-    TDVariableNode *varNode = [TDVariableNode nodeWithToken:frag parent:parent];
-    varNode.expression = expr;
-    return varNode;
+    TDPrintNode *printNode = [TDPrintNode nodeWithToken:frag parent:parent];
+    printNode.expression = expr;
+    return printNode;
 }
 
 
@@ -431,7 +431,7 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
     }
     
     if (!expr) {
-        [NSException raise:TDTemplateEngineErrorDomain format:@"Error while compiling var tag expression `%@` : %@", frag.stringValue, [err localizedFailureReason]];
+        [NSException raise:TDTemplateEngineErrorDomain format:@"Error while compiling tag expression `%@` : %@", frag.stringValue, [err localizedFailureReason]];
     }
 
     return expr;

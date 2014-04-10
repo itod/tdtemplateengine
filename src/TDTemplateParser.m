@@ -4,12 +4,12 @@
 #import <TDTemplateEngine/TDTemplateEngine.h>
 #import <TDTemplateEngine/TDTemplateContext.h>
 #import "TDRootNode.h"
-#import "TDVariableNode.h"
+#import "TDPrintNode.h"
 #import "TDTextNode.h"
 #import "TDTag.h"
 
 @interface TDTemplateEngine ()
-- (TDVariableNode *)varNodeFromFragment:(PKToken *)frag withParent:(TDNode *)parent;
+- (TDPrintNode *)printNodeFromFragment:(PKToken *)frag withParent:(TDNode *)parent;
 - (TDTag *)tagFromFragment:(PKToken *)tok withParent:(TDNode *)parent;
 @end
 
@@ -31,13 +31,13 @@
         
         self.startRuleName = @"template";
         self.tokenKindTab[@"block_start_tag"] = @(TDTEMPLATE_TOKEN_KIND_BLOCK_START_TAG);
-        self.tokenKindTab[@"var"] = @(TDTEMPLATE_TOKEN_KIND_VAR);
+        self.tokenKindTab[@"print"] = @(TDTEMPLATE_TOKEN_KIND_PRINT);
         self.tokenKindTab[@"block_end_tag"] = @(TDTEMPLATE_TOKEN_KIND_BLOCK_END_TAG);
         self.tokenKindTab[@"empty_tag"] = @(TDTEMPLATE_TOKEN_KIND_EMPTY_TAG);
         self.tokenKindTab[@"text"] = @(TDTEMPLATE_TOKEN_KIND_TEXT);
 
         self.tokenKindNameTab[TDTEMPLATE_TOKEN_KIND_BLOCK_START_TAG] = @"block_start_tag";
-        self.tokenKindNameTab[TDTEMPLATE_TOKEN_KIND_VAR] = @"var";
+        self.tokenKindNameTab[TDTEMPLATE_TOKEN_KIND_PRINT] = @"print";
         self.tokenKindNameTab[TDTEMPLATE_TOKEN_KIND_BLOCK_END_TAG] = @"block_end_tag";
         self.tokenKindNameTab[TDTEMPLATE_TOKEN_KIND_EMPTY_TAG] = @"empty_tag";
         self.tokenKindNameTab[TDTEMPLATE_TOKEN_KIND_TEXT] = @"text";
@@ -80,8 +80,8 @@
 
 - (void)content_ {
     
-    if ([self predicts:TDTEMPLATE_TOKEN_KIND_VAR, 0]) {
-        [self var_]; 
+    if ([self predicts:TDTEMPLATE_TOKEN_KIND_PRINT, 0]) {
+        [self print_];
     } else if ([self predicts:TDTEMPLATE_TOKEN_KIND_EMPTY_TAG, 0]) {
         [self empty_tag_]; 
     } else if ([self predicts:TDTEMPLATE_TOKEN_KIND_BLOCK_START_TAG, 0]) {
@@ -94,15 +94,15 @@
 
 }
 
-- (void)var_ {
+- (void)print_ {
     
-    [self match:TDTEMPLATE_TOKEN_KIND_VAR discard:NO]; 
+    [self match:TDTEMPLATE_TOKEN_KIND_PRINT discard:NO];
     [self execute:^{
     
     PKToken *tok = POP();
-    TDNode *varNode = [[TDTemplateEngine currentTemplateEngine] varNodeFromFragment:tok withParent:_currentParent];
-    ASSERT(varNode);
-    [_currentParent addChild:varNode];
+    TDNode *printNode = [[TDTemplateEngine currentTemplateEngine] printNodeFromFragment:tok withParent:_currentParent];
+    ASSERT(printNode);
+    [_currentParent addChild:printNode];
 
     }];
 

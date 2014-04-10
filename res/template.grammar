@@ -10,12 +10,12 @@
 #import <TDTemplateEngine/TDTemplateEngine.h>
 #import <TDTemplateEngine/TDTemplateContext.h>
 #import "TDRootNode.h"
-#import "TDVariableNode.h"
+#import "TDPrintNode.h"
 #import "TDTextNode.h"
 #import "TDTag.h"
 
 @interface TDTemplateEngine ()
-- (TDVariableNode *)varNodeFromFragment:(PKToken *)frag withParent:(TDNode *)parent;
+- (TDPrintNode *)printNodeFromFragment:(PKToken *)frag withParent:(TDNode *)parent;
 - (TDTag *)tagFromFragment:(PKToken *)tok withParent:(TDNode *)parent;
 @end
 
@@ -44,18 +44,18 @@ template
     ;
     
 content
-    = var
+    = print
     | empty_tag
     | block_tag 
     | text
     ;
 
-var 
-    = 'var' {
+print 
+    = 'print' {
     PKToken *tok = POP();
-    TDNode *varNode = [[TDTemplateEngine currentTemplateEngine] varNodeFromFragment:tok withParent:_currentParent];
-    ASSERT(varNode);
-    [_currentParent addChild:varNode];
+    TDNode *printNode = [[TDTemplateEngine currentTemplateEngine] printNodeFromFragment:tok withParent:_currentParent];
+    ASSERT(printNode);
+    [_currentParent addChild:printNode];
 };
 
 empty_tag

@@ -20,12 +20,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "TDVariableNode.h"
+#import "TDPrintNode.h"
 #import "XPExpression.h"
 #import <TDTemplateEngine/TDTemplateContext.h>
 #import <TDTemplateEngine/TDWriter.h>
 
-@implementation TDVariableNode
+@implementation TDPrintNode
 
 - (void)dealloc {
     self.expression = nil;
@@ -47,8 +47,6 @@
         
         TDAssert(writer);
         [writer appendObject:val];
-//    } else {
-//        [NSException raise:TDTemplateEngineErrorDomain format:@"Unknown variable reference : `%@`", self.expression];
     }
 }
 
