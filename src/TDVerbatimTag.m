@@ -9,7 +9,8 @@
 #import "TDVerbatimTag.h"
 #import <TDTemplateEngine/TDTemplateContext.h>
 #import <TDTemplateEngine/TDWriter.h>
-#import "TDFragment.h"
+#import <PEGKit/PKToken.h>
+#import "PKToken+Verbatim.h"
 
 @interface TDTag ()
 @property (nonatomic, retain) PKToken *endTagToken;
@@ -46,8 +47,7 @@
 
 - (void)render:(TDNode *)node to:(TDWriter *)writer {
     
-    TDFragment *frag = (id)node.token;
-    [writer appendString:frag.verbatimString];
+    [writer appendString:node.token.verbatimString];
     
     for (TDNode *child in node.children) {
         [self render:child to:writer];
@@ -55,8 +55,7 @@
     
     if ([node isKindOfClass:[TDTag class]]) {
         TDTag *tag = (id)node;
-        frag = (id)tag.endTagToken;
-        [writer appendString:frag.verbatimString];
+        [writer appendString:tag.endTagToken.verbatimString];
     }
 }
 

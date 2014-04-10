@@ -96,7 +96,8 @@
 		D3A7E27618F0788D009BFD96 /* TDCommentTagTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A7E27518F0788D009BFD96 /* TDCommentTagTests.m */; };
 		D3B982FD18F0804D00EEFE99 /* XPRelationalExpressionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B982FC18F0804D00EEFE99 /* XPRelationalExpressionTests.m */; };
 		D3B9830318F080BE00EEFE99 /* XPBooleanExpressionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B9830218F080BE00EEFE99 /* XPBooleanExpressionTests.m */; };
-		D3BB32E118F75FC3005E0A3A /* TDFragment.h in Headers */ = {isa = PBXBuildFile; fileRef = D3BB32E018F75FC3005E0A3A /* TDFragment.h */; };
+		D3BB32E418F76116005E0A3A /* PKToken+Verbatim.h in Headers */ = {isa = PBXBuildFile; fileRef = D3BB32E218F76116005E0A3A /* PKToken+Verbatim.h */; };
+		D3BB32E518F76116005E0A3A /* PKToken+Verbatim.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BB32E318F76116005E0A3A /* PKToken+Verbatim.m */; };
 		D3CAF8AB18EDF27F00166A95 /* XPCollectionExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3CAF8A918EDF27F00166A95 /* XPCollectionExpression.h */; };
 		D3CAF8AC18EDF27F00166A95 /* XPCollectionExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D3CAF8AA18EDF27F00166A95 /* XPCollectionExpression.m */; };
 		D3CAF8AF18EDF39200166A95 /* XPLoopExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3CAF8AD18EDF39200166A95 /* XPLoopExpression.h */; };
@@ -107,7 +108,6 @@
 		D3CAF8BB18EF577100166A95 /* XPNegationExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D3CAF8B918EF577100166A95 /* XPNegationExpression.m */; };
 		D3CAF8BE18EF5A0000166A95 /* XPNegationExpressionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3CAF8BC18EF59EB00166A95 /* XPNegationExpressionTests.m */; };
 		D3E8E92918F2F01F0091C98D /* TDVerbatimTagTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D319139618F2EF7000430BAD /* TDVerbatimTagTests.m */; };
-		D3E8E92D18F2F5E70091C98D /* TDFragment.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E8E92B18F2F5E70091C98D /* TDFragment.m */; };
 		D3F5063818EC5C9800BAC93B /* XPRangeExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F5063618EC5C9800BAC93B /* XPRangeExpression.h */; };
 		D3F5063918EC5C9800BAC93B /* XPRangeExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F5063718EC5C9800BAC93B /* XPRangeExpression.m */; };
 		D3F5064518ECA12500BAC93B /* TDWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F5064318ECA12500BAC93B /* TDWriter.m */; };
@@ -221,7 +221,8 @@
 		D3A7E27518F0788D009BFD96 /* TDCommentTagTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDCommentTagTests.m; path = test/TDCommentTagTests.m; sourceTree = SOURCE_ROOT; };
 		D3B982FC18F0804D00EEFE99 /* XPRelationalExpressionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPRelationalExpressionTests.m; path = test/XPRelationalExpressionTests.m; sourceTree = SOURCE_ROOT; };
 		D3B9830218F080BE00EEFE99 /* XPBooleanExpressionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPBooleanExpressionTests.m; path = test/XPBooleanExpressionTests.m; sourceTree = SOURCE_ROOT; };
-		D3BB32E018F75FC3005E0A3A /* TDFragment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDFragment.h; path = src/TDFragment.h; sourceTree = SOURCE_ROOT; };
+		D3BB32E218F76116005E0A3A /* PKToken+Verbatim.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PKToken+Verbatim.h"; path = "src/PKToken+Verbatim.h"; sourceTree = SOURCE_ROOT; };
+		D3BB32E318F76116005E0A3A /* PKToken+Verbatim.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "PKToken+Verbatim.m"; path = "src/PKToken+Verbatim.m"; sourceTree = SOURCE_ROOT; };
 		D3CAF8A918EDF27F00166A95 /* XPCollectionExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPCollectionExpression.h; path = src/XPCollectionExpression.h; sourceTree = SOURCE_ROOT; };
 		D3CAF8AA18EDF27F00166A95 /* XPCollectionExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPCollectionExpression.m; path = src/XPCollectionExpression.m; sourceTree = SOURCE_ROOT; };
 		D3CAF8AD18EDF39200166A95 /* XPLoopExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPLoopExpression.h; path = src/XPLoopExpression.h; sourceTree = SOURCE_ROOT; };
@@ -231,7 +232,6 @@
 		D3CAF8B818EF577000166A95 /* XPNegationExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPNegationExpression.h; path = src/XPNegationExpression.h; sourceTree = SOURCE_ROOT; };
 		D3CAF8B918EF577100166A95 /* XPNegationExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPNegationExpression.m; path = src/XPNegationExpression.m; sourceTree = SOURCE_ROOT; };
 		D3CAF8BC18EF59EB00166A95 /* XPNegationExpressionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPNegationExpressionTests.m; path = test/XPNegationExpressionTests.m; sourceTree = SOURCE_ROOT; };
-		D3E8E92B18F2F5E70091C98D /* TDFragment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDFragment.m; path = src/TDFragment.m; sourceTree = SOURCE_ROOT; };
 		D3F5063618EC5C9800BAC93B /* XPRangeExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XPRangeExpression.h; path = src/XPRangeExpression.h; sourceTree = SOURCE_ROOT; };
 		D3F5063718EC5C9800BAC93B /* XPRangeExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPRangeExpression.m; path = src/XPRangeExpression.m; sourceTree = SOURCE_ROOT; };
 		D3F5064318ECA12500BAC93B /* TDWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDWriter.m; path = src/TDWriter.m; sourceTree = SOURCE_ROOT; };
@@ -349,8 +349,8 @@
 				D3A29DCF18E63A1C00DC591E /* TDTemplateContext.m */,
 				D398E2ED18EA2C51004B883C /* TDTemplateParser.h */,
 				D398E2EE18EA2C51004B883C /* TDTemplateParser.m */,
-				D3BB32E018F75FC3005E0A3A /* TDFragment.h */,
-				D3E8E92B18F2F5E70091C98D /* TDFragment.m */,
+				D3BB32E218F76116005E0A3A /* PKToken+Verbatim.h */,
+				D3BB32E318F76116005E0A3A /* PKToken+Verbatim.m */,
 				D3A29DD218E63D2200DC591E /* Nodes */,
 				D3A29DD318E63D2900DC591E /* Tags */,
 				D319137818F1A44E00430BAD /* Filter */,
@@ -506,12 +506,12 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D3BB32E118F75FC3005E0A3A /* TDFragment.h in Headers */,
 				D3A29DEA18E64FB800DC591E /* TDTemplateContext.h in Headers */,
 				D319138318F1A58A00430BAD /* TDCapitalizeFilter.h in Headers */,
 				D3A29E0418E6584D00DC591E /* XPStringValue.h in Headers */,
 				D3A29DFF18E6584D00DC591E /* XPBooleanValue.h in Headers */,
 				D3CAF8BA18EF577100166A95 /* XPNegationExpression.h in Headers */,
+				D3BB32E418F76116005E0A3A /* PKToken+Verbatim.h in Headers */,
 				D319139418F2ED3300430BAD /* TDVerbatimTag.h in Headers */,
 				D3A29E0618E6584D00DC591E /* XPValue.h in Headers */,
 				D3CAF8AB18EDF27F00166A95 /* XPCollectionExpression.h in Headers */,
@@ -646,6 +646,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3A29DD718E63D4F00DC591E /* TDForTag.m in Sources */,
+				D3BB32E518F76116005E0A3A /* PKToken+Verbatim.m in Sources */,
 				D3A29DBF18E61ACA00DC591E /* TDTextNode.m in Sources */,
 				D3A29E3018E75D3B00DC591E /* XPBooleanExpression.m in Sources */,
 				D3A29E0718E6584D00DC591E /* XPValue.m in Sources */,
@@ -675,7 +676,6 @@
 				D3F5064518ECA12500BAC93B /* TDWriter.m in Sources */,
 				D3A29E2C18E75D3B00DC591E /* XPArithmeticExpression.m in Sources */,
 				D3A29E3A18E7AA3100DC591E /* XPPathExpression.m in Sources */,
-				D3E8E92D18F2F5E70091C98D /* TDFragment.m in Sources */,
 				D3CAF8B018EDF39200166A95 /* XPLoopExpression.m in Sources */,
 				D3A29DAB18E609E700DC591E /* TDNode.m in Sources */,
 				D3A29DDB18E63D5B00DC591E /* TDTag.m in Sources */,

@@ -25,7 +25,6 @@
 #import <TDTemplateEngine/TDNode.h>
 #import <TDTemplateEngine/TDTemplateContext.h>
 
-#import "TDFragment.h"
 #import "TDRootNode.h"
 #import "TDTextNode.h"
 #import "TDPrintNode.h"
@@ -47,6 +46,7 @@
 
 #import <PEGKit/PKTokenizer.h>
 #import <PEGKit/PKToken.h>
+#import "PKToken+Verbatim.h"
 
 NSString * const TDTemplateEngineTagEndPrefix = @"/";
 NSString * const TDTemplateEngineErrorDomain = @"TDTemplateEngineErrorDomain";
@@ -262,7 +262,7 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
         if (diff > 0) {
             NSString *txt = [inStr substringWithRange:NSMakeRange(NSMaxRange(lastRange), diff)];
             
-            TDFragment *txtFrag = [TDFragment tokenWithTokenType:PKTokenTypeSymbol stringValue:txt doubleValue:0.0];
+            PKToken *txtFrag = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:txt doubleValue:0.0];
             txtFrag.tokenKind = TDTEMPLATE_TOKEN_KIND_TEXT;
             txtFrag.verbatimString = txt;
             TDAssert(txtFrag.stringValue == txtFrag.verbatimString); // should be same pointer. no copy
@@ -323,7 +323,7 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
             TDAssert(0);
         }
         
-        TDFragment *frag = [TDFragment tokenWithTokenType:PKTokenTypeSymbol stringValue:str doubleValue:0.0];
+        PKToken *frag = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:str doubleValue:0.0];
         frag.verbatimString = verbStr;
         frag.tokenKind = kind;
         
