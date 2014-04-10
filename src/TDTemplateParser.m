@@ -114,8 +114,6 @@
     [self execute:^{
     
     PKToken *tok = POP();
-    NSString *tagName = tok.stringValue;
-    ASSERT([tagName length]);
     TDTag *startTagNode = [[TDTemplateEngine currentTemplateEngine] tagFromFragment:tok withParent:_currentParent];
     ASSERT(startTagNode);
     [_currentParent addChild:startTagNode];
@@ -147,8 +145,6 @@
     [self execute:^{
     
     PKToken *tok = POP();
-    NSString *tagName = tok.stringValue;
-    ASSERT([tagName length]);
     TDTag *startTagNode = [[TDTemplateEngine currentTemplateEngine] tagFromFragment:tok withParent:_currentParent];
     ASSERT(startTagNode);
     [_currentParent addChild:startTagNode];
