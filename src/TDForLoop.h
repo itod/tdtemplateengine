@@ -24,10 +24,8 @@
 
 @interface TDForLoop : NSObject
 
-@property (nonatomic, assign) NSInteger counter;
-@property (nonatomic, assign) NSInteger counter0;
 @property (nonatomic, assign) NSInteger currentIndex;
 @property (nonatomic, assign) BOOL first;
 @property (nonatomic, assign) BOOL last;
-@property (nonatomic, assign) TDForLoop *parentloop; // weakref
+@property (nonatomic, assign) TDForLoop *parentLoop; // weakref
 @end

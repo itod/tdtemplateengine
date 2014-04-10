@@ -68,8 +68,6 @@
         //NSLog(@"rendering body of %@", self);
         [self renderChildrenInContext:ctx];
         
-        _currentLoop.counter++;
-        _currentLoop.counter0++;
         _currentLoop.currentIndex++;
         _currentLoop.first = NO;
     }
@@ -82,7 +80,7 @@
     self.currentLoop = [[[TDForLoop alloc] init] autorelease];
     
     TDForTag *enclosingForTag = (id)[self firstAncestorOfTagName:@"for"];
-    _currentLoop.parentloop = enclosingForTag.currentLoop;
+    _currentLoop.parentLoop = enclosingForTag.currentLoop;
 
     [ctx defineVariable:@"currentLoop" withValue:_currentLoop];
 }
@@ -90,7 +88,7 @@
 
 - (void)tearDownForLoop:(TDTemplateContext *)ctx {
     [ctx defineVariable:@"currentLoop" withValue:nil];
-    _currentLoop.parentloop = nil;
+    _currentLoop.parentLoop = nil;
     self.currentLoop = nil;
 }
 
