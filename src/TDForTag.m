@@ -82,12 +82,12 @@
     TDForTag *enclosingForTag = (id)[self firstAncestorOfTagName:@"for"];
     _currentLoop.parentLoop = enclosingForTag.currentLoop;
 
-    [ctx defineVariable:@"currentLoop" withValue:_currentLoop];
+    [ctx defineVariable:@"currentLoop" value:_currentLoop];
 }
 
 
 - (void)tearDownForLoop:(TDTemplateContext *)ctx {
-    [ctx defineVariable:@"currentLoop" withValue:nil];
+    [ctx defineVariable:@"currentLoop" value:nil];
     _currentLoop.parentLoop = nil;
     self.currentLoop = nil;
 }

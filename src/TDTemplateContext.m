@@ -77,7 +77,7 @@
 }
 
 
-- (void)defineVariable:(NSString *)name withValue:(id)value {
+- (void)defineVariable:(NSString *)name value:(id)value {
     //NSLog(@"%s %@=%@", __PRETTY_FUNCTION__, name, value);
 
     NSParameterAssert([name length]);

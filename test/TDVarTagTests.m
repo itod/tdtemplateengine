@@ -122,7 +122,7 @@
     NSString *input = @"{{baz}}";
     id vars = @{@"bar": @"foo"};
     
-    [_engine.staticContext defineVariable:@"baz" withValue:@"bat"];
+    [_engine.staticContext defineVariable:@"baz" value:@"bat"];
     NSError *err = nil;
     BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
     TDTrue(success);
@@ -135,7 +135,7 @@
     NSString *input = @"{{baz}}";
     id vars = @{@"baz": @"foo"};
     
-    [_engine.staticContext defineVariable:@"baz" withValue:@"bat"];
+    [_engine.staticContext defineVariable:@"baz" value:@"bat"];
     NSError *err = nil;
     BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
     TDTrue(success);

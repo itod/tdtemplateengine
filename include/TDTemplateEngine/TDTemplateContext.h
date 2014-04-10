@@ -32,7 +32,7 @@
 
 // Scope
 - (id)resolveVariable:(NSString *)name;
-- (void)defineVariable:(NSString *)name withValue:(id)value;
+- (void)defineVariable:(NSString *)name value:(id)value;
 
 @property (nonatomic, retain) TDTemplateContext *enclosingScope;
 @end

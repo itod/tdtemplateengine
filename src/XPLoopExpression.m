@@ -86,11 +86,11 @@
     
     if (_secondVariable) {
         TDAssert([_secondVariable length]);
-        [ctx defineVariable:_firstVariable withValue:firstObj];
-        [ctx defineVariable:_secondVariable withValue:secondObj];
+        [ctx defineVariable:_firstVariable value:firstObj];
+        [ctx defineVariable:_secondVariable value:secondObj];
     } else {
         res = firstObj;
-        [ctx defineVariable:_firstVariable withValue:firstObj];
+        [ctx defineVariable:_firstVariable value:firstObj];
     }
     return res;
 }
