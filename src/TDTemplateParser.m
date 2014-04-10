@@ -164,7 +164,7 @@
     [self execute:^{
     
     PKToken *tok = POP();
-    NSString *tagName = [tok.stringValue substringFromIndex:[TD_END_TAG_PREFIX length]];
+    NSString *tagName = [tok.stringValue substringFromIndex:[TDTemplateEngineTagEndPrefix length]];
     while (![_currentParent.tagName isEqualToString:tagName])
         self.currentParent = POP();
 

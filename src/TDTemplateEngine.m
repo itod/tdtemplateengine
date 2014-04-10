@@ -49,6 +49,7 @@
 #import <PEGKit/PKTokenizer.h>
 #import <PEGKit/PKToken.h>
 
+NSString * const TDTemplateEngineTagEndPrefix = @"/";
 NSString * const TDTemplateEngineErrorDomain = @"TDTemplateEngineErrorDomain";
 NSInteger TDTemplateEngineRenderingErrorCode = 1;
 
@@ -298,7 +299,7 @@ NSInteger TDTemplateEngineRenderingErrorCode = 1;
             str = [str substringFromIndex:tagStartDelimLen];
             str = [str stringByTrimmingCharactersInSet:wsSet];
             
-            if ([str hasPrefix:TD_END_TAG_PREFIX]) {
+            if ([str hasPrefix:TDTemplateEngineTagEndPrefix]) {
                 kind = TDTEMPLATE_TOKEN_KIND_BLOCK_END_TAG;
             } else {
                 NSString *tagName = [str componentsSeparatedByCharactersInSet:wsSet][0]; // TODO
