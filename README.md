@@ -39,6 +39,31 @@ The downside of streaming output is the simple *render-to-in-memory-string* use 
 
 ###Template Syntax
 
+Template syntax is very similar to MGTemplateEngine and Django's Template language. Tag delimiters like `{{ }}` and `{% %}` are easily configurable.
+
+####Print Tags
+
+Print tags print the value an expression to the text output:
+
+	 My name is {{name}}.
+
+Builtin **filters** are available (and you can define your own in ObjC by subclassing `TDFilter`):
+
+	 My name is {{firstName|capitalize}} {{lastName|capitalize}}, and I'm a {{profession|lowercase}}.
+
+	 My kitteh sez "{{lolSpeak|uppercase}}".
+
+####If Tags
+
+If tags offer conditional rendering based on input variables at render time:
+
+	{% if test1 %}
+		Text 1.
+	{% elif test2 %}
+		Text 2.
+	{% else %}
+		Default Text.
+	{% /if %}
 
 ###Template Expression Language
 
@@ -46,7 +71,7 @@ The downside of streaming output is the simple *render-to-in-memory-string* use 
 
 Create a `TDTemplateEngine` object and render a template in two distinct phases: (compile and render) to an `NSOutputStream`:
 
-	// create and engine
+	// create an engine
     TDTemplateEngine *eng = [TDTemplateEngine templateEngine];
 	
 	// compile the template at a given file path to an AST
