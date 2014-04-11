@@ -75,8 +75,21 @@ Builtin **filters** are available (and you can define your own in ObjC by subcla
 		{% /for %}
 	{% /for %}
 
+For tags can also loop thru variables representing Cocoa collection objects like `NSArray`, or `NSSet`:
+
+	{% for obj in vec %}
+		{{obj}}
+	{% /for %}
+
+and `NSDictionary` (note the convenient unpacking of *both key and value*):
+
+	{% for key, val in dict %}
+		{{key}}:{{val}}
+	{% /for %}
 
 ###Template Expression Language
+
+TODO
 
 ###Objective-C API Usage
 
