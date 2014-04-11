@@ -87,6 +87,10 @@ and `NSDictionary` (note the convenient unpacking of *both key and value*):
 		{{key}}:{{val}}
 	{% /for %}
 
+####Tag Extensibility
+
+You can implement your own custom tags by subclassing `TDTag` and overriding `-[TDTag doTagInContext:]`.
+
 ###Template Expression Language
 
 TODO
