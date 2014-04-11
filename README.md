@@ -1,7 +1,7 @@
 TDTemplateEngine
 ================
 
-###A multi-pass template engine implemented in Cocoa, for use in Cocoa. 
+###A multi-pass, streaming template engine implemented in Cocoa, for use in Cocoa. 
 
 TDTemplateEngine is a template engine implemented in Objective-C, and intended for use on Apple's OS X and iOS platforms.
 
@@ -12,7 +12,9 @@ In fact, TDTemplateEngine's API and usage scenarios are very similar to [MGTempl
 
 So if MGTemplateEngine exists, why create another one? What makes TDTemplateEngine different?
 
-####Design Goals of TDTemplateEngine
+###Design Goals of TDTemplateEngine
+
+####Mutliple-pass
 TDTemplateEngine offers a **multiple-pass architecture**. This means that TDTemplateEngine's API allows renderinging of any given template in *2 distinct phases*: 
 
 1. **Compile** the template source to an intermediate [Abstract Syntax Tree](https://en.wikipedia.org/wiki/Abstract_syntax_tree) (AST) representation.
@@ -30,4 +32,5 @@ This multiple-pass architecture may have disadvantages:
 * One man's *clean, well-factored design*, is another man's *[lasanga code](http://en.wikipedia.org/wiki/Spaghetti_code "Spaghetti code - Wikipedia, the free encyclopedia")* -- too many layers.
 * MGTemplateEngine (which I believe is a single-pass architecture), offers a smaller code footprint and architecture. Again, if you're in the market, you should check it out too.
 
-
+####Streaming output
+TDTemplateEngine also uses `NSOutputStream` for output, rather than only offering an in-memory string output option. This should offer performance and memory-usage benefits for use cases where rendering a template produces large text output at runtime.
