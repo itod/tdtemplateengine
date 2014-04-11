@@ -34,3 +34,5 @@ This multiple-pass architecture may have disadvantages:
 
 ####Streaming output
 TDTemplateEngine also uses `NSOutputStream` for output, rather than only offering an in-memory string output option. This should offer performance and memory-usage benefits for use cases where rendering a template produces large text output at runtime.
+
+The downside of streaming output is the simple *render-to-in-memory-string* use case is slightly more complex.
