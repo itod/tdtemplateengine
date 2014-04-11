@@ -123,3 +123,13 @@ Or use the convenience API for compile+render via one method call:
 	
     NSError *err = nil;
     BOOL success = [eng processTemplateString:path withVariables:vars toStream:output error:&err];
+
+###Threading Considerations
+
+The `TDTemplateEngine` class is ***NOT* Thread-Safe**. You must create and use each `TDTemplateEngine` object *only on a single thread*. However, this need not be the main thread. It may be done a background thread if you like. Also, you must not create more than one `TDTemplateEngine` per thread.
+
+So, the relationship should be **1 Thread to 1 TDTemplateEngine**.
+
+Or, alternatively: **1 GCD Queue to 1 TDTemplateEngine**.
+
+This is actually a very simple and straighforward way to use the library. In practice, you will probably create a single GCD Queue (or `NSThread`) per `TDTemplateEngine`. The template engine should be created on, and accessed from its own GCD Queue (or `NSThread`) *ONLY*.
