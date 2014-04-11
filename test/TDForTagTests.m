@@ -34,6 +34,18 @@
     return str;
 }
 
+- (void)testForObjInVec {
+    NSString *input = @"{% for obj in vec %}{{obj}}{% /for %}";
+    id vars = @{@"vec": @[@"foo", @"bar", @"baz"]};
+    
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"foobarbaz", res);
+}
+
 - (void)testFor0To4F {
     NSString *input = @"{% for i in 0 to 3 %}f{% /for %}";
     id vars = nil;

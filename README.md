@@ -39,7 +39,7 @@ The downside of streaming output is that the simple *render-to-in-memory-string*
 
 ###Template Syntax
 
-TDTemplateEngine template syntax is very similar to MGTemplateEngine and Django. Tag delimiters like `{{ }}` and `{% %}` are easily configurable.
+TDTemplateEngine template syntax is very similar to MGTemplateEngine and Django. Tag delimiters like `{{` `}}` and `{%` `%}` are easily configurable.
 
 ####Print Tag
 
@@ -67,6 +67,13 @@ Builtin **filters** are available (and you can define your own in ObjC by subcla
 
 ####For Tag
 
+**For tags** can loop thru arbitrary numerical ranges, and may nest:
+
+	{% for i in 0 to 10 %}
+		{% for j in 0 to 2 %}
+			{{i}}:{{j}}
+		{% /for %}
+	{% /for %}
 
 
 ###Template Expression Language
