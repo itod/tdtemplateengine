@@ -41,9 +41,9 @@ The downside of streaming output is the simple *render-to-in-memory-string* use 
 
 Template syntax is very similar to MGTemplateEngine and Django. Tag delimiters like `{{ }}` and `{% %}` are easily configurable.
 
-####Print Tags
+####Print Tag
 
-Print tags print the value an expression to the text output:
+**Print tags** print the value an expression to the text output:
 
 	 My name is {{name}}.
 
@@ -53,9 +53,9 @@ Builtin **filters** are available (and you can define your own in ObjC by subcla
 
 	 Mah kitteh sez "{{lolSpeak|uppercase}}".
 
-####If Tags
+####If Tag
 
-If tags offer conditional rendering based on input variables at render time:
+**If tags** offer conditional rendering based on input variables at render time:
 
 	{% if test1 %}
 		Text 1.
@@ -64,6 +64,10 @@ If tags offer conditional rendering based on input variables at render time:
 	{% else %}
 		Default Text.
 	{% /if %}
+
+####For Tag
+
+
 
 ###Template Expression Language
 
