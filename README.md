@@ -30,7 +30,7 @@ This multiple-pass architecture has many advantages:
 This multiple-pass architecture may have disadvantages:
 
 * One man's *clean, well-factored design*, is another man's *[lasanga code](http://en.wikipedia.org/wiki/Spaghetti_code "Spaghetti code - Wikipedia, the free encyclopedia")* -- too many layers.
-* MGTemplateEngine (which I believe is a single-pass architecture), offers a smaller code footprint and architecture. Again, if you're in the market, you should check it out too.
+* MGTemplateEngine (which I believe is a single-pass architecture), offers a smaller code footprint and simpler architecture. Again, if you're in the market, you should check it out too.
 
 ####Streaming output
 TDTemplateEngine also uses `NSOutputStream` for output, rather than only offering an in-memory string output option. This should offer performance and memory-usage benefits for use cases where rendering a template produces large text output at runtime.
