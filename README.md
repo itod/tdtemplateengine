@@ -39,7 +39,7 @@ The downside of streaming output is that the simple *render-to-in-memory-string*
 
 ###Template Syntax
 
-Template syntax is very similar to MGTemplateEngine and Django. Tag delimiters like `{{ }}` and `{% %}` are easily configurable.
+TDTemplateEngine template syntax is very similar to MGTemplateEngine and Django. Tag delimiters like `{{ }}` and `{% %}` are easily configurable.
 
 ####Print Tag
 
