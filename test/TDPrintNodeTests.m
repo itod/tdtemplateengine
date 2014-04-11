@@ -1,5 +1,5 @@
 //
-//  TDVarTagTests.m
+//  TDPrintNodeTests.m
 //  TDTemplateEngineTests
 //
 //  Created by Todd Ditchendorf on 3/28/14.
@@ -8,12 +8,12 @@
 
 #import "TDTestScaffold.h"
 
-@interface TDVarTagTests : XCTestCase
+@interface TDPrintNodeTests : XCTestCase
 @property (nonatomic, retain) TDTemplateEngine *engine;
 @property (nonatomic, retain) NSOutputStream *output;
 @end
 
-@implementation TDVarTagTests
+@implementation TDPrintNodeTests
 
 - (void)setUp {
     [super setUp];

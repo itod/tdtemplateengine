@@ -3,7 +3,7 @@ TDTemplateEngine
 
 ###A multi-pass, streaming template engine implemented in Cocoa, for use in Cocoa. 
 
-TDTemplateEngine is a template engine implemented in Objective-C, and intended for use on Apple's OS X and iOS platforms.
+TDTemplateEngine is a template engine implemented in Objective-C, and intended for use on Apple's OS X and iOS platforms. It currently has decent unit test coverage.
 
 TDTemplateEngine is built on top of [PEGKit](https://github.com/itod/pegkit#pegkit), my parsing toolkit for Cocoa. TDTemplateEngine is inspired by the [Django template language](https://docs.djangoproject.com/en/dev/topics/templates/), [Java ServerPages](http://en.wikipedia.org/wiki/JavaServer_Pages "JavaServer Pages - Wikipedia, the free encyclopedia"), and [MGTemplateEngine](http://mattgemmell.com/mgtemplateengine-templates-with-cocoa "MGTemplateEngine - Templates with Cocoa - Matt Gemmell") by Matt Gemmell.
 
@@ -36,3 +36,37 @@ This multiple-pass architecture may have disadvantages:
 TDTemplateEngine also uses `NSOutputStream` for output, rather than only offering an in-memory string output option. This should offer performance and memory-usage benefits for use cases where rendering a template produces large text output at runtime.
 
 The downside of streaming output is the simple *render-to-in-memory-string* use case is slightly more complex.
+
+###Template Syntax
+
+
+###Template Expression Language
+
+###Objective-C API Usage
+
+Create a `TDTemplateEngine` object and render a template in two distinct phases: (compile and render) to an `NSOutputStream`:
+
+	// create and engine
+    TDTemplateEngine *eng = [TDTemplateEngine templateEngine];
+	
+	// compile the template at a given file path to an AST
+    NSError *err = nil;
+    TDNode *tree = [eng compileTemplateFile:path encoding:NSUTF8StringEncoding error:&err];
+	
+	// provide a streaming output destination
+    NSOutputStream *output = [NSOutputStream outputStreamToMemory];
+	
+	// establish runtime template variable values
+	id vars = @{@"foo": @"bar"};
+	
+	// render tree to template text
+	err = nil;
+	[eng renderTemplateTree:tree withVariables:vars toStream:output error:&err];
+
+Or use the convenience API for compile+render via one method call:
+
+    TDTemplateEngine *eng = [TDTemplateEngine templateEngine];
+    NSOutputStream *output = [NSOutputStream outputStreamToMemory];
+	
+    NSError *err = nil;
+    BOOL success = [eng processTemplateString:path withVariables:vars toStream:output error:&err];

@@ -88,7 +88,7 @@
 		D3A29E3E18E7B31A00DC591E /* XPObjectValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29E3C18E7B31A00DC591E /* XPObjectValue.m */; };
 		D3A3E54D18EC5706004FEB2C /* TDForTagTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A3E54A18EC5706004FEB2C /* TDForTagTests.m */; };
 		D3A3E54E18EC5706004FEB2C /* TDIfTagTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A3E54B18EC5706004FEB2C /* TDIfTagTests.m */; };
-		D3A3E54F18EC5706004FEB2C /* TDVarTagTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A3E54C18EC5706004FEB2C /* TDVarTagTests.m */; };
+		D3A3E54F18EC5706004FEB2C /* TDPrintNodeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A3E54C18EC5706004FEB2C /* TDPrintNodeTests.m */; };
 		D3A7E26B18EF9286009BFD96 /* TDTemplateEngine+XPExpressionSupport.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A7E26918EF9286009BFD96 /* TDTemplateEngine+XPExpressionSupport.h */; };
 		D3A7E26C18EF9286009BFD96 /* TDTemplateEngine+XPExpressionSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A7E26A18EF9286009BFD96 /* TDTemplateEngine+XPExpressionSupport.m */; };
 		D3A7E27318F07782009BFD96 /* TDCommentTag.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A7E27118F07782009BFD96 /* TDCommentTag.h */; };
@@ -213,7 +213,7 @@
 		D3A29E3C18E7B31A00DC591E /* XPObjectValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XPObjectValue.m; path = src/XPObjectValue.m; sourceTree = SOURCE_ROOT; };
 		D3A3E54A18EC5706004FEB2C /* TDForTagTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDForTagTests.m; path = test/TDForTagTests.m; sourceTree = SOURCE_ROOT; };
 		D3A3E54B18EC5706004FEB2C /* TDIfTagTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDIfTagTests.m; path = test/TDIfTagTests.m; sourceTree = SOURCE_ROOT; };
-		D3A3E54C18EC5706004FEB2C /* TDVarTagTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDVarTagTests.m; path = test/TDVarTagTests.m; sourceTree = SOURCE_ROOT; };
+		D3A3E54C18EC5706004FEB2C /* TDPrintNodeTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDPrintNodeTests.m; path = test/TDPrintNodeTests.m; sourceTree = SOURCE_ROOT; };
 		D3A7E26918EF9286009BFD96 /* TDTemplateEngine+XPExpressionSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TDTemplateEngine+XPExpressionSupport.h"; path = "src/TDTemplateEngine+XPExpressionSupport.h"; sourceTree = SOURCE_ROOT; };
 		D3A7E26A18EF9286009BFD96 /* TDTemplateEngine+XPExpressionSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "TDTemplateEngine+XPExpressionSupport.m"; path = "src/TDTemplateEngine+XPExpressionSupport.m"; sourceTree = SOURCE_ROOT; };
 		D3A7E27118F07782009BFD96 /* TDCommentTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDCommentTag.h; path = src/TDCommentTag.h; sourceTree = SOURCE_ROOT; };
@@ -279,17 +279,17 @@
 			name = "Expression Tests";
 			sourceTree = "<group>";
 		};
-		D306D9C618F5872500E32DDC /* Tag Tests */ = {
+		D306D9C618F5872500E32DDC /* Node/Tag Tests */ = {
 			isa = PBXGroup;
 			children = (
-				D3A3E54C18EC5706004FEB2C /* TDVarTagTests.m */,
+				D3A3E54C18EC5706004FEB2C /* TDPrintNodeTests.m */,
 				D3A3E54B18EC5706004FEB2C /* TDIfTagTests.m */,
 				D33915E518F09DFF00BDA4FD /* TDElseTagTests.m */,
 				D3A3E54A18EC5706004FEB2C /* TDForTagTests.m */,
 				D3A7E27518F0788D009BFD96 /* TDCommentTagTests.m */,
 				D319139618F2EF7000430BAD /* TDVerbatimTagTests.m */,
 			);
-			name = "Tag Tests";
+			name = "Node/Tag Tests";
 			sourceTree = "<group>";
 		};
 		D319137818F1A44E00430BAD /* Filter */ = {
@@ -375,7 +375,7 @@
 			children = (
 				D3A29D8B18E5F5B300DC591E /* TDTestScaffold.h */,
 				D306D9C518F5859F00E32DDC /* Expression Tests */,
-				D306D9C618F5872500E32DDC /* Tag Tests */,
+				D306D9C618F5872500E32DDC /* Node/Tag Tests */,
 				D367DFCF18E5EF6900F97BCC /* Supporting Files */,
 			);
 			name = "TDTemplateEngine Tests";
@@ -703,7 +703,7 @@
 				D3A3E54D18EC5706004FEB2C /* TDForTagTests.m in Sources */,
 				D306D9C318F5851D00E32DDC /* XPBaseExpressionTests.m in Sources */,
 				D3CAF8BE18EF5A0000166A95 /* XPNegationExpressionTests.m in Sources */,
-				D3A3E54F18EC5706004FEB2C /* TDVarTagTests.m in Sources */,
+				D3A3E54F18EC5706004FEB2C /* TDPrintNodeTests.m in Sources */,
 				D33915E418F081ED00BDA4FD /* XPPathExpressionTests.m in Sources */,
 				D3A3E54E18EC5706004FEB2C /* TDIfTagTests.m in Sources */,
 				D33915E618F09DFF00BDA4FD /* TDElseTagTests.m in Sources */,
