@@ -39,7 +39,7 @@ The downside of streaming output is the simple *render-to-in-memory-string* use 
 
 ###Template Syntax
 
-Template syntax is very similar to MGTemplateEngine and Django's Template language. Tag delimiters like `{{ }}` and `{% %}` are easily configurable.
+Template syntax is very similar to MGTemplateEngine and Django. Tag delimiters like `{{ }}` and `{% %}` are easily configurable.
 
 ####Print Tags
 
@@ -51,7 +51,7 @@ Builtin **filters** are available (and you can define your own in ObjC by subcla
 
 	 My name is {{firstName|capitalize}} {{lastName|capitalize}}, and I'm a {{profession|lowercase}}.
 
-	 My kitteh sez "{{lolSpeak|uppercase}}".
+	 Mah kitteh sez "{{lolSpeak|uppercase}}".
 
 ####If Tags
 
