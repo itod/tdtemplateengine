@@ -55,7 +55,7 @@ Builtin **filters** are available:
      
 ####Filter Extensibility
 
-You can define your own Filters in ObjC by subclassing `TDFilter` and overriding `-[TDFilter doFilterInContext:]`.
+You can define your own Filters in ObjC by subclassing `TDFilter` and overriding `-[TDFilter doFilter:withArguments:]`.
 
 ####If Tag
 
@@ -82,14 +82,14 @@ You can define your own Filters in ObjC by subclassing `TDFilter` and overriding
 Numerical ranges may iterate in reverse order, and also offer a "step" option specified after the `by` keyword
 
 	{% for i in 70 to 60 by 2 %}
-		{{i}}{% if not currentLoop.last %},{% /if %}
+		{{i}}{% if not currentLoop.isLast %},{% /if %}
 	{% /for %}
     
 Prints:
 
     70,68,66,64,62,60
 
-Note that each For tag offers access to a `currentLoop` variable which provides information like `currentIndex`, `first`, `last`, and `parentLoop`.
+Note that each For tag offers access to a `currentLoop` variable which provides information like `currentIndex`, `isFirst`, `isLast`, and `parentLoop`.
 
 For tags can also loop thru variables representing Cocoa collection objects like `NSArray`, or `NSSet`:
 

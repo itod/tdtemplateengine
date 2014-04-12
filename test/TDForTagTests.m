@@ -177,4 +177,17 @@
     TDEqualObjects(@"0:0\n0:1\n0:2\n1:0\n1:1\n1:2\n", res);
 }
 
+- (void)testReverseBy {
+    NSString *input =  @"{% for i in 70 to 60 by 2 %}"
+                            @"{{i}}{% if not currentLoop.last %},{% /if %}"
+                        @"{% /for %}";
+    id vars = nil;
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"70,68,66,64,62,60", res);
+}
+
 @end
