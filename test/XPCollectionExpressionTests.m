@@ -65,8 +65,37 @@
         id res = [expr evaluateInContext:ctx];
         TDEqualObjects(obj, res);
     }
-
+    
     TDNil([expr evaluateInContext:ctx]);
+}
+
+- (void)testObjInSetOneTwoThree {
+    NSString *input = @"i in foo";
+    NSArray *toks = [self tokenize:input];
+    
+    id foo = [NSSet setWithObjects:@"one", @"two", @"three", nil];
+    id vars = @{@"foo": foo};
+    TDTemplateContext *ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
+    
+    NSError *err = nil;
+    XPExpression *expr = [[XPExpression loopExpressionFromTokens:toks error:&err] simplify];
+    TDNil(err);
+    TDNotNil(expr);
+    TDTrue([expr isKindOfClass:[XPLoopExpression class]]);
+    
+    NSMutableSet *test = [NSMutableSet setWithCapacity:[foo count]];
+    for (id obj in foo) {
+        TDNotNil(obj); // compiler warn
+        id res = [expr evaluateInContext:ctx];
+        TDNotNil(res);
+        [test addObject:res];
+    }
+    
+    TDNil([expr evaluateInContext:ctx]);
+    
+    for (id obj in foo) {
+        TDTrue([test containsObject:obj]);
+    }
 }
 
 - (void)testKeyInDictOneTwoThree {
