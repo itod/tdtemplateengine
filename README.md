@@ -47,11 +47,15 @@ TDTemplateEngine template syntax is very similar to MGTemplateEngine and Django.
 
 	 My name is {{name}}.
 
-Builtin **filters** are available (and you can define your own in ObjC by subclassing `TDFilter`):
+Builtin **filters** are available:
 
 	 My name is {{firstName|capitalize}} {{lastName|capitalize}}, and I'm a {{profession|lowercase}}.
 
 	 Mah kitteh sez "{{lolSpeak|uppercase}}".
+     
+####Filter Extensibility
+
+You can define your own Filters in ObjC by subclassing `TDFilter` and overriding `-[TDFilter doFilter:]`.
 
 ####If Tag
 
@@ -74,6 +78,18 @@ Builtin **filters** are available (and you can define your own in ObjC by subcla
 			{{i}}:{{j}}
 		{% /for %}
 	{% /for %}
+
+Numerical ranges may iterate in reverse order, and also offer a "step" option specified after the `by` keyword
+
+	{% for i in 70 to 60 by 2 %}
+		{{i}}{% if not currentLoop.last %},{% /if %}
+	{% /for %}
+    
+Prints:
+
+    70,68,66,64,62,60
+
+Note that each For tag offers access to a `currentLoop` variable which provides information like `currentIndex`, `first`, `last`, and `parentLoop`.
 
 For tags can also loop thru variables representing Cocoa collection objects like `NSArray`, or `NSSet`:
 
