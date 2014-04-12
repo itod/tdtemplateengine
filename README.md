@@ -55,7 +55,7 @@ Builtin **filters** are available:
      
 ####Filter Extensibility
 
-You can define your own Filters in ObjC by subclassing `TDFilter` and overriding `-[TDFilter doFilter:]`.
+You can define your own Filters in ObjC by subclassing `TDFilter` and overriding `-[TDFilter doFilterInContext:]`.
 
 ####If Tag
 
