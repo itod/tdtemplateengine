@@ -61,13 +61,15 @@ You can define your own Filters in ObjC by subclassing `TDFilter` and overriding
 
 **If tags** offer conditional rendering based on input variables at render time:
 
-	{% if test1 %}
+	{% if testVal <= expectedMax || force %}
 		Text 1.
-	{% elif test2 %}
+	{% elif shortCircuit or ('foo' == bar and 'baz' != bat) %}
 		Text 2.
 	{% else %}
 		Default Text.
 	{% /if %}
+
+*(Note the boolean test expressions in this example are nonsense, and just intended to demonstrate some of the expression language features.)*
 
 ####For Tag
 
