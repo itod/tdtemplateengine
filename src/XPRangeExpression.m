@@ -52,10 +52,10 @@
 }
 
 
-- (NSString *)description {
-    // be very careful trying to print `self.values[self.current]` here
-    return [NSString stringWithFormat:@"%@ to %@", self.values[0], [self.values lastObject]];
-}
+//- (NSString *)description {
+//    // be very careful trying to print `self.values` here. seems to cause infinite loop while stepping thru in debugger
+//    return [NSString stringWithFormat:@"%@ to %@", self.values[0], [self.values lastObject]];
+//}
 
 
 #pragma mark -
@@ -65,10 +65,9 @@
     NSInteger start = [_start evaluateAsNumberInContext:ctx];
     NSInteger stop = [_stop evaluateAsNumberInContext:ctx];
     NSInteger step = [_by evaluateAsNumberInContext:ctx];
-    
-    if (0 == step) {
-        step = start <= stop ? 1 : -1;
-    }
+
+    step = 0 == step ? 1 : step;
+    step = start > stop ? -labs(step) : step;
     
     NSMutableArray *range = [NSMutableArray array];
     NSInteger val = 0;
