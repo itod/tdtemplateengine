@@ -643,17 +643,23 @@
     
     [self match:XP_TOKEN_KIND_PIPE discard:YES]; 
     [self matchWord:NO]; 
-    [self filterArg_]; 
+    [self filterArgs_]; 
 
 }
 
-- (void)filterArg_ {
+- (void)filterArgs_ {
     
     if ([self predicts:XP_TOKEN_KIND_COLON, 0]) {
         [self match:XP_TOKEN_KIND_COLON discard:YES]; 
-        [self matchQuotedString:NO]; 
+        if ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
+            [self matchQuotedString:NO]; 
+        } else if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
+            [self matchWord:NO]; 
+        } else {
+            [self raise:@"No viable alternative found in rule 'filterArgs'."];
+        }
         [self execute:^{
-         PUSH(@[POP_QUOTED_STR()]); 
+         PUSH(@[POP()]); 
         }];
     } else {
         [self matchEmpty:NO]; 

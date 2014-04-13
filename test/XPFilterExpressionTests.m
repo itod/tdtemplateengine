@@ -223,4 +223,23 @@
     TDEqualObjects(expected, actual);
 }
 
+- (void)testDateFormatApril25Arg {
+    NSString *fmtStr = @"EEE, MMM d, yy";
+    NSString *input = @"mydate|dateFormat:fmt";
+    NSArray *toks = [self tokenize:input];
+    
+    NSDate *date = [NSDate dateWithNaturalLanguageString:@"April 25 1996"];
+    id vars = @{@"mydate": date, @"fmt": fmtStr};
+    id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
+    
+    NSError *err = nil;
+    XPExpression *expr = [self.eng expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    
+    NSString *expected = @"Thu, Apr 25, 96";
+    NSString *actual = [expr evaluateAsStringInContext:ctx];
+    TDEqualObjects(expected, actual);
+}
+
 @end

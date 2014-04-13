@@ -23,7 +23,9 @@
 #import "XPFilterExpression.h"
 #import "XPValue.h"
 #import <TDTemplateEngine/TDTemplateEngine.h>
+#import <TDTemplateEngine/TDTemplateContext.h>
 #import <TDTemplateEngine/TDFilter.h>
+#import <PEGKit/PKToken.h>
 
 @interface XPFilterExpression ()
 @property (nonatomic, retain) XPExpression *expr;
@@ -67,12 +69,39 @@
     TDAssert(ctx);
     TDAssert(_expr);
     TDAssert(_filter);
-
+    
+    NSArray *evaledArgs = [self evaluatedArgs:ctx];
     id obj = [_expr evaluateInContext:ctx];
-    obj = [_filter doFilter:obj withArguments:_args];
+    obj = [_filter doFilter:obj withArguments:evaledArgs];
     
     XPValue *val = XPValueFromObject(obj);
     return val;
+}
+
+
+- (NSArray *)evaluatedArgs:(TDTemplateContext *)ctx {
+    NSUInteger c = [_args count];
+    
+    id evaledArgs = nil;
+    if (c) {
+        evaledArgs = [NSMutableArray arrayWithCapacity:c];
+        
+        for (PKToken *tok in _args) {
+            switch (tok.tokenType) {
+                case PKTokenTypeQuotedString:
+                    [evaledArgs addObject:[tok.stringValue substringWithRange:NSMakeRange(1, [tok.stringValue length]-2)]];
+                    break;
+                case PKTokenTypeWord:
+                    [evaledArgs addObject:[ctx resolveVariable:tok.stringValue]];
+                    break;
+                default:
+                    TDAssert(0);
+                    break;
+            }
+        }
+    }
+    
+    return evaledArgs;
 }
 
 @end
