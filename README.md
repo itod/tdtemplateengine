@@ -5,6 +5,8 @@ TDTemplateEngine
 
 TDTemplateEngine is a template engine implemented in Objective-C, and intended for use on Apple's OS X and iOS platforms. It currently has decent unit test coverage.
 
+**Always use the Xcode Workspace `TDTemplateEngine.xcworkspace`, *NOT* the Xcode Project.**
+
 TDTemplateEngine is built on top of [PEGKit](https://github.com/itod/pegkit#pegkit), my parsing toolkit for Cocoa. The PEGKit dependency is managed via [git externals](http://nopugs.com/ext-tutorial).
 
 TDTemplateEngine is inspired by the [Django template language](https://docs.djangoproject.com/en/dev/topics/templates/), [Java ServerPages](http://en.wikipedia.org/wiki/JavaServer_Pages "JavaServer Pages - Wikipedia, the free encyclopedia"), and [MGTemplateEngine](http://mattgemmell.com/mgtemplateengine-templates-with-cocoa "MGTemplateEngine - Templates with Cocoa - Matt Gemmell") by Matt Gemmell.
