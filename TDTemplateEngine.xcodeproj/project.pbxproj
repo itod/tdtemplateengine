@@ -349,8 +349,6 @@
 				D3A29DCF18E63A1C00DC591E /* TDTemplateContext.m */,
 				D398E2ED18EA2C51004B883C /* TDTemplateParser.h */,
 				D398E2EE18EA2C51004B883C /* TDTemplateParser.m */,
-				D3BB32E218F76116005E0A3A /* PKToken+Verbatim.h */,
-				D3BB32E318F76116005E0A3A /* PKToken+Verbatim.m */,
 				D3A29DD218E63D2200DC591E /* Nodes */,
 				D3A29DD318E63D2900DC591E /* Tags */,
 				D319137818F1A44E00430BAD /* Filter */,
@@ -434,6 +432,8 @@
 			children = (
 				D3A7E26918EF9286009BFD96 /* TDTemplateEngine+XPExpressionSupport.h */,
 				D3A7E26A18EF9286009BFD96 /* TDTemplateEngine+XPExpressionSupport.m */,
+				D3BB32E218F76116005E0A3A /* PKToken+Verbatim.h */,
+				D3BB32E318F76116005E0A3A /* PKToken+Verbatim.m */,
 				D3A29E1618E6659D00DC591E /* Parser */,
 				D3A29DF418E6583600DC591E /* XPExpression.h */,
 				D3A29DF818E6584D00DC591E /* XPExpression.m */,
