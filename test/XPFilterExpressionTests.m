@@ -31,7 +31,7 @@
     id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     
     NSError *err = nil;
-    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    XPExpression *expr = [self.eng expressionFromTokens:toks error:&err];
     TDNil(err);
     TDNotNil(expr);
     TDEqualObjects(@"Bar", [expr evaluateAsStringInContext:ctx]);
@@ -45,7 +45,7 @@
     id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     
     NSError *err = nil;
-    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    XPExpression *expr = [self.eng expressionFromTokens:toks error:&err];
     TDNil(err);
     TDNotNil(expr);
     TDEqualObjects(@"Foo", [expr evaluateAsStringInContext:ctx]);
@@ -59,7 +59,7 @@
     id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     
     NSError *err = nil;
-    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    XPExpression *expr = [self.eng expressionFromTokens:toks error:&err];
     TDNil(err);
     TDNotNil(expr);
     TDEqualObjects(@"bar", [expr evaluateAsStringInContext:ctx]);
@@ -73,7 +73,7 @@
     id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     
     NSError *err = nil;
-    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    XPExpression *expr = [self.eng expressionFromTokens:toks error:&err];
     TDNil(err);
     TDNotNil(expr);
     TDEqualObjects(@"foo", [expr evaluateAsStringInContext:ctx]);
@@ -87,7 +87,7 @@
     id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     
     NSError *err = nil;
-    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    XPExpression *expr = [self.eng expressionFromTokens:toks error:&err];
     TDNil(err);
     TDNotNil(expr);
     TDEqualObjects(@"BAR", [expr evaluateAsStringInContext:ctx]);
@@ -101,7 +101,7 @@
     id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     
     NSError *err = nil;
-    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    XPExpression *expr = [self.eng expressionFromTokens:toks error:&err];
     TDNil(err);
     TDNotNil(expr);
     TDEqualObjects(@"FOO", [expr evaluateAsStringInContext:ctx]);
@@ -115,7 +115,7 @@
     id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     
     NSError *err = nil;
-    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    XPExpression *expr = [self.eng expressionFromTokens:toks error:&err];
     TDNil(err);
     TDNotNil(expr);
     TDEqualObjects(@"MonteSereno", [expr evaluateAsStringInContext:ctx]);
@@ -130,7 +130,7 @@
     id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     
     NSError *err = nil;
-    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    XPExpression *expr = [self.eng expressionFromTokens:toks error:&err];
     TDNil(err);
     TDNotNil(expr);
     
@@ -153,7 +153,7 @@
     id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     
     NSError *err = nil;
-    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    XPExpression *expr = [self.eng expressionFromTokens:toks error:&err];
     TDNil(err);
     TDNotNil(expr);
     
@@ -176,7 +176,7 @@
     id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     
     NSError *err = nil;
-    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    XPExpression *expr = [self.eng expressionFromTokens:toks error:&err];
     TDNil(err);
     TDNotNil(expr);
     
@@ -195,7 +195,7 @@
     id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     
     NSError *err = nil;
-    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    XPExpression *expr = [self.eng expressionFromTokens:toks error:&err];
     TDNil(err);
     TDNotNil(expr);
     
@@ -214,7 +214,7 @@
     id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     
     NSError *err = nil;
-    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    XPExpression *expr = [self.eng expressionFromTokens:toks error:&err];
     TDNil(err);
     TDNotNil(expr);
     

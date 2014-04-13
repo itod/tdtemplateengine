@@ -1,6 +1,7 @@
 #import "XPParser.h"
 #import <PEGKit/PEGKit.h>
     
+#import <TDTemplateEngine/TDTemplateEngine.h>
 #import <TDTemplateEngine/XPBooleanValue.h>
 #import <TDTemplateEngine/XPNumericValue.h>
 #import <TDTemplateEngine/XPStringValue.h>
@@ -130,6 +131,7 @@
 
 - (void)dealloc {
         
+    self.engine = nil;
     self.openParen = nil;
     self.minus = nil;
 
@@ -628,7 +630,9 @@
 	NSArray *args = POP();
 	NSString *filterName = POP_STR();
 	id expr = POP();
-	PUSH([XPFilterExpression filterExpressionWithExpression:expr filterName:filterName arguments:args]);
+    ASSERT(_engine);
+    TDFilter *filter = [_engine makeFilterForName:filterName];
+	PUSH([XPFilterExpression filterExpressionWithExpression:expr filter:filter arguments:args]);
 
         }];
     }

@@ -9,11 +9,11 @@
 #import "TDTestScaffold.h"
 #import "XPExpression.h"
 #import "XPParser.h"
-#import <TDTemplateEngine/TDTemplateContext.h>
 
 @interface XPBaseExpressionTests : XCTestCase
 - (NSArray *)tokenize:(NSString *)input;
 
+@property (nonatomic, retain) TDTemplateEngine *eng;
 @property (nonatomic, retain) XPExpression *expr;
 @property (nonatomic, retain) PKTokenizer *t;
 @end

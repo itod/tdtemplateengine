@@ -1,8 +1,10 @@
 @h {
+@class TDTemplateEngine;
 @class TDTemplateContext;
 }
 
 @interface {
+@property (nonatomic, assign) TDTemplateEngine *engine; // weakref
 @property (nonatomic, retain) TDTemplateContext *staticContext;
 }
 
@@ -29,6 +31,7 @@
 }
 
 @dealloc {
+    self.engine = nil;
     self.staticContext = nil;
     self.currentParent = nil;
 }
@@ -53,7 +56,8 @@ content
 print 
     = 'print' {
     PKToken *tok = POP();
-    TDNode *printNode = [[TDTemplateEngine currentTemplateEngine] printNodeFromFragment:tok withParent:_currentParent];
+    ASSERT(_engine);
+    TDNode *printNode = [_engine printNodeFromFragment:tok withParent:_currentParent];
     ASSERT(printNode);
     [_currentParent addChild:printNode];
 };
@@ -61,7 +65,8 @@ print
 empty_tag
     = 'empty_tag' {
     PKToken *tok = POP();
-    TDTag *startTagNode = [[TDTemplateEngine currentTemplateEngine] tagFromFragment:tok withParent:_currentParent];
+    ASSERT(_engine);
+    TDTag *startTagNode = [_engine tagFromFragment:tok withParent:_currentParent];
     ASSERT(startTagNode);
     [_currentParent addChild:startTagNode];
     //self.currentParent = startTagNode;
@@ -76,7 +81,8 @@ block_tag
 block_start_tag 
     = 'block_start_tag' {
     PKToken *tok = POP();
-    TDTag *startTagNode = [[TDTemplateEngine currentTemplateEngine] tagFromFragment:tok withParent:_currentParent];
+    ASSERT(_engine);
+    TDTag *startTagNode = [_engine tagFromFragment:tok withParent:_currentParent];
     ASSERT(startTagNode);
     [_currentParent addChild:startTagNode];
     self.currentParent = startTagNode;

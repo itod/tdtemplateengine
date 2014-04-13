@@ -24,6 +24,7 @@
 #import <TDTemplateEngine/TDTemplateParser.h>
 #import <TDTemplateEngine/TDNode.h>
 #import <TDTemplateEngine/TDTemplateContext.h>
+#import "TDTemplateEngine+XPExpressionSupport.h"
 
 #import "TDRootNode.h"
 #import "TDTextNode.h"
@@ -44,6 +45,7 @@
 #import "TDCapitalizeFilter.h"
 #import "TDDateFormatFilter.h"
 
+#import <PEGKit/PKAssembly.h>
 #import <PEGKit/PKTokenizer.h>
 #import <PEGKit/PKToken.h>
 #import "PKToken+Verbatim.h"
@@ -65,13 +67,6 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 
 + (instancetype)templateEngine {
     return [[[TDTemplateEngine alloc] init] autorelease];
-}
-
-
-+ (instancetype)currentTemplateEngine {
-    id eng = [[NSThread currentThread] threadDictionary][@"TDTemplateEngine"];
-    TDAssert(eng);
-    return eng;
 }
 
 
@@ -104,8 +99,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
         [self registerFilterClass:[TDDateFormatFilter class] forName:[TDDateFormatFilter filterName]];
         
         self.expressionParser = [[[XPParser alloc] initWithDelegate:nil] autorelease];
-
-        [[NSThread currentThread] threadDictionary][@"TDTemplateEngine"] = self;
+        _expressionParser.engine = self;
     }
     return self;
 }
@@ -340,6 +334,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 - (TDNode *)compile:(NSArray *)frags error:(NSError **)err {
     
     TDTemplateParser *p = [[[TDTemplateParser alloc] initWithDelegate:nil] autorelease];
+    p.engine = self;
 
     TDAssert(_staticContext);
     p.staticContext = _staticContext;
@@ -361,7 +356,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     TDAssert([str length]);
     
     NSError *err = nil;
-    XPExpression *expr = [XPExpression expressionFromString:str error:&err];
+    XPExpression *expr = [self expressionFromString:str error:&err];
     if (!expr) {
         [NSException raise:TDTemplateEngineErrorDomain format:@"Error while compiling print node expression `%@` : %@", str, [err localizedFailureReason]];
     }
@@ -398,7 +393,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 - (NSString *)tagNameFromTokens:(NSMutableArray *)outToks inFragment:(PKToken *)frag {
     NSString *tagName = nil;
     
-    PKTokenizer *t = [XPExpression tokenizer];
+    PKTokenizer *t = [self tokenizer];
     t.string = frag.stringValue;
     
     PKToken *tok = nil;
@@ -425,9 +420,9 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     
     BOOL doLoop = [tagName isEqualToString:@"for"];
     if (doLoop) {
-        expr = [XPExpression loopExpressionFromTokens:toks error:&err];
+        expr = [self loopExpressionFromTokens:toks error:&err];
     } else {
-        expr = [XPExpression expressionFromTokens:toks error:&err];
+        expr = [self expressionFromTokens:toks error:&err];
     }
     
     if (!expr) {

@@ -1,6 +1,7 @@
 #import <PEGKit/PKParser.h>
         
 @class PKTokenizer;
+@class TDTemplateEngine;
 
 enum {
     XP_TOKEN_KIND_GT = 14,
@@ -45,6 +46,7 @@ enum {
         
 + (PKTokenizer *)tokenizer;
 
+@property (nonatomic, assign) TDTemplateEngine *engine; // weakref
 @property (nonatomic, assign) BOOL doLoopExpr;
 
 @end

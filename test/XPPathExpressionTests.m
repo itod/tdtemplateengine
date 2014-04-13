@@ -31,7 +31,7 @@
     id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     
     NSError *err = nil;
-    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    XPExpression *expr = [self.eng expressionFromTokens:toks error:&err];
     TDNil(err);
     TDNotNil(expr);
     TDEquals(8.0, [[expr simplify] evaluateAsNumberInContext:ctx]);

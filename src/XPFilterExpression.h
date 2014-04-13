@@ -22,9 +22,11 @@
 
 #import "XPExpression.h"
 
+@class TDFilter;
+
 @interface XPFilterExpression : XPExpression
 
-+ (instancetype)filterExpressionWithExpression:(XPExpression *)expr filterName:(NSString *)filterName arguments:(NSArray *)args;
++ (instancetype)filterExpressionWithExpression:(XPExpression *)expr filter:(TDFilter *)filter arguments:(NSArray *)args;
 
-- (instancetype)initWithExpression:(XPExpression *)expr filterName:(NSString *)filterName arguments:(NSArray *)args;
+- (instancetype)initWithExpression:(XPExpression *)expr filter:(TDFilter *)filter arguments:(NSArray *)args;
 @end

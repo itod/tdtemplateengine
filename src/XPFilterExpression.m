@@ -33,18 +33,18 @@
 
 @implementation XPFilterExpression
 
-+ (instancetype)filterExpressionWithExpression:(XPExpression *)expr filterName:(NSString *)filterName arguments:(NSArray *)args {
-    return [[[self alloc] initWithExpression:expr filterName:filterName arguments:args] autorelease];
++ (instancetype)filterExpressionWithExpression:(XPExpression *)expr filter:(TDFilter *)filter arguments:(NSArray *)args {
+    return [[[self alloc] initWithExpression:expr filter:filter arguments:args] autorelease];
 }
 
 
-- (instancetype)initWithExpression:(XPExpression *)expr filterName:(NSString *)filterName arguments:(NSArray *)args {
+- (instancetype)initWithExpression:(XPExpression *)expr filter:(TDFilter *)filter arguments:(NSArray *)args {
     self = [super init];
     if (self) {
         TDAssert([expr isKindOfClass:[XPExpression class]]);
         self.expr = expr;
         
-        self.filter = [[TDTemplateEngine currentTemplateEngine] makeFilterForName:filterName];
+        self.filter = filter;
         TDAssert(_filter);
         
         if ([args count]) {

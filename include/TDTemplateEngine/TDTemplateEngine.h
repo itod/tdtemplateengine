@@ -34,7 +34,6 @@ extern const NSInteger TDTemplateEngineRenderingErrorCode;
 @interface TDTemplateEngine : NSObject
 
 + (instancetype)templateEngine;
-+ (instancetype)currentTemplateEngine; // thread-local template engine
 
 // pre-compile template into a tree
 - (TDNode *)compileTemplateString:(NSString *)str error:(NSError **)err;

@@ -28,7 +28,7 @@
     NSArray *toks = [self tokenize:input];
     
     NSError *err = nil;
-    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    XPExpression *expr = [self.eng expressionFromTokens:toks error:&err];
     TDNil(err);
     TDNotNil(expr);
     TDEquals(3.0, [[expr simplify] evaluateAsNumberInContext:nil]);
@@ -39,7 +39,7 @@
     NSArray *toks = [self tokenize:input];
     
     NSError *err = nil;
-    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    XPExpression *expr = [self.eng expressionFromTokens:toks error:&err];
     TDNil(err);
     TDNotNil(expr);
     TDEquals(3.0, [[expr simplify] evaluateAsNumberInContext:nil]);
@@ -50,7 +50,7 @@
     NSArray *toks = [self tokenize:input];
     
     NSError *err = nil;
-    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    XPExpression *expr = [self.eng expressionFromTokens:toks error:&err];
     TDNil(err);
     TDNotNil(expr);
     TDEquals(0.0, [[expr simplify] evaluateAsNumberInContext:nil]);
@@ -61,7 +61,7 @@
     NSArray *toks = [self tokenize:input];
     
     NSError *err = nil;
-    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    XPExpression *expr = [self.eng expressionFromTokens:toks error:&err];
     TDNil(err);
     TDNotNil(expr);
     TDEquals(2.0, [[expr simplify] evaluateAsNumberInContext:nil]);
@@ -72,7 +72,7 @@
     NSArray *toks = [self tokenize:input];
     
     NSError *err = nil;
-    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    XPExpression *expr = [self.eng expressionFromTokens:toks error:&err];
     TDNil(err);
     TDNotNil(expr);
     TDEquals(2.0, [[expr simplify] evaluateAsNumberInContext:nil]);
@@ -83,7 +83,7 @@
     NSArray *toks = [self tokenize:input];
     
     NSError *err = nil;
-    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    XPExpression *expr = [self.eng expressionFromTokens:toks error:&err];
     TDNil(err);
     TDNotNil(expr);
     TDEquals(1.0, [[expr simplify] evaluateAsNumberInContext:nil]);
@@ -94,7 +94,7 @@
     NSArray *toks = [self tokenize:input];
     
     NSError *err = nil;
-    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    XPExpression *expr = [self.eng expressionFromTokens:toks error:&err];
     TDNil(err);
     TDNotNil(expr);
     TDEquals(1.0, [[expr simplify] evaluateAsNumberInContext:nil]);
@@ -105,7 +105,7 @@
     NSArray *toks = [self tokenize:input];
     
     NSError *err = nil;
-    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    XPExpression *expr = [self.eng expressionFromTokens:toks error:&err];
     TDNil(err);
     TDNotNil(expr);
     TDEquals(4.0, [[expr simplify] evaluateAsNumberInContext:nil]);
@@ -116,7 +116,7 @@
     NSArray *toks = [self tokenize:input];
     
     NSError *err = nil;
-    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    XPExpression *expr = [self.eng expressionFromTokens:toks error:&err];
     TDNil(err);
     TDNotNil(expr);
     TDEquals(1.0, [[expr simplify] evaluateAsNumberInContext:nil]);
@@ -127,7 +127,7 @@
     NSArray *toks = [self tokenize:input];
     
     NSError *err = nil;
-    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    XPExpression *expr = [self.eng expressionFromTokens:toks error:&err];
     TDNil(err);
     TDNotNil(expr);
     TDEquals(7.0, [[expr simplify] evaluateAsNumberInContext:nil]);
@@ -138,7 +138,7 @@
     NSArray *toks = [self tokenize:input];
     
     NSError *err = nil;
-    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    XPExpression *expr = [self.eng expressionFromTokens:toks error:&err];
     TDNil(err);
     TDNotNil(expr);
     TDEquals(10.0, [[expr simplify] evaluateAsNumberInContext:nil]);
@@ -149,7 +149,7 @@
     NSArray *toks = [self tokenize:input];
     
     NSError *err = nil;
-    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    XPExpression *expr = [self.eng expressionFromTokens:toks error:&err];
     TDNil(err);
     TDNotNil(expr);
     TDEquals(-0.0, [[expr simplify] evaluateAsNumberInContext:nil]);
@@ -160,7 +160,7 @@
     NSArray *toks = [self tokenize:input];
     
     NSError *err = nil;
-    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    XPExpression *expr = [self.eng expressionFromTokens:toks error:&err];
     TDNil(err);
     TDNotNil(expr);
     TDEquals(-1.0, [[expr simplify] evaluateAsNumberInContext:nil]);
@@ -171,7 +171,7 @@
     NSArray *toks = [self tokenize:input];
     
     NSError *err = nil;
-    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    XPExpression *expr = [self.eng expressionFromTokens:toks error:&err];
     TDNil(err);
     TDNotNil(expr);
     TDEquals(0.0, [[expr simplify] evaluateAsNumberInContext:nil]);
@@ -182,7 +182,7 @@
     NSArray *toks = [self tokenize:input];
     
     NSError *err = nil;
-    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    XPExpression *expr = [self.eng expressionFromTokens:toks error:&err];
     TDNil(err);
     TDNotNil(expr);
     TDEquals(1.0, [[expr simplify] evaluateAsNumberInContext:nil]);
@@ -193,7 +193,7 @@
     NSArray *toks = [self tokenize:input];
     
     NSError *err = nil;
-    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    XPExpression *expr = [self.eng expressionFromTokens:toks error:&err];
     TDNil(err);
     TDNotNil(expr);
     TDEquals(0.0, [[expr simplify] evaluateAsNumberInContext:nil]);
@@ -204,7 +204,7 @@
     NSArray *toks = [self tokenize:input];
     
     NSError *err = nil;
-    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    XPExpression *expr = [self.eng expressionFromTokens:toks error:&err];
     TDNil(err);
     TDNotNil(expr);
     TDEquals(1.0, [[expr simplify] evaluateAsNumberInContext:nil]);
@@ -215,7 +215,7 @@
     NSArray *toks = [self tokenize:input];
     
     NSError *err = nil;
-    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    XPExpression *expr = [self.eng expressionFromTokens:toks error:&err];
     TDNil(err);
     TDNotNil(expr);
     TDEquals(0.0, [[expr simplify] evaluateAsNumberInContext:nil]);
@@ -226,7 +226,7 @@
     NSArray *toks = [self tokenize:input];
     
     NSError *err = nil;
-    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    XPExpression *expr = [self.eng expressionFromTokens:toks error:&err];
     TDNil(err);
     TDNotNil(expr);
     TDEquals(-1.0, [[expr simplify] evaluateAsNumberInContext:nil]);
@@ -237,7 +237,7 @@
     NSArray *toks = [self tokenize:input];
     
     NSError *err = nil;
-    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    XPExpression *expr = [self.eng expressionFromTokens:toks error:&err];
     TDNil(err);
     TDNotNil(expr);
     TDEquals(1.0, [[expr simplify] evaluateAsNumberInContext:nil]);
@@ -248,7 +248,7 @@
     NSArray *toks = [self tokenize:input];
     
     NSError *err = nil;
-    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    XPExpression *expr = [self.eng expressionFromTokens:toks error:&err];
     TDNil(err);
     TDNotNil(expr);
     TDEquals(2.0, [[expr simplify] evaluateAsNumberInContext:nil]);
@@ -259,7 +259,7 @@
     NSArray *toks = [self tokenize:input];
     
     NSError *err = nil;
-    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    XPExpression *expr = [self.eng expressionFromTokens:toks error:&err];
     TDNil(err);
     TDNotNil(expr);
     TDEquals(0.0, [[expr simplify] evaluateAsNumberInContext:nil]);
@@ -270,7 +270,7 @@
     NSArray *toks = [self tokenize:input];
     
     NSError *err = nil;
-    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    XPExpression *expr = [self.eng expressionFromTokens:toks error:&err];
     TDNil(err);
     TDNotNil(expr);
     TDEquals(2.0, [[expr simplify] evaluateAsNumberInContext:nil]);
@@ -281,7 +281,7 @@
     NSArray *toks = [self tokenize:input];
     
     NSError *err = nil;
-    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    XPExpression *expr = [self.eng expressionFromTokens:toks error:&err];
     TDNil(err);
     TDNotNil(expr);
     TDEquals(0.0, [[expr simplify] evaluateAsNumberInContext:nil]);
@@ -292,7 +292,7 @@
     NSArray *toks = [self tokenize:input];
     
     NSError *err = nil;
-    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    XPExpression *expr = [self.eng expressionFromTokens:toks error:&err];
     TDNil(err);
     TDNotNil(expr);
     TDEquals(-1.0, [[expr simplify] evaluateAsNumberInContext:nil]);
@@ -303,7 +303,7 @@
     NSArray *toks = [self tokenize:input];
     
     NSError *err = nil;
-    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    XPExpression *expr = [self.eng expressionFromTokens:toks error:&err];
     TDNil(err);
     TDNotNil(expr);
     TDEquals(4.0, [[expr simplify] evaluateAsNumberInContext:nil]);
@@ -317,7 +317,7 @@
     id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     
     NSError *err = nil;
-    XPExpression *expr = [XPExpression expressionFromTokens:toks error:&err];
+    XPExpression *expr = [self.eng expressionFromTokens:toks error:&err];
     TDNil(err);
     TDNotNil(expr);
     TDEquals(10.0, [[expr simplify] evaluateAsNumberInContext:ctx]);

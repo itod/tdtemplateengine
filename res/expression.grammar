@@ -1,14 +1,17 @@
 @h {
 @class PKTokenizer;
+@class TDTemplateEngine;
 }
 
 @interface {
 + (PKTokenizer *)tokenizer;
 
+@property (nonatomic, assign) TDTemplateEngine *engine; // weakref
 @property (nonatomic, assign) BOOL doLoopExpr;
 }
 
 @m {
+#import <TDTemplateEngine/TDTemplateEngine.h>
 #import <TDTemplateEngine/XPBooleanValue.h>
 #import <TDTemplateEngine/XPNumericValue.h>
 #import <TDTemplateEngine/XPStringValue.h>
@@ -54,6 +57,7 @@
 }
 
 @dealloc {
+    self.engine = nil;
     self.openParen = nil;
     self.minus = nil;
 }

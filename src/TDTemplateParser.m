@@ -48,6 +48,7 @@
 
 - (void)dealloc {
         
+    self.engine = nil;
     self.staticContext = nil;
     self.currentParent = nil;
 
@@ -100,7 +101,8 @@
     [self execute:^{
     
     PKToken *tok = POP();
-    TDNode *printNode = [[TDTemplateEngine currentTemplateEngine] printNodeFromFragment:tok withParent:_currentParent];
+    ASSERT(_engine);
+    TDNode *printNode = [_engine printNodeFromFragment:tok withParent:_currentParent];
     ASSERT(printNode);
     [_currentParent addChild:printNode];
 
@@ -114,7 +116,8 @@
     [self execute:^{
     
     PKToken *tok = POP();
-    TDTag *startTagNode = [[TDTemplateEngine currentTemplateEngine] tagFromFragment:tok withParent:_currentParent];
+    ASSERT(_engine);
+    TDTag *startTagNode = [_engine tagFromFragment:tok withParent:_currentParent];
     ASSERT(startTagNode);
     [_currentParent addChild:startTagNode];
     //self.currentParent = startTagNode;
@@ -145,7 +148,8 @@
     [self execute:^{
     
     PKToken *tok = POP();
-    TDTag *startTagNode = [[TDTemplateEngine currentTemplateEngine] tagFromFragment:tok withParent:_currentParent];
+    ASSERT(_engine);
+    TDTag *startTagNode = [_engine tagFromFragment:tok withParent:_currentParent];
     ASSERT(startTagNode);
     [_currentParent addChild:startTagNode];
     self.currentParent = startTagNode;

@@ -21,33 +21,12 @@
 // THE SOFTWARE.
 
 #import <TDTemplateEngine/XPExpression.h>
-#import "TDTemplateEngine+XPExpressionSupport.h"
 #import <TDTemplateEngine/TDTemplateContext.h>
 #import "XPValue.h"
 #import "XPParser.h"
 #import <PEGKit/PKTokenizer.h>
 
 @implementation XPExpression
-
-+ (PKTokenizer *)tokenizer {
-    return [[TDTemplateEngine currentTemplateEngine] tokenizer];
-}
-
-
-+ (XPExpression *)expressionFromString:(NSString *)str error:(NSError **)outErr {
-    return [[TDTemplateEngine currentTemplateEngine] expressionFromString:str error:outErr];
-}
-
-
-+ (XPExpression *)expressionFromTokens:(NSArray *)toks error:(NSError **)outErr {
-    return [[TDTemplateEngine currentTemplateEngine] expressionFromTokens:toks error:outErr];
-}
-
-
-+ (XPExpression *)loopExpressionFromTokens:(NSArray *)toks error:(NSError **)outErr {
-    return [[TDTemplateEngine currentTemplateEngine] loopExpressionFromTokens:toks error:outErr];
-}
-
 
 - (void)dealloc {
 
