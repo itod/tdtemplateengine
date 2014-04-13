@@ -144,10 +144,4 @@ Or use the convenience API for compile+render via one method call:
 
 ###Threading Considerations
 
-The `TDTemplateEngine` class is ***NOT* Thread-Safe**. You must create and use each `TDTemplateEngine` object *only on a single thread*. However, this need not be the main thread. It may be done a background thread if you like. Also, you must not create more than one `TDTemplateEngine` per thread.
-
-So, the relationship should be **1 Thread to 1 TDTemplateEngine**.
-
-Or, alternatively: **1 GCD Queue to 1 TDTemplateEngine**.
-
-This is actually a very simple and straighforward way to use the library. In practice, you will probably create a single GCD Queue (or `NSThread`) per `TDTemplateEngine`. The template engine should be created on, and accessed from its own GCD Queue (or `NSThread`) *ONLY*.
+**The `TDTemplateEngine` class is *NOT* thread-safe**. Each `TDTemplateEngine` object must be created on and receive messages on *only one thread*. However, this need not be the main thread. It may be done on a background thread if you like. In fact, it's probably best to restrict creation and usage of a `TDTemplateEngine` object to a **background** thread.
