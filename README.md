@@ -47,11 +47,11 @@ TDTemplateEngine template syntax is very similar to MGTemplateEngine and Django.
 
 ####Print Tag
 
-**Print tags** print the value an expression to the text output:
+**Print Tags** print the value an expression to the text output:
 
      My name is {{name}}.
 
-Builtin **filters** are available:
+Builtin **Filters** are available:
 
      My name is {{firstName|capitalize}} {{lastName|capitalize}}, and I'm a {{profession|lowercase}}.
 
@@ -63,7 +63,7 @@ You can define your own Filters in ObjC by subclassing `TDFilter` and overriding
 
 ####If Tag
 
-**If tags** offer conditional rendering based on input variables at render time:
+**If Tags** offer conditional rendering based on input variables at render time:
 
     {% if testVal <= expectedMax || force %}
         Text 1.
@@ -77,7 +77,7 @@ You can define your own Filters in ObjC by subclassing `TDFilter` and overriding
 
 ####For Tag
 
-**For tags** can loop thru arbitrary numerical ranges, and may nest:
+**For Tags** can loop thru arbitrary numerical ranges, and may nest:
 
     {% for i in 0 to 10 %}
         {% for j in 0 to 2 %}
@@ -95,9 +95,9 @@ Prints:
 
     70,68,66,64,62,60
 
-Note that each For tag offers access to a `currentLoop` variable which provides information like `currentIndex`, `isFirst`, `isLast`, and `parentLoop`.
+Note that each For Tag offers access to a `currentLoop` variable which provides information like `currentIndex`, `isFirst`, `isLast`, and `parentLoop`.
 
-For tags can also loop thru variables representing Cocoa collection objects like `NSArray`, or `NSSet`:
+For Tags can also loop thru variables representing Cocoa collection objects like `NSArray`, or `NSSet`:
 
     {% for obj in vec %}
         {{obj}}
@@ -111,7 +111,7 @@ and `NSDictionary` (note the convenient unpacking of *both key and value*):
 
 ####Tag Extensibility
 
-You can implement your own custom tags by subclassing `TDTag` and overriding `-[TDTag doTagInContext:]`.
+You can implement your own custom Tags by subclassing `TDTag` and overriding `-[TDTag doTagInContext:]`.
 
 ###Template Expression Language
 
