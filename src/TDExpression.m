@@ -20,25 +20,54 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <TDTemplateEngine/TDNode.h>
+#import <TDTemplateEngine/TDExpression.h>
+#import <TDTemplateEngine/TDTemplateContext.h>
+#import "TDValue.h"
+#import "TDParser.h"
+#import <PEGKit/PKTokenizer.h>
 
-@class TDTemplateContext;
-@class TDExpression;
-@class PKToken;
+@implementation TDExpression
 
-typedef NS_ENUM(NSUInteger, TDTagType) {
-    TDTagTypeEmpty,
-    TDTagTypeBlock,
-};
+- (void)dealloc {
 
-@interface TDTag : TDNode
+    [super dealloc];
+}
 
-@end
 
-// Subclasses must override these methods
-@interface TDTag (Override)
-+ (NSString *)tagName;
-+ (TDTagType)tagType;
+- (TDValue *)evaluateInContext:(TDTemplateContext *)ctx {
+    NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
+    return NO;
+}
 
-- (void)doTagInContext:(TDTemplateContext *)ctx;
+
+- (BOOL)evaluateAsBooleanInContext:(TDTemplateContext *)ctx {
+    return [[self evaluateInContext:ctx] boolValue];
+}
+
+
+- (double)evaluateAsNumberInContext:(TDTemplateContext *)ctx {
+    return [[self evaluateInContext:ctx] doubleValue];
+}
+
+
+- (NSString *)evaluateAsStringInContext:(TDTemplateContext *)ctx {
+    return [[self evaluateInContext:ctx] stringValue];
+}
+
+
+- (BOOL)isValue {
+    return [self isKindOfClass:[TDValue class]];
+}
+
+
+- (TDExpression *)simplify {
+    return self;
+}
+
+
+- (TDDataType)dataType {
+    NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
+    return -1;
+}
+
 @end

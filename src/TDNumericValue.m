@@ -20,25 +20,52 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <TDTemplateEngine/TDNode.h>
+#import "TDNumericValue.h"
 
-@class TDTemplateContext;
-@class TDExpression;
-@class PKToken;
+@implementation TDNumericValue{
+    double _value;
+}
 
-typedef NS_ENUM(NSUInteger, TDTagType) {
-    TDTagTypeEmpty,
-    TDTagTypeBlock,
-};
++ (TDNumericValue *)numericValueWithNumber:(double)n {
+    return [[[self alloc] initWithNumber:n] autorelease];
+}
 
-@interface TDTag : TDNode
 
-@end
+- (id)initWithNumber:(double)n {
+    if (self = [super init]) {
+        _value = n;
+    }
+    return self;
+}
 
-// Subclasses must override these methods
-@interface TDTag (Override)
-+ (NSString *)tagName;
-+ (TDTagType)tagType;
 
-- (void)doTagInContext:(TDTemplateContext *)ctx;
+- (NSString *)stringValue {
+    return [[NSNumber numberWithDouble:_value] stringValue];
+}
+
+
+- (double)doubleValue {
+    return _value;
+}
+
+
+- (BOOL)boolValue {
+    return (_value != 0.0 && !isnan(_value));
+}
+
+
+- (TDDataType)dataType {
+    return TDDataTypeNumber;
+}
+
+
+- (void)display:(NSInteger)level {
+    //NSLog(@"%@number (%@)", [self indent:level], [self stringValue]);
+}
+
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"<TDNumericValue %p %@>", self, [self stringValue]];
+}
+
 @end

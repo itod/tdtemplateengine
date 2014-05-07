@@ -24,7 +24,7 @@
 #import "TDElseTag.h"
 #import "TDElseIfTag.h"
 #import <TDTemplateEngine/TDTemplateContext.h>
-#import <TDTemplateEngine/XPExpression.h>
+#import <TDTemplateEngine/TDExpression.h>
 
 @implementation TDIfTag
 

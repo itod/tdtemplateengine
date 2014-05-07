@@ -20,25 +20,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <TDTemplateEngine/TDNode.h>
+#import "TDExpression.h"
 
-@class TDTemplateContext;
-@class TDExpression;
-@class PKToken;
+@class TDFilter;
 
-typedef NS_ENUM(NSUInteger, TDTagType) {
-    TDTagTypeEmpty,
-    TDTagTypeBlock,
-};
+@interface TDFilterExpression : TDExpression
 
-@interface TDTag : TDNode
++ (instancetype)filterExpressionWithExpression:(TDExpression *)expr filter:(TDFilter *)filter arguments:(NSArray *)args;
 
-@end
-
-// Subclasses must override these methods
-@interface TDTag (Override)
-+ (NSString *)tagName;
-+ (TDTagType)tagType;
-
-- (void)doTagInContext:(TDTemplateContext *)ctx;
+- (instancetype)initWithExpression:(TDExpression *)expr filter:(TDFilter *)filter arguments:(NSArray *)args;
 @end

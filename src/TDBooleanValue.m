@@ -20,25 +20,52 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <TDTemplateEngine/TDNode.h>
+#import "TDBooleanValue.h"
 
-@class TDTemplateContext;
-@class TDExpression;
-@class PKToken;
+@implementation TDBooleanValue {
+    BOOL _value;
+}
 
-typedef NS_ENUM(NSUInteger, TDTagType) {
-    TDTagTypeEmpty,
-    TDTagTypeBlock,
-};
++ (TDBooleanValue *)booleanValueWithBoolean:(BOOL)b {
+    return [[[self alloc] initWithBoolean:b] autorelease];
+}
 
-@interface TDTag : TDNode
 
-@end
+- (id)initWithBoolean:(BOOL)b {
+    if (self = [super init]) {
+        _value = b;
+    }
+    return self;
+}
 
-// Subclasses must override these methods
-@interface TDTag (Override)
-+ (NSString *)tagName;
-+ (TDTagType)tagType;
 
-- (void)doTagInContext:(TDTemplateContext *)ctx;
+- (NSString *)stringValue {
+    return _value ? @"true" : @"false";
+}
+
+
+- (double)doubleValue {
+    return _value ? 1.0 : 0.0;
+}
+
+
+- (BOOL)boolValue {
+    return _value;
+}
+
+
+- (TDDataType)dataType {
+    return TDDataTypeBoolean;
+}
+
+
+- (void)display:(NSInteger)level {
+    //NSLog(@"%@boolean (%@)", [self indent:level], [self stringValue]);
+}
+
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"<TDBooleanValue %@>", [self stringValue]];
+}
+
 @end

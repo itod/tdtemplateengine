@@ -20,25 +20,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <TDTemplateEngine/TDNode.h>
+#import "TDEnumeration.h"
 
-@class TDTemplateContext;
-@class TDExpression;
-@class PKToken;
+@interface TDRangeExpression : TDEnumeration
 
-typedef NS_ENUM(NSUInteger, TDTagType) {
-    TDTagTypeEmpty,
-    TDTagTypeBlock,
-};
++ (instancetype)rangeExpressionWithStart:(TDExpression *)start stop:(TDExpression *)stop by:(TDExpression *)by;
 
-@interface TDTag : TDNode
+- (instancetype)initWithStart:(TDExpression *)start stop:(TDExpression *)stop by:(TDExpression *)by;
 
-@end
-
-// Subclasses must override these methods
-@interface TDTag (Override)
-+ (NSString *)tagName;
-+ (TDTagType)tagType;
-
-- (void)doTagInContext:(TDTemplateContext *)ctx;
+@property (nonatomic, retain) TDExpression *start;
+@property (nonatomic, retain) TDExpression *stop;
+@property (nonatomic, retain) TDExpression *by;
 @end

@@ -20,25 +20,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <TDTemplateEngine/TDNode.h>
+#import <TDTemplateEngine/TDTemplateEngine.h>
 
-@class TDTemplateContext;
+@class PKTokenizer;
 @class TDExpression;
-@class PKToken;
 
-typedef NS_ENUM(NSUInteger, TDTagType) {
-    TDTagTypeEmpty,
-    TDTagTypeBlock,
-};
-
-@interface TDTag : TDNode
-
-@end
-
-// Subclasses must override these methods
-@interface TDTag (Override)
-+ (NSString *)tagName;
-+ (TDTagType)tagType;
-
-- (void)doTagInContext:(TDTemplateContext *)ctx;
+@interface TDTemplateEngine (ExpressionSupport)
+- (PKTokenizer *)tokenizer;
+- (TDExpression *)expressionFromString:(NSString *)str error:(NSError **)outErr;
+- (TDExpression *)expressionFromTokens:(NSArray *)toks error:(NSError **)outErr;
+- (TDExpression *)loopExpressionFromTokens:(NSArray *)toks error:(NSError **)outErr;
 @end

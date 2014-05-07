@@ -20,25 +20,16 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <TDTemplateEngine/TDNode.h>
+#import "TDExpression.h"
 
-@class TDTemplateContext;
-@class TDExpression;
-@class PKToken;
+@interface TDBinaryExpression : TDExpression
 
-typedef NS_ENUM(NSUInteger, TDTagType) {
-    TDTagTypeEmpty,
-    TDTagTypeBlock,
-};
++ (TDBinaryExpression *)binaryExpression;
 
-@interface TDTag : TDNode
++ (TDBinaryExpression *)binaryExpressionWithOperand:(TDExpression *)lhs operator:(NSInteger)op operand:(TDExpression *)rhs;
 
-@end
+- (id)initWithOperand:(TDExpression *)lhs operator:(NSInteger)op operand:(TDExpression *)rhs;
 
-// Subclasses must override these methods
-@interface TDTag (Override)
-+ (NSString *)tagName;
-+ (TDTagType)tagType;
+- (void)setOperand:(TDExpression *)lhs operator:(NSInteger)op operand:(TDExpression *)rhs;
 
-- (void)doTagInContext:(TDTemplateContext *)ctx;
 @end

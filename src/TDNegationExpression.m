@@ -20,25 +20,38 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <TDTemplateEngine/TDNode.h>
+#import "TDNegationExpression.h"
+#import "TDBooleanValue.h"
 
-@class TDTemplateContext;
-@class TDExpression;
-@class PKToken;
-
-typedef NS_ENUM(NSUInteger, TDTagType) {
-    TDTagTypeEmpty,
-    TDTagTypeBlock,
-};
-
-@interface TDTag : TDNode
-
+@interface TDNegationExpression ()
+@property (nonatomic, retain) TDExpression *expr;
 @end
 
-// Subclasses must override these methods
-@interface TDTag (Override)
-+ (NSString *)tagName;
-+ (TDTagType)tagType;
+@implementation TDNegationExpression
 
-- (void)doTagInContext:(TDTemplateContext *)ctx;
++ (instancetype)negationExpressionWithExpression:(TDExpression *)expr {
+    return [[[self alloc] initWithExpression:expr] autorelease];
+}
+
+- (instancetype)initWithExpression:(TDExpression *)expr {
+    self = [super init];
+    if (self) {
+        self.expr = expr;
+    }
+    return self;
+}
+
+
+- (void)dealloc {
+    self.expr = nil;
+    [super dealloc];
+}
+
+
+- (TDValue *)evaluateInContext:(TDTemplateContext *)ctx {
+    BOOL b = [_expr evaluateAsBooleanInContext:ctx];
+    TDValue *res = [TDBooleanValue booleanValueWithBoolean:!b];
+    return res;
+}
+
 @end

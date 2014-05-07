@@ -12,18 +12,18 @@
 
 @m {
 #import <TDTemplateEngine/TDTemplateEngine.h>
-#import <TDTemplateEngine/XPBooleanValue.h>
-#import <TDTemplateEngine/XPNumericValue.h>
-#import <TDTemplateEngine/XPStringValue.h>
-#import <TDTemplateEngine/XPNegationExpression.h>
-#import <TDTemplateEngine/XPBooleanExpression.h>
-#import <TDTemplateEngine/XPRelationalExpression.h>
-#import <TDTemplateEngine/XPArithmeticExpression.h>
-#import <TDTemplateEngine/XPLoopExpression.h>
-#import <TDTemplateEngine/XPCollectionExpression.h>
-#import <TDTemplateEngine/XPRangeExpression.h>
-#import <TDTemplateEngine/XPPathExpression.h>
-#import <TDTemplateEngine/XPFilterExpression.h>
+#import <TDTemplateEngine/TDBooleanValue.h>
+#import <TDTemplateEngine/TDNumericValue.h>
+#import <TDTemplateEngine/TDStringValue.h>
+#import <TDTemplateEngine/TDNegationExpression.h>
+#import <TDTemplateEngine/TDBooleanExpression.h>
+#import <TDTemplateEngine/TDRelationalExpression.h>
+#import <TDTemplateEngine/TDArithmeticExpression.h>
+#import <TDTemplateEngine/TDLoopExpression.h>
+#import <TDTemplateEngine/TDCollectionExpression.h>
+#import <TDTemplateEngine/TDRangeExpression.h>
+#import <TDTemplateEngine/TDPathExpression.h>
+#import <TDTemplateEngine/TDFilterExpression.h>
 }
 
 @extension {
@@ -68,7 +68,7 @@ loopExpr
 		= identifiers 'in'! enumExpr {
 	id enumExpr = POP();
 	id vars = POP();
-	PUSH([XPLoopExpression loopExpressionWithVariables:vars enumeration:enumExpr]);
+	PUSH([TDLoopExpression loopExpressionWithVariables:vars enumeration:enumExpr]);
 };
 identifiers
 @before { PUSH(_openParen); }
@@ -82,81 +82,81 @@ enumExpr
 		
 collectionExpr = identifier {
 	id var = POP_STR();
-	PUSH([XPCollectionExpression collectionExpressionWithVariable:var]);
+	PUSH([TDCollectionExpression collectionExpressionWithVariable:var]);
 };
 rangeExpr
 		= unaryExpr 'to'! unaryExpr optBy {
 	id by = POP();
 	id stop = POP();
 	id start = POP();
-	PUSH([XPRangeExpression rangeExpressionWithStart:start stop:stop by:by]);
+	PUSH([TDRangeExpression rangeExpressionWithStart:start stop:stop by:by]);
 };
 optBy 	= 'by'! unaryExpr
-		| Empty { PUSH([XPNumericValue numericValueWithNumber:0.0]); }
+		| Empty { PUSH([TDNumericValue numericValueWithNumber:0.0]); }
 		;
 
 orOp    =  'or'! | '||'!;
 orExpr  = andExpr (orOp andExpr {
-    XPValue *rhs = POP();
-    XPValue *lhs = POP();
-    PUSH([XPBooleanExpression booleanExpressionWithOperand:lhs operator:XP_TOKEN_KIND_OR operand:rhs]);
+    TDValue *rhs = POP();
+    TDValue *lhs = POP();
+    PUSH([TDBooleanExpression booleanExpressionWithOperand:lhs operator:TD_TOKEN_KIND_OR operand:rhs]);
 })*;
 
 andOp   = 'and'! | '&&'!;
 andExpr = equalityExpr (andOp equalityExpr {
-    XPValue *rhs = POP();
-    XPValue *lhs = POP();
-    PUSH([XPBooleanExpression booleanExpressionWithOperand:lhs operator:XP_TOKEN_KIND_AND operand:rhs]);
+    TDValue *rhs = POP();
+    TDValue *lhs = POP();
+    PUSH([TDBooleanExpression booleanExpressionWithOperand:lhs operator:TD_TOKEN_KIND_AND operand:rhs]);
 })*;
 
-eqOp    @after { PUSH(@(XP_TOKEN_KIND_EQ)); }
+eqOp    @after { PUSH(@(TD_TOKEN_KIND_EQ)); }
         =  '=='! | 'eq'!;
-neOp    @after { PUSH(@(XP_TOKEN_KIND_NE)); }
+neOp    @after { PUSH(@(TD_TOKEN_KIND_NE)); }
         = '!='! | 'ne'!;
 equalityExpr = relationalExpr ((eqOp | neOp) relationalExpr {
-    XPValue *rhs = POP();
+    TDValue *rhs = POP();
     NSInteger op = POP_INT();
-    XPValue *lhs = POP();
-    PUSH([XPRelationalExpression relationalExpressionWithOperand:lhs operator:op operand:rhs]);
+    TDValue *lhs = POP();
+    PUSH([TDRelationalExpression relationalExpressionWithOperand:lhs operator:op operand:rhs]);
 })*;
 
-ltOp    @after { PUSH(@(XP_TOKEN_KIND_LT)); }
+ltOp    @after { PUSH(@(TD_TOKEN_KIND_LT)); }
         =  '<'! | 'lt'!;
-gtOp    @after { PUSH(@(XP_TOKEN_KIND_GT)); }
+gtOp    @after { PUSH(@(TD_TOKEN_KIND_GT)); }
         =  '>'! | 'gt'!;
-leOp    @after { PUSH(@(XP_TOKEN_KIND_LE)); }
+leOp    @after { PUSH(@(TD_TOKEN_KIND_LE)); }
         = '<='! | 'le'!;
-geOp    @after { PUSH(@(XP_TOKEN_KIND_GE)); }
+geOp    @after { PUSH(@(TD_TOKEN_KIND_GE)); }
         = '>='! | 'ge'!;
 relationalExpr = additiveExpr ((ltOp | gtOp | leOp | geOp) additiveExpr {
-    XPValue *rhs = POP();
+    TDValue *rhs = POP();
     NSInteger op = POP_INT();
-    XPValue *lhs = POP();
-    PUSH([XPRelationalExpression relationalExpressionWithOperand:lhs operator:op operand:rhs]);
+    TDValue *lhs = POP();
+    PUSH([TDRelationalExpression relationalExpressionWithOperand:lhs operator:op operand:rhs]);
 })*;
 
-plus    @after { PUSH(@(XP_TOKEN_KIND_PLUS)); }
+plus    @after { PUSH(@(TD_TOKEN_KIND_PLUS)); }
         = '+'!;
-minus   @after { PUSH(@(XP_TOKEN_KIND_MINUS)); }
+minus   @after { PUSH(@(TD_TOKEN_KIND_MINUS)); }
         = '-'!;
 additiveExpr = multiplicativeExpr ((plus | minus) multiplicativeExpr {
-    XPValue *rhs = POP();
+    TDValue *rhs = POP();
     NSInteger op = POP_INT();
-    XPValue *lhs = POP();
-    PUSH([XPArithmeticExpression arithmeticExpressionWithOperand:lhs operator:op operand:rhs]);
+    TDValue *lhs = POP();
+    PUSH([TDArithmeticExpression arithmeticExpressionWithOperand:lhs operator:op operand:rhs]);
 })*;
 
-times   @after { PUSH(@(XP_TOKEN_KIND_TIMES)); }
+times   @after { PUSH(@(TD_TOKEN_KIND_TIMES)); }
         = '*'!;
-div     @after { PUSH(@(XP_TOKEN_KIND_DIV)); }
+div     @after { PUSH(@(TD_TOKEN_KIND_DIV)); }
         = '/'!;
-mod     @after { PUSH(@(XP_TOKEN_KIND_MOD)); }
+mod     @after { PUSH(@(TD_TOKEN_KIND_MOD)); }
         = '%'!;
 multiplicativeExpr = unaryExpr ((times | div | mod) unaryExpr {
-    XPValue *rhs = POP();
+    TDValue *rhs = POP();
     NSInteger op = POP_INT();
-    XPValue *lhs = POP();
-    PUSH([XPArithmeticExpression arithmeticExpressionWithOperand:lhs operator:op operand:rhs]);
+    TDValue *lhs = POP();
+    PUSH([TDArithmeticExpression arithmeticExpressionWithOperand:lhs operator:op operand:rhs]);
 })*;
 
 unaryExpr 
@@ -168,7 +168,7 @@ negatedUnary
 @before { _negation = NO; }
 @after {
     if (_negation)
-		PUSH([XPNegationExpression negationExpressionWithExpression:POP()]);
+		PUSH([TDNegationExpression negationExpressionWithExpression:POP()]);
 }
 	= (('not'! | '!'!) { _negation = !_negation; })+ unary {
 };
@@ -181,7 +181,7 @@ signedFilterExpr
 @after {
     double d = POP_DOUBLE();
     d = (_negative) ? -d : d;
-    PUSH([XPNumericValue numericValueWithNumber:d]);
+    PUSH([TDNumericValue numericValueWithNumber:d]);
 }
     = ('-'! { _negative = !_negative; })+ filterExpr;
 	
@@ -192,7 +192,7 @@ filterExpr
 	id expr = POP();
     ASSERT(_engine);
     TDFilter *filter = [_engine makeFilterForName:filterName];
-	PUSH([XPFilterExpression filterExpressionWithExpression:expr filter:filter arguments:args]);
+	PUSH([TDFilterExpression filterExpressionWithExpression:expr filter:filter arguments:args]);
 })?;
 
 filter = '|'! Word filterArgs;
@@ -219,7 +219,7 @@ pathExpr
 @after {
     id toks = REV(ABOVE(_openParen));
     POP(); // discard `_openParen`
-    PUSH([XPPathExpression pathExpressionWithSteps:toks]);
+    PUSH([TDPathExpression pathExpressionWithSteps:toks]);
 }
     = identifier ('.'! step)*;
 
@@ -228,17 +228,17 @@ identifier = Word { PUSH(POP_STR()); };
 
 literal = str | num | bool;
 bool
-    = true { PUSH([XPBooleanValue booleanValueWithBoolean:YES]); }
-    | false { PUSH([XPBooleanValue booleanValueWithBoolean:NO]); }
+    = true { PUSH([TDBooleanValue booleanValueWithBoolean:YES]); }
+    | false { PUSH([TDBooleanValue booleanValueWithBoolean:NO]); }
     ;
 
 true = 'true'! | 'YES'!;
 false = 'false'! | 'NO'!;
 
 num = Number {
-    PUSH([XPNumericValue numericValueWithNumber:POP_DOUBLE()]);
+    PUSH([TDNumericValue numericValueWithNumber:POP_DOUBLE()]);
 };
 
 str = QuotedString {
-    PUSH([XPStringValue stringValueWithString:POP_QUOTED_STR()]);
+    PUSH([TDStringValue stringValueWithString:POP_QUOTED_STR()]);
 };

@@ -20,25 +20,66 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <TDTemplateEngine/TDNode.h>
+#import "TDObjectValue.h"
 
-@class TDTemplateContext;
-@class TDExpression;
-@class PKToken;
-
-typedef NS_ENUM(NSUInteger, TDTagType) {
-    TDTagTypeEmpty,
-    TDTagTypeBlock,
-};
-
-@interface TDTag : TDNode
-
+@interface TDObjectValue ()
+@property (nonatomic, retain) id value;
 @end
 
-// Subclasses must override these methods
-@interface TDTag (Override)
-+ (NSString *)tagName;
-+ (TDTagType)tagType;
+@implementation TDObjectValue
 
-- (void)doTagInContext:(TDTemplateContext *)ctx;
++ (TDObjectValue *)objectValueWithObject:(id)o {
+    return [[[self alloc] initWithObject:o] autorelease];
+}
+
+
+- (id)initWithObject:(id)o {
+    self = [super init];
+    if (self) {
+        self.value = o;
+    }
+    return self;
+}
+
+
+- (void)dealloc {
+    self.value = nil;
+    [super dealloc];
+}
+
+
+- (TDDataType)dataType {
+    return TDDataTypeObject;
+}
+
+
+- (NSString *)stringValue {
+    NSString *str = nil;
+    if ([_value isKindOfClass:[NSString class]]) {
+        str = _value;
+    } else if ([_value respondsToSelector:@selector(stringValue)]) {
+        str = [_value stringValue];
+    } else {
+        str = [_value description];
+    }
+    return str;
+}
+
+
+- (double)doubleValue {
+    double d = 0.0;
+    if ([_value respondsToSelector:@selector(doubleValue)]) {
+        d = [_value doubleValue];
+    } else {
+        d = TDNumberFromString([self stringValue]);
+    }
+    return d;
+}
+
+
+- (BOOL)boolValue {
+    double d = [self doubleValue];
+    return d != 0.0 && d != NAN;
+}
+
 @end

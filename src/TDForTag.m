@@ -24,8 +24,8 @@
 #import "TDForLoop.h"
 #import <TDTemplateEngine/TDTemplateContext.h>
 
-#import "XPLoopExpression.h"
-#import "XPEnumeration.h"
+#import "TDLoopExpression.h"
+#import "TDEnumeration.h"
 
 @interface TDForTag ()
 @property (nonatomic, retain) TDForLoop *currentLoop;
@@ -58,8 +58,8 @@
     //NSLog(@"%s %@", __PRETTY_FUNCTION__, self);
     TDAssert(ctx);
     
-    XPLoopExpression *expr = (id)self.expression;
-    TDAssert([expr isKindOfClass:[XPLoopExpression class]]);
+    TDLoopExpression *expr = (id)self.expression;
+    TDAssert([expr isKindOfClass:[TDLoopExpression class]]);
     
     [self setUpForLoop:ctx];
     

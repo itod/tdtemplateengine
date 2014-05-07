@@ -20,25 +20,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <TDTemplateEngine/TDNode.h>
+#import "TDValue.h"
 
-@class TDTemplateContext;
-@class TDExpression;
-@class PKToken;
+@interface TDObjectValue : TDValue
 
-typedef NS_ENUM(NSUInteger, TDTagType) {
-    TDTagTypeEmpty,
-    TDTagTypeBlock,
-};
++ (TDObjectValue *)objectValueWithObject:(id)o;
 
-@interface TDTag : TDNode
-
-@end
-
-// Subclasses must override these methods
-@interface TDTag (Override)
-+ (NSString *)tagName;
-+ (TDTagType)tagType;
-
-- (void)doTagInContext:(TDTemplateContext *)ctx;
+- (id)initWithObject:(id)o;
 @end

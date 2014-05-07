@@ -24,14 +24,14 @@
 #import <TDTemplateEngine/TDTemplateParser.h>
 #import <TDTemplateEngine/TDNode.h>
 #import <TDTemplateEngine/TDTemplateContext.h>
-#import "TDTemplateEngine+XPExpressionSupport.h"
+#import "TDTemplateEngine+ExpressionSupport.h"
 
 #import "TDRootNode.h"
 #import "TDTextNode.h"
 #import "TDPrintNode.h"
 
-#import "XPParser.h"
-#import "XPExpression.h"
+#import "TDParser.h"
+#import "TDExpression.h"
 
 #import "TDIfTag.h"
 #import "TDElseTag.h"
@@ -60,7 +60,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 @property (nonatomic, retain, readwrite) TDTemplateContext *staticContext;
 @property (nonatomic, retain) NSMutableDictionary *tagTab;
 @property (nonatomic, retain) NSMutableDictionary *filterTab;
-@property (nonatomic, retain) XPParser *expressionParser;
+@property (nonatomic, retain) TDParser *expressionParser;
 @end
 
 @implementation TDTemplateEngine
@@ -98,7 +98,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
         [self registerFilterClass:[TDCapitalizeFilter class] forName:[TDCapitalizeFilter filterName]];
         [self registerFilterClass:[TDDateFormatFilter class] forName:[TDDateFormatFilter filterName]];
         
-        self.expressionParser = [[[XPParser alloc] initWithDelegate:nil] autorelease];
+        self.expressionParser = [[[TDParser alloc] initWithDelegate:nil] autorelease];
         _expressionParser.engine = self;
     }
     return self;
@@ -356,7 +356,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     TDAssert([str length]);
     
     NSError *err = nil;
-    XPExpression *expr = [self expressionFromString:str error:&err];
+    TDExpression *expr = [self expressionFromString:str error:&err];
     if (!expr) {
         [NSException raise:TDTemplateEngineErrorDomain format:@"Error while compiling print node expression `%@` : %@", str, [err localizedFailureReason]];
     }
@@ -412,10 +412,10 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 }
 
 
-- (XPExpression *)expressionForTagName:(NSString *)tagName fromFragment:(PKToken *)frag tokens:(NSArray *)toks {
+- (TDExpression *)expressionForTagName:(NSString *)tagName fromFragment:(PKToken *)frag tokens:(NSArray *)toks {
     NSParameterAssert([toks count]);
     
-    XPExpression *expr = nil;
+    TDExpression *expr = nil;
     NSError *err = nil;
     
     BOOL doLoop = [tagName isEqualToString:@"for"];

@@ -20,25 +20,55 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <TDTemplateEngine/TDNode.h>
+#import "TDStringValue.h"
 
-@class TDTemplateContext;
-@class TDExpression;
-@class PKToken;
-
-typedef NS_ENUM(NSUInteger, TDTagType) {
-    TDTagTypeEmpty,
-    TDTagTypeBlock,
-};
-
-@interface TDTag : TDNode
-
+@interface TDStringValue ()
+@property (nonatomic, copy) NSString *value;
 @end
 
-// Subclasses must override these methods
-@interface TDTag (Override)
-+ (NSString *)tagName;
-+ (TDTagType)tagType;
+@implementation TDStringValue
 
-- (void)doTagInContext:(TDTemplateContext *)ctx;
++ (TDStringValue *)stringValueWithString:(NSString *)s {
+    return [[[self alloc] initWithString:s] autorelease];
+}
+
+
+- (id)initWithString:(NSString *)s {
+    if (self = [super init]) {
+        self.value = (!s ? @"" : s);
+    }
+    return self;
+}
+
+
+- (void)dealloc {
+    self.value = nil;
+    [super dealloc];
+}
+
+
+- (NSString *)stringValue {
+    return _value;
+}
+
+
+- (double)doubleValue {
+    return TDNumberFromString(_value);
+}
+
+
+- (BOOL)boolValue {
+    return [_value length] > 0;
+}
+
+
+- (TDDataType)dataType {
+    return TDDataTypeString;
+}
+
+
+- (BOOL)isEqualToStringValue:(TDStringValue *)v {
+    return [_value isEqualToString:v->_value];
+}
+
 @end

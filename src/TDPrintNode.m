@@ -21,7 +21,7 @@
 // THE SOFTWARE.
 
 #import "TDPrintNode.h"
-#import "XPExpression.h"
+#import "TDExpression.h"
 #import <TDTemplateEngine/TDTemplateContext.h>
 #import <TDTemplateEngine/TDWriter.h>
 

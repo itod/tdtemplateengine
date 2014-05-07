@@ -1,0 +1,53 @@
+#import <PEGKit/PKParser.h>
+        
+@class PKTokenizer;
+@class TDTemplateEngine;
+
+enum {
+    TD_TOKEN_KIND_GT = 14,
+    TD_TOKEN_KIND_GE_SYM,
+    TD_TOKEN_KIND_DOUBLE_AMPERSAND,
+    TD_TOKEN_KIND_PIPE,
+    TD_TOKEN_KIND_TRUE,
+    TD_TOKEN_KIND_NOT_EQUAL,
+    TD_TOKEN_KIND_BANG,
+    TD_TOKEN_KIND_COLON,
+    TD_TOKEN_KIND_LT_SYM,
+    TD_TOKEN_KIND_MOD,
+    TD_TOKEN_KIND_LE,
+    TD_TOKEN_KIND_GT_SYM,
+    TD_TOKEN_KIND_LT,
+    TD_TOKEN_KIND_OPEN_PAREN,
+    TD_TOKEN_KIND_CLOSE_PAREN,
+    TD_TOKEN_KIND_EQ,
+    TD_TOKEN_KIND_NE,
+    TD_TOKEN_KIND_OR,
+    TD_TOKEN_KIND_NOT,
+    TD_TOKEN_KIND_TIMES,
+    TD_TOKEN_KIND_PLUS,
+    TD_TOKEN_KIND_DOUBLE_PIPE,
+    TD_TOKEN_KIND_COMMA,
+    TD_TOKEN_KIND_AND,
+    TD_TOKEN_KIND_YES_UPPER,
+    TD_TOKEN_KIND_MINUS,
+    TD_TOKEN_KIND_IN,
+    TD_TOKEN_KIND_DOT,
+    TD_TOKEN_KIND_DIV,
+    TD_TOKEN_KIND_BY,
+    TD_TOKEN_KIND_FALSE,
+    TD_TOKEN_KIND_LE_SYM,
+    TD_TOKEN_KIND_TO,
+    TD_TOKEN_KIND_GE,
+    TD_TOKEN_KIND_NO_UPPER,
+    TD_TOKEN_KIND_DOUBLE_EQUALS,
+};
+
+@interface TDParser : PKParser
+        
++ (PKTokenizer *)tokenizer;
+
+@property (nonatomic, assign) TDTemplateEngine *engine; // weakref
+@property (nonatomic, assign) BOOL doLoopExpr;
+
+@end
+
