@@ -26,6 +26,6 @@
 
 + (TDNumericValue *)numericValueWithNumber:(double)n;
 
-- (id)initWithNumber:(double)n;
+- (instancetype)initWithNumber:(double)n;
 
 @end

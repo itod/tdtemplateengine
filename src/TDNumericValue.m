@@ -31,7 +31,7 @@
 }
 
 
-- (id)initWithNumber:(double)n {
+- (instancetype)initWithNumber:(double)n {
     if (self = [super init]) {
         _value = n;
     }

@@ -33,7 +33,7 @@
 }
 
 
-- (id)initWithObject:(id)o {
+- (instancetype)initWithObject:(id)o {
     self = [super init];
     if (self) {
         self.value = o;

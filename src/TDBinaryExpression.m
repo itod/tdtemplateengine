@@ -41,12 +41,12 @@
 }
 
 
-- (id)init {
+- (instancetype)init {
     return [self initWithOperand:nil operator:-1 operand:nil];
 }
 
 
-- (id)initWithOperand:(TDExpression *)lhs operator:(NSInteger)op operand:(TDExpression *)rhs {
+- (instancetype)initWithOperand:(TDExpression *)lhs operator:(NSInteger)op operand:(TDExpression *)rhs {
     if (self = [super init]) {
         self.p1 = lhs;
         self.p2 = rhs;

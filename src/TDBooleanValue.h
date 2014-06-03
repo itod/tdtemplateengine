@@ -26,6 +26,6 @@
 
 + (TDBooleanValue *)booleanValueWithBoolean:(BOOL)b;
 
-- (id)initWithBoolean:(BOOL)b;
+- (instancetype)initWithBoolean:(BOOL)b;
 
 @end

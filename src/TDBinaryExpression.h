@@ -28,7 +28,7 @@
 
 + (TDBinaryExpression *)binaryExpressionWithOperand:(TDExpression *)lhs operator:(NSInteger)op operand:(TDExpression *)rhs;
 
-- (id)initWithOperand:(TDExpression *)lhs operator:(NSInteger)op operand:(TDExpression *)rhs;
+- (instancetype)initWithOperand:(TDExpression *)lhs operator:(NSInteger)op operand:(TDExpression *)rhs;
 
 - (void)setOperand:(TDExpression *)lhs operator:(NSInteger)op operand:(TDExpression *)rhs;
 

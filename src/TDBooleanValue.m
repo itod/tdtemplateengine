@@ -31,7 +31,7 @@
 }
 
 
-- (id)initWithBoolean:(BOOL)b {
+- (instancetype)initWithBoolean:(BOOL)b {
     if (self = [super init]) {
         _value = b;
     }

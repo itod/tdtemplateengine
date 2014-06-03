@@ -26,7 +26,7 @@
 
 + (TDStringValue *)stringValueWithString:(NSString *)s;
 
-- (id)initWithString:(NSString *)s;
+- (instancetype)initWithString:(NSString *)s;
 
 - (BOOL)isEqualToStringValue:(TDStringValue *)v;
 

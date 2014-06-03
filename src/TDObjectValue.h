@@ -26,5 +26,5 @@
 
 + (TDObjectValue *)objectValueWithObject:(id)o;
 
-- (id)initWithObject:(id)o;
+- (instancetype)initWithObject:(id)o;
 @end
