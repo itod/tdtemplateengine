@@ -46,7 +46,7 @@
 - (TDExpression *)simplify {
     self.p1 = [self.p1 simplify];
     self.p2 = [self.p2 simplify];
-    if ([self.p2 isValue] && [self.p2 isValue]) {
+    if ([self.p1 isValue] && [self.p2 isValue]) {
         return [self evaluateInContext:nil];
     }
     
