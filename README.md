@@ -144,7 +144,7 @@ Or use the convenience API for compile+render via one method call:
     NSOutputStream *output = [NSOutputStream outputStreamToMemory];
     
     NSError *err = nil;
-    BOOL success = [eng processTemplateString:path withVariables:vars toStream:output error:&err];
+    BOOL success = [eng processTemplateString:input withVariables:vars toStream:output error:&err];
 
 ###Threading Considerations
 
