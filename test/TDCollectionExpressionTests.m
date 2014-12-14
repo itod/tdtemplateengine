@@ -146,4 +146,30 @@
     TDNil([expr evaluateInContext:ctx]);
 }
 
+- (void)testKeyValInDictNumsOneTwoThree {
+    NSString *input = @"key,val in dict.nums";
+    NSArray *toks = [self tokenize:input];
+    
+    id nums = @{@"one": @(1), @"two": @(2), @"three": @(3)};
+    id dict = @{@"nums": nums};
+    id vars = @{@"dict": dict};
+    TDTemplateContext *ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
+    
+    NSError *err = nil;
+    TDExpression *expr = [[self.eng loopExpressionFromTokens:toks error:&err] simplify];
+    TDNil(err);
+    TDNotNil(expr);
+    TDTrue([expr isKindOfClass:[TDLoopExpression class]]);
+    
+    for (id key in [dict allKeys]) {
+        id val = dict[key];
+        id res = [expr evaluateInContext:ctx];
+        TDEqualObjects((@[key, val]), res);
+        TDEqualObjects(key, [ctx resolveVariable:@"key"]);
+        TDEqualObjects(val, [ctx resolveVariable:@"val"]);
+    }
+    
+    TDNil([expr evaluateInContext:ctx]);
+}
+
 @end
