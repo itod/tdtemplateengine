@@ -161,8 +161,8 @@
     TDNotNil(expr);
     TDTrue([expr isKindOfClass:[TDLoopExpression class]]);
     
-    for (id key in [dict allKeys]) {
-        id val = dict[key];
+    for (id key in [dict[@"nums"] allKeys]) {
+        id val = dict[@"nums"][key];
         id res = [expr evaluateInContext:ctx];
         TDEqualObjects((@[key, val]), res);
         TDEqualObjects(key, [ctx resolveVariable:@"key"]);

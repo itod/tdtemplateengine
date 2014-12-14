@@ -53,6 +53,11 @@
 }
 
 
+- (id)objectValue {
+    return _value;
+}
+
+
 - (NSString *)stringValue {
     NSString *str = nil;
     if ([_value isKindOfClass:[NSString class]]) {

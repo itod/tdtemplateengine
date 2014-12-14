@@ -205,11 +205,11 @@
 
 - (void)collectionExpr_ {
     
-    [self identifier_]; 
+    [self primaryExpr_]; 
     [self execute:^{
     
-	id var = POP_STR();
-	PUSH([TDCollectionExpression collectionExpressionWithVariable:var]);
+	id expr = POP();
+	PUSH([TDCollectionExpression collectionExpressionWithExpression:expr]);
 
     }];
 

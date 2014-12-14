@@ -27,5 +27,5 @@
 + (instancetype)collectionExpressionWithExpression:(TDExpression *)expr;
 - (instancetype)initWithExpression:(TDExpression *)expr;
 
-@property (nonatomic, copy) TDExpression *subExpression;
+@property (nonatomic, retain) TDExpression *subExpression;
 @end
