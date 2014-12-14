@@ -129,22 +129,23 @@ Create a `TDTemplateEngine` object and render a template in two distinct phases:
     TDNode *tree = [eng compileTemplateFile:path encoding:NSUTF8StringEncoding error:&err];
     
     // provide a streaming output destination
-    NSOutputStream *output = [NSOutputStream outputStreamToMemory];
+    NSOutputStream *stream = [NSOutputStream outputStreamToMemory];
     
     // establish runtime template variable values
     id vars = @{@"foo": @"bar"};
     
     // render tree to template text
     err = nil;
-    [eng renderTemplateTree:tree withVariables:vars toStream:output error:&err];
+    [eng renderTemplateTree:tree withVariables:vars toStream:stream error:&err];
 
 Or use the convenience API for compile+render via one method call:
 
     TDTemplateEngine *eng = [TDTemplateEngine templateEngine];
-    NSOutputStream *output = [NSOutputStream outputStreamToMemory];
+    NSOutputStream *stream = [NSOutputStream outputStreamToMemory];
     
     NSError *err = nil;
-    BOOL success = [eng processTemplateString:input withVariables:vars toStream:output error:&err];
+    BOOL success = [eng processTemplateString:input withVariables:vars toStream:stream error:&err];
+    NSString *output = [[[NSString alloc] initWithData:[stream propertyForKey:NSStreamDataWrittenToMemoryStreamKey] encoding:NSUTF8StringEncoding] autorelease];
 
 ###Threading Considerations
 
