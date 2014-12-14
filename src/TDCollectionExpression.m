@@ -30,22 +30,22 @@
 
 @implementation TDCollectionExpression
 
-+ (instancetype)collectionExpressionWithVariable:(NSString *)var {
-    return [[[self alloc] initWithVariable:var] autorelease];
++ (instancetype)collectionExpressionWithExpression:(TDExpression *)expr {
+    return [[[self alloc] initWithExpression:expr] autorelease];
 }
 
 
-- (instancetype)initWithVariable:(NSString *)var {
+- (instancetype)initWithExpression:(TDExpression *)expr {
     self = [super init];
     if (self) {
-        self.var = var;
+        self.subExpression = expr;
     }
     return self;
 }
 
 
 - (void)dealloc {
-    self.var = nil;
+    self.subExpression = nil;
     self.keys = nil;
     [super dealloc];
 }
@@ -55,8 +55,8 @@
 #pragma mark TDEnumeration
 
 - (void)beginInContext:(TDTemplateContext *)ctx {
-    TDAssert([_var length]);
-    id col = [ctx resolveVariable:_var];
+    TDAssert(_subExpression);
+    id col = [_subExpression evaluateAsObjectInContext:ctx];
     
     if ([col isKindOfClass:[NSArray class]]) {
         self.keys = nil;

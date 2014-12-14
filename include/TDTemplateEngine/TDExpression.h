@@ -40,6 +40,7 @@ typedef NS_ENUM(NSUInteger, TDDataType) {
 - (BOOL)evaluateAsBooleanInContext:(TDTemplateContext *)ctx;
 - (double)evaluateAsNumberInContext:(TDTemplateContext *)ctx;
 - (NSString *)evaluateAsStringInContext:(TDTemplateContext *)ctx;
+- (id)evaluateAsObjectInContext:(TDTemplateContext *)ctx;
 
 - (BOOL)isValue;
 

@@ -29,6 +29,7 @@ double TDNumberFromString(NSString *s);
 
 @interface TDValue : TDExpression
 
+- (id)objectValue;
 - (NSString *)stringValue;
 - (double)doubleValue;
 - (BOOL)boolValue;

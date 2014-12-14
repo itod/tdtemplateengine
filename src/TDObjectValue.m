@@ -28,15 +28,15 @@
 
 @implementation TDObjectValue
 
-+ (TDObjectValue *)objectValueWithObject:(id)o {
-    return [[[self alloc] initWithObject:o] autorelease];
++ (TDObjectValue *)objectValueWithObject:(id)obj {
+    return [[[self alloc] initWithObject:obj] autorelease];
 }
 
 
-- (instancetype)initWithObject:(id)o {
+- (instancetype)initWithObject:(id)obj {
     self = [super init];
     if (self) {
-        self.value = o;
+        self.value = obj;
     }
     return self;
 }

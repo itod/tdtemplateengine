@@ -47,6 +47,11 @@
 }
 
 
+- (id)objectValue {
+    return _value;
+}
+
+
 - (NSString *)stringValue {
     return _value;
 }

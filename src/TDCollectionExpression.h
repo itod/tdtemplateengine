@@ -24,8 +24,8 @@
 
 @interface TDCollectionExpression : TDEnumeration
 
-+ (instancetype)collectionExpressionWithVariable:(NSString *)var;
-- (instancetype)initWithVariable:(NSString *)var;
++ (instancetype)collectionExpressionWithExpression:(TDExpression *)expr;
+- (instancetype)initWithExpression:(TDExpression *)expr;
 
-@property (nonatomic, copy) NSString *var;
+@property (nonatomic, copy) TDExpression *subExpression;
 @end

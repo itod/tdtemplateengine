@@ -44,6 +44,11 @@
 }
 
 
+- (id)objectValue {
+    return @(_value);
+}
+
+
 - (double)doubleValue {
     return _value ? 1.0 : 0.0;
 }

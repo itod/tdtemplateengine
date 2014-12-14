@@ -39,6 +39,11 @@
 }
 
 
+- (id)objectValue {
+    return @(_value);
+}
+
+
 - (NSString *)stringValue {
     return [[NSNumber numberWithDouble:_value] stringValue];
 }

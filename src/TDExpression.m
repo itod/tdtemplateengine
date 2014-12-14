@@ -55,6 +55,11 @@
 }
 
 
+- (id)evaluateAsObjectInContext:(TDTemplateContext *)ctx {
+    return [[self evaluateInContext:ctx] objectValue];
+}
+
+
 - (BOOL)isValue {
     return [self isKindOfClass:[TDValue class]];
 }

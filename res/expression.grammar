@@ -80,9 +80,9 @@ identifiers
 enumExpr
 		= rangeExpr | collectionExpr;
 		
-collectionExpr = identifier {
-	id var = POP_STR();
-	PUSH([TDCollectionExpression collectionExpressionWithVariable:var]);
+collectionExpr = primaryExpr {
+	id expr = POP();
+	PUSH([TDCollectionExpression collectionExpressionWithExpression:expr]);
 };
 rangeExpr
 		= unaryExpr 'to'! unaryExpr optBy {
