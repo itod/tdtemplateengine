@@ -29,6 +29,7 @@
 @extension {
 @property (nonatomic, retain) PKToken *openParen;
 @property (nonatomic, retain) PKToken *minus;
+@property (nonatomic, retain) PKToken *colon;
 @property (nonatomic, assign) BOOL negation;
 @property (nonatomic, assign) BOOL negative;
 }
@@ -54,12 +55,14 @@
     self.tokenizer = [[self class] tokenizer];
     self.openParen = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"(" doubleValue:0.0];
     self.minus = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"-" doubleValue:0.0];
+    self.colon = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@":" doubleValue:0.0];
 }
 
 @dealloc {
     self.engine = nil;
     self.openParen = nil;
     self.minus = nil;
+    self.colon = nil;
 }
 
 expr    = loopExpr | orExpr;
@@ -197,9 +200,10 @@ filterExpr
 
 filter = '|'! Word filterArgs;
 filterArgs 
-	= ':'! (QuotedString | Word) { PUSH(@[POP()]); }
+	= ':' filterArg (','! filterArg)* { id toks = ABOVE(_colon); POP(); PUSH(REV(toks)); }
 	| Empty { PUSH(@[]); }
 	;
+filterArg = (QuotedString | Word);
 
 primaryExpr = atom | subExpr;
 

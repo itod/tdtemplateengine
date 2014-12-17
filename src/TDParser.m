@@ -20,6 +20,7 @@
     
 @property (nonatomic, retain) PKToken *openParen;
 @property (nonatomic, retain) PKToken *minus;
+@property (nonatomic, retain) PKToken *colon;
 @property (nonatomic, assign) BOOL negation;
 @property (nonatomic, assign) BOOL negative;
 
@@ -49,6 +50,7 @@
     self.tokenizer = [[self class] tokenizer];
     self.openParen = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"(" doubleValue:0.0];
     self.minus = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"-" doubleValue:0.0];
+    self.colon = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@":" doubleValue:0.0];
 
         self.startRuleName = @"expr";
         self.tokenKindTab[@"gt"] = @(TD_TOKEN_KIND_GT);
@@ -134,6 +136,7 @@
     self.engine = nil;
     self.openParen = nil;
     self.minus = nil;
+    self.colon = nil;
 
 
     [super dealloc];
@@ -650,22 +653,32 @@
 - (void)filterArgs_ {
     
     if ([self predicts:TD_TOKEN_KIND_COLON, 0]) {
-        [self match:TD_TOKEN_KIND_COLON discard:YES]; 
-        if ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
-            [self matchQuotedString:NO]; 
-        } else if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
-            [self matchWord:NO]; 
-        } else {
-            [self raise:@"No viable alternative found in rule 'filterArgs'."];
+        [self match:TD_TOKEN_KIND_COLON discard:NO]; 
+        [self filterArg_]; 
+        while ([self predicts:TD_TOKEN_KIND_COMMA, 0]) {
+            [self match:TD_TOKEN_KIND_COMMA discard:YES]; 
+            [self filterArg_]; 
         }
         [self execute:^{
-         PUSH(@[POP()]); 
+         id toks = ABOVE(_colon); POP(); PUSH(REV(toks)); 
         }];
     } else {
         [self matchEmpty:NO]; 
         [self execute:^{
          PUSH(@[]); 
         }];
+    }
+
+}
+
+- (void)filterArg_ {
+    
+    if ([self predicts:TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0]) {
+        [self matchQuotedString:NO]; 
+    } else if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
+        [self matchWord:NO]; 
+    } else {
+        [self raise:@"No viable alternative found in rule 'filterArg'."];
     }
 
 }

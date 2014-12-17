@@ -23,6 +23,20 @@
     [super tearDown];
 }
 
+- (void)testFooVarReplace {
+    NSString *input = @"foo|replace:'r', 'z'";
+    NSArray *toks = [self tokenize:input];
+    
+    id vars = @{@"foo": @"bar"};
+    id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
+    
+    NSError *err = nil;
+    TDExpression *expr = [self.eng expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDEqualObjects(@"baz", [expr evaluateAsStringInContext:ctx]);
+}
+
 - (void)testFooVarCapitalized {
     NSString *input = @"foo|capitalize";
     NSArray *toks = [self tokenize:input];
