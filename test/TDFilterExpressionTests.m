@@ -37,6 +37,34 @@
     TDEqualObjects(@"baz", [expr evaluateAsStringInContext:ctx]);
 }
 
+- (void)testFooVarReplaceNotCaseInsensitive {
+    NSString *input = @"foo|replace:'R', 'z'";
+    NSArray *toks = [self tokenize:input];
+    
+    id vars = @{@"foo": @"bar"};
+    id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
+    
+    NSError *err = nil;
+    TDExpression *expr = [self.eng expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDEqualObjects(@"bar", [expr evaluateAsStringInContext:ctx]);
+}
+
+- (void)testFooVarReplaceCaseInsensitive {
+    NSString *input = @"foo|replace:'R', 'z', 'i'";
+    NSArray *toks = [self tokenize:input];
+    
+    id vars = @{@"foo": @"bar"};
+    id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
+    
+    NSError *err = nil;
+    TDExpression *expr = [self.eng expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDEqualObjects(@"baz", [expr evaluateAsStringInContext:ctx]);
+}
+
 - (void)testFooVarCapitalized {
     NSString *input = @"foo|capitalize";
     NSArray *toks = [self tokenize:input];

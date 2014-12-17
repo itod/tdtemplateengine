@@ -660,7 +660,9 @@
             [self filterArg_]; 
         }
         [self execute:^{
-         id toks = ABOVE(_colon); POP(); PUSH(REV(toks)); 
+            id toks = ABOVE(_colon);
+            POP();
+            PUSH(REV(toks));
         }];
     } else {
         [self matchEmpty:NO]; 

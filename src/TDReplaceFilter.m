@@ -39,7 +39,7 @@
     NSString *searchPat = args[0];
     NSString *replacePat = args[1];
     
-    NSRegularExpressionOptions opts = NSRegularExpressionCaseInsensitive;
+    NSRegularExpressionOptions opts = 0;
     
     if (3 == [args count]) {
         NSString *optStr = args[2];
