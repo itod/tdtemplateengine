@@ -96,6 +96,8 @@
 		D3A7E27618F0788D009BFD96 /* TDCommentTagTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A7E27518F0788D009BFD96 /* TDCommentTagTests.m */; };
 		D3AC684F1A41D43400F7EB6A /* TDReplaceFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = D3AC684D1A41D43400F7EB6A /* TDReplaceFilter.h */; };
 		D3AC68501A41D43400F7EB6A /* TDReplaceFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AC684E1A41D43400F7EB6A /* TDReplaceFilter.m */; };
+		D3AC685F1A42022500F7EB6A /* TDTrimFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = D3AC685D1A42022500F7EB6A /* TDTrimFilter.h */; };
+		D3AC68601A42022500F7EB6A /* TDTrimFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AC685E1A42022500F7EB6A /* TDTrimFilter.m */; };
 		D3B982FD18F0804D00EEFE99 /* TDRelationalExpressionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B982FC18F0804D00EEFE99 /* TDRelationalExpressionTests.m */; };
 		D3B9830318F080BE00EEFE99 /* TDBooleanExpressionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B9830218F080BE00EEFE99 /* TDBooleanExpressionTests.m */; };
 		D3BB32E418F76116005E0A3A /* PKToken+Verbatim.h in Headers */ = {isa = PBXBuildFile; fileRef = D3BB32E218F76116005E0A3A /* PKToken+Verbatim.h */; };
@@ -223,6 +225,8 @@
 		D3A7E27518F0788D009BFD96 /* TDCommentTagTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDCommentTagTests.m; path = test/TDCommentTagTests.m; sourceTree = SOURCE_ROOT; };
 		D3AC684D1A41D43400F7EB6A /* TDReplaceFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDReplaceFilter.h; path = src/TDReplaceFilter.h; sourceTree = SOURCE_ROOT; };
 		D3AC684E1A41D43400F7EB6A /* TDReplaceFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDReplaceFilter.m; path = src/TDReplaceFilter.m; sourceTree = SOURCE_ROOT; };
+		D3AC685D1A42022500F7EB6A /* TDTrimFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDTrimFilter.h; path = src/TDTrimFilter.h; sourceTree = SOURCE_ROOT; };
+		D3AC685E1A42022500F7EB6A /* TDTrimFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDTrimFilter.m; path = src/TDTrimFilter.m; sourceTree = SOURCE_ROOT; };
 		D3B982FC18F0804D00EEFE99 /* TDRelationalExpressionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDRelationalExpressionTests.m; path = test/TDRelationalExpressionTests.m; sourceTree = SOURCE_ROOT; };
 		D3B9830218F080BE00EEFE99 /* TDBooleanExpressionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDBooleanExpressionTests.m; path = test/TDBooleanExpressionTests.m; sourceTree = SOURCE_ROOT; };
 		D3BB32E218F76116005E0A3A /* PKToken+Verbatim.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PKToken+Verbatim.h"; path = "src/PKToken+Verbatim.h"; sourceTree = SOURCE_ROOT; };
@@ -301,6 +305,8 @@
 			children = (
 				D319138518F1A5C700430BAD /* TDFilter.h */,
 				D319137A18F1A46100430BAD /* TDFilter.m */,
+				D3AC685D1A42022500F7EB6A /* TDTrimFilter.h */,
+				D3AC685E1A42022500F7EB6A /* TDTrimFilter.m */,
 				D319138918F1AC4500430BAD /* TDLowercaseFilter.h */,
 				D319138A18F1AC4500430BAD /* TDLowercaseFilter.m */,
 				D319138D18F1AD1500430BAD /* TDUppercaseFilter.h */,
@@ -554,6 +560,7 @@
 				D3A7E26B18EF9286009BFD96 /* TDTemplateEngine+ExpressionSupport.h in Headers */,
 				D369BD4218EF7F6A003E715B /* TDForLoop.h in Headers */,
 				D33915ED18F0A0C500BDA4FD /* TDElseIfTag.h in Headers */,
+				D3AC685F1A42022500F7EB6A /* TDTrimFilter.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -661,6 +668,7 @@
 				D3A29E3218E75D3B00DC591E /* TDRelationalExpression.m in Sources */,
 				D398E2F018EA2C51004B883C /* TDTemplateParser.m in Sources */,
 				D3A29E3E18E7B31A00DC591E /* TDObjectValue.m in Sources */,
+				D3AC68601A42022500F7EB6A /* TDTrimFilter.m in Sources */,
 				D3A29E2E18E75D3B00DC591E /* TDBinaryExpression.m in Sources */,
 				D3A29D8418E5F57E00DC591E /* TDTemplateEngine.m in Sources */,
 				D369BD4318EF7F6A003E715B /* TDForLoop.m in Sources */,

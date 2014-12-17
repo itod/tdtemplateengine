@@ -40,6 +40,7 @@
 #import "TDCommentTag.h"
 #import "TDVerbatimTag.h"
 
+#import "TDTrimFilter.h"
 #import "TDLowercaseFilter.h"
 #import "TDUppercaseFilter.h"
 #import "TDCapitalizeFilter.h"
@@ -94,6 +95,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
         [self registerTagClass:[TDVerbatimTag class] forName:[TDVerbatimTag tagName]];
         
         self.filterTab = [NSMutableDictionary dictionary];
+        [self registerFilterClass:[TDTrimFilter class] forName:[TDTrimFilter filterName]];
         [self registerFilterClass:[TDLowercaseFilter class] forName:[TDLowercaseFilter filterName]];
         [self registerFilterClass:[TDUppercaseFilter class] forName:[TDUppercaseFilter filterName]];
         [self registerFilterClass:[TDCapitalizeFilter class] forName:[TDCapitalizeFilter filterName]];

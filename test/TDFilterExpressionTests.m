@@ -23,6 +23,20 @@
     [super tearDown];
 }
 
+- (void)testFooVarTrim {
+    NSString *input = @"foo|trim";
+    NSArray *toks = [self tokenize:input];
+    
+    id vars = @{@"foo": @"\n  bar   "};
+    id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
+    
+    NSError *err = nil;
+    TDExpression *expr = [self.eng expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDEqualObjects(@"bar", [expr evaluateAsStringInContext:ctx]);
+}
+
 - (void)testFooVarReplace {
     NSString *input = @"foo|replace:'r', 'z'";
     NSArray *toks = [self tokenize:input];
