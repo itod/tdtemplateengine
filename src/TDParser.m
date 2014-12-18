@@ -626,7 +626,7 @@
 - (void)filterExpr_ {
     
     [self primaryExpr_]; 
-    if ([self predicts:TD_TOKEN_KIND_PIPE, 0]) {
+    while ([self predicts:TD_TOKEN_KIND_PIPE, 0]) {
         [self filter_]; 
         [self execute:^{
         
@@ -660,9 +660,7 @@
             [self filterArg_]; 
         }
         [self execute:^{
-            id toks = ABOVE(_colon);
-            POP();
-            PUSH(REV(toks));
+         id toks = ABOVE(_colon); POP(); PUSH(REV(toks)); 
         }];
     } else {
         [self matchEmpty:NO]; 

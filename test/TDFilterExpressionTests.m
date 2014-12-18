@@ -37,6 +37,20 @@
     TDEqualObjects(@"bar", [expr evaluateAsStringInContext:ctx]);
 }
 
+- (void)testFooVarTrimUppercase {
+    NSString *input = @"foo|trim|uppercase";
+    NSArray *toks = [self tokenize:input];
+    
+    id vars = @{@"foo": @"  \nbar   "};
+    id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
+    
+    NSError *err = nil;
+    TDExpression *expr = [self.eng expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDEqualObjects(@"BAR", [expr evaluateAsStringInContext:ctx]);
+}
+
 - (void)testFooVarReplace {
     NSString *input = @"foo|replace:'r', 'z'";
     NSArray *toks = [self tokenize:input];

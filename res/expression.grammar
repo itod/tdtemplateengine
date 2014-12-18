@@ -196,7 +196,7 @@ filterExpr
     ASSERT(_engine);
     TDFilter *filter = [_engine makeFilterForName:filterName];
 	PUSH([TDFilterExpression filterExpressionWithExpression:expr filter:filter arguments:args]);
-})?;
+})*;
 
 filter = '|'! Word filterArgs;
 filterArgs 
