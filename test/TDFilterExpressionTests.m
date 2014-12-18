@@ -37,6 +37,22 @@
     TDEqualObjects(@"bar", [expr evaluateAsStringInContext:ctx]);
 }
 
+- (void)testReplaceLiteral {
+    NSString *input = @"'Hello World!'|replace:'hello', farewell, 'i'";
+    NSArray *toks = [self tokenize:input];
+    
+    id vars = @{@"farewell": @"Goodbye, Cruel"};
+    id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
+    
+    NSError *err = nil;
+    TDExpression *expr = [self.eng expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    
+    NSString *res = [expr evaluateAsStringInContext:ctx];
+    TDEqualObjects(@"Goodbye, Cruel World!", res);
+}
+
 - (void)testFooVarTrimUppercase {
     NSString *input = @"foo|trim|uppercase";
     NSArray *toks = [self tokenize:input];

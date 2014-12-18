@@ -55,7 +55,11 @@ Builtin **Filters** are available:
 
      My name is {{firstName|capitalize}} {{lastName|capitalize}}, and I'm a {{profession|lowercase}}.
 
-     Mah kitteh sez "{{lolSpeak|uppercase}}".
+     Mah kitteh sez "{{lolSpeak|trim|uppercase}}".
+
+     {{'Hello World!'|replace:'hello', 'Goodbye Cruel', 'i'}}"
+
+     {{'now'|dateFormat:'EEE, MMM d, yy'}}
 
 ####Filter Extensibility
 
