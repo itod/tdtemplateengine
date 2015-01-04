@@ -29,7 +29,7 @@
 #import "TDParser.h"
 
 TDValue *TDValueFromObject(id obj) {
-    //assert(obj); obj may be nil
+    //NSCAssert(obj, @""); obj may be nil
     
     TDValue *result = nil;
     if ([obj isKindOfClass:[NSString class]]) {

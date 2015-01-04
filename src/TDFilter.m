@@ -24,7 +24,7 @@
 #import <TDTemplateEngine/TDTemplateEngine.h>
 
 NSString *TDStringFromObject(id obj) {
-    assert(obj);
+    NSCAssert(obj, @"");
     NSString *str = nil;
     if ([obj isKindOfClass:[NSString class]]) {
         str = obj;
