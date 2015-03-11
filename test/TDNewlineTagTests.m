@@ -70,4 +70,16 @@
     TDEqualObjects(@"\n\n", res);
 }
 
+- (void)testNewlineNestedInTrim {
+    NSString *input = @"{% trim %}{% nl %}{% /trim %}";
+    id vars = nil;
+    
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"\n", res);
+}
+
 @end

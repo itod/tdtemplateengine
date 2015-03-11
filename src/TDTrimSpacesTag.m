@@ -47,9 +47,9 @@
         }
     }
     
-    ctx.trimType = newTrim;
-    [self renderChildrenInContext:ctx];
-    ctx.trimType = oldTrim;
+    ctx.trimType = newTrim; {
+        [self renderChildrenInContext:ctx];
+    } ctx.trimType = oldTrim;
 }
 
 @end

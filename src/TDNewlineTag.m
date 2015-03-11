@@ -42,9 +42,15 @@
         count = [self.expression evaluateAsNumberInContext:ctx];
     }
     
-    for (NSUInteger i = 0; i < count; ++i) {
-        [ctx writeString:@"\n"];
-    }
+    TDTrimType oldTrim = ctx.trimType;
+
+    ctx.trimType = TDTrimTypeNone; {
+        
+        for (NSUInteger i = 0; i < count; ++i) {
+            [ctx writeString:@"\n"];
+        }
+        
+    } ctx.trimType = oldTrim;
 }
 
 @end
