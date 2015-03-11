@@ -112,23 +112,29 @@
 - (void)writeString:(NSString *)str {
     TDAssert(_writer);
     
+    NSCharacterSet *cs = nil;
+    
     switch (_trimType) {
         case TDTrimTypeNone:
             break;
         case TDTrimTypeBoth:
-            str = [str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+            cs = [NSCharacterSet whitespaceAndNewlineCharacterSet];
             break;
         case TDTrimTypeLines:
-            str = [str stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+            cs = [NSCharacterSet newlineCharacterSet];
             break;
         case TDTrimTypeSpaces:
-            str = [str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+            cs = [NSCharacterSet whitespaceCharacterSet];
             break;
         default:
             TDAssert(0);
             break;
     }
     
+    if (cs) {
+        str = [str stringByTrimmingCharactersInSet:cs];
+    }
+
     [_writer appendString:str];
 }
 
