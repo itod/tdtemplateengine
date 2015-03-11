@@ -43,6 +43,8 @@
 #import "TDTrimLinesTag.h"
 #import "TDTrimSpacesTag.h"
 #import "TDNewlineTag.h"
+#import "TDSpaceTag.h"
+#import "TDTabTag.h"
 
 #import "TDTrimFilter.h"
 #import "TDLowercaseFilter.h"
@@ -101,6 +103,8 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
         [self registerTagClass:[TDTrimLinesTag class] forName:[TDTrimLinesTag tagName]];
         [self registerTagClass:[TDTrimSpacesTag class] forName:[TDTrimSpacesTag tagName]];
         [self registerTagClass:[TDNewlineTag class] forName:[TDNewlineTag tagName]];
+        [self registerTagClass:[TDSpaceTag class] forName:[TDSpaceTag tagName]];
+        [self registerTagClass:[TDTabTag class] forName:[TDTabTag tagName]];
         
         self.filterTab = [NSMutableDictionary dictionary];
         [self registerFilterClass:[TDTrimFilter class] forName:[TDTrimFilter filterName]];

@@ -122,6 +122,12 @@
 		D3E95F201AB096E100D19992 /* TDTrimLinesTag.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E95F1C1AB096E100D19992 /* TDTrimLinesTag.m */; };
 		D3E95F211AB096E100D19992 /* TDTrimSpacesTag.h in Headers */ = {isa = PBXBuildFile; fileRef = D3E95F1D1AB096E100D19992 /* TDTrimSpacesTag.h */; };
 		D3E95F221AB096E100D19992 /* TDTrimSpacesTag.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E95F1E1AB096E100D19992 /* TDTrimSpacesTag.m */; };
+		D3E95F251AB0D1A600D19992 /* TDSpaceTag.h in Headers */ = {isa = PBXBuildFile; fileRef = D3E95F231AB0D1A600D19992 /* TDSpaceTag.h */; };
+		D3E95F261AB0D1A600D19992 /* TDSpaceTag.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E95F241AB0D1A600D19992 /* TDSpaceTag.m */; };
+		D3E95F291AB0D22700D19992 /* TDConditionalOutputTag.h in Headers */ = {isa = PBXBuildFile; fileRef = D3E95F271AB0D22700D19992 /* TDConditionalOutputTag.h */; };
+		D3E95F2A1AB0D22700D19992 /* TDConditionalOutputTag.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E95F281AB0D22700D19992 /* TDConditionalOutputTag.m */; };
+		D3E95F2D1AB0D29D00D19992 /* TDTabTag.h in Headers */ = {isa = PBXBuildFile; fileRef = D3E95F2B1AB0D29D00D19992 /* TDTabTag.h */; };
+		D3E95F2E1AB0D29D00D19992 /* TDTabTag.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E95F2C1AB0D29D00D19992 /* TDTabTag.m */; };
 		D3F5063818EC5C9800BAC93B /* TDRangeExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F5063618EC5C9800BAC93B /* TDRangeExpression.h */; };
 		D3F5063918EC5C9800BAC93B /* TDRangeExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F5063718EC5C9800BAC93B /* TDRangeExpression.m */; };
 		D3F5064518ECA12500BAC93B /* TDWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F5064318ECA12500BAC93B /* TDWriter.m */; };
@@ -260,6 +266,12 @@
 		D3E95F1C1AB096E100D19992 /* TDTrimLinesTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDTrimLinesTag.m; path = src/TDTrimLinesTag.m; sourceTree = SOURCE_ROOT; };
 		D3E95F1D1AB096E100D19992 /* TDTrimSpacesTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDTrimSpacesTag.h; path = src/TDTrimSpacesTag.h; sourceTree = SOURCE_ROOT; };
 		D3E95F1E1AB096E100D19992 /* TDTrimSpacesTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDTrimSpacesTag.m; path = src/TDTrimSpacesTag.m; sourceTree = SOURCE_ROOT; };
+		D3E95F231AB0D1A600D19992 /* TDSpaceTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDSpaceTag.h; path = src/TDSpaceTag.h; sourceTree = SOURCE_ROOT; };
+		D3E95F241AB0D1A600D19992 /* TDSpaceTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDSpaceTag.m; path = src/TDSpaceTag.m; sourceTree = SOURCE_ROOT; };
+		D3E95F271AB0D22700D19992 /* TDConditionalOutputTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDConditionalOutputTag.h; path = src/TDConditionalOutputTag.h; sourceTree = SOURCE_ROOT; };
+		D3E95F281AB0D22700D19992 /* TDConditionalOutputTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDConditionalOutputTag.m; path = src/TDConditionalOutputTag.m; sourceTree = SOURCE_ROOT; };
+		D3E95F2B1AB0D29D00D19992 /* TDTabTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDTabTag.h; path = src/TDTabTag.h; sourceTree = SOURCE_ROOT; };
+		D3E95F2C1AB0D29D00D19992 /* TDTabTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDTabTag.m; path = src/TDTabTag.m; sourceTree = SOURCE_ROOT; };
 		D3F5063618EC5C9800BAC93B /* TDRangeExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDRangeExpression.h; path = src/TDRangeExpression.h; sourceTree = SOURCE_ROOT; };
 		D3F5063718EC5C9800BAC93B /* TDRangeExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDRangeExpression.m; path = src/TDRangeExpression.m; sourceTree = SOURCE_ROOT; };
 		D3F5064318ECA12500BAC93B /* TDWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDWriter.m; path = src/TDWriter.m; sourceTree = SOURCE_ROOT; };
@@ -463,8 +475,14 @@
 				D3E95F1C1AB096E100D19992 /* TDTrimLinesTag.m */,
 				D3E95F1D1AB096E100D19992 /* TDTrimSpacesTag.h */,
 				D3E95F1E1AB096E100D19992 /* TDTrimSpacesTag.m */,
+				D3E95F271AB0D22700D19992 /* TDConditionalOutputTag.h */,
+				D3E95F281AB0D22700D19992 /* TDConditionalOutputTag.m */,
 				D3E95F151AB094DF00D19992 /* TDNewlineTag.h */,
 				D3E95F161AB094DF00D19992 /* TDNewlineTag.m */,
+				D3E95F231AB0D1A600D19992 /* TDSpaceTag.h */,
+				D3E95F241AB0D1A600D19992 /* TDSpaceTag.m */,
+				D3E95F2B1AB0D29D00D19992 /* TDTabTag.h */,
+				D3E95F2C1AB0D29D00D19992 /* TDTabTag.m */,
 			);
 			name = Tags;
 			sourceTree = "<group>";
@@ -550,6 +568,7 @@
 			files = (
 				D3A29DEA18E64FB800DC591E /* TDTemplateContext.h in Headers */,
 				D319138318F1A58A00430BAD /* TDCapitalizeFilter.h in Headers */,
+				D3E95F251AB0D1A600D19992 /* TDSpaceTag.h in Headers */,
 				D3A29E0418E6584D00DC591E /* TDStringValue.h in Headers */,
 				D3A29DFF18E6584D00DC591E /* TDBooleanValue.h in Headers */,
 				D3CAF8BA18EF577100166A95 /* TDNegationExpression.h in Headers */,
@@ -561,10 +580,12 @@
 				D3A29DBE18E61ACA00DC591E /* TDTextNode.h in Headers */,
 				D3A29E3118E75D3B00DC591E /* TDRelationalExpression.h in Headers */,
 				D3A29DBA18E60F9F00DC591E /* TDRootNode.h in Headers */,
+				D3E95F291AB0D22700D19992 /* TDConditionalOutputTag.h in Headers */,
 				D3E95F111AB08E6300D19992 /* TDTrimTag.h in Headers */,
 				D3CAF8AF18EDF39200166A95 /* TDLoopExpression.h in Headers */,
 				D3A29E3D18E7B31A00DC591E /* TDObjectValue.h in Headers */,
 				D3A29DAA18E609E700DC591E /* TDNode.h in Headers */,
+				D3E95F2D1AB0D29D00D19992 /* TDTabTag.h in Headers */,
 				D3E95F1F1AB096E100D19992 /* TDTrimLinesTag.h in Headers */,
 				D3A29DD618E63D4F00DC591E /* TDForTag.h in Headers */,
 				D3A29DB618E60E4500DC591E /* TDPrintNode.h in Headers */,
@@ -703,6 +724,7 @@
 				D3A29E3218E75D3B00DC591E /* TDRelationalExpression.m in Sources */,
 				D398E2F018EA2C51004B883C /* TDTemplateParser.m in Sources */,
 				D3A29E3E18E7B31A00DC591E /* TDObjectValue.m in Sources */,
+				D3E95F2A1AB0D22700D19992 /* TDConditionalOutputTag.m in Sources */,
 				D3AC68601A42022500F7EB6A /* TDTrimFilter.m in Sources */,
 				D3A29E2E18E75D3B00DC591E /* TDBinaryExpression.m in Sources */,
 				D3A29D8418E5F57E00DC591E /* TDTemplateEngine.m in Sources */,
@@ -732,9 +754,11 @@
 				D3A29DAB18E609E700DC591E /* TDNode.m in Sources */,
 				D3A29DDB18E63D5B00DC591E /* TDTag.m in Sources */,
 				D3A29DB718E60E4500DC591E /* TDPrintNode.m in Sources */,
+				D3E95F261AB0D1A600D19992 /* TDSpaceTag.m in Sources */,
 				D33915EA18F0A08000BDA4FD /* TDElseTag.m in Sources */,
 				D3F5063918EC5C9800BAC93B /* TDRangeExpression.m in Sources */,
 				D319139018F1AD1500430BAD /* TDUppercaseFilter.m in Sources */,
+				D3E95F2E1AB0D29D00D19992 /* TDTabTag.m in Sources */,
 				D3A7E27418F07782009BFD96 /* TDCommentTag.m in Sources */,
 				D319138C18F1AC4500430BAD /* TDLowercaseFilter.m in Sources */,
 				D319138418F1A58A00430BAD /* TDCapitalizeFilter.m in Sources */,

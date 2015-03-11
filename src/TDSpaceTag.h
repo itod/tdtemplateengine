@@ -1,5 +1,5 @@
 //
-//  TDNewlineTag.h
+//  TDSpaceTag.h
 //  TDTemplateEngine
 //
 //  Created by Todd Ditchendorf on 4/7/14.
@@ -8,6 +8,6 @@
 
 #import <TDTemplateEngine/TDConditionalOutputTag.h>
 
-@interface TDNewlineTag : TDConditionalOutputTag
+@interface TDSpaceTag : TDConditionalOutputTag
 
 @end

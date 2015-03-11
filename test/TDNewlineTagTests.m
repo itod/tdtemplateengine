@@ -35,7 +35,7 @@
 }
 
 - (void)testNewline {
-    NSString *input = @"{% nl %}";
+    NSString *input = @"{% br %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -47,7 +47,7 @@
 }
 
 - (void)testNewline1 {
-    NSString *input = @"{% nl 1 %}";
+    NSString *input = @"{% br 1 %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -59,7 +59,7 @@
 }
 
 - (void)testNewline2 {
-    NSString *input = @"{% nl 2 %}";
+    NSString *input = @"{% br 2 %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -71,7 +71,7 @@
 }
 
 - (void)testNewlineNestedInTrim {
-    NSString *input = @"{% trim %}{% nl %}{% /trim %}";
+    NSString *input = @"{% trim %}{% br %}{% /trim %}";
     id vars = nil;
     
     NSError *err = nil;

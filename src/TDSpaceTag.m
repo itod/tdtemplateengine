@@ -1,22 +1,22 @@
 //
-//  TDNewlineTag.m
+//  TDSpaceTag.m
 //  TDTemplateEngine
 //
 //  Created by Todd Ditchendorf on 4/7/14.
 //  Copyright (c) 2014 Todd Ditchendorf. All rights reserved.
 //
 
-#import "TDNewlineTag.h"
+#import "TDSpaceTag.h"
 
-@implementation TDNewlineTag
+@implementation TDSpaceTag
 
 + (NSString *)tagName {
-    return @"br";
+    return @"nbsp";
 }
 
 
 + (NSString *)outputString {
-    return @"\n";
+    return @" ";
 }
 
 @end
