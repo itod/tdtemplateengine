@@ -58,6 +58,30 @@
     TDEqualObjects(@"", res);
 }
 
+- (void)testTrimNestedVars {
+    NSString *input = @"{% trim %}{{foo}} {{foo}}{% /trim %}";
+    id vars = @{@"foo": @"bar"};
+    
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"barbar", res);
+}
+
+- (void)testTrimLinesNestedVars {
+    NSString *input = @"{% trimlines %}{{foo}} {{foo}}{% /trimlines %}";
+    id vars = @{@"foo": @"bar"};
+    
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"bar bar", res);
+}
+
 - (void)testTrimNestedVarNewline {
     NSString *input = @"{% trim %} {{foo}}\n{% /trim %}";
     id vars = nil;
