@@ -7,12 +7,6 @@
 //
 
 #import "TDTrimLinesTag.h"
-#import <TDTemplateEngine/TDTemplateContext.h>
-#import <TDTemplateEngine/TDExpression.h>
-
-@interface TDTag ()
-@property (nonatomic, retain) PKToken *endTagToken;
-@end
 
 @implementation TDTrimLinesTag
 
@@ -21,35 +15,8 @@
 }
 
 
-+ (TDTagType)tagType {
-    return TDTagTypeBlock;
-}
-
-
-- (void)dealloc {
-    
-    [super dealloc];
-}
-
-
-- (void)doTagInContext:(TDTemplateContext *)ctx {
-    //NSLog(@"%s %@", __PRETTY_FUNCTION__, self);
-    TDAssert(ctx);
-    
-    TDTrimType oldTrim = ctx.trimType;
-    
-    TDTrimType newTrim = TDTrimTypeLines;
-    
-    if (self.expression) {
-        BOOL enable = [self.expression evaluateAsBooleanInContext:ctx];
-        if (!enable) {
-            newTrim = TDTrimTypeNone;
-        }
-    }
-    
-    ctx.trimType = newTrim; {
-        [self renderChildrenInContext:ctx];
-    } ctx.trimType = oldTrim;
++ (TDTrimType)trimType {
+    return TDTrimTypeLines;
 }
 
 @end

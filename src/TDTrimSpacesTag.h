@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Todd Ditchendorf. All rights reserved.
 //
 
-#import <TDTemplateEngine/TDTag.h>
+#import <TDTemplateEngine/TDTrimTag.h>
 
-@interface TDTrimSpacesTag : TDTag
+@interface TDTrimSpacesTag : TDTrimTag
 
 @end

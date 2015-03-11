@@ -7,7 +7,6 @@
 //
 
 #import "TDTrimTag.h"
-#import <TDTemplateEngine/TDTemplateContext.h>
 #import <TDTemplateEngine/TDExpression.h>
 
 @interface TDTag ()
@@ -26,6 +25,11 @@
 }
 
 
++ (TDTrimType)trimType {
+    return TDTrimTypeBoth;
+}
+
+
 - (void)dealloc {
     
     [super dealloc];
@@ -38,7 +42,7 @@
     
     TDTrimType oldTrim = ctx.trimType;
     
-    TDTrimType newTrim = TDTrimTypeBoth;
+    TDTrimType newTrim = [[self class] trimType];
     
     if (self.expression) {
         BOOL enable = [self.expression evaluateAsBooleanInContext:ctx];
@@ -47,9 +51,19 @@
         }
     }
 
-    ctx.trimType = newTrim; {
-        [self renderChildrenInContext:ctx];
-    } ctx.trimType = oldTrim;
+    NSUInteger lastIdx = [self.children count] - 1;
+    NSUInteger childIdx = 0;
+
+    for (TDNode *child in self.children) {
+        if (0 == childIdx || childIdx == lastIdx) {
+            ctx.trimType = newTrim;
+            [child renderInContext:ctx];
+            ctx.trimType = oldTrim;
+        } else {
+            [child renderInContext:ctx];
+        }
+        ++childIdx;
+    }
 }
 
 @end

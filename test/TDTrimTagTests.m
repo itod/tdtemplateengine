@@ -59,7 +59,7 @@
 }
 
 - (void)testTrimNestedVars {
-    NSString *input = @"{% trim %}{{foo}} {{foo}}{% /trim %}";
+    NSString *input = @"{% trim %}{{foo}}, {{foo}}{% /trim %}";
     id vars = @{@"foo": @"bar"};
     
     NSError *err = nil;
@@ -67,7 +67,7 @@
     TDTrue(success);
     TDNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"barbar", res);
+    TDEqualObjects(@"bar, bar", res);
 }
 
 - (void)testTrimLinesNestedVars {
