@@ -1,12 +1,12 @@
 //
-//  TDTrimTag.m
+//  TDTrimLinesTag.m
 //  TDTemplateEngine
 //
 //  Created by Todd Ditchendorf on 4/7/14.
 //  Copyright (c) 2014 Todd Ditchendorf. All rights reserved.
 //
 
-#import "TDTrimTag.h"
+#import "TDTrimLinesTag.h"
 #import <TDTemplateEngine/TDTemplateContext.h>
 #import <TDTemplateEngine/TDExpression.h>
 
@@ -14,10 +14,10 @@
 @property (nonatomic, retain) PKToken *endTagToken;
 @end
 
-@implementation TDTrimTag
+@implementation TDTrimLinesTag
 
 + (NSString *)tagName {
-    return @"trim";
+    return @"trimlines";
 }
 
 
@@ -38,7 +38,7 @@
     
     TDTrimType oldTrim = ctx.trimType;
     
-    TDTrimType newTrim = TDTrimTypeBoth;
+    TDTrimType newTrim = TDTrimTypeLines;
     
     if (self.expression) {
         BOOL enable = [self.expression evaluateAsBooleanInContext:ctx];
@@ -46,7 +46,7 @@
             newTrim = TDTrimTypeNone;
         }
     }
-
+    
     ctx.trimType = newTrim;
     [self renderChildrenInContext:ctx];
     ctx.trimType = oldTrim;

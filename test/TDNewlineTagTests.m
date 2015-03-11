@@ -58,7 +58,6 @@
     TDEqualObjects(@"\n", res);
 }
 
-
 - (void)testNewline2 {
     NSString *input = @"{% nl 2 %}";
     id vars = nil;
