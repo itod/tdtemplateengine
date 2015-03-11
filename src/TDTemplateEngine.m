@@ -42,6 +42,7 @@
 #import "TDTrimTag.h"
 #import "TDTrimLinesTag.h"
 #import "TDTrimSpacesTag.h"
+#import "TDBlockTag.h"
 #import "TDNewlineTag.h"
 #import "TDSpaceTag.h"
 #import "TDTabTag.h"
@@ -102,6 +103,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
         [self registerTagClass:[TDTrimTag class] forName:[TDTrimTag tagName]];
         [self registerTagClass:[TDTrimLinesTag class] forName:[TDTrimLinesTag tagName]];
         [self registerTagClass:[TDTrimSpacesTag class] forName:[TDTrimSpacesTag tagName]];
+        [self registerTagClass:[TDBlockTag class] forName:[TDBlockTag tagName]];
         [self registerTagClass:[TDNewlineTag class] forName:[TDNewlineTag tagName]];
         [self registerTagClass:[TDSpaceTag class] forName:[TDSpaceTag tagName]];
         [self registerTagClass:[TDTabTag class] forName:[TDTabTag tagName]];

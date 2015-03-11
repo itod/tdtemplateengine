@@ -46,4 +46,5 @@ typedef NS_ENUM(NSUInteger, TDTrimType) {
 
 @property (nonatomic, retain) TDTemplateContext *enclosingScope;
 @property (nonatomic, assign) TDTrimType trimType;
+@property (nonatomic, assign) NSInteger blockDepth;
 @end

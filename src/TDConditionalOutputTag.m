@@ -29,6 +29,11 @@
 }
 
 
+- (NSString *)outputStringInContext:(TDTemplateContext *)ctx {
+    return [[self class] outputString];
+}
+
+
 - (void)doTagInContext:(TDTemplateContext *)ctx {
     //NSLog(@"%s %@", __PRETTY_FUNCTION__, self);
     TDAssert(ctx);
@@ -41,7 +46,7 @@
     
     TDTrimType oldTrim = ctx.trimType;
     
-    NSString *output = [[self class] outputString];
+    NSString *output = [self outputStringInContext:ctx];
 
     ctx.trimType = TDTrimTypeNone; {
         

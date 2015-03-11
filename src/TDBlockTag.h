@@ -1,5 +1,5 @@
 //
-//  TDConditionalOutputTag.h
+//  TDBlockTag.h
 //  TDTemplateEngine
 //
 //  Created by Todd Ditchendorf on 4/7/14.
@@ -8,8 +8,6 @@
 
 #import <TDTemplateEngine/TDTag.h>
 
-@interface TDConditionalOutputTag : TDTag
+@interface TDBlockTag : TDTag
 
-+ (NSString *)outputString;
-- (NSString *)outputStringInContext:(TDTemplateContext *)ctx;
 @end
