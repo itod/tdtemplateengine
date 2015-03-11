@@ -1,5 +1,5 @@
 //
-//  TDVerbatimTagTests.m
+//  TDTrimTagTests.m
 //  TDTemplateEngineTests
 //
 //  Created by Todd Ditchendorf on 3/28/14.
@@ -8,12 +8,12 @@
 
 #import "TDTestScaffold.h"
 
-@interface TDVerbatimTagTests : XCTestCase
+@interface TDTrimTagTests : XCTestCase
 @property (nonatomic, retain) TDTemplateEngine *engine;
 @property (nonatomic, retain) NSOutputStream *output;
 @end
 
-@implementation TDVerbatimTagTests
+@implementation TDTrimTagTests
 
 - (void)setUp {
     [super setUp];
@@ -34,8 +34,8 @@
     return str;
 }
 
-- (void)testVerbatimF {
-    NSString *input = @"{% verbatim %}f{% /verbatim %}";
+- (void)testTrimF {
+    NSString *input = @"{% trim %}f{% /trim %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -46,8 +46,8 @@
     TDEqualObjects(@"f", res);
 }
 
-- (void)testVerbatimNestedVar {
-    NSString *input = @"{% verbatim %}{{foo}}{% /verbatim %}";
+- (void)testTrimNestedVar {
+    NSString *input = @"{% trim %}{{foo}}{% /trim %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -55,11 +55,11 @@
     TDTrue(success);
     TDNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"{{foo}}", res);
+    TDEqualObjects(@"", res);
 }
 
-- (void)testVerbatimNestedVarSpace {
-    NSString *input = @"{% verbatim %}{{ foo }}{% /verbatim %}";
+- (void)testTrimNestedVarNewline {
+    NSString *input = @"{% trim %} {{foo}}\n{% /trim %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -67,11 +67,11 @@
     TDTrue(success);
     TDNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"{{ foo }}", res);
+    TDEqualObjects(@"", res);
 }
 
-- (void)testVerbatimNestedIfTagSpace {
-    NSString *input = @"{% verbatim %}{% if 1 %}HI!{% /if %}{% /verbatim %}";
+- (void)testTrimNestedVarSpace {
+    NSString *input = @"{% trim %} foo {% /trim %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -79,11 +79,11 @@
     TDTrue(success);
     TDNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"{% if 1 %}HI!{% /if %}", res);
+    TDEqualObjects(@"foo", res);
 }
 
-- (void)testVerbatimNestedIfTag {
-    NSString *input = @"{% verbatim %}{%if 1%}HI!{%/if%}{% /verbatim %}";
+- (void)testTrimNestedIfTagSpace {
+    NSString *input = @"{% trim %}{% if 1 %}  HI!  {% /if %}{% /trim %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -91,7 +91,67 @@
     TDTrue(success);
     TDNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"{%if 1%}HI!{%/if%}", res);
+    TDEqualObjects(@"HI!", res);
+}
+
+- (void)testTrimNestedIfTag {
+    NSString *input = @"{% trim %}   {%if 1%}HI!{%/if%}   {% /trim %}";
+    id vars = nil;
+    
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"HI!", res);
+}
+
+- (void)testTrimNestedTrimNoTag {
+    NSString *input = @"{% trim %}   {% trim NO %} HI! {%/trim%}   {% /trim %}";
+    id vars = nil;
+    
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@" HI! ", res);
+}
+
+- (void)testTrimNestedTrimFalseTag {
+    NSString *input = @"{% trim %}   {% trim false %} HI! {%/trim%}   {% /trim %}";
+    id vars = nil;
+    
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@" HI! ", res);
+}
+
+- (void)testTrimNestedTrim1Tag {
+    NSString *input = @"{% trim %}   {% trim 1 %} HI! {%/trim%}   {% /trim %}";
+    id vars = nil;
+    
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"HI!", res);
+}
+
+- (void)testTrimNestedTrimYesTag {
+    NSString *input = @"{% trim %}   {% trim YES %} HI! {%/trim%}   {% /trim %}";
+    id vars = nil;
+    
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"HI!", res);
 }
 
 @end

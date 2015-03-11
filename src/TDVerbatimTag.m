@@ -8,7 +8,6 @@
 
 #import "TDVerbatimTag.h"
 #import <TDTemplateEngine/TDTemplateContext.h>
-#import <TDTemplateEngine/TDWriter.h>
 #import <PEGKit/PKToken.h>
 #import "PKToken+Verbatim.h"
 
@@ -38,24 +37,23 @@
     //NSLog(@"%s %@", __PRETTY_FUNCTION__, self);
     TDAssert(ctx);
     
-    TDWriter *writer = ctx.writer;
     for (TDNode *child in self.children) {
-        [self render:child to:writer];
+        [self render:child to:ctx];
     }
 }
 
 
-- (void)render:(TDNode *)node to:(TDWriter *)writer {
+- (void)render:(TDNode *)node to:(TDTemplateContext *)ctx {
     
-    [writer appendString:node.token.verbatimString];
+    [ctx writeString:node.token.verbatimString];
     
     for (TDNode *child in node.children) {
-        [self render:child to:writer];
+        [self render:child to:ctx];
     }
     
     if ([node isKindOfClass:[TDTag class]]) {
         TDTag *tag = (id)node;
-        [writer appendString:tag.endTagToken.verbatimString];
+        [ctx writeString:tag.endTagToken.verbatimString];
     }
 }
 

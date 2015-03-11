@@ -34,5 +34,9 @@
 - (id)resolveVariable:(NSString *)name;
 - (void)defineVariable:(NSString *)name value:(id)value;
 
+- (void)writeObject:(id)obj;
+- (void)writeString:(NSString *)str;
+
 @property (nonatomic, retain) TDTemplateContext *enclosingScope;
+@property (nonatomic, assign) BOOL trimWhitespace;
 @end

@@ -22,7 +22,6 @@
 
 #import "TDNode.h"
 #import <TDTemplateEngine/TDTemplateContext.h>
-#import <TDTemplateEngine/TDWriter.h>
 
 @implementation TDNode
 

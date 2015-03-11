@@ -39,6 +39,8 @@
 #import "TDForTag.h"
 #import "TDCommentTag.h"
 #import "TDVerbatimTag.h"
+#import "TDTrimTag.h"
+#import "TDNewlineTag.h"
 
 #import "TDTrimFilter.h"
 #import "TDLowercaseFilter.h"
@@ -93,6 +95,8 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
         [self registerTagClass:[TDForTag class] forName:[TDForTag tagName]];
         [self registerTagClass:[TDCommentTag class] forName:[TDCommentTag tagName]];
         [self registerTagClass:[TDVerbatimTag class] forName:[TDVerbatimTag tagName]];
+        [self registerTagClass:[TDTrimTag class] forName:[TDTrimTag tagName]];
+        [self registerTagClass:[TDNewlineTag class] forName:[TDNewlineTag tagName]];
         
         self.filterTab = [NSMutableDictionary dictionary];
         [self registerFilterClass:[TDTrimFilter class] forName:[TDTrimFilter filterName]];

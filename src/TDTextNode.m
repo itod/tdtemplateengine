@@ -22,7 +22,6 @@
 
 #import "TDTextNode.h"
 #import <TDTemplateEngine/TDTemplateContext.h>
-#import <TDTemplateEngine/TDWriter.h>
 #import <PEGKit/PKToken.h>
 
 @implementation TDTextNode
@@ -37,9 +36,7 @@
 
     TDAssert([self.token.stringValue length]);
     
-    TDWriter *writer = ctx.writer;
-    TDAssert(writer);
-    [writer appendString:self.token.stringValue];
+    [ctx writeString:self.token.stringValue];
 }
 
 @end

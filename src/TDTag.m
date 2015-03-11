@@ -69,6 +69,7 @@
     NSParameterAssert(ctx);
 
     TDTemplateContext *local = [[[TDTemplateContext alloc] initWithVariables:nil output:ctx.writer.output] autorelease];
+    local.trimWhitespace = ctx.trimWhitespace;
     local.enclosingScope = ctx;
     
     [self doTagInContext:local];

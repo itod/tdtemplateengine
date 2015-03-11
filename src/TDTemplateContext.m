@@ -90,4 +90,33 @@
     }
 }
 
+
+#pragma mark -
+#pragma mark Rendering
+
+- (void)writeObject:(id)obj {
+    TDAssert(_writer);
+
+    NSString *str = nil;
+    if ([obj isKindOfClass:[NSString class]]) {
+        str = obj;
+    } else if ([obj respondsToSelector:@selector(stringValue)]) {
+        str = [obj stringValue];
+    } else {
+        str = [obj description];
+    }
+    [self writeString:str];
+}
+
+
+- (void)writeString:(NSString *)str {
+    TDAssert(_writer);
+    
+    if (_trimWhitespace) {
+        str = [str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    }
+    
+    [_writer appendString:str];
+}
+
 @end

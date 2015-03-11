@@ -23,7 +23,6 @@
 #import "TDPrintNode.h"
 #import "TDExpression.h"
 #import <TDTemplateEngine/TDTemplateContext.h>
-#import <TDTemplateEngine/TDWriter.h>
 
 @implementation TDPrintNode
 
@@ -43,10 +42,7 @@
     
     id val = [self.expression evaluateInContext:ctx];
     if (val) {
-        TDWriter *writer = ctx.writer;
-        
-        TDAssert(writer);
-        [writer appendObject:val];
+        [ctx writeObject:val];
     }
 }
 
