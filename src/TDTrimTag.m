@@ -51,19 +51,9 @@
         }
     }
 
-    NSUInteger lastIdx = [self.children count] - 1;
-    NSUInteger childIdx = 0;
-
-    for (TDNode *child in self.children) {
-        if (0 == childIdx || childIdx == lastIdx) {
-            ctx.trimType = newTrim;
-            [child renderInContext:ctx];
-            ctx.trimType = oldTrim;
-        } else {
-            [child renderInContext:ctx];
-        }
-        ++childIdx;
-    }
+    ctx.trimType = newTrim;
+    [self renderChildrenInContext:ctx];
+    ctx.trimType = oldTrim;
 }
 
 @end

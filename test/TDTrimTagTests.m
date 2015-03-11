@@ -67,7 +67,7 @@
     TDTrue(success);
     TDNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"bar, bar", res);
+    TDEqualObjects(@"bar,bar", res);
 }
 
 - (void)testTrimLinesNestedVars {
