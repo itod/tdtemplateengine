@@ -29,6 +29,8 @@
     self = [super initWithDelegate:d];
     if (self) {
         
+    self.enableVerboseErrorReporting = NO;
+    
         self.startRuleName = @"template";
         self.tokenKindTab[@"block_start_tag"] = @(TDTEMPLATE_TOKEN_KIND_BLOCK_START_TAG);
         self.tokenKindTab[@"print"] = @(TDTEMPLATE_TOKEN_KIND_PRINT);

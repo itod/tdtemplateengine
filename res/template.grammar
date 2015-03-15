@@ -30,6 +30,10 @@
 @property (nonatomic, assign) TDNode *currentParent; // weakref
 }
 
+@init {
+    self.enableVerboseErrorReporting = NO;
+}
+
 @dealloc {
     self.engine = nil;
     self.staticContext = nil;

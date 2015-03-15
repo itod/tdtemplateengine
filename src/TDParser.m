@@ -47,6 +47,7 @@
     self = [super initWithDelegate:d];
     if (self) {
             
+    self.enableVerboseErrorReporting = NO;
     self.tokenizer = [[self class] tokenizer];
     self.openParen = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"(" doubleValue:0.0];
     self.minus = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"-" doubleValue:0.0];
