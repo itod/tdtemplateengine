@@ -401,20 +401,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     NSString *tagName = [self tagNameFromTokens:toks inFragment:frag];
     
     // tokenize
-    TDTag *tag = nil;
-    
-    @try {
-        tag = [self makeTagForName:tagName];
-    }
-    @catch (NSException *ex) {
-        PKRecognitionException *rex = [[[PKRecognitionException alloc] init] autorelease];
-        rex.currentName = ex.name;
-        rex.currentReason = ex.reason;
-        rex.lineNumber = frag.lineNumber;
-        [rex raise];
-        return nil;
-    }
-    
+    TDTag *tag = [self makeTagForName:tagName];
     TDAssert(tag);
     tag.token = frag;
     tag.parent = parent;
@@ -483,16 +470,16 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 - (Class)registerdTagClassForName:(NSString *)tagName {
     TDAssert(_tagTab);
     Class cls = _tagTab[tagName];
-    if (!cls) {
-        [NSException raise:TDTemplateEngineErrorDomain format:@"Unknown tag name '%@'", tagName];
-    }
     return cls;
 }
 
 
 - (TDTag *)makeTagForName:(NSString *)tagName {
     TDAssert(_tagTab);
-    Class cls = [self registerdFilterClassForName:tagName];
+    Class cls = [self registerdTagClassForName:tagName];
+    if (!cls) {
+        [NSException raise:TDTemplateEngineErrorDomain format:@"Unknown tag name '%@'", tagName];
+    }
     TDTag *tag = [[[cls alloc] init] autorelease];
     TDAssert(tag);
     TDAssert([tag.tagName isEqualToString:tagName]);

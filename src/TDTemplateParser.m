@@ -117,7 +117,12 @@
     
     PKToken *tok = POP();
     ASSERT(_engine);
-    TDTag *startTagNode = [_engine tagFromFragment:tok withParent:_currentParent];
+    TDTag *startTagNode = nil;
+    @try {
+        startTagNode = [_engine tagFromFragment:tok withParent:_currentParent];
+    } @catch (NSException *ex) {
+        [self raise:[ex reason]];
+    }
     ASSERT(startTagNode);
     [_currentParent addChild:startTagNode];
     //self.currentParent = startTagNode;
@@ -149,7 +154,12 @@
     
     PKToken *tok = POP();
     ASSERT(_engine);
-    TDTag *startTagNode = [_engine tagFromFragment:tok withParent:_currentParent];
+    TDTag *startTagNode = nil;
+    @try {
+        startTagNode = [_engine tagFromFragment:tok withParent:_currentParent];
+    } @catch (NSException *ex) {
+        [self raise:[ex reason]];
+    }
     ASSERT(startTagNode);
     [_currentParent addChild:startTagNode];
     self.currentParent = startTagNode;

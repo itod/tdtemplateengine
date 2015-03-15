@@ -640,6 +640,7 @@
     } @catch (NSException *ex) {
         [self raise:[ex reason]];
     }
+    ASSERT(filter);
     PUSH([TDFilterExpression filterExpressionWithExpression:expr filter:filter arguments:args]);
             
         }];
