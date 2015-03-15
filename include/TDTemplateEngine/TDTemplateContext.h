@@ -39,5 +39,5 @@
 
 @property (nonatomic, retain) TDTemplateContext *enclosingScope;
 @property (nonatomic, assign) BOOL trimLines;
-@property (nonatomic, assign) NSInteger blockDepth;
+@property (nonatomic, assign) NSInteger indentDepth;
 @end

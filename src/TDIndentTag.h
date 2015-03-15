@@ -8,6 +8,6 @@
 
 #import <TDTemplateEngine/TDTag.h>
 
-@interface TDBlockTag : TDTag
+@interface TDIndentTag : TDTag
 
 @end

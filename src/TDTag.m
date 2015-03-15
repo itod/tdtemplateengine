@@ -70,7 +70,7 @@
 
     TDTemplateContext *local = [[[TDTemplateContext alloc] initWithVariables:nil output:ctx.writer.output] autorelease];
     local.trimLines = ctx.trimLines;
-    local.blockDepth = ctx.blockDepth;
+    local.indentDepth = ctx.indentDepth;
     local.enclosingScope = ctx;
     
     [self doTagInContext:local];

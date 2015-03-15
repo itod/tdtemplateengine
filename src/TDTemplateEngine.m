@@ -40,7 +40,7 @@
 #import "TDCommentTag.h"
 #import "TDVerbatimTag.h"
 #import "TDTrimTag.h"
-#import "TDBlockTag.h"
+#import "TDIndentTag.h"
 #import "TDNewlineTag.h"
 #import "TDSpaceTag.h"
 #import "TDTabTag.h"
@@ -104,7 +104,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
         [self registerTagClass:[TDCommentTag class] forName:[TDCommentTag tagName]];
         [self registerTagClass:[TDVerbatimTag class] forName:[TDVerbatimTag tagName]];
         [self registerTagClass:[TDTrimTag class] forName:[TDTrimTag tagName]];
-        [self registerTagClass:[TDBlockTag class] forName:[TDBlockTag tagName]];
+        [self registerTagClass:[TDIndentTag class] forName:[TDIndentTag tagName]];
         [self registerTagClass:[TDNewlineTag class] forName:[TDNewlineTag tagName]];
         [self registerTagClass:[TDSpaceTag class] forName:[TDSpaceTag tagName]];
         [self registerTagClass:[TDTabTag class] forName:[TDTabTag tagName]];

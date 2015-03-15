@@ -188,7 +188,7 @@
             
             if ([comp length]) {
                 if (!isFirst) {
-                    for (NSUInteger depth = 0; depth < _blockDepth; ++depth) {
+                    for (NSUInteger depth = 0; depth < _indentDepth; ++depth) {
                         [_writer appendString:@"    "];
                     }
                 }

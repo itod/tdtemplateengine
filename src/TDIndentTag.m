@@ -6,13 +6,13 @@
 //  Copyright (c) 2014 Todd Ditchendorf. All rights reserved.
 //
 
-#import "TDBlockTag.h"
+#import "TDIndentTag.h"
 #import <TDTemplateEngine/TDTemplateContext.h>
 
-@implementation TDBlockTag
+@implementation TDIndentTag
 
 + (NSString *)tagName {
-    return @"block";
+    return @"indent";
 }
 
 
@@ -31,11 +31,11 @@
     //NSLog(@"%s %@", __PRETTY_FUNCTION__, self);
     TDAssert(ctx);
 
-    ctx.blockDepth++;
+    ctx.indentDepth++;
 
     [self renderChildrenInContext:ctx];
     
-    ctx.blockDepth--;
+    ctx.indentDepth--;
 }
 
 @end
