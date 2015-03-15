@@ -55,6 +55,7 @@
 #import <PEGKit/PKAssembly.h>
 #import <PEGKit/PKTokenizer.h>
 #import <PEGKit/PKToken.h>
+#import <PEGKit/PKRecognitionException.h>
 #import "PKToken+Verbatim.h"
 
 NSString * const TDTemplateEngineTagEndPrefix = @"/";
@@ -164,7 +165,13 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     @try {
         frags = [self fragmentsFromString:str];
     } @catch (NSException *ex) {
-        if (err) *err = [NSError errorWithDomain:TDTemplateEngineErrorDomain code:TDTemplateEngineRenderingErrorCode userInfo:[[[ex userInfo] copy] autorelease]];
+        if (err) {
+            NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithDictionary:[ex userInfo]];
+            if (![userInfo count]) {
+                userInfo[NSLocalizedFailureReasonErrorKey] = ex.reason;
+            }
+            *err = [NSError errorWithDomain:TDTemplateEngineErrorDomain code:TDTemplateEngineRenderingErrorCode userInfo:userInfo];
+        }
         return nil;
     }
     TDAssert(frags);
@@ -318,11 +325,6 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
             } else {
                 NSString *tagName = [str componentsSeparatedByCharactersInSet:wsSet][0]; // TODO
                 Class tagCls = [self registerdTagClassForName:tagName];
-                if (!tagCls) {
-                    NSString *reason = [NSString stringWithFormat:@"Unknown tag name '%@'", str];
-                    NSException *ex = [NSException exceptionWithName:TDTemplateEngineErrorDomain reason:reason userInfo:@{NSLocalizedFailureReasonErrorKey:reason}];
-                    [ex raise];
-                }
                 
                 switch ([tagCls tagType]) {
                     case TDTagTypeBlock:
@@ -399,7 +401,20 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     NSString *tagName = [self tagNameFromTokens:toks inFragment:frag];
     
     // tokenize
-    TDTag *tag = [self makeTagForName:tagName];
+    TDTag *tag = nil;
+    
+    @try {
+        tag = [self makeTagForName:tagName];
+    }
+    @catch (NSException *ex) {
+        PKRecognitionException *rex = [[[PKRecognitionException alloc] init] autorelease];
+        rex.currentName = ex.name;
+        rex.currentReason = ex.reason;
+        rex.lineNumber = frag.lineNumber;
+        [rex raise];
+        return nil;
+    }
+    
     TDAssert(tag);
     tag.token = frag;
     tag.parent = parent;
@@ -468,16 +483,16 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 - (Class)registerdTagClassForName:(NSString *)tagName {
     TDAssert(_tagTab);
     Class cls = _tagTab[tagName];
+    if (!cls) {
+        [NSException raise:TDTemplateEngineErrorDomain format:@"Unknown tag name '%@'", tagName];
+    }
     return cls;
 }
 
 
 - (TDTag *)makeTagForName:(NSString *)tagName {
     TDAssert(_tagTab);
-    Class cls = _tagTab[tagName];
-    if (!cls) {
-        [NSException raise:TDTemplateEngineErrorDomain format:@"Unknown tag name '%@'", tagName];
-    }
+    Class cls = [self registerdFilterClassForName:tagName];
     TDTag *tag = [[[cls alloc] init] autorelease];
     TDAssert(tag);
     TDAssert([tag.tagName isEqualToString:tagName]);
