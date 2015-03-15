@@ -372,7 +372,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     NSError *err = nil;
     TDExpression *expr = [self expressionFromString:str error:&err];
     if (!expr) {
-        [NSException raise:TDTemplateEngineErrorDomain format:@"Error while compiling print node expression `%@` : %@", str, [err localizedFailureReason]];
+        [NSException raise:TDTemplateEngineErrorDomain format:@"Error while compiling print node expression `%@`\n\n%@", str, [err localizedFailureReason]];
     }
 
     TDAssert(expr);

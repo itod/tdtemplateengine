@@ -634,9 +634,14 @@
 	NSString *filterName = POP_STR();
 	id expr = POP();
     ASSERT(_engine);
-    TDFilter *filter = [_engine makeFilterForName:filterName];
-	PUSH([TDFilterExpression filterExpressionWithExpression:expr filter:filter arguments:args]);
-
+    TDFilter *filter = nil;
+    @try {
+        filter = [_engine makeFilterForName:filterName];
+    } @catch (NSException *ex) {
+        [self raise:[ex reason]];
+    }
+    PUSH([TDFilterExpression filterExpressionWithExpression:expr filter:filter arguments:args]);
+            
         }];
     }
 
