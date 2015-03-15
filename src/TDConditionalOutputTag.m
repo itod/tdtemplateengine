@@ -44,17 +44,17 @@
         count = [self.expression evaluateAsNumberInContext:ctx];
     }
     
-    TDTrimType oldTrim = ctx.trimType;
+    BOOL oldTrim = ctx.trimLines;
     
     NSString *output = [self outputStringInContext:ctx];
 
-    ctx.trimType = TDTrimTypeNone; {
+    ctx.trimLines = NO; {
         
         for (NSUInteger i = 0; i < count; ++i) {
             [ctx writeString:output];
         }
         
-    } ctx.trimType = oldTrim;
+    } ctx.trimLines = oldTrim;
 }
 
 @end

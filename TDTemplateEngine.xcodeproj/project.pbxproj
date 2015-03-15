@@ -111,17 +111,12 @@
 		D3CAF8BA18EF577100166A95 /* TDNegationExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3CAF8B818EF577000166A95 /* TDNegationExpression.h */; };
 		D3CAF8BB18EF577100166A95 /* TDNegationExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D3CAF8B918EF577100166A95 /* TDNegationExpression.m */; };
 		D3CAF8BE18EF5A0000166A95 /* TDNegationExpressionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3CAF8BC18EF59EB00166A95 /* TDNegationExpressionTests.m */; };
-		D3E8E92918F2F01F0091C98D /* TDTrimTagTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D319139618F2EF7000430BAD /* TDTrimTagTests.m */; };
 		D3E95F111AB08E6300D19992 /* TDTrimTag.h in Headers */ = {isa = PBXBuildFile; fileRef = D3E95F0F1AB08E6300D19992 /* TDTrimTag.h */; };
 		D3E95F121AB08E6300D19992 /* TDTrimTag.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E95F101AB08E6300D19992 /* TDTrimTag.m */; };
 		D3E95F141AB08FC900D19992 /* TDVerbatimTagTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E95F131AB08FC900D19992 /* TDVerbatimTagTests.m */; };
 		D3E95F171AB094DF00D19992 /* TDNewlineTag.h in Headers */ = {isa = PBXBuildFile; fileRef = D3E95F151AB094DF00D19992 /* TDNewlineTag.h */; };
 		D3E95F181AB094DF00D19992 /* TDNewlineTag.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E95F161AB094DF00D19992 /* TDNewlineTag.m */; };
 		D3E95F1A1AB0959000D19992 /* TDNewlineTagTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E95F191AB0959000D19992 /* TDNewlineTagTests.m */; };
-		D3E95F1F1AB096E100D19992 /* TDTrimLinesTag.h in Headers */ = {isa = PBXBuildFile; fileRef = D3E95F1B1AB096E100D19992 /* TDTrimLinesTag.h */; };
-		D3E95F201AB096E100D19992 /* TDTrimLinesTag.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E95F1C1AB096E100D19992 /* TDTrimLinesTag.m */; };
-		D3E95F211AB096E100D19992 /* TDTrimSpacesTag.h in Headers */ = {isa = PBXBuildFile; fileRef = D3E95F1D1AB096E100D19992 /* TDTrimSpacesTag.h */; };
-		D3E95F221AB096E100D19992 /* TDTrimSpacesTag.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E95F1E1AB096E100D19992 /* TDTrimSpacesTag.m */; };
 		D3E95F251AB0D1A600D19992 /* TDSpaceTag.h in Headers */ = {isa = PBXBuildFile; fileRef = D3E95F231AB0D1A600D19992 /* TDSpaceTag.h */; };
 		D3E95F261AB0D1A600D19992 /* TDSpaceTag.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E95F241AB0D1A600D19992 /* TDSpaceTag.m */; };
 		D3E95F291AB0D22700D19992 /* TDConditionalOutputTag.h in Headers */ = {isa = PBXBuildFile; fileRef = D3E95F271AB0D22700D19992 /* TDConditionalOutputTag.h */; };
@@ -264,10 +259,6 @@
 		D3E95F151AB094DF00D19992 /* TDNewlineTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDNewlineTag.h; path = src/TDNewlineTag.h; sourceTree = SOURCE_ROOT; };
 		D3E95F161AB094DF00D19992 /* TDNewlineTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDNewlineTag.m; path = src/TDNewlineTag.m; sourceTree = SOURCE_ROOT; };
 		D3E95F191AB0959000D19992 /* TDNewlineTagTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDNewlineTagTests.m; path = test/TDNewlineTagTests.m; sourceTree = SOURCE_ROOT; };
-		D3E95F1B1AB096E100D19992 /* TDTrimLinesTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDTrimLinesTag.h; path = src/TDTrimLinesTag.h; sourceTree = SOURCE_ROOT; };
-		D3E95F1C1AB096E100D19992 /* TDTrimLinesTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDTrimLinesTag.m; path = src/TDTrimLinesTag.m; sourceTree = SOURCE_ROOT; };
-		D3E95F1D1AB096E100D19992 /* TDTrimSpacesTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDTrimSpacesTag.h; path = src/TDTrimSpacesTag.h; sourceTree = SOURCE_ROOT; };
-		D3E95F1E1AB096E100D19992 /* TDTrimSpacesTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDTrimSpacesTag.m; path = src/TDTrimSpacesTag.m; sourceTree = SOURCE_ROOT; };
 		D3E95F231AB0D1A600D19992 /* TDSpaceTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDSpaceTag.h; path = src/TDSpaceTag.h; sourceTree = SOURCE_ROOT; };
 		D3E95F241AB0D1A600D19992 /* TDSpaceTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDSpaceTag.m; path = src/TDSpaceTag.m; sourceTree = SOURCE_ROOT; };
 		D3E95F271AB0D22700D19992 /* TDConditionalOutputTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDConditionalOutputTag.h; path = src/TDConditionalOutputTag.h; sourceTree = SOURCE_ROOT; };
@@ -475,10 +466,6 @@
 				D319139318F2ED3300430BAD /* TDVerbatimTag.m */,
 				D3E95F0F1AB08E6300D19992 /* TDTrimTag.h */,
 				D3E95F101AB08E6300D19992 /* TDTrimTag.m */,
-				D3E95F1B1AB096E100D19992 /* TDTrimLinesTag.h */,
-				D3E95F1C1AB096E100D19992 /* TDTrimLinesTag.m */,
-				D3E95F1D1AB096E100D19992 /* TDTrimSpacesTag.h */,
-				D3E95F1E1AB096E100D19992 /* TDTrimSpacesTag.m */,
 				D3E95F321AB1017D00D19992 /* TDBlockTag.h */,
 				D3E95F331AB1017D00D19992 /* TDBlockTag.m */,
 				D3E95F271AB0D22700D19992 /* TDConditionalOutputTag.h */,
@@ -593,7 +580,6 @@
 				D3A29E3D18E7B31A00DC591E /* TDObjectValue.h in Headers */,
 				D3A29DAA18E609E700DC591E /* TDNode.h in Headers */,
 				D3E95F2D1AB0D29D00D19992 /* TDTabTag.h in Headers */,
-				D3E95F1F1AB096E100D19992 /* TDTrimLinesTag.h in Headers */,
 				D3A29DD618E63D4F00DC591E /* TDForTag.h in Headers */,
 				D3A29DB618E60E4500DC591E /* TDPrintNode.h in Headers */,
 				D3E95F171AB094DF00D19992 /* TDNewlineTag.h in Headers */,
@@ -612,7 +598,6 @@
 				D3A7E27318F07782009BFD96 /* TDCommentTag.h in Headers */,
 				D319138618F1A5C700430BAD /* TDFilter.h in Headers */,
 				D3A29E0E18E65AC400DC591E /* TDParser.h in Headers */,
-				D3E95F211AB096E100D19992 /* TDTrimSpacesTag.h in Headers */,
 				D3A29E0218E6584D00DC591E /* TDNumericValue.h in Headers */,
 				D3A29E2D18E75D3B00DC591E /* TDBinaryExpression.h in Headers */,
 				D3A29E2F18E75D3B00DC591E /* TDBooleanExpression.h in Headers */,
@@ -755,7 +740,6 @@
 				D3A29E0318E6584D00DC591E /* TDNumericValue.m in Sources */,
 				D3F5064518ECA12500BAC93B /* TDWriter.m in Sources */,
 				D3A29E2C18E75D3B00DC591E /* TDArithmeticExpression.m in Sources */,
-				D3E95F221AB096E100D19992 /* TDTrimSpacesTag.m in Sources */,
 				D3A29E3A18E7AA3100DC591E /* TDPathExpression.m in Sources */,
 				D3CAF8B018EDF39200166A95 /* TDLoopExpression.m in Sources */,
 				D3A29DAB18E609E700DC591E /* TDNode.m in Sources */,
@@ -770,7 +754,6 @@
 				D3A7E27418F07782009BFD96 /* TDCommentTag.m in Sources */,
 				D319138C18F1AC4500430BAD /* TDLowercaseFilter.m in Sources */,
 				D319138418F1A58A00430BAD /* TDCapitalizeFilter.m in Sources */,
-				D3E95F201AB096E100D19992 /* TDTrimLinesTag.m in Sources */,
 				D3E95F181AB094DF00D19992 /* TDNewlineTag.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -794,7 +777,6 @@
 				D33915E418F081ED00BDA4FD /* TDPathExpressionTests.m in Sources */,
 				D3A3E54E18EC5706004FEB2C /* TDIfTagTests.m in Sources */,
 				D33915E618F09DFF00BDA4FD /* TDElseTagTests.m in Sources */,
-				D3E8E92918F2F01F0091C98D /* TDTrimTagTests.m in Sources */,
 				D319138818F1A80300430BAD /* TDFilterExpressionTests.m in Sources */,
 				D3E95F1A1AB0959000D19992 /* TDNewlineTagTests.m in Sources */,
 			);

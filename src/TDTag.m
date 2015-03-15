@@ -69,7 +69,7 @@
     NSParameterAssert(ctx);
 
     TDTemplateContext *local = [[[TDTemplateContext alloc] initWithVariables:nil output:ctx.writer.output] autorelease];
-    local.trimType = ctx.trimType;
+    local.trimLines = ctx.trimLines;
     local.blockDepth = ctx.blockDepth;
     local.enclosingScope = ctx;
     

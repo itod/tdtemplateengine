@@ -25,11 +25,6 @@
 }
 
 
-+ (TDTrimType)trimType {
-    return TDTrimTypeBoth;
-}
-
-
 - (void)dealloc {
     
     [super dealloc];
@@ -40,20 +35,20 @@
     //NSLog(@"%s %@", __PRETTY_FUNCTION__, self);
     TDAssert(ctx);
     
-    TDTrimType oldTrim = ctx.trimType;
+    BOOL oldTrim = ctx.trimLines;
     
-    TDTrimType newTrim = [[self class] trimType];
+    BOOL newTrim = YES;
     
     if (self.expression) {
         BOOL enable = [self.expression evaluateAsBooleanInContext:ctx];
         if (!enable) {
-            newTrim = TDTrimTypeNone;
+            newTrim = NO;
         }
     }
 
-    ctx.trimType = newTrim;
+    ctx.trimLines = newTrim;
     [self renderChildrenInContext:ctx];
-    ctx.trimType = oldTrim;
+    ctx.trimLines = oldTrim;
 }
 
 @end

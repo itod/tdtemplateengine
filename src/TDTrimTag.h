@@ -11,5 +11,4 @@
 
 @interface TDTrimTag : TDTag
 
-+ (TDTrimType)trimType;
 @end

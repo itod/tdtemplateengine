@@ -22,13 +22,6 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(NSUInteger, TDTrimType) {
-    TDTrimTypeNone = 0,
-    TDTrimTypeBoth = 1,
-    TDTrimTypeLines = 2,
-    TDTrimTypeSpaces = 3,
-};
-
 @class TDWriter;
 
 @interface TDTemplateContext : NSObject
@@ -45,6 +38,6 @@ typedef NS_ENUM(NSUInteger, TDTrimType) {
 - (void)writeString:(NSString *)str;
 
 @property (nonatomic, retain) TDTemplateContext *enclosingScope;
-@property (nonatomic, assign) TDTrimType trimType;
+@property (nonatomic, assign) BOOL trimLines;
 @property (nonatomic, assign) NSInteger blockDepth;
 @end

@@ -23,6 +23,49 @@
 #import <TDTemplateEngine/TDTemplateContext.h>
 #import <TDTemplateEngine/TDWriter.h>
 
+@interface NSString (TDAdditions)
+
+- (NSString *)td_stringByTrimmingLeadingCharactersInSet:(NSCharacterSet *)set;
+- (NSString *)td_stringByTrimmingTrailingCharactersInSet:(NSCharacterSet *)set;
+@end
+
+@implementation NSString (TDAdditions)
+
+- (NSString *)td_stringByTrimmingLeadingCharactersInSet:(NSCharacterSet *)set {
+    NSString *result = self;
+    
+    if ([self length]) {
+        NSRange leadingRange = [self rangeOfCharacterFromSet:[set invertedSet]];
+        
+        if (leadingRange.length) {
+            result = [self substringFromIndex:leadingRange.location];
+        } else {
+            result = @"";
+        }
+    }
+    
+    return result;
+}
+
+
+- (NSString *)td_stringByTrimmingTrailingCharactersInSet:(NSCharacterSet *)set {
+    NSString *result = self;
+    
+    if ([self length]) {
+        NSRange trailingRange = [self rangeOfCharacterFromSet:[set invertedSet] options:NSBackwardsSearch];
+        
+        if (trailingRange.length) {
+            result = [self substringToIndex:NSMaxRange(trailingRange)];
+        } else {
+            result = @"";
+        }
+    }
+    
+    return result;
+}
+
+@end
+
 @interface TDTemplateContext ()
 @property (nonatomic, retain) NSMutableDictionary *vars;
 @property (nonatomic, retain, readwrite) TDWriter *writer;
@@ -111,31 +154,52 @@
 
 - (void)writeString:(NSString *)str {
     TDAssert(_writer);
-    
-    NSCharacterSet *cs = nil;
-    
-    switch (_trimType) {
-        case TDTrimTypeNone:
-            break;
-        case TDTrimTypeBoth:
-            cs = [NSCharacterSet whitespaceAndNewlineCharacterSet];
-            break;
-        case TDTrimTypeLines:
-            cs = [NSCharacterSet newlineCharacterSet];
-            break;
-        case TDTrimTypeSpaces:
-            cs = [NSCharacterSet whitespaceCharacterSet];
-            break;
-        default:
-            TDAssert(0);
-            break;
-    }
-    
-    if (cs) {
-        str = [str stringByTrimmingCharactersInSet:cs];
-    }
 
-    [_writer appendString:str];
+    if (_trimLines) {
+        NSCharacterSet *cs = [NSCharacterSet whitespaceCharacterSet];
+        NSArray *comps = [str componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+
+        BOOL isFirst = YES;
+        BOOL isLast = NO;
+        NSUInteger idx = 0;
+        NSUInteger lastIdx = [comps count] - 1;
+        NSString *fmt = nil;
+        
+        for (NSString *comp in comps) {
+            isLast = lastIdx == idx++;
+            
+//            if (0 == [comp length]) {
+//                comp = @"\n";
+//                fmt = @"%@";
+//            } else
+            if (isFirst && isLast) {
+                //comp = [comp stringByTrimmingCharactersInSet:cs];
+                fmt = @"%@";
+            } else
+            if (isFirst) {
+                comp = [comp td_stringByTrimmingTrailingCharactersInSet:cs];
+                fmt = @"%@\n";
+            } else if (isLast) {
+                comp = [comp td_stringByTrimmingLeadingCharactersInSet:cs];
+                fmt = @"%@";
+            } else {
+                comp = [comp stringByTrimmingCharactersInSet:cs];
+                fmt = @"%@\n";
+            }
+            
+            if ([comp length]) {
+                if (!isFirst) {
+                    for (NSUInteger depth = 0; depth < _blockDepth; ++depth) {
+                        [_writer appendString:@"    "];
+                    }
+                }
+                [_writer appendFormat:fmt, comp];
+            }
+            isFirst = NO;
+        }
+    } else {
+        [_writer appendString:str];
+    }
 }
 
 @end
