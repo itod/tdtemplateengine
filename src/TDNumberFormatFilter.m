@@ -25,7 +25,7 @@
 @implementation TDNumberFormatFilter
 
 + (NSString *)filterName {
-    return @"numberFormat";
+    return @"fmt";
 }
 
 

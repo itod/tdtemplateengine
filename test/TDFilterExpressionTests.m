@@ -209,7 +209,7 @@
 
 - (void)testDateFormatToday {
     NSString *fmtStr = @"EEE, MMM d, yy";
-    NSString *input = [NSString stringWithFormat:@"'today'|dateFormat:'%@'", fmtStr];
+    NSString *input = [NSString stringWithFormat:@"'today'|fmtDate:'%@'", fmtStr];
     NSArray *toks = [self tokenize:input];
     
     id vars = nil;
@@ -232,7 +232,7 @@
 
 - (void)testDateFormatNow {
     NSString *fmtStr = @"EEE, MMM d, yy";
-    NSString *input = [NSString stringWithFormat:@"'now'|dateFormat:'%@'", fmtStr];
+    NSString *input = [NSString stringWithFormat:@"'now'|fmtDate:'%@'", fmtStr];
     NSArray *toks = [self tokenize:input];
     
     id vars = nil;
@@ -255,7 +255,7 @@
 
 - (void)testDateFormatOct26Literal {
     NSString *fmtStr = @"EEE, MMM d, yy";
-    NSString *input = [NSString stringWithFormat:@"'Oct 26, 1977'|dateFormat:'%@'", fmtStr];
+    NSString *input = [NSString stringWithFormat:@"'Oct 26, 1977'|fmtDate:'%@'", fmtStr];
     NSArray *toks = [self tokenize:input];
     
     id vars = nil;
@@ -273,7 +273,7 @@
 
 - (void)testDateFormatApril25Var {
     NSString *fmtStr = @"EEE, MMM d, yy";
-    NSString *input = [NSString stringWithFormat:@"mydate|dateFormat:'%@'", fmtStr];
+    NSString *input = [NSString stringWithFormat:@"mydate|fmtDate:'%@'", fmtStr];
     NSArray *toks = [self tokenize:input];
     
     NSDate *date = [NSDate dateWithNaturalLanguageString:@"April 25 1996"];
@@ -292,7 +292,7 @@
 
 - (void)testDateFormatApril25Var2 {
     NSString *fmtStr = @"yyyyy.MMMM.dd GGG hh:mm aaa";
-    NSString *input = [NSString stringWithFormat:@"mydate|dateFormat:'%@'", fmtStr];
+    NSString *input = [NSString stringWithFormat:@"mydate|fmtDate:'%@'", fmtStr];
     NSArray *toks = [self tokenize:input];
     
     NSDate *date = [NSDate dateWithNaturalLanguageString:@"April 25 1996"];
@@ -311,7 +311,7 @@
 
 - (void)testDateFormatApril25Arg {
     NSString *fmtStr = @"EEE, MMM d, yy";
-    NSString *input = @"mydate|dateFormat:fmt";
+    NSString *input = @"mydate|fmtDate:fmt";
     NSArray *toks = [self tokenize:input];
     
     NSDate *date = [NSDate dateWithNaturalLanguageString:@"April 25 1996"];
