@@ -168,15 +168,9 @@
         for (NSString *comp in comps) {
             isLast = lastIdx == idx++;
             
-//            if (0 == [comp length]) {
-//                comp = @"\n";
-//                fmt = @"%@";
-//            } else
             if (isFirst && isLast) {
-                //comp = [comp stringByTrimmingCharactersInSet:cs];
                 fmt = @"%@";
-            } else
-            if (isFirst) {
+            } else if (isFirst) {
                 comp = [comp td_stringByTrimmingTrailingCharactersInSet:cs];
                 fmt = @"%@\n";
             } else if (isLast) {
@@ -184,7 +178,12 @@
                 fmt = @"%@";
             } else {
                 comp = [comp stringByTrimmingCharactersInSet:cs];
-                fmt = @"%@\n";
+                if ([comp length]) {
+                    fmt = @"%@\n";
+                } else {
+                    comp = @"\n";
+                    fmt = @"%@";
+                }
             }
             
             if ([comp length]) {
