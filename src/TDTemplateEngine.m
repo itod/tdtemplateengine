@@ -46,6 +46,7 @@
 #import "TDTabTag.h"
 
 #import "TDTrimFilter.h"
+#import "TDNumberFormatFilter.h"
 #import "TDLowercaseFilter.h"
 #import "TDUppercaseFilter.h"
 #import "TDCapitalizeFilter.h"
@@ -107,6 +108,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
         
         self.filterTab = [NSMutableDictionary dictionary];
         [self registerFilterClass:[TDTrimFilter class] forName:[TDTrimFilter filterName]];
+        [self registerFilterClass:[TDNumberFormatFilter class] forName:[TDNumberFormatFilter filterName]];
         [self registerFilterClass:[TDLowercaseFilter class] forName:[TDLowercaseFilter filterName]];
         [self registerFilterClass:[TDUppercaseFilter class] forName:[TDUppercaseFilter filterName]];
         [self registerFilterClass:[TDCapitalizeFilter class] forName:[TDCapitalizeFilter filterName]];

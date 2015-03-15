@@ -20,19 +20,27 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <Foundation/Foundation.h>
+#import "TDNumberFormatFilter.h"
 
-NSString *TDStringFromObject(id obj);
+@implementation TDNumberFormatFilter
 
-@interface TDFilter : NSObject
++ (NSString *)filterName {
+    return @"numberFormat";
+}
 
-- (void)validateArguments:(NSArray *)args min:(NSUInteger)min max:(NSUInteger)max;
 
-@property (nonatomic, assign, readonly) NSString *filterName; // convenience for class method
-@end
+- (id)doFilter:(id)input withArguments:(NSArray *)args {
+    TDAssert(input);
+    
+    [self validateArguments:args min:1 max:1];
+    
+    double num = [input doubleValue];
+    
+    NSString *fmt = TDStringFromObject([args firstObject]);
+    
+    NSString *result = [NSString stringWithFormat:fmt, num];
+ 
+    return result;
+}
 
-@interface TDFilter (Override)
-+ (NSString *)filterName;
-
-- (id)doFilter:(id)input withArguments:(NSArray *)args;
 @end

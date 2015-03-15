@@ -20,19 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <Foundation/Foundation.h>
+#import <TDTemplateEngine/TDFilter.h>
 
-NSString *TDStringFromObject(id obj);
+@interface TDNumberFormatFilter : TDFilter
 
-@interface TDFilter : NSObject
-
-- (void)validateArguments:(NSArray *)args min:(NSUInteger)min max:(NSUInteger)max;
-
-@property (nonatomic, assign, readonly) NSString *filterName; // convenience for class method
-@end
-
-@interface TDFilter (Override)
-+ (NSString *)filterName;
-
-- (id)doFilter:(id)input withArguments:(NSArray *)args;
 @end
