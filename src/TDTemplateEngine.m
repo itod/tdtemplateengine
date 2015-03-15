@@ -46,11 +46,14 @@
 #import "TDTabTag.h"
 
 #import "TDTrimFilter.h"
+#import "TDRoundFilter.h"
+#import "TDFloorFilter.h"
+#import "TDCeilFilter.h"
 #import "TDNumberFormatFilter.h"
+#import "TDDateFormatFilter.h"
 #import "TDLowercaseFilter.h"
 #import "TDUppercaseFilter.h"
 #import "TDCapitalizeFilter.h"
-#import "TDDateFormatFilter.h"
 #import "TDReplaceFilter.h"
 
 #import <PEGKit/PKAssembly.h>
@@ -108,11 +111,14 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
         
         self.filterTab = [NSMutableDictionary dictionary];
         [self registerFilterClass:[TDTrimFilter class] forName:[TDTrimFilter filterName]];
+        [self registerFilterClass:[TDRoundFilter class] forName:[TDRoundFilter filterName]];
+        [self registerFilterClass:[TDFloorFilter class] forName:[TDFloorFilter filterName]];
+        [self registerFilterClass:[TDCeilFilter class] forName:[TDCeilFilter filterName]];
         [self registerFilterClass:[TDNumberFormatFilter class] forName:[TDNumberFormatFilter filterName]];
+        [self registerFilterClass:[TDDateFormatFilter class] forName:[TDDateFormatFilter filterName]];
         [self registerFilterClass:[TDLowercaseFilter class] forName:[TDLowercaseFilter filterName]];
         [self registerFilterClass:[TDUppercaseFilter class] forName:[TDUppercaseFilter filterName]];
         [self registerFilterClass:[TDCapitalizeFilter class] forName:[TDCapitalizeFilter filterName]];
-        [self registerFilterClass:[TDDateFormatFilter class] forName:[TDDateFormatFilter filterName]];
         [self registerFilterClass:[TDReplaceFilter class] forName:[TDReplaceFilter filterName]];
         
         self.expressionParser = [[[TDParser alloc] initWithDelegate:nil] autorelease];

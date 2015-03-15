@@ -32,6 +32,12 @@
 		D33915EE18F0A0C500BDA4FD /* TDElseIfTag.m in Sources */ = {isa = PBXBuildFile; fileRef = D33915EC18F0A0C500BDA4FD /* TDElseIfTag.m */; };
 		D35E00381AB6189A00096913 /* TDNumberFormatFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = D35E00361AB6189A00096913 /* TDNumberFormatFilter.h */; };
 		D35E00391AB6189A00096913 /* TDNumberFormatFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D35E00371AB6189A00096913 /* TDNumberFormatFilter.m */; };
+		D35E003C1AB61D2900096913 /* TDRoundFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = D35E003A1AB61D2900096913 /* TDRoundFilter.h */; };
+		D35E003D1AB61D2900096913 /* TDRoundFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D35E003B1AB61D2900096913 /* TDRoundFilter.m */; };
+		D35E00401AB61DC000096913 /* TDFloorFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = D35E003E1AB61DC000096913 /* TDFloorFilter.h */; };
+		D35E00411AB61DC000096913 /* TDFloorFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D35E003F1AB61DC000096913 /* TDFloorFilter.m */; };
+		D35E00441AB61DCF00096913 /* TDCeilFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = D35E00421AB61DCF00096913 /* TDCeilFilter.h */; };
+		D35E00451AB61DCF00096913 /* TDCeilFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D35E00431AB61DCF00096913 /* TDCeilFilter.m */; };
 		D367DFC918E5EF6900F97BCC /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D367DFC818E5EF6900F97BCC /* XCTest.framework */; };
 		D367DFCD18E5EF6900F97BCC /* TDTemplateEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D367DFB018E5EF6900F97BCC /* TDTemplateEngine.framework */; };
 		D369BD4218EF7F6A003E715B /* TDForLoop.h in Headers */ = {isa = PBXBuildFile; fileRef = D369BD4018EF7F6A003E715B /* TDForLoop.h */; };
@@ -170,6 +176,12 @@
 		D33915EC18F0A0C500BDA4FD /* TDElseIfTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDElseIfTag.m; path = src/TDElseIfTag.m; sourceTree = SOURCE_ROOT; };
 		D35E00361AB6189A00096913 /* TDNumberFormatFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDNumberFormatFilter.h; path = src/TDNumberFormatFilter.h; sourceTree = SOURCE_ROOT; };
 		D35E00371AB6189A00096913 /* TDNumberFormatFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDNumberFormatFilter.m; path = src/TDNumberFormatFilter.m; sourceTree = SOURCE_ROOT; };
+		D35E003A1AB61D2900096913 /* TDRoundFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDRoundFilter.h; path = src/TDRoundFilter.h; sourceTree = SOURCE_ROOT; };
+		D35E003B1AB61D2900096913 /* TDRoundFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDRoundFilter.m; path = src/TDRoundFilter.m; sourceTree = SOURCE_ROOT; };
+		D35E003E1AB61DC000096913 /* TDFloorFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDFloorFilter.h; path = src/TDFloorFilter.h; sourceTree = SOURCE_ROOT; };
+		D35E003F1AB61DC000096913 /* TDFloorFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDFloorFilter.m; path = src/TDFloorFilter.m; sourceTree = SOURCE_ROOT; };
+		D35E00421AB61DCF00096913 /* TDCeilFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDCeilFilter.h; path = src/TDCeilFilter.h; sourceTree = SOURCE_ROOT; };
+		D35E00431AB61DCF00096913 /* TDCeilFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDCeilFilter.m; path = src/TDCeilFilter.m; sourceTree = SOURCE_ROOT; };
 		D367DFB018E5EF6900F97BCC /* TDTemplateEngine.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TDTemplateEngine.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D367DFC718E5EF6900F97BCC /* TDTemplateEngineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TDTemplateEngineTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D367DFC818E5EF6900F97BCC /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -340,6 +352,12 @@
 				D319137A18F1A46100430BAD /* TDFilter.m */,
 				D3AC685D1A42022500F7EB6A /* TDTrimFilter.h */,
 				D3AC685E1A42022500F7EB6A /* TDTrimFilter.m */,
+				D35E003A1AB61D2900096913 /* TDRoundFilter.h */,
+				D35E003B1AB61D2900096913 /* TDRoundFilter.m */,
+				D35E00421AB61DCF00096913 /* TDCeilFilter.h */,
+				D35E00431AB61DCF00096913 /* TDCeilFilter.m */,
+				D35E003E1AB61DC000096913 /* TDFloorFilter.h */,
+				D35E003F1AB61DC000096913 /* TDFloorFilter.m */,
 				D35E00361AB6189A00096913 /* TDNumberFormatFilter.h */,
 				D35E00371AB6189A00096913 /* TDNumberFormatFilter.m */,
 				D37BC6B318F4415200938644 /* TDDateFormatFilter.h */,
@@ -591,12 +609,14 @@
 				D35E00381AB6189A00096913 /* TDNumberFormatFilter.h in Headers */,
 				D3E95F171AB094DF00D19992 /* TDNewlineTag.h in Headers */,
 				D3F5064818ECA36B00BAC93B /* TDWriter.h in Headers */,
+				D35E003C1AB61D2900096913 /* TDRoundFilter.h in Headers */,
 				D3A29E2B18E75D3B00DC591E /* TDArithmeticExpression.h in Headers */,
 				D3A29DF518E6583600DC591E /* TDExpression.h in Headers */,
 				D3AC684F1A41D43400F7EB6A /* TDReplaceFilter.h in Headers */,
 				D369BD4A18EF8921003E715B /* TDEnumeration.h in Headers */,
 				D3A29DDD18E63D6D00DC591E /* TDTag.h in Headers */,
 				D3F5063818EC5C9800BAC93B /* TDRangeExpression.h in Headers */,
+				D35E00401AB61DC000096913 /* TDFloorFilter.h in Headers */,
 				D319138F18F1AD1500430BAD /* TDUppercaseFilter.h in Headers */,
 				D33915E918F0A08000BDA4FD /* TDElseTag.h in Headers */,
 				D3A29D8218E5F57300DC591E /* TDTemplateEngine.h in Headers */,
@@ -611,6 +631,7 @@
 				D319137F18F1A4A900430BAD /* TDFilterExpression.h in Headers */,
 				D37BC6B518F4415200938644 /* TDDateFormatFilter.h in Headers */,
 				D319138B18F1AC4500430BAD /* TDLowercaseFilter.h in Headers */,
+				D35E00441AB61DCF00096913 /* TDCeilFilter.h in Headers */,
 				D3A7E26B18EF9286009BFD96 /* TDTemplateEngine+ExpressionSupport.h in Headers */,
 				D369BD4218EF7F6A003E715B /* TDForLoop.h in Headers */,
 				D33915ED18F0A0C500BDA4FD /* TDElseIfTag.h in Headers */,
@@ -721,6 +742,7 @@
 				D369BD4B18EF8921003E715B /* TDEnumeration.m in Sources */,
 				D3E95F121AB08E6300D19992 /* TDTrimTag.m in Sources */,
 				D3A29E3218E75D3B00DC591E /* TDRelationalExpression.m in Sources */,
+				D35E003D1AB61D2900096913 /* TDRoundFilter.m in Sources */,
 				D35E00391AB6189A00096913 /* TDNumberFormatFilter.m in Sources */,
 				D398E2F018EA2C51004B883C /* TDTemplateParser.m in Sources */,
 				D3A29E3E18E7B31A00DC591E /* TDObjectValue.m in Sources */,
@@ -738,6 +760,7 @@
 				D3AC68501A41D43400F7EB6A /* TDReplaceFilter.m in Sources */,
 				D319138018F1A4AA00430BAD /* TDFilterExpression.m in Sources */,
 				D3A29E0518E6584D00DC591E /* TDStringValue.m in Sources */,
+				D35E00411AB61DC000096913 /* TDFloorFilter.m in Sources */,
 				D3A29DBB18E60F9F00DC591E /* TDRootNode.m in Sources */,
 				D3CAF8BB18EF577100166A95 /* TDNegationExpression.m in Sources */,
 				D3A29E0118E6584D00DC591E /* TDExpression.m in Sources */,
@@ -746,6 +769,7 @@
 				D319139518F2ED3300430BAD /* TDVerbatimTag.m in Sources */,
 				D3A29E0F18E65AC400DC591E /* TDParser.m in Sources */,
 				D3A29E0318E6584D00DC591E /* TDNumericValue.m in Sources */,
+				D35E00451AB61DCF00096913 /* TDCeilFilter.m in Sources */,
 				D3F5064518ECA12500BAC93B /* TDWriter.m in Sources */,
 				D3A29E2C18E75D3B00DC591E /* TDArithmeticExpression.m in Sources */,
 				D3A29E3A18E7AA3100DC591E /* TDPathExpression.m in Sources */,
