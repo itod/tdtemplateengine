@@ -159,7 +159,14 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     TDAssert([_tagEndDelimiter length]);
 
     // lex
-    NSArray *frags = [self fragmentsFromString:str];
+    NSArray *frags = nil;
+    
+    @try {
+        frags = [self fragmentsFromString:str];
+    } @catch (NSException *ex) {
+        if (err) *err = [NSError errorWithDomain:TDTemplateEngineErrorDomain code:TDTemplateEngineRenderingErrorCode userInfo:[[[ex userInfo] copy] autorelease]];
+        return nil;
+    }
     TDAssert(frags);
     
     // compile
@@ -186,7 +193,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     }
     @catch (NSException *ex) {
         success = NO;
-        *err = [NSError errorWithDomain:TDTemplateEngineErrorDomain code:TDTemplateEngineRenderingErrorCode userInfo:[[[ex userInfo] copy] autorelease]];
+        if (err) *err = [NSError errorWithDomain:TDTemplateEngineErrorDomain code:TDTemplateEngineRenderingErrorCode userInfo:[[[ex userInfo] copy] autorelease]];
     }
     
     return success;;
@@ -312,7 +319,9 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
                 NSString *tagName = [str componentsSeparatedByCharactersInSet:wsSet][0]; // TODO
                 Class tagCls = [self registerdTagClassForName:tagName];
                 if (!tagCls) {
-                    [NSException raise:TDTemplateEngineErrorDomain format:@"Unknown tag name '%@'", str];
+                    NSString *reason = [NSString stringWithFormat:@"Unknown tag name '%@'", str];
+                    NSException *ex = [NSException exceptionWithName:TDTemplateEngineErrorDomain reason:reason userInfo:@{NSLocalizedFailureReasonErrorKey:reason}];
+                    [ex raise];
                 }
                 
                 switch ([tagCls tagType]) {
