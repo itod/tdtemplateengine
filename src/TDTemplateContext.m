@@ -174,12 +174,11 @@
     if (_trimLines) {
         NSCharacterSet *cs = [NSCharacterSet whitespaceCharacterSet];
         NSArray *comps = [str componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
-        NSUInteger compCount = [comps count];
 
         BOOL isFirst = YES;
         BOOL isLast = NO;
         NSUInteger idx = 0;
-        NSUInteger lastIdx = compCount - 1;
+        NSUInteger lastIdx = [comps count] - 1;
         NSString *fmt = nil;
         
         for (NSString *comp in comps) {
