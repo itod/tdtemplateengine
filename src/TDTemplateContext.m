@@ -178,7 +178,6 @@
 
         BOOL isFirst = YES;
         BOOL isLast = NO;
-        BOOL writingNewline = NO;
         NSUInteger idx = 0;
         NSUInteger lastIdx = compCount - 1;
         NSString *fmt = nil;
@@ -191,14 +190,11 @@
             } else if (isFirst) {
                 comp = [comp td_stringByTrimmingTrailingCharactersInSet:cs];
                 fmt = @"%@\n";
-                writingNewline = YES;
             } else if (isLast) {
                 comp = [comp td_stringByTrimmingLeadingCharactersInSet:cs];
                 fmt = @"%@";
-                writingNewline = [comp hasSuffix:@"\n"];
             } else {
                 comp = [comp stringByTrimmingCharactersInSet:cs];
-                writingNewline = YES;
                 if ([comp length]) {
                     fmt = @"%@\n";
                 } else {
@@ -214,7 +210,7 @@
                     }
                 }
                 [_writer appendFormat:fmt, comp];
-                self.wroteNewline = writingNewline;
+                self.wroteNewline = [fmt hasSuffix:@"\n"] || [comp hasSuffix:@"\n"];
             }
             isFirst = NO;
         }
