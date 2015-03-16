@@ -68,10 +68,7 @@
 - (void)renderInContext:(TDTemplateContext *)ctx {
     NSParameterAssert(ctx);
 
-    TDTemplateContext *local = [[[TDTemplateContext alloc] initWithVariables:nil output:ctx.writer.output] autorelease];
-    local.trimLines = ctx.trimLines;
-    local.indentDepth = ctx.indentDepth;
-    local.enclosingScope = ctx;
+    TDTemplateContext *local = [[ctx copy] autorelease];
     
     [self doTagInContext:local];
 }

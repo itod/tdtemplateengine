@@ -24,7 +24,6 @@
 #import <TDTemplateEngine/TDWriter.h>
 
 @interface NSString (TDAdditions)
-
 - (NSString *)td_stringByTrimmingLeadingCharactersInSet:(NSCharacterSet *)set;
 - (NSString *)td_stringByTrimmingTrailingCharactersInSet:(NSCharacterSet *)set;
 @end
@@ -69,6 +68,7 @@
 @interface TDTemplateContext ()
 @property (nonatomic, retain) NSMutableDictionary *vars;
 @property (nonatomic, retain, readwrite) TDWriter *writer;
+@property (nonatomic, assign) BOOL wroteNewline;
 @end
 
 @implementation TDTemplateContext
@@ -101,6 +101,22 @@
 
 - (NSString *)description {
     return [NSString stringWithFormat:@"<%@ %p global: %d, %@>", [self class], self, nil == self.enclosingScope, self.vars];
+}
+
+
+#pragma mark -
+#pragma mark NSCopying
+
+- (instancetype)copyWithZone:(NSZone *)zone {
+    TDTemplateContext *ctx = [[TDTemplateContext alloc] initWithVariables:nil output:_writer.output];
+    ctx.trimLines = _trimLines;
+    ctx.indentDepth = _indentDepth;
+    ctx.enclosingScope = self;
+    ctx.wroteNewline = _wroteNewline;
+    
+    self.wroteNewline = YES;
+    
+    return ctx;
 }
 
 
@@ -158,11 +174,12 @@
     if (_trimLines) {
         NSCharacterSet *cs = [NSCharacterSet whitespaceCharacterSet];
         NSArray *comps = [str componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+        NSUInteger compCount = [comps count];
 
         BOOL isFirst = YES;
         BOOL isLast = NO;
         NSUInteger idx = 0;
-        NSUInteger lastIdx = [comps count] - 1;
+        NSUInteger lastIdx = compCount - 1;
         NSString *fmt = nil;
         
         for (NSString *comp in comps) {
@@ -187,12 +204,13 @@
             }
             
             if ([comp length]) {
-                if (!isFirst) {
+                if (_wroteNewline) {
                     for (NSUInteger depth = 0; depth < _indentDepth; ++depth) {
                         [_writer appendString:@"    "];
                     }
                 }
                 [_writer appendFormat:fmt, comp];
+                self.wroteNewline = [fmt hasSuffix:@"\n"] || [comp hasSuffix:@"\n"];
             }
             isFirst = NO;
         }

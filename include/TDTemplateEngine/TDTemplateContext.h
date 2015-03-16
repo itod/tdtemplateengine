@@ -24,7 +24,7 @@
 
 @class TDWriter;
 
-@interface TDTemplateContext : NSObject
+@interface TDTemplateContext : NSObject <NSCopying>
 
 - (instancetype)initWithVariables:(NSDictionary *)vars output:(NSOutputStream *)output;
 
