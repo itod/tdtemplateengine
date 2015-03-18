@@ -106,10 +106,12 @@ block_end_tag
     = 'block_end_tag' {
     PKToken *tok = POP();
     NSString *tagName = [tok.stringValue substringFromIndex:[TDTemplateEngineTagEndPrefix length]];
-    while (![_currentParent.tagName isEqualToString:tagName])
+    while (_currentParent && ![_currentParent.tagName isEqualToString:tagName])
         self.currentParent = POP();
 
-    ASSERT([_currentParent.tagName isEqualToString:tagName]);
+    if (!_currentParent || ![_currentParent.tagName isEqualToString:tagName]) {
+        [self raise:[NSString stringWithFormat:@"Could not find block start tag named: `%@`", tagName]];
+    }
     ASSERT([_currentParent isKindOfClass:[TDTag class]]);
     TDTag *startNode = (id)_currentParent;
     startNode.endTagToken = tok;
