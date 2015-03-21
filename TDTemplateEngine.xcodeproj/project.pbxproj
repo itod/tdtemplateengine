@@ -110,6 +110,7 @@
 		D3B9830318F080BE00EEFE99 /* TDBooleanExpressionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B9830218F080BE00EEFE99 /* TDBooleanExpressionTests.m */; };
 		D3BB32E418F76116005E0A3A /* PKToken+Verbatim.h in Headers */ = {isa = PBXBuildFile; fileRef = D3BB32E218F76116005E0A3A /* PKToken+Verbatim.h */; };
 		D3BB32E518F76116005E0A3A /* PKToken+Verbatim.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BB32E318F76116005E0A3A /* PKToken+Verbatim.m */; };
+		D3C7358F1ABDAB5F00FA0B15 /* TDTrimTagTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D319139618F2EF7000430BAD /* TDTrimTagTests.m */; };
 		D3CAF8AB18EDF27F00166A95 /* TDCollectionExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3CAF8A918EDF27F00166A95 /* TDCollectionExpression.h */; };
 		D3CAF8AC18EDF27F00166A95 /* TDCollectionExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D3CAF8AA18EDF27F00166A95 /* TDCollectionExpression.m */; };
 		D3CAF8AF18EDF39200166A95 /* TDLoopExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3CAF8AD18EDF39200166A95 /* TDLoopExpression.h */; };
@@ -798,6 +799,7 @@
 				D3E95F141AB08FC900D19992 /* TDVerbatimTagTests.m in Sources */,
 				D3A29E3518E7700500DC591E /* TDEqualityExpressionTests.m in Sources */,
 				D3B9830318F080BE00EEFE99 /* TDBooleanExpressionTests.m in Sources */,
+				D3C7358F1ABDAB5F00FA0B15 /* TDTrimTagTests.m in Sources */,
 				D3CAF8B718EF3C9100166A95 /* TDRangeExpressionTests.m in Sources */,
 				D33915DE18F0818500BDA4FD /* TDArithmeticExpressionTests.m in Sources */,
 				D3CAF8B518EF3B5C00166A95 /* TDCollectionExpressionTests.m in Sources */,

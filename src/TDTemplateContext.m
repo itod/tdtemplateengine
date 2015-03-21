@@ -23,6 +23,10 @@
 #import <TDTemplateEngine/TDTemplateContext.h>
 #import <TDTemplateEngine/TDWriter.h>
 
+static NSCharacterSet *sSpaceSet = nil;
+static NSCharacterSet *sNewlineSet = nil;
+static NSCharacterSet *sNonSpaceOrNewlineSet = nil;
+
 @interface NSString (TDAdditions)
 - (NSString *)td_stringByTrimmingLeadingCharactersInSet:(NSCharacterSet *)set;
 - (NSString *)td_stringByTrimmingTrailingCharactersInSet:(NSCharacterSet *)set;
@@ -69,9 +73,19 @@
 @property (nonatomic, retain) NSMutableDictionary *vars;
 @property (nonatomic, retain, readwrite) TDWriter *writer;
 @property (nonatomic, assign) BOOL wroteNewline;
+@property (nonatomic, assign) BOOL wroteChars;
 @end
 
 @implementation TDTemplateContext
+
++ (void)initialize {
+    if (self == [TDTemplateContext class]) {
+        sSpaceSet = [[NSCharacterSet whitespaceCharacterSet] retain];
+        sNewlineSet = [[NSCharacterSet newlineCharacterSet] retain];
+        sNonSpaceOrNewlineSet = [[[NSCharacterSet whitespaceAndNewlineCharacterSet] invertedSet] retain];
+    }
+}
+
 
 - (instancetype)init {
     self = [self initWithVariables:nil output:nil];
@@ -113,9 +127,7 @@
     ctx.indentDepth = _indentDepth;
     ctx.enclosingScope = self;
     ctx.wroteNewline = _wroteNewline;
-    
-    self.wroteNewline = YES;
-    
+    ctx.wroteChars = _wroteChars;
     return ctx;
 }
 
@@ -172,8 +184,18 @@
     TDAssert(_writer);
 
     if (_trimLines) {
-        NSCharacterSet *cs = [NSCharacterSet whitespaceCharacterSet];
-        NSArray *comps = [str componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+        NSArray *comps = [str componentsSeparatedByCharactersInSet:sNewlineSet];
+        
+        if (_wroteChars) {
+            BOOL isAllSpacesOrNewlines = 0 == [str rangeOfCharacterFromSet:sNonSpaceOrNewlineSet].length;
+            if (isAllSpacesOrNewlines) {
+                for (NSUInteger i = 0; i < [comps count]-1; ++i) {
+                    [_writer appendString:@"\n"];
+                }
+                self.wroteNewline = YES;
+                return;
+            }
+        }
 
         BOOL isFirst = YES;
         BOOL isLast = NO;
@@ -187,13 +209,13 @@
             if (isFirst && isLast) {
                 fmt = @"%@";
             } else if (isFirst) {
-                comp = [comp td_stringByTrimmingTrailingCharactersInSet:cs];
+                comp = [comp td_stringByTrimmingTrailingCharactersInSet:sSpaceSet];
                 fmt = @"%@\n";
             } else if (isLast) {
-                comp = [comp td_stringByTrimmingLeadingCharactersInSet:cs];
+                comp = [comp td_stringByTrimmingLeadingCharactersInSet:sSpaceSet];
                 fmt = @"%@";
             } else {
-                comp = [comp stringByTrimmingCharactersInSet:cs];
+                comp = [comp stringByTrimmingCharactersInSet:sSpaceSet];
                 if ([comp length]) {
                     fmt = @"%@\n";
                 } else {
@@ -210,12 +232,24 @@
                 }
                 [_writer appendFormat:fmt, comp];
                 self.wroteNewline = [fmt hasSuffix:@"\n"] || [comp hasSuffix:@"\n"];
+                self.wroteChars = !_wroteNewline;
             }
             isFirst = NO;
         }
     } else {
         [_writer appendString:str];
     }
+}
+
+
+- (NSArray *)iterations:(NSUInteger)count of:(NSString *)str {
+    TDAssert(str);
+    NSMutableArray *vec = [NSMutableArray arrayWithCapacity:count];
+    while (count > 0) {
+        [vec addObject:str];
+        --count;
+    }
+    return vec;
 }
 
 @end
