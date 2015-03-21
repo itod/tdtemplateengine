@@ -186,16 +186,16 @@ static NSCharacterSet *sNonSpaceOrNewlineSet = nil;
     if (_trimLines) {
         NSArray *comps = [str componentsSeparatedByCharactersInSet:sNewlineSet];
         
-        if (_wroteChars) {
-            BOOL isAllSpacesOrNewlines = 0 == [str rangeOfCharacterFromSet:sNonSpaceOrNewlineSet].length;
-            if (isAllSpacesOrNewlines) {
-                for (NSUInteger i = 0; i < [comps count]-1; ++i) {
-                    [_writer appendString:@"\n"];
-                }
-                self.wroteNewline = YES;
-                return;
-            }
-        }
+//        if (_wroteChars) {
+//            BOOL isAllSpacesOrNewlines = 0 == [str rangeOfCharacterFromSet:sNonSpaceOrNewlineSet].length;
+//            if (isAllSpacesOrNewlines) {
+//                for (NSUInteger i = 0; i < [comps count]-1; ++i) {
+//                    [_writer appendString:@"\n"];
+//                }
+//                self.wroteNewline = YES;
+//                return;
+//            }
+//        }
 
         BOOL isFirst = YES;
         BOOL isLast = NO;
