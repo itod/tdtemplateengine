@@ -127,6 +127,24 @@
     TDEqualObjects(@"bar\n\nbar\n", res);
 }
 
+- (void)testTrimNestedVarsSpace2Lines {
+    NSString *input =
+    @"{% trim %}\n"
+    @"  {{foo}}\n"
+    @"  \n"
+    @"  \n"
+    @"  {{foo}}\n"
+    @"{% /trim %}";
+    id vars = @{@"foo": @"bar"};
+    
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"bar\n\n\nbar\n", res);
+}
+
 - (void)testTrimNestedVarSpacesSemi {
     NSString *input =
     @"{% trim %}\n"

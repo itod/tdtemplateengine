@@ -25,7 +25,6 @@
 
 static NSCharacterSet *sSpaceSet = nil;
 static NSCharacterSet *sNewlineSet = nil;
-static NSCharacterSet *sNonSpaceOrNewlineSet = nil;
 
 @interface NSString (TDAdditions)
 - (NSString *)td_stringByTrimmingLeadingCharactersInSet:(NSCharacterSet *)set;
@@ -82,7 +81,6 @@ static NSCharacterSet *sNonSpaceOrNewlineSet = nil;
     if (self == [TDTemplateContext class]) {
         sSpaceSet = [[NSCharacterSet whitespaceCharacterSet] retain];
         sNewlineSet = [[NSCharacterSet newlineCharacterSet] retain];
-        sNonSpaceOrNewlineSet = [[[NSCharacterSet whitespaceAndNewlineCharacterSet] invertedSet] retain];
     }
 }
 
@@ -186,17 +184,6 @@ static NSCharacterSet *sNonSpaceOrNewlineSet = nil;
     if (_trimLines) {
         NSArray *comps = [str componentsSeparatedByCharactersInSet:sNewlineSet];
         
-//        if (_wroteChars) {
-//            BOOL isAllSpacesOrNewlines = 0 == [str rangeOfCharacterFromSet:sNonSpaceOrNewlineSet].length;
-//            if (isAllSpacesOrNewlines) {
-//                for (NSUInteger i = 0; i < [comps count]-1; ++i) {
-//                    [_writer appendString:@"\n"];
-//                }
-//                self.wroteNewline = YES;
-//                return;
-//            }
-//        }
-
         BOOL isFirst = YES;
         BOOL isLast = NO;
         NSUInteger idx = 0;
@@ -207,6 +194,9 @@ static NSCharacterSet *sNonSpaceOrNewlineSet = nil;
             isLast = lastIdx == idx++;
             
             if (isFirst && isLast) {
+                fmt = @"%@";
+            } else if (isFirst && _wroteChars && ![comp length]) {
+                comp = @"\n";
                 fmt = @"%@";
             } else if (isFirst) {
                 comp = [comp td_stringByTrimmingTrailingCharactersInSet:sSpaceSet];
