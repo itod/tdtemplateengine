@@ -15,6 +15,7 @@
 #import <TDTemplateEngine/TDBooleanValue.h>
 #import <TDTemplateEngine/TDNumericValue.h>
 #import <TDTemplateEngine/TDStringValue.h>
+#import <TDTemplateEngine/TDUnaryExpression.h>
 #import <TDTemplateEngine/TDNegationExpression.h>
 #import <TDTemplateEngine/TDBooleanExpression.h>
 #import <TDTemplateEngine/TDRelationalExpression.h>
@@ -183,9 +184,8 @@ signedFilterExpr
     _negative = NO; 
 }
 @after {
-    double d = POP_DOUBLE();
-    d = (_negative) ? -d : d;
-    PUSH([TDNumericValue numericValueWithNumber:d]);
+    if (_negation)
+		PUSH([TDUnaryExpression unaryExpressionWithExpression:POP()]);
 }
     = ('-'! { _negative = !_negative; })+ filterExpr;
 	

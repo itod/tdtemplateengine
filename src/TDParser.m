@@ -5,6 +5,7 @@
 #import <TDTemplateEngine/TDBooleanValue.h>
 #import <TDTemplateEngine/TDNumericValue.h>
 #import <TDTemplateEngine/TDStringValue.h>
+#import <TDTemplateEngine/TDUnaryExpression.h>
 #import <TDTemplateEngine/TDNegationExpression.h>
 #import <TDTemplateEngine/TDBooleanExpression.h>
 #import <TDTemplateEngine/TDRelationalExpression.h>
@@ -616,9 +617,8 @@
     [self filterExpr_]; 
     [self execute:^{
     
-    double d = POP_DOUBLE();
-    d = (_negative) ? -d : d;
-    PUSH([TDNumericValue numericValueWithNumber:d]);
+    if (_negative)
+		PUSH([TDUnaryExpression unaryExpressionWithExpression:POP()]);
 
     }];
 
