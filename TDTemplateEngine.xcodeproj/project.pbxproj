@@ -123,6 +123,10 @@
 		D3CAF8BA18EF577100166A95 /* TDNegationExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3CAF8B818EF577000166A95 /* TDNegationExpression.h */; };
 		D3CAF8BB18EF577100166A95 /* TDNegationExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D3CAF8B918EF577100166A95 /* TDNegationExpression.m */; };
 		D3CAF8BE18EF5A0000166A95 /* TDNegationExpressionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3CAF8BC18EF59EB00166A95 /* TDNegationExpressionTests.m */; };
+		D3D0F6F91ACB4417006B6112 /* TDContinueTag.h in Headers */ = {isa = PBXBuildFile; fileRef = D3D0F6F71ACB4417006B6112 /* TDContinueTag.h */; };
+		D3D0F6FA1ACB4417006B6112 /* TDContinueTag.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D0F6F81ACB4417006B6112 /* TDContinueTag.m */; };
+		D3D0F6FD1ACB4566006B6112 /* TDContinueException.h in Headers */ = {isa = PBXBuildFile; fileRef = D3D0F6FB1ACB4566006B6112 /* TDContinueException.h */; };
+		D3D0F6FE1ACB4566006B6112 /* TDContinueException.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D0F6FC1ACB4566006B6112 /* TDContinueException.m */; };
 		D3E95F111AB08E6300D19992 /* TDTrimTag.h in Headers */ = {isa = PBXBuildFile; fileRef = D3E95F0F1AB08E6300D19992 /* TDTrimTag.h */; };
 		D3E95F121AB08E6300D19992 /* TDTrimTag.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E95F101AB08E6300D19992 /* TDTrimTag.m */; };
 		D3E95F141AB08FC900D19992 /* TDVerbatimTagTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E95F131AB08FC900D19992 /* TDVerbatimTagTests.m */; };
@@ -276,6 +280,10 @@
 		D3CAF8B818EF577000166A95 /* TDNegationExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDNegationExpression.h; path = src/TDNegationExpression.h; sourceTree = SOURCE_ROOT; };
 		D3CAF8B918EF577100166A95 /* TDNegationExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDNegationExpression.m; path = src/TDNegationExpression.m; sourceTree = SOURCE_ROOT; };
 		D3CAF8BC18EF59EB00166A95 /* TDNegationExpressionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDNegationExpressionTests.m; path = test/TDNegationExpressionTests.m; sourceTree = SOURCE_ROOT; };
+		D3D0F6F71ACB4417006B6112 /* TDContinueTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDContinueTag.h; path = src/TDContinueTag.h; sourceTree = SOURCE_ROOT; };
+		D3D0F6F81ACB4417006B6112 /* TDContinueTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDContinueTag.m; path = src/TDContinueTag.m; sourceTree = SOURCE_ROOT; };
+		D3D0F6FB1ACB4566006B6112 /* TDContinueException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDContinueException.h; path = src/TDContinueException.h; sourceTree = SOURCE_ROOT; };
+		D3D0F6FC1ACB4566006B6112 /* TDContinueException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDContinueException.m; path = src/TDContinueException.m; sourceTree = SOURCE_ROOT; };
 		D3E95F0F1AB08E6300D19992 /* TDTrimTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDTrimTag.h; path = src/TDTrimTag.h; sourceTree = SOURCE_ROOT; };
 		D3E95F101AB08E6300D19992 /* TDTrimTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDTrimTag.m; path = src/TDTrimTag.m; sourceTree = SOURCE_ROOT; };
 		D3E95F131AB08FC900D19992 /* TDVerbatimTagTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDVerbatimTagTests.m; path = test/TDVerbatimTagTests.m; sourceTree = SOURCE_ROOT; };
@@ -492,6 +500,10 @@
 				D3A29DD518E63D4F00DC591E /* TDForTag.m */,
 				D369BD4018EF7F6A003E715B /* TDForLoop.h */,
 				D369BD4118EF7F6A003E715B /* TDForLoop.m */,
+				D3D0F6F71ACB4417006B6112 /* TDContinueTag.h */,
+				D3D0F6F81ACB4417006B6112 /* TDContinueTag.m */,
+				D3D0F6FB1ACB4566006B6112 /* TDContinueException.h */,
+				D3D0F6FC1ACB4566006B6112 /* TDContinueException.m */,
 				D3A7E27118F07782009BFD96 /* TDCommentTag.h */,
 				D3A7E27218F07782009BFD96 /* TDCommentTag.m */,
 				D319139218F2ED3300430BAD /* TDVerbatimTag.h */,
@@ -600,6 +612,7 @@
 				D3A29DFF18E6584D00DC591E /* TDBooleanValue.h in Headers */,
 				D3CAF8BA18EF577100166A95 /* TDNegationExpression.h in Headers */,
 				D3BB32E418F76116005E0A3A /* PKToken+Verbatim.h in Headers */,
+				D3D0F6FD1ACB4566006B6112 /* TDContinueException.h in Headers */,
 				D319139418F2ED3300430BAD /* TDVerbatimTag.h in Headers */,
 				D3A29E0618E6584D00DC591E /* TDValue.h in Headers */,
 				D3CAF8AB18EDF27F00166A95 /* TDCollectionExpression.h in Headers */,
@@ -615,6 +628,7 @@
 				D3A29DAA18E609E700DC591E /* TDNode.h in Headers */,
 				D3E95F2D1AB0D29D00D19992 /* TDTabTag.h in Headers */,
 				D3A29DD618E63D4F00DC591E /* TDForTag.h in Headers */,
+				D3D0F6F91ACB4417006B6112 /* TDContinueTag.h in Headers */,
 				D3A21F441AC9E85F0009A712 /* TDUnaryExpression.h in Headers */,
 				D3A29DB618E60E4500DC591E /* TDPrintNode.h in Headers */,
 				D35E00381AB6189A00096913 /* TDNumberFormatFilter.h in Headers */,
@@ -767,6 +781,7 @@
 				D33915EE18F0A0C500BDA4FD /* TDElseIfTag.m in Sources */,
 				D3A29E0018E6584D00DC591E /* TDBooleanValue.m in Sources */,
 				D3CAF8AC18EDF27F00166A95 /* TDCollectionExpression.m in Sources */,
+				D3D0F6FA1ACB4417006B6112 /* TDContinueTag.m in Sources */,
 				D37BC6B618F4415200938644 /* TDDateFormatFilter.m in Sources */,
 				D3AC68501A41D43400F7EB6A /* TDReplaceFilter.m in Sources */,
 				D319138018F1A4AA00430BAD /* TDFilterExpression.m in Sources */,
@@ -796,6 +811,7 @@
 				D3E95F2E1AB0D29D00D19992 /* TDTabTag.m in Sources */,
 				D3E95F351AB1017D00D19992 /* TDIndentTag.m in Sources */,
 				D3A7E27418F07782009BFD96 /* TDCommentTag.m in Sources */,
+				D3D0F6FE1ACB4566006B6112 /* TDContinueException.m in Sources */,
 				D319138C18F1AC4500430BAD /* TDLowercaseFilter.m in Sources */,
 				D319138418F1A58A00430BAD /* TDCapitalizeFilter.m in Sources */,
 				D3E95F181AB094DF00D19992 /* TDNewlineTag.m in Sources */,

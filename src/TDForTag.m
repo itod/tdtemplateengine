@@ -26,6 +26,7 @@
 
 #import "TDLoopExpression.h"
 #import "TDEnumeration.h"
+#import "TDContinueException.h"
 
 @interface TDForTag ()
 @property (nonatomic, retain) TDForLoop *currentLoop;
@@ -65,11 +66,18 @@
     
     while ([expr evaluateInContext:ctx]) {
         _currentLoop.last = ![expr.enumeration hasMore];
+
         //NSLog(@"rendering body of %@", self);
-        [self renderChildrenInContext:ctx];
-        
-        _currentLoop.currentIndex++;
-        _currentLoop.first = NO;
+        @try {
+            [self renderChildrenInContext:ctx];
+        }
+        @catch (TDContinueException *ex) {
+            continue;
+        }
+        @finally {
+            _currentLoop.currentIndex++;
+            _currentLoop.first = NO;
+        }
     }
 
     [self tearDownForLoop:ctx];

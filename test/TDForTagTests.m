@@ -190,4 +190,56 @@
     TDEqualObjects(@"70,68,66,64,62,60", res);
 }
 
+- (void)testContinue {
+    NSString *input =  @"{% for i in 1 to 3 %}"
+    @"{% continue %}{{i}}{% if not currentLoop.last %},{% /if %}"
+    @"{% /for %}";
+    id vars = nil;
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"", res);
+}
+
+- (void)testContinueIeq1 {
+    NSString *input =  @"{% for i in 1 to 3 %}"
+                            @"{% continue i == 1 %}{{i}}{% if not currentLoop.last %},{% /if %}"
+                        @"{% /for %}";
+    id vars = nil;
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"2,3", res);
+}
+
+- (void)testContinueIeq2 {
+    NSString *input =  @"{% for i in 1 to 3 %}"
+                            @"{% continue i == 2 %}{{i}}{% if not currentLoop.last %},{% /if %}"
+                        @"{% /for %}";
+    id vars = nil;
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"1,3", res);
+}
+
+- (void)testContinueIeq3 {
+    NSString *input =  @"{% for i in 1 to 3 %}"
+                            @"{% continue i == 3 %}{{i}}{% if not currentLoop.last %},{% /if %}"
+                        @"{% /for %}";
+    id vars = nil;
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"1,2,", res);
+}
+
 @end

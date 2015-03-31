@@ -21,11 +21,6 @@
 // THE SOFTWARE.
 
 #import "TDElseIfTag.h"
-#import "TDIfTag.h"
-#import "TDElseTag.h"
-
-#import <TDTemplateEngine/TDTemplateContext.h>
-#import <TDTemplateEngine/TDExpression.h>
 
 @implementation TDElseIfTag
 
