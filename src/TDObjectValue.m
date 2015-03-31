@@ -59,13 +59,13 @@
 
 
 - (NSString *)stringValue {
-    NSString *str = nil;
+    NSString *str = @"";
     if ([_value isKindOfClass:[NSString class]]) {
         str = _value;
+    } else if (([_value isKindOfClass:[NSArray class]] || [_value isKindOfClass:[NSDictionary class]] || [_value isKindOfClass:[NSSet class]]) && 0 == [_value count]) {
+        str = @"";
     } else if ([_value respondsToSelector:@selector(stringValue)]) {
         str = [_value stringValue];
-    } else if ([_value respondsToSelector:@selector(count)] && 0 == [_value count]) {
-        str = @"";
     } else {
         str = [_value description];
     }
@@ -77,8 +77,6 @@
     double d = 0.0;
     if ([_value respondsToSelector:@selector(doubleValue)]) {
         d = [_value doubleValue];
-    } else if ([_value respondsToSelector:@selector(count)]) {
-        d = [_value count];
     } else {
         d = TDNumberFromString([self stringValue]);
     }
