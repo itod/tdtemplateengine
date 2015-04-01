@@ -113,13 +113,41 @@ and `NSDictionary` (note the convenient unpacking of *both key and value*):
         {{key}}:{{val}}
     {% /for %}
 
+####Continue Tag
+
+**Continue Tags** can be used to skip the remainder of the current iteration of a For Tag loop. 
+
+Continue Tags are are similar to the `continue` statement in most C-inspired languages (like JavaScript, Java, C++, ObjC, etc) with one important enhancement.
+
+Continue Tags may contain an optional boolean expression. If the expression evaluates true, the Continue Tag is respected, and the remainder of the current For Tag iteration is skipped. However, if the expression evaluates false, the continue tag is otherwise ignored, and the current iteration of the For Tag carries on as normal.
+
+The expression within the Continue Tag is essentially a syntactical short cut. The two following forms are semantically equivalent, but the second is more convenient:
+
+    {% for i in 1 to 3 %}
+        {% if i == 2 %}
+            {% continue %}
+        {% /if %}
+        {{i}}
+    {% /if %}
+
+    {% for i in 1 to 3 %}
+        {% continue i == 2 %}
+        {{i}}
+    {% /if %}
+
+Both examples produce the following output:
+
+    13
+
+If no expression is present in the Continue Tag, it is always respected, and the current iteration of the For Tag is always skipped.
+
 ####Tag Extensibility
 
 You can implement your own custom Tags by subclassing `TDTag` and overriding `-[TDTag doTagInContext:]`.
 
 ###Template Expression Language
 
-TODO
+As you have seen in the examples above, many tags may contain simple expressions which should be familiar to anyone with experience using JavaScript.
 
 ###Objective-C API Usage
 
