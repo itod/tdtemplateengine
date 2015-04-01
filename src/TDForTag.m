@@ -26,7 +26,7 @@
 
 #import "TDLoopExpression.h"
 #import "TDEnumeration.h"
-#import "TDContinueException.h"
+#import "TDSkipException.h"
 
 @interface TDForTag ()
 @property (nonatomic, retain) TDForLoop *currentLoop;
@@ -71,7 +71,7 @@
         @try {
             [self renderChildrenInContext:ctx];
         }
-        @catch (TDContinueException *ex) {
+        @catch (TDSkipException *ex) {
             continue;
         }
         @finally {

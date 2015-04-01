@@ -20,34 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "TDContinueTag.h"
-#import "TDContinueException.h"
-#import <TDTemplateEngine/TDExpression.h>
+#import "TDSkipException.h"
 
-@implementation TDContinueTag
-
-+ (NSString *)tagName {
-    return @"continue";
-}
-
-
-+ (TDTagType)tagType {
-    return TDTagTypeEmpty;
-}
-
-
-- (void)doTagInContext:(TDTemplateContext *)ctx {
-    TDAssert(ctx);
-
-    BOOL test = YES;
-    
-    if (self.expression) {
-        test = [self.expression evaluateAsBooleanInContext:ctx];
-    }
-
-    if (test) {
-        [TDContinueException raise:@"TDContinueException" format:nil];
-    }
-}
+@implementation TDSkipException
 
 @end

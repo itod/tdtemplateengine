@@ -20,8 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "TDContinueException.h"
+#import <TDTemplateEngine/TDTag.h>
 
-@implementation TDContinueException
+@interface TDSkipTag : TDTag
 
 @end

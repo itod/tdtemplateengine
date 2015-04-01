@@ -20,8 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <TDTemplateEngine/TDTag.h>
+#import <Foundation/Foundation.h>
 
-@interface TDContinueTag : TDTag
+@interface TDSkipException : NSException
 
 @end

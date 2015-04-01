@@ -119,25 +119,25 @@ and `NSDictionary` (note the convenient unpacking of *both key and value*):
         {{key}}:{{val}}
     {% /for %}
 
-####Continue Tag
+####Skip Tag
 
-**Continue Tags** can be used to skip the remainder of the current iteration of a For Tag loop. 
+**Skip Tags** can be used to skip the remainder of the current iteration of a For Tag loop. 
 
-Continue Tags are are similar to the `continue` statement in most C-inspired languages (like JavaScript, Java, C++, ObjC, etc) with one important enhancement.
+Skip Tags are are similar to the `continue` statement in most C-inspired languages (like JavaScript, Java, C++, ObjC, etc) with one important enhancement.
 
-Continue Tags may contain an optional boolean expression. If the expression evaluates true, the Continue Tag is respected, and the remainder of the current For Tag iteration is skipped. However, if the expression evaluates false, the continue tag is otherwise ignored, and the current iteration of the For Tag carries on as normal.
+Skip Tags may contain an optional boolean expression. If the expression evaluates true, the Skip Tag is respected, and the remainder of the current iteration of the enclosing For Tag is skipped. However, if the expression evaluates false, the skip tag is ignored, and the current iteration of the For Tag carries on as normal.
 
-The expression within the Continue Tag is essentially a syntactical short cut. The two following forms are semantically equivalent, but the second is more convenient:
+The expression within the Skip Tag is essentially a syntactical shortcut. The two following forms are semantically equivalent, but the second is more convenient:
 
     {% for i in 1 to 3 %}
         {% if i == 2 %}
-            {% continue %}
+            {% skip %}
         {% /if %}
         {{i}}
     {% /if %}
 
     {% for i in 1 to 3 %}
-        {% continue i == 2 %}
+        {% skip i == 2 %}
         {{i}}
     {% /if %}
 
@@ -145,7 +145,7 @@ Both examples produce the following output:
 
     13
 
-If no expression is present in the Continue Tag, it is always respected, and the current iteration of the For Tag is always skipped.
+If no expression is present in the Skip Tag, it is always respected, and the current iteration of the enclosing For Tag is always skipped.
 
 ####Trim and Indent Tags
 
