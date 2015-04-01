@@ -155,6 +155,90 @@ You can implement your own custom Tags by subclassing `TDTag` and overriding `-[
 
 As you have seen in the examples above, many tags may contain simple expressions which should be familiar to anyone with experience using JavaScript.
 
+####Logical Expressions
+
+Logical **And** **Or** and **Not** may be expressed using either the familiar JavaScript operators (`&&`, `||`, `!`), or their english equivalents:
+
+    a && b 
+
+    a and b
+
+    a || b
+
+    a or b
+
+    !a
+
+    not a
+
+####Equality Expressions
+
+Variable equality and inequality may be tested using either the familiar JavaScript operators (`==`, `!=`), or their equivalents (`eq`, `ne`):
+
+    a == b 
+
+    a eq b
+
+    a != b
+
+    a ne b
+
+Note that `a = b` is a syntax error, as assignments are not allowed in the expression language, and the correct equality operator is `==`, not `=`.
+
+####Comparison Expressions
+
+Variables may be compared using either the familiar JavaScript operators (`<`, `<=`, `>`, `>=`), or their equivalents (`lt`, `le`, `gt`, `ge`):
+
+    a < b 
+
+    a lt b
+
+    a <= b 
+
+    a le b
+
+    a > b
+
+    a gt b
+
+    a >= b
+
+    a ge b
+
+####Arithmetic Expressions
+
+Arithmetic may be performed using either the familiar JavaScript operators:
+
+    a + b
+
+    a - b
+
+    a * b
+
+    a / b
+
+The modulo operator for finding the remainder after division of one number by another is supported:
+
+    a % b
+
+And explicity negative numbers are supported:
+
+    -a
+
+####Path Expressions
+
+Properties of objects may be reached using a chain of property references called a Path Expression:
+
+    person.address.zipCode
+
+####Sub Expressions
+
+Any expression may be wrapped in parentheses for clarity or to alter the order of operations.
+
+    (a + b) / c
+
+    ((a or b) and (c or d))
+
 ###Objective-C API Usage
 
 Create a `TDTemplateEngine` object and render a template in two distinct phases: (compile and render) to an `NSOutputStream`:
