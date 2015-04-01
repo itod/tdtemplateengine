@@ -231,6 +231,36 @@ Properties of objects may be reached using a chain of property references called
 
     person.address.zipCode
 
+####Boolean Literals
+
+Boolean literals are available matching the JavaScript and Objective-C languages:
+
+    true
+
+    false
+
+    YES
+
+    NO
+
+####Number Literals
+
+Number literals may appear either as integers or as floating point numbers with an optional exponent:
+
+    42
+
+    3.14
+
+    16.162e10−36
+
+####String Literals
+
+String literals may be wrapped in either single or double quotes:
+
+    "I'm surrounded by assholes."
+
+    'Evil will always triumph, because Good is dumb.'
+
 ####Sub Expressions
 
 Any expression may be wrapped in parentheses for clarity or to alter the order of operations.
