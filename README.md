@@ -42,13 +42,10 @@ TDTemplateEngine also uses `NSOutputStream` for output, rather than only offerin
 The downside of streaming output is that the simple *render-to-in-memory-string* use case is slightly more complex (but only slightly).
 
 ###Template Syntax
-===
 
 TDTemplateEngine template syntax is very similar to MGTemplateEngine and Django. Tag delimiters like `{{` `}}` and `{%` `%}` are easily configurable.
 
 ####Print Tag
-
-===
 
 **Print Tags** print the value an expression to the text output:
 
@@ -62,7 +59,13 @@ Builtin **Filters** are available:
 
      {{'Hello World!'|replace:'hello', 'Goodbye Cruel', 'i'}}"
 
-     {{'now'|dateFormat:'EEE, MMM d, yy'}}
+     {{degrees|round}}
+
+     {{degrees|fmt:'%0.1f'}}
+
+     {{degrees|ceil|fmt:'%0.1f'}}
+
+     {{'now'|fmtDate:'EEE, MMM d, yy'}}
 
 ####Filter Extensibility
 
