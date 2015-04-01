@@ -147,6 +147,40 @@ Both examples produce the following output:
 
 If no expression is present in the Continue Tag, it is always respected, and the current iteration of the For Tag is always skipped.
 
+####Trim and Indent Tags
+
+As with any templating mechanism, whitespace handling is often a significant concern. TDTemplateEngine includes two optional tags that can be used to simplify whitespace handling.
+
+The **Trim Tag** is a block tag that trims both the leading and trailing whitespace from any lines contained within their body content.
+
+Also, any lines inside the Trim Tag bodies containg only other Tags are removed from the output entirely.
+
+So the following:
+
+    {% trim %}
+        {% if true %}
+                                Make it so.
+        {% /if %}
+    {% /trim %}
+
+Produces a single line with all leading and trailing whitespace trimed:
+
+    Make it so.
+
+Indentation withing Trim Tags may be controlled with nested **Indent Tags**. The following:
+
+    {% trim %}
+        {% if true %}
+            {% indent %}
+                Make it so.
+            {% /indent %}
+        {% /if %}
+    {% /trim %}
+
+Produces a single line indented by 4 spaces:
+
+        Make it so.
+
 ####Tag Extensibility
 
 You can implement your own custom Tags by subclassing `TDTag` and overriding `-[TDTag doTagInContext:]`.
