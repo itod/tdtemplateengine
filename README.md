@@ -153,7 +153,7 @@ As with any templating mechanism, whitespace handling is often a significant con
 
 The **Trim Tag** is a block tag that trims both the leading and trailing whitespace from any lines contained within their body content.
 
-Also, any lines inside the Trim Tag bodies containg only other Tags are removed from the output entirely.
+Also, any lines inside the Trim Tag bodies containg only other Tags are removed from the output entirely. All empty lines are preserved in the output (but their leading and trailing whitespace is trimmed).
 
 So the following:
 
