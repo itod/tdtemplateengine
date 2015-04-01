@@ -1,5 +1,5 @@
 TDTemplateEngine
-================
+===
 
 ###A multi-pass, streaming template engine implemented in Cocoa, for use in Cocoa. 
 
@@ -42,10 +42,13 @@ TDTemplateEngine also uses `NSOutputStream` for output, rather than only offerin
 The downside of streaming output is that the simple *render-to-in-memory-string* use case is slightly more complex (but only slightly).
 
 ###Template Syntax
+===
 
 TDTemplateEngine template syntax is very similar to MGTemplateEngine and Django. Tag delimiters like `{{` `}}` and `{%` `%}` are easily configurable.
 
 ####Print Tag
+
+===
 
 **Print Tags** print the value an expression to the text output:
 
