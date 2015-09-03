@@ -49,13 +49,13 @@ TDTemplateEngine template syntax is very similar to MGTemplateEngine and Django.
 
 **Print Tags** print the value an expression to the text output:
 
-```django
+```htmldjango
 My name is {{name}}.
 ```
 
 Builtin **Filters** are available:
 
-```django
+```htmldjango
 My name is {{firstName|capitalize}} {{lastName|capitalize}}, and I'm a {{profession|lowercase}}.
 
 Mah kitteh sez "{{lolSpeak|trim|uppercase}}".
@@ -79,7 +79,7 @@ You can define your own Filters in ObjC by subclassing `TDFilter` and overriding
 
 **If Tags** offer conditional rendering based on input variables at render time:
 
-```django
+```htmldjango
 {% if testVal <= expectedMax || force %}
     Text 1.
 {% elif shortCircuit or ('foo' == bar and 'baz' != bat) %}
@@ -95,7 +95,7 @@ You can define your own Filters in ObjC by subclassing `TDFilter` and overriding
 
 **For Tags** can loop thru arbitrary numerical ranges, and may nest:
 
-```django
+```htmldjango
 {% for i in 0 to 10 %}
     {% for j in 0 to 2 %}
         {{i}}:{{j}}
@@ -105,7 +105,7 @@ You can define your own Filters in ObjC by subclassing `TDFilter` and overriding
 
 Numerical ranges may iterate in reverse order, and also offer a "step" option specified after the `by` keyword
 
-```django
+```htmldjango
 {% for i in 70 to 60 by 2 %}
     {{i}}{% if not currentLoop.isLast %},{% /if %}
 {% /for %}
@@ -119,7 +119,7 @@ Note that each For Tag offers access to a `currentLoop` variable which provides 
 
 For Tags can also loop thru variables representing Cocoa collection objects like `NSArray`, or `NSSet`:
 
-```django
+```htmldjango
 {% for obj in vec %}
     {{obj}}
 {% /for %}
@@ -127,7 +127,7 @@ For Tags can also loop thru variables representing Cocoa collection objects like
 
 and `NSDictionary` (note the convenient unpacking of *both key and value*):
 
-```django
+```htmldjango
 {% for key, val in dict %}
     {{key}}:{{val}}
 {% /for %}
@@ -143,7 +143,7 @@ Skip Tags may contain an optional boolean expression. If the expression evaluate
 
 The expression within the Skip Tag is essentially a syntactical shortcut. The two following forms are semantically equivalent, but the second is more convenient:
 
-```django
+```htmldjango
 {% for i in 1 to 3 %}
     {% if i == 2 %}
         {% skip %}
@@ -173,7 +173,7 @@ Also, any lines inside the Trim Tag bodies containg only other Tags are removed 
 
 So the following:
 
-```django
+```htmldjango
 {% trim %}
     {% if true %}
                             Make it so.
@@ -187,7 +187,7 @@ Produces a single line with all leading and trailing whitespace trimed:
 
 Indentation withing Trim Tags may be controlled with nested **Indent Tags**. The following:
 
-```django
+```htmldjango
 {% trim %}
     {% if true %}
         {% indent %}
