@@ -49,6 +49,11 @@ double TDNumberFromString(NSString *s) {
 
 @implementation TDValue
 
+- (NSString *)description {
+    return [NSString stringWithFormat:@"<%@ %p `%@`>", [self class], self, [self objectValue]];
+}
+
+
 - (TDValue *)evaluateInContext:(TDTemplateContext *)ctx {
     return self;
 }

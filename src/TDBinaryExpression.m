@@ -63,6 +63,11 @@
 }
 
 
+- (NSString *)description {
+    return [NSString stringWithFormat:@"<%@ %p `%@ %ld %@`>", [self class], self, self.p1, self.operator, self.p2];
+}
+
+
 - (void)setOperand:(TDExpression *)lhs operator:(NSInteger)op operand:(TDExpression *)rhs {
     self.p1 = lhs;
     self.p2 = rhs;
