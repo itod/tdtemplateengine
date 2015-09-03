@@ -95,7 +95,7 @@
     } else if ([_value isKindOfClass:[NSArray class]] || [_value isKindOfClass:[NSDictionary class]] || [_value isKindOfClass:[NSSet class]]) {
         yn = [_value count];
     } else if ([_value respondsToSelector:@selector(doubleValue)]) {
-        yn = (0.0 == [_value doubleValue] || NAN == [_value doubleValue]);
+        yn = (0.0 != [_value doubleValue] && NAN != [_value doubleValue]);
     } else if ([_value respondsToSelector:@selector(stringValue)]) {
         yn = [[_value stringValue] length];
     }
