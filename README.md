@@ -307,6 +307,7 @@ Any expression may be wrapped in parentheses for clarity or to alter the order o
 
 Create a `TDTemplateEngine` object and render a template in two distinct phases: (compile and render) to an `NSOutputStream`:
 
+```objc
     // create an engine
     TDTemplateEngine *eng = [TDTemplateEngine templateEngine];
     
@@ -323,15 +324,18 @@ Create a `TDTemplateEngine` object and render a template in two distinct phases:
     // render tree to template text
     err = nil;
     [eng renderTemplateTree:tree withVariables:vars toStream:stream error:&err];
+```
 
 Or use the convenience API for compile+render via one method call:
 
+```objc
     TDTemplateEngine *eng = [TDTemplateEngine templateEngine];
     NSOutputStream *stream = [NSOutputStream outputStreamToMemory];
     
     NSError *err = nil;
     BOOL success = [eng processTemplateString:input withVariables:vars toStream:stream error:&err];
     NSString *output = [[[NSString alloc] initWithData:[stream propertyForKey:NSStreamDataWrittenToMemoryStreamKey] encoding:NSUTF8StringEncoding] autorelease];
+```
 
 ###Threading Considerations
 
