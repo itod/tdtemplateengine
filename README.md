@@ -49,23 +49,27 @@ TDTemplateEngine template syntax is very similar to MGTemplateEngine and Django.
 
 **Print Tags** print the value an expression to the text output:
 
-     My name is {{name}}.
+```htmldjango
+My name is {{name}}.
+```
 
 Builtin **Filters** are available:
 
-     My name is {{firstName|capitalize}} {{lastName|capitalize}}, and I'm a {{profession|lowercase}}.
+```htmldjango
+My name is {{firstName|capitalize}} {{lastName|capitalize}}, and I'm a {{profession|lowercase}}.
 
-     Mah kitteh sez "{{lolSpeak|trim|uppercase}}".
+Mah kitteh sez "{{lolSpeak|trim|uppercase}}".
 
-     {{'Hello World!'|replace:'hello', 'Goodbye Cruel', 'i'}}"
+{{'Hello World!'|replace:'hello', 'Goodbye Cruel', 'i'}}"
 
-     {{degrees|round}}
+{{degrees|round}}
 
-     {{degrees|fmt:'%0.1f'}}
+{{degrees|fmt:'%0.1f'}}
 
-     {{degrees|ceil|fmt:'%0.1f'}}
+{{degrees|ceil|fmt:'%0.1f'}}
 
-     {{'now'|fmtDate:'EEE, MMM d, yy'}}
+{{'now'|fmtDate:'EEE, MMM d, yy'}}
+```
 
 ####Filter Extensibility
 
@@ -75,13 +79,15 @@ You can define your own Filters in ObjC by subclassing `TDFilter` and overriding
 
 **If Tags** offer conditional rendering based on input variables at render time:
 
-    {% if testVal <= expectedMax || force %}
-        Text 1.
-    {% elif shortCircuit or ('foo' == bar and 'baz' != bat) %}
-        Text 2.
-    {% else %}
-        Default Text.
-    {% /if %}
+```htmldjango
+{% if testVal <= expectedMax || force %}
+    Text 1.
+{% elif shortCircuit or ('foo' == bar and 'baz' != bat) %}
+    Text 2.
+{% else %}
+    Default Text.
+{% /if %}
+```
 
 *(Note the boolean test expressions in this example are nonsense, and just intended to demonstrate some of the expression language features.)*
 
@@ -89,18 +95,22 @@ You can define your own Filters in ObjC by subclassing `TDFilter` and overriding
 
 **For Tags** can loop thru arbitrary numerical ranges, and may nest:
 
-    {% for i in 0 to 10 %}
-        {% for j in 0 to 2 %}
-            {{i}}:{{j}}
-        {% /for %}
+```htmldjango
+{% for i in 0 to 10 %}
+    {% for j in 0 to 2 %}
+        {{i}}:{{j}}
     {% /for %}
+{% /for %}
+```
 
 Numerical ranges may iterate in reverse order, and also offer a "step" option specified after the `by` keyword
 
-    {% for i in 70 to 60 by 2 %}
-        {{i}}{% if not currentLoop.isLast %},{% /if %}
-    {% /for %}
-    
+```htmldjango
+{% for i in 70 to 60 by 2 %}
+    {{i}}{% if not currentLoop.isLast %},{% /if %}
+{% /for %}
+```
+
 Prints:
 
     70,68,66,64,62,60
@@ -109,15 +119,19 @@ Note that each For Tag offers access to a `currentLoop` variable which provides 
 
 For Tags can also loop thru variables representing Cocoa collection objects like `NSArray`, or `NSSet`:
 
-    {% for obj in vec %}
-        {{obj}}
-    {% /for %}
+```htmldjango
+{% for obj in vec %}
+    {{obj}}
+{% /for %}
+```
 
 and `NSDictionary` (note the convenient unpacking of *both key and value*):
 
-    {% for key, val in dict %}
-        {{key}}:{{val}}
-    {% /for %}
+```htmldjango
+{% for key, val in dict %}
+    {{key}}:{{val}}
+{% /for %}
+```
 
 ####Skip Tag
 
@@ -129,17 +143,19 @@ Skip Tags may contain an optional boolean expression. If the expression evaluate
 
 The expression within the Skip Tag is essentially a syntactical shortcut. The two following forms are semantically equivalent, but the second is more convenient:
 
-    {% for i in 1 to 3 %}
-        {% if i == 2 %}
-            {% skip %}
-        {% /if %}
-        {{i}}
+```htmldjango
+{% for i in 1 to 3 %}
+    {% if i == 2 %}
+        {% skip %}
     {% /if %}
+    {{i}}
+{% /if %}
 
-    {% for i in 1 to 3 %}
-        {% skip i == 2 %}
-        {{i}}
-    {% /if %}
+{% for i in 1 to 3 %}
+    {% skip i == 2 %}
+    {{i}}
+{% /if %}
+```
 
 Both examples produce the following output:
 
@@ -157,11 +173,13 @@ Also, any lines inside the Trim Tag bodies containg only other Tags are removed 
 
 So the following:
 
-    {% trim %}
-        {% if true %}
-                                Make it so.
-        {% /if %}
-    {% /trim %}
+```htmldjango
+{% trim %}
+    {% if true %}
+                            Make it so.
+    {% /if %}
+{% /trim %}
+```
 
 Produces a single line with all leading and trailing whitespace trimed:
 
@@ -169,13 +187,15 @@ Produces a single line with all leading and trailing whitespace trimed:
 
 Indentation withing Trim Tags may be controlled with nested **Indent Tags**. The following:
 
-    {% trim %}
-        {% if true %}
-            {% indent %}
-                Make it so.
-            {% /indent %}
-        {% /if %}
-    {% /trim %}
+```htmldjango
+{% trim %}
+    {% if true %}
+        {% indent %}
+            Make it so.
+        {% /indent %}
+    {% /if %}
+{% /trim %}
+```
 
 Produces a single line indented by 4 spaces:
 
@@ -307,31 +327,35 @@ Any expression may be wrapped in parentheses for clarity or to alter the order o
 
 Create a `TDTemplateEngine` object and render a template in two distinct phases: (compile and render) to an `NSOutputStream`:
 
-    // create an engine
-    TDTemplateEngine *eng = [TDTemplateEngine templateEngine];
-    
-    // compile the template at a given file path to an AST
-    NSError *err = nil;
-    TDNode *tree = [eng compileTemplateFile:path encoding:NSUTF8StringEncoding error:&err];
-    
-    // provide a streaming output destination
-    NSOutputStream *stream = [NSOutputStream outputStreamToMemory];
-    
-    // establish runtime template variable values
-    id vars = @{@"foo": @"bar"};
-    
-    // render tree to template text
-    err = nil;
-    [eng renderTemplateTree:tree withVariables:vars toStream:stream error:&err];
+```objc
+// create an engine
+TDTemplateEngine *eng = [TDTemplateEngine templateEngine];
+
+// compile the template at a given file path to an AST
+NSError *err = nil;
+TDNode *tree = [eng compileTemplateFile:path encoding:NSUTF8StringEncoding error:&err];
+
+// provide a streaming output destination
+NSOutputStream *stream = [NSOutputStream outputStreamToMemory];
+
+// establish runtime template variable values
+id vars = @{@"foo": @"bar"};
+
+// render tree to template text
+err = nil;
+[eng renderTemplateTree:tree withVariables:vars toStream:stream error:&err];
+```
 
 Or use the convenience API for compile+render via one method call:
 
-    TDTemplateEngine *eng = [TDTemplateEngine templateEngine];
-    NSOutputStream *stream = [NSOutputStream outputStreamToMemory];
-    
-    NSError *err = nil;
-    BOOL success = [eng processTemplateString:input withVariables:vars toStream:stream error:&err];
-    NSString *output = [[[NSString alloc] initWithData:[stream propertyForKey:NSStreamDataWrittenToMemoryStreamKey] encoding:NSUTF8StringEncoding] autorelease];
+```objc
+TDTemplateEngine *eng = [TDTemplateEngine templateEngine];
+NSOutputStream *stream = [NSOutputStream outputStreamToMemory];
+
+NSError *err = nil;
+BOOL success = [eng processTemplateString:input withVariables:vars toStream:stream error:&err];
+NSString *output = [[[NSString alloc] initWithData:[stream propertyForKey:NSStreamDataWrittenToMemoryStreamKey] encoding:NSUTF8StringEncoding] autorelease];
+```
 
 ###Threading Considerations
 
