@@ -46,7 +46,7 @@
     }
 
     if (test) {
-        [TDSkipException raise:@"TDSkipException" format:nil];
+        [TDSkipException raise:@"TDSkipException" format:@""];
     }
 }
 
