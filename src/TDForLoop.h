@@ -27,5 +27,7 @@
 @property (nonatomic, assign) NSInteger currentIndex;
 @property (nonatomic, assign, getter=isFirst) BOOL first;
 @property (nonatomic, assign, getter=isLast) BOOL last;
+@property (nonatomic, assign, readonly, getter=isOdd) BOOL odd;
+@property (nonatomic, assign, readonly, getter=isEven) BOOL even;
 @property (nonatomic, assign) TDForLoop *parentLoop; // weakref
 @end

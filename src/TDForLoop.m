@@ -40,4 +40,14 @@
     [super dealloc];
 }
 
+
+- (BOOL)isOdd {
+    return (_currentIndex & 1) == 0;
+}
+
+
+- (BOOL)isEven {
+    return (_currentIndex & 1) != 0;
+}
+
 @end
