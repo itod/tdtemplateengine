@@ -912,6 +912,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				ONLY_ACTIVE_ARCH = YES;
+				SKIP_INSTALL = YES;
 			};
 			name = Debug;
 		};
@@ -946,6 +947,7 @@
 					lib/pegkit/include,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
