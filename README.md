@@ -28,7 +28,7 @@ This multiple-pass architecture has many advantages:
 
 * A clean, well-factored, classic archecture that should be recognizable for anyone familiar with compiler design basics. It should be easy to jump into the code and add or remove features without breaking things.
 * Any use case where a template must be loaded into memory and compiled once, but rendered with runtime data multiple times should see a performance benefit.
-* TDTemplateEngine's expression language should exhibit good performance in such *compile-once, render-often* scenarios: tempate expressions are compiled once, and some compile-time optimizations are performed before render-time. Currently, the expression language optimizations are quite rudimentary, but the hooks are there, and they could be further improved with well-known compiler techniques.
+* TDTemplateEngine's expression language should exhibit good performance in such *compile-once, render-often* scenarios: tempate expressions are compiled once, and some compile-time optimizations are performed before render-time. Currently, the expression language optimizations are quite rudimentary, but the hooks are there, and they could be further improved with well-known compiler optimization techniques.
 * With a powerful parser, multiple parser passes, and an intermediate AST representation, TDTemplateEngine's expression language should be easy to extend and improve with new features.
 
 This multiple-pass architecture may have disadvantages:
