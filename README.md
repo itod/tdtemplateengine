@@ -60,7 +60,7 @@ My name is {{firstName|capitalize}} {{lastName|capitalize}}, and I'm a {{profess
 
 Mah kitteh sez "{{lolSpeak|trim|uppercase}}".
 
-{{'Hello World!'|replace:'hello', 'Goodbye Cruel', 'i'}}"
+{{'Hello World!'|replace:'hello', 'Goodbye Cruel', 'i'}}
 
 {{degrees|round}}
 
@@ -181,11 +181,11 @@ So the following:
 {% /trim %}
 ```
 
-Produces a single line with all leading and trailing whitespace trimed:
+Produces a single line with all leading and trailing whitespace trimmed:
 
     Make it so.
 
-Indentation withing Trim Tags may be controlled with nested **Indent Tags**. The following:
+Indentation within Trim Tags may be controlled with nested **Indent Tags**. The following:
 
 ```htmldjango
 {% trim %}
