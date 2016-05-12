@@ -22,6 +22,20 @@
 
 #import <Foundation/Foundation.h>
 
+//
+//  TDTemplateengine.h
+//  TDTemplateengine
+//
+//  Created by Todd Ditchendorf on 5/12/16.
+//  Copyright © 2016 Todd Ditchendorf. All rights reserved.
+//
+
+//! Project version number for TDTemplateengine.
+FOUNDATION_EXPORT double TDTemplateengineVersionNumber;
+
+//! Project version string for TDTemplateengine.
+FOUNDATION_EXPORT const unsigned char TDTemplateengineVersionString[];
+
 @class TDNode;
 @class TDTag;
 @class TDFilter;

@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		D306D9C318F5851D00E32DDC /* TDBaseExpressionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D306D9C218F5851D00E32DDC /* TDBaseExpressionTests.m */; };
-		D3100CBC1CE52E4F007B38BE /* TDTemplateengine.h in Headers */ = {isa = PBXBuildFile; fileRef = D3100CBB1CE52E4F007B38BE /* TDTemplateengine.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3100CC11CE52ED7007B38BE /* TDTemplateEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29D8318E5F57E00DC591E /* TDTemplateEngine.m */; };
 		D3100CC21CE52ED7007B38BE /* TDWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F5064318ECA12500BAC93B /* TDWriter.m */; };
 		D3100CC31CE52ED7007B38BE /* TDTemplateContext.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29DCF18E63A1C00DC591E /* TDTemplateContext.m */; };
@@ -275,9 +274,8 @@
 		D306D9C218F5851D00E32DDC /* TDBaseExpressionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDBaseExpressionTests.m; path = test/TDBaseExpressionTests.m; sourceTree = SOURCE_ROOT; };
 		D306D9C418F5854000E32DDC /* TDBaseExpressionTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDBaseExpressionTests.h; path = test/TDBaseExpressionTests.h; sourceTree = SOURCE_ROOT; };
 		D3100CB91CE52E4F007B38BE /* TDTemplateEngine.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TDTemplateEngine.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D3100CBB1CE52E4F007B38BE /* TDTemplateengine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TDTemplateengine.h; sourceTree = "<group>"; };
-		D3100CBD1CE52E4F007B38BE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D3100D321CE53047007B38BE /* libPEGKitIOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPEGKitIOS.a; path = "lib/pegkit/build/Debug-iphoneos/libPEGKitIOS.a"; sourceTree = "<group>"; };
+		D3100D341CE5317A007B38BE /* TDTemplateEngineiOS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "TDTemplateEngineiOS-Info.plist"; path = "res/TDTemplateEngineiOS-Info.plist"; sourceTree = SOURCE_ROOT; };
 		D319137018F197D400430BAD /* PEGKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PEGKit.framework; path = "../../../Library/Developer/Xcode/DerivedData/TDTemplateEngine-fzzezlziivpwkibrtiisnixrvvso/Build/Products/Debug/PEGKit.framework"; sourceTree = "<group>"; };
 		D319137A18F1A46100430BAD /* TDFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDFilter.m; path = src/TDFilter.m; sourceTree = SOURCE_ROOT; };
 		D319137D18F1A4A900430BAD /* TDFilterExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDFilterExpression.h; path = src/TDFilterExpression.h; sourceTree = SOURCE_ROOT; };
@@ -487,15 +485,6 @@
 			name = "Node/Tag Tests";
 			sourceTree = "<group>";
 		};
-		D3100CBA1CE52E4F007B38BE /* TDTemplateengine */ = {
-			isa = PBXGroup;
-			children = (
-				D3100CBB1CE52E4F007B38BE /* TDTemplateengine.h */,
-				D3100CBD1CE52E4F007B38BE /* Info.plist */,
-			);
-			path = TDTemplateengine;
-			sourceTree = "<group>";
-		};
 		D319137818F1A44E00430BAD /* Filter */ = {
 			isa = PBXGroup;
 			children = (
@@ -530,7 +519,6 @@
 			children = (
 				D367DFB918E5EF6900F97BCC /* TDTemplateEngine */,
 				D367DFCE18E5EF6900F97BCC /* TDTemplateEngine Tests */,
-				D3100CBA1CE52E4F007B38BE /* TDTemplateengine */,
 				D367DFB218E5EF6900F97BCC /* Frameworks */,
 				D367DFB118E5EF6900F97BCC /* Products */,
 			);
@@ -581,6 +569,7 @@
 			isa = PBXGroup;
 			children = (
 				D3A29D8518E5F58700DC591E /* TDTemplateEngine-Info.plist */,
+				D3100D341CE5317A007B38BE /* TDTemplateEngineiOS-Info.plist */,
 				D3A29D8818E5F5A500DC591E /* InfoPlist.strings */,
 				D3A29D8618E5F5A000DC591E /* TDTemplateEngine-Prefix.pch */,
 			);
@@ -743,7 +732,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D3100CBC1CE52E4F007B38BE /* TDTemplateengine.h in Headers */,
 				D3100CFB1CE52F10007B38BE /* TDNode.h in Headers */,
 				D3100CF91CE52F10007B38BE /* TDWriter.h in Headers */,
 				D3100CFE1CE52F10007B38BE /* TDExpression.h in Headers */,
@@ -1183,14 +1171,11 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				INFOPLIST_FILE = TDTemplateengine/Info.plist;
+				INFOPLIST_FILE = "res/TDTemplateEngineiOS-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/lib/pegkit/build/Debug-iphoneos",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.celestialteapot.TDTemplateengine;
 				PRODUCT_NAME = TDTemplateEngine;
@@ -1217,14 +1202,11 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				INFOPLIST_FILE = TDTemplateengine/Info.plist;
+				INFOPLIST_FILE = "res/TDTemplateEngineiOS-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/lib/pegkit/build/Debug-iphoneos",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.celestialteapot.TDTemplateengine;
 				PRODUCT_NAME = TDTemplateEngine;
