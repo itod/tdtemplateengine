@@ -274,7 +274,6 @@
 		D306D9C218F5851D00E32DDC /* TDBaseExpressionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDBaseExpressionTests.m; path = test/TDBaseExpressionTests.m; sourceTree = SOURCE_ROOT; };
 		D306D9C418F5854000E32DDC /* TDBaseExpressionTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDBaseExpressionTests.h; path = test/TDBaseExpressionTests.h; sourceTree = SOURCE_ROOT; };
 		D3100CB91CE52E4F007B38BE /* TDTemplateEngine.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TDTemplateEngine.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D3100D321CE53047007B38BE /* libPEGKitIOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPEGKitIOS.a; path = "lib/pegkit/build/Debug-iphoneos/libPEGKitIOS.a"; sourceTree = "<group>"; };
 		D3100D341CE5317A007B38BE /* TDTemplateEngineiOS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "TDTemplateEngineiOS-Info.plist"; path = "res/TDTemplateEngineiOS-Info.plist"; sourceTree = SOURCE_ROOT; };
 		D319137018F197D400430BAD /* PEGKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PEGKit.framework; path = "../../../Library/Developer/Xcode/DerivedData/TDTemplateEngine-fzzezlziivpwkibrtiisnixrvvso/Build/Products/Debug/PEGKit.framework"; sourceTree = "<group>"; };
 		D319137A18F1A46100430BAD /* TDFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDFilter.m; path = src/TDFilter.m; sourceTree = SOURCE_ROOT; };
@@ -539,7 +538,6 @@
 			isa = PBXGroup;
 			children = (
 				D3A391CF1CE55A01001FA335 /* PEGKit.framework */,
-				D3100D321CE53047007B38BE /* libPEGKitIOS.a */,
 				D319137018F197D400430BAD /* PEGKit.framework */,
 				D3A29D9318E5F60100DC591E /* Foundation.framework */,
 				D367DFC818E5EF6900F97BCC /* XCTest.framework */,
