@@ -33,6 +33,7 @@
     return [[[self alloc] initWithExpression:expr] autorelease];
 }
 
+
 - (instancetype)initWithExpression:(TDExpression *)expr {
     self = [super init];
     if (self) {
