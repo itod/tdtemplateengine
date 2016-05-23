@@ -47,6 +47,7 @@ double TDNumberFromString(NSString *s) {
     return [s doubleValue];
 }
 
+
 @implementation TDValue
 
 - (NSString *)description {
