@@ -118,22 +118,6 @@ double TDNumberFromString(NSString *s) {
 }
 
 
-- (NSInteger)inverseOperator:(NSInteger)op {
-    switch (op) {
-        case TD_TOKEN_KIND_LT:
-            return TD_TOKEN_KIND_GT;
-        case TD_TOKEN_KIND_LE:
-            return TD_TOKEN_KIND_GE;
-        case TD_TOKEN_KIND_GT:
-            return TD_TOKEN_KIND_LT;
-        case TD_TOKEN_KIND_GE:
-            return TD_TOKEN_KIND_LE;
-        default:
-            return op;
-    }
-}
-
-
 - (BOOL)compareNumber:(double)x toNumber:(double)y usingOperator:(NSInteger)op {
     switch (op) {
         case TD_TOKEN_KIND_LT:

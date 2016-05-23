@@ -304,7 +304,7 @@
     TDNil(err);
     TDNotNil(expr);
     
-    NSString *expected = @"01996.April.25 AD 12:00 PM";
+    NSString *expected = @"01996.April.25 AD 12:00PM";
     NSString *actual = [expr evaluateAsStringInContext:ctx];
     TDEqualObjects(expected, actual);
 }
