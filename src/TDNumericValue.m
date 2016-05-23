@@ -22,7 +22,7 @@
 
 #import "TDNumericValue.h"
 
-@implementation TDNumericValue{
+@implementation TDNumericValue {
     double _value;
 }
 
