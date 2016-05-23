@@ -39,8 +39,6 @@ double TDNumberFromString(NSString *s);
 
 - (BOOL)compareToValue:(TDValue *)other usingOperator:(NSInteger)op;
 
-- (BOOL)compareNumber:(double)x toNumber:(double)y usingOperator:(NSInteger)op;
-
 // convenience
 - (BOOL)isBooleanValue;
 - (BOOL)isNumericValue;
