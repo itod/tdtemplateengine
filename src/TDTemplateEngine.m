@@ -163,7 +163,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 
 
 - (TDNode *)compileTemplateString:(NSString *)str error:(NSError **)err {
-    NSParameterAssert([str length]);
+    NSParameterAssert(str != nil);
     TDAssert([_printStartDelimiter length]);
     TDAssert([_printEndDelimiter length]);
     TDAssert([_tagStartDelimiter length]);
