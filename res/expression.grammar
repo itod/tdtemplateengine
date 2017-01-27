@@ -184,7 +184,7 @@ signedFilterExpr
     _negative = NO; 
 }
 @after {
-    if (_negation)
+    if (_negative)
 		PUSH([TDUnaryExpression unaryExpressionWithExpression:POP()]);
 }
     = ('-'! { _negative = !_negative; })+ filterExpr;
