@@ -85,17 +85,13 @@
 
 
 - (BOOL)boolValue {
-//    double d = [self doubleValue];
-//    BOOL yn = d != 0.0 && d != NAN;
-//    return yn;
-
     BOOL yn = NO;
     if ([_value isKindOfClass:[NSString class]]) {
         yn = [_value length];
     } else if ([_value isKindOfClass:[NSArray class]] || [_value isKindOfClass:[NSDictionary class]] || [_value isKindOfClass:[NSSet class]]) {
         yn = [_value count];
     } else if ([_value respondsToSelector:@selector(doubleValue)]) {
-        yn = (0.0 != [_value doubleValue] && NAN != [_value doubleValue]);
+        yn = (0.0 != [_value doubleValue] && !isnan([_value doubleValue]));
     } else if ([_value respondsToSelector:@selector(stringValue)]) {
         yn = [[_value stringValue] length];
     }
