@@ -1,20 +1,20 @@
 #import "TDParser.h"
 #import <PEGKit/PEGKit.h>
     
-#import <TDTemplateEngine/TDTemplateEngine.h>
-#import <TDTemplateEngine/TDBooleanValue.h>
-#import <TDTemplateEngine/TDNumericValue.h>
-#import <TDTemplateEngine/TDStringValue.h>
-#import <TDTemplateEngine/TDUnaryExpression.h>
-#import <TDTemplateEngine/TDNegationExpression.h>
-#import <TDTemplateEngine/TDBooleanExpression.h>
-#import <TDTemplateEngine/TDRelationalExpression.h>
-#import <TDTemplateEngine/TDArithmeticExpression.h>
-#import <TDTemplateEngine/TDLoopExpression.h>
-#import <TDTemplateEngine/TDCollectionExpression.h>
-#import <TDTemplateEngine/TDRangeExpression.h>
-#import <TDTemplateEngine/TDPathExpression.h>
-#import <TDTemplateEngine/TDFilterExpression.h>
+#import "TDTemplateEngine.h"
+#import "TDBooleanValue.h"
+#import "TDNumericValue.h"
+#import "TDStringValue.h"
+#import "TDUnaryExpression.h"
+#import "TDNegationExpression.h"
+#import "TDBooleanExpression.h"
+#import "TDRelationalExpression.h"
+#import "TDArithmeticExpression.h"
+#import "TDLoopExpression.h"
+#import "TDCollectionExpression.h"
+#import "TDRangeExpression.h"
+#import "TDPathExpression.h"
+#import "TDFilterExpression.h"
 
 
 @interface TDParser ()
