@@ -164,7 +164,7 @@
 		D31E3E591F1C1D04004BD0C6 /* TDCeilFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D35E00431AB61DCF00096913 /* TDCeilFilter.m */; };
 		D31E3E5A1F1C1D04004BD0C6 /* TDFloorFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D35E003F1AB61DC000096913 /* TDFloorFilter.m */; };
 		D31E3E5B1F1C1D04004BD0C6 /* TDNumberFormatFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D35E00371AB6189A00096913 /* TDNumberFormatFilter.m */; };
-		D31E3E5C1F1C1D04004BD0C6 /* TDDateFormatFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D37BC6B418F4415200938644 /* TDDateFormatFilter.m */; };
+		D31E3E5C1F1C1D04004BD0C6 /* TDDateFormatFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D37BC6B418F4415200938644 /* TDDateFormatFilter.m */; settings = {COMPILER_FLAGS = "-Wno-deprecated"; }; };
 		D31E3E5D1F1C1D04004BD0C6 /* TDLowercaseFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D319138A18F1AC4500430BAD /* TDLowercaseFilter.m */; };
 		D31E3E5E1F1C1D04004BD0C6 /* TDUppercaseFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D319138E18F1AD1500430BAD /* TDUppercaseFilter.m */; };
 		D31E3E5F1F1C1D04004BD0C6 /* TDCapitalizeFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D319138218F1A58A00430BAD /* TDCapitalizeFilter.m */; };
@@ -270,7 +270,7 @@
 		D369BD4A18EF8921003E715B /* TDEnumeration.h in Headers */ = {isa = PBXBuildFile; fileRef = D369BD4818EF8921003E715B /* TDEnumeration.h */; };
 		D369BD4B18EF8921003E715B /* TDEnumeration.m in Sources */ = {isa = PBXBuildFile; fileRef = D369BD4918EF8921003E715B /* TDEnumeration.m */; };
 		D37BC6B518F4415200938644 /* TDDateFormatFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = D37BC6B318F4415200938644 /* TDDateFormatFilter.h */; };
-		D37BC6B618F4415200938644 /* TDDateFormatFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D37BC6B418F4415200938644 /* TDDateFormatFilter.m */; };
+		D37BC6B618F4415200938644 /* TDDateFormatFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D37BC6B418F4415200938644 /* TDDateFormatFilter.m */; settings = {COMPILER_FLAGS = "-Wno-deprecated"; }; };
 		D398E2EF18EA2C51004B883C /* TDTemplateParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D398E2ED18EA2C51004B883C /* TDTemplateParser.h */; };
 		D398E2F018EA2C51004B883C /* TDTemplateParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D398E2EE18EA2C51004B883C /* TDTemplateParser.m */; };
 		D3A21F3D1AC9E40D0009A712 /* TDUnaryExpressionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A21F3C1AC9E40D0009A712 /* TDUnaryExpressionTests.m */; };
