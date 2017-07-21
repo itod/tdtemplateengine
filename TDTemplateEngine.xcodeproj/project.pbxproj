@@ -66,11 +66,10 @@
 		D3100CF81CE52ED7007B38BE /* TDRelationalExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29E2A18E75D3B00DC591E /* TDRelationalExpression.m */; };
 		D3100CF91CE52F10007B38BE /* TDWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F5064718ECA36B00BAC93B /* TDWriter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3100CFA1CE52F10007B38BE /* TDTemplateContext.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29DE918E64FB800DC591E /* TDTemplateContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D3100CFB1CE52F10007B38BE /* TDNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29DA818E609E700DC591E /* TDNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3100CFC1CE52F10007B38BE /* TDTag.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29DDC18E63D6D00DC591E /* TDTag.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D3100CFD1CE52F10007B38BE /* TDFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = D319138518F1A5C700430BAD /* TDFilter.h */; };
+		D3100CFD1CE52F10007B38BE /* TDFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = D319138518F1A5C700430BAD /* TDFilter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3100CFE1CE52F10007B38BE /* TDExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29DF418E6583600DC591E /* TDExpression.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D3100CFF1CE52F43007B38BE /* TDTemplateEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29D8118E5F57300DC591E /* TDTemplateEngine.h */; };
+		D3100CFF1CE52F43007B38BE /* TDTemplateEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29D8118E5F57300DC591E /* TDTemplateEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3100D001CE52F43007B38BE /* TDTemplateParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D398E2ED18EA2C51004B883C /* TDTemplateParser.h */; };
 		D3100D011CE52F43007B38BE /* TDRootNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29DB818E60F9F00DC591E /* TDRootNode.h */; };
 		D3100D021CE52F43007B38BE /* TDTextNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29DBC18E61ACA00DC591E /* TDTextNode.h */; };
@@ -127,7 +126,7 @@
 		D319138018F1A4AA00430BAD /* TDFilterExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D319137E18F1A4A900430BAD /* TDFilterExpression.m */; };
 		D319138318F1A58A00430BAD /* TDCapitalizeFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = D319138118F1A58A00430BAD /* TDCapitalizeFilter.h */; };
 		D319138418F1A58A00430BAD /* TDCapitalizeFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D319138218F1A58A00430BAD /* TDCapitalizeFilter.m */; };
-		D319138618F1A5C700430BAD /* TDFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = D319138518F1A5C700430BAD /* TDFilter.h */; };
+		D319138618F1A5C700430BAD /* TDFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = D319138518F1A5C700430BAD /* TDFilter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D319138818F1A80300430BAD /* TDFilterExpressionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D319138718F1A80300430BAD /* TDFilterExpressionTests.m */; };
 		D319138B18F1AC4500430BAD /* TDLowercaseFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = D319138918F1AC4500430BAD /* TDLowercaseFilter.h */; };
 		D319138C18F1AC4500430BAD /* TDLowercaseFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D319138A18F1AC4500430BAD /* TDLowercaseFilter.m */; };
@@ -135,6 +134,120 @@
 		D319139018F1AD1500430BAD /* TDUppercaseFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D319138E18F1AD1500430BAD /* TDUppercaseFilter.m */; };
 		D319139418F2ED3300430BAD /* TDVerbatimTag.h in Headers */ = {isa = PBXBuildFile; fileRef = D319139218F2ED3300430BAD /* TDVerbatimTag.h */; };
 		D319139518F2ED3300430BAD /* TDVerbatimTag.m in Sources */ = {isa = PBXBuildFile; fileRef = D319139318F2ED3300430BAD /* TDVerbatimTag.m */; };
+		D31E3E3E1F1C1D04004BD0C6 /* TDTemplateEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29D8318E5F57E00DC591E /* TDTemplateEngine.m */; };
+		D31E3E3F1F1C1D04004BD0C6 /* TDWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F5064318ECA12500BAC93B /* TDWriter.m */; };
+		D31E3E401F1C1D04004BD0C6 /* TDTemplateContext.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29DCF18E63A1C00DC591E /* TDTemplateContext.m */; };
+		D31E3E411F1C1D04004BD0C6 /* TDTemplateParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D398E2EE18EA2C51004B883C /* TDTemplateParser.m */; };
+		D31E3E421F1C1D04004BD0C6 /* TDNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29DA918E609E700DC591E /* TDNode.m */; };
+		D31E3E431F1C1D04004BD0C6 /* TDRootNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29DB918E60F9F00DC591E /* TDRootNode.m */; };
+		D31E3E441F1C1D04004BD0C6 /* TDTextNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29DBD18E61ACA00DC591E /* TDTextNode.m */; };
+		D31E3E451F1C1D04004BD0C6 /* TDPrintNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29DB518E60E4500DC591E /* TDPrintNode.m */; };
+		D31E3E461F1C1D04004BD0C6 /* TDTag.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29DD918E63D5B00DC591E /* TDTag.m */; };
+		D31E3E471F1C1D04004BD0C6 /* TDIfTag.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29DDF18E6423500DC591E /* TDIfTag.m */; };
+		D31E3E481F1C1D04004BD0C6 /* TDElseIfTag.m in Sources */ = {isa = PBXBuildFile; fileRef = D33915EC18F0A0C500BDA4FD /* TDElseIfTag.m */; };
+		D31E3E491F1C1D04004BD0C6 /* TDElseTag.m in Sources */ = {isa = PBXBuildFile; fileRef = D33915E818F0A08000BDA4FD /* TDElseTag.m */; };
+		D31E3E4A1F1C1D04004BD0C6 /* TDForTag.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29DD518E63D4F00DC591E /* TDForTag.m */; };
+		D31E3E4B1F1C1D04004BD0C6 /* TDForLoop.m in Sources */ = {isa = PBXBuildFile; fileRef = D369BD4118EF7F6A003E715B /* TDForLoop.m */; };
+		D31E3E4C1F1C1D04004BD0C6 /* TDSkipTag.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D0F6F81ACB4417006B6112 /* TDSkipTag.m */; };
+		D31E3E4D1F1C1D04004BD0C6 /* TDSkipException.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D0F6FC1ACB4566006B6112 /* TDSkipException.m */; };
+		D31E3E4E1F1C1D04004BD0C6 /* TDCommentTag.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A7E27218F07782009BFD96 /* TDCommentTag.m */; };
+		D31E3E4F1F1C1D04004BD0C6 /* TDVerbatimTag.m in Sources */ = {isa = PBXBuildFile; fileRef = D319139318F2ED3300430BAD /* TDVerbatimTag.m */; };
+		D31E3E501F1C1D04004BD0C6 /* TDTrimTag.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E95F101AB08E6300D19992 /* TDTrimTag.m */; };
+		D31E3E511F1C1D04004BD0C6 /* TDIndentTag.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E95F331AB1017D00D19992 /* TDIndentTag.m */; };
+		D31E3E521F1C1D04004BD0C6 /* TDConditionalOutputTag.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E95F281AB0D22700D19992 /* TDConditionalOutputTag.m */; };
+		D31E3E531F1C1D04004BD0C6 /* TDNewlineTag.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E95F161AB094DF00D19992 /* TDNewlineTag.m */; };
+		D31E3E541F1C1D04004BD0C6 /* TDSpaceTag.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E95F241AB0D1A600D19992 /* TDSpaceTag.m */; };
+		D31E3E551F1C1D04004BD0C6 /* TDTabTag.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E95F2C1AB0D29D00D19992 /* TDTabTag.m */; };
+		D31E3E561F1C1D04004BD0C6 /* TDFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D319137A18F1A46100430BAD /* TDFilter.m */; };
+		D31E3E571F1C1D04004BD0C6 /* TDTrimFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AC685E1A42022500F7EB6A /* TDTrimFilter.m */; };
+		D31E3E581F1C1D04004BD0C6 /* TDRoundFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D35E003B1AB61D2900096913 /* TDRoundFilter.m */; };
+		D31E3E591F1C1D04004BD0C6 /* TDCeilFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D35E00431AB61DCF00096913 /* TDCeilFilter.m */; };
+		D31E3E5A1F1C1D04004BD0C6 /* TDFloorFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D35E003F1AB61DC000096913 /* TDFloorFilter.m */; };
+		D31E3E5B1F1C1D04004BD0C6 /* TDNumberFormatFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D35E00371AB6189A00096913 /* TDNumberFormatFilter.m */; };
+		D31E3E5C1F1C1D04004BD0C6 /* TDDateFormatFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D37BC6B418F4415200938644 /* TDDateFormatFilter.m */; settings = {COMPILER_FLAGS = "-Wno-deprecated"; }; };
+		D31E3E5D1F1C1D04004BD0C6 /* TDLowercaseFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D319138A18F1AC4500430BAD /* TDLowercaseFilter.m */; };
+		D31E3E5E1F1C1D04004BD0C6 /* TDUppercaseFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D319138E18F1AD1500430BAD /* TDUppercaseFilter.m */; };
+		D31E3E5F1F1C1D04004BD0C6 /* TDCapitalizeFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D319138218F1A58A00430BAD /* TDCapitalizeFilter.m */; };
+		D31E3E601F1C1D04004BD0C6 /* TDReplaceFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AC684E1A41D43400F7EB6A /* TDReplaceFilter.m */; };
+		D31E3E611F1C1D04004BD0C6 /* TDTemplateEngine+ExpressionSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A7E26A18EF9286009BFD96 /* TDTemplateEngine+ExpressionSupport.m */; };
+		D31E3E621F1C1D04004BD0C6 /* PKToken+Verbatim.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BB32E318F76116005E0A3A /* PKToken+Verbatim.m */; };
+		D31E3E631F1C1D04004BD0C6 /* TDParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29E0D18E65AC400DC591E /* TDParser.m */; };
+		D31E3E641F1C1D04004BD0C6 /* TDExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29DF818E6584D00DC591E /* TDExpression.m */; };
+		D31E3E651F1C1D04004BD0C6 /* TDFilterExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D319137E18F1A4A900430BAD /* TDFilterExpression.m */; };
+		D31E3E661F1C1D04004BD0C6 /* TDUnaryExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A21F431AC9E85F0009A712 /* TDUnaryExpression.m */; };
+		D31E3E671F1C1D04004BD0C6 /* TDNegationExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D3CAF8B918EF577100166A95 /* TDNegationExpression.m */; };
+		D31E3E681F1C1D04004BD0C6 /* TDPathExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29E3818E7AA3100DC591E /* TDPathExpression.m */; };
+		D31E3E691F1C1D04004BD0C6 /* TDLoopExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D3CAF8AE18EDF39200166A95 /* TDLoopExpression.m */; };
+		D31E3E6A1F1C1D04004BD0C6 /* TDEnumeration.m in Sources */ = {isa = PBXBuildFile; fileRef = D369BD4918EF8921003E715B /* TDEnumeration.m */; };
+		D31E3E6B1F1C1D04004BD0C6 /* TDCollectionExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D3CAF8AA18EDF27F00166A95 /* TDCollectionExpression.m */; };
+		D31E3E6C1F1C1D04004BD0C6 /* TDRangeExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F5063718EC5C9800BAC93B /* TDRangeExpression.m */; };
+		D31E3E6D1F1C1D04004BD0C6 /* TDValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29DFE18E6584D00DC591E /* TDValue.m */; };
+		D31E3E6E1F1C1D04004BD0C6 /* TDBooleanValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29DF718E6584D00DC591E /* TDBooleanValue.m */; };
+		D31E3E6F1F1C1D04004BD0C6 /* TDNumericValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29DFA18E6584D00DC591E /* TDNumericValue.m */; };
+		D31E3E701F1C1D04004BD0C6 /* TDStringValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29DFC18E6584D00DC591E /* TDStringValue.m */; };
+		D31E3E711F1C1D04004BD0C6 /* TDObjectValue.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29E3C18E7B31A00DC591E /* TDObjectValue.m */; };
+		D31E3E721F1C1D04004BD0C6 /* TDArithmeticExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29E2418E75D3B00DC591E /* TDArithmeticExpression.m */; };
+		D31E3E731F1C1D04004BD0C6 /* TDBinaryExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29E2618E75D3B00DC591E /* TDBinaryExpression.m */; };
+		D31E3E741F1C1D04004BD0C6 /* TDBooleanExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29E2818E75D3B00DC591E /* TDBooleanExpression.m */; };
+		D31E3E751F1C1D04004BD0C6 /* TDRelationalExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29E2A18E75D3B00DC591E /* TDRelationalExpression.m */; };
+		D31E3E861F1C1DCB004BD0C6 /* TDTemplateEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29D8118E5F57300DC591E /* TDTemplateEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D31E3E871F1C1DCB004BD0C6 /* TDWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F5064718ECA36B00BAC93B /* TDWriter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D31E3E881F1C1DCB004BD0C6 /* TDTemplateContext.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29DE918E64FB800DC591E /* TDTemplateContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D31E3E8A1F1C1DCB004BD0C6 /* TDTag.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29DDC18E63D6D00DC591E /* TDTag.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D31E3E8F1F1C1E5D004BD0C6 /* TDFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = D319138518F1A5C700430BAD /* TDFilter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D31E3E901F1C1E68004BD0C6 /* TDExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29DF418E6583600DC591E /* TDExpression.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D31E3EC31F1C1EF4004BD0C6 /* TDNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D31E3EC21F1C1EF4004BD0C6 /* TDNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D31E3EC41F1C1EF4004BD0C6 /* TDNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D31E3EC21F1C1EF4004BD0C6 /* TDNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D31E3EC51F1C1EF4004BD0C6 /* TDNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D31E3EC21F1C1EF4004BD0C6 /* TDNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D31E3ED71F1C2334004BD0C6 /* TDTemplateParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D398E2ED18EA2C51004B883C /* TDTemplateParser.h */; };
+		D31E3ED81F1C2334004BD0C6 /* TDRootNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29DB818E60F9F00DC591E /* TDRootNode.h */; };
+		D31E3ED91F1C2334004BD0C6 /* TDTextNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29DBC18E61ACA00DC591E /* TDTextNode.h */; };
+		D31E3EDA1F1C2334004BD0C6 /* TDPrintNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29DB418E60E4500DC591E /* TDPrintNode.h */; };
+		D31E3EDB1F1C2334004BD0C6 /* TDIfTag.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29DDE18E6423500DC591E /* TDIfTag.h */; };
+		D31E3EDC1F1C2334004BD0C6 /* TDElseIfTag.h in Headers */ = {isa = PBXBuildFile; fileRef = D33915EB18F0A0C500BDA4FD /* TDElseIfTag.h */; };
+		D31E3EDD1F1C2334004BD0C6 /* TDElseTag.h in Headers */ = {isa = PBXBuildFile; fileRef = D33915E718F0A08000BDA4FD /* TDElseTag.h */; };
+		D31E3EDE1F1C2334004BD0C6 /* TDForTag.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29DD418E63D4F00DC591E /* TDForTag.h */; };
+		D31E3EDF1F1C2334004BD0C6 /* TDForLoop.h in Headers */ = {isa = PBXBuildFile; fileRef = D369BD4018EF7F6A003E715B /* TDForLoop.h */; };
+		D31E3EE01F1C2334004BD0C6 /* TDSkipTag.h in Headers */ = {isa = PBXBuildFile; fileRef = D3D0F6F71ACB4417006B6112 /* TDSkipTag.h */; };
+		D31E3EE11F1C2334004BD0C6 /* TDSkipException.h in Headers */ = {isa = PBXBuildFile; fileRef = D3D0F6FB1ACB4566006B6112 /* TDSkipException.h */; };
+		D31E3EE21F1C2334004BD0C6 /* TDCommentTag.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A7E27118F07782009BFD96 /* TDCommentTag.h */; };
+		D31E3EE31F1C2334004BD0C6 /* TDVerbatimTag.h in Headers */ = {isa = PBXBuildFile; fileRef = D319139218F2ED3300430BAD /* TDVerbatimTag.h */; };
+		D31E3EE41F1C2334004BD0C6 /* TDTrimTag.h in Headers */ = {isa = PBXBuildFile; fileRef = D3E95F0F1AB08E6300D19992 /* TDTrimTag.h */; };
+		D31E3EE51F1C2334004BD0C6 /* TDIndentTag.h in Headers */ = {isa = PBXBuildFile; fileRef = D3E95F321AB1017D00D19992 /* TDIndentTag.h */; };
+		D31E3EE61F1C2334004BD0C6 /* TDConditionalOutputTag.h in Headers */ = {isa = PBXBuildFile; fileRef = D3E95F271AB0D22700D19992 /* TDConditionalOutputTag.h */; };
+		D31E3EE71F1C2334004BD0C6 /* TDNewlineTag.h in Headers */ = {isa = PBXBuildFile; fileRef = D3E95F151AB094DF00D19992 /* TDNewlineTag.h */; };
+		D31E3EE81F1C2334004BD0C6 /* TDSpaceTag.h in Headers */ = {isa = PBXBuildFile; fileRef = D3E95F231AB0D1A600D19992 /* TDSpaceTag.h */; };
+		D31E3EE91F1C2334004BD0C6 /* TDTabTag.h in Headers */ = {isa = PBXBuildFile; fileRef = D3E95F2B1AB0D29D00D19992 /* TDTabTag.h */; };
+		D31E3EEA1F1C2334004BD0C6 /* TDTrimFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = D3AC685D1A42022500F7EB6A /* TDTrimFilter.h */; };
+		D31E3EEB1F1C2334004BD0C6 /* TDRoundFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = D35E003A1AB61D2900096913 /* TDRoundFilter.h */; };
+		D31E3EEC1F1C2334004BD0C6 /* TDCeilFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = D35E00421AB61DCF00096913 /* TDCeilFilter.h */; };
+		D31E3EED1F1C2334004BD0C6 /* TDFloorFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = D35E003E1AB61DC000096913 /* TDFloorFilter.h */; };
+		D31E3EEE1F1C2334004BD0C6 /* TDNumberFormatFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = D35E00361AB6189A00096913 /* TDNumberFormatFilter.h */; };
+		D31E3EEF1F1C2334004BD0C6 /* TDDateFormatFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = D37BC6B318F4415200938644 /* TDDateFormatFilter.h */; };
+		D31E3EF01F1C2334004BD0C6 /* TDLowercaseFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = D319138918F1AC4500430BAD /* TDLowercaseFilter.h */; };
+		D31E3EF11F1C2334004BD0C6 /* TDUppercaseFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = D319138D18F1AD1500430BAD /* TDUppercaseFilter.h */; };
+		D31E3EF21F1C2334004BD0C6 /* TDCapitalizeFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = D319138118F1A58A00430BAD /* TDCapitalizeFilter.h */; };
+		D31E3EF31F1C2334004BD0C6 /* TDReplaceFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = D3AC684D1A41D43400F7EB6A /* TDReplaceFilter.h */; };
+		D31E3EF41F1C2334004BD0C6 /* TDTemplateEngine+ExpressionSupport.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A7E26918EF9286009BFD96 /* TDTemplateEngine+ExpressionSupport.h */; };
+		D31E3EF51F1C2334004BD0C6 /* PKToken+Verbatim.h in Headers */ = {isa = PBXBuildFile; fileRef = D3BB32E218F76116005E0A3A /* PKToken+Verbatim.h */; };
+		D31E3EF61F1C2334004BD0C6 /* TDParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29E0C18E65AC400DC591E /* TDParser.h */; };
+		D31E3EF71F1C2334004BD0C6 /* TDFilterExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D319137D18F1A4A900430BAD /* TDFilterExpression.h */; };
+		D31E3EF81F1C2334004BD0C6 /* TDUnaryExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A21F421AC9E85F0009A712 /* TDUnaryExpression.h */; };
+		D31E3EF91F1C2334004BD0C6 /* TDNegationExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3CAF8B818EF577000166A95 /* TDNegationExpression.h */; };
+		D31E3EFA1F1C2334004BD0C6 /* TDPathExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29E3718E7AA3100DC591E /* TDPathExpression.h */; };
+		D31E3EFB1F1C2334004BD0C6 /* TDLoopExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3CAF8AD18EDF39200166A95 /* TDLoopExpression.h */; };
+		D31E3EFC1F1C2334004BD0C6 /* TDEnumeration.h in Headers */ = {isa = PBXBuildFile; fileRef = D369BD4818EF8921003E715B /* TDEnumeration.h */; };
+		D31E3EFD1F1C2334004BD0C6 /* TDCollectionExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3CAF8A918EDF27F00166A95 /* TDCollectionExpression.h */; };
+		D31E3EFE1F1C2334004BD0C6 /* TDRangeExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3F5063618EC5C9800BAC93B /* TDRangeExpression.h */; };
+		D31E3EFF1F1C2334004BD0C6 /* TDValue.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29DFD18E6584D00DC591E /* TDValue.h */; };
+		D31E3F001F1C2334004BD0C6 /* TDBooleanValue.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29DF618E6584D00DC591E /* TDBooleanValue.h */; };
+		D31E3F011F1C2334004BD0C6 /* TDNumericValue.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29DF918E6584D00DC591E /* TDNumericValue.h */; };
+		D31E3F021F1C2334004BD0C6 /* TDStringValue.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29DFB18E6584D00DC591E /* TDStringValue.h */; };
+		D31E3F031F1C2334004BD0C6 /* TDObjectValue.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29E3B18E7B31A00DC591E /* TDObjectValue.h */; };
+		D31E3F041F1C2334004BD0C6 /* TDArithmeticExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29E2318E75D3B00DC591E /* TDArithmeticExpression.h */; };
+		D31E3F051F1C2334004BD0C6 /* TDBinaryExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29E2518E75D3B00DC591E /* TDBinaryExpression.h */; };
+		D31E3F061F1C2334004BD0C6 /* TDBooleanExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29E2718E75D3B00DC591E /* TDBooleanExpression.h */; };
+		D31E3F071F1C2334004BD0C6 /* TDRelationalExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29E2918E75D3B00DC591E /* TDRelationalExpression.h */; };
 		D33915DE18F0818500BDA4FD /* TDArithmeticExpressionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D33915DD18F0818500BDA4FD /* TDArithmeticExpressionTests.m */; };
 		D33915E418F081ED00BDA4FD /* TDPathExpressionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D33915E318F081ED00BDA4FD /* TDPathExpressionTests.m */; };
 		D33915E618F09DFF00BDA4FD /* TDElseTagTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D33915E518F09DFF00BDA4FD /* TDElseTagTests.m */; };
@@ -157,7 +270,7 @@
 		D369BD4A18EF8921003E715B /* TDEnumeration.h in Headers */ = {isa = PBXBuildFile; fileRef = D369BD4818EF8921003E715B /* TDEnumeration.h */; };
 		D369BD4B18EF8921003E715B /* TDEnumeration.m in Sources */ = {isa = PBXBuildFile; fileRef = D369BD4918EF8921003E715B /* TDEnumeration.m */; };
 		D37BC6B518F4415200938644 /* TDDateFormatFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = D37BC6B318F4415200938644 /* TDDateFormatFilter.h */; };
-		D37BC6B618F4415200938644 /* TDDateFormatFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D37BC6B418F4415200938644 /* TDDateFormatFilter.m */; };
+		D37BC6B618F4415200938644 /* TDDateFormatFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D37BC6B418F4415200938644 /* TDDateFormatFilter.m */; settings = {COMPILER_FLAGS = "-Wno-deprecated"; }; };
 		D398E2EF18EA2C51004B883C /* TDTemplateParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D398E2ED18EA2C51004B883C /* TDTemplateParser.h */; };
 		D398E2F018EA2C51004B883C /* TDTemplateParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D398E2EE18EA2C51004B883C /* TDTemplateParser.m */; };
 		D3A21F3D1AC9E40D0009A712 /* TDUnaryExpressionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A21F3C1AC9E40D0009A712 /* TDUnaryExpressionTests.m */; };
@@ -168,7 +281,6 @@
 		D3A29D8A18E5F5A500DC591E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D3A29D8818E5F5A500DC591E /* InfoPlist.strings */; };
 		D3A29D9218E5F5D900DC591E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D3A29D9018E5F5D900DC591E /* InfoPlist.strings */; };
 		D3A29D9418E5F60100DC591E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3A29D9318E5F60100DC591E /* Foundation.framework */; };
-		D3A29DAA18E609E700DC591E /* TDNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29DA818E609E700DC591E /* TDNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3A29DAB18E609E700DC591E /* TDNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29DA918E609E700DC591E /* TDNode.m */; };
 		D3A29DB618E60E4500DC591E /* TDPrintNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29DB418E60E4500DC591E /* TDPrintNode.h */; };
 		D3A29DB718E60E4500DC591E /* TDPrintNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29DB518E60E4500DC591E /* TDPrintNode.m */; };
@@ -290,6 +402,9 @@
 		D319139218F2ED3300430BAD /* TDVerbatimTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDVerbatimTag.h; path = src/TDVerbatimTag.h; sourceTree = SOURCE_ROOT; };
 		D319139318F2ED3300430BAD /* TDVerbatimTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDVerbatimTag.m; path = src/TDVerbatimTag.m; sourceTree = SOURCE_ROOT; };
 		D319139618F2EF7000430BAD /* TDTrimTagTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDTrimTagTests.m; path = test/TDTrimTagTests.m; sourceTree = SOURCE_ROOT; };
+		D31E3E321F1C1C97004BD0C6 /* libTDTemplateEngineOSX.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libTDTemplateEngineOSX.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D31E3E3C1F1C1CAE004BD0C6 /* libPEGKitOSX.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPEGKitOSX.a; path = "../../../../../Library/Developer/Xcode/DerivedData/DCIScript-gazofidwjflslweszuuhizioypzt/Build/Products/Debug/libPEGKitOSX.a"; sourceTree = "<group>"; };
+		D31E3EC21F1C1EF4004BD0C6 /* TDNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDNode.h; path = include/TDTemplateEngine/TDNode.h; sourceTree = SOURCE_ROOT; };
 		D33915DD18F0818500BDA4FD /* TDArithmeticExpressionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDArithmeticExpressionTests.m; path = test/TDArithmeticExpressionTests.m; sourceTree = SOURCE_ROOT; };
 		D33915E318F081ED00BDA4FD /* TDPathExpressionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDPathExpressionTests.m; path = test/TDPathExpressionTests.m; sourceTree = SOURCE_ROOT; };
 		D33915E518F09DFF00BDA4FD /* TDElseTagTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDElseTagTests.m; path = test/TDElseTagTests.m; sourceTree = SOURCE_ROOT; };
@@ -328,7 +443,6 @@
 		D3A29D8F18E5F5CC00DC591E /* TDTemplateEngineTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "TDTemplateEngineTests-Info.plist"; path = "test/TDTemplateEngineTests-Info.plist"; sourceTree = SOURCE_ROOT; };
 		D3A29D9118E5F5D900DC591E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = test/en.lproj/InfoPlist.strings; sourceTree = SOURCE_ROOT; };
 		D3A29D9318E5F60100DC591E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		D3A29DA818E609E700DC591E /* TDNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDNode.h; path = src/TDNode.h; sourceTree = SOURCE_ROOT; };
 		D3A29DA918E609E700DC591E /* TDNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDNode.m; path = src/TDNode.m; sourceTree = SOURCE_ROOT; };
 		D3A29DB418E60E4500DC591E /* TDPrintNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDPrintNode.h; path = src/TDPrintNode.h; sourceTree = SOURCE_ROOT; };
 		D3A29DB518E60E4500DC591E /* TDPrintNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDPrintNode.m; path = src/TDPrintNode.m; sourceTree = SOURCE_ROOT; };
@@ -426,6 +540,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3A391D01CE55A01001FA335 /* PEGKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D31E3E2F1F1C1C97004BD0C6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -530,6 +651,7 @@
 				D367DFB018E5EF6900F97BCC /* TDTemplateEngine.framework */,
 				D367DFC718E5EF6900F97BCC /* TDTemplateEngineTests.xctest */,
 				D3100CB91CE52E4F007B38BE /* TDTemplateEngine.framework */,
+				D31E3E321F1C1C97004BD0C6 /* libTDTemplateEngineOSX.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -537,6 +659,7 @@
 		D367DFB218E5EF6900F97BCC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D31E3E3C1F1C1CAE004BD0C6 /* libPEGKitOSX.a */,
 				D3A391CF1CE55A01001FA335 /* PEGKit.framework */,
 				D319137018F197D400430BAD /* PEGKit.framework */,
 				D3A29D9318E5F60100DC591E /* Foundation.framework */,
@@ -600,7 +723,7 @@
 		D3A29DD218E63D2200DC591E /* Nodes */ = {
 			isa = PBXGroup;
 			children = (
-				D3A29DA818E609E700DC591E /* TDNode.h */,
+				D31E3EC21F1C1EF4004BD0C6 /* TDNode.h */,
 				D3A29DA918E609E700DC591E /* TDNode.m */,
 				D3A29DB818E60F9F00DC591E /* TDRootNode.h */,
 				D3A29DB918E60F9F00DC591E /* TDRootNode.m */,
@@ -732,12 +855,12 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D3100CFB1CE52F10007B38BE /* TDNode.h in Headers */,
 				D3100CF91CE52F10007B38BE /* TDWriter.h in Headers */,
 				D3100CFE1CE52F10007B38BE /* TDExpression.h in Headers */,
 				D3100CFC1CE52F10007B38BE /* TDTag.h in Headers */,
 				D3100CFA1CE52F10007B38BE /* TDTemplateContext.h in Headers */,
 				D3100CFF1CE52F43007B38BE /* TDTemplateEngine.h in Headers */,
+				D31E3EC51F1C1EF4004BD0C6 /* TDNode.h in Headers */,
 				D3100D001CE52F43007B38BE /* TDTemplateParser.h in Headers */,
 				D3100D011CE52F43007B38BE /* TDRootNode.h in Headers */,
 				D3100D021CE52F43007B38BE /* TDTextNode.h in Headers */,
@@ -791,6 +914,69 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D31E3E301F1C1C97004BD0C6 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D31E3E861F1C1DCB004BD0C6 /* TDTemplateEngine.h in Headers */,
+				D31E3E871F1C1DCB004BD0C6 /* TDWriter.h in Headers */,
+				D31E3E881F1C1DCB004BD0C6 /* TDTemplateContext.h in Headers */,
+				D31E3E901F1C1E68004BD0C6 /* TDExpression.h in Headers */,
+				D31E3E8A1F1C1DCB004BD0C6 /* TDTag.h in Headers */,
+				D31E3E8F1F1C1E5D004BD0C6 /* TDFilter.h in Headers */,
+				D31E3EC41F1C1EF4004BD0C6 /* TDNode.h in Headers */,
+				D31E3ED71F1C2334004BD0C6 /* TDTemplateParser.h in Headers */,
+				D31E3ED81F1C2334004BD0C6 /* TDRootNode.h in Headers */,
+				D31E3ED91F1C2334004BD0C6 /* TDTextNode.h in Headers */,
+				D31E3EDA1F1C2334004BD0C6 /* TDPrintNode.h in Headers */,
+				D31E3EDB1F1C2334004BD0C6 /* TDIfTag.h in Headers */,
+				D31E3EDC1F1C2334004BD0C6 /* TDElseIfTag.h in Headers */,
+				D31E3EDD1F1C2334004BD0C6 /* TDElseTag.h in Headers */,
+				D31E3EDE1F1C2334004BD0C6 /* TDForTag.h in Headers */,
+				D31E3EDF1F1C2334004BD0C6 /* TDForLoop.h in Headers */,
+				D31E3EE01F1C2334004BD0C6 /* TDSkipTag.h in Headers */,
+				D31E3EE11F1C2334004BD0C6 /* TDSkipException.h in Headers */,
+				D31E3EE21F1C2334004BD0C6 /* TDCommentTag.h in Headers */,
+				D31E3EE31F1C2334004BD0C6 /* TDVerbatimTag.h in Headers */,
+				D31E3EE41F1C2334004BD0C6 /* TDTrimTag.h in Headers */,
+				D31E3EE51F1C2334004BD0C6 /* TDIndentTag.h in Headers */,
+				D31E3EE61F1C2334004BD0C6 /* TDConditionalOutputTag.h in Headers */,
+				D31E3EE71F1C2334004BD0C6 /* TDNewlineTag.h in Headers */,
+				D31E3EE81F1C2334004BD0C6 /* TDSpaceTag.h in Headers */,
+				D31E3EE91F1C2334004BD0C6 /* TDTabTag.h in Headers */,
+				D31E3EEA1F1C2334004BD0C6 /* TDTrimFilter.h in Headers */,
+				D31E3EEB1F1C2334004BD0C6 /* TDRoundFilter.h in Headers */,
+				D31E3EEC1F1C2334004BD0C6 /* TDCeilFilter.h in Headers */,
+				D31E3EED1F1C2334004BD0C6 /* TDFloorFilter.h in Headers */,
+				D31E3EEE1F1C2334004BD0C6 /* TDNumberFormatFilter.h in Headers */,
+				D31E3EEF1F1C2334004BD0C6 /* TDDateFormatFilter.h in Headers */,
+				D31E3EF01F1C2334004BD0C6 /* TDLowercaseFilter.h in Headers */,
+				D31E3EF11F1C2334004BD0C6 /* TDUppercaseFilter.h in Headers */,
+				D31E3EF21F1C2334004BD0C6 /* TDCapitalizeFilter.h in Headers */,
+				D31E3EF31F1C2334004BD0C6 /* TDReplaceFilter.h in Headers */,
+				D31E3EF41F1C2334004BD0C6 /* TDTemplateEngine+ExpressionSupport.h in Headers */,
+				D31E3EF51F1C2334004BD0C6 /* PKToken+Verbatim.h in Headers */,
+				D31E3EF61F1C2334004BD0C6 /* TDParser.h in Headers */,
+				D31E3EF71F1C2334004BD0C6 /* TDFilterExpression.h in Headers */,
+				D31E3EF81F1C2334004BD0C6 /* TDUnaryExpression.h in Headers */,
+				D31E3EF91F1C2334004BD0C6 /* TDNegationExpression.h in Headers */,
+				D31E3EFA1F1C2334004BD0C6 /* TDPathExpression.h in Headers */,
+				D31E3EFB1F1C2334004BD0C6 /* TDLoopExpression.h in Headers */,
+				D31E3EFC1F1C2334004BD0C6 /* TDEnumeration.h in Headers */,
+				D31E3EFD1F1C2334004BD0C6 /* TDCollectionExpression.h in Headers */,
+				D31E3EFE1F1C2334004BD0C6 /* TDRangeExpression.h in Headers */,
+				D31E3EFF1F1C2334004BD0C6 /* TDValue.h in Headers */,
+				D31E3F001F1C2334004BD0C6 /* TDBooleanValue.h in Headers */,
+				D31E3F011F1C2334004BD0C6 /* TDNumericValue.h in Headers */,
+				D31E3F021F1C2334004BD0C6 /* TDStringValue.h in Headers */,
+				D31E3F031F1C2334004BD0C6 /* TDObjectValue.h in Headers */,
+				D31E3F041F1C2334004BD0C6 /* TDArithmeticExpression.h in Headers */,
+				D31E3F051F1C2334004BD0C6 /* TDBinaryExpression.h in Headers */,
+				D31E3F061F1C2334004BD0C6 /* TDBooleanExpression.h in Headers */,
+				D31E3F071F1C2334004BD0C6 /* TDRelationalExpression.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D367DFAD18E5EF6900F97BCC /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -800,6 +986,8 @@
 				D3E95F251AB0D1A600D19992 /* TDSpaceTag.h in Headers */,
 				D3A29E0418E6584D00DC591E /* TDStringValue.h in Headers */,
 				D3A29DFF18E6584D00DC591E /* TDBooleanValue.h in Headers */,
+				D319138618F1A5C700430BAD /* TDFilter.h in Headers */,
+				D31E3EC31F1C1EF4004BD0C6 /* TDNode.h in Headers */,
 				D3CAF8BA18EF577100166A95 /* TDNegationExpression.h in Headers */,
 				D3BB32E418F76116005E0A3A /* PKToken+Verbatim.h in Headers */,
 				D3D0F6FD1ACB4566006B6112 /* TDSkipException.h in Headers */,
@@ -815,7 +1003,6 @@
 				D3E95F111AB08E6300D19992 /* TDTrimTag.h in Headers */,
 				D3CAF8AF18EDF39200166A95 /* TDLoopExpression.h in Headers */,
 				D3A29E3D18E7B31A00DC591E /* TDObjectValue.h in Headers */,
-				D3A29DAA18E609E700DC591E /* TDNode.h in Headers */,
 				D3E95F2D1AB0D29D00D19992 /* TDTabTag.h in Headers */,
 				D3A29DD618E63D4F00DC591E /* TDForTag.h in Headers */,
 				D3D0F6F91ACB4417006B6112 /* TDSkipTag.h in Headers */,
@@ -838,7 +1025,6 @@
 				D3A29E3918E7AA3100DC591E /* TDPathExpression.h in Headers */,
 				D3A29DE018E6423500DC591E /* TDIfTag.h in Headers */,
 				D3A7E27318F07782009BFD96 /* TDCommentTag.h in Headers */,
-				D319138618F1A5C700430BAD /* TDFilter.h in Headers */,
 				D3A29E0E18E65AC400DC591E /* TDParser.h in Headers */,
 				D3A29E0218E6584D00DC591E /* TDNumericValue.h in Headers */,
 				D3A29E2D18E75D3B00DC591E /* TDBinaryExpression.h in Headers */,
@@ -874,6 +1060,23 @@
 			productName = TDTemplateengine;
 			productReference = D3100CB91CE52E4F007B38BE /* TDTemplateEngine.framework */;
 			productType = "com.apple.product-type.framework";
+		};
+		D31E3E311F1C1C97004BD0C6 /* libTDTemplateEngineOSX */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D31E3E3B1F1C1C97004BD0C6 /* Build configuration list for PBXNativeTarget "libTDTemplateEngineOSX" */;
+			buildPhases = (
+				D31E3E2E1F1C1C97004BD0C6 /* Sources */,
+				D31E3E2F1F1C1C97004BD0C6 /* Frameworks */,
+				D31E3E301F1C1C97004BD0C6 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = libTDTemplateEngineOSX;
+			productName = TDTemplateEngineOSX;
+			productReference = D31E3E321F1C1C97004BD0C6 /* libTDTemplateEngineOSX.a */;
+			productType = "com.apple.product-type.library.static";
 		};
 		D367DFAF18E5EF6900F97BCC /* TDTemplateEngine */ = {
 			isa = PBXNativeTarget;
@@ -917,14 +1120,16 @@
 		D367DFA718E5EF6800F97BCC /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Todd Ditchendorf";
 				TargetAttributes = {
 					D3100CB81CE52E4F007B38BE = {
 						CreatedOnToolsVersion = 7.3.1;
 					};
-					D367DFC618E5EF6900F97BCC = {
-						TestTargetID = D367DFAF18E5EF6900F97BCC;
+					D31E3E311F1C1C97004BD0C6 = {
+						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = 9867TNT66D;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -941,6 +1146,7 @@
 			projectRoot = "";
 			targets = (
 				D367DFAF18E5EF6900F97BCC /* TDTemplateEngine */,
+				D31E3E311F1C1C97004BD0C6 /* libTDTemplateEngineOSX */,
 				D3100CB81CE52E4F007B38BE /* TDTemplateEngineiOS */,
 				D367DFC618E5EF6900F97BCC /* TDTemplateEngineTests */,
 			);
@@ -1034,6 +1240,69 @@
 				D3100CF61CE52ED7007B38BE /* TDBinaryExpression.m in Sources */,
 				D3100CF71CE52ED7007B38BE /* TDBooleanExpression.m in Sources */,
 				D3100CF81CE52ED7007B38BE /* TDRelationalExpression.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D31E3E2E1F1C1C97004BD0C6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D31E3E3E1F1C1D04004BD0C6 /* TDTemplateEngine.m in Sources */,
+				D31E3E3F1F1C1D04004BD0C6 /* TDWriter.m in Sources */,
+				D31E3E401F1C1D04004BD0C6 /* TDTemplateContext.m in Sources */,
+				D31E3E411F1C1D04004BD0C6 /* TDTemplateParser.m in Sources */,
+				D31E3E421F1C1D04004BD0C6 /* TDNode.m in Sources */,
+				D31E3E431F1C1D04004BD0C6 /* TDRootNode.m in Sources */,
+				D31E3E441F1C1D04004BD0C6 /* TDTextNode.m in Sources */,
+				D31E3E451F1C1D04004BD0C6 /* TDPrintNode.m in Sources */,
+				D31E3E461F1C1D04004BD0C6 /* TDTag.m in Sources */,
+				D31E3E471F1C1D04004BD0C6 /* TDIfTag.m in Sources */,
+				D31E3E481F1C1D04004BD0C6 /* TDElseIfTag.m in Sources */,
+				D31E3E491F1C1D04004BD0C6 /* TDElseTag.m in Sources */,
+				D31E3E4A1F1C1D04004BD0C6 /* TDForTag.m in Sources */,
+				D31E3E4B1F1C1D04004BD0C6 /* TDForLoop.m in Sources */,
+				D31E3E4C1F1C1D04004BD0C6 /* TDSkipTag.m in Sources */,
+				D31E3E4D1F1C1D04004BD0C6 /* TDSkipException.m in Sources */,
+				D31E3E4E1F1C1D04004BD0C6 /* TDCommentTag.m in Sources */,
+				D31E3E4F1F1C1D04004BD0C6 /* TDVerbatimTag.m in Sources */,
+				D31E3E501F1C1D04004BD0C6 /* TDTrimTag.m in Sources */,
+				D31E3E511F1C1D04004BD0C6 /* TDIndentTag.m in Sources */,
+				D31E3E521F1C1D04004BD0C6 /* TDConditionalOutputTag.m in Sources */,
+				D31E3E531F1C1D04004BD0C6 /* TDNewlineTag.m in Sources */,
+				D31E3E541F1C1D04004BD0C6 /* TDSpaceTag.m in Sources */,
+				D31E3E551F1C1D04004BD0C6 /* TDTabTag.m in Sources */,
+				D31E3E561F1C1D04004BD0C6 /* TDFilter.m in Sources */,
+				D31E3E571F1C1D04004BD0C6 /* TDTrimFilter.m in Sources */,
+				D31E3E581F1C1D04004BD0C6 /* TDRoundFilter.m in Sources */,
+				D31E3E591F1C1D04004BD0C6 /* TDCeilFilter.m in Sources */,
+				D31E3E5A1F1C1D04004BD0C6 /* TDFloorFilter.m in Sources */,
+				D31E3E5B1F1C1D04004BD0C6 /* TDNumberFormatFilter.m in Sources */,
+				D31E3E5C1F1C1D04004BD0C6 /* TDDateFormatFilter.m in Sources */,
+				D31E3E5D1F1C1D04004BD0C6 /* TDLowercaseFilter.m in Sources */,
+				D31E3E5E1F1C1D04004BD0C6 /* TDUppercaseFilter.m in Sources */,
+				D31E3E5F1F1C1D04004BD0C6 /* TDCapitalizeFilter.m in Sources */,
+				D31E3E601F1C1D04004BD0C6 /* TDReplaceFilter.m in Sources */,
+				D31E3E611F1C1D04004BD0C6 /* TDTemplateEngine+ExpressionSupport.m in Sources */,
+				D31E3E621F1C1D04004BD0C6 /* PKToken+Verbatim.m in Sources */,
+				D31E3E631F1C1D04004BD0C6 /* TDParser.m in Sources */,
+				D31E3E641F1C1D04004BD0C6 /* TDExpression.m in Sources */,
+				D31E3E651F1C1D04004BD0C6 /* TDFilterExpression.m in Sources */,
+				D31E3E661F1C1D04004BD0C6 /* TDUnaryExpression.m in Sources */,
+				D31E3E671F1C1D04004BD0C6 /* TDNegationExpression.m in Sources */,
+				D31E3E681F1C1D04004BD0C6 /* TDPathExpression.m in Sources */,
+				D31E3E691F1C1D04004BD0C6 /* TDLoopExpression.m in Sources */,
+				D31E3E6A1F1C1D04004BD0C6 /* TDEnumeration.m in Sources */,
+				D31E3E6B1F1C1D04004BD0C6 /* TDCollectionExpression.m in Sources */,
+				D31E3E6C1F1C1D04004BD0C6 /* TDRangeExpression.m in Sources */,
+				D31E3E6D1F1C1D04004BD0C6 /* TDValue.m in Sources */,
+				D31E3E6E1F1C1D04004BD0C6 /* TDBooleanValue.m in Sources */,
+				D31E3E6F1F1C1D04004BD0C6 /* TDNumericValue.m in Sources */,
+				D31E3E701F1C1D04004BD0C6 /* TDStringValue.m in Sources */,
+				D31E3E711F1C1D04004BD0C6 /* TDObjectValue.m in Sources */,
+				D31E3E721F1C1D04004BD0C6 /* TDArithmeticExpression.m in Sources */,
+				D31E3E731F1C1D04004BD0C6 /* TDBinaryExpression.m in Sources */,
+				D31E3E741F1C1D04004BD0C6 /* TDBooleanExpression.m in Sources */,
+				D31E3E751F1C1D04004BD0C6 /* TDRelationalExpression.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1161,7 +1430,6 @@
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
@@ -1169,10 +1437,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/lib/pegkit/build/Debug-iphoneos",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				INFOPLIST_FILE = "res/TDTemplateEngineiOS-Info.plist";
@@ -1196,7 +1461,6 @@
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -1204,10 +1468,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/lib/pegkit/build/Debug-iphoneos",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				INFOPLIST_FILE = "res/TDTemplateEngineiOS-Info.plist";
@@ -1227,6 +1488,54 @@
 			};
 			name = Release;
 		};
+		D31E3E381F1C1C97004BD0C6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "-";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 9867TNT66D;
+				EXECUTABLE_PREFIX = lib;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = TDTemplateEngineOSX;
+			};
+			name = Debug;
+		};
+		D31E3E391F1C1C97004BD0C6 /* Test */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = 9867TNT66D;
+				EXECUTABLE_PREFIX = lib;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = TDTemplateEngineOSX;
+			};
+			name = Test;
+		};
+		D31E3E3A1F1C1C97004BD0C6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = 9867TNT66D;
+				EXECUTABLE_PREFIX = lib;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = TDTemplateEngineOSX;
+			};
+			name = Release;
+		};
 		D367DFD618E5EF6900F97BCC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1239,14 +1548,19 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "res/TDTemplateEngine-Prefix.pch";
@@ -1257,15 +1571,16 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					lib/pegkit/include,
+					lib/PEGKit/include,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				ONLY_ACTIVE_ARCH = YES;
 				SKIP_INSTALL = YES;
 			};
@@ -1283,26 +1598,32 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "res/TDTemplateEngine-Prefix.pch";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					lib/pegkit/include,
+					lib/PEGKit/include,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -1314,7 +1635,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath/";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "res/TDTemplateEngine-Info.plist";
 				INSTALL_PATH = "@rpath";
@@ -1331,7 +1651,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath/";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "res/TDTemplateEngine-Info.plist";
 				INSTALL_PATH = "@rpath";
@@ -1344,7 +1663,6 @@
 		D367DFDC18E5EF6900F97BCC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/TDTemplateEngine.framework/Versions/A/TDTemplateEngine";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
@@ -1362,7 +1680,6 @@
 				INFOPLIST_FILE = "test/TDTemplateEngineTests-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.celestialteapot.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Debug;
@@ -1370,7 +1687,6 @@
 		D367DFDD18E5EF6900F97BCC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/TDTemplateEngine.framework/Versions/A/TDTemplateEngine";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
@@ -1384,10 +1700,129 @@
 				INFOPLIST_FILE = "test/TDTemplateEngineTests-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.celestialteapot.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
+		};
+		D3ADB4601E8AEFA300306142 /* Test */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "res/TDTemplateEngine-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					lib/PEGKit/include,
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				SKIP_INSTALL = YES;
+			};
+			name = Test;
+		};
+		D3ADB4611E8AEFA300306142 /* Test */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath/";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = "res/TDTemplateEngine-Info.plist";
+				INSTALL_PATH = "@rpath";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.celestialteapot.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Test;
+		};
+		D3ADB4621E8AEFA300306142 /* Test */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				INFOPLIST_FILE = "res/TDTemplateEngineiOS-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.celestialteapot.TDTemplateengine;
+				PRODUCT_NAME = TDTemplateEngine;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Test;
+		};
+		D3ADB4631E8AEFA300306142 /* Test */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/TDTemplateEngine-fzzezlziivpwkibrtiisnixrvvso/Build/Products/Debug",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+				);
+				INFOPLIST_FILE = "test/TDTemplateEngineTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.celestialteapot.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Test;
 		};
 /* End XCBuildConfiguration section */
 
@@ -1396,7 +1831,18 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D3100CBE1CE52E4F007B38BE /* Debug */,
+				D3ADB4621E8AEFA300306142 /* Test */,
 				D3100CBF1CE52E4F007B38BE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D31E3E3B1F1C1C97004BD0C6 /* Build configuration list for PBXNativeTarget "libTDTemplateEngineOSX" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D31E3E381F1C1C97004BD0C6 /* Debug */,
+				D31E3E391F1C1C97004BD0C6 /* Test */,
+				D31E3E3A1F1C1C97004BD0C6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1405,6 +1851,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D367DFD618E5EF6900F97BCC /* Debug */,
+				D3ADB4601E8AEFA300306142 /* Test */,
 				D367DFD718E5EF6900F97BCC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -1414,6 +1861,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D367DFD918E5EF6900F97BCC /* Debug */,
+				D3ADB4611E8AEFA300306142 /* Test */,
 				D367DFDA18E5EF6900F97BCC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -1423,6 +1871,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D367DFDC18E5EF6900F97BCC /* Debug */,
+				D3ADB4631E8AEFA300306142 /* Test */,
 				D367DFDD18E5EF6900F97BCC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;

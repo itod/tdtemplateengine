@@ -21,11 +21,11 @@
 // THE SOFTWARE.
 
 #import <TDTemplateEngine/TDTemplateEngine.h>
-#import <TDTemplateEngine/TDTemplateParser.h>
 #import <TDTemplateEngine/TDNode.h>
 #import <TDTemplateEngine/TDTemplateContext.h>
 #import "TDTemplateEngine+ExpressionSupport.h"
 
+#import "TDTemplateParser.h"
 #import "TDRootNode.h"
 #import "TDTextNode.h"
 #import "TDPrintNode.h"

@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Todd Ditchendorf. All rights reserved.
 //
 
-#import <TDTemplateEngine/TDConditionalOutputTag.h>
+#import "TDConditionalOutputTag.h"
 
 @interface TDSpaceTag : TDConditionalOutputTag
 

@@ -47,6 +47,7 @@ double TDNumberFromString(NSString *s) {
     return [s doubleValue];
 }
 
+
 @implementation TDValue
 
 - (NSString *)description {
@@ -114,22 +115,6 @@ double TDNumberFromString(NSString *s) {
     if (op == TD_TOKEN_KIND_NE) return [self isNotEqualToValue:other];
         
     return [self compareNumber:[self doubleValue] toNumber:[other doubleValue] usingOperator:op];
-}
-
-
-- (NSInteger)inverseOperator:(NSInteger)op {
-    switch (op) {
-        case TD_TOKEN_KIND_LT:
-            return TD_TOKEN_KIND_GT;
-        case TD_TOKEN_KIND_LE:
-            return TD_TOKEN_KIND_GE;
-        case TD_TOKEN_KIND_GT:
-            return TD_TOKEN_KIND_LT;
-        case TD_TOKEN_KIND_GE:
-            return TD_TOKEN_KIND_LE;
-        default:
-            return op;
-    }
 }
 
 

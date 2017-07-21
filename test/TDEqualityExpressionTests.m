@@ -174,4 +174,52 @@
     TDTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
 }
 
+- (void)test0EqNeg0 {
+    NSString *input = @"0 == -0";
+    NSArray *toks = [self tokenize:input];
+    
+    TDEquals(0, -0);
+    
+    NSError *err = nil;
+    TDExpression *expr = [self.eng expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
+}
+
+- (void)test0NeNeg0 {
+    NSString *input = @"0 != -0";
+    NSArray *toks = [self tokenize:input];
+    
+    NSError *err = nil;
+    TDExpression *expr = [self.eng expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDFalse([[expr simplify] evaluateAsBooleanInContext:nil]);
+}
+
+- (void)test00EqNeg00 {
+    NSString *input = @"0.0 == -0.0";
+    NSArray *toks = [self tokenize:input];
+    
+    TDEquals(0.0, -0.0);
+    
+    NSError *err = nil;
+    TDExpression *expr = [self.eng expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
+}
+
+- (void)test00NeNeg00 {
+    NSString *input = @"0.0 != -0.0";
+    NSArray *toks = [self tokenize:input];
+    
+    NSError *err = nil;
+    TDExpression *expr = [self.eng expressionFromTokens:toks error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDFalse([[expr simplify] evaluateAsBooleanInContext:nil]);
+}
+
 @end
