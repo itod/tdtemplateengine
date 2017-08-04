@@ -387,7 +387,7 @@
 		D306D9C418F5854000E32DDC /* TDBaseExpressionTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDBaseExpressionTests.h; path = test/TDBaseExpressionTests.h; sourceTree = SOURCE_ROOT; };
 		D3100CB91CE52E4F007B38BE /* TDTemplateEngine.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TDTemplateEngine.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3100D341CE5317A007B38BE /* TDTemplateEngineiOS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "TDTemplateEngineiOS-Info.plist"; path = "res/TDTemplateEngineiOS-Info.plist"; sourceTree = SOURCE_ROOT; };
-		D319137018F197D400430BAD /* PEGKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PEGKit.framework; path = "../../../Library/Developer/Xcode/DerivedData/TDTemplateEngine-fzzezlziivpwkibrtiisnixrvvso/Build/Products/Debug/PEGKit.framework"; sourceTree = "<group>"; };
+		D319137018F197D400430BAD /* PEGKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PEGKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D319137A18F1A46100430BAD /* TDFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDFilter.m; path = src/TDFilter.m; sourceTree = SOURCE_ROOT; };
 		D319137D18F1A4A900430BAD /* TDFilterExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDFilterExpression.h; path = src/TDFilterExpression.h; sourceTree = SOURCE_ROOT; };
 		D319137E18F1A4A900430BAD /* TDFilterExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDFilterExpression.m; path = src/TDFilterExpression.m; sourceTree = SOURCE_ROOT; };
@@ -403,7 +403,7 @@
 		D319139318F2ED3300430BAD /* TDVerbatimTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDVerbatimTag.m; path = src/TDVerbatimTag.m; sourceTree = SOURCE_ROOT; };
 		D319139618F2EF7000430BAD /* TDTrimTagTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDTrimTagTests.m; path = test/TDTrimTagTests.m; sourceTree = SOURCE_ROOT; };
 		D31E3E321F1C1C97004BD0C6 /* libTDTemplateEngineOSX.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libTDTemplateEngineOSX.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		D31E3E3C1F1C1CAE004BD0C6 /* libPEGKitOSX.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPEGKitOSX.a; path = "../../../../../Library/Developer/Xcode/DerivedData/DCIScript-gazofidwjflslweszuuhizioypzt/Build/Products/Debug/libPEGKitOSX.a"; sourceTree = "<group>"; };
+		D31E3E3C1F1C1CAE004BD0C6 /* libPEGKitOSX.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libPEGKitOSX.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D31E3EC21F1C1EF4004BD0C6 /* TDNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDNode.h; path = include/TDTemplateEngine/TDNode.h; sourceTree = SOURCE_ROOT; };
 		D33915DD18F0818500BDA4FD /* TDArithmeticExpressionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDArithmeticExpressionTests.m; path = test/TDArithmeticExpressionTests.m; sourceTree = SOURCE_ROOT; };
 		D33915E318F081ED00BDA4FD /* TDPathExpressionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDPathExpressionTests.m; path = test/TDPathExpressionTests.m; sourceTree = SOURCE_ROOT; };
@@ -484,7 +484,7 @@
 		D3A29E3818E7AA3100DC591E /* TDPathExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDPathExpression.m; path = src/TDPathExpression.m; sourceTree = SOURCE_ROOT; };
 		D3A29E3B18E7B31A00DC591E /* TDObjectValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDObjectValue.h; path = src/TDObjectValue.h; sourceTree = SOURCE_ROOT; };
 		D3A29E3C18E7B31A00DC591E /* TDObjectValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDObjectValue.m; path = src/TDObjectValue.m; sourceTree = SOURCE_ROOT; };
-		D3A391CF1CE55A01001FA335 /* PEGKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PEGKit.framework; path = "lib/pegkit/build/Debug-iphoneos/PEGKit.framework"; sourceTree = "<group>"; };
+		D3A391CF1CE55A01001FA335 /* PEGKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PEGKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3A3E54A18EC5706004FEB2C /* TDForTagTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDForTagTests.m; path = test/TDForTagTests.m; sourceTree = SOURCE_ROOT; };
 		D3A3E54B18EC5706004FEB2C /* TDIfTagTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDIfTagTests.m; path = test/TDIfTagTests.m; sourceTree = SOURCE_ROOT; };
 		D3A3E54C18EC5706004FEB2C /* TDPrintNodeTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDPrintNodeTests.m; path = test/TDPrintNodeTests.m; sourceTree = SOURCE_ROOT; };
@@ -1667,7 +1667,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(inherited)",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/TDTemplateEngine-fzzezlziivpwkibrtiisnixrvvso/Build/Products/Debug",
+					"$(BUILT_PRODUCTS_DIR)",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -1691,7 +1691,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(inherited)",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/TDTemplateEngine-fzzezlziivpwkibrtiisnixrvvso/Build/Products/Debug",
+					"$(BUILT_PRODUCTS_DIR)",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1807,7 +1807,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(inherited)",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/TDTemplateEngine-fzzezlziivpwkibrtiisnixrvvso/Build/Products/Debug",
+					"$(BUILT_PRODUCTS_DIR)",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
