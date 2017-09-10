@@ -52,6 +52,7 @@
 #import "TDCeilFilter.h"
 #import "TDNumberFormatFilter.h"
 #import "TDDateFormatFilter.h"
+#import "TDNullFormatFilter.h"
 #import "TDLowercaseFilter.h"
 #import "TDUppercaseFilter.h"
 #import "TDCapitalizeFilter.h"
@@ -118,6 +119,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
         [self registerFilterClass:[TDCeilFilter class] forName:[TDCeilFilter filterName]];
         [self registerFilterClass:[TDNumberFormatFilter class] forName:[TDNumberFormatFilter filterName]];
         [self registerFilterClass:[TDDateFormatFilter class] forName:[TDDateFormatFilter filterName]];
+        [self registerFilterClass:[TDNullFormatFilter class] forName:[TDNullFormatFilter filterName]];
         [self registerFilterClass:[TDLowercaseFilter class] forName:[TDLowercaseFilter filterName]];
         [self registerFilterClass:[TDUppercaseFilter class] forName:[TDUppercaseFilter filterName]];
         [self registerFilterClass:[TDCapitalizeFilter class] forName:[TDCapitalizeFilter filterName]];
