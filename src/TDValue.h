@@ -43,4 +43,5 @@ double TDNumberFromString(NSString *s);
 - (BOOL)isBooleanValue;
 - (BOOL)isNumericValue;
 - (BOOL)isStringValue;
+- (BOOL)isNullValue;
 @end

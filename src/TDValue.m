@@ -148,4 +148,9 @@ double TDNumberFromString(NSString *s) {
     return TDDataTypeString == [self dataType];
 }
 
+
+- (BOOL)isNullValue {
+    return [NSNull null] == self.objectValue;
+}
+
 @end
