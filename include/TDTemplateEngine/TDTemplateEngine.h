@@ -77,6 +77,6 @@ extern const NSInteger TDTemplateEngineRenderingErrorCode;
 
 @interface TDTemplateEngine (FilterRegistration)
 - (void)registerFilterClass:(Class)cls forName:(NSString *)filterName;
-- (Class)registerdFilterClassForName:(NSString *)filterName;
+- (Class)registeredFilterClassForName:(NSString *)filterName;
 - (TDFilter *)makeFilterForName:(NSString *)filterName;
 @end

@@ -508,7 +508,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 }
 
 
-- (Class)registerdFilterClassForName:(NSString *)filterName {
+- (Class)registeredFilterClassForName:(NSString *)filterName {
     TDAssert(_filterTab);
     Class cls = _filterTab[filterName];
     return cls;
