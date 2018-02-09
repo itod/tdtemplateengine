@@ -271,6 +271,11 @@
 		D369BD4B18EF8921003E715B /* TDEnumeration.m in Sources */ = {isa = PBXBuildFile; fileRef = D369BD4918EF8921003E715B /* TDEnumeration.m */; };
 		D37BC6B518F4415200938644 /* TDDateFormatFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = D37BC6B318F4415200938644 /* TDDateFormatFilter.h */; };
 		D37BC6B618F4415200938644 /* TDDateFormatFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D37BC6B418F4415200938644 /* TDDateFormatFilter.m */; settings = {COMPILER_FLAGS = "-Wno-deprecated"; }; };
+		D391AAFD202D6C9900ECCE37 /* TDFabsFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = D391AAFB202D6C9800ECCE37 /* TDFabsFilter.h */; };
+		D391AAFE202D6C9900ECCE37 /* TDFabsFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D391AAFC202D6C9800ECCE37 /* TDFabsFilter.m */; };
+		D391AAFF202D6D1600ECCE37 /* TDFabsFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D391AAFC202D6C9800ECCE37 /* TDFabsFilter.m */; };
+		D391AB00202D6D1600ECCE37 /* TDFabsFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D391AAFC202D6C9800ECCE37 /* TDFabsFilter.m */; };
+		D391AB01202D6D1700ECCE37 /* TDFabsFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D391AAFC202D6C9800ECCE37 /* TDFabsFilter.m */; };
 		D398E2EF18EA2C51004B883C /* TDTemplateParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D398E2ED18EA2C51004B883C /* TDTemplateParser.h */; };
 		D398E2F018EA2C51004B883C /* TDTemplateParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D398E2EE18EA2C51004B883C /* TDTemplateParser.m */; };
 		D3A21F3D1AC9E40D0009A712 /* TDUnaryExpressionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A21F3C1AC9E40D0009A712 /* TDUnaryExpressionTests.m */; };
@@ -435,6 +440,8 @@
 		D369BD4918EF8921003E715B /* TDEnumeration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDEnumeration.m; path = src/TDEnumeration.m; sourceTree = SOURCE_ROOT; };
 		D37BC6B318F4415200938644 /* TDDateFormatFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDDateFormatFilter.h; path = src/TDDateFormatFilter.h; sourceTree = SOURCE_ROOT; };
 		D37BC6B418F4415200938644 /* TDDateFormatFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDDateFormatFilter.m; path = src/TDDateFormatFilter.m; sourceTree = SOURCE_ROOT; };
+		D391AAFB202D6C9800ECCE37 /* TDFabsFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDFabsFilter.h; path = src/TDFabsFilter.h; sourceTree = SOURCE_ROOT; };
+		D391AAFC202D6C9800ECCE37 /* TDFabsFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDFabsFilter.m; path = src/TDFabsFilter.m; sourceTree = SOURCE_ROOT; };
 		D398E2ED18EA2C51004B883C /* TDTemplateParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDTemplateParser.h; path = src/TDTemplateParser.h; sourceTree = SOURCE_ROOT; };
 		D398E2EE18EA2C51004B883C /* TDTemplateParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDTemplateParser.m; path = src/TDTemplateParser.m; sourceTree = SOURCE_ROOT; };
 		D3A21F3C1AC9E40D0009A712 /* TDUnaryExpressionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDUnaryExpressionTests.m; path = test/TDUnaryExpressionTests.m; sourceTree = SOURCE_ROOT; };
@@ -627,6 +634,8 @@
 				D35E00431AB61DCF00096913 /* TDCeilFilter.m */,
 				D35E003E1AB61DC000096913 /* TDFloorFilter.h */,
 				D35E003F1AB61DC000096913 /* TDFloorFilter.m */,
+				D391AAFB202D6C9800ECCE37 /* TDFabsFilter.h */,
+				D391AAFC202D6C9800ECCE37 /* TDFabsFilter.m */,
 				D35E00361AB6189A00096913 /* TDNumberFormatFilter.h */,
 				D35E00371AB6189A00096913 /* TDNumberFormatFilter.m */,
 				D37BC6B318F4415200938644 /* TDDateFormatFilter.h */,
@@ -1023,6 +1032,7 @@
 				D35E00381AB6189A00096913 /* TDNumberFormatFilter.h in Headers */,
 				D3E95F171AB094DF00D19992 /* TDNewlineTag.h in Headers */,
 				D3F5064818ECA36B00BAC93B /* TDWriter.h in Headers */,
+				D391AAFD202D6C9900ECCE37 /* TDFabsFilter.h in Headers */,
 				D35E003C1AB61D2900096913 /* TDRoundFilter.h in Headers */,
 				D3A29E2B18E75D3B00DC591E /* TDArithmeticExpression.h in Headers */,
 				D3A29DF518E6583600DC591E /* TDExpression.h in Headers */,
@@ -1198,6 +1208,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3100CC11CE52ED7007B38BE /* TDTemplateEngine.m in Sources */,
+				D391AB00202D6D1600ECCE37 /* TDFabsFilter.m in Sources */,
 				D3100CC21CE52ED7007B38BE /* TDWriter.m in Sources */,
 				D3100CC31CE52ED7007B38BE /* TDTemplateContext.m in Sources */,
 				D3100CC41CE52ED7007B38BE /* TDTemplateParser.m in Sources */,
@@ -1262,6 +1273,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D31E3E3E1F1C1D04004BD0C6 /* TDTemplateEngine.m in Sources */,
+				D391AAFF202D6D1600ECCE37 /* TDFabsFilter.m in Sources */,
 				D31E3E3F1F1C1D04004BD0C6 /* TDWriter.m in Sources */,
 				D31E3E401F1C1D04004BD0C6 /* TDTemplateContext.m in Sources */,
 				D31E3E411F1C1D04004BD0C6 /* TDTemplateParser.m in Sources */,
@@ -1326,6 +1338,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3A29DD718E63D4F00DC591E /* TDForTag.m in Sources */,
+				D391AAFE202D6C9900ECCE37 /* TDFabsFilter.m in Sources */,
 				D3BB32E518F76116005E0A3A /* PKToken+Verbatim.m in Sources */,
 				D3A29DBF18E61ACA00DC591E /* TDTextNode.m in Sources */,
 				D3A29E3018E75D3B00DC591E /* TDBooleanExpression.m in Sources */,
@@ -1404,6 +1417,7 @@
 				D3CAF8BE18EF5A0000166A95 /* TDNegationExpressionTests.m in Sources */,
 				D3A3E54F18EC5706004FEB2C /* TDPrintNodeTests.m in Sources */,
 				D33915E418F081ED00BDA4FD /* TDPathExpressionTests.m in Sources */,
+				D391AB01202D6D1700ECCE37 /* TDFabsFilter.m in Sources */,
 				D3A3E54E18EC5706004FEB2C /* TDIfTagTests.m in Sources */,
 				D33915E618F09DFF00BDA4FD /* TDElseTagTests.m in Sources */,
 				D319138818F1A80300430BAD /* TDFilterExpressionTests.m in Sources */,

@@ -50,6 +50,7 @@
 #import "TDRoundFilter.h"
 #import "TDFloorFilter.h"
 #import "TDCeilFilter.h"
+#import "TDFabsFilter.h"
 #import "TDNumberFormatFilter.h"
 #import "TDDateFormatFilter.h"
 #import "TDNullFormatFilter.h"
@@ -117,6 +118,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
         [self registerFilterClass:[TDRoundFilter class] forName:[TDRoundFilter filterName]];
         [self registerFilterClass:[TDFloorFilter class] forName:[TDFloorFilter filterName]];
         [self registerFilterClass:[TDCeilFilter class] forName:[TDCeilFilter filterName]];
+        [self registerFilterClass:[TDFabsFilter class] forName:[TDFabsFilter filterName]];
         [self registerFilterClass:[TDNumberFormatFilter class] forName:[TDNumberFormatFilter filterName]];
         [self registerFilterClass:[TDDateFormatFilter class] forName:[TDDateFormatFilter filterName]];
         [self registerFilterClass:[TDNullFormatFilter class] forName:[TDNullFormatFilter filterName]];
