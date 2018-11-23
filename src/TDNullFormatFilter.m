@@ -35,6 +35,8 @@
     
     if ([input isNullValue]) {
         return @"null";
+    } else if ([input isStringValue]) {
+        return [NSString stringWithFormat:@"\"%@\"", [input stringValue]];
     } else {
         return input;
     }
