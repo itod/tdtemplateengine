@@ -40,6 +40,7 @@ enum {
     TD_TOKEN_KIND_GE = 47,
     TD_TOKEN_KIND_NO_UPPER = 48,
     TD_TOKEN_KIND_DOUBLE_EQUALS = 49,
+    TD_TOKEN_KIND_NULL = 50,
 };
 
 @interface TDParser : PKParser

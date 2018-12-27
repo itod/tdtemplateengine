@@ -15,6 +15,7 @@
 #import <TDTemplateEngine/TDBooleanValue.h>
 #import <TDTemplateEngine/TDNumericValue.h>
 #import <TDTemplateEngine/TDStringValue.h>
+#import <TDTemplateEngine/TDObjectValue.h>
 #import <TDTemplateEngine/TDUnaryExpression.h>
 #import <TDTemplateEngine/TDNegationExpression.h>
 #import <TDTemplateEngine/TDBooleanExpression.h>
@@ -237,7 +238,7 @@ pathExpr
 step = identifier | num;
 identifier = Word { PUSH(POP_STR()); };
 
-literal = str | num | bool;
+literal = str | num | bool | null;
 bool
     = true { PUSH([TDBooleanValue booleanValueWithBoolean:YES]); }
     | false { PUSH([TDBooleanValue booleanValueWithBoolean:NO]); }
@@ -252,4 +253,8 @@ num = Number {
 
 str = QuotedString {
     PUSH([TDStringValue stringValueWithString:POP_QUOTED_STR()]);
+};
+
+null = 'null'! {
+    PUSH([TDObjectValue objectValueWithObject:[NSNull null]]);
 };
