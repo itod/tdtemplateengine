@@ -1158,10 +1158,11 @@
 			};
 			buildConfigurationList = D367DFAA18E5EF6800F97BCC /* Build configuration list for PBXProject "TDTemplateEngine" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = D367DFA618E5EF6800F97BCC;
 			productRefGroup = D367DFB118E5EF6900F97BCC /* Products */;
