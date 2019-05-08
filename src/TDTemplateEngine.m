@@ -21,11 +21,11 @@
 // THE SOFTWARE.
 
 #import <TDTemplateEngine/TDTemplateEngine.h>
-#import <TDTemplateEngine/TDTemplateParser.h>
 #import <TDTemplateEngine/TDNode.h>
 #import <TDTemplateEngine/TDTemplateContext.h>
 #import "TDTemplateEngine+ExpressionSupport.h"
 
+#import "TDTemplateParser.h"
 #import "TDRootNode.h"
 #import "TDTextNode.h"
 #import "TDPrintNode.h"
@@ -50,8 +50,10 @@
 #import "TDRoundFilter.h"
 #import "TDFloorFilter.h"
 #import "TDCeilFilter.h"
+#import "TDFabsFilter.h"
 #import "TDNumberFormatFilter.h"
 #import "TDDateFormatFilter.h"
+#import "TDNullFormatFilter.h"
 #import "TDLowercaseFilter.h"
 #import "TDUppercaseFilter.h"
 #import "TDCapitalizeFilter.h"
@@ -116,8 +118,10 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
         [self registerFilterClass:[TDRoundFilter class] forName:[TDRoundFilter filterName]];
         [self registerFilterClass:[TDFloorFilter class] forName:[TDFloorFilter filterName]];
         [self registerFilterClass:[TDCeilFilter class] forName:[TDCeilFilter filterName]];
+        [self registerFilterClass:[TDFabsFilter class] forName:[TDFabsFilter filterName]];
         [self registerFilterClass:[TDNumberFormatFilter class] forName:[TDNumberFormatFilter filterName]];
         [self registerFilterClass:[TDDateFormatFilter class] forName:[TDDateFormatFilter filterName]];
+        [self registerFilterClass:[TDNullFormatFilter class] forName:[TDNullFormatFilter filterName]];
         [self registerFilterClass:[TDLowercaseFilter class] forName:[TDLowercaseFilter filterName]];
         [self registerFilterClass:[TDUppercaseFilter class] forName:[TDUppercaseFilter filterName]];
         [self registerFilterClass:[TDCapitalizeFilter class] forName:[TDCapitalizeFilter filterName]];
@@ -506,7 +510,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 }
 
 
-- (Class)registerdFilterClassForName:(NSString *)filterName {
+- (Class)registeredFilterClassForName:(NSString *)filterName {
     TDAssert(_filterTab);
     Class cls = _filterTab[filterName];
     return cls;

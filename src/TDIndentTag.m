@@ -33,6 +33,15 @@
 
     ctx.indentDepth++;
 
+    // leading indent WS
+//    {
+//        NSMutableString *str = [NSMutableString string];
+//        for (NSUInteger depth = 0; depth < ctx.indentDepth; ++depth) {
+//            [str appendString:@"    "];
+//        }
+//        [ctx.writer appendString:str];
+//    }
+    
     [self renderChildrenInContext:ctx];
     
     ctx.indentDepth--;

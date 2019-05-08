@@ -20,28 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <TDTemplateEngine/TDExpression.h>
+#import <TDTemplateEngine/TDFilter.h>
 
-@class TDValue;
+@interface TDFabsFilter : TDFilter
 
-TDValue *TDValueFromObject(id obj);
-double TDNumberFromString(NSString *s);
-
-@interface TDValue : TDExpression
-
-- (id)objectValue;
-- (NSString *)stringValue;
-- (double)doubleValue;
-- (BOOL)boolValue;
-
-- (BOOL)isEqualToValue:(TDValue *)other;
-- (BOOL)isNotEqualToValue:(TDValue *)other;
-
-- (BOOL)compareToValue:(TDValue *)other usingOperator:(NSInteger)op;
-
-// convenience
-- (BOOL)isBooleanValue;
-- (BOOL)isNumericValue;
-- (BOOL)isStringValue;
-- (BOOL)isNullValue;
 @end

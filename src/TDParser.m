@@ -1,20 +1,21 @@
 #import "TDParser.h"
 #import <PEGKit/PEGKit.h>
     
-#import <TDTemplateEngine/TDTemplateEngine.h>
-#import <TDTemplateEngine/TDBooleanValue.h>
-#import <TDTemplateEngine/TDNumericValue.h>
-#import <TDTemplateEngine/TDStringValue.h>
-#import <TDTemplateEngine/TDUnaryExpression.h>
-#import <TDTemplateEngine/TDNegationExpression.h>
-#import <TDTemplateEngine/TDBooleanExpression.h>
-#import <TDTemplateEngine/TDRelationalExpression.h>
-#import <TDTemplateEngine/TDArithmeticExpression.h>
-#import <TDTemplateEngine/TDLoopExpression.h>
-#import <TDTemplateEngine/TDCollectionExpression.h>
-#import <TDTemplateEngine/TDRangeExpression.h>
-#import <TDTemplateEngine/TDPathExpression.h>
-#import <TDTemplateEngine/TDFilterExpression.h>
+#import "TDTemplateEngine.h"
+#import "TDBooleanValue.h"
+#import "TDNumericValue.h"
+#import "TDStringValue.h"
+#import "TDObjectValue.h"
+#import "TDUnaryExpression.h"
+#import "TDNegationExpression.h"
+#import "TDBooleanExpression.h"
+#import "TDRelationalExpression.h"
+#import "TDArithmeticExpression.h"
+#import "TDLoopExpression.h"
+#import "TDCollectionExpression.h"
+#import "TDRangeExpression.h"
+#import "TDPathExpression.h"
+#import "TDFilterExpression.h"
 
 
 @interface TDParser ()
@@ -91,6 +92,7 @@
         self.tokenKindTab[@"ge"] = @(TD_TOKEN_KIND_GE);
         self.tokenKindTab[@"NO"] = @(TD_TOKEN_KIND_NO_UPPER);
         self.tokenKindTab[@"=="] = @(TD_TOKEN_KIND_DOUBLE_EQUALS);
+        self.tokenKindTab[@"null"] = @(TD_TOKEN_KIND_NULL);
 
         self.tokenKindNameTab[TD_TOKEN_KIND_GT] = @"gt";
         self.tokenKindNameTab[TD_TOKEN_KIND_GE_SYM] = @">=";
@@ -128,6 +130,7 @@
         self.tokenKindNameTab[TD_TOKEN_KIND_GE] = @"ge";
         self.tokenKindNameTab[TD_TOKEN_KIND_NO_UPPER] = @"NO";
         self.tokenKindNameTab[TD_TOKEN_KIND_DOUBLE_EQUALS] = @"==";
+        self.tokenKindNameTab[TD_TOKEN_KIND_NULL] = @"null";
 
     }
     return self;
@@ -550,7 +553,7 @@
     
     if ([self predicts:TD_TOKEN_KIND_BANG, TD_TOKEN_KIND_NOT, 0]) {
         [self negatedUnary_]; 
-    } else if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, TD_TOKEN_KIND_FALSE, TD_TOKEN_KIND_MINUS, TD_TOKEN_KIND_NO_UPPER, TD_TOKEN_KIND_OPEN_PAREN, TD_TOKEN_KIND_TRUE, TD_TOKEN_KIND_YES_UPPER, 0]) {
+    } else if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, TD_TOKEN_KIND_FALSE, TD_TOKEN_KIND_MINUS, TD_TOKEN_KIND_NO_UPPER, TD_TOKEN_KIND_OPEN_PAREN, TD_TOKEN_KIND_TRUE, TD_TOKEN_KIND_YES_UPPER, TD_TOKEN_KIND_NULL, 0]) {
         [self unary_]; 
     } else {
         [self raise:@"No viable alternative found in rule 'unaryExpr'."];
@@ -593,7 +596,7 @@
     
     if ([self predicts:TD_TOKEN_KIND_MINUS, 0]) {
         [self signedFilterExpr_]; 
-    } else if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, TD_TOKEN_KIND_FALSE, TD_TOKEN_KIND_NO_UPPER, TD_TOKEN_KIND_OPEN_PAREN, TD_TOKEN_KIND_TRUE, TD_TOKEN_KIND_YES_UPPER, 0]) {
+    } else if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, TD_TOKEN_KIND_FALSE, TD_TOKEN_KIND_NO_UPPER, TD_TOKEN_KIND_OPEN_PAREN, TD_TOKEN_KIND_TRUE, TD_TOKEN_KIND_YES_UPPER, TD_TOKEN_KIND_NULL, 0]) {
         [self filterExpr_]; 
     } else {
         [self raise:@"No viable alternative found in rule 'unary'."];
@@ -692,7 +695,7 @@
 
 - (void)primaryExpr_ {
     
-    if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, TD_TOKEN_KIND_FALSE, TD_TOKEN_KIND_NO_UPPER, TD_TOKEN_KIND_TRUE, TD_TOKEN_KIND_YES_UPPER, 0]) {
+    if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, TD_TOKEN_KIND_FALSE, TD_TOKEN_KIND_NO_UPPER, TD_TOKEN_KIND_TRUE, TD_TOKEN_KIND_YES_UPPER, TD_TOKEN_KIND_NULL, 0]) {
         [self atom_]; 
     } else if ([self predicts:TD_TOKEN_KIND_OPEN_PAREN, 0]) {
         [self subExpr_]; 
@@ -719,7 +722,7 @@
 
 - (void)atom_ {
     
-    if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TD_TOKEN_KIND_FALSE, TD_TOKEN_KIND_NO_UPPER, TD_TOKEN_KIND_TRUE, TD_TOKEN_KIND_YES_UPPER, 0]) {
+    if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TD_TOKEN_KIND_FALSE, TD_TOKEN_KIND_NO_UPPER, TD_TOKEN_KIND_TRUE, TD_TOKEN_KIND_YES_UPPER, TD_TOKEN_KIND_NULL, 0]) {
         [self literal_]; 
     } else if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
         [self pathExpr_]; 
@@ -780,6 +783,8 @@
         [self num_]; 
     } else if ([self predicts:TD_TOKEN_KIND_FALSE, TD_TOKEN_KIND_NO_UPPER, TD_TOKEN_KIND_TRUE, TD_TOKEN_KIND_YES_UPPER, 0]) {
         [self bool_]; 
+    } else if ([self predicts:TD_TOKEN_KIND_NULL, 0]) {
+        [self null_];
     } else {
         [self raise:@"No viable alternative found in rule 'literal'."];
     }
@@ -845,6 +850,17 @@
     [self execute:^{
     
     PUSH([TDStringValue stringValueWithString:POP_QUOTED_STR()]);
+
+    }];
+
+}
+
+- (void)null_ {
+    
+    [self match:TD_TOKEN_KIND_NULL discard:YES];
+    [self execute:^{
+    
+    PUSH([TDObjectValue objectValueWithObject:[NSNull null]]);
 
     }];
 

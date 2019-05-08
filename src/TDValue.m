@@ -91,6 +91,10 @@ double TDNumberFromString(NSString *s) {
 
 - (BOOL)isEqualToValue:(TDValue *)other {
 
+    if ([self isNullValue] || [other isNullValue]) {
+        return [self isNullValue] == [other isNullValue];
+    }
+    
     if ([self isBooleanValue] || [other isBooleanValue]) {
         return [self boolValue] == [other boolValue];
     }
@@ -146,6 +150,11 @@ double TDNumberFromString(NSString *s) {
 
 - (BOOL)isStringValue {
     return TDDataTypeString == [self dataType];
+}
+
+
+- (BOOL)isNullValue {
+    return [NSNull null] == self.objectValue;
 }
 
 @end

@@ -1,7 +1,7 @@
 TDTemplateEngine
 ===
 
-###A multi-pass, streaming template engine implemented in Cocoa, for use in Cocoa. 
+### A multi-pass, streaming template engine implemented in Cocoa, for use in Cocoa. 
 
 TDTemplateEngine is a template engine implemented in Objective-C, and intended for use on Apple's OS X and iOS platforms. It currently has decent unit test coverage.
 
@@ -11,14 +11,14 @@ TDTemplateEngine is built on top of [PEGKit](https://github.com/itod/pegkit#pegk
 
 TDTemplateEngine is inspired by the [Django template language](https://docs.djangoproject.com/en/dev/topics/templates/), [Java ServerPages](http://en.wikipedia.org/wiki/JavaServer_Pages "JavaServer Pages - Wikipedia, the free encyclopedia"), and [MGTemplateEngine](http://mattgemmell.com/mgtemplateengine-templates-with-cocoa "MGTemplateEngine - Templates with Cocoa - Matt Gemmell") by Matt Gemmell.
 
-####Similarity to MGTemplateEngine
+#### Similarity to MGTemplateEngine
 In fact, TDTemplateEngine's API is very much inspired by [MGTemplateEngine](https://github.com/mattgemmell/MGTemplateEngine). And usage scenarios of the two tools are very similar. If you are in need of a template engine for Cocoa, you should definitely investigate MGTemplateEngine as well. It is more mature.
 
 So if MGTemplateEngine exists, why create another one? What makes TDTemplateEngine different?
 
-###Design Goals of TDTemplateEngine
+### Design Goals of TDTemplateEngine
 
-####Mutliple-pass
+#### Mutliple-pass
 TDTemplateEngine offers a **multiple-pass architecture**. This means that TDTemplateEngine's API allows renderinging of any given template in *2 distinct phases*: 
 
 1. **Compile** the template source to an intermediate [Abstract Syntax Tree](https://en.wikipedia.org/wiki/Abstract_syntax_tree) (AST) representation.
@@ -36,16 +36,16 @@ This multiple-pass architecture may have disadvantages:
 * One man's *clean, well-factored design*, is another man's *[lasanga code](http://en.wikipedia.org/wiki/Spaghetti_code#Lasagna_code "Spaghetti code - Wikipedia, the free encyclopedia")* -- too many layers.
 * MGTemplateEngine (which I believe is a single-pass architecture) offers a smaller code footprint and simpler architecture. Again, if you're in the market, you should check it out too.
 
-####Streaming output
+#### Streaming output
 TDTemplateEngine also uses `NSOutputStream` for output, rather than only offering an in-memory string output option. This should offer performance and memory-usage benefits for use cases where rendering a template produces large text output at runtime.
 
 The downside of streaming output is that the simple *render-to-in-memory-string* use case is slightly more complex (but only slightly).
 
-###Template Syntax
+### Template Syntax
 
 TDTemplateEngine template syntax is very similar to MGTemplateEngine and Django. Tag delimiters like `{{` `}}` and `{%` `%}` are easily configurable.
 
-####Print Tag
+#### Print Tag
 
 **Print Tags** print the value an expression to the text output:
 
@@ -71,11 +71,11 @@ Mah kitteh sez "{{lolSpeak|trim|uppercase}}".
 {{'now'|fmtDate:'EEE, MMM d, yy'}}
 ```
 
-####Filter Extensibility
+#### Filter Extensibility
 
 You can define your own Filters in ObjC by subclassing `TDFilter` and overriding `-[TDFilter doFilter:withArguments:]`.
 
-####If Tag
+#### If Tag
 
 **If Tags** offer conditional rendering based on input variables at render time:
 
@@ -91,7 +91,7 @@ You can define your own Filters in ObjC by subclassing `TDFilter` and overriding
 
 *(Note the boolean test expressions in this example are nonsense, and just intended to demonstrate some of the expression language features.)*
 
-####For Tag
+#### For Tag
 
 **For Tags** can loop thru arbitrary numerical ranges, and may nest:
 
@@ -133,7 +133,7 @@ and `NSDictionary` (note the convenient unpacking of *both key and value*):
 {% /for %}
 ```
 
-####Skip Tag
+#### Skip Tag
 
 **Skip Tags** can be used to skip the remainder of the current iteration of a For Tag loop. 
 
@@ -163,7 +163,7 @@ Both examples produce the following output:
 
 If no expression is present in the Skip Tag, it is always respected, and the current iteration of the enclosing For Tag is always skipped.
 
-####Trim and Indent Tags
+#### Trim and Indent Tags
 
 As with any templating mechanism, whitespace handling is often a significant concern. TDTemplateEngine includes two optional tags that can be used to simplify whitespace handling.
 
@@ -201,15 +201,15 @@ Produces a single line indented by 4 spaces:
 
         Make it so.
 
-####Tag Extensibility
+#### Tag Extensibility
 
 You can implement your own custom Tags by subclassing `TDTag` and overriding `-[TDTag doTagInContext:]`.
 
-###Template Expression Language
+### Template Expression Language
 
 As you have seen in the examples above, many tags may contain simple expressions which should be familiar to anyone with experience using JavaScript.
 
-####Logical Expressions
+#### Logical Expressions
 
 Logical **And** **Or** and **Not** may be expressed using either the familiar JavaScript operators (`&&`, `||`, `!`), or their english equivalents:
 
@@ -225,7 +225,7 @@ Logical **And** **Or** and **Not** may be expressed using either the familiar Ja
 
     not a
 
-####Equality Expressions
+#### Equality Expressions
 
 Variable equality and inequality may be tested using either the familiar JavaScript operators (`==`, `!=`), or their equivalents (`eq`, `ne`):
 
@@ -239,7 +239,7 @@ Variable equality and inequality may be tested using either the familiar JavaScr
 
 Note that `a = b` is a syntax error, as assignments are not allowed in the expression language, and the correct equality operator is `==`, not `=`.
 
-####Comparison Expressions
+#### Comparison Expressions
 
 Variables may be compared using either the familiar JavaScript operators (`<`, `<=`, `>`, `>=`), or their equivalents (`lt`, `le`, `gt`, `ge`):
 
@@ -259,7 +259,7 @@ Variables may be compared using either the familiar JavaScript operators (`<`, `
 
     a ge b
 
-####Arithmetic Expressions
+#### Arithmetic Expressions
 
 Arithmetic may be performed using either the familiar JavaScript operators:
 
@@ -279,13 +279,13 @@ And explicity negative numbers are supported:
 
     -a
 
-####Path Expressions
+#### Path Expressions
 
 Properties of objects may be reached using a chain of property references called a Path Expression:
 
     person.address.zipCode
 
-####Boolean Literals
+#### Boolean Literals
 
 Boolean literals are available matching the JavaScript and Objective-C languages:
 
@@ -297,7 +297,7 @@ Boolean literals are available matching the JavaScript and Objective-C languages
 
     NO
 
-####Number Literals
+#### Number Literals
 
 Number literals may appear either as integers or as floating point numbers with an optional exponent:
 
@@ -307,7 +307,7 @@ Number literals may appear either as integers or as floating point numbers with 
 
     16.162e10−36
 
-####String Literals
+#### String Literals
 
 String literals may be wrapped in either single or double quotes:
 
@@ -315,7 +315,7 @@ String literals may be wrapped in either single or double quotes:
 
     'Evil will always triumph, because Good is dumb.'
 
-####Sub Expressions
+#### Sub Expressions
 
 Any expression may be wrapped in parentheses for clarity or to alter the order of operations.
 
@@ -323,7 +323,7 @@ Any expression may be wrapped in parentheses for clarity or to alter the order o
 
     ((a or b) and (c or d))
 
-###Objective-C API Usage
+### Objective-C API Usage
 
 Create a `TDTemplateEngine` object and render a template in two distinct phases: (compile and render) to an `NSOutputStream`:
 
@@ -357,6 +357,6 @@ BOOL success = [eng processTemplateString:input withVariables:vars toStream:stre
 NSString *output = [[[NSString alloc] initWithData:[stream propertyForKey:NSStreamDataWrittenToMemoryStreamKey] encoding:NSUTF8StringEncoding] autorelease];
 ```
 
-###Threading Considerations
+### Threading Considerations
 
 **The `TDTemplateEngine` class is *NOT* thread-safe**. Each `TDTemplateEngine` object must be created on and receive messages on *only one thread*. However, this need not be the main thread. It may be done on a background thread if you like. In fact, it's probably best to restrict creation and usage of a `TDTemplateEngine` object to a **background** thread.

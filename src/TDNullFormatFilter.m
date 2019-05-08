@@ -20,28 +20,26 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <TDTemplateEngine/TDExpression.h>
+#import "TDNullFormatFilter.h"
+#import "TDValue.h"
 
-@class TDValue;
+@implementation TDNullFormatFilter
 
-TDValue *TDValueFromObject(id obj);
-double TDNumberFromString(NSString *s);
++ (NSString *)filterName {
+    return @"fmtNull";
+}
 
-@interface TDValue : TDExpression
 
-- (id)objectValue;
-- (NSString *)stringValue;
-- (double)doubleValue;
-- (BOOL)boolValue;
+- (id)doFilter:(id)input withArguments:(NSArray *)args {
+    TDAssert(input);
+    
+    if ([input isNullValue]) {
+        return @"null";
+    } else if ([input isStringValue]) {
+        return [NSString stringWithFormat:@"\"%@\"", [input stringValue]];
+    } else {
+        return input;
+    }
+}
 
-- (BOOL)isEqualToValue:(TDValue *)other;
-- (BOOL)isNotEqualToValue:(TDValue *)other;
-
-- (BOOL)compareToValue:(TDValue *)other usingOperator:(NSInteger)op;
-
-// convenience
-- (BOOL)isBooleanValue;
-- (BOOL)isNumericValue;
-- (BOOL)isStringValue;
-- (BOOL)isNullValue;
 @end
