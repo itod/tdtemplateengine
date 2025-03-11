@@ -372,6 +372,7 @@
 		D3CD8BA52D7FE7D5006B1167 /* TDRpadFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = D3CD8BA02D7FE7D5006B1167 /* TDRpadFilter.h */; };
 		D3CD8BA62D7FE7D5006B1167 /* TDRpadFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D3CD8BA12D7FE7D5006B1167 /* TDRpadFilter.m */; };
 		D3CD8BA72D7FE7D5006B1167 /* TDRpadFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = D3CD8BA02D7FE7D5006B1167 /* TDRpadFilter.h */; };
+		D3CD8BAE2D7FFB7A006B1167 /* TDPadFilterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3CD8BAD2D7FFB7A006B1167 /* TDPadFilterTests.m */; };
 		D3D0F6F91ACB4417006B6112 /* TDSkipTag.h in Headers */ = {isa = PBXBuildFile; fileRef = D3D0F6F71ACB4417006B6112 /* TDSkipTag.h */; };
 		D3D0F6FA1ACB4417006B6112 /* TDSkipTag.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D0F6F81ACB4417006B6112 /* TDSkipTag.m */; };
 		D3D0F6FD1ACB4566006B6112 /* TDSkipException.h in Headers */ = {isa = PBXBuildFile; fileRef = D3D0F6FB1ACB4566006B6112 /* TDSkipException.h */; };
@@ -549,6 +550,7 @@
 		D3CD8B992D7FE645006B1167 /* TDLpadFilter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TDLpadFilter.m; path = src/TDLpadFilter.m; sourceTree = SOURCE_ROOT; };
 		D3CD8BA02D7FE7D5006B1167 /* TDRpadFilter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TDRpadFilter.h; path = src/TDRpadFilter.h; sourceTree = SOURCE_ROOT; };
 		D3CD8BA12D7FE7D5006B1167 /* TDRpadFilter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TDRpadFilter.m; path = src/TDRpadFilter.m; sourceTree = SOURCE_ROOT; };
+		D3CD8BAD2D7FFB7A006B1167 /* TDPadFilterTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TDPadFilterTests.m; path = test/TDPadFilterTests.m; sourceTree = SOURCE_ROOT; };
 		D3D0F6F71ACB4417006B6112 /* TDSkipTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDSkipTag.h; path = src/TDSkipTag.h; sourceTree = SOURCE_ROOT; };
 		D3D0F6F81ACB4417006B6112 /* TDSkipTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDSkipTag.m; path = src/TDSkipTag.m; sourceTree = SOURCE_ROOT; };
 		D3D0F6FB1ACB4566006B6112 /* TDSkipException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDSkipException.h; path = src/TDSkipException.h; sourceTree = SOURCE_ROOT; };
@@ -644,6 +646,7 @@
 				D319139618F2EF7000430BAD /* TDTrimTagTests.m */,
 				D36AC9E22D7FD9CE001C99FD /* TDIndentTagTests.m */,
 				D3E95F191AB0959000D19992 /* TDNewlineTagTests.m */,
+				D3CD8BAD2D7FFB7A006B1167 /* TDPadFilterTests.m */,
 			);
 			name = "Node/Tag Tests";
 			sourceTree = "<group>";
@@ -1468,6 +1471,7 @@
 				D3B982FD18F0804D00EEFE99 /* TDRelationalExpressionTests.m in Sources */,
 				D3A3E54D18EC5706004FEB2C /* TDForTagTests.m in Sources */,
 				D306D9C318F5851D00E32DDC /* TDBaseExpressionTests.m in Sources */,
+				D3CD8BAE2D7FFB7A006B1167 /* TDPadFilterTests.m in Sources */,
 				D3CAF8BE18EF5A0000166A95 /* TDNegationExpressionTests.m in Sources */,
 				D3A3E54F18EC5706004FEB2C /* TDPrintNodeTests.m in Sources */,
 				D33915E418F081ED00BDA4FD /* TDPathExpressionTests.m in Sources */,
