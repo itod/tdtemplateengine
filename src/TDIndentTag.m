@@ -30,8 +30,8 @@
 - (void)doTagInContext:(TDTemplateContext *)ctx {
     //NSLog(@"%s %@", __PRETTY_FUNCTION__, self);
     TDAssert(ctx);
-
-    ctx.indentDepth++;
+    
+    [ctx increaseIndentDepth];
 
     // leading indent WS
 //    {
@@ -44,7 +44,7 @@
     
     [self renderChildrenInContext:ctx];
     
-    ctx.indentDepth--;
+    [ctx decreaseIndentDepth];
 }
 
 @end

@@ -73,6 +73,8 @@ static NSCharacterSet *sNewlineSet = nil;
 @property (nonatomic, retain, readwrite) TDWriter *writer;
 @property (nonatomic, assign) BOOL wroteNewline;
 @property (nonatomic, assign) BOOL wroteChars;
+
+@property (nonatomic, assign) BOOL firstWriteAfterIndent;
 @end
 
 @implementation TDTemplateContext
@@ -123,6 +125,7 @@ static NSCharacterSet *sNewlineSet = nil;
     TDTemplateContext *ctx = [[TDTemplateContext alloc] initWithVariables:nil output:_writer.output];
     ctx.trimLines = _trimLines;
     ctx.indentDepth = _indentDepth;
+    ctx.firstWriteAfterIndent = _firstWriteAfterIndent;
     ctx.enclosingScope = self;
     ctx.wroteNewline = _wroteNewline;
     ctx.wroteChars = _wroteChars;
@@ -215,7 +218,8 @@ static NSCharacterSet *sNewlineSet = nil;
             }
             
             if ([comp length]) {
-                if (_wroteNewline) {
+                if (_firstWriteAfterIndent || _wroteNewline) {
+                    self.firstWriteAfterIndent = NO;
                     for (NSUInteger depth = 0; depth < _indentDepth; ++depth) {
                         [_writer appendString:@"    "];
                     }
@@ -240,6 +244,18 @@ static NSCharacterSet *sNewlineSet = nil;
         --count;
     }
     return vec;
+}
+
+
+- (void)increaseIndentDepth {
+    self.indentDepth++;
+    self.firstWriteAfterIndent = YES;
+}
+
+
+- (void)decreaseIndentDepth {
+    self.indentDepth--;
+    self.firstWriteAfterIndent = YES;
 }
 
 @end

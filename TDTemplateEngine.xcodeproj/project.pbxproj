@@ -275,6 +275,7 @@
 		D36AC9BD2D7FD0D3001C99FD /* TDSepTag.m in Sources */ = {isa = PBXBuildFile; fileRef = D36AC9B92D7FD0D3001C99FD /* TDSepTag.m */; };
 		D36AC9BE2D7FD0D3001C99FD /* TDSepTag.m in Sources */ = {isa = PBXBuildFile; fileRef = D36AC9B92D7FD0D3001C99FD /* TDSepTag.m */; };
 		D36AC9BF2D7FD0D3001C99FD /* TDSepTag.h in Headers */ = {isa = PBXBuildFile; fileRef = D36AC9B82D7FD0D3001C99FD /* TDSepTag.h */; };
+		D36AC9E32D7FD9CE001C99FD /* TDIndentTagTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D36AC9E22D7FD9CE001C99FD /* TDIndentTagTests.m */; };
 		D37BC6B518F4415200938644 /* TDDateFormatFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = D37BC6B318F4415200938644 /* TDDateFormatFilter.h */; };
 		D37BC6B618F4415200938644 /* TDDateFormatFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D37BC6B418F4415200938644 /* TDDateFormatFilter.m */; settings = {COMPILER_FLAGS = "-Wno-deprecated"; }; };
 		D391AAFD202D6C9900ECCE37 /* TDFabsFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = D391AAFB202D6C9800ECCE37 /* TDFabsFilter.h */; };
@@ -446,6 +447,7 @@
 		D369BD4918EF8921003E715B /* TDEnumeration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDEnumeration.m; path = src/TDEnumeration.m; sourceTree = SOURCE_ROOT; };
 		D36AC9B82D7FD0D3001C99FD /* TDSepTag.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TDSepTag.h; path = src/TDSepTag.h; sourceTree = SOURCE_ROOT; };
 		D36AC9B92D7FD0D3001C99FD /* TDSepTag.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TDSepTag.m; path = src/TDSepTag.m; sourceTree = SOURCE_ROOT; };
+		D36AC9E22D7FD9CE001C99FD /* TDIndentTagTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TDIndentTagTests.m; sourceTree = SOURCE_ROOT; };
 		D37BC6B318F4415200938644 /* TDDateFormatFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDDateFormatFilter.h; path = src/TDDateFormatFilter.h; sourceTree = SOURCE_ROOT; };
 		D37BC6B418F4415200938644 /* TDDateFormatFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDDateFormatFilter.m; path = src/TDDateFormatFilter.m; sourceTree = SOURCE_ROOT; };
 		D391AAFB202D6C9800ECCE37 /* TDFabsFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDFabsFilter.h; path = src/TDFabsFilter.h; sourceTree = SOURCE_ROOT; };
@@ -624,6 +626,7 @@
 				D3A7E27518F0788D009BFD96 /* TDCommentTagTests.m */,
 				D3E95F131AB08FC900D19992 /* TDVerbatimTagTests.m */,
 				D319139618F2EF7000430BAD /* TDTrimTagTests.m */,
+				D36AC9E22D7FD9CE001C99FD /* TDIndentTagTests.m */,
 				D3E95F191AB0959000D19992 /* TDNewlineTagTests.m */,
 			);
 			name = "Node/Tag Tests";
@@ -1426,6 +1429,7 @@
 				D3B9830318F080BE00EEFE99 /* TDBooleanExpressionTests.m in Sources */,
 				D3C7358F1ABDAB5F00FA0B15 /* TDTrimTagTests.m in Sources */,
 				D3A21F3D1AC9E40D0009A712 /* TDUnaryExpressionTests.m in Sources */,
+				D36AC9E32D7FD9CE001C99FD /* TDIndentTagTests.m in Sources */,
 				D3CAF8B718EF3C9100166A95 /* TDRangeExpressionTests.m in Sources */,
 				D33915DE18F0818500BDA4FD /* TDArithmeticExpressionTests.m in Sources */,
 				D3CAF8B518EF3B5C00166A95 /* TDCollectionExpressionTests.m in Sources */,
