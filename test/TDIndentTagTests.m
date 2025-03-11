@@ -1,5 +1,5 @@
 //
-//  TDTrimTagTests.m
+//  TDIndentTagTests.m
 //  TDTemplateEngineTests
 //
 //  Created by Todd Ditchendorf on 3/28/14.
@@ -8,12 +8,12 @@
 
 #import "TDTestScaffold.h"
 
-@interface TDTrimTagTests : XCTestCase
+@interface TDIndentTagTests : XCTestCase
 @property (nonatomic, retain) TDTemplateEngine *engine;
 @property (nonatomic, retain) NSOutputStream *output;
 @end
 
-@implementation TDTrimTagTests
+@implementation TDIndentTagTests
 
 - (void)setUp {
     [super setUp];
@@ -37,7 +37,9 @@
 - (void)testTrimF {
     NSString *input =
     @"{% trim %}\n"
+    @"    {% indent %}\n"
     @"f\n"
+    @"    {% endindent %}"
     @"{% endtrim %}";
     id vars = nil;
     
@@ -46,13 +48,17 @@
     TDTrue(success);
     TDNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"f\n", res);
+    TDEqualObjects(@"    f\n", res);
 }
 
-- (void)testTrimFSpace {
+- (void)testTrimF2 {
     NSString *input =
     @"{% trim %}\n"
-    @"    f    \n"
+    @"    {% indent %}\n"
+    @"f\n"
+    @"    f\n"
+    @"f\n"
+    @"    {% endindent %}"
     @"{% endtrim %}";
     id vars = nil;
     
@@ -61,256 +67,26 @@
     TDTrue(success);
     TDNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"f\n", res);
+    TDEqualObjects(@"    f\n    f\n    f\n", res);
 }
 
-- (void)testTrimNestedVar {
+- (void)testTrimF2Times {
     NSString *input =
     @"{% trim %}\n"
-    @"{{foo}}\n"
+    @"    {% indent 2 %}\n"
+    @"f\n"
+    @"    f\n"
+    @"f\n"
+    @"    {% endindent %}"
     @"{% endtrim %}";
-    id vars = @{@"foo": @"bar"};
+    id vars = nil;
     
     NSError *err = nil;
     BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
     TDTrue(success);
     TDNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"bar\n", res);
+    TDEqualObjects(@"        f\n        f\n        f\n", res);
 }
-
-- (void)testTrimNestedVarSpace {
-    NSString *input =
-    @"{% trim %}\n"
-    @"  {{foo}}\n"
-    @"{% endtrim %}";
-    id vars = @{@"foo": @"bar"};
-    
-    NSError *err = nil;
-    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
-    TDTrue(success);
-    TDNil(err);
-    NSString *res = [self outputString];
-    TDEqualObjects(@"bar\n", res);
-}
-
-- (void)testTrimNestedVarsSpace {
-    NSString *input =
-    @"{% trim %}\n"
-    @"  {{foo}}\n"
-    @"  {{foo}}\n"
-    @"{% endtrim %}";
-    id vars = @{@"foo": @"bar"};
-    
-    NSError *err = nil;
-    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
-    TDTrue(success);
-    TDNil(err);
-    NSString *res = [self outputString];
-    TDEqualObjects(@"bar\nbar\n", res);
-}
-
-- (void)testTrimNestedVarsSpaceLines {
-    NSString *input =
-    @"{% trim %}\n"
-    @"  {{foo}}\n"
-    @"  \n"
-    @"  {{foo}}\n"
-    @"{% endtrim %}";
-    id vars = @{@"foo": @"bar"};
-    
-    NSError *err = nil;
-    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
-    TDTrue(success);
-    TDNil(err);
-    NSString *res = [self outputString];
-    TDEqualObjects(@"bar\n\nbar\n", res);
-}
-
-- (void)testTrimNestedVarsSpace2Lines {
-    NSString *input =
-    @"{% trim %}\n"
-    @"  {{foo}}\n"
-    @"  \n"
-    @"  \n"
-    @"  {{foo}}\n"
-    @"{% endtrim %}";
-    id vars = @{@"foo": @"bar"};
-    
-    NSError *err = nil;
-    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
-    TDTrue(success);
-    TDNil(err);
-    NSString *res = [self outputString];
-    TDEqualObjects(@"bar\n\n\nbar\n", res);
-}
-
-- (void)testTrimNestedVarSpacesSemi {
-    NSString *input =
-    @"{% trim %}\n"
-    @"    {{foo}};\n"
-    @"{% endtrim %}";
-    id vars = @{@"foo": @"bar"};
-    
-    NSError *err = nil;
-    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
-    TDTrue(success);
-    TDNil(err);
-    NSString *res = [self outputString];
-    TDEqualObjects(@"bar;\n", res);
-}
-
-- (void)testTrimNestedVars {
-    NSString *input =
-    @"{% trim %}\n"
-    @"{{foo}}, {{foo}}\n"
-    @"{% endtrim %}";
-    id vars = @{@"foo": @"bar"};
-    
-    NSError *err = nil;
-    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
-    TDTrue(success);
-    TDNil(err);
-    NSString *res = [self outputString];
-    TDEqualObjects(@"bar, bar\n", res);
-}
-
-- (void)testTrimNestedVarsSemi {
-    NSString *input =
-    @"{% trim %}\n"
-    @"{{foo}}, {{foo}};\n"
-    @"{% endtrim %}";
-    id vars = @{@"foo": @"bar"};
-    
-    NSError *err = nil;
-    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
-    TDTrue(success);
-    TDNil(err);
-    NSString *res = [self outputString];
-    TDEqualObjects(@"bar, bar;\n", res);
-}
-
-- (void)testTrimNestedVarsSpacesSemi {
-    NSString *input =
-    @"{% trim %}\n"
-    @"    {{foo}}, {{foo}};   \n"
-    @"{% endtrim %}";
-    id vars = @{@"foo": @"bar"};
-    
-    NSError *err = nil;
-    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
-    TDTrue(success);
-    TDNil(err);
-    NSString *res = [self outputString];
-    TDEqualObjects(@"bar, bar;\n", res);
-}
-
-//- (void)testTrimNestedVarNewline {
-//    NSString *input = @"{% trim %} {{foo}}\n{% endtrim %}";
-//    id vars = @{@"foo": @"bar"};
-//    
-//    NSError *err = nil;
-//    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
-//    TDTrue(success);
-//    TDNil(err);
-//    NSString *res = [self outputString];
-//    TDEqualObjects(@"bar", res);
-//}
-//
-//- (void)testTrimNestedNewlineVarNewline {
-//    NSString *input = @"{% trim %}\n {{foo}}\n{% endtrim %}";
-//    id vars = @{@"foo": @"bar"};
-//    
-//    NSError *err = nil;
-//    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
-//    TDTrue(success);
-//    TDNil(err);
-//    NSString *res = [self outputString];
-//    TDEqualObjects(@"bar", res);
-//}
-//
-//- (void)testTrimNestedVarSpace {
-//    NSString *input = @"{% trim %} foo {% endtrim %}";
-//    id vars = nil;
-//    
-//    NSError *err = nil;
-//    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
-//    TDTrue(success);
-//    TDNil(err);
-//    NSString *res = [self outputString];
-//    TDEqualObjects(@"foo", res);
-//}
-//
-//- (void)testTrimNestedIfTagSpace {
-//    NSString *input = @"{% trim %}{% if 1 %}  HI!  {% endif %}{% endtrim %}";
-//    id vars = nil;
-//    
-//    NSError *err = nil;
-//    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
-//    TDTrue(success);
-//    TDNil(err);
-//    NSString *res = [self outputString];
-//    TDEqualObjects(@"HI!", res);
-//}
-//
-//- (void)testTrimNestedIfTag {
-//    NSString *input = @"{% trim %}   {%if 1%}HI!{%endif%}   {% endtrim %}";
-//    id vars = nil;
-//    
-//    NSError *err = nil;
-//    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
-//    TDTrue(success);
-//    TDNil(err);
-//    NSString *res = [self outputString];
-//    TDEqualObjects(@"HI!", res);
-//}
-//
-//- (void)testTrimNestedTrimNoTag {
-//    NSString *input = @"{% trim %}   {% trim NO %} HI! {%endtrim%}   {% endtrim %}";
-//    id vars = nil;
-//    
-//    NSError *err = nil;
-//    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
-//    TDTrue(success);
-//    TDNil(err);
-//    NSString *res = [self outputString];
-//    TDEqualObjects(@" HI! ", res);
-//}
-//
-//- (void)testTrimNestedTrimFalseTag {
-//    NSString *input = @"{% trim %}   {% trim false %} HI! {%endtrim%}   {% endtrim %}";
-//    id vars = nil;
-//    
-//    NSError *err = nil;
-//    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
-//    TDTrue(success);
-//    TDNil(err);
-//    NSString *res = [self outputString];
-//    TDEqualObjects(@" HI! ", res);
-//}
-//
-//- (void)testTrimNestedTrim1Tag {
-//    NSString *input = @"{% trim %}   {% trim 1 %} HI! {%endtrim%}   {% endtrim %}";
-//    id vars = nil;
-//    
-//    NSError *err = nil;
-//    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
-//    TDTrue(success);
-//    TDNil(err);
-//    NSString *res = [self outputString];
-//    TDEqualObjects(@"HI!", res);
-//}
-//
-//- (void)testTrimNestedTrimYesTag {
-//    NSString *input = @"{% trim %}   {% trim YES %} HI! {%endtrim%}   {% endtrim %}";
-//    id vars = nil;
-//    
-//    NSError *err = nil;
-//    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
-//    TDTrue(success);
-//    TDNil(err);
-//    NSString *res = [self outputString];
-//    TDEqualObjects(@"HI!", res);
-//}
 
 @end

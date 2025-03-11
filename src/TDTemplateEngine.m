@@ -59,6 +59,8 @@
 #import "TDUppercaseFilter.h"
 #import "TDCapitalizeFilter.h"
 #import "TDReplaceFilter.h"
+#import "TDLpadFilter.h"
+#import "TDRpadFilter.h"
 
 #import <PEGKit/PKAssembly.h>
 #import <PEGKit/PKTokenizer.h>
@@ -128,7 +130,9 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
         [self registerFilterClass:[TDUppercaseFilter class] forName:[TDUppercaseFilter filterName]];
         [self registerFilterClass:[TDCapitalizeFilter class] forName:[TDCapitalizeFilter filterName]];
         [self registerFilterClass:[TDReplaceFilter class] forName:[TDReplaceFilter filterName]];
-        
+        [self registerFilterClass:[TDLpadFilter class] forName:[TDLpadFilter filterName]];
+        [self registerFilterClass:[TDRpadFilter class] forName:[TDRpadFilter filterName]];
+
         self.expressionParser = [[[TDParser alloc] initWithDelegate:nil] autorelease];
         _expressionParser.engine = self;
     }
