@@ -45,6 +45,7 @@
 #import "TDNewlineTag.h"
 #import "TDSpaceTag.h"
 #import "TDTabTag.h"
+#import "TDSepTag.h"
 
 #import "TDTrimFilter.h"
 #import "TDRoundFilter.h"
@@ -112,7 +113,8 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
         [self registerTagClass:[TDNewlineTag class] forName:[TDNewlineTag tagName]];
         [self registerTagClass:[TDSpaceTag class] forName:[TDSpaceTag tagName]];
         [self registerTagClass:[TDTabTag class] forName:[TDTabTag tagName]];
-        
+        [self registerTagClass:[TDSepTag class] forName:[TDSepTag tagName]];
+
         self.filterTab = [NSMutableDictionary dictionary];
         [self registerFilterClass:[TDTrimFilter class] forName:[TDTrimFilter filterName]];
         [self registerFilterClass:[TDRoundFilter class] forName:[TDRoundFilter filterName]];
