@@ -687,6 +687,8 @@
         [self matchQuotedString:NO]; 
     } else if ([self predicts:TOKEN_KIND_BUILTIN_WORD, 0]) {
         [self matchWord:NO]; 
+    } else if ([self predicts:TOKEN_KIND_BUILTIN_NUMBER, 0]) {
+        [self matchNumber:NO];
     } else {
         [self raise:@"No viable alternative found in rule 'filterArg'."];
     }

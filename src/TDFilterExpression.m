@@ -94,6 +94,9 @@
                 case PKTokenTypeWord:
                     [evaledArgs addObject:[ctx resolveVariable:tok.stringValue]];
                     break;
+                case PKTokenTypeNumber:
+                    [evaledArgs addObject:@(tok.doubleValue)];
+                    break;
                 default:
                     TDAssert(0);
                     break;

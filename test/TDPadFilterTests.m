@@ -82,4 +82,100 @@
     TDEqualObjects(@"", res);
 }
 
+- (void)testLpadSpace0 {
+    NSString *input = @"{{foo|lpad:' ',0}}";
+    id vars = @{@"foo": @"bar"};
+    
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@" bar", res);
+}
+
+- (void)testLpadSpace0Empty {
+    NSString *input = @"{{foo|lpad:' ',0}}";
+    id vars = @{@"foo": @""};
+    
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"", res);
+}
+
+- (void)testLpadSpace8 {
+    NSString *input = @"{{foo|lpad:' ',8}}";
+    id vars = @{@"foo": @"bar"};
+    
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"     bar", res);
+}
+
+- (void)testLpadSpace8Empty {
+    NSString *input = @"{{foo|lpad:' ',8}}";
+    id vars = @{@"foo": @""};
+    
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"        ", res);
+}
+
+- (void)testRpadSpace0 {
+    NSString *input = @"{{foo|rpad:' ',0}}";
+    id vars = @{@"foo": @"bar"};
+    
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"bar ", res);
+}
+
+- (void)testRpadSpace0Empty {
+    NSString *input = @"{{foo|rpad:' ',0}}";
+    id vars = @{@"foo": @""};
+    
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"", res);
+}
+
+- (void)testRpadSpace8 {
+    NSString *input = @"{{foo|rpad:' ',8}}";
+    id vars = @{@"foo": @"bar"};
+    
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"bar     ", res);
+}
+
+- (void)testRpadSpace8Empty {
+    NSString *input = @"{{foo|rpad:' ',8}}";
+    id vars = @{@"foo": @""};
+    
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"        ", res);
+}
+
 @end

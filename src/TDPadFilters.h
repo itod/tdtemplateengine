@@ -22,6 +22,14 @@
 
 #import <TDTemplateEngine/TDFilter.h>
 
-@interface TDRpadFilter : TDFilter
+@interface TDAbstractPadFilter : TDFilter
+@property (nonatomic, assign) BOOL left;
+@end
+
+@interface TDLpadFilter : TDAbstractPadFilter
+
+@end
+
+@interface TDRpadFilter : TDAbstractPadFilter
 
 @end

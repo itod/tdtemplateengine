@@ -59,8 +59,7 @@
 #import "TDUppercaseFilter.h"
 #import "TDCapitalizeFilter.h"
 #import "TDReplaceFilter.h"
-#import "TDLpadFilter.h"
-#import "TDRpadFilter.h"
+#import "TDPadFilters.h"
 
 #import <PEGKit/PKAssembly.h>
 #import <PEGKit/PKTokenizer.h>

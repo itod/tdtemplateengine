@@ -20,29 +20,70 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "TDRpadFilter.h"
+#import "TDPadFilters.h"
+
+@implementation TDAbstractPadFilter
+
+- (id)doFilter:(id)input withArguments:(NSArray *)args {
+    TDAssert(input);
+    
+    [self validateArguments:args min:1 max:2];
+    
+    NSString *inStr = TDStringFromObject(input);
+    NSString *result = inStr;
+    
+    NSString *pad = @"";
+    
+    NSUInteger len = 0;
+    if (args.count > 1) {
+        len = [args[1] unsignedIntegerValue];
+    }
+    
+    if (0 == len && inStr.length) {
+        pad = args[0];
+    } else if (result.length < len) {
+        pad = args[0];
+        NSMutableString *buf = [NSMutableString stringWithCapacity:len];
+        
+        for (NSUInteger i = len - result.length; i > 0; --i) {
+            [buf appendString:pad];
+        }
+        
+        pad = buf;
+    }
+
+    if (self.left) {
+        result = [NSString stringWithFormat:@"%@%@", pad, result];
+    } else {
+        result = [NSString stringWithFormat:@"%@%@", result, pad];
+    }
+
+    return result;
+}
+
+@end
+
+@implementation TDLpadFilter
+
++ (NSString *)filterName {
+    return @"lpad";
+}
+
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        self.left = YES;
+    }
+    return self;
+}
+
+@end
 
 @implementation TDRpadFilter
 
 + (NSString *)filterName {
     return @"rpad";
-}
-
-
-- (id)doFilter:(id)input withArguments:(NSArray *)args {
-    TDAssert(input);
-    
-    [self validateArguments:args min:1 max:1];
-    
-    NSString *inStr = TDStringFromObject(input);
-    
-    NSString *result = inStr;
-    if (inStr.length) {
-        NSString *pad = args[0];
-        result = [NSString stringWithFormat:@"%@%@", result, pad];
-    }
- 
-    return result;
 }
 
 @end
