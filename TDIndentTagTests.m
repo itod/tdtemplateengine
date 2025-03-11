@@ -70,4 +70,23 @@
     TDEqualObjects(@"    f\n    f\n    f\n", res);
 }
 
+- (void)testTrimF2Times {
+    NSString *input =
+    @"{% trim %}\n"
+    @"    {% indent 2 %}\n"
+    @"f\n"
+    @"    f\n"
+    @"f\n"
+    @"    {% endindent %}"
+    @"{% endtrim %}";
+    id vars = nil;
+    
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"        f\n        f\n        f\n", res);
+}
+
 @end

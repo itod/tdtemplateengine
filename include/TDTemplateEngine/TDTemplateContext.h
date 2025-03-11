@@ -40,7 +40,7 @@
 @property (nonatomic, retain) TDTemplateContext *enclosingScope;
 @property (nonatomic, assign) BOOL trimLines;
 
-- (void)increaseIndentDepth;
-- (void)decreaseIndentDepth;
+- (void)increaseIndentDepth:(NSUInteger)times;
+- (void)decreaseIndentDepth:(NSUInteger)times;
 @property (nonatomic, assign) NSInteger indentDepth;
 @end

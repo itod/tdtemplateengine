@@ -7,6 +7,7 @@
 //
 
 #import "TDIndentTag.h"
+#import <TDTemplateEngine/TDExpression.h>
 #import <TDTemplateEngine/TDTemplateContext.h>
 
 @implementation TDIndentTag
@@ -31,7 +32,14 @@
     //NSLog(@"%s %@", __PRETTY_FUNCTION__, self);
     TDAssert(ctx);
     
-    [ctx increaseIndentDepth];
+    NSUInteger times = 1;
+    
+    if (self.expression) {
+        times = (NSUInteger)[self.expression evaluateAsNumberInContext:ctx];
+    }
+
+    
+    [ctx increaseIndentDepth:times];
 
     // leading indent WS
 //    {
@@ -44,7 +52,7 @@
     
     [self renderChildrenInContext:ctx];
     
-    [ctx decreaseIndentDepth];
+    [ctx decreaseIndentDepth:times];
 }
 
 @end

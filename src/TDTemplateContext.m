@@ -247,14 +247,14 @@ static NSCharacterSet *sNewlineSet = nil;
 }
 
 
-- (void)increaseIndentDepth {
-    self.indentDepth++;
+- (void)increaseIndentDepth:(NSUInteger)times {
+    self.indentDepth += times;
     self.firstWriteAfterIndent = YES;
 }
 
 
-- (void)decreaseIndentDepth {
-    self.indentDepth--;
+- (void)decreaseIndentDepth:(NSUInteger)times {
+    self.indentDepth -= times;
     self.firstWriteAfterIndent = YES;
 }
 
