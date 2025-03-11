@@ -86,7 +86,7 @@ You can define your own Filters in ObjC by subclassing `TDFilter` and overriding
     Text 2.
 {% else %}
     Default Text.
-{% /if %}
+{% endif %}
 ```
 
 *(Note the boolean test expressions in this example are nonsense, and just intended to demonstrate some of the expression language features.)*
@@ -99,16 +99,16 @@ You can define your own Filters in ObjC by subclassing `TDFilter` and overriding
 {% for i in 0 to 10 %}
     {% for j in 0 to 2 %}
         {{i}}:{{j}}
-    {% /for %}
-{% /for %}
+    {% endfor %}
+{% endfor %}
 ```
 
 Numerical ranges may iterate in reverse order, and also offer a "step" option specified after the `by` keyword
 
 ```htmldjango
 {% for i in 70 to 60 by 2 %}
-    {{i}}{% if not currentLoop.isLast %},{% /if %}
-{% /for %}
+    {{i}}{% if not currentLoop.isLast %},{% endif %}
+{% endfor %}
 ```
 
 Prints:
@@ -122,7 +122,7 @@ For Tags can also loop thru variables representing Cocoa collection objects like
 ```htmldjango
 {% for obj in vec %}
     {{obj}}
-{% /for %}
+{% endfor %}
 ```
 
 and `NSDictionary` (note the convenient unpacking of *both key and value*):
@@ -130,7 +130,7 @@ and `NSDictionary` (note the convenient unpacking of *both key and value*):
 ```htmldjango
 {% for key, val in dict %}
     {{key}}:{{val}}
-{% /for %}
+{% endfor %}
 ```
 
 #### Skip Tag
@@ -147,14 +147,14 @@ The expression within the Skip Tag is essentially a syntactical shortcut. The tw
 {% for i in 1 to 3 %}
     {% if i == 2 %}
         {% skip %}
-    {% /if %}
+    {% endif %}
     {{i}}
-{% /if %}
+{% endif %}
 
 {% for i in 1 to 3 %}
     {% skip i == 2 %}
     {{i}}
-{% /if %}
+{% endif %}
 ```
 
 Both examples produce the following output:
@@ -177,8 +177,8 @@ So the following:
 {% trim %}
     {% if true %}
                             Make it so.
-    {% /if %}
-{% /trim %}
+    {% endif %}
+{% endtrim %}
 ```
 
 Produces a single line with all leading and trailing whitespace trimmed:
@@ -192,9 +192,9 @@ Indentation within Trim Tags may be controlled with nested **Indent Tags**. The 
     {% if true %}
         {% indent %}
             Make it so.
-        {% /indent %}
-    {% /if %}
-{% /trim %}
+        {% endindent %}
+    {% endif %}
+{% endtrim %}
 ```
 
 Produces a single line indented by 4 spaces:

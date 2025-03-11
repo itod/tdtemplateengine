@@ -35,7 +35,7 @@
 }
 
 - (void)testIf1Else {
-    NSString *input = @"{% if 1 %}foo{% else %}bar{% /if %}";
+    NSString *input = @"{% if 1 %}foo{% else %}bar{% endif %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -47,7 +47,7 @@
 }
 
 - (void)testIf0Else {
-    NSString *input = @"{% if 0 %}foo{% else %}bar{% /if %}";
+    NSString *input = @"{% if 0 %}foo{% else %}bar{% endif %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -59,7 +59,7 @@
 }
 
 - (void)testIf0Elif0Else {
-    NSString *input = @"{% if 0 %}foo{% elif 0 %}bar{% else %}baz{% /if %}";
+    NSString *input = @"{% if 0 %}foo{% elif 0 %}bar{% else %}baz{% endif %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -71,7 +71,7 @@
 }
 
 - (void)testIf0Elif0Elif0Else {
-    NSString *input = @"{% if 0 %}foo{% elif 0 %}bar{% elif 0 %}baz{% else %}bat{% /if %}";
+    NSString *input = @"{% if 0 %}foo{% elif 0 %}bar{% elif 0 %}baz{% else %}bat{% endif %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -83,7 +83,7 @@
 }
 
 - (void)testIf1Elif1Else {
-    NSString *input = @"{% if 1 %}foo{% elif 1 %}bar{% else %}baz{% /if %}";
+    NSString *input = @"{% if 1 %}foo{% elif 1 %}bar{% else %}baz{% endif %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -95,7 +95,7 @@
 }
 
 - (void)testIf1Elif0Else {
-    NSString *input = @"{% if 1 %}foo{% elif 0 %}bar{% else %}baz{% /if %}";
+    NSString *input = @"{% if 1 %}foo{% elif 0 %}bar{% else %}baz{% endif %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -107,7 +107,7 @@
 }
 
 - (void)testIf0Elif1Else {
-    NSString *input = @"{% if 0 %}foo{% elif 1 %}bar{% else %}baz{% /if %}";
+    NSString *input = @"{% if 0 %}foo{% elif 1 %}bar{% else %}baz{% endif %}";
     id vars = nil;
     
     NSError *err = nil;

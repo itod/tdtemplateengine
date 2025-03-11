@@ -38,7 +38,7 @@
     NSString *input =
     @"{% trim %}\n"
     @"f\n"
-    @"{% /trim %}";
+    @"{% endtrim %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -53,7 +53,7 @@
     NSString *input =
     @"{% trim %}\n"
     @"    f    \n"
-    @"{% /trim %}";
+    @"{% endtrim %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -68,7 +68,7 @@
     NSString *input =
     @"{% trim %}\n"
     @"{{foo}}\n"
-    @"{% /trim %}";
+    @"{% endtrim %}";
     id vars = @{@"foo": @"bar"};
     
     NSError *err = nil;
@@ -83,7 +83,7 @@
     NSString *input =
     @"{% trim %}\n"
     @"  {{foo}}\n"
-    @"{% /trim %}";
+    @"{% endtrim %}";
     id vars = @{@"foo": @"bar"};
     
     NSError *err = nil;
@@ -99,7 +99,7 @@
     @"{% trim %}\n"
     @"  {{foo}}\n"
     @"  {{foo}}\n"
-    @"{% /trim %}";
+    @"{% endtrim %}";
     id vars = @{@"foo": @"bar"};
     
     NSError *err = nil;
@@ -116,7 +116,7 @@
     @"  {{foo}}\n"
     @"  \n"
     @"  {{foo}}\n"
-    @"{% /trim %}";
+    @"{% endtrim %}";
     id vars = @{@"foo": @"bar"};
     
     NSError *err = nil;
@@ -134,7 +134,7 @@
     @"  \n"
     @"  \n"
     @"  {{foo}}\n"
-    @"{% /trim %}";
+    @"{% endtrim %}";
     id vars = @{@"foo": @"bar"};
     
     NSError *err = nil;
@@ -149,7 +149,7 @@
     NSString *input =
     @"{% trim %}\n"
     @"    {{foo}};\n"
-    @"{% /trim %}";
+    @"{% endtrim %}";
     id vars = @{@"foo": @"bar"};
     
     NSError *err = nil;
@@ -164,7 +164,7 @@
     NSString *input =
     @"{% trim %}\n"
     @"{{foo}}, {{foo}}\n"
-    @"{% /trim %}";
+    @"{% endtrim %}";
     id vars = @{@"foo": @"bar"};
     
     NSError *err = nil;
@@ -179,7 +179,7 @@
     NSString *input =
     @"{% trim %}\n"
     @"{{foo}}, {{foo}};\n"
-    @"{% /trim %}";
+    @"{% endtrim %}";
     id vars = @{@"foo": @"bar"};
     
     NSError *err = nil;
@@ -194,7 +194,7 @@
     NSString *input =
     @"{% trim %}\n"
     @"    {{foo}}, {{foo}};   \n"
-    @"{% /trim %}";
+    @"{% endtrim %}";
     id vars = @{@"foo": @"bar"};
     
     NSError *err = nil;
@@ -206,7 +206,7 @@
 }
 
 //- (void)testTrimNestedVarNewline {
-//    NSString *input = @"{% trim %} {{foo}}\n{% /trim %}";
+//    NSString *input = @"{% trim %} {{foo}}\n{% endtrim %}";
 //    id vars = @{@"foo": @"bar"};
 //    
 //    NSError *err = nil;
@@ -218,7 +218,7 @@
 //}
 //
 //- (void)testTrimNestedNewlineVarNewline {
-//    NSString *input = @"{% trim %}\n {{foo}}\n{% /trim %}";
+//    NSString *input = @"{% trim %}\n {{foo}}\n{% endtrim %}";
 //    id vars = @{@"foo": @"bar"};
 //    
 //    NSError *err = nil;
@@ -230,7 +230,7 @@
 //}
 //
 //- (void)testTrimNestedVarSpace {
-//    NSString *input = @"{% trim %} foo {% /trim %}";
+//    NSString *input = @"{% trim %} foo {% endtrim %}";
 //    id vars = nil;
 //    
 //    NSError *err = nil;
@@ -242,7 +242,7 @@
 //}
 //
 //- (void)testTrimNestedIfTagSpace {
-//    NSString *input = @"{% trim %}{% if 1 %}  HI!  {% /if %}{% /trim %}";
+//    NSString *input = @"{% trim %}{% if 1 %}  HI!  {% endif %}{% endtrim %}";
 //    id vars = nil;
 //    
 //    NSError *err = nil;
@@ -254,7 +254,7 @@
 //}
 //
 //- (void)testTrimNestedIfTag {
-//    NSString *input = @"{% trim %}   {%if 1%}HI!{%/if%}   {% /trim %}";
+//    NSString *input = @"{% trim %}   {%if 1%}HI!{%endif%}   {% endtrim %}";
 //    id vars = nil;
 //    
 //    NSError *err = nil;
@@ -266,7 +266,7 @@
 //}
 //
 //- (void)testTrimNestedTrimNoTag {
-//    NSString *input = @"{% trim %}   {% trim NO %} HI! {%/trim%}   {% /trim %}";
+//    NSString *input = @"{% trim %}   {% trim NO %} HI! {%endtrim%}   {% endtrim %}";
 //    id vars = nil;
 //    
 //    NSError *err = nil;
@@ -278,7 +278,7 @@
 //}
 //
 //- (void)testTrimNestedTrimFalseTag {
-//    NSString *input = @"{% trim %}   {% trim false %} HI! {%/trim%}   {% /trim %}";
+//    NSString *input = @"{% trim %}   {% trim false %} HI! {%endtrim%}   {% endtrim %}";
 //    id vars = nil;
 //    
 //    NSError *err = nil;
@@ -290,7 +290,7 @@
 //}
 //
 //- (void)testTrimNestedTrim1Tag {
-//    NSString *input = @"{% trim %}   {% trim 1 %} HI! {%/trim%}   {% /trim %}";
+//    NSString *input = @"{% trim %}   {% trim 1 %} HI! {%endtrim%}   {% endtrim %}";
 //    id vars = nil;
 //    
 //    NSError *err = nil;
@@ -302,7 +302,7 @@
 //}
 //
 //- (void)testTrimNestedTrimYesTag {
-//    NSString *input = @"{% trim %}   {% trim YES %} HI! {%/trim%}   {% /trim %}";
+//    NSString *input = @"{% trim %}   {% trim YES %} HI! {%endtrim%}   {% endtrim %}";
 //    id vars = nil;
 //    
 //    NSError *err = nil;

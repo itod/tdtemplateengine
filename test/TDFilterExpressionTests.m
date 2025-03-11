@@ -271,6 +271,10 @@
     TDEqualObjects(expected, actual);
 }
 
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated"
+
 - (void)testDateFormatApril25Var {
     NSString *fmtStr = @"EEE, MMM d, yy";
     NSString *input = [NSString stringWithFormat:@"mydate|fmtDate:'%@'", fmtStr];
@@ -328,5 +332,7 @@
     NSString *actual = [expr evaluateAsStringInContext:ctx];
     TDEqualObjects(expected, actual);
 }
+
+#pragma clang diagnostic pop
 
 @end

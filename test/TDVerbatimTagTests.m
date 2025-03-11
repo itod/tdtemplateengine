@@ -35,7 +35,7 @@
 }
 
 - (void)testVerbatimF {
-    NSString *input = @"{% verbatim %}f{% /verbatim %}";
+    NSString *input = @"{% verbatim %}f{% endverbatim %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -47,7 +47,7 @@
 }
 
 - (void)testVerbatimNestedVar {
-    NSString *input = @"{% verbatim %}{{foo}}{% /verbatim %}";
+    NSString *input = @"{% verbatim %}{{foo}}{% endverbatim %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -59,7 +59,7 @@
 }
 
 - (void)testVerbatimNestedVarSpace {
-    NSString *input = @"{% verbatim %}{{ foo }}{% /verbatim %}";
+    NSString *input = @"{% verbatim %}{{ foo }}{% endverbatim %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -71,7 +71,7 @@
 }
 
 - (void)testVerbatimNestedIfTagSpace {
-    NSString *input = @"{% verbatim %}{% if 1 %}HI!{% /if %}{% /verbatim %}";
+    NSString *input = @"{% verbatim %}{% if 1 %}HI!{% endif %}{% endverbatim %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -79,11 +79,11 @@
     TDTrue(success);
     TDNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"{% if 1 %}HI!{% /if %}", res);
+    TDEqualObjects(@"{% if 1 %}HI!{% endif %}", res);
 }
 
 - (void)testVerbatimNestedIfTag {
-    NSString *input = @"{% verbatim %}{%if 1%}HI!{%/if%}{% /verbatim %}";
+    NSString *input = @"{% verbatim %}{%if 1%}HI!{%endif%}{% endverbatim %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -91,7 +91,7 @@
     TDTrue(success);
     TDNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"{%if 1%}HI!{%/if%}", res);
+    TDEqualObjects(@"{%if 1%}HI!{%endif%}", res);
 }
 
 @end

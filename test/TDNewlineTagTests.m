@@ -71,7 +71,7 @@
 }
 
 - (void)testNewlineNestedInTrim {
-    NSString *input = @"{% trim %}{% br %}{% /trim %}";
+    NSString *input = @"{% trim %}{% br %}{% endtrim %}";
     id vars = nil;
     
     NSError *err = nil;

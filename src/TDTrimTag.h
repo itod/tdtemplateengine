@@ -7,7 +7,6 @@
 //
 
 #import <TDTemplateEngine/TDTag.h>
-#import <TDTemplateEngine/TDTemplateContext.h>
 
 @interface TDTrimTag : TDTag
 

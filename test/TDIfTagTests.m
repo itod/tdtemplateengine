@@ -35,7 +35,7 @@
 }
 
 - (void)testIf1Var {
-    NSString *input = @"{% if 1 %}{{foo}}{% /if %}";
+    NSString *input = @"{% if 1 %}{{foo}}{% endif %}";
     id vars = @{@"foo": @"bar"};
     
     NSError *err = nil;
@@ -47,7 +47,7 @@
 }
 
 - (void)testIf0Var {
-    NSString *input = @"{% if 0 %}{{foo}}{% /if %}";
+    NSString *input = @"{% if 0 %}{{foo}}{% endif %}";
     id vars = @{@"foo": @"bar"};
     
     NSError *err = nil;
@@ -59,7 +59,7 @@
 }
 
 - (void)testIf1FooIf0Baz {
-    NSString *input = @"{% if 1 %}{{foo}}{% /if %}{% if 0 %}{{baz}}{% /if %}";
+    NSString *input = @"{% if 1 %}{{foo}}{% endif %}{% if 0 %}{{baz}}{% endif %}";
     id vars = @{@"foo": @"bar", @"baz": @"bat"};
     
     NSError *err = nil;
@@ -71,7 +71,7 @@
 }
 
 - (void)testIf1FooIf1Baz {
-    NSString *input = @"{% if 1 %}{{foo}}{% /if %}{% if 1 %}{{baz}}{% /if %}";
+    NSString *input = @"{% if 1 %}{{foo}}{% endif %}{% if 1 %}{{baz}}{% endif %}";
     id vars = @{@"foo": @"bar", @"baz": @"bat"};
     
     NSError *err = nil;
@@ -83,7 +83,7 @@
 }
 
 - (void)testIf0FooIf1Baz {
-    NSString *input = @"{% if 0 %}{{foo}}{% /if %}{% if 1 %}{{baz}}{% /if %}";
+    NSString *input = @"{% if 0 %}{{foo}}{% endif %}{% if 1 %}{{baz}}{% endif %}";
     id vars = @{@"foo": @"bar", @"baz": @"bat"};
     
     NSError *err = nil;
@@ -95,7 +95,7 @@
 }
 
 - (void)testNestedIf1 {
-    NSString *input = @"{% if 1 %}{% if 1 %}foo{% /if %}{% /if %}";
+    NSString *input = @"{% if 1 %}{% if 1 %}foo{% endif %}{% endif %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -107,7 +107,7 @@
 }
 
 - (void)testNestedIf2 {
-    NSString *input = @"{% if 1 %}{% if 0 %}foo{% /if %}{% /if %}";
+    NSString *input = @"{% if 1 %}{% if 0 %}foo{% endif %}{% endif %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -119,7 +119,7 @@
 }
 
 - (void)testNestedIf3 {
-    NSString *input = @"{% if 0 %}{% if 0 %}foo{% /if %}{% /if %}";
+    NSString *input = @"{% if 0 %}{% if 0 %}foo{% endif %}{% endif %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -131,7 +131,7 @@
 }
 
 - (void)testNestedIf4 {
-    NSString *input = @"{% if 0 %}{% if 1 %}foo{% /if %}{% /if %}";
+    NSString *input = @"{% if 0 %}{% if 1 %}foo{% endif %}{% endif %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -143,7 +143,7 @@
 }
 
 - (void)testIf1 {
-    NSString *input = @"{% if 1 %} text {% /if %}";
+    NSString *input = @"{% if 1 %} text {% endif %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -155,7 +155,7 @@
 }
 
 - (void)testIf0 {
-    NSString *input = @"{% if 0 %} text {% /if %}";
+    NSString *input = @"{% if 0 %} text {% endif %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -167,7 +167,7 @@
 }
 
 - (void)testIfYES {
-    NSString *input = @"{% if YES %} text {% /if %}";
+    NSString *input = @"{% if YES %} text {% endif %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -179,7 +179,7 @@
 }
 
 - (void)testIfNO {
-    NSString *input = @"{% if NO %} text {% /if %}";
+    NSString *input = @"{% if NO %} text {% endif %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -191,7 +191,7 @@
 }
 
 - (void)testIfTrue {
-    NSString *input = @"{% if true %} text {% /if %}";
+    NSString *input = @"{% if true %} text {% endif %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -203,7 +203,7 @@
 }
 
 - (void)testIfFalse {
-    NSString *input = @"{% if false %} text {% /if %}";
+    NSString *input = @"{% if false %} text {% endif %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -215,7 +215,7 @@
 }
 
 - (void)testIfOpenTrueClose {
-    NSString *input = @"{% if (true) %} text {% /if %}";
+    NSString *input = @"{% if (true) %} text {% endif %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -227,7 +227,7 @@
 }
 
 - (void)testIfOpenFalseClose {
-    NSString *input = @"{% if (false) %} text {% /if %}";
+    NSString *input = @"{% if (false) %} text {% endif %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -239,7 +239,7 @@
 }
 
 - (void)testIfSQString {
-    NSString *input = @"{% if 'hello' %} text {% /if %}";
+    NSString *input = @"{% if 'hello' %} text {% endif %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -251,7 +251,7 @@
 }
 
 - (void)testIfEmptySQString {
-    NSString *input = @"{% if '' %} text {% /if %}";
+    NSString *input = @"{% if '' %} text {% endif %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -263,7 +263,7 @@
 }
 
 - (void)testIf1Eq1 {
-    NSString *input = @"{% if 1 eq 1 %} text {% /if %}";
+    NSString *input = @"{% if 1 eq 1 %} text {% endif %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -275,7 +275,7 @@
 }
 
 - (void)testIf1EqSign1 {
-    NSString *input = @"{% if 1 = 1 %} text {% /if %}";
+    NSString *input = @"{% if 1 = 1 %} text {% endif %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -285,7 +285,7 @@
 }
 
 - (void)testIf1EqEqSign1 {
-    NSString *input = @"{% if 1 == 1 %} text {% /if %}";
+    NSString *input = @"{% if 1 == 1 %} text {% endif %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -297,7 +297,7 @@
 }
 
 - (void)testIf1Eq2 {
-    NSString *input = @"{% if 1 eq 2 %} text {% /if %}";
+    NSString *input = @"{% if 1 eq 2 %} text {% endif %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -309,7 +309,7 @@
 }
 
 - (void)testIf1EqSign2 {
-    NSString *input = @"{% if 1 = 2 %} text {% /if %}";
+    NSString *input = @"{% if 1 = 2 %} text {% endif %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -319,7 +319,7 @@
 }
 
 - (void)testIf1EqEqSign2 {
-    NSString *input = @"{% if 1 == 2 %} text {% /if %}";
+    NSString *input = @"{% if 1 == 2 %} text {% endif %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -331,7 +331,7 @@
 }
 
 - (void)testIf1Ne1 {
-    NSString *input = @"{% if 1 ne 1 %} text {% /if %}";
+    NSString *input = @"{% if 1 ne 1 %} text {% endif %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -343,7 +343,7 @@
 }
 
 - (void)testIf1NeSign1 {
-    NSString *input = @"{% if 1 != 1 %} text {% /if %}";
+    NSString *input = @"{% if 1 != 1 %} text {% endif %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -355,7 +355,7 @@
 }
 
 - (void)testIf1Ne2 {
-    NSString *input = @"{% if 1 ne 2 %} text {% /if %}";
+    NSString *input = @"{% if 1 ne 2 %} text {% endif %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -367,7 +367,7 @@
 }
 
 - (void)testIf1NeSign2 {
-    NSString *input = @"{% if 1 != 2 %} text {% /if %}";
+    NSString *input = @"{% if 1 != 2 %} text {% endif %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -379,7 +379,7 @@
 }
 
 - (void)testIf1Lt1 {
-    NSString *input = @"{% if 1 < 1 %} text {% /if %}";
+    NSString *input = @"{% if 1 < 1 %} text {% endif %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -391,7 +391,7 @@
 }
 
 - (void)testIf1LtEq1 {
-    NSString *input = @"{% if 1 <= 1 %} text {% /if %}";
+    NSString *input = @"{% if 1 <= 1 %} text {% endif %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -403,7 +403,7 @@
 }
 
 - (void)testIf1Lt2 {
-    NSString *input = @"{% if 1 < 2 %} text {% /if %}";
+    NSString *input = @"{% if 1 < 2 %} text {% endif %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -415,7 +415,7 @@
 }
 
 - (void)testIf1LtEq2 {
-    NSString *input = @"{% if 1 <= 2 %} text {% /if %}";
+    NSString *input = @"{% if 1 <= 2 %} text {% endif %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -427,7 +427,7 @@
 }
 
 - (void)testIf1Gt1 {
-    NSString *input = @"{% if 1 > 1 %} text {% /if %}";
+    NSString *input = @"{% if 1 > 1 %} text {% endif %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -439,7 +439,7 @@
 }
 
 - (void)testIf1GtEq1 {
-    NSString *input = @"{% if 1 >= 1 %} text {% /if %}";
+    NSString *input = @"{% if 1 >= 1 %} text {% endif %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -451,7 +451,7 @@
 }
 
 - (void)testIf1Gt2 {
-    NSString *input = @"{% if 1 > 2 %} text {% /if %}";
+    NSString *input = @"{% if 1 > 2 %} text {% endif %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -463,7 +463,7 @@
 }
 
 - (void)testIf1GtEq2 {
-    NSString *input = @"{% if 1 >= 2 %} text {% /if %}";
+    NSString *input = @"{% if 1 >= 2 %} text {% endif %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -475,7 +475,7 @@
 }
 
 - (void)testIf1And0 {
-    NSString *input = @"{% if 1 and 0 %} text {% /if %}";
+    NSString *input = @"{% if 1 and 0 %} text {% endif %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -487,7 +487,7 @@
 }
 
 - (void)testIf0And1 {
-    NSString *input = @"{% if 0 and 1 %} text {% /if %}";
+    NSString *input = @"{% if 0 and 1 %} text {% endif %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -499,7 +499,7 @@
 }
 
 - (void)testIf1And1 {
-    NSString *input = @"{% if 1 and 1 %} text {% /if %}";
+    NSString *input = @"{% if 1 and 1 %} text {% endif %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -511,7 +511,7 @@
 }
 
 - (void)testIf1Or0 {
-    NSString *input = @"{% if 1 or 0 %} text {% /if %}";
+    NSString *input = @"{% if 1 or 0 %} text {% endif %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -523,7 +523,7 @@
 }
 
 - (void)testIf0Or1 {
-    NSString *input = @"{% if 0 or 1 %} text {% /if %}";
+    NSString *input = @"{% if 0 or 1 %} text {% endif %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -535,7 +535,7 @@
 }
 
 - (void)testIf1Or1 {
-    NSString *input = @"{% if 1 or 1 %} text {% /if %}";
+    NSString *input = @"{% if 1 or 1 %} text {% endif %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -547,7 +547,7 @@
 }
 
 - (void)testIf1SpacePlusSpace2 {
-    NSString *input = @"{% if 1 + 2 %} text {% /if %}";
+    NSString *input = @"{% if 1 + 2 %} text {% endif %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -559,7 +559,7 @@
 }
 
 - (void)testIf1Plus2 {
-    NSString *input = @"{% if 1+2 %} text {% /if %}";
+    NSString *input = @"{% if 1+2 %} text {% endif %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -571,7 +571,7 @@
 }
 
 - (void)testIf1SpaceMinusSpace1 {
-    NSString *input = @"{% if 1 - 1 %} text {% /if %}";
+    NSString *input = @"{% if 1 - 1 %} text {% endif %}";
     id vars = nil;
     
     NSError *err = nil;
