@@ -248,6 +248,12 @@
 		D31E3F051F1C2334004BD0C6 /* TDBinaryExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29E2518E75D3B00DC591E /* TDBinaryExpression.h */; };
 		D31E3F061F1C2334004BD0C6 /* TDBooleanExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29E2718E75D3B00DC591E /* TDBooleanExpression.h */; };
 		D31E3F071F1C2334004BD0C6 /* TDRelationalExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29E2918E75D3B00DC591E /* TDRelationalExpression.h */; };
+		D3294B7D2D8517D000C19D79 /* TDUncapitalizeFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D3294B7C2D8517D000C19D79 /* TDUncapitalizeFilter.m */; };
+		D3294B7E2D8517D000C19D79 /* TDUncapitalizeFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = D3294B7B2D8517D000C19D79 /* TDUncapitalizeFilter.h */; };
+		D3294B7F2D8517D000C19D79 /* TDUncapitalizeFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = D3294B7B2D8517D000C19D79 /* TDUncapitalizeFilter.h */; };
+		D3294B802D8517D000C19D79 /* TDUncapitalizeFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D3294B7C2D8517D000C19D79 /* TDUncapitalizeFilter.m */; };
+		D3294B812D8517D000C19D79 /* TDUncapitalizeFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D3294B7C2D8517D000C19D79 /* TDUncapitalizeFilter.m */; };
+		D3294B822D8517D000C19D79 /* TDUncapitalizeFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = D3294B7B2D8517D000C19D79 /* TDUncapitalizeFilter.h */; };
 		D33915DE18F0818500BDA4FD /* TDArithmeticExpressionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D33915DD18F0818500BDA4FD /* TDArithmeticExpressionTests.m */; };
 		D33915E418F081ED00BDA4FD /* TDPathExpressionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D33915E318F081ED00BDA4FD /* TDPathExpressionTests.m */; };
 		D33915E618F09DFF00BDA4FD /* TDElseTagTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D33915E518F09DFF00BDA4FD /* TDElseTagTests.m */; };
@@ -430,6 +436,8 @@
 		D31E3E321F1C1C97004BD0C6 /* libTDTemplateEngineOSX.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libTDTemplateEngineOSX.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D31E3E3C1F1C1CAE004BD0C6 /* libPEGKitOSX.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libPEGKitOSX.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D31E3EC21F1C1EF4004BD0C6 /* TDNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDNode.h; path = include/TDTemplateEngine/TDNode.h; sourceTree = SOURCE_ROOT; };
+		D3294B7B2D8517D000C19D79 /* TDUncapitalizeFilter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TDUncapitalizeFilter.h; path = src/TDUncapitalizeFilter.h; sourceTree = SOURCE_ROOT; };
+		D3294B7C2D8517D000C19D79 /* TDUncapitalizeFilter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TDUncapitalizeFilter.m; path = src/TDUncapitalizeFilter.m; sourceTree = SOURCE_ROOT; };
 		D33915DD18F0818500BDA4FD /* TDArithmeticExpressionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDArithmeticExpressionTests.m; path = test/TDArithmeticExpressionTests.m; sourceTree = SOURCE_ROOT; };
 		D33915E318F081ED00BDA4FD /* TDPathExpressionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDPathExpressionTests.m; path = test/TDPathExpressionTests.m; sourceTree = SOURCE_ROOT; };
 		D33915E518F09DFF00BDA4FD /* TDElseTagTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDElseTagTests.m; path = test/TDElseTagTests.m; sourceTree = SOURCE_ROOT; };
@@ -670,6 +678,8 @@
 				D319138E18F1AD1500430BAD /* TDUppercaseFilter.m */,
 				D319138118F1A58A00430BAD /* TDCapitalizeFilter.h */,
 				D319138218F1A58A00430BAD /* TDCapitalizeFilter.m */,
+				D3294B7B2D8517D000C19D79 /* TDUncapitalizeFilter.h */,
+				D3294B7C2D8517D000C19D79 /* TDUncapitalizeFilter.m */,
 				D3AC684D1A41D43400F7EB6A /* TDReplaceFilter.h */,
 				D3AC684E1A41D43400F7EB6A /* TDReplaceFilter.m */,
 				D3CD8B982D7FE645006B1167 /* TDPadFilters.h */,
@@ -903,6 +913,7 @@
 				D3100CF91CE52F10007B38BE /* TDWriter.h in Headers */,
 				D3100CFE1CE52F10007B38BE /* TDExpression.h in Headers */,
 				D3100CFC1CE52F10007B38BE /* TDTag.h in Headers */,
+				D3294B7E2D8517D000C19D79 /* TDUncapitalizeFilter.h in Headers */,
 				D3100CFA1CE52F10007B38BE /* TDTemplateContext.h in Headers */,
 				D3100CFF1CE52F43007B38BE /* TDTemplateEngine.h in Headers */,
 				D31E3EC51F1C1EF4004BD0C6 /* TDNode.h in Headers */,
@@ -969,6 +980,7 @@
 				D31E3E861F1C1DCB004BD0C6 /* TDTemplateEngine.h in Headers */,
 				D31E3E871F1C1DCB004BD0C6 /* TDWriter.h in Headers */,
 				D31E3E881F1C1DCB004BD0C6 /* TDTemplateContext.h in Headers */,
+				D3294B7F2D8517D000C19D79 /* TDUncapitalizeFilter.h in Headers */,
 				D31E3E901F1C1E68004BD0C6 /* TDExpression.h in Headers */,
 				D31E3E8A1F1C1DCB004BD0C6 /* TDTag.h in Headers */,
 				D31E3E8F1F1C1E5D004BD0C6 /* TDFilter.h in Headers */,
@@ -1037,6 +1049,7 @@
 				D3E95F251AB0D1A600D19992 /* TDSpaceTag.h in Headers */,
 				D3A29E0418E6584D00DC591E /* TDStringValue.h in Headers */,
 				D3A29DFF18E6584D00DC591E /* TDBooleanValue.h in Headers */,
+				D3294B822D8517D000C19D79 /* TDUncapitalizeFilter.h in Headers */,
 				D36AC9BC2D7FD0D3001C99FD /* TDSepTag.h in Headers */,
 				D319138618F1A5C700430BAD /* TDFilter.h in Headers */,
 				D31E3EC31F1C1EF4004BD0C6 /* TDNode.h in Headers */,
@@ -1300,6 +1313,7 @@
 				D3100CF61CE52ED7007B38BE /* TDBinaryExpression.m in Sources */,
 				D36AC9BE2D7FD0D3001C99FD /* TDSepTag.m in Sources */,
 				D3100CF71CE52ED7007B38BE /* TDBooleanExpression.m in Sources */,
+				D3294B7D2D8517D000C19D79 /* TDUncapitalizeFilter.m in Sources */,
 				D3100CF81CE52ED7007B38BE /* TDRelationalExpression.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1367,6 +1381,7 @@
 				D31E3E731F1C1D04004BD0C6 /* TDBinaryExpression.m in Sources */,
 				D36AC9BA2D7FD0D3001C99FD /* TDSepTag.m in Sources */,
 				D31E3E741F1C1D04004BD0C6 /* TDBooleanExpression.m in Sources */,
+				D3294B802D8517D000C19D79 /* TDUncapitalizeFilter.m in Sources */,
 				D31E3E751F1C1D04004BD0C6 /* TDRelationalExpression.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1434,6 +1449,7 @@
 				D319138C18F1AC4500430BAD /* TDLowercaseFilter.m in Sources */,
 				D36AC9BD2D7FD0D3001C99FD /* TDSepTag.m in Sources */,
 				D319138418F1A58A00430BAD /* TDCapitalizeFilter.m in Sources */,
+				D3294B812D8517D000C19D79 /* TDUncapitalizeFilter.m in Sources */,
 				D3E95F181AB094DF00D19992 /* TDNewlineTag.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

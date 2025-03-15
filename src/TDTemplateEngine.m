@@ -58,6 +58,7 @@
 #import "TDLowercaseFilter.h"
 #import "TDUppercaseFilter.h"
 #import "TDCapitalizeFilter.h"
+#import "TDUncapitalizeFilter.h"
 #import "TDReplaceFilter.h"
 #import "TDPadFilters.h"
 
@@ -128,6 +129,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
         [self registerFilterClass:[TDLowercaseFilter class] forName:[TDLowercaseFilter filterName]];
         [self registerFilterClass:[TDUppercaseFilter class] forName:[TDUppercaseFilter filterName]];
         [self registerFilterClass:[TDCapitalizeFilter class] forName:[TDCapitalizeFilter filterName]];
+        [self registerFilterClass:[TDUncapitalizeFilter class] forName:[TDUncapitalizeFilter filterName]];
         [self registerFilterClass:[TDReplaceFilter class] forName:[TDReplaceFilter filterName]];
         [self registerFilterClass:[TDLpadFilter class] forName:[TDLpadFilter filterName]];
         [self registerFilterClass:[TDRpadFilter class] forName:[TDRpadFilter filterName]];
