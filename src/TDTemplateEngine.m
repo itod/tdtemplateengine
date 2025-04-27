@@ -226,7 +226,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
         if (err) *err = [NSError errorWithDomain:TDTemplateEngineErrorDomain code:TDTemplateEngineRenderingErrorCode userInfo:[[[ex userInfo] copy] autorelease]];
     }
     
-    return success;;
+    return success;
 }
 
 
