@@ -291,6 +291,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 }
 
 
+// TODO remove
 - (NSArray *)fragmentsFromString:(NSString *)inStr {
     
     NSError *err = nil;
@@ -418,7 +419,8 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 }
 
 
-- (TokenListPtr)fragmentsFromString_:(NSString *)inStr {
+// TODO rename w/o `_`
+- (TokenListPtr)_fragmentsFromString:(NSString *)inStr {
     
     NSError *err = nil;
     if (![self setUpDelimiterRegex:&err]) {
@@ -508,6 +510,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 }
 
 
+// TODO remove
 - (TDNode *)compile:(NSArray *)frags error:(NSError **)err {
     
     TDTemplateParser *p = [[[TDTemplateParser alloc] initWithDelegate:nil] autorelease];
@@ -517,6 +520,23 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     p.staticContext = _staticContext;
     
     TDNode *root = [p parseTokens:frags error:err];
+    
+    return root;
+}
+
+
+// TODO remame w/o `_`
+- (TDNode *)_compile:(TokenListPtr)frags error:(NSError **)err {
+    
+    TDAssert(_staticContext);
+    TemplateParser p(self, _staticContext);
+    
+    TDNode *root = nil;
+    try {
+        root = p.parse(frags);
+    } catch (std::exception& ex) {
+        
+    }
     
     return root;
 }

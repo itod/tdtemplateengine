@@ -14,7 +14,7 @@ using namespace parsekit;
 using namespace templateengine;
 
 @interface TDTemplateEngine ()
-- (TokenListPtr)fragmentsFromString_:(NSString *)inStr;
+- (TokenListPtr)_fragmentsFromString:(NSString *)inStr;
 @end
 
 @interface TDTemplateEngineTests : XCTestCase
@@ -46,7 +46,7 @@ using namespace templateengine;
 - (void)testFragmentGathering {
     NSString *input = @"{% if test %}{{a}}{% else %} foo bar { baz } {% endif %}";
     
-    TokenListPtr toks = [_engine fragmentsFromString_:input];
+    TokenListPtr toks = [_engine _fragmentsFromString:input];
     
     Token tok = toks->at(0);
     XCTAssertEqual(tok.token_type(), TemplateTokenType_BLOCK_START_TAG);
