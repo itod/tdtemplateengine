@@ -342,6 +342,9 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
         lastRange = currRange;
         NSUInteger kind = 0;
         
+        TemplateTokenType tokenType = TokenType_EOF;
+        NSRange contentRange = currRange;
+        
         NSString *str = [[verbStr copy] autorelease];
         if ([str hasPrefix:_printStartDelimiter]) {
             kind = TDTEMPLATE_TOKEN_KIND_PRINT;
@@ -349,13 +352,22 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
             str = [str substringFromIndex:printStartDelimLen];
             str = [str stringByTrimmingCharactersInSet:wsSet];
             
+            tokenType = TemplateTokenType_PRINT;
+            contentRange.location += printStartDelimLen;
+            contentRange.length -= printStartDelimLen + printEndDelimLen;
+            
         } else if ([str hasPrefix:_tagStartDelimiter]) {
             str = [str substringToIndex:len - tagEndDelimLen];
             str = [str substringFromIndex:tagStartDelimLen];
             str = [str stringByTrimmingCharactersInSet:wsSet];
             
+            contentRange.location += tagStartDelimLen;
+            contentRange.length -= tagStartDelimLen + tagEndDelimLen;
+            
             if ([str hasPrefix:TDTemplateEngineTagEndPrefix]) {
                 kind = TDTEMPLATE_TOKEN_KIND_BLOCK_END_TAG;
+                tokenType = TemplateTokenType_BLOCK_END_TAG;
+                
             } else {
                 NSString *tagName = [str componentsSeparatedByCharactersInSet:wsSet][0]; // TODO
                 Class tagCls = [self registerdTagClassForName:tagName];
@@ -363,9 +375,11 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
                 switch ([tagCls tagType]) {
                     case TDTagTypeBlock:
                         kind = TDTEMPLATE_TOKEN_KIND_BLOCK_START_TAG;
+                        tokenType = TemplateTokenType_BLOCK_START_TAG;
                         break;
                     case TDTagTypeEmpty:
                         kind = TDTEMPLATE_TOKEN_KIND_EMPTY_TAG;
+                        tokenType = TemplateTokenType_EMPTY_TAG;
                         break;
                     default:
                         TDAssert(0);
@@ -381,6 +395,9 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
         frag.tokenKind = kind;
         
         [frags addObject:frag];
+        
+        Token frag_(tokenType, {contentRange.location, contentRange.length});
+        frags_->push_back(frag_);
     }];
     
     // detect trailing text node
