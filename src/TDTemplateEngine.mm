@@ -70,6 +70,7 @@
 #import "PKToken+Verbatim.h"
 
 #import <ParseKitCPP/Token.hpp>
+#import <ParseKitCPP/ParseException.hpp>
 #import "TemplateParser.hpp"
 
 using namespace parsekit;
@@ -534,8 +535,8 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     TDNode *root = nil;
     try {
         root = p.parse(frags);
-    } catch (std::exception& ex) {
-        
+    } catch (ParseException& ex) {
+        TDAssert(0);
     }
     
     return root;
