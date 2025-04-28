@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D306D9C318F5851D00E32DDC /* TDBaseExpressionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D306D9C218F5851D00E32DDC /* TDBaseExpressionTests.m */; };
-		D3100CC11CE52ED7007B38BE /* TDTemplateEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29D8318E5F57E00DC591E /* TDTemplateEngine.m */; };
+		D3100CC11CE52ED7007B38BE /* TDTemplateEngine.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3A29D8318E5F57E00DC591E /* TDTemplateEngine.mm */; };
 		D3100CC21CE52ED7007B38BE /* TDWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F5064318ECA12500BAC93B /* TDWriter.m */; };
 		D3100CC31CE52ED7007B38BE /* TDTemplateContext.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29DCF18E63A1C00DC591E /* TDTemplateContext.m */; };
 		D3100CC41CE52ED7007B38BE /* TDTemplateParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D398E2EE18EA2C51004B883C /* TDTemplateParser.m */; };
@@ -134,7 +134,7 @@
 		D319139018F1AD1500430BAD /* TDUppercaseFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D319138E18F1AD1500430BAD /* TDUppercaseFilter.m */; };
 		D319139418F2ED3300430BAD /* TDVerbatimTag.h in Headers */ = {isa = PBXBuildFile; fileRef = D319139218F2ED3300430BAD /* TDVerbatimTag.h */; };
 		D319139518F2ED3300430BAD /* TDVerbatimTag.m in Sources */ = {isa = PBXBuildFile; fileRef = D319139318F2ED3300430BAD /* TDVerbatimTag.m */; };
-		D31E3E3E1F1C1D04004BD0C6 /* TDTemplateEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29D8318E5F57E00DC591E /* TDTemplateEngine.m */; };
+		D31E3E3E1F1C1D04004BD0C6 /* TDTemplateEngine.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3A29D8318E5F57E00DC591E /* TDTemplateEngine.mm */; };
 		D31E3E3F1F1C1D04004BD0C6 /* TDWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F5064318ECA12500BAC93B /* TDWriter.m */; };
 		D31E3E401F1C1D04004BD0C6 /* TDTemplateContext.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29DCF18E63A1C00DC591E /* TDTemplateContext.m */; };
 		D31E3E411F1C1D04004BD0C6 /* TDTemplateParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D398E2EE18EA2C51004B883C /* TDTemplateParser.m */; };
@@ -297,7 +297,7 @@
 		D3A21F441AC9E85F0009A712 /* TDUnaryExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A21F421AC9E85F0009A712 /* TDUnaryExpression.h */; };
 		D3A21F451AC9E85F0009A712 /* TDUnaryExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A21F431AC9E85F0009A712 /* TDUnaryExpression.m */; };
 		D3A29D8218E5F57300DC591E /* TDTemplateEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29D8118E5F57300DC591E /* TDTemplateEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D3A29D8418E5F57E00DC591E /* TDTemplateEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A29D8318E5F57E00DC591E /* TDTemplateEngine.m */; };
+		D3A29D8418E5F57E00DC591E /* TDTemplateEngine.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3A29D8318E5F57E00DC591E /* TDTemplateEngine.mm */; };
 		D3A29D8A18E5F5A500DC591E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D3A29D8818E5F5A500DC591E /* InfoPlist.strings */; };
 		D3A29D9218E5F5D900DC591E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D3A29D9018E5F5D900DC591E /* InfoPlist.strings */; };
 		D3A29D9418E5F60100DC591E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3A29D9318E5F60100DC591E /* Foundation.framework */; };
@@ -496,7 +496,7 @@
 		D3A21F421AC9E85F0009A712 /* TDUnaryExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDUnaryExpression.h; path = src/TDUnaryExpression.h; sourceTree = SOURCE_ROOT; };
 		D3A21F431AC9E85F0009A712 /* TDUnaryExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDUnaryExpression.m; path = src/TDUnaryExpression.m; sourceTree = SOURCE_ROOT; };
 		D3A29D8118E5F57300DC591E /* TDTemplateEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDTemplateEngine.h; path = include/TDTemplateEngine/TDTemplateEngine.h; sourceTree = SOURCE_ROOT; };
-		D3A29D8318E5F57E00DC591E /* TDTemplateEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDTemplateEngine.m; path = src/TDTemplateEngine.m; sourceTree = SOURCE_ROOT; };
+		D3A29D8318E5F57E00DC591E /* TDTemplateEngine.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TDTemplateEngine.mm; path = src/TDTemplateEngine.mm; sourceTree = SOURCE_ROOT; };
 		D3A29D8518E5F58700DC591E /* TDTemplateEngine-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "TDTemplateEngine-Info.plist"; path = "res/TDTemplateEngine-Info.plist"; sourceTree = SOURCE_ROOT; };
 		D3A29D8618E5F5A000DC591E /* TDTemplateEngine-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TDTemplateEngine-Prefix.pch"; path = "res/TDTemplateEngine-Prefix.pch"; sourceTree = SOURCE_ROOT; };
 		D3A29D8918E5F5A500DC591E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = res/en.lproj/InfoPlist.strings; sourceTree = SOURCE_ROOT; };
@@ -754,7 +754,7 @@
 			isa = PBXGroup;
 			children = (
 				D3A29D8118E5F57300DC591E /* TDTemplateEngine.h */,
-				D3A29D8318E5F57E00DC591E /* TDTemplateEngine.m */,
+				D3A29D8318E5F57E00DC591E /* TDTemplateEngine.mm */,
 				D3F5064718ECA36B00BAC93B /* TDWriter.h */,
 				D3F5064318ECA12500BAC93B /* TDWriter.m */,
 				D3A29DE918E64FB800DC591E /* TDTemplateContext.h */,
@@ -1287,7 +1287,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D3100CC11CE52ED7007B38BE /* TDTemplateEngine.m in Sources */,
+				D3100CC11CE52ED7007B38BE /* TDTemplateEngine.mm in Sources */,
 				D391AB00202D6D1600ECCE37 /* TDFabsFilter.m in Sources */,
 				D3100CC21CE52ED7007B38BE /* TDWriter.m in Sources */,
 				D3100CC31CE52ED7007B38BE /* TDTemplateContext.m in Sources */,
@@ -1356,7 +1356,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D31E3E3E1F1C1D04004BD0C6 /* TDTemplateEngine.m in Sources */,
+				D31E3E3E1F1C1D04004BD0C6 /* TDTemplateEngine.mm in Sources */,
 				D391AAFF202D6D1600ECCE37 /* TDFabsFilter.m in Sources */,
 				D31E3E3F1F1C1D04004BD0C6 /* TDWriter.m in Sources */,
 				D31E3E401F1C1D04004BD0C6 /* TDTemplateContext.m in Sources */,
@@ -1441,7 +1441,7 @@
 				D3E95F2A1AB0D22700D19992 /* TDConditionalOutputTag.m in Sources */,
 				D3AC68601A42022500F7EB6A /* TDTrimFilter.m in Sources */,
 				D3A29E2E18E75D3B00DC591E /* TDBinaryExpression.m in Sources */,
-				D3A29D8418E5F57E00DC591E /* TDTemplateEngine.m in Sources */,
+				D3A29D8418E5F57E00DC591E /* TDTemplateEngine.mm in Sources */,
 				D369BD4318EF7F6A003E715B /* TDForLoop.m in Sources */,
 				D319137C18F1A46100430BAD /* TDFilter.m in Sources */,
 				D3A7E26C18EF9286009BFD96 /* TDTemplateEngine+ExpressionSupport.m in Sources */,
@@ -1686,9 +1686,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
@@ -1738,6 +1737,7 @@
 					lib/PEGKit/include,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.5;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c++";
 				ONLY_ACTIVE_ARCH = YES;
 				SKIP_INSTALL = YES;
 			};
@@ -1747,9 +1747,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
@@ -1792,6 +1791,7 @@
 					lib/PEGKit/include,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.5;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c++";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -1884,9 +1884,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
@@ -1935,6 +1934,7 @@
 					lib/PEGKit/include,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.5;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c++";
 				ONLY_ACTIVE_ARCH = YES;
 				SKIP_INSTALL = YES;
 			};

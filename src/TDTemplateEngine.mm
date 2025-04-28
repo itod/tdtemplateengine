@@ -69,6 +69,8 @@
 #import <PEGKit/PKRecognitionException.h>
 #import "PKToken+Verbatim.h"
 
+#import <ParseKitCPP/Token.hpp>
+
 NSString * const TDTemplateEngineTagEndPrefix = @"end";
 NSString * const TDTemplateEngineErrorDomain = @"TDTemplateEngineErrorDomain";
 const NSInteger TDTemplateEngineRenderingErrorCode = 1;
