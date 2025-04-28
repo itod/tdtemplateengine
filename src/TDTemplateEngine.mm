@@ -186,6 +186,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 
 // TODO remove
 - (TDNode *)compileTemplateString:(NSString *)str error:(NSError **)err {
+//    return [self _compileTemplateString:str error:err];
     NSParameterAssert([str length]);
     TDAssert([_printStartDelimiter length]);
     TDAssert([_printEndDelimiter length]);
