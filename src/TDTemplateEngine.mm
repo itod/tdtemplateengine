@@ -70,6 +70,10 @@
 #import "PKToken+Verbatim.h"
 
 #import <ParseKitCPP/Token.hpp>
+#import "TemplateParser.hpp"
+
+using namespace parsekit;
+using namespace templateengine;
 
 NSString * const TDTemplateEngineTagEndPrefix = @"end";
 NSString * const TDTemplateEngineErrorDomain = @"TDTemplateEngineErrorDomain";
@@ -294,6 +298,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     }
 
     NSMutableArray *frags = [NSMutableArray array];
+    TokenListPtr frags_ = TokenListPtr(new TokenList());
 
     NSUInteger printStartDelimLen = [_printStartDelimiter length];
     NSUInteger printEndDelimLen   = [_printEndDelimiter length];
@@ -307,7 +312,8 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     void(^textNodeDetector)(NSUInteger) = ^(NSUInteger currLoc) {
         NSUInteger diff = currLoc - NSMaxRange(lastRange);
         if (diff > 0) {
-            NSString *txt = [inStr substringWithRange:NSMakeRange(NSMaxRange(lastRange), diff)];
+            NSRange txtRange = NSMakeRange(NSMaxRange(lastRange), diff);
+            NSString *txt = [inStr substringWithRange:txtRange];
             
             PKToken *txtFrag = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:txt doubleValue:0.0];
             txtFrag.tokenKind = TDTEMPLATE_TOKEN_KIND_TEXT;
@@ -315,6 +321,9 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
             TDAssert(txtFrag.stringValue == txtFrag.verbatimString); // should be same pointer. no copy
             
             [frags addObject:txtFrag];
+            
+            Token txtFrag_(TemplateTokenType_TEXT, {txtRange.location, txtRange.length});
+            frags_->push_back(txtFrag_);
         }
     };
     

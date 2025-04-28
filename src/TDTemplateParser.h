@@ -17,4 +17,3 @@ enum {
 @property (nonatomic, retain) TDTemplateContext *staticContext;
 
 @end
-
