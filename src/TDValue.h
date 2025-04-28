@@ -24,8 +24,8 @@
 
 @class TDValue;
 
-TDValue *TDValueFromObject(id obj);
-double TDNumberFromString(NSString *s);
+FOUNDATION_EXPORT TDValue *TDValueFromObject(id obj);
+FOUNDATION_EXPORT double TDNumberFromString(NSString *s);
 
 @interface TDValue : TDExpression
 

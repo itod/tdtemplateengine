@@ -37,6 +37,7 @@ private:
     
     void _template();
     void _content();
+    void _print();
 
 public:
     explicit TemplateParser(TDTemplateEngine *, TDTemplateContext *);

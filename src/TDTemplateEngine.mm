@@ -87,6 +87,8 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 @property (nonatomic, retain) NSMutableDictionary *tagTab;
 @property (nonatomic, retain) NSMutableDictionary *filterTab;
 @property (nonatomic, retain) TDParser *expressionParser;
+
+@property (nonatomic, retain) NSString *templateString;
 @property (nonatomic, retain) NSRegularExpression *tagNameRegex;
 @end
 
@@ -162,6 +164,8 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     self.tagTab = nil;
     self.filterTab = nil;
     self.expressionParser = nil;
+    
+    self.templateString = nil;
     self.tagNameRegex = nil;
     [super dealloc];
 }
@@ -190,7 +194,9 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     TDAssert([_printEndDelimiter length]);
     TDAssert([_tagStartDelimiter length]);
     TDAssert([_tagEndDelimiter length]);
-
+    
+    self.templateString = str;
+    
     // lex
     NSArray *frags = nil;
     
@@ -210,6 +216,9 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     
     // compile
     TDNode *root = [self compile:frags error:err];
+    
+    self.templateString = nil;
+    
     return root;
 }
 
@@ -543,9 +552,17 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 }
 
 
+- (NSString *)stringFromToken:(Token)token {
+    TDAssert(_templateString);
+    
+    return [_templateString substringWithRange:NSMakeRange(token.range().location, token.range().length)];
+}
+
+
 #pragma mark -
 #pragma mark TDTemplateParser API
 
+// TODO remove
 - (TDPrintNode *)printNodeFromFragment:(PKToken *)frag withParent:(TDNode *)parent {
     NSParameterAssert(frag);
     NSParameterAssert(parent);
@@ -561,6 +578,27 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 
     TDAssert(expr);
     TDPrintNode *printNode = [TDPrintNode nodeWithToken:frag parent:parent];
+    printNode.expression = expr;
+    return printNode;
+}
+
+
+// TODO remove `_`
+- (TDPrintNode *)_printNodeFromFragment:(Token)frag withParent:(TDNode *)parent {
+    NSParameterAssert(!frag.is_eof());
+    NSParameterAssert(parent);
+    
+    NSString *str = [self stringFromToken:frag];
+    TDAssert(str.length);
+    
+    NSError *err = nil;
+    TDExpression *expr = [self expressionFromString:str error:&err];
+    if (!expr) {
+        [NSException raise:TDTemplateEngineErrorDomain format:@"Error while compiling print node expression `%@`\n\n%@", str, [err localizedFailureReason]];
+    }
+
+    TDAssert(expr);
+    TDPrintNode *printNode = [TDPrintNode nodeWithToken_:frag parent:parent];
     printNode.expression = expr;
     return printNode;
 }
@@ -687,6 +725,9 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     return filter;
 }
 
+
+#pragma mark -
+#pragma mark Properties
 
 - (NSRegularExpression *)tagNameRegex {
     if (!_tagNameRegex) {

@@ -22,7 +22,7 @@
 
 #import <Foundation/Foundation.h>
 
-NSString *TDStringFromObject(id obj);
+FOUNDATION_EXPORT NSString *TDStringFromObject(id obj);
 
 @interface TDFilter : NSObject
 

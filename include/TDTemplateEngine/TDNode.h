@@ -21,6 +21,7 @@
 // THE SOFTWARE.
 
 #import <PEGKit/PKAST.h>
+#import <ParseKitCPP/Token.hpp>
 
 @class PKToken;
 @class TDTemplateContext;
@@ -28,8 +29,13 @@
 
 @interface TDNode : PKAST
 
+// TODO remove
 + (instancetype)nodeWithToken:(PKToken *)frag parent:(TDNode *)parent;
 - (instancetype)initWithToken:(PKToken *)frag parent:(TDNode *)parent;
+
+// TODO remove `_`
++ (instancetype)nodeWithToken_:(parsekit::Token)frag parent:(TDNode *)parent;
+- (instancetype)initWithToken_:(parsekit::Token)frag parent:(TDNode *)parent;
 
 - (void)renderInContext:(TDTemplateContext *)ctx;
 - (void)renderChildrenInContext:(TDTemplateContext *)ctx;

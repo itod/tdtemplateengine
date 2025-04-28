@@ -23,7 +23,10 @@
 #import "TDNode.h"
 #import <TDTemplateEngine/TDTemplateContext.h>
 
-@implementation TDNode
+@implementation TDNode {
+    // TODO remove _
+    parsekit::Token __token;
+}
 
 + (instancetype)nodeWithToken:(PKToken *)frag parent:(TDNode *)parent {
     return [[[self alloc] initWithToken:frag parent:parent] autorelease];
@@ -35,6 +38,22 @@
     self = [super initWithToken:frag];
     if (self) {
         self.parent = parent;
+    }
+    return self;
+}
+
+
++ (instancetype)nodeWithToken_:(parsekit::Token)frag parent:(TDNode *)parent {
+    return [[[self alloc] initWithToken_:frag parent:parent] autorelease];
+}
+
+
+- (instancetype)initWithToken_:(parsekit::Token)frag parent:(TDNode *)parent {
+    NSParameterAssert(!frag.is_eof());
+    self = [super initWithToken:nil];
+    if (self) {
+        self.parent = parent;
+        __token = frag;
     }
     return self;
 }

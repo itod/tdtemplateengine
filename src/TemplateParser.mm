@@ -8,9 +8,21 @@
 
 #import "TemplateParser.hpp"
 #import <ParseKitCPP/ParseException.hpp>
+#import <TDTemplateEngine/TDTemplateEngine.h>
 #import <TDTemplateEngine/TDRootNode.h>
+#import <TDTemplateEngine/TDPrintNode.h>
+#import <TDTemplateEngine/TDTag.h>
 
 using namespace parsekit;
+
+@interface TDTemplateEngine ()
+- (TDPrintNode *)_printNodeFromFragment:(Token)frag withParent:(TDNode *)parent;
+- (TDTag *)_tagFromFragment:(Token)tok withParent:(TDNode *)parent;
+@end
+
+@interface TDTag ()
+@property (nonatomic, retain) PKToken *endTagToken;
+@end
 
 namespace templateengine {
 
@@ -67,7 +79,7 @@ void TemplateParser::_template() {
 
 void TemplateParser::_content() {
     if (predicts(TemplateTokenType_PRINT, 0)) {
-//        _print();
+        _print();
     } else if (predicts(TemplateTokenType_EMPTY_TAG, 0)) {
 //        _empty_tag();
     } else if (predicts(TemplateTokenType_BLOCK_START_TAG, 0)) {
@@ -78,36 +90,34 @@ void TemplateParser::_content() {
 //        raise(@"No viable alternative found in rule 'content'.");
     }
 }
-//
-//- (void)print_ {
-//
-//    [self match:TDTEMPLATE_TOKEN_KIND_PRINT discard:NO];
-//    [self execute:^{
-//
-//    PKToken *tok = POP();
-//    ASSERT(_engine);
-//    TDNode *printNode = [_engine printNodeFromFragment:tok withParent:_currentParent];
-//    ASSERT(printNode);
-//    [_currentParent addChild:printNode];
-//
-//    }];
-//
-//}
-//
+
+void TemplateParser::_print() {
+
+    match(TemplateTokenType_PRINT, false);
+
+    Token tok = _assembly->pop_token();
+    assert(_engine);
+    
+    TDNode *printNode = [_engine _printNodeFromFragment:tok withParent:_currentParent];
+    assert(printNode);
+    
+    [_currentParent addChild:printNode];
+}
+
 //- (void)empty_tag_ {
 //
 //    [self match:TDTEMPLATE_TOKEN_KIND_EMPTY_TAG discard:NO];
 //    [self execute:^{
 //
 //    PKToken *tok = POP();
-//    ASSERT(_engine);
+//    assert(_engine);
 //    TDTag *startTagNode = nil;
 //    @try {
 //        startTagNode = [_engine tagFromFragment:tok withParent:_currentParent];
 //    } @catch (NSException *ex) {
 //        [self raise:[ex reason]];
 //    }
-//    ASSERT(startTagNode);
+//    assert(startTagNode);
 //    [_currentParent addChild:startTagNode];
 //    //self.currentParent = startTagNode;
 //
@@ -137,14 +147,14 @@ void TemplateParser::_content() {
 //    [self execute:^{
 //
 //    PKToken *tok = POP();
-//    ASSERT(_engine);
+//    assert(_engine);
 //    TDTag *startTagNode = nil;
 //    @try {
 //        startTagNode = [_engine tagFromFragment:tok withParent:_currentParent];
 //    } @catch (NSException *ex) {
 //        [self raise:[ex reason]];
 //    }
-//    ASSERT(startTagNode);
+//    assert(startTagNode);
 //    [_currentParent addChild:startTagNode];
 //    self.currentParent = startTagNode;
 //
@@ -165,7 +175,7 @@ void TemplateParser::_content() {
 //    if (!_currentParent || ![_currentParent.tagName isEqualToString:tagName]) {
 //        [self raise:[NSString stringWithFormat:@"Could not find block start tag named: `%@`", tagName]];
 //    }
-//    ASSERT([_currentParent isKindOfClass:[TDTag class]]);
+//    assert([_currentParent isKindOfClass:[TDTag class]]);
 //    TDTag *startNode = (id)_currentParent;
 //    startNode.endTagToken = tok;
 //

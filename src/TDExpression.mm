@@ -20,70 +20,59 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "TDTag.h"
-#import <TDTemplateEngine/TDTemplateEngine.h>
-#import <TDTemplateEngine/TDTemplateContext.h>
-#import <TDTemplateEngine/TDWriter.h>
 #import <TDTemplateEngine/TDExpression.h>
-#import <PEGKit/PKToken.h>
+#import <TDTemplateEngine/TDTemplateContext.h>
+#import "TDValue.h"
+#import "TDParser.h"
 #import <PEGKit/PKTokenizer.h>
-#import <PEGKit/PKWhitespaceState.h>
 
-@interface TDTag ()
-@property (nonatomic, retain) PKToken *endTagToken;
-@end
+@implementation TDExpression
 
-@implementation TDTag
+- (void)dealloc {
 
-+ (NSString *)tagName {
+    [super dealloc];
+}
+
+
+- (TDValue *)evaluateInContext:(TDTemplateContext *)ctx {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
     return nil;
 }
 
 
-+ (TDTagType)tagType {
-    NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
-    return 0;
+- (BOOL)evaluateAsBooleanInContext:(TDTemplateContext *)ctx {
+    return [[self evaluateInContext:ctx] boolValue];
 }
 
 
-- (instancetype)initWithToken:(PKToken *)frag {
-    self = [super initWithToken:frag];
-    if (self) {
-        
-    }
+- (double)evaluateAsNumberInContext:(TDTemplateContext *)ctx {
+    return [[self evaluateInContext:ctx] doubleValue];
+}
+
+
+- (NSString *)evaluateAsStringInContext:(TDTemplateContext *)ctx {
+    return [[self evaluateInContext:ctx] stringValue];
+}
+
+
+- (id)evaluateAsObjectInContext:(TDTemplateContext *)ctx {
+    return [[self evaluateInContext:ctx] objectValue];
+}
+
+
+- (BOOL)isValue {
+    return [self isKindOfClass:[TDValue class]];
+}
+
+
+- (TDExpression *)simplify {
     return self;
 }
 
 
-- (void)dealloc {
-    self.endTagToken = nil;
-    [super dealloc];
-}
-
-
-#pragma mark -
-#pragma mark TDNode
-
-- (void)renderInContext:(TDTemplateContext *)ctx {
-    NSParameterAssert(ctx);
-
-    TDTemplateContext *local = [[ctx copy] autorelease];
-    
-    [self doTagInContext:local];
-}
-
-
-#pragma mark -
-#pragma mark TDTag
-
-- (void)doTagInContext:(TDTemplateContext *)ctx {
+- (TDDataType)dataType {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
-}
-
-
-- (NSString *)tagName {
-    return [[self class] tagName];
+    return TDDataTypeAny;
 }
 
 @end
