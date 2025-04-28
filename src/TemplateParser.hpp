@@ -7,6 +7,7 @@
 //
 
 #import <ParseKitCPP/BaseParser.hpp>
+#import "TemplateAssembly.hpp"
 
 @class TDTemplateEngine;
 @class TDTemplateContext;
@@ -27,7 +28,7 @@ private:
     TDTemplateEngine *_engine; // weakref, aka delegate
     TDTemplateContext *_staticContext;
     
-    parsekit::Assembly *_assembly;
+    TemplateAssembly *_assembly;
     
     TDNode *_root;
     void setRoot(TDNode *n);

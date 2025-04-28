@@ -7,7 +7,6 @@
 //
 
 #import "TemplateParser.hpp"
-#import "TemplateAssembly.hpp"
 #import <ParseKitCPP/ParseException.hpp>
 #import <TDTemplateEngine/TDTemplateEngine.h>
 #import <TDTemplateEngine/TDRootNode.h>
@@ -123,19 +122,16 @@ void TemplateParser::_empty_tag() {
 }
 
 void TemplateParser::_block_tag() {
-//
-//    execute:^{
-//     PUSH(_currentParent);
-//    }];
-//    block_start_tag_];
-//    while (!predicts(TDTEMPLATE_TOKEN_KIND_BLOCK_END_TAG, 0)) {
-//        content_];
-//    }
-//    block_end_tag_];
-//    execute:^{
-//     self.currentParent = POP();
-//    }];
-//
+    
+    _assembly->push_node(_currentParent);
+    
+    _block_start_tag();
+    while (!predicts(TemplateTokenType_BLOCK_END_TAG, 0)) {
+        _content();
+    }
+    _block_end_tag();
+    setCurrentParent(_assembly->pop_node());
+    
 }
 
 void TemplateParser::_block_start_tag() {
