@@ -7,6 +7,7 @@
 //
 
 #import "TemplateParser.hpp"
+#import "TemplateAssembly.hpp"
 #import <ParseKitCPP/ParseException.hpp>
 #import <TDTemplateEngine/TDTemplateEngine.h>
 #import <TDTemplateEngine/TDRootNode.h>
@@ -48,7 +49,8 @@ TDNode *TemplateParser::parse(TokenListPtr frags) {
     TokenList token_stack;
     TokenList consumed;
     
-    Assembly assembly(&tokenizer, &token_stack, &consumed);
+    NSMutableArray *node_stack = [NSMutableArray array];
+    TemplateAssembly assembly(&tokenizer, &token_stack, &consumed, node_stack);
     _assembly = &assembly;
     
     TDNode *node = nil;
