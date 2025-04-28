@@ -27,8 +27,8 @@ using namespace parsekit;
 namespace templateengine {
 
 TemplateParser::TemplateParser(TDTemplateEngine *engine, TDTemplateContext *staticContext) :
-_engine(engine),
-_staticContext([staticContext retain])
+    _engine(engine),
+    _staticContext([staticContext retain])
 {}
 
 TemplateParser::~TemplateParser() {
@@ -81,13 +81,13 @@ void TemplateParser::_content() {
     if (predicts(TemplateTokenType_PRINT, 0)) {
         _print();
     } else if (predicts(TemplateTokenType_EMPTY_TAG, 0)) {
-//        _empty_tag();
+        _empty_tag();
     } else if (predicts(TemplateTokenType_BLOCK_START_TAG, 0)) {
-//        _block_tag();
+        _block_tag();
     } else if (predicts(TemplateTokenType_TEXT, 0)) {
-//        _text();
+        _text();
     } else {
-//        raise(@"No viable alternative found in rule 'content'.");
+        raise(@"No viable alternative found in rule `content`.");
     }
 }
 
@@ -104,47 +104,42 @@ void TemplateParser::_print() {
     [_currentParent addChild:printNode];
 }
 
-//- (void)empty_tag_ {
+void TemplateParser::_empty_tag() {
+
+    match(TemplateTokenType_EMPTY_TAG, false);
+
+    Token tok = assembly()->pop_token();
+    assert(_engine);
+    TDTag *startTagNode = nil;
+    @try {
+        startTagNode = [_engine _tagFromFragment:tok withParent:_currentParent];
+    } @catch (NSException *ex) {
+        raise([ex reason]);
+    }
+    assert(startTagNode);
+    [_currentParent addChild:startTagNode];
+}
+
+void TemplateParser::_block_tag() {
 //
-//    [self match:TDTEMPLATE_TOKEN_KIND_EMPTY_TAG discard:NO];
-//    [self execute:^{
-//
-//    PKToken *tok = POP();
-//    assert(_engine);
-//    TDTag *startTagNode = nil;
-//    @try {
-//        startTagNode = [_engine tagFromFragment:tok withParent:_currentParent];
-//    } @catch (NSException *ex) {
-//        [self raise:[ex reason]];
-//    }
-//    assert(startTagNode);
-//    [_currentParent addChild:startTagNode];
-//    //self.currentParent = startTagNode;
-//
-//    }];
-//
-//}
-//
-//- (void)block_tag_ {
-//
-//    [self execute:^{
+//    execute:^{
 //     PUSH(_currentParent);
 //    }];
-//    [self block_start_tag_];
+//    block_start_tag_];
 //    while (!predicts(TDTEMPLATE_TOKEN_KIND_BLOCK_END_TAG, 0)) {
-//        [self content_];
+//        content_];
 //    }
-//    [self block_end_tag_];
-//    [self execute:^{
+//    block_end_tag_];
+//    execute:^{
 //     self.currentParent = POP();
 //    }];
 //
-//}
+}
+
+void TemplateParser::_block_start_tag() {
 //
-//- (void)block_start_tag_ {
-//
-//    [self match:TDTEMPLATE_TOKEN_KIND_BLOCK_START_TAG discard:NO];
-//    [self execute:^{
+//    match:TDTEMPLATE_TOKEN_KIND_BLOCK_START_TAG discard:NO];
+//    execute:^{
 //
 //    PKToken *tok = POP();
 //    assert(_engine);
@@ -152,20 +147,19 @@ void TemplateParser::_print() {
 //    @try {
 //        startTagNode = [_engine tagFromFragment:tok withParent:_currentParent];
 //    } @catch (NSException *ex) {
-//        [self raise:[ex reason]];
+//        raise:[ex reason]];
 //    }
 //    assert(startTagNode);
 //    [_currentParent addChild:startTagNode];
 //    self.currentParent = startTagNode;
 //
 //    }];
+}
+
+void TemplateParser::_block_end_tag() {
 //
-//}
-//
-//- (void)block_end_tag_ {
-//
-//    [self match:TDTEMPLATE_TOKEN_KIND_BLOCK_END_TAG discard:NO];
-//    [self execute:^{
+//    match:TDTEMPLATE_TOKEN_KIND_BLOCK_END_TAG discard:NO];
+//    execute:^{
 //
 //    PKToken *tok = POP();
 //    NSString *tagName = [tok.stringValue substringFromIndex:[TDTemplateEngineTagEndPrefix length]];
@@ -173,7 +167,7 @@ void TemplateParser::_print() {
 //        self.currentParent = POP();
 //
 //    if (!_currentParent || ![_currentParent.tagName isEqualToString:tagName]) {
-//        [self raise:[NSString stringWithFormat:@"Could not find block start tag named: `%@`", tagName]];
+//        raise:[NSString stringWithFormat:@"Could not find block start tag named: `%@`", tagName]];
 //    }
 //    assert([_currentParent isKindOfClass:[TDTag class]]);
 //    TDTag *startNode = (id)_currentParent;
@@ -181,12 +175,12 @@ void TemplateParser::_print() {
 //
 //    }];
 //
-//}
+}
+
+void TemplateParser::_text() {
 //
-//- (void)text_ {
-//
-//    [self match:TDTEMPLATE_TOKEN_KIND_TEXT discard:NO];
-//    [self execute:^{
+//    match:TDTEMPLATE_TOKEN_KIND_TEXT discard:NO];
+//    execute:^{
 //
 //    PKToken *tok = POP();
 //    TDNode *txtNode = [TDTextNode nodeWithToken:tok parent:_currentParent];
@@ -194,7 +188,11 @@ void TemplateParser::_print() {
 //
 //    }];
 //
-//}
+}
+
+void TemplateParser::raise(NSString *reason) {
+    [NSException raise:@"FIXME" format:@"%@", reason];
+}
 
 void TemplateParser::setRoot(TDNode *n) {
     if (_root != n) {

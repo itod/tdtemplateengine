@@ -38,7 +38,14 @@ private:
     void _template();
     void _content();
     void _print();
+    void _empty_tag();
+    void _block_tag();
+    void _block_start_tag();
+    void _block_end_tag();
+    void _text();
 
+    void raise(NSString *reason);
+    
 public:
     explicit TemplateParser(TDTemplateEngine *, TDTemplateContext *);
     ~TemplateParser();
