@@ -29,6 +29,15 @@ private:
     
     parsekit::Assembly *_assembly;
     
+    TDNode *_root;
+    void setRoot(TDNode *n);
+    
+    TDNode *_currentParent;
+    void setCurrentParent(TDNode *n);
+    
+    void _template();
+    void _content();
+
 public:
     explicit TemplateParser(TDTemplateEngine *, TDTemplateContext *);
     ~TemplateParser();
