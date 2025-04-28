@@ -327,14 +327,13 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
         }
     };
     
-    NSRange entireRange = NSMakeRange(0, [inStr length]);
+    NSRange entireRange = NSMakeRange(0, inStr.length);
     [_delimiterRegex enumerateMatchesInString:inStr options:NSMatchingReportCompletion range:entireRange usingBlock:^(NSTextCheckingResult *current, NSMatchingFlags flags, BOOL *stop) {
         NSRange currRange = current.range;
 
-        NSString *verbStr = [inStr substringWithRange:currRange];
-        NSUInteger len = [verbStr length];
-        if (!len) return;
+        if (!currRange.length) return;
         //NSLog(@"%@", str);
+        NSString *verbStr = [inStr substringWithRange:currRange];
 
         // detect text node
         textNodeDetector(currRange.location);
@@ -347,24 +346,39 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
         
         NSString *str = [[verbStr copy] autorelease];
         if ([str hasPrefix:_printStartDelimiter]) {
+        
+        }
+        // if Print, {{foo}}
+        if (NSOrderedSame == [inStr compare:_printStartDelimiter options:NSAnchoredSearch range:NSMakeRange(currRange.location, printStartDelimLen)]) {
             kind = TDTEMPLATE_TOKEN_KIND_PRINT;
-            str = [str substringToIndex:len - printEndDelimLen];
+            str = [str substringToIndex:currRange.length - printEndDelimLen];
             str = [str substringFromIndex:printStartDelimLen];
             str = [str stringByTrimmingCharactersInSet:wsSet];
             
             tokenType = TemplateTokenType_PRINT;
             contentRange.location += printStartDelimLen;
             contentRange.length -= printStartDelimLen + printEndDelimLen;
+        
+        // else if Block Tag {% if .. %} or {% endif %}
+        } else if (NSOrderedSame == [inStr compare:_tagStartDelimiter options:NSAnchoredSearch range:NSMakeRange(currRange.location, tagStartDelimLen)]) {
             
-        } else if ([str hasPrefix:_tagStartDelimiter]) {
-            str = [str substringToIndex:len - tagEndDelimLen];
+//            [str hasPrefix:_tagStartDelimiter]
+            
+            str = [str substringToIndex:currRange.length - tagEndDelimLen];
             str = [str substringFromIndex:tagStartDelimLen];
             str = [str stringByTrimmingCharactersInSet:wsSet];
             
             contentRange.location += tagStartDelimLen;
             contentRange.length -= tagStartDelimLen + tagEndDelimLen;
             
-            if ([str hasPrefix:TDTemplateEngineTagEndPrefix]) {
+            // trim witespace in tag name, aka for `{% if %}` we want range of `if`, not range of ` if `
+            NSRegularExpression *tagNameRegex = [NSRegularExpression regularExpressionWithPattern:@"\\S+" options:0 error:nil];
+            contentRange = [tagNameRegex rangeOfFirstMatchInString:inStr options:0 range:contentRange];
+            
+            NSRange endPrefixRange = NSMakeRange(contentRange.location, TDTemplateEngineTagEndPrefix.length);
+            NSComparisonResult res = [inStr compare:TDTemplateEngineTagEndPrefix options:NSAnchoredSearch range:endPrefixRange];
+            if (NSOrderedSame == [inStr compare:TDTemplateEngineTagEndPrefix options:NSAnchoredSearch range:endPrefixRange]) {
+            //if ([str hasPrefix:TDTemplateEngineTagEndPrefix]) {
                 kind = TDTEMPLATE_TOKEN_KIND_BLOCK_END_TAG;
                 tokenType = TemplateTokenType_BLOCK_END_TAG;
                 
