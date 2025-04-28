@@ -291,6 +291,8 @@
 		D391AB01202D6D1700ECCE37 /* TDFabsFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D391AAFC202D6C9800ECCE37 /* TDFabsFilter.m */; };
 		D398E2EF18EA2C51004B883C /* TDTemplateParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D398E2ED18EA2C51004B883C /* TDTemplateParser.h */; };
 		D398E2F018EA2C51004B883C /* TDTemplateParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D398E2EE18EA2C51004B883C /* TDTemplateParser.m */; };
+		D39D35F72DBFE8AA006F1663 /* ParseKitCPP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D39D35F62DBFE8AA006F1663 /* ParseKitCPP.framework */; };
+		D39D35F82DBFE8AA006F1663 /* ParseKitCPP.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D39D35F62DBFE8AA006F1663 /* ParseKitCPP.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D3A21F3D1AC9E40D0009A712 /* TDUnaryExpressionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A21F3C1AC9E40D0009A712 /* TDUnaryExpressionTests.m */; };
 		D3A21F441AC9E85F0009A712 /* TDUnaryExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A21F421AC9E85F0009A712 /* TDUnaryExpression.h */; };
 		D3A21F451AC9E85F0009A712 /* TDUnaryExpression.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A21F431AC9E85F0009A712 /* TDUnaryExpression.m */; };
@@ -419,6 +421,20 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		D39D35F92DBFE8AA006F1663 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				D39D35F82DBFE8AA006F1663 /* ParseKitCPP.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		D306D9C218F5851D00E32DDC /* TDBaseExpressionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDBaseExpressionTests.m; path = test/TDBaseExpressionTests.m; sourceTree = SOURCE_ROOT; };
 		D306D9C418F5854000E32DDC /* TDBaseExpressionTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDBaseExpressionTests.h; path = test/TDBaseExpressionTests.h; sourceTree = SOURCE_ROOT; };
@@ -475,6 +491,7 @@
 		D391AAFC202D6C9800ECCE37 /* TDFabsFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDFabsFilter.m; path = src/TDFabsFilter.m; sourceTree = SOURCE_ROOT; };
 		D398E2ED18EA2C51004B883C /* TDTemplateParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDTemplateParser.h; path = src/TDTemplateParser.h; sourceTree = SOURCE_ROOT; };
 		D398E2EE18EA2C51004B883C /* TDTemplateParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDTemplateParser.m; path = src/TDTemplateParser.m; sourceTree = SOURCE_ROOT; };
+		D39D35F62DBFE8AA006F1663 /* ParseKitCPP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ParseKitCPP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3A21F3C1AC9E40D0009A712 /* TDUnaryExpressionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDUnaryExpressionTests.m; path = test/TDUnaryExpressionTests.m; sourceTree = SOURCE_ROOT; };
 		D3A21F421AC9E85F0009A712 /* TDUnaryExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDUnaryExpression.h; path = src/TDUnaryExpression.h; sourceTree = SOURCE_ROOT; };
 		D3A21F431AC9E85F0009A712 /* TDUnaryExpression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDUnaryExpression.m; path = src/TDUnaryExpression.m; sourceTree = SOURCE_ROOT; };
@@ -606,6 +623,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D319137118F197D400430BAD /* PEGKit.framework in Frameworks */,
+				D39D35F72DBFE8AA006F1663 /* ParseKitCPP.framework in Frameworks */,
 				D3A29D9418E5F60100DC591E /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -722,6 +740,7 @@
 		D367DFB218E5EF6900F97BCC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D39D35F62DBFE8AA006F1663 /* ParseKitCPP.framework */,
 				D31E3E3C1F1C1CAE004BD0C6 /* libPEGKitOSX.a */,
 				D3A391CF1CE55A01001FA335 /* PEGKit.framework */,
 				D319137018F197D400430BAD /* PEGKit.framework */,
@@ -1167,6 +1186,7 @@
 				D367DFAC18E5EF6900F97BCC /* Frameworks */,
 				D367DFAD18E5EF6900F97BCC /* Headers */,
 				D367DFAE18E5EF6900F97BCC /* Resources */,
+				D39D35F92DBFE8AA006F1663 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

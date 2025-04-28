@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:lib/ParseKitCPP/ParseKitCPP.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:lib/pegkit/PEGKit.xcodeproj">
    </FileRef>
    <FileRef
