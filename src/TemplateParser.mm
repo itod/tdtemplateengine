@@ -11,6 +11,7 @@
 #import <TDTemplateEngine/TDTemplateEngine.h>
 #import <TDTemplateEngine/TDRootNode.h>
 #import <TDTemplateEngine/TDPrintNode.h>
+#import <TDTemplateEngine/TDTextNode.h>
 #import <TDTemplateEngine/TDTag.h>
 
 using namespace parsekit;
@@ -93,7 +94,6 @@ void TemplateParser::_content() {
 }
 
 void TemplateParser::_print() {
-
     match(TemplateTokenType_PRINT, false);
 
     Token tok = _assembly->pop_token();
@@ -106,7 +106,6 @@ void TemplateParser::_print() {
 }
 
 void TemplateParser::_empty_tag() {
-
     match(TemplateTokenType_EMPTY_TAG, false);
 
     Token tok = assembly()->pop_token();
@@ -122,7 +121,6 @@ void TemplateParser::_empty_tag() {
 }
 
 void TemplateParser::_block_tag() {
-    
     _assembly->push_node(_currentParent);
     
     _block_start_tag();
@@ -135,7 +133,6 @@ void TemplateParser::_block_tag() {
 }
 
 void TemplateParser::_block_start_tag() {
-    
     match(TemplateTokenType_BLOCK_START_TAG, false);
     
     Token tok = _assembly->pop_token();
@@ -153,7 +150,6 @@ void TemplateParser::_block_start_tag() {
 }
 
 void TemplateParser::_block_end_tag() {
-    
     match(TemplateTokenType_BLOCK_END_TAG, false);
     
     Token tok = _assembly->pop_token();
@@ -171,16 +167,12 @@ void TemplateParser::_block_end_tag() {
 }
 
 void TemplateParser::_text() {
-//
-//    match:TDTEMPLATE_TOKEN_KIND_TEXT discard:NO];
-//    execute:^{
-//
-//    PKToken *tok = POP();
-//    TDNode *txtNode = [TDTextNode nodeWithToken:tok parent:_currentParent];
-//    [_currentParent addChild:txtNode];
-//
-//    }];
-//
+    match(TemplateTokenType_TEXT, false);
+
+    Token tok = _assembly->pop_token();
+    TDNode *txtNode = [TDTextNode nodeWithToken_:tok parent:_currentParent];
+    [_currentParent addChild:txtNode];
+
 }
 
 void TemplateParser::raise(NSString *reason) {
