@@ -21,6 +21,7 @@
 // THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
+#import <ParseKitCPP/Token.hpp>
 
 @class TDWriter;
 
@@ -43,4 +44,7 @@
 - (void)increaseIndentDepth:(NSUInteger)times;
 - (void)decreaseIndentDepth:(NSUInteger)times;
 @property (nonatomic, assign) NSInteger indentDepth;
+
+- (NSString *)templateSubstringFromToken:(parsekit::Token)token;
+@property (nonatomic, retain) NSString *templateString;
 @end

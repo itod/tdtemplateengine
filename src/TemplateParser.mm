@@ -135,44 +135,39 @@ void TemplateParser::_block_tag() {
 }
 
 void TemplateParser::_block_start_tag() {
-//
-//    match:TDTEMPLATE_TOKEN_KIND_BLOCK_START_TAG discard:NO];
-//    execute:^{
-//
-//    PKToken *tok = POP();
-//    assert(_engine);
-//    TDTag *startTagNode = nil;
-//    @try {
-//        startTagNode = [_engine tagFromFragment:tok withParent:_currentParent];
-//    } @catch (NSException *ex) {
-//        raise:[ex reason]];
-//    }
-//    assert(startTagNode);
-//    [_currentParent addChild:startTagNode];
-//    self.currentParent = startTagNode;
-//
-//    }];
+    
+    match(TemplateTokenType_BLOCK_START_TAG, false);
+    
+    Token tok = _assembly->pop_token();
+    assert(_engine);
+    TDTag *startTagNode = nil;
+    @try {
+        startTagNode = [_engine _tagFromFragment:tok withParent:_currentParent];
+    } @catch (NSException *ex) {
+        raise([ex reason]);
+    }
+    assert(startTagNode);
+    [_currentParent addChild:startTagNode];
+    setCurrentParent(startTagNode);
+    
 }
 
 void TemplateParser::_block_end_tag() {
-//
-//    match:TDTEMPLATE_TOKEN_KIND_BLOCK_END_TAG discard:NO];
-//    execute:^{
-//
-//    PKToken *tok = POP();
-//    NSString *tagName = [tok.stringValue substringFromIndex:[TDTemplateEngineTagEndPrefix length]];
-//    while (_currentParent && ![_currentParent.tagName isEqualToString:tagName])
-//        self.currentParent = POP();
-//
-//    if (!_currentParent || ![_currentParent.tagName isEqualToString:tagName]) {
-//        raise:[NSString stringWithFormat:@"Could not find block start tag named: `%@`", tagName]];
-//    }
-//    assert([_currentParent isKindOfClass:[TDTag class]]);
-//    TDTag *startNode = (id)_currentParent;
-//    startNode.endTagToken = tok;
-//
-//    }];
-//
+    
+    match(TemplateTokenType_BLOCK_END_TAG, false);
+    
+    Token tok = _assembly->pop_token();
+    NSString *tagName = [[_staticContext templateSubstringFromToken:tok] substringFromIndex:TDTemplateEngineTagEndPrefix.length];
+    
+    while (_currentParent && ![_currentParent.tagName isEqualToString:tagName]) {
+        setCurrentParent(_assembly->pop_node());
+    }
+    
+    if (!_currentParent || ![_currentParent.tagName isEqualToString:tagName]) {
+        raise([NSString stringWithFormat:@"Could not find block start tag named: `%@`", tagName]);
+    }
+    assert([_currentParent isKindOfClass:[TDTag class]]);
+    
 }
 
 void TemplateParser::_text() {

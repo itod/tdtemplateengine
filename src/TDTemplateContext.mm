@@ -22,6 +22,7 @@
 
 #import <TDTemplateEngine/TDTemplateContext.h>
 #import <TDTemplateEngine/TDWriter.h>
+#import <ParseKitCPP/Token.hpp>
 
 static NSCharacterSet *sSpaceSet = nil;
 static NSCharacterSet *sNewlineSet = nil;
@@ -109,6 +110,7 @@ static NSCharacterSet *sNewlineSet = nil;
     self.vars = nil;
     self.writer = nil;
     self.enclosingScope = nil;
+    self.templateString = nil;
     [super dealloc];
 }
 
@@ -129,6 +131,7 @@ static NSCharacterSet *sNewlineSet = nil;
     ctx.enclosingScope = self;
     ctx.wroteNewline = _wroteNewline;
     ctx.wroteChars = _wroteChars;
+    // dont copy -templateString. that's for static context only
     return ctx;
 }
 
@@ -256,6 +259,12 @@ static NSCharacterSet *sNewlineSet = nil;
 - (void)decreaseIndentDepth:(NSUInteger)times {
     self.indentDepth -= times;
     self.firstWriteAfterIndent = YES;
+}
+
+
+- (NSString *)templateSubstringFromToken:(parsekit::Token)token {
+    TDAssert(_templateString);
+    return [_templateString substringWithRange:NSMakeRange(token.range().location, token.range().length)];
 }
 
 @end

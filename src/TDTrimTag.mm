@@ -10,10 +10,6 @@
 #import <TDTemplateEngine/TDExpression.h>
 #import <TDTemplateEngine/TDTemplateContext.h>
 
-@interface TDTag ()
-@property (nonatomic, retain) PKToken *endTagToken;
-@end
-
 @implementation TDTrimTag
 
 + (NSString *)tagName {

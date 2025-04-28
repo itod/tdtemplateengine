@@ -88,7 +88,6 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 @property (nonatomic, retain) NSMutableDictionary *filterTab;
 @property (nonatomic, retain) TDParser *expressionParser;
 
-@property (nonatomic, retain) NSString *templateString;
 @property (nonatomic, retain) NSRegularExpression *tagNameRegex;
 @end
 
@@ -164,8 +163,6 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     self.tagTab = nil;
     self.filterTab = nil;
     self.expressionParser = nil;
-    
-    self.templateString = nil;
     self.tagNameRegex = nil;
     [super dealloc];
 }
@@ -195,7 +192,8 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     TDAssert([_tagStartDelimiter length]);
     TDAssert([_tagEndDelimiter length]);
     
-    self.templateString = str;
+    TDAssert(_staticContext);
+    _staticContext.templateString = str;
     
     // lex
     NSArray *frags = nil;
@@ -217,7 +215,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     // compile
     TDNode *root = [self compile:frags error:err];
     
-    self.templateString = nil;
+    _staticContext.templateString = nil;
     
     return root;
 }
@@ -552,13 +550,6 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 }
 
 
-- (NSString *)stringFromToken:(Token)token {
-    TDAssert(_templateString);
-    
-    return [_templateString substringWithRange:NSMakeRange(token.range().location, token.range().length)];
-}
-
-
 #pragma mark -
 #pragma mark TDTemplateParser API
 
@@ -588,7 +579,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     NSParameterAssert(!frag.is_eof());
     NSParameterAssert(parent);
     
-    NSString *str = [self stringFromToken:frag];
+    NSString *str = [_staticContext templateSubstringFromToken:frag];
     TDAssert(str.length);
     
     NSError *err = nil;
