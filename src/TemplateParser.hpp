@@ -24,14 +24,16 @@ const TemplateTokenType TemplateTokenType_EMPTY_TAG = 6;
 
 class TemplateParser : public parsekit::BaseParser {
 private:
-    TDTemplateEngine *_engine; // weakref
+    TDTemplateEngine *_engine; // weakref, aka delegate
     TDTemplateContext *_staticContext;
+    
+    parsekit::Assembly *_assembly;
     
 public:
     explicit TemplateParser(TDTemplateEngine *, TDTemplateContext *);
     ~TemplateParser();
     
-    virtual parsekit::Assembly *assembly() override { return nullptr; } // dont event need an Assembly
+    virtual parsekit::Assembly *assembly() override { return _assembly; }
     
     TDNode *parse(parsekit::TokenListPtr);
 };

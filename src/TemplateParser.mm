@@ -8,6 +8,8 @@
 
 #import "TemplateParser.hpp"
 
+using namespace parsekit;
+
 namespace templateengine {
 
 TemplateParser::TemplateParser(TDTemplateEngine *engine, TDTemplateContext *staticContext) :
@@ -20,7 +22,18 @@ TemplateParser::~TemplateParser() {
     _staticContext = nil;
 }
 
-TDNode *TemplateParser::parse(parsekit::TokenListPtr frags) {
+TDNode *TemplateParser::parse(TokenListPtr frags) {
+    
+    TokenListTokenizer tokenizer(frags);
+    TokenList token_stack;
+    TokenList consumed;
+
+    Assembly assembly(&tokenizer, &token_stack, &consumed);
+    _assembly = &assembly;
+    
+    
+    
+    _assembly = nullptr;
     return nil;
 }
 
