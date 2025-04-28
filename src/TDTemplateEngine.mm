@@ -426,7 +426,6 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
         return nil;
     }
 
-    NSMutableArray *frags = [NSMutableArray array];
     TokenListPtr frags_ = TokenListPtr(new TokenList());
 
     NSUInteger printStartDelimLen = [_printStartDelimiter length];
@@ -434,22 +433,12 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     NSUInteger tagStartDelimLen = [_tagStartDelimiter length];
     NSUInteger tagEndDelimLen   = [_tagEndDelimiter length];
     
-    NSCharacterSet *wsSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
-
     __block NSRange lastRange = NSMakeRange(0, 0);
     
     void(^textNodeDetector)(NSUInteger) = ^(NSUInteger currLoc) {
         NSUInteger diff = currLoc - NSMaxRange(lastRange);
         if (diff > 0) {
             NSRange txtRange = NSMakeRange(NSMaxRange(lastRange), diff);
-            NSString *txt = [inStr substringWithRange:txtRange];
-            
-            PKToken *txtFrag = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:txt doubleValue:0.0];
-            txtFrag.tokenKind = TDTEMPLATE_TOKEN_KIND_TEXT;
-            txtFrag.verbatimString = txt;
-            TDAssert(txtFrag.stringValue == txtFrag.verbatimString); // should be same pointer. no copy
-            
-            [frags addObject:txtFrag];
             
             Token txtFrag_(TemplateTokenType_TEXT, {txtRange.location, txtRange.length});
             frags_->push_back(txtFrag_);
@@ -461,40 +450,23 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
         NSRange currRange = current.range;
 
         if (!currRange.length) return;
-        //NSLog(@"%@", str);
-        NSString *verbStr = [inStr substringWithRange:currRange];
 
         // detect text node
         textNodeDetector(currRange.location);
         
         lastRange = currRange;
-        NSUInteger kind = 0;
         
         TemplateTokenType tokenType = TokenType_EOF;
         NSRange contentRange = currRange;
         
-        NSString *str = [[verbStr copy] autorelease];
-        if ([str hasPrefix:_printStartDelimiter]) {
-        
-        }
         // if Print, {{foo}}
         if (NSOrderedSame == [inStr compare:_printStartDelimiter options:NSAnchoredSearch range:NSMakeRange(currRange.location, printStartDelimLen)]) {
-            kind = TDTEMPLATE_TOKEN_KIND_PRINT;
-            str = [str substringToIndex:currRange.length - printEndDelimLen];
-            str = [str substringFromIndex:printStartDelimLen];
-            str = [str stringByTrimmingCharactersInSet:wsSet];
-            
             tokenType = TemplateTokenType_PRINT;
             contentRange.location += printStartDelimLen;
             contentRange.length -= printStartDelimLen + printEndDelimLen;
         
         // else if Block Tag {% if .. %} or {% endif %}
         } else if (NSOrderedSame == [inStr compare:_tagStartDelimiter options:NSAnchoredSearch range:NSMakeRange(currRange.location, tagStartDelimLen)]) {
-            
-            str = [str substringToIndex:currRange.length - tagEndDelimLen];
-            str = [str substringFromIndex:tagStartDelimLen];
-            str = [str stringByTrimmingCharactersInSet:wsSet];
-            
             contentRange.location += tagStartDelimLen;
             contentRange.length -= tagStartDelimLen + tagEndDelimLen;
             
@@ -503,7 +475,6 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
             
             NSRange endPrefixCheckRange = NSMakeRange(contentRange.location, TDTemplateEngineTagEndPrefix.length);
             if (NSOrderedSame == [inStr compare:TDTemplateEngineTagEndPrefix options:NSAnchoredSearch range:endPrefixCheckRange]) {
-                kind = TDTEMPLATE_TOKEN_KIND_BLOCK_END_TAG;
                 tokenType = TemplateTokenType_BLOCK_END_TAG;
                 
             } else {
@@ -512,11 +483,9 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
                 
                 switch ([tagCls tagType]) {
                     case TDTagTypeBlock:
-                        kind = TDTEMPLATE_TOKEN_KIND_BLOCK_START_TAG;
                         tokenType = TemplateTokenType_BLOCK_START_TAG;
                         break;
                     case TDTagTypeEmpty:
-                        kind = TDTEMPLATE_TOKEN_KIND_EMPTY_TAG;
                         tokenType = TemplateTokenType_EMPTY_TAG;
                         break;
                     default:
@@ -527,13 +496,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
         } else {
             TDAssert(0);
         }
-        
-        PKToken *frag = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:str doubleValue:0.0];
-        frag.verbatimString = verbStr;
-        frag.tokenKind = kind;
-        
-        [frags addObject:frag];
-        
+                
         Token frag_(tokenType, {contentRange.location, contentRange.length});
         frags_->push_back(frag_);
     }];
