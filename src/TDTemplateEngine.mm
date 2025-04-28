@@ -86,6 +86,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 @property (nonatomic, retain) NSMutableDictionary *tagTab;
 @property (nonatomic, retain) NSMutableDictionary *filterTab;
 @property (nonatomic, retain) TDParser *expressionParser;
+@property (nonatomic, retain) NSRegularExpression *tagNameRegex;
 @end
 
 @implementation TDTemplateEngine
@@ -160,6 +161,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     self.tagTab = nil;
     self.filterTab = nil;
     self.expressionParser = nil;
+    self.tagNameRegex = nil;
     [super dealloc];
 }
 
@@ -362,8 +364,6 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
         // else if Block Tag {% if .. %} or {% endif %}
         } else if (NSOrderedSame == [inStr compare:_tagStartDelimiter options:NSAnchoredSearch range:NSMakeRange(currRange.location, tagStartDelimLen)]) {
             
-//            [str hasPrefix:_tagStartDelimiter]
-            
             str = [str substringToIndex:currRange.length - tagEndDelimLen];
             str = [str substringFromIndex:tagStartDelimLen];
             str = [str stringByTrimmingCharactersInSet:wsSet];
@@ -372,18 +372,15 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
             contentRange.length -= tagStartDelimLen + tagEndDelimLen;
             
             // trim witespace in tag name, aka for `{% if %}` we want range of `if`, not range of ` if `
-            NSRegularExpression *tagNameRegex = [NSRegularExpression regularExpressionWithPattern:@"\\S+" options:0 error:nil];
-            contentRange = [tagNameRegex rangeOfFirstMatchInString:inStr options:0 range:contentRange];
+            contentRange = [self.tagNameRegex rangeOfFirstMatchInString:inStr options:0 range:contentRange];
             
-            NSRange endPrefixRange = NSMakeRange(contentRange.location, TDTemplateEngineTagEndPrefix.length);
-            NSComparisonResult res = [inStr compare:TDTemplateEngineTagEndPrefix options:NSAnchoredSearch range:endPrefixRange];
-            if (NSOrderedSame == [inStr compare:TDTemplateEngineTagEndPrefix options:NSAnchoredSearch range:endPrefixRange]) {
-            //if ([str hasPrefix:TDTemplateEngineTagEndPrefix]) {
+            NSRange endPrefixCheckRange = NSMakeRange(contentRange.location, TDTemplateEngineTagEndPrefix.length);
+            if (NSOrderedSame == [inStr compare:TDTemplateEngineTagEndPrefix options:NSAnchoredSearch range:endPrefixCheckRange]) {
                 kind = TDTEMPLATE_TOKEN_KIND_BLOCK_END_TAG;
                 tokenType = TemplateTokenType_BLOCK_END_TAG;
                 
             } else {
-                NSString *tagName = [str componentsSeparatedByCharactersInSet:wsSet][0]; // TODO
+                NSString *tagName = [inStr substringWithRange:contentRange];
                 Class tagCls = [self registerdTagClassForName:tagName];
                 
                 switch ([tagCls tagType]) {
@@ -577,6 +574,15 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     TDAssert(filter);
     TDAssert([filter.filterName isEqualToString:filterName]);
     return filter;
+}
+
+
+- (NSRegularExpression *)tagNameRegex {
+    if (!_tagNameRegex) {
+        self.tagNameRegex = [NSRegularExpression regularExpressionWithPattern:@"\\S+" options:0 error:nil];
+        TDAssert(_tagNameRegex);
+    }
+    return _tagNameRegex;
 }
 
 @end
