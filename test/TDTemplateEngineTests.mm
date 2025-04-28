@@ -73,8 +73,8 @@ using namespace templateengine;
 }
 
 - (void)testCompileTemplate {
-//    NSString *input = @"{% if test %}{{a}}{% else %} foo bar { baz } {% endif %}";
-    NSString *input = @"{{foo}}";
+    NSString *input = @"{% if test %}{{a}}{% else %} foo bar { baz } {% endif %}";
+    //NSString *input = @"{{foo}}";
 
     TDTemplateEngine *engine = [TDTemplateEngine templateEngine];
     NSError *err = nil;

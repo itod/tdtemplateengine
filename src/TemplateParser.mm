@@ -70,6 +70,10 @@ TDNode *TemplateParser::parse(TokenListPtr frags) {
     }
     
     _assembly = nullptr;
+    
+    setRoot(nil);
+    setCurrentParent(nil);
+    
     return node;
 }
 
