@@ -28,3 +28,4 @@ xcuserdata
 *.ipa
 
 lib/pegkit
+lib/ParseKitCPP

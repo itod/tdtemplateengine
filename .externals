@@ -5,3 +5,8 @@ scm = git
 repository = git@github.com:itod/pegkit.git
 scm = git
 path = lib/pegkit
+
+[lib/ParseKitCPP]
+repository = git@github.com:itod/parsekitcpp.git
+scm = git
+path = lib/parsekitcpp
