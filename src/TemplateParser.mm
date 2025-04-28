@@ -29,7 +29,9 @@ namespace templateengine {
 
 TemplateParser::TemplateParser(TDTemplateEngine *engine, TDTemplateContext *staticContext) :
     _engine(engine),
-    _staticContext([staticContext retain])
+    _staticContext([staticContext retain]),
+    _root(nil),
+    _currentParent(nil)
 {}
 
 TemplateParser::~TemplateParser() {
@@ -44,7 +46,11 @@ TemplateParser::~TemplateParser() {
 }
 
 TDNode *TemplateParser::parse(TokenListPtr frags) {
+    TokenList lookahead;
+    _lookahead = &lookahead;
     
+    _p = 0;
+
     TokenListTokenizer tokenizer(frags);
     TokenList token_stack;
     TokenList consumed;
@@ -58,7 +64,7 @@ TDNode *TemplateParser::parse(TokenListPtr frags) {
         _template();
         _eof();
         
-        node = nil; // TODO
+        node = [[_root retain] autorelease];
     } catch (ParseException& ex) {
         node = nil;
     }
@@ -88,8 +94,8 @@ void TemplateParser::_content() {
         _block_tag();
     } else if (predicts(TemplateTokenType_TEXT, 0)) {
         _text();
-    } else {
-        raise(@"No viable alternative found in rule `content`.");
+//    } else {
+//        raise("No viable alternative found in rule `content`.");
     }
 }
 
@@ -114,7 +120,7 @@ void TemplateParser::_empty_tag() {
     @try {
         startTagNode = [_engine _tagFromFragment:tok withParent:_currentParent];
     } @catch (NSException *ex) {
-        raise([ex reason]);
+        raise(std::string([[ex reason] UTF8String]));
     }
     assert(startTagNode);
     [_currentParent addChild:startTagNode];
@@ -141,7 +147,7 @@ void TemplateParser::_block_start_tag() {
     @try {
         startTagNode = [_engine _tagFromFragment:tok withParent:_currentParent];
     } @catch (NSException *ex) {
-        raise([ex reason]);
+        raise(std::string([[ex reason] UTF8String]));
     }
     assert(startTagNode);
     [_currentParent addChild:startTagNode];
@@ -160,7 +166,7 @@ void TemplateParser::_block_end_tag() {
     }
     
     if (!_currentParent || ![_currentParent.tagName isEqualToString:tagName]) {
-        raise([NSString stringWithFormat:@"Could not find block start tag named: `%@`", tagName]);
+        raise(std::string([[NSString stringWithFormat:@"Could not find block start tag named: `%@`", tagName] UTF8String]));
     }
     assert([_currentParent isKindOfClass:[TDTag class]]);
     
@@ -175,8 +181,9 @@ void TemplateParser::_text() {
 
 }
 
-void TemplateParser::raise(NSString *reason) {
-    [NSException raise:@"FIXME" format:@"%@", reason];
+void TemplateParser::raise(std::string reason) {
+    throw ParseException(reason);
+    //[NSException raise:@"FIXME" format:@"%@", reason];
 }
 
 void TemplateParser::setRoot(TDNode *n) {

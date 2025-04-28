@@ -14,7 +14,10 @@ using namespace parsekit;
 using namespace templateengine;
 
 @interface TDTemplateEngine ()
+// TODO remove _
 - (TokenListPtr)_fragmentsFromString:(NSString *)inStr;
+// TODO remove _
+- (TDNode *)_compileTemplateString:(NSString *)str error:(NSError **)err;
 @end
 
 @interface TDTemplateEngineTests : XCTestCase
@@ -67,6 +70,17 @@ using namespace templateengine;
     tok = toks->at(4);
     XCTAssertEqual(tok.token_type(), TemplateTokenType_BLOCK_END_TAG);
     XCTAssertEqualObjects([input substringWithRange:NSMakeRange(tok.range().location, tok.range().length)], @"endif");
+}
+
+- (void)testCompileTemplate {
+//    NSString *input = @"{% if test %}{{a}}{% else %} foo bar { baz } {% endif %}";
+    NSString *input = @"{{foo}}";
+
+    TDTemplateEngine *engine = [TDTemplateEngine templateEngine];
+    NSError *err = nil;
+    TDNode *root = [engine _compileTemplateString:input error:&err];
+    
+    XCTAssertNotNil(root);
 }
 
 @end

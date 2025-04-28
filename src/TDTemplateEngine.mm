@@ -178,13 +178,13 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     NSString *str = [NSString stringWithContentsOfFile:path encoding:enc error:err];
     
     if (str) {
-        root = [self compileTemplateString:str error:err];
+        root = [self _compileTemplateString:str error:err];
     }
     
     return root;
 }
 
-
+// TODO remove
 - (TDNode *)compileTemplateString:(NSString *)str error:(NSError **)err {
     NSParameterAssert([str length]);
     TDAssert([_printStartDelimiter length]);
@@ -214,6 +214,43 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     
     // compile
     TDNode *root = [self compile:frags error:err];
+    
+    _staticContext.templateString = nil;
+    
+    return root;
+}
+
+
+// TODO remove _
+- (TDNode *)_compileTemplateString:(NSString *)str error:(NSError **)err {
+    NSParameterAssert([str length]);
+    TDAssert([_printStartDelimiter length]);
+    TDAssert([_printEndDelimiter length]);
+    TDAssert([_tagStartDelimiter length]);
+    TDAssert([_tagEndDelimiter length]);
+    
+    TDAssert(_staticContext);
+    _staticContext.templateString = str;
+    
+    // lex
+    TokenListPtr frags = nil;
+    
+    @try {
+        frags = [self _fragmentsFromString:str];
+    } @catch (NSException *ex) {
+        if (err) {
+            NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithDictionary:[ex userInfo]];
+            if (![userInfo count]) {
+                userInfo[NSLocalizedFailureReasonErrorKey] = ex.reason;
+            }
+            *err = [NSError errorWithDomain:TDTemplateEngineErrorDomain code:TDTemplateEngineRenderingErrorCode userInfo:userInfo];
+        }
+        return nil;
+    }
+    TDAssert(frags);
+    
+    // compile
+    TDNode *root = [self _compile:frags error:err];
     
     _staticContext.templateString = nil;
     
@@ -436,7 +473,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
         return nil;
     }
 
-    TokenListPtr frags_ = TokenListPtr(new TokenList());
+    TokenListPtr frags = TokenListPtr(new TokenList());
 
     NSUInteger printStartDelimLen = [_printStartDelimiter length];
     NSUInteger printEndDelimLen   = [_printEndDelimiter length];
@@ -451,7 +488,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
             NSRange txtRange = NSMakeRange(NSMaxRange(lastRange), diff);
             
             Token txtFrag_(TemplateTokenType_TEXT, {txtRange.location, txtRange.length});
-            frags_->push_back(txtFrag_);
+            frags->push_back(txtFrag_);
         }
     };
     
@@ -508,13 +545,13 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
         }
                 
         Token frag_(tokenType, {contentRange.location, contentRange.length});
-        frags_->push_back(frag_);
+        frags->push_back(frag_);
     }];
     
     // detect trailing text node
     textNodeDetector(NSMaxRange(entireRange));
     
-    return frags_;
+    return frags;
 }
 
 
@@ -595,6 +632,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 }
 
 
+// TODO remove
 - (TDTag *)tagFromFragment:(PKToken *)frag withParent:(TDNode *)parent {
     NSParameterAssert(frag);
     NSParameterAssert(parent);
@@ -617,11 +655,62 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 }
 
 
+// TODO remove _
+- (TDTag *)_tagFromFragment:(Token)frag withParent:(TDNode *)parent {
+    NSParameterAssert(!frag.is_eof());
+    NSParameterAssert(parent);
+    
+    NSMutableArray *toks = [NSMutableArray array];
+    NSString *tagName = [self _tagNameFromTokens:toks inFragment:frag];
+    
+    // TODO remove
+    PKToken *tok = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:[_staticContext templateSubstringFromToken:frag] doubleValue:0.0];
+    tok.tokenKind = (int)frag.token_type();
+    
+    // tokenize
+    TDTag *tag = [self makeTagForName:tagName];
+    TDAssert(tag);
+    tag.token = tok;
+    tag.parent = parent;
+    
+    // compile expression if present
+    if ([toks count]) {
+        tag.expression = [self expressionForTagName:tagName fromFragment:tok tokens:toks];
+    }
+    
+    return tag;
+}
+
+
+// TODO remove
 - (NSString *)tagNameFromTokens:(NSMutableArray *)outToks inFragment:(PKToken *)frag {
     NSString *tagName = nil;
     
     PKTokenizer *t = [self tokenizer];
     t.string = frag.stringValue;
+    
+    PKToken *tok = nil;
+    PKToken *eof = [PKToken EOFToken];
+    while (eof != (tok = [t nextToken])) {
+        if (!tagName && PKTokenTypeWord == tok.tokenType) {
+            tagName = tok.stringValue;
+            continue;
+        }
+        
+        [outToks addObject:tok];
+    }
+    
+    TDAssert([tagName length]);
+    return tagName;
+}
+
+
+// TODO _
+- (NSString *)_tagNameFromTokens:(NSMutableArray *)outToks inFragment:(Token)frag {
+    NSString *tagName = nil;
+    
+    PKTokenizer *t = [self tokenizer];
+    t.string = [_staticContext templateSubstringFromToken:frag];
     
     PKToken *tok = nil;
     PKToken *eof = [PKToken EOFToken];
