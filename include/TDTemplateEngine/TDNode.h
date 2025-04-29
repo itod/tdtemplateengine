@@ -47,4 +47,7 @@
 
 @property (nonatomic, copy, readonly) NSString *tagName;
 @property (nonatomic, retain) TDExpression *expression;
+
+// TODO rename
+@property (nonatomic, assign, readonly) parsekit::Token goodToken;
 @end

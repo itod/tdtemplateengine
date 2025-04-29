@@ -262,9 +262,14 @@ static NSCharacterSet *sNewlineSet = nil;
 }
 
 
-- (NSString *)templateSubstringFromToken:(parsekit::Token)token {
-    TDAssert(_templateString);
-    return [_templateString substringWithRange:NSMakeRange(token.range().location, token.range().length)];
+- (NSString *)templateSubstringForToken:(parsekit::Token)token {
+    NSString *result = nil;
+    if (_templateString) {
+        result = [_templateString substringWithRange:NSMakeRange(token.range().location, token.range().length)];
+    } else {
+        result = [self.enclosingScope templateSubstringForToken:token];
+    }
+    return result;
 }
 
 @end

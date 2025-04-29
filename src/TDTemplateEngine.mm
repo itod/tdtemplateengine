@@ -617,7 +617,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     NSParameterAssert(!frag.is_eof());
     NSParameterAssert(parent);
     
-    NSString *str = [_staticContext templateSubstringFromToken:frag];
+    NSString *str = [_staticContext templateSubstringForToken:frag];
     TDAssert(str.length);
     
     NSError *err = nil;
@@ -665,7 +665,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     NSString *tagName = [self _tagNameFromTokens:toks inFragment:frag];
     
     // TODO remove
-    PKToken *tok = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:[_staticContext templateSubstringFromToken:frag] doubleValue:0.0];
+    PKToken *tok = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:[_staticContext templateSubstringForToken:frag] doubleValue:0.0];
     tok.tokenKind = (int)frag.token_type();
     
     // tokenize
@@ -711,7 +711,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     NSString *tagName = nil;
     
     PKTokenizer *t = [self tokenizer];
-    t.string = [_staticContext templateSubstringFromToken:frag];
+    t.string = [_staticContext templateSubstringForToken:frag];
     
     PKToken *tok = nil;
     PKToken *eof = [PKToken EOFToken];

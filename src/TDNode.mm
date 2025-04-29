@@ -25,7 +25,7 @@
 
 @implementation TDNode {
     // TODO remove _
-    parsekit::Token __token;
+    parsekit::Token _goodToken;
 }
 
 + (instancetype)nodeWithToken:(PKToken *)frag parent:(TDNode *)parent {
@@ -53,7 +53,7 @@
     self = [super initWithToken:nil];
     if (self) {
         self.parent = parent;
-        __token = frag;
+        _goodToken = frag;
     }
     return self;
 }

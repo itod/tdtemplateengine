@@ -45,6 +45,6 @@
 - (void)decreaseIndentDepth:(NSUInteger)times;
 @property (nonatomic, assign) NSInteger indentDepth;
 
-- (NSString *)templateSubstringFromToken:(parsekit::Token)token;
+- (NSString *)templateSubstringForToken:(parsekit::Token)token;
 @property (nonatomic, retain) NSString *templateString;
 @end

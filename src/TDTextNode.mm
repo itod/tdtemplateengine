@@ -35,8 +35,12 @@
     NSParameterAssert(ctx);
 
     TDAssert([self.token.stringValue length]);
+    NSString *str = self.token.stringValue;
     
-    [ctx writeString:self.token.stringValue];
+//    NSString *str = [ctx templateSubstringForToken:self.goodToken];
+//    TDAssert(str.length);
+    
+    [ctx writeString:str];
 }
 
 @end

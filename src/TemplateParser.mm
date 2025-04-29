@@ -163,7 +163,7 @@ void TemplateParser::_block_end_tag() {
     match(TemplateTokenType_BLOCK_END_TAG, false);
     
     Token tok = _assembly->pop_token();
-    NSString *tagName = [[_staticContext templateSubstringFromToken:tok] substringFromIndex:TDTemplateEngineTagEndPrefix.length];
+    NSString *tagName = [[_staticContext templateSubstringForToken:tok] substringFromIndex:TDTemplateEngineTagEndPrefix.length];
     
     while (_currentParent && ![_currentParent.tagName isEqualToString:tagName]) {
         setCurrentParent(_assembly->pop_node());
