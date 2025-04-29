@@ -131,7 +131,7 @@ static NSCharacterSet *sNewlineSet = nil;
     ctx.enclosingScope = self;
     ctx.wroteNewline = _wroteNewline;
     ctx.wroteChars = _wroteChars;
-    // dont copy -templateString. that's for static context only
+    ctx.templateString = _templateString;
     return ctx;
 }
 

@@ -251,7 +251,8 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     TDAssert(frags);
     
     // compile
-    TDNode *root = [self _compile:frags error:err];
+    TDRootNode *root = (id)[self _compile:frags error:err];
+    root.templateString = str;
     
     _staticContext.templateString = nil;
     
@@ -269,6 +270,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     TDTemplateContext *dynamicContext = [[[TDTemplateContext alloc] initWithVariables:vars output:output] autorelease];
     TDAssert(_staticContext);
     dynamicContext.enclosingScope = _staticContext;
+    dynamicContext.templateString = [(id)root templateString];
     
     BOOL success = YES;
 

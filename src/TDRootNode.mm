@@ -32,4 +32,10 @@
     return rootNode;
 }
 
+
+- (void)dealloc {
+    self.templateString = nil;
+    [super dealloc];
+}
+
 @end

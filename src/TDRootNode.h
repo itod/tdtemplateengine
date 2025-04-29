@@ -24,4 +24,6 @@
 
 @interface TDRootNode : TDNode
 + (instancetype)rootNode;
+
+@property (nonatomic, retain) NSString *templateString;
 @end
