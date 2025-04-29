@@ -495,8 +495,6 @@
 		D37BC6B418F4415200938644 /* TDDateFormatFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDDateFormatFilter.m; path = src/TDDateFormatFilter.m; sourceTree = SOURCE_ROOT; };
 		D391AAFB202D6C9800ECCE37 /* TDFabsFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDFabsFilter.h; path = src/TDFabsFilter.h; sourceTree = SOURCE_ROOT; };
 		D391AAFC202D6C9800ECCE37 /* TDFabsFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDFabsFilter.m; path = src/TDFabsFilter.m; sourceTree = SOURCE_ROOT; };
-		D398E2ED18EA2C51004B883C /* TDTemplateParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDTemplateParser.h; path = src/TDTemplateParser.h; sourceTree = SOURCE_ROOT; };
-		D398E2EE18EA2C51004B883C /* TDTemplateParser.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TDTemplateParser.mm; path = src/TDTemplateParser.mm; sourceTree = SOURCE_ROOT; };
 		D39D35F62DBFE8AA006F1663 /* ParseKitCPP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ParseKitCPP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D39D36422DBFEB6E006F1663 /* TemplateParser.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = TemplateParser.hpp; path = src/TemplateParser.hpp; sourceTree = SOURCE_ROOT; };
 		D39D36432DBFEB6E006F1663 /* TemplateParser.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = TemplateParser.mm; path = src/TemplateParser.mm; sourceTree = SOURCE_ROOT; };
@@ -770,8 +768,6 @@
 				D3F5064318ECA12500BAC93B /* TDWriter.mm */,
 				D3A29DE918E64FB800DC591E /* TDTemplateContext.h */,
 				D3A29DCF18E63A1C00DC591E /* TDTemplateContext.mm */,
-				D398E2ED18EA2C51004B883C /* TDTemplateParser.h */,
-				D398E2EE18EA2C51004B883C /* TDTemplateParser.mm */,
 				D39D36422DBFEB6E006F1663 /* TemplateParser.hpp */,
 				D39D36432DBFEB6E006F1663 /* TemplateParser.mm */,
 				D39D3A6A2DC03595006F1663 /* TemplateAssembly.hpp */,

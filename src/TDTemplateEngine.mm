@@ -25,7 +25,6 @@
 #import <TDTemplateEngine/TDTemplateContext.h>
 #import "TDTemplateEngine+ExpressionSupport.h"
 
-#import "TDTemplateParser.h"
 #import "TDRootNode.h"
 #import "TDTextNode.h"
 #import "TDPrintNode.h"
@@ -455,7 +454,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 
 
 #pragma mark -
-#pragma mark TDTemplateParser API
+#pragma mark TemplateParser API
 
 - (TDPrintNode *)printNodeFromFragment:(Token)frag withParent:(TDNode *)parent {
     NSParameterAssert(!frag.is_eof());
