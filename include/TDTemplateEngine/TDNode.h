@@ -42,7 +42,6 @@
 @property (nonatomic, copy, readonly) NSString *tagName;
 @property (nonatomic, retain) TDExpression *expression;
 
-@property (nonatomic, retain, readonly) NSString *name; // rm
 - (void)addChild:(TDNode *)kid;
 @property (nonatomic, retain) NSMutableArray *children;
 @end

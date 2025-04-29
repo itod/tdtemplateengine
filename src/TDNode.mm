@@ -93,11 +93,11 @@
 
 - (NSString *)treeDescription {
     if (![_children count]) {
-        return self.name;
+        return self.tagName;
     }
     
     NSMutableString *ms = [NSMutableString string];
-    [ms appendFormat:@"(%@ ", self.name];
+    [ms appendFormat:@"(%@ ", self.tagName];
     
     NSInteger i = 0;
     for (TDNode *child in _children) {
@@ -122,11 +122,6 @@
         self.children = [NSMutableArray array];
     }
     [_children addObject:kid];
-}
-
-
-- (NSString *)name {
-    return @"NAME";
 }
 
 
