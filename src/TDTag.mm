@@ -47,15 +47,6 @@
 }
 
 
-- (instancetype)initWithToken:(PKToken *)frag {
-    self = [super initWithToken:frag];
-    if (self) {
-        
-    }
-    return self;
-}
-
-
 - (void)dealloc {
     self.endTagToken = nil;
     [super dealloc];

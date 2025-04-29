@@ -142,4 +142,17 @@
     }
 }
 
+
+#pragma mark -
+#pragma mark Properties
+
+- (parsekit::Token)token {
+    return _token;
+}
+
+
+- (void)setToken:(parsekit::Token)token {
+    _token = token;
+}
+
 @end

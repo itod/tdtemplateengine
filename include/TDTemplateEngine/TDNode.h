@@ -36,6 +36,7 @@
 - (TDNode *)firstAncestorOfClass:(Class)cls;
 - (TDNode *)firstAncestorOfTagName:(NSString *)tagName;
 
+@property (nonatomic, assign) parsekit::Token token;
 @property (nonatomic, assign) TDNode *parent; // weakref
 
 @property (nonatomic, copy, readonly) NSString *tagName;
@@ -44,6 +45,4 @@
 @property (nonatomic, retain, readonly) NSString *name; // rm
 - (void)addChild:(TDNode *)kid;
 @property (nonatomic, retain) NSMutableArray *children;
-
-@property (nonatomic, assign, readonly) parsekit::Token token;
 @end

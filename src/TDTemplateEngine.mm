@@ -66,7 +66,6 @@
 #import <PEGKit/PKTokenizer.h>
 #import <PEGKit/PKToken.h>
 #import <PEGKit/PKRecognitionException.h>
-#import "PKToken+Verbatim.h"
 
 #import <ParseKitCPP/Token.hpp>
 #import <ParseKitCPP/ParseException.hpp>
@@ -486,7 +485,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     // tokenize
     TDTag *tag = [self makeTagForName:tagName];
     TDAssert(tag);
-    //tag.token = tok;
+    tag.token = frag;
     tag.parent = parent;
     
     // compile expression if present
