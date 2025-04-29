@@ -14,10 +14,8 @@ using namespace parsekit;
 using namespace templateengine;
 
 @interface TDTemplateEngine ()
-// TODO remove _
-- (TokenListPtr)_fragmentsFromString:(NSString *)inStr;
-// TODO remove _
-- (TDNode *)_compileTemplateString:(NSString *)str error:(NSError **)err;
+- (TokenListPtr)fragmentsFromString:(NSString *)inStr;
+- (TDNode *)compileTemplateString:(NSString *)str error:(NSError **)err;
 @end
 
 @interface TDTemplateEngineTests : XCTestCase
@@ -49,7 +47,7 @@ using namespace templateengine;
 - (void)testFragmentGathering {
     NSString *input = @"{% if test %}{{a}}{% else %} foo bar { baz } {% endif %}";
     
-    TokenListPtr toks = [_engine _fragmentsFromString:input];
+    TokenListPtr toks = [_engine fragmentsFromString:input];
     
     Token tok = toks->at(0);
     XCTAssertEqual(tok.token_type(), TemplateTokenType_BLOCK_START_TAG);
@@ -78,7 +76,7 @@ using namespace templateengine;
 
     TDTemplateEngine *engine = [TDTemplateEngine templateEngine];
     NSError *err = nil;
-    TDNode *root = [engine _compileTemplateString:input error:&err];
+    TDNode *root = [engine compileTemplateString:input error:&err];
     
     XCTAssertNotNil(root);
 }

@@ -89,8 +89,6 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 @property (nonatomic, retain) TDParser *expressionParser;
 
 @property (nonatomic, retain) NSRegularExpression *tagNameRegex;
-@property (nonatomic, retain) NSRegularExpression *expressionRegex;
-@property (nonatomic, retain) NSRegularExpression *endPrefixRegex;
 @end
 
 @implementation TDTemplateEngine
@@ -180,15 +178,14 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     NSString *str = [NSString stringWithContentsOfFile:path encoding:enc error:err];
     
     if (str) {
-        root = [self _compileTemplateString:str error:err];
+        root = [self compileTemplateString:str error:err];
     }
     
     return root;
 }
 
-// TODO remove
+
 - (TDNode *)compileTemplateString:(NSString *)str error:(NSError **)err {
-    return [self _compileTemplateString:str error:err];
     NSParameterAssert([str length]);
     TDAssert([_printStartDelimiter length]);
     TDAssert([_printEndDelimiter length]);
@@ -199,7 +196,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     _staticContext.templateString = str;
     
     // lex
-    NSArray *frags = nil;
+    TokenListPtr frags = nil;
     
     @try {
         frags = [self fragmentsFromString:str];
@@ -217,43 +214,6 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     
     // compile
     TDNode *root = [self compile:frags error:err];
-    
-    _staticContext.templateString = nil;
-    
-    return root;
-}
-
-
-// TODO remove _
-- (TDNode *)_compileTemplateString:(NSString *)str error:(NSError **)err {
-    NSParameterAssert([str length]);
-    TDAssert([_printStartDelimiter length]);
-    TDAssert([_printEndDelimiter length]);
-    TDAssert([_tagStartDelimiter length]);
-    TDAssert([_tagEndDelimiter length]);
-    
-    TDAssert(_staticContext);
-    _staticContext.templateString = str;
-    
-    // lex
-    TokenListPtr frags = nil;
-    
-    @try {
-        frags = [self _fragmentsFromString:str];
-    } @catch (NSException *ex) {
-        if (err) {
-            NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithDictionary:[ex userInfo]];
-            if (![userInfo count]) {
-                userInfo[NSLocalizedFailureReasonErrorKey] = ex.reason;
-            }
-            *err = [NSError errorWithDomain:TDTemplateEngineErrorDomain code:TDTemplateEngineRenderingErrorCode userInfo:userInfo];
-        }
-        return nil;
-    }
-    TDAssert(frags);
-    
-    // compile
-    TDNode *root = [self _compile:frags error:err];
     
     _staticContext.templateString = nil;
     
@@ -340,136 +300,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 }
 
 
-// TODO remove
-- (NSArray *)fragmentsFromString:(NSString *)inStr {
-    
-    NSError *err = nil;
-    if (![self setUpDelimiterRegex:&err]) {
-        NSLog(@"%@", err);
-        return nil;
-    }
-    
-    NSMutableArray *frags = [NSMutableArray array];
-    TokenListPtr frags_ = TokenListPtr(new TokenList());
-    
-    NSUInteger printStartDelimLen = [_printStartDelimiter length];
-    NSUInteger printEndDelimLen   = [_printEndDelimiter length];
-    NSUInteger tagStartDelimLen = [_tagStartDelimiter length];
-    NSUInteger tagEndDelimLen   = [_tagEndDelimiter length];
-    
-    NSCharacterSet *wsSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
-    
-    __block NSRange lastRange = NSMakeRange(0, 0);
-    
-    void(^textNodeDetector)(NSUInteger) = ^(NSUInteger currLoc) {
-        NSUInteger diff = currLoc - NSMaxRange(lastRange);
-        if (diff > 0) {
-            NSRange txtRange = NSMakeRange(NSMaxRange(lastRange), diff);
-            NSString *txt = [inStr substringWithRange:txtRange];
-            
-            PKToken *txtFrag = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:txt doubleValue:0.0];
-            txtFrag.tokenKind = TDTEMPLATE_TOKEN_KIND_TEXT;
-            txtFrag.verbatimString = txt;
-            TDAssert(txtFrag.stringValue == txtFrag.verbatimString); // should be same pointer. no copy
-            
-            [frags addObject:txtFrag];
-            
-            Token txtFrag_(TemplateTokenType_TEXT, {txtRange.location, txtRange.length});
-            frags_->push_back(txtFrag_);
-        }
-    };
-    
-    NSRange entireRange = NSMakeRange(0, inStr.length);
-    [_delimiterRegex enumerateMatchesInString:inStr options:NSMatchingReportCompletion range:entireRange usingBlock:^(NSTextCheckingResult *current, NSMatchingFlags flags, BOOL *stop) {
-        NSRange currRange = current.range;
-        
-        if (!currRange.length) return;
-        //NSLog(@"%@", str);
-        NSString *verbStr = [inStr substringWithRange:currRange];
-        
-        // detect text node
-        textNodeDetector(currRange.location);
-        
-        lastRange = currRange;
-        NSUInteger kind = 0;
-        
-        TemplateTokenType tokenType = TokenType_EOF;
-        NSRange contentRange = currRange;
-        
-        NSString *str = [[verbStr copy] autorelease];
-        if ([str hasPrefix:_printStartDelimiter]) {
-            
-        }
-        // if Print, {{foo}}
-        if (NSOrderedSame == [inStr compare:_printStartDelimiter options:NSAnchoredSearch range:NSMakeRange(currRange.location, printStartDelimLen)]) {
-            kind = TDTEMPLATE_TOKEN_KIND_PRINT;
-            str = [str substringToIndex:currRange.length - printEndDelimLen];
-            str = [str substringFromIndex:printStartDelimLen];
-            str = [str stringByTrimmingCharactersInSet:wsSet];
-            
-            tokenType = TemplateTokenType_PRINT;
-            contentRange.location += printStartDelimLen;
-            contentRange.length -= printStartDelimLen + printEndDelimLen;
-            
-            // else if Block Tag {% if .. %} or {% endif %}
-        } else if (NSOrderedSame == [inStr compare:_tagStartDelimiter options:NSAnchoredSearch range:NSMakeRange(currRange.location, tagStartDelimLen)]) {
-            
-            str = [str substringToIndex:currRange.length - tagEndDelimLen];
-            str = [str substringFromIndex:tagStartDelimLen];
-            str = [str stringByTrimmingCharactersInSet:wsSet];
-            
-            contentRange.location += tagStartDelimLen;
-            contentRange.length -= tagStartDelimLen + tagEndDelimLen;
-            
-            // trim witespace in tag name, aka for `{% if 1 %}` we want range of `if 1`, not range of ` if 1 `
-            contentRange = [self.tagNameRegex rangeOfFirstMatchInString:inStr options:0 range:contentRange];
-            
-            NSRange endPrefixCheckRange = NSMakeRange(contentRange.location, TDTemplateEngineTagEndPrefix.length);
-            if (NSOrderedSame == [inStr compare:TDTemplateEngineTagEndPrefix options:NSAnchoredSearch range:endPrefixCheckRange]) {
-                kind = TDTEMPLATE_TOKEN_KIND_BLOCK_END_TAG;
-                tokenType = TemplateTokenType_BLOCK_END_TAG;
-                
-            } else {
-                NSString *tagName = [inStr substringWithRange:contentRange];
-                Class tagCls = [self registerdTagClassForName:tagName];
-                
-                switch ([tagCls tagType]) {
-                    case TDTagTypeBlock:
-                        kind = TDTEMPLATE_TOKEN_KIND_BLOCK_START_TAG;
-                        tokenType = TemplateTokenType_BLOCK_START_TAG;
-                        break;
-                    case TDTagTypeEmpty:
-                        kind = TDTEMPLATE_TOKEN_KIND_EMPTY_TAG;
-                        tokenType = TemplateTokenType_EMPTY_TAG;
-                        break;
-                    default:
-                        TDAssert(0);
-                        break;
-                }
-            }
-        } else {
-            TDAssert(0);
-        }
-        
-        PKToken *frag = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:str doubleValue:0.0];
-        frag.verbatimString = verbStr;
-        frag.tokenKind = kind;
-        
-        [frags addObject:frag];
-        
-        Token frag_(tokenType, {contentRange.location, contentRange.length});
-        frags_->push_back(frag_);
-    }];
-    
-    // detect trailing text node
-    textNodeDetector(NSMaxRange(entireRange));
-    
-    return frags;
-}
-
-
-// TODO rename w/o `_`
-- (TokenListPtr)_fragmentsFromString:(NSString *)inStr {
+- (TokenListPtr)fragmentsFromString:(NSString *)inStr {
     
     NSError *err = nil;
     if (![self setUpDelimiterRegex:&err]) {
@@ -522,23 +353,12 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
             contentRange.length -= tagStartDelimLen + tagEndDelimLen;
             
             NSRange tagNameRange = [self.tagNameRegex rangeOfFirstMatchInString:inStr options:0 range:contentRange];
-            
-//            NSRange exprRange = NSMakeRange(NSMaxRange(tagNameRange), NSMaxRange(contentRange) - NSMaxRange(tagNameRange));
-//            
-//            // trim witespace in tag name, aka for `{% if %}` we want range of `if`, not range of ` if `
-//            exprRange = [self.expressionRegex rangeOfFirstMatchInString:inStr options:0 range:exprRange];
-            
-//            NSRange endPrefixRange = [self.endPrefixRegex rangeOfFirstMatchInString:inStr options:NSMatchingAnchored range:contentRange];
             NSRange endPrefixCheckRange = NSMakeRange(tagNameRange.location, TDTemplateEngineTagEndPrefix.length);
             if (NSOrderedSame == [inStr compare:TDTemplateEngineTagEndPrefix options:NSAnchoredSearch range:endPrefixCheckRange]) {
                 contentRange = tagNameRange;
-//                contentRange.length = NSMaxRange(contentRange) - NSMaxRange(endPrefixRange);
-//                contentRange.location = NSMaxRange(endPrefixRange);
-//                contentRange = [self.tagNameRegex rangeOfFirstMatchInString:inStr options:0 range:contentRange];
                 tokenType = TemplateTokenType_BLOCK_END_TAG;
             } else {
                 NSString *tagName = [inStr substringWithRange:tagNameRange];
-                //NSString *expr = [inStr substringWithRange:exprRange];
                 Class tagCls = [self registerdTagClassForName:tagName];
                 
                 switch ([tagCls tagType]) {
@@ -568,23 +388,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 }
 
 
-// TODO remove
-- (TDNode *)compile:(NSArray *)frags error:(NSError **)err {
-    
-    TDTemplateParser *p = [[[TDTemplateParser alloc] initWithDelegate:nil] autorelease];
-    p.engine = self;
-    
-    TDAssert(_staticContext);
-    p.staticContext = _staticContext;
-    
-    TDNode *root = [p parseTokens:frags error:err];
-    
-    return root;
-}
-
-
-// TODO remame w/o `_`
-- (TDNode *)_compile:(TokenListPtr)frags error:(NSError **)outError {
+- (TDNode *)compile:(TokenListPtr)frags error:(NSError **)outError {
     
     TDAssert(_staticContext);
     TemplateParser p(self, _staticContext);
@@ -880,27 +684,6 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
         TDAssert(_tagNameRegex);
     }
     return _tagNameRegex;
-}
-
-
-- (NSRegularExpression *)expressionRegex {
-    if (!_expressionRegex) {
-        // get contents of tag while trimming whitespace
-        self.expressionRegex = [NSRegularExpression regularExpressionWithPattern:@"\\S.*?(?=\\s*$)" options:0 error:nil];
-        TDAssert(_expressionRegex);
-    }
-    return _expressionRegex;
-}
-
-
-- (NSRegularExpression *)endPrefixRegex {
-    if (!_endPrefixRegex) {
-        // get contents of tag while trimming whitespace
-        NSString *pattern = [NSString stringWithFormat:@"\\s*%@", TDTemplateEngineTagEndPrefix];
-        self.endPrefixRegex = [NSRegularExpression regularExpressionWithPattern:pattern options:0 error:nil];
-        TDAssert(_endPrefixRegex);
-    }
-    return _endPrefixRegex;
 }
 
 @end
