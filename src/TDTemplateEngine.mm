@@ -457,29 +457,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 #pragma mark -
 #pragma mark TDTemplateParser API
 
-// TODO remove
-- (TDPrintNode *)printNodeFromFragment:(PKToken *)frag withParent:(TDNode *)parent {
-    NSParameterAssert(frag);
-    NSParameterAssert(parent);
-    
-    NSString *str = frag.stringValue;
-    TDAssert([str length]);
-    
-    NSError *err = nil;
-    TDExpression *expr = [self expressionFromString:str error:&err];
-    if (!expr) {
-        [NSException raise:TDTemplateEngineErrorDomain format:@"Error while compiling print node expression `%@`\n\n%@", str, [err localizedFailureReason]];
-    }
-    
-    TDAssert(expr);
-    TDPrintNode *printNode = [TDPrintNode nodeWithToken:frag parent:parent];
-    printNode.expression = expr;
-    return printNode;
-}
-
-
-// TODO remove `_`
-- (TDPrintNode *)_printNodeFromFragment:(Token)frag withParent:(TDNode *)parent {
+- (TDPrintNode *)printNodeFromFragment:(Token)frag withParent:(TDNode *)parent {
     NSParameterAssert(!frag.is_eof());
     NSParameterAssert(parent);
     
@@ -499,31 +477,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 }
 
 
-// TODO remove
-- (TDTag *)tagFromFragment:(PKToken *)frag withParent:(TDNode *)parent {
-    NSParameterAssert(frag);
-    NSParameterAssert(parent);
-    
-    NSMutableArray *toks = [NSMutableArray array];
-    NSString *tagName = [self tagNameFromTokens:toks inFragment:frag];
-    
-    // tokenize
-    TDTag *tag = [self makeTagForName:tagName];
-    TDAssert(tag);
-    tag.token = frag;
-    tag.parent = parent;
-    
-    // compile expression if present
-    if ([toks count]) {
-        tag.expression = [self expressionForTagName:tagName fromFragment:frag tokens:toks];
-    }
-    
-    return tag;
-}
-
-
-// TODO remove _
-- (TDTag *)_tagFromFragment:(Token)frag withParent:(TDNode *)parent {
+- (TDTag *)tagFromFragment:(Token)frag withParent:(TDNode *)parent {
     NSParameterAssert(!frag.is_eof());
     NSParameterAssert(parent);
     
