@@ -22,7 +22,6 @@
 
 #import <ParseKitCPP/Token.hpp>
 
-@class PKToken;
 @class TDTemplateContext;
 @class TDExpression;
 
@@ -42,11 +41,9 @@
 @property (nonatomic, copy, readonly) NSString *tagName;
 @property (nonatomic, retain) TDExpression *expression;
 
-- (BOOL)isNil; // rm
 @property (nonatomic, retain, readonly) NSString *name; // rm
 - (void)addChild:(TDNode *)kid;
 @property (nonatomic, retain) NSMutableArray *children;
 
-// TODO rename
-@property (nonatomic, assign, readonly) parsekit::Token goodToken;
+@property (nonatomic, assign, readonly) parsekit::Token token;
 @end

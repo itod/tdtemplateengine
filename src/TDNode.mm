@@ -24,8 +24,7 @@
 #import <TDTemplateEngine/TDTemplateContext.h>
 
 @implementation TDNode {
-    // TODO remove _
-    parsekit::Token _goodToken;
+    parsekit::Token _token;
 }
 
 + (instancetype)nodeWithToken:(parsekit::Token)frag parent:(TDNode *)parent {
@@ -37,7 +36,7 @@
     self = [super init];
     if (self) {
         self.parent = parent;
-        _goodToken = frag;
+        _token = frag;
     }
     return self;
 }
@@ -94,10 +93,7 @@
     }
     
     NSMutableString *ms = [NSMutableString string];
-    
-    if (![self isNil]) {
-        [ms appendFormat:@"(%@ ", self.name];
-    }
+    [ms appendFormat:@"(%@ ", self.name];
 
     NSInteger i = 0;
     for (TDNode *child in _children) {
@@ -105,10 +101,7 @@
         [ms appendFormat:fmt, [child treeDescription]];
     }
     
-    if (![self isNil]) {
-        [ms appendString:@")"];
-    }
-    
+    [ms appendString:@")"];
     return [[ms copy] autorelease];
 }
 
@@ -125,11 +118,6 @@
         self.children = [NSMutableArray array];
     }
     [_children addObject:kid];
-}
-
-
-- (BOOL)isNil {
-    return NO;
 }
 
 
