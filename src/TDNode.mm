@@ -23,6 +23,10 @@
 #import "TDNode.h"
 #import <TDTemplateEngine/TDTemplateContext.h>
 
+@interface TDNode ()
+@property (nonatomic, assign, readwrite) TDNode *parent; // weakref
+@end
+
 @implementation TDNode {
     parsekit::Token _token;
 }
@@ -94,7 +98,7 @@
     
     NSMutableString *ms = [NSMutableString string];
     [ms appendFormat:@"(%@ ", self.name];
-
+    
     NSInteger i = 0;
     for (TDNode *child in _children) {
         NSString *fmt = 0 == i++ ? @"%@" : @" %@";
@@ -148,11 +152,6 @@
 
 - (parsekit::Token)token {
     return _token;
-}
-
-
-- (void)setToken:(parsekit::Token)token {
-    _token = token;
 }
 
 @end

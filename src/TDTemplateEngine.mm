@@ -483,10 +483,8 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     NSString *tagName = [self tagNameFromTokens:toks inFragment:frag];
     
     // tokenize
-    TDTag *tag = [self makeTagForName:tagName];
+    TDTag *tag = [self makeTagForName:tagName token:frag parent:parent];
     TDAssert(tag);
-    tag.token = frag;
-    tag.parent = parent;
     
     // compile expression if present
     if ([toks count]) {
@@ -559,13 +557,13 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 }
 
 
-- (TDTag *)makeTagForName:(NSString *)tagName {
+- (TDTag *)makeTagForName:(NSString *)tagName token:(Token)token parent:(TDNode *)parent {
     TDAssert(_tagTab);
     Class cls = [self registerdTagClassForName:tagName];
     if (!cls) {
         [NSException raise:TDTemplateEngineErrorDomain format:@"Unknown tag name '%@'", tagName];
     }
-    TDTag *tag = [[[cls alloc] init] autorelease];
+    TDTag *tag = [[[cls alloc] initWithToken:token parent:parent] autorelease];
     TDAssert(tag);
     TDAssert([tag.tagName isEqualToString:tagName]);
     return tag;
