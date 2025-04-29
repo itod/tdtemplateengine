@@ -400,7 +400,6 @@
 		D3DF02032D851FC100EC2D02 /* TDBoolFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D3DF01FD2D851FC100EC2D02 /* TDBoolFilter.m */; };
 		D3E95F111AB08E6300D19992 /* TDTrimTag.h in Headers */ = {isa = PBXBuildFile; fileRef = D3E95F0F1AB08E6300D19992 /* TDTrimTag.h */; };
 		D3E95F121AB08E6300D19992 /* TDTrimTag.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3E95F101AB08E6300D19992 /* TDTrimTag.mm */; };
-		D3E95F141AB08FC900D19992 /* TDVerbatimTagTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3E95F131AB08FC900D19992 /* TDVerbatimTagTests.mm */; };
 		D3E95F171AB094DF00D19992 /* TDNewlineTag.h in Headers */ = {isa = PBXBuildFile; fileRef = D3E95F151AB094DF00D19992 /* TDNewlineTag.h */; };
 		D3E95F181AB094DF00D19992 /* TDNewlineTag.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3E95F161AB094DF00D19992 /* TDNewlineTag.mm */; };
 		D3E95F1A1AB0959000D19992 /* TDNewlineTagTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3E95F191AB0959000D19992 /* TDNewlineTagTests.mm */; };
@@ -1530,7 +1529,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3A7E27618F0788D009BFD96 /* TDCommentTagTests.mm in Sources */,
-				D3E95F141AB08FC900D19992 /* TDVerbatimTagTests.mm in Sources */,
 				D3A29E3518E7700500DC591E /* TDEqualityExpressionTests.mm in Sources */,
 				D3B9830318F080BE00EEFE99 /* TDBooleanExpressionTests.mm in Sources */,
 				D3C7358F1ABDAB5F00FA0B15 /* TDTrimTagTests.mm in Sources */,

@@ -60,14 +60,14 @@ TDNode *TemplateParser::parse(TokenListPtr frags) {
     _assembly = &assembly;
     
     TDNode *node = nil;
-    try {
+    //try {
         _template();
         _eof();
         
         node = [[_root retain] autorelease];
-    } catch (ParseException& ex) {
-        node = nil;
-    }
+//    } catch (ParseException& ex) {
+//        node = nil;
+//    }
     
     _assembly = nullptr;
     
@@ -78,9 +78,11 @@ TDNode *TemplateParser::parse(TokenListPtr frags) {
 }
 
 void TemplateParser::_template() {
-    assert(_staticContext);
+    assert(_staticContext.templateString);
     
-    TDNode *root = [TDRootNode rootNode];
+    TDRootNode *root = [TDRootNode rootNode];
+    root.templateString = _staticContext.templateString;
+    
     setRoot(root);
     setCurrentParent(root);
     

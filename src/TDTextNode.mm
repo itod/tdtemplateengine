@@ -34,11 +34,11 @@
 - (void)renderInContext:(TDTemplateContext *)ctx {
     NSParameterAssert(ctx);
 
-    TDAssert([self.token.stringValue length]);
-    NSString *str = self.token.stringValue;
+//    TDAssert([self.token.stringValue length]);
+//    NSString *str = self.token.stringValue;
     
-//    NSString *str = [ctx templateSubstringForToken:self.goodToken];
-//    TDAssert(str.length);
+    NSString *str = [ctx templateSubstringForToken:self.goodToken];
+    TDAssert(str.length);
     
     [ctx writeString:str];
 }

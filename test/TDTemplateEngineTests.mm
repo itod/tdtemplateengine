@@ -53,7 +53,7 @@ using namespace templateengine;
     
     Token tok = toks->at(0);
     XCTAssertEqual(tok.token_type(), TemplateTokenType_BLOCK_START_TAG);
-    XCTAssertEqualObjects([input substringWithRange:NSMakeRange(tok.range().location, tok.range().length)], @"if");
+    XCTAssertEqualObjects([input substringWithRange:NSMakeRange(tok.range().location, tok.range().length)], @" if test ");
     
     tok = toks->at(1);
     XCTAssertEqual(tok.token_type(), TemplateTokenType_PRINT);
@@ -61,7 +61,7 @@ using namespace templateengine;
     
     tok = toks->at(2);
     XCTAssertEqual(tok.token_type(), TemplateTokenType_EMPTY_TAG);
-    XCTAssertEqualObjects([input substringWithRange:NSMakeRange(tok.range().location, tok.range().length)], @"else");
+    XCTAssertEqualObjects([input substringWithRange:NSMakeRange(tok.range().location, tok.range().length)], @" else ");
     
     tok = toks->at(3);
     XCTAssertEqual(tok.token_type(), TemplateTokenType_TEXT);
