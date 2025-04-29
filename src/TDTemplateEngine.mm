@@ -481,7 +481,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     NSParameterAssert(parent);
     
     NSMutableArray *toks = [NSMutableArray array];
-    NSString *tagName = [self _tagNameFromTokens:toks inFragment:frag];
+    NSString *tagName = [self tagNameFromTokens:toks inFragment:frag];
     
     // TODO remove
     PKToken *tok = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:[_staticContext templateSubstringForToken:frag] doubleValue:0.0];
@@ -502,31 +502,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 }
 
 
-// TODO remove
-- (NSString *)tagNameFromTokens:(NSMutableArray *)outToks inFragment:(PKToken *)frag {
-    NSString *tagName = nil;
-    
-    PKTokenizer *t = [self tokenizer];
-    t.string = frag.stringValue;
-    
-    PKToken *tok = nil;
-    PKToken *eof = [PKToken EOFToken];
-    while (eof != (tok = [t nextToken])) {
-        if (!tagName && PKTokenTypeWord == tok.tokenType) {
-            tagName = tok.stringValue;
-            continue;
-        }
-        
-        [outToks addObject:tok];
-    }
-    
-    TDAssert([tagName length]);
-    return tagName;
-}
-
-
-// TODO _
-- (NSString *)_tagNameFromTokens:(NSMutableArray *)outToks inFragment:(Token)frag {
+- (NSString *)tagNameFromTokens:(NSMutableArray *)outToks inFragment:(Token)frag {
     NSString *tagName = nil;
     
     PKTokenizer *t = [self tokenizer];
