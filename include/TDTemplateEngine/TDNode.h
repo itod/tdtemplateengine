@@ -20,22 +20,16 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <PEGKit/PKAST.h>
 #import <ParseKitCPP/Token.hpp>
 
 @class PKToken;
 @class TDTemplateContext;
 @class TDExpression;
 
-@interface TDNode : PKAST
+@interface TDNode : NSObject
 
-// TODO remove
-+ (instancetype)nodeWithToken:(PKToken *)frag parent:(TDNode *)parent;
-- (instancetype)initWithToken:(PKToken *)frag parent:(TDNode *)parent;
-
-// TODO remove `_`
-+ (instancetype)nodeWithToken_:(parsekit::Token)frag parent:(TDNode *)parent;
-- (instancetype)initWithToken_:(parsekit::Token)frag parent:(TDNode *)parent;
++ (instancetype)nodeWithToken:(parsekit::Token)frag parent:(TDNode *)parent;
+- (instancetype)initWithToken:(parsekit::Token)frag parent:(TDNode *)parent;
 
 - (void)renderInContext:(TDTemplateContext *)ctx;
 - (void)renderChildrenInContext:(TDTemplateContext *)ctx;
@@ -47,6 +41,11 @@
 
 @property (nonatomic, copy, readonly) NSString *tagName;
 @property (nonatomic, retain) TDExpression *expression;
+
+- (BOOL)isNil; // rm
+@property (nonatomic, retain, readonly) NSString *name; // rm
+- (void)addChild:(TDNode *)kid;
+@property (nonatomic, retain) NSMutableArray *children;
 
 // TODO rename
 @property (nonatomic, assign, readonly) parsekit::Token goodToken;

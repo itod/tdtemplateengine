@@ -24,7 +24,6 @@
 		D3100CCF1CE52ED7007B38BE /* TDSkipTag.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3D0F6F81ACB4417006B6112 /* TDSkipTag.mm */; };
 		D3100CD01CE52ED7007B38BE /* TDSkipException.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D0F6FC1ACB4566006B6112 /* TDSkipException.m */; };
 		D3100CD11CE52ED7007B38BE /* TDCommentTag.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3A7E27218F07782009BFD96 /* TDCommentTag.mm */; };
-		D3100CD21CE52ED7007B38BE /* TDVerbatimTag.mm in Sources */ = {isa = PBXBuildFile; fileRef = D319139318F2ED3300430BAD /* TDVerbatimTag.mm */; };
 		D3100CD31CE52ED7007B38BE /* TDTrimTag.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3E95F101AB08E6300D19992 /* TDTrimTag.mm */; };
 		D3100CD41CE52ED7007B38BE /* TDIndentTag.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3E95F331AB1017D00D19992 /* TDIndentTag.mm */; };
 		D3100CD51CE52ED7007B38BE /* TDConditionalOutputTag.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3E95F281AB0D22700D19992 /* TDConditionalOutputTag.mm */; };
@@ -131,7 +130,6 @@
 		D319138F18F1AD1500430BAD /* TDUppercaseFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = D319138D18F1AD1500430BAD /* TDUppercaseFilter.h */; };
 		D319139018F1AD1500430BAD /* TDUppercaseFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D319138E18F1AD1500430BAD /* TDUppercaseFilter.m */; };
 		D319139418F2ED3300430BAD /* TDVerbatimTag.h in Headers */ = {isa = PBXBuildFile; fileRef = D319139218F2ED3300430BAD /* TDVerbatimTag.h */; };
-		D319139518F2ED3300430BAD /* TDVerbatimTag.mm in Sources */ = {isa = PBXBuildFile; fileRef = D319139318F2ED3300430BAD /* TDVerbatimTag.mm */; };
 		D31E3E3E1F1C1D04004BD0C6 /* TDTemplateEngine.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3A29D8318E5F57E00DC591E /* TDTemplateEngine.mm */; };
 		D31E3E3F1F1C1D04004BD0C6 /* TDWriter.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3F5064318ECA12500BAC93B /* TDWriter.mm */; };
 		D31E3E401F1C1D04004BD0C6 /* TDTemplateContext.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3A29DCF18E63A1C00DC591E /* TDTemplateContext.mm */; };
@@ -148,7 +146,6 @@
 		D31E3E4C1F1C1D04004BD0C6 /* TDSkipTag.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3D0F6F81ACB4417006B6112 /* TDSkipTag.mm */; };
 		D31E3E4D1F1C1D04004BD0C6 /* TDSkipException.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D0F6FC1ACB4566006B6112 /* TDSkipException.m */; };
 		D31E3E4E1F1C1D04004BD0C6 /* TDCommentTag.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3A7E27218F07782009BFD96 /* TDCommentTag.mm */; };
-		D31E3E4F1F1C1D04004BD0C6 /* TDVerbatimTag.mm in Sources */ = {isa = PBXBuildFile; fileRef = D319139318F2ED3300430BAD /* TDVerbatimTag.mm */; };
 		D31E3E501F1C1D04004BD0C6 /* TDTrimTag.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3E95F101AB08E6300D19992 /* TDTrimTag.mm */; };
 		D31E3E511F1C1D04004BD0C6 /* TDIndentTag.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3E95F331AB1017D00D19992 /* TDIndentTag.mm */; };
 		D31E3E521F1C1D04004BD0C6 /* TDConditionalOutputTag.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3E95F281AB0D22700D19992 /* TDConditionalOutputTag.mm */; };
@@ -1319,7 +1316,6 @@
 				D3100CCF1CE52ED7007B38BE /* TDSkipTag.mm in Sources */,
 				D3100CD01CE52ED7007B38BE /* TDSkipException.m in Sources */,
 				D3100CD11CE52ED7007B38BE /* TDCommentTag.mm in Sources */,
-				D3100CD21CE52ED7007B38BE /* TDVerbatimTag.mm in Sources */,
 				D3100CD31CE52ED7007B38BE /* TDTrimTag.mm in Sources */,
 				D3100CD41CE52ED7007B38BE /* TDIndentTag.mm in Sources */,
 				D3100CD51CE52ED7007B38BE /* TDConditionalOutputTag.mm in Sources */,
@@ -1389,7 +1385,6 @@
 				D31E3E4C1F1C1D04004BD0C6 /* TDSkipTag.mm in Sources */,
 				D31E3E4D1F1C1D04004BD0C6 /* TDSkipException.m in Sources */,
 				D31E3E4E1F1C1D04004BD0C6 /* TDCommentTag.mm in Sources */,
-				D31E3E4F1F1C1D04004BD0C6 /* TDVerbatimTag.mm in Sources */,
 				D31E3E501F1C1D04004BD0C6 /* TDTrimTag.mm in Sources */,
 				D31E3E511F1C1D04004BD0C6 /* TDIndentTag.mm in Sources */,
 				D31E3E521F1C1D04004BD0C6 /* TDConditionalOutputTag.mm in Sources */,
@@ -1479,7 +1474,6 @@
 				D3A29E0118E6584D00DC591E /* TDExpression.mm in Sources */,
 				D3A29E1718E6678500DC591E /* TDIfTag.mm in Sources */,
 				D3A29DD118E63A1C00DC591E /* TDTemplateContext.mm in Sources */,
-				D319139518F2ED3300430BAD /* TDVerbatimTag.mm in Sources */,
 				D3A29E0F18E65AC400DC591E /* TDParser.mm in Sources */,
 				D3A29E0318E6584D00DC591E /* TDNumericValue.mm in Sources */,
 				D35E00451AB61DCF00096913 /* TDCeilFilter.m in Sources */,

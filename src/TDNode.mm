@@ -28,29 +28,13 @@
     parsekit::Token _goodToken;
 }
 
-+ (instancetype)nodeWithToken:(PKToken *)frag parent:(TDNode *)parent {
++ (instancetype)nodeWithToken:(parsekit::Token)frag parent:(TDNode *)parent {
     return [[[self alloc] initWithToken:frag parent:parent] autorelease];
 }
 
 
-- (instancetype)initWithToken:(PKToken *)frag parent:(TDNode *)parent {
-    NSParameterAssert(frag);
-    self = [super initWithToken:frag];
-    if (self) {
-        self.parent = parent;
-    }
-    return self;
-}
-
-
-+ (instancetype)nodeWithToken_:(parsekit::Token)frag parent:(TDNode *)parent {
-    return [[[self alloc] initWithToken_:frag parent:parent] autorelease];
-}
-
-
-- (instancetype)initWithToken_:(parsekit::Token)frag parent:(TDNode *)parent {
-    NSParameterAssert(!frag.is_eof());
-    self = [super initWithToken:nil];
+- (instancetype)initWithToken:(parsekit::Token)frag parent:(TDNode *)parent {
+    self = [super init];
     if (self) {
         self.parent = parent;
         _goodToken = frag;
@@ -96,6 +80,61 @@
 
 - (NSString *)tagName {
     return nil;
+}
+
+
+- (NSString *)description {
+    return [self treeDescription];
+}
+
+
+- (NSString *)treeDescription {
+    if (![_children count]) {
+        return self.name;
+    }
+    
+    NSMutableString *ms = [NSMutableString string];
+    
+    if (![self isNil]) {
+        [ms appendFormat:@"(%@ ", self.name];
+    }
+
+    NSInteger i = 0;
+    for (TDNode *child in _children) {
+        NSString *fmt = 0 == i++ ? @"%@" : @" %@";
+        [ms appendFormat:fmt, [child treeDescription]];
+    }
+    
+    if (![self isNil]) {
+        [ms appendString:@")"];
+    }
+    
+    return [[ms copy] autorelease];
+}
+
+
+- (NSUInteger)type {
+    NSAssert2(0, @"%s is an abastract method. Must be overridden in %@", __PRETTY_FUNCTION__, NSStringFromClass([self class]));
+    return NSNotFound;
+}
+
+
+- (void)addChild:(TDNode *)kid {
+    NSParameterAssert(kid);
+    if (!_children) {
+        self.children = [NSMutableArray array];
+    }
+    [_children addObject:kid];
+}
+
+
+- (BOOL)isNil {
+    return NO;
+}
+
+
+- (NSString *)name {
+    return @"NAME";
 }
 
 

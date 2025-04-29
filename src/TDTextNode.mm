@@ -22,14 +22,8 @@
 
 #import "TDTextNode.h"
 #import <TDTemplateEngine/TDTemplateContext.h>
-#import <PEGKit/PKToken.h>
 
 @implementation TDTextNode
-
-- (void)dealloc {
-    [super dealloc];
-}
-
 
 - (void)renderInContext:(TDTemplateContext *)ctx {
     NSParameterAssert(ctx);

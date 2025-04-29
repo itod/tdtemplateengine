@@ -21,14 +21,13 @@
 // THE SOFTWARE.
 
 #import "TDRootNode.h"
-#import <PEGKit/PKToken.h>
+#import <ParseKitCPP/Token.hpp>
 
 @implementation TDRootNode
 
 + (instancetype)rootNode {
-    PKToken *frag = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"<ROOT>" doubleValue:0.0];
-    
-    TDRootNode *rootNode = [self nodeWithToken:frag parent:nil];
+    parsekit::Token tok;
+    TDRootNode *rootNode = [self nodeWithToken:tok parent:nil];
     return rootNode;
 }
 

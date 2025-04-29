@@ -38,7 +38,7 @@
 #import "TDForTag.h"
 #import "TDSkipTag.h"
 #import "TDCommentTag.h"
-#import "TDVerbatimTag.h"
+//#import "TDVerbatimTag.h"
 #import "TDTrimTag.h"
 #import "TDIndentTag.h"
 #import "TDNewlineTag.h"
@@ -118,7 +118,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
         [self registerTagClass:[TDForTag class] forName:[TDForTag tagName]];
         [self registerTagClass:[TDSkipTag class] forName:[TDSkipTag tagName]];
         [self registerTagClass:[TDCommentTag class] forName:[TDCommentTag tagName]];
-        [self registerTagClass:[TDVerbatimTag class] forName:[TDVerbatimTag tagName]];
+//        [self registerTagClass:[TDVerbatimTag class] forName:[TDVerbatimTag tagName]];
         [self registerTagClass:[TDTrimTag class] forName:[TDTrimTag tagName]];
         [self registerTagClass:[TDIndentTag class] forName:[TDIndentTag tagName]];
         [self registerTagClass:[TDNewlineTag class] forName:[TDNewlineTag tagName]];
@@ -470,7 +470,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     }
     
     TDAssert(expr);
-    TDPrintNode *printNode = [TDPrintNode nodeWithToken_:frag parent:parent];
+    TDPrintNode *printNode = [TDPrintNode nodeWithToken:frag parent:parent];
     printNode.expression = expr;
     return printNode;
 }
@@ -483,19 +483,15 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     NSMutableArray *toks = [NSMutableArray array];
     NSString *tagName = [self tagNameFromTokens:toks inFragment:frag];
     
-    // TODO remove
-    PKToken *tok = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:[_staticContext templateSubstringForToken:frag] doubleValue:0.0];
-    tok.tokenKind = (int)frag.token_type();
-    
     // tokenize
     TDTag *tag = [self makeTagForName:tagName];
     TDAssert(tag);
-    tag.token = tok;
+    //tag.token = tok;
     tag.parent = parent;
     
     // compile expression if present
     if ([toks count]) {
-        tag.expression = [self expressionForTagName:tagName fromFragment:tok tokens:toks];
+        tag.expression = [self expressionForTagName:tagName fromFragment:frag tokens:toks];
     }
     
     return tag;
@@ -524,7 +520,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 }
 
 
-- (TDExpression *)expressionForTagName:(NSString *)tagName fromFragment:(PKToken *)frag tokens:(NSArray *)toks {
+- (TDExpression *)expressionForTagName:(NSString *)tagName fromFragment:(Token)frag tokens:(NSArray *)toks {
     NSParameterAssert([toks count]);
     
     TDExpression *expr = nil;
@@ -538,8 +534,10 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     }
     
     if (!expr) {
-        throw ParseException("Error while compiling tag expression");
-//        [NSException raise:TDTemplateEngineErrorDomain format:@"Error while compiling tag expression `%@` : %@", frag.stringValue, [err localizedFailureReason]];
+        // TODO
+        NSString *exprString = [_staticContext templateSubstringForToken:frag];
+        NSString *msg = [NSString stringWithFormat:@"Error while compiling tag expression `%@` : %@", exprString, [err localizedFailureReason]];
+        throw ParseException([msg UTF8String]);
     }
     
     return expr;

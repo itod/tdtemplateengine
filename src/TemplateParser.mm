@@ -182,7 +182,7 @@ void TemplateParser::_text() {
     match(TemplateTokenType_TEXT, false);
 
     Token tok = _assembly->pop_token();
-    TDNode *txtNode = [TDTextNode nodeWithToken_:tok parent:_currentParent];
+    TDNode *txtNode = [TDTextNode nodeWithToken:tok parent:_currentParent];
     [_currentParent addChild:txtNode];
 
 }
