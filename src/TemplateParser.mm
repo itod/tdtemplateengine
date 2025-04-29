@@ -80,7 +80,7 @@ TDNode *TemplateParser::parse(TokenListPtr frags) {
 void TemplateParser::_template() {
     assert(_staticContext);
     
-    TDNode *root = [TDRootNode rootNodeWithStaticContext:_staticContext];
+    TDNode *root = [TDRootNode rootNode];
     setRoot(root);
     setCurrentParent(root);
     

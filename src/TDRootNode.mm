@@ -25,18 +25,11 @@
 
 @implementation TDRootNode
 
-+ (instancetype)rootNodeWithStaticContext:(TDTemplateContext *)ctx {
++ (instancetype)rootNode {
     PKToken *frag = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"<ROOT>" doubleValue:0.0];
     
     TDRootNode *rootNode = [self nodeWithToken:frag parent:nil];
-    rootNode.staticContext = ctx;
     return rootNode;
-}
-
-
-- (void)dealloc {
-    self.staticContext = nil;
-    [super dealloc];
 }
 
 @end

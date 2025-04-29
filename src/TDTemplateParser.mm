@@ -70,7 +70,7 @@
     [self execute:^{
     
     TDAssert(_staticContext);
-    TDNode *root = [TDRootNode rootNodeWithStaticContext:_staticContext];
+    TDNode *root = [TDRootNode rootNode];
     self.assembly.target = root;
     self.currentParent = root;
 

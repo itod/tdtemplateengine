@@ -22,11 +22,6 @@
 
 #import "TDNode.h"
 
-@class TDTemplateContext;
-
 @interface TDRootNode : TDNode
-
-+ (instancetype)rootNodeWithStaticContext:(TDTemplateContext *)ctx;
-
-@property (nonatomic, retain) TDTemplateContext *staticContext;
++ (instancetype)rootNode;
 @end
