@@ -38,10 +38,6 @@
 using namespace parsekit;
 namespace tdtemplateengine {
 
-//@property (nonatomic, retain) PKToken *openParen;
-//@property (nonatomic, retain) PKToken *minus;
-//@property (nonatomic, retain) PKToken *colon;
-
 Tokenizer *ExpressionParser::tokenizer() {
     static Tokenizer *t = nullptr;
     if (!t) {
