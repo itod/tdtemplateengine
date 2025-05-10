@@ -19,6 +19,9 @@
 #import <ParseKitCPP/ModalTokenizer.hpp>
 #import <ParseKitCPP/DefaultTokenizerMode.hpp>
 
+#define COLON @"COLON"
+#define OPEN_PAREN @"OPEN_PAREN"
+
 #define REV(a)           reversedArray(a)
 #define ABOVE(obj)       objectsAbove((obj))
 
@@ -153,7 +156,7 @@ void ExpressionParser::_loopExpr() {
 void ExpressionParser::_identifiers() {
     
     {
-     PUSH(_openParen);
+     PUSH(OPEN_PAREN);
     }
     _identifier();
     if (predicts(EXTokenType_COMMA, 0)) {
@@ -162,7 +165,7 @@ void ExpressionParser::_identifiers() {
     }
     {
     
-    id strs = REV(ABOVE(_openParen));
+    id strs = REV(ABOVE(OPEN_PAREN));
     POP(); // discard `(`
     PUSH(strs);
 
@@ -641,7 +644,7 @@ void ExpressionParser::_filterArgs() {
             _filterArg();
         }
         {
-         id toks = ABOVE(_colon); POP(); PUSH(REV(toks));
+         id toks = ABOVE(COLON); POP(); PUSH(REV(toks));
         }
     } else {
         // empty
@@ -685,7 +688,7 @@ void ExpressionParser::_subExpr() {
     match(EXTokenType_CLOSE_PAREN, true);
     {
     
-    id objs = ABOVE(_openParen);
+    id objs = ABOVE(OPEN_PAREN);
     POP(); // discard `(`
     PUSH_ALL(REV(objs));
 
@@ -709,7 +712,7 @@ void ExpressionParser::_pathExpr() {
     
     {
     
-    PUSH(_openParen);
+    PUSH(OPEN_PAREN);
 
     }
     _identifier();
@@ -719,8 +722,8 @@ void ExpressionParser::_pathExpr() {
     }
     {
     
-    id toks = REV(ABOVE(_openParen));
-    POP(); // discard `_openParen`
+    id toks = REV(ABOVE(OPEN_PAREN));
+    POP(); // discard `OPEN_PAREN`
     PUSH([TDPathExpression pathExpressionWithSteps:toks]);
 
     }
