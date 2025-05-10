@@ -17,6 +17,10 @@
 #import "TDPathExpression.h"
 #import "TDFilterExpression.h"
 
+#import <ParseKitCPP/ModalTokenizer.hpp>
+#import <ParseKitCPP/DefaultTokenizerMode.hpp>
+
+using namespace parsekit;
 
 @interface TDParser ()
     
@@ -28,8 +32,37 @@
 
 @end
 
-@implementation TDParser { }
+@implementation TDParser {
+    Tokenizer *_tokenizer;
+}
     
++ (Tokenizer *)cpp_tokenizer {
+    static Tokenizer *t = nullptr;
+    if (!t) {
+        DefaultTokenizerModePtr mode(new DefaultTokenizerMode());
+        t = new ModalTokenizer(mode);
+        
+        mode->getSymbolState()->add("==");
+        mode->getSymbolState()->add("!=");
+        mode->getSymbolState()->add("<=");
+        mode->getSymbolState()->add(">=");
+        mode->getSymbolState()->add("&&");
+        mode->getSymbolState()->add("||");
+        
+        mode->set_tokenizer_state(mode->getSymbolState(), '-', '-');
+        mode->getWordState()->setWordChars(false, '\'', '\'');
+    }
+    
+    return t;
+}
+
+
+- (Tokenizer *)cpp_tokenizer {
+    TDAssert(_tokenizer);
+    return _tokenizer;
+}
+
+
 + (PKTokenizer *)tokenizer {
     PKTokenizer *t = [PKTokenizer tokenizer];
     [t.symbolState add:@"=="];
@@ -40,7 +73,7 @@
     [t.symbolState add:@"||"];
     
     [t setTokenizerState:t.symbolState from:'-' to:'-'];
-	[t.wordState setWordChars:NO from:'\'' to:'\''];
+    [t.wordState setWordChars:NO from:'\'' to:'\''];
     return t;
 }
 
@@ -50,7 +83,9 @@
     if (self) {
             
     self.enableVerboseErrorReporting = NO;
+    _tokenizer = [[self class] cpp_tokenizer];
     self.tokenizer = [[self class] tokenizer];
+        
     self.openParen = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"(" doubleValue:0.0];
     self.minus = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"-" doubleValue:0.0];
     self.colon = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@":" doubleValue:0.0];

@@ -1,5 +1,6 @@
 #import <PEGKit/PKParser.h>
-        
+#import <ParseKitCPP/Tokenizer.hpp>
+
 @class PKTokenizer;
 @class TDTemplateEngine;
 
@@ -45,10 +46,13 @@ enum {
 
 @interface TDParser : PKParser
         
++ (parsekit::Tokenizer *)cpp_tokenizer;
 + (PKTokenizer *)tokenizer;
 
 @property (nonatomic, assign) TDTemplateEngine *engine; // weakref
 @property (nonatomic, assign) BOOL doLoopExpr;
+
+- (parsekit::Tokenizer *)cpp_tokenizer;
 
 @end
 

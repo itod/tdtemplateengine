@@ -20,67 +20,71 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "TDArithmeticExpression.h"
+#import "TDBooleanExpression.h"
 #import "TDValue.h"
-#import "TDNumericValue.h"
+#import "TDBooleanValue.h"
 #import "TDParser.h"
 
 @interface TDBinaryExpression ()
 @property (nonatomic, retain) TDExpression *p1;
 @property (nonatomic, retain) TDExpression *p2;
-@property (nonatomic, assign) NSInteger operator;
+@property (nonatomic, assign) NSInteger binaryOperator;
 @end
 
-@implementation TDArithmeticExpression
+@implementation TDBooleanExpression
 
-+ (TDArithmeticExpression *)arithmeticExpression {
++ (TDBooleanExpression *)booleanExpression {
     return [[[self alloc] init] autorelease];
 }
 
 
-+ (TDArithmeticExpression *)arithmeticExpressionWithOperand:(TDExpression *)lhs operator:(NSInteger)op operand:(TDExpression *)rhs {
++ (TDBooleanExpression *)booleanExpressionWithOperand:(TDExpression *)lhs operator:(NSInteger)op operand:(TDExpression *)rhs {
     return [[[self alloc] initWithOperand:lhs operator:op operand:rhs] autorelease];
 }
 
 
-- (TDValue *)evaluateInContext:(TDTemplateContext *)ctx {
-    double n = [self evaluateAsNumberInContext:ctx];
-    return [TDNumericValue numericValueWithNumber:n];
+- (TDExpression *)simplify {
+    self.p1 = [self.p1 simplify];
+    self.p2 = [self.p2 simplify];
+    if ([self.p1 isValue] && [self.p2 isValue]) {
+        return [self evaluateInContext:nil];
+    }
+    
+    // TODO
+    
+    return self;
 }
 
 
-- (double)evaluateAsNumberInContext:(TDTemplateContext *)ctx {
-    double n1 = [self.p1 evaluateAsNumberInContext:ctx];
-    double n2 = [self.p2 evaluateAsNumberInContext:ctx];
+- (TDValue *)evaluateInContext:(TDTemplateContext *)ctx {
+    BOOL b = [self evaluateAsBooleanInContext:ctx];
+    return [TDBooleanValue booleanValueWithBoolean:b];
+}
 
-    double res = 0.0;
-    switch (self.operator) {
-        case TD_TOKEN_KIND_PLUS:
-            res = n1 + n2;
+
+- (BOOL)evaluateAsBooleanInContext:(TDTemplateContext *)ctx {
+    BOOL b1 = [self.p1 evaluateAsBooleanInContext:ctx];
+    BOOL b2 = [self.p2 evaluateAsBooleanInContext:ctx];
+    
+    BOOL result = NO;
+    switch (self.binaryOperator) {
+        case TD_TOKEN_KIND_AND:
+            result = b1 && b2;
             break;
-        case TD_TOKEN_KIND_MINUS:
-            res = n1 - n2;
-            break;
-        case TD_TOKEN_KIND_TIMES:
-            res = n1 * n2;
-            break;
-        case TD_TOKEN_KIND_DIV:
-            res = n1 / n2;
-            break;
-        case TD_TOKEN_KIND_MOD:
-            res = lrint(n1) % lrint(n2);
+        case TD_TOKEN_KIND_OR:
+            result = b1 || b2;
             break;
         default:
-            [NSException raise:@"TDTemplateEngineErrorDomain" format:@"invalid operator in arithmetic expr"];
-            res = NAN;
+            TDAssert(0);
             break;
     }
-    return res;
+
+    return result;
 }
 
 
 - (TDDataType)dataType {
-    return TDDataTypeNumber;
+    return TDDataTypeBoolean;
 }
 
 @end

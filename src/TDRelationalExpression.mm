@@ -20,70 +20,59 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "TDBinaryExpression.h"
+#import "TDRelationalExpression.h"
 #import "TDValue.h"
+#import "TDBooleanValue.h"
 
 @interface TDBinaryExpression ()
 @property (nonatomic, retain) TDExpression *p1;
 @property (nonatomic, retain) TDExpression *p2;
-@property (nonatomic, assign) NSInteger operator;
+@property (nonatomic, assign) NSInteger binaryOperator;
 @end
 
-@implementation TDBinaryExpression
+@implementation TDRelationalExpression
 
-+ (TDBinaryExpression *)binaryExpression {
++ (TDRelationalExpression *)relationalExpression {
     return [[[self alloc] init] autorelease];
 }
 
 
-+ (TDBinaryExpression *)binaryExpressionWithOperand:(TDExpression *)lhs operator:(NSInteger)op operand:(TDExpression *)rhs {
++ (TDRelationalExpression *)relationalExpressionWithOperand:(TDExpression *)lhs operator:(NSInteger)op operand:(TDExpression *)rhs {
     return [[[self alloc] initWithOperand:lhs operator:op operand:rhs] autorelease];
 }
 
 
-- (instancetype)init {
-    return [self initWithOperand:nil operator:-1 operand:nil];
-}
-
-
-- (instancetype)initWithOperand:(TDExpression *)lhs operator:(NSInteger)op operand:(TDExpression *)rhs {
-    if (self = [super init]) {
-        self.p1 = lhs;
-        self.p2 = rhs;
-        self.operator = op;
-    }
-    return self;
-}
-
-
-- (void)dealloc {
-    self.p1 = nil;
-    self.p2 = nil;
-    [super dealloc];
-}
-
-
-- (NSString *)description {
-    return [NSString stringWithFormat:@"<%@ %p `%@ %ld %@`>", [self class], self, self.p1, self.operator, self.p2];
-}
-
-
-- (void)setOperand:(TDExpression *)lhs operator:(NSInteger)op operand:(TDExpression *)rhs {
-    self.p1 = lhs;
-    self.p2 = rhs;
-    self.operator = op;
-}
-
-
 - (TDExpression *)simplify {
-    self.p1 = [_p1 simplify];
-    self.p2 = [_p2 simplify];
+    self.p1 = [self.p1 simplify];
+    self.p2 = [self.p2 simplify];
     
-    if ([_p1 isValue] && [_p2 isValue]) {
+    // TODO
+    
+    if ([self.p1 isValue] && [self.p2 isValue]) {
         return [self evaluateInContext:nil];
     }
     
+    // TODO
     return self;
+}
+
+
+- (TDValue *)evaluateInContext:(TDTemplateContext *)ctx {
+    BOOL b = [self evaluateAsBooleanInContext:ctx];
+    return [TDBooleanValue booleanValueWithBoolean:b];
+}
+
+
+- (BOOL)evaluateAsBooleanInContext:(TDTemplateContext *)ctx {
+    TDValue *s1 = [self.p1 evaluateInContext:ctx];
+    TDValue *s2 = [self.p2 evaluateInContext:ctx];
+    
+    return [s1 compareToValue:s2 usingOperator:self.binaryOperator];
+}
+
+
+- (TDDataType)dataType {
+    return TDDataTypeBoolean;
 }
 
 @end

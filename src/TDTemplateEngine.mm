@@ -67,7 +67,7 @@
 #import <PEGKit/PKToken.h>
 #import <PEGKit/PKRecognitionException.h>
 
-#import <ParseKitCPP/Token.hpp>
+#import <ParseKitCPP/Tokenizer.hpp>
 #import <ParseKitCPP/ParseException.hpp>
 #import "TemplateParser.hpp"
 
@@ -473,6 +473,34 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     printNode.expression = expr;
     return printNode;
 }
+
+
+//- (TDTag *)tagFromFragment:(Token)frag withParent:(TDNode *)parent {
+//    NSParameterAssert(!frag.is_eof());
+//    NSParameterAssert(parent);
+//    
+//    Tokenizer *t = [self cpp_tokenizer];
+//    
+//    NSString *s = [_staticContext templateSubstringForToken:frag];
+//    Reader r([s UTF8String]);
+//    t->set_reader(&r);
+//    
+//    Token tok = t->next();
+//    TDAssert(TokenType_WORD == tok.token_type());
+//    NSString *tagName = [NSString stringWithUTF8String:r.substring(tok).c_str()];
+//    
+//    // tokenize
+//    TDTag *tag = [self makeTagForName:tagName token:frag parent:parent];
+//    TDAssert(tag);
+//    
+//    // compile expression if present
+//    tok = t->next();
+//    if (TokenType_EOF != tok.token_type()) {
+//        tag.expression = [self expressionForTagName:tagName fromFragment:frag tokenizer:t];
+//    }
+//    
+//    return tag;
+//}
 
 
 - (TDTag *)tagFromFragment:(Token)frag withParent:(TDNode *)parent {
