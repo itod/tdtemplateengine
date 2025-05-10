@@ -51,7 +51,7 @@ public:
     explicit TemplateParser(TDTemplateEngine *, TDTemplateContext *);
     ~TemplateParser();
     
-    virtual parsekit::Assembly *assembly() override { return _assembly; }
+    virtual parsekit::Assembly *assembly() const override { return _assembly; }
     
     TDNode *parse(parsekit::TokenListPtr);
 };

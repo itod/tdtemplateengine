@@ -1,4 +1,4 @@
-#import "ExpressionParser.h"
+#import "ExpressionParser.hpp"
     
 #import "TDTemplateEngine.h"
 #import "TDBooleanValue.h"
@@ -22,7 +22,8 @@
 #define PUSH(obj) _assembly->push_object((obj))
 #define POP(obj) _assembly->pop_object((obj))
 
-namespace parsekit {
+using namespace parsekit;
+namespace tdtemplateengine {
 
 //@interface ExpressionParser ()
 //
@@ -33,25 +34,32 @@ namespace parsekit {
 //@property (nonatomic, assign) BOOL negative;
 //
 //@end
+
+static Tokenizer *tokenizer() {
+    static Tokenizer *t = nullptr;
+    if (!t) {
+        DefaultTokenizerModePtr mode(new DefaultTokenizerMode());
+        t = new ModalTokenizer(mode);
+        
+        mode->getSymbolState()->add("==");
+        mode->getSymbolState()->add("!=");
+        mode->getSymbolState()->add("<=");
+        mode->getSymbolState()->add(">=");
+        mode->getSymbolState()->add("&&");
+        mode->getSymbolState()->add("||");
+        
+        mode->set_tokenizer_state(mode->getSymbolState(), '-', '-');
+        mode->getWordState()->setWordChars(false, '\'', '\'');
+    }
     
+    return t;
+}
+
+
 
 ExpressionParser::ExpressionParser() :
-    _tokenizer(nullptr)
-{
-    DefaultTokenizerModePtr mode(new DefaultTokenizerMode());
-    _tokenizer = ModalTokenizerPtr(new ModalTokenizer(mode));
-    
-    mode->getSymbolState()->add("==");
-    mode->getSymbolState()->add("!=");
-    mode->getSymbolState()->add("<=");
-    mode->getSymbolState()->add(">=");
-    mode->getSymbolState()->add("&&");
-    mode->getSymbolState()->add("||");
-    
-    mode->set_tokenizer_state(mode->getSymbolState(), '-', '-');
-    mode->getWordState()->setWordChars(false, '\'', '\'');
-
-}
+    _tokenizer(tokenizer())
+{}
 
 void ExpressionParser::start() {
 
@@ -107,9 +115,9 @@ void ExpressionParser::_identifiers() {
 
 void ExpressionParser::_enumExpr() {
     
-    if ([self speculate:^{ _rangeExpr(); }]) {
+    if (speculate([&]{ _rangeExpr(); })) {
         _rangeExpr();
-    } else if ([self speculate:^{ _collectionExpr(); }]) {
+    } else if (speculate([&]{ _collectionExpr(); })) {
         _collectionExpr();
     } else {
         raise("No viable alternative found in rule 'enumExpr'.");

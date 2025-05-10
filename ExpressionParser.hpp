@@ -1,10 +1,11 @@
 #import <ParseKitCPP/BaseParser.hpp>
 #import <ParseKitCPP/ModalTokenizer.hpp>
+#import "ExpressionAssembly.hpp"
 
 @class TDTemplateEngine;
 
-namespace parsekit {
-
+using namespace parsekit;
+namespace tdtemplateengine {
 
 typedef NS_ENUM(int, EXTokenType) {
     EXTokenType_GT = 14,
@@ -46,11 +47,9 @@ typedef NS_ENUM(int, EXTokenType) {
     EXTokenType_NULL = 50,
 };
 
-class ExpressionAssembly;
-
 class ExpressionParser : public BaseParser {
 private:
-    ModalTokenizerPtr _tokenizer;
+    Tokenizer *_tokenizer;
     ExpressionAssembly *_assembly;
     
     TDTemplateEngine *_engine; // weakref
@@ -109,9 +108,11 @@ private:
 
 public:
     ExpressionParser();
-    
+
+    static Tokenizer *tokenizer();
+
     Assembly *assembly() const override { return _assembly; }
-    ModalTokenizerPtr tokenizer() const { return _tokenizer; }
+    //ModalTokenizerPtr tokenizer() const { return _tokenizer; }
     
     bool doLoopExpr() const { return _doLoopExpr; }
     void setDoLoopExpr(bool yn) { _doLoopExpr = yn; }
