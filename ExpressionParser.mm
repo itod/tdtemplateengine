@@ -19,8 +19,21 @@
 #import <ParseKitCPP/ModalTokenizer.hpp>
 #import <ParseKitCPP/DefaultTokenizerMode.hpp>
 
-#define PUSH(obj) _assembly->push_object((obj))
-#define POP() _assembly->pop_object()
+#define REV(a)           reversedArray(a)
+#define ABOVE(obj)       objectsAbove((obj))
+
+#define PUSH(obj)        _assembly->push_object((obj))
+#define PUSH_ALL(a)      pushAll((a))
+
+#define POP()            _assembly->pop_object()
+
+#define POP_STR()        [_assembly->pop_object() description]
+#define POP_QUOTED_STR() stringByTrimmingQuotes([_assembly->pop_object() description])
+#define POP_BOOL()       [_assembly->pop_object() boolValue]
+#define POP_INT()        [_assembly->pop_object() integerValue]
+#define POP_UINT()       [_assembly->pop_object() unsignedIntegerValue]
+#define POP_FLOAT()      [_assembly->pop_object() floatValue]
+#define POP_DOUBLE()     [_assembly->pop_object() doubleValue]
 
 using namespace parsekit;
 namespace tdtemplateengine {
@@ -29,7 +42,7 @@ namespace tdtemplateengine {
 //@property (nonatomic, retain) PKToken *minus;
 //@property (nonatomic, retain) PKToken *colon;
 
-static Tokenizer *tokenizer() {
+Tokenizer *ExpressionParser::tokenizer() {
     static Tokenizer *t = nullptr;
     if (!t) {
         DefaultTokenizerModePtr mode(new DefaultTokenizerMode());
@@ -49,7 +62,61 @@ static Tokenizer *tokenizer() {
     return t;
 }
 
+NSArray *ExpressionParser::reversedArray(NSArray *inArray) {
+    NSMutableArray *result = [NSMutableArray arrayWithCapacity:inArray.count];
+    for (id obj in [inArray reverseObjectEnumerator]) {
+        [result addObject:obj];
+    }
+    return result;
+}
 
+void ExpressionParser::pushAll(NSArray *a) {
+    for (id obj in a) {
+        _assembly->push_object(obj);
+    }
+}
+
+NSArray *ExpressionParser::objectsAbove(id fence) {
+    NSMutableArray *result = [NSMutableArray array];
+    
+    while (!_assembly->is_object_stack_empty()) {
+        id obj = _assembly->pop_object();
+        
+        if ([obj isEqual:fence]) {
+            _assembly->push_object(obj);
+            break;
+        } else {
+            [result addObject:obj];
+        }
+    }
+    
+    return result;
+}
+
+NSString *ExpressionParser::stringByTrimmingQuotes(NSString *inStr) {
+    NSUInteger len = [inStr length];
+    
+    if (len < 2) {
+        return inStr;
+    }
+    
+    NSRange r = NSMakeRange(0, len);
+    
+    unichar c = [inStr characterAtIndex:0];
+    if (!isalnum(c)) {
+        unichar quoteChar = c;
+        r.location = 1;
+        r.length -= 1;
+
+        c = [inStr characterAtIndex:len - 1];
+        if (c == quoteChar) {
+            r.length -= 1;
+        }
+        return [inStr substringWithRange:r];
+    } else {
+        return inStr;
+    }
+}
 
 ExpressionParser::ExpressionParser() :
     _tokenizer(tokenizer())

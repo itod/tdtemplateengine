@@ -30,7 +30,6 @@
 
 @extension {
 @property (nonatomic, retain) PKToken *openParen;
-@property (nonatomic, retain) PKToken *minus;
 @property (nonatomic, retain) PKToken *colon;
 @property (nonatomic, assign) BOOL negation;
 @property (nonatomic, assign) BOOL negative;
@@ -57,14 +56,12 @@
     self.enableVerboseErrorReporting = NO;
     self.tokenizer = [[self class] tokenizer];
     self.openParen = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"(" doubleValue:0.0];
-    self.minus = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"-" doubleValue:0.0];
     self.colon = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@":" doubleValue:0.0];
 }
 
 @dealloc {
     self.engine = nil;
     self.openParen = nil;
-    self.minus = nil;
     self.colon = nil;
 }
 

@@ -1,3 +1,4 @@
+#import <Foundation/Foundation.h>
 #import <ParseKitCPP/BaseParser.hpp>
 #import <ParseKitCPP/ModalTokenizer.hpp>
 #import "ExpressionAssembly.hpp"
@@ -56,8 +57,14 @@ private:
     bool _doLoopExpr;
     bool _negation;
     bool _negative;
-
     
+    id _colon = @"COLON";
+    id _openParen = @"OPEN_PAREN";
+
+    NSArray *reversedArray(NSArray *inArray);
+    void pushAll(NSArray *a);
+    NSArray *objectsAbove(id fence);
+    NSString *stringByTrimmingQuotes(NSString *inStr);
     
     void start();
     

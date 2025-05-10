@@ -354,6 +354,7 @@
 		D3A7E27318F07782009BFD96 /* TDCommentTag.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A7E27118F07782009BFD96 /* TDCommentTag.h */; };
 		D3A7E27418F07782009BFD96 /* TDCommentTag.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3A7E27218F07782009BFD96 /* TDCommentTag.mm */; };
 		D3A7E27618F0788D009BFD96 /* TDCommentTagTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3A7E27518F0788D009BFD96 /* TDCommentTagTests.mm */; };
+		D3AAFE422DCFA9F0009EDC64 /* ExpressionParser.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3E52A0D2DCEF9230071F521 /* ExpressionParser.mm */; };
 		D3AC684F1A41D43400F7EB6A /* TDReplaceFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = D3AC684D1A41D43400F7EB6A /* TDReplaceFilter.h */; };
 		D3AC68501A41D43400F7EB6A /* TDReplaceFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AC684E1A41D43400F7EB6A /* TDReplaceFilter.m */; };
 		D3AC685F1A42022500F7EB6A /* TDTrimFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = D3AC685D1A42022500F7EB6A /* TDTrimFilter.h */; };
@@ -1502,6 +1503,7 @@
 				D319139018F1AD1500430BAD /* TDUppercaseFilter.m in Sources */,
 				D3E95F2E1AB0D29D00D19992 /* TDTabTag.mm in Sources */,
 				D3E95F351AB1017D00D19992 /* TDIndentTag.mm in Sources */,
+				D3AAFE422DCFA9F0009EDC64 /* ExpressionParser.mm in Sources */,
 				D3A7E27418F07782009BFD96 /* TDCommentTag.mm in Sources */,
 				D3D0F6FE1ACB4566006B6112 /* TDSkipException.m in Sources */,
 				D319138C18F1AC4500430BAD /* TDLowercaseFilter.m in Sources */,

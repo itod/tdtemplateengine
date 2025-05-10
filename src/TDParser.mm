@@ -25,7 +25,6 @@ using namespace parsekit;
 @interface TDParser ()
     
 @property (nonatomic, retain) PKToken *openParen;
-@property (nonatomic, retain) PKToken *minus;
 @property (nonatomic, retain) PKToken *colon;
 @property (nonatomic, assign) BOOL negation;
 @property (nonatomic, assign) BOOL negative;
@@ -87,7 +86,6 @@ using namespace parsekit;
     self.tokenizer = [[self class] tokenizer];
         
     self.openParen = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"(" doubleValue:0.0];
-    self.minus = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@"-" doubleValue:0.0];
     self.colon = [PKToken tokenWithTokenType:PKTokenTypeSymbol stringValue:@":" doubleValue:0.0];
 
         self.startRuleName = @"expr";
@@ -175,7 +173,6 @@ using namespace parsekit;
         
     self.engine = nil;
     self.openParen = nil;
-    self.minus = nil;
     self.colon = nil;
 
 

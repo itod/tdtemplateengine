@@ -10,7 +10,7 @@ private:
     NSMutableArray *_object_stack;
         
 public:
-    ExpressionAssembly(Tokenizer *t, TokenList *token_stack, TokenList *consumed, NSArray *_object_stack);
+    ExpressionAssembly(Tokenizer *t, TokenList *token_stack, TokenList *consumed);
     
     void push_object(id obj) {
         assert(_object_stack);
@@ -27,6 +27,11 @@ public:
         id res = [[_object_stack.lastObject retain] autorelease];
         [_object_stack removeLastObject];
         return res;
+    }
+    
+    bool is_object_stack_empty() {
+        assert(_object_stack);
+        return 0 == _object_stack.count;
     }
 };
 
