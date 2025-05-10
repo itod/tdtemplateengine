@@ -73,7 +73,7 @@ void ExpressionParser::_expr() {
 void ExpressionParser::_loopExpr() {
     
     _identifiers();
-    match(TD_TOKEN_KIND_IN, true);
+    match(EXTokenType_IN, true);
     _enumExpr();
     {
     
@@ -91,8 +91,8 @@ void ExpressionParser::_identifiers() {
      PUSH(_openParen);
     }
     _identifier();
-    if (predicts(TD_TOKEN_KIND_COMMA, 0)) {
-        match(TD_TOKEN_KIND_COMMA, true);
+    if (predicts(EXTokenType_COMMA, 0)) {
+        match(EXTokenType_COMMA, true);
         _identifier();
     }
     {
@@ -132,7 +132,7 @@ void ExpressionParser::_collectionExpr() {
 void ExpressionParser::_rangeExpr() {
     
     _unaryExpr();
-    match(TD_TOKEN_KIND_TO, true);
+    match(EXTokenType_TO, true);
     _unaryExpr();
     _optBy();
     {
@@ -148,8 +148,8 @@ void ExpressionParser::_rangeExpr() {
 
 void ExpressionParser::_optBy() {
     
-    if (predicts(TD_TOKEN_KIND_BY, 0)) {
-        match(TD_TOKEN_KIND_BY, true);
+    if (predicts(EXTokenType_BY, 0)) {
+        match(EXTokenType_BY, true);
         _unaryExpr();
     } else {
         //[self matchEmpty:NO];
@@ -162,10 +162,10 @@ void ExpressionParser::_optBy() {
 
 void ExpressionParser::_orOp() {
     
-    if (predicts(TD_TOKEN_KIND_OR, 0)) {
-        match(TD_TOKEN_KIND_OR, true);
-    } else if (predicts(TD_TOKEN_KIND_DOUBLE_PIPE, 0)) {
-        match(TD_TOKEN_KIND_DOUBLE_PIPE, true);
+    if (predicts(EXTokenType_OR, 0)) {
+        match(EXTokenType_OR, true);
+    } else if (predicts(EXTokenType_DOUBLE_PIPE, 0)) {
+        match(EXTokenType_DOUBLE_PIPE, true);
     } else {
         raise("No viable alternative found in rule 'orOp'.");
     }
@@ -175,14 +175,14 @@ void ExpressionParser::_orOp() {
 void ExpressionParser::_orExpr() {
     
     _andExpr();
-    while (predicts(TD_TOKEN_KIND_OR, TD_TOKEN_KIND_DOUBLE_PIPE, 0)) {
+    while (predicts(EXTokenType_OR, EXTokenType_DOUBLE_PIPE, 0)) {
         _orOp();
         _andExpr();
         {
         
     TDValue *rhs = POP();
     TDValue *lhs = POP();
-    PUSH([TDBooleanExpression booleanExpressionWithOperand:lhs operator:TD_TOKEN_KIND_OR operand:rhs]);
+    PUSH([TDBooleanExpression booleanExpressionWithOperand:lhs operator:EXTokenType_OR operand:rhs]);
 
         }
     }
@@ -191,10 +191,10 @@ void ExpressionParser::_orExpr() {
 
 void ExpressionParser::_andOp() {
     
-    if (predicts(TD_TOKEN_KIND_AND, 0)) {
-        match(TD_TOKEN_KIND_AND, true);
-    } else if (predicts(TD_TOKEN_KIND_DOUBLE_AMPERSAND, 0)) {
-        match(TD_TOKEN_KIND_DOUBLE_AMPERSAND, true);
+    if (predicts(EXTokenType_AND, 0)) {
+        match(EXTokenType_AND, true);
+    } else if (predicts(EXTokenType_DOUBLE_AMPERSAND, 0)) {
+        match(EXTokenType_DOUBLE_AMPERSAND, true);
     } else {
         raise("No viable alternative found in rule 'andOp'.");
     }
@@ -204,14 +204,14 @@ void ExpressionParser::_andOp() {
 void ExpressionParser::_andExpr() {
     
     _equalityExpr();
-    while (predicts(TD_TOKEN_KIND_AND, TD_TOKEN_KIND_DOUBLE_AMPERSAND, 0)) {
+    while (predicts(EXTokenType_AND, EXTokenType_DOUBLE_AMPERSAND, 0)) {
         _andOp();
         _equalityExpr();
         {
         
     TDValue *rhs = POP();
     TDValue *lhs = POP();
-    PUSH([TDBooleanExpression booleanExpressionWithOperand:lhs operator:TD_TOKEN_KIND_AND operand:rhs]);
+    PUSH([TDBooleanExpression booleanExpressionWithOperand:lhs operator:EXTokenType_AND operand:rhs]);
 
         }
     }
@@ -220,30 +220,30 @@ void ExpressionParser::_andExpr() {
 
 void ExpressionParser::_eqOp() {
     
-    if (predicts(TD_TOKEN_KIND_DOUBLE_EQUALS, 0)) {
-        match(TD_TOKEN_KIND_DOUBLE_EQUALS, true);
-    } else if (predicts(TD_TOKEN_KIND_EQ, 0)) {
-        match(TD_TOKEN_KIND_EQ, true);
+    if (predicts(EXTokenType_DOUBLE_EQUALS, 0)) {
+        match(EXTokenType_DOUBLE_EQUALS, true);
+    } else if (predicts(EXTokenType_EQ, 0)) {
+        match(EXTokenType_EQ, true);
     } else {
         raise("No viable alternative found in rule 'eqOp'.");
     }
     {
-     PUSH(@(TD_TOKEN_KIND_EQ));
+     PUSH(@(EXTokenType_EQ));
     }
 
 }
 
 void ExpressionParser::_neOp() {
     
-    if (predicts(TD_TOKEN_KIND_NOT_EQUAL, 0)) {
-        match(TD_TOKEN_KIND_NOT_EQUAL, true);
-    } else if (predicts(TD_TOKEN_KIND_NE, 0)) {
-        match(TD_TOKEN_KIND_NE, true);
+    if (predicts(EXTokenType_NOT_EQUAL, 0)) {
+        match(EXTokenType_NOT_EQUAL, true);
+    } else if (predicts(EXTokenType_NE, 0)) {
+        match(EXTokenType_NE, true);
     } else {
         raise("No viable alternative found in rule 'neOp'.");
     }
     {
-     PUSH(@(TD_TOKEN_KIND_NE));
+     PUSH(@(EXTokenType_NE));
     }
 
 }
@@ -251,10 +251,10 @@ void ExpressionParser::_neOp() {
 void ExpressionParser::_equalityExpr() {
     
     _relationalExpr();
-    while (predicts(TD_TOKEN_KIND_DOUBLE_EQUALS, TD_TOKEN_KIND_EQ, TD_TOKEN_KIND_NE, TD_TOKEN_KIND_NOT_EQUAL, 0)) {
-        if (predicts(TD_TOKEN_KIND_DOUBLE_EQUALS, TD_TOKEN_KIND_EQ, 0)) {
+    while (predicts(EXTokenType_DOUBLE_EQUALS, EXTokenType_EQ, EXTokenType_NE, EXTokenType_NOT_EQUAL, 0)) {
+        if (predicts(EXTokenType_DOUBLE_EQUALS, EXTokenType_EQ, 0)) {
             _eqOp();
-        } else if (predicts(TD_TOKEN_KIND_NE, TD_TOKEN_KIND_NOT_EQUAL, 0)) {
+        } else if (predicts(EXTokenType_NE, EXTokenType_NOT_EQUAL, 0)) {
             _neOp();
         } else {
             raise("No viable alternative found in rule 'equalityExpr'.");
@@ -274,60 +274,60 @@ void ExpressionParser::_equalityExpr() {
 
 void ExpressionParser::_ltOp() {
     
-    if (predicts(TD_TOKEN_KIND_LT_SYM, 0)) {
-        match(TD_TOKEN_KIND_LT_SYM, true);
-    } else if (predicts(TD_TOKEN_KIND_LT, 0)) {
-        match(TD_TOKEN_KIND_LT, true);
+    if (predicts(EXTokenType_LT_SYM, 0)) {
+        match(EXTokenType_LT_SYM, true);
+    } else if (predicts(EXTokenType_LT, 0)) {
+        match(EXTokenType_LT, true);
     } else {
         raise("No viable alternative found in rule 'ltOp'.");
     }
     {
-     PUSH(@(TD_TOKEN_KIND_LT));
+     PUSH(@(EXTokenType_LT));
     }
 
 }
 
 void ExpressionParser::_gtOp() {
     
-    if (predicts(TD_TOKEN_KIND_GT_SYM, 0)) {
-        match(TD_TOKEN_KIND_GT_SYM, true);
-    } else if (predicts(TD_TOKEN_KIND_GT, 0)) {
-        match(TD_TOKEN_KIND_GT, true);
+    if (predicts(EXTokenType_GT_SYM, 0)) {
+        match(EXTokenType_GT_SYM, true);
+    } else if (predicts(EXTokenType_GT, 0)) {
+        match(EXTokenType_GT, true);
     } else {
         raise("No viable alternative found in rule 'gtOp'.");
     }
     {
-     PUSH(@(TD_TOKEN_KIND_GT));
+     PUSH(@(EXTokenType_GT));
     }
 
 }
 
 void ExpressionParser::_leOp() {
     
-    if (predicts(TD_TOKEN_KIND_LE_SYM, 0)) {
-        match(TD_TOKEN_KIND_LE_SYM, true);
-    } else if (predicts(TD_TOKEN_KIND_LE, 0)) {
-        match(TD_TOKEN_KIND_LE, true);
+    if (predicts(EXTokenType_LE_SYM, 0)) {
+        match(EXTokenType_LE_SYM, true);
+    } else if (predicts(EXTokenType_LE, 0)) {
+        match(EXTokenType_LE, true);
     } else {
         raise("No viable alternative found in rule 'leOp'.");
     }
     {
-     PUSH(@(TD_TOKEN_KIND_LE));
+     PUSH(@(EXTokenType_LE));
     }
 
 }
 
 void ExpressionParser::_geOp() {
     
-    if (predicts(TD_TOKEN_KIND_GE_SYM, 0)) {
-        match(TD_TOKEN_KIND_GE_SYM, true);
-    } else if (predicts(TD_TOKEN_KIND_GE, 0)) {
-        match(TD_TOKEN_KIND_GE, true);
+    if (predicts(EXTokenType_GE_SYM, 0)) {
+        match(EXTokenType_GE_SYM, true);
+    } else if (predicts(EXTokenType_GE, 0)) {
+        match(EXTokenType_GE, true);
     } else {
         raise("No viable alternative found in rule 'geOp'.");
     }
     {
-     PUSH(@(TD_TOKEN_KIND_GE));
+     PUSH(@(EXTokenType_GE));
     }
 
 }
@@ -335,14 +335,14 @@ void ExpressionParser::_geOp() {
 void ExpressionParser::_relationalExpr() {
     
     _additiveExpr();
-    while (predicts(TD_TOKEN_KIND_LT, TD_TOKEN_KIND_LT_SYM, TD_TOKEN_KIND_GT, TD_TOKEN_KIND_GT_SYM, TD_TOKEN_KIND_LE, TD_TOKEN_KIND_LE_SYM, TD_TOKEN_KIND_GE, TD_TOKEN_KIND_GE_SYM, 0)) {
-        if (predicts(TD_TOKEN_KIND_LT, TD_TOKEN_KIND_LT_SYM, 0)) {
+    while (predicts(EXTokenType_LT, EXTokenType_LT_SYM, EXTokenType_GT, EXTokenType_GT_SYM, EXTokenType_LE, EXTokenType_LE_SYM, EXTokenType_GE, EXTokenType_GE_SYM, 0)) {
+        if (predicts(EXTokenType_LT, EXTokenType_LT_SYM, 0)) {
             _ltOp();
-        } else if (predicts(TD_TOKEN_KIND_GT, TD_TOKEN_KIND_GT_SYM, 0)) {
+        } else if (predicts(EXTokenType_GT, EXTokenType_GT_SYM, 0)) {
             _gtOp();
-        } else if (predicts(TD_TOKEN_KIND_LE, TD_TOKEN_KIND_LE_SYM, 0)) {
+        } else if (predicts(EXTokenType_LE, EXTokenType_LE_SYM, 0)) {
             _leOp();
-        } else if (predicts(TD_TOKEN_KIND_GE, TD_TOKEN_KIND_GE_SYM, 0)) {
+        } else if (predicts(EXTokenType_GE, EXTokenType_GE_SYM, 0)) {
             _geOp();
         } else {
             raise("No viable alternative found in rule 'relationalExpr'.");
@@ -362,18 +362,18 @@ void ExpressionParser::_relationalExpr() {
 
 void ExpressionParser::_plus() {
     
-    match(TD_TOKEN_KIND_PLUS, true);
+    match(EXTokenType_PLUS, true);
     {
-     PUSH(@(TD_TOKEN_KIND_PLUS));
+     PUSH(@(EXTokenType_PLUS));
     }
 
 }
 
 void ExpressionParser::_minus() {
     
-    match(TD_TOKEN_KIND_MINUS, true);
+    match(EXTokenType_MINUS, true);
     {
-     PUSH(@(TD_TOKEN_KIND_MINUS));
+     PUSH(@(EXTokenType_MINUS));
     }
 
 }
@@ -381,10 +381,10 @@ void ExpressionParser::_minus() {
 void ExpressionParser::_additiveExpr() {
     
     _multiplicativeExpr();
-    while (predicts(TD_TOKEN_KIND_PLUS, TD_TOKEN_KIND_MINUS, 0)) {
-        if (predicts(TD_TOKEN_KIND_PLUS, 0)) {
+    while (predicts(EXTokenType_PLUS, EXTokenType_MINUS, 0)) {
+        if (predicts(EXTokenType_PLUS, 0)) {
             _plus();
-        } else if (predicts(TD_TOKEN_KIND_MINUS, 0)) {
+        } else if (predicts(EXTokenType_MINUS, 0)) {
             _minus();
         } else {
             raise("No viable alternative found in rule 'additiveExpr'.");
@@ -404,27 +404,27 @@ void ExpressionParser::_additiveExpr() {
 
 void ExpressionParser::_times() {
     
-    match(TD_TOKEN_KIND_TIMES, true);
+    match(EXTokenType_TIMES, true);
     {
-     PUSH(@(TD_TOKEN_KIND_TIMES));
+     PUSH(@(EXTokenType_TIMES));
     }
 
 }
 
 void ExpressionParser::_div() {
     
-    match(TD_TOKEN_KIND_DIV, true);
+    match(EXTokenType_DIV, true);
     {
-     PUSH(@(TD_TOKEN_KIND_DIV));
+     PUSH(@(EXTokenType_DIV));
     }
 
 }
 
 void ExpressionParser::_mod() {
     
-    match(TD_TOKEN_KIND_MOD, true);
+    match(EXTokenType_MOD, true);
     {
-     PUSH(@(TD_TOKEN_KIND_MOD));
+     PUSH(@(EXTokenType_MOD));
     }
 
 }
@@ -432,12 +432,12 @@ void ExpressionParser::_mod() {
 void ExpressionParser::_multiplicativeExpr() {
     
     _unaryExpr();
-    while (predicts(TD_TOKEN_KIND_TIMES, TD_TOKEN_KIND_DIV, TD_TOKEN_KIND_MOD, 0)) {
-        if (predicts(TD_TOKEN_KIND_TIMES, 0)) {
+    while (predicts(EXTokenType_TIMES, EXTokenType_DIV, EXTokenType_MOD, 0)) {
+        if (predicts(EXTokenType_TIMES, 0)) {
             _times();
-        } else if (predicts(TD_TOKEN_KIND_DIV, 0)) {
+        } else if (predicts(EXTokenType_DIV, 0)) {
             _div();
-        } else if (predicts(TD_TOKEN_KIND_MOD, 0)) {
+        } else if (predicts(EXTokenType_MOD, 0)) {
             _mod();
         } else {
             raise("No viable alternative found in rule 'multiplicativeExpr'.");
@@ -457,9 +457,9 @@ void ExpressionParser::_multiplicativeExpr() {
 
 void ExpressionParser::_unaryExpr() {
     
-    if (predicts(TD_TOKEN_KIND_BANG, TD_TOKEN_KIND_NOT, 0)) {
+    if (predicts(EXTokenType_BANG, EXTokenType_NOT, 0)) {
         _negatedUnary();
-    } else if (predicts(TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, TD_TOKEN_KIND_FALSE, TD_TOKEN_KIND_MINUS, TD_TOKEN_KIND_NO_UPPER, TD_TOKEN_KIND_OPEN_PAREN, TD_TOKEN_KIND_TRUE, TD_TOKEN_KIND_YES_UPPER, TD_TOKEN_KIND_NULL, 0)) {
+    } else if (predicts(TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, EXTokenType_FALSE, EXTokenType_MINUS, EXTokenType_NO_UPPER, EXTokenType_OPEN_PAREN, EXTokenType_TRUE, EXTokenType_YES_UPPER, EXTokenType_NULL, 0)) {
         _unary();
     } else {
         raise("No viable alternative found in rule 'unaryExpr'.");
@@ -473,17 +473,17 @@ void ExpressionParser::_negatedUnary() {
      _negation = NO;
     }
     do {
-        if (predicts(TD_TOKEN_KIND_NOT, 0)) {
-            match(TD_TOKEN_KIND_NOT, true);
-        } else if (predicts(TD_TOKEN_KIND_BANG, 0)) {
-            match(TD_TOKEN_KIND_BANG, true);
+        if (predicts(EXTokenType_NOT, 0)) {
+            match(EXTokenType_NOT, true);
+        } else if (predicts(EXTokenType_BANG, 0)) {
+            match(EXTokenType_BANG, true);
         } else {
             raise("No viable alternative found in rule 'negatedUnary'.");
         }
         {
          _negation = !_negation;
         }
-    } while (predicts(TD_TOKEN_KIND_BANG, TD_TOKEN_KIND_NOT, 0]);
+    } while (predicts(EXTokenType_BANG, EXTokenType_NOT, 0]);
     _unary();
     {
     
@@ -500,9 +500,9 @@ void ExpressionParser::_negatedUnary() {
 
 void ExpressionParser::_unary() {
     
-    if (predicts(TD_TOKEN_KIND_MINUS, 0)) {
+    if (predicts(EXTokenType_MINUS, 0)) {
         _signedFilterExpr();
-    } else if (predicts(TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, TD_TOKEN_KIND_FALSE, TD_TOKEN_KIND_NO_UPPER, TD_TOKEN_KIND_OPEN_PAREN, TD_TOKEN_KIND_TRUE, TD_TOKEN_KIND_YES_UPPER, TD_TOKEN_KIND_NULL, 0)) {
+    } else if (predicts(TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, EXTokenType_FALSE, EXTokenType_NO_UPPER, EXTokenType_OPEN_PAREN, EXTokenType_TRUE, EXTokenType_YES_UPPER, EXTokenType_NULL, 0)) {
         _filterExpr();
     } else {
         raise("No viable alternative found in rule 'unary'.");
@@ -518,11 +518,11 @@ void ExpressionParser::_signedFilterExpr() {
 
     }
     do {
-        match(TD_TOKEN_KIND_MINUS, true);
+        match(EXTokenType_MINUS, true);
         {
          _negative = !_negative;
         }
-    } while (predicts(TD_TOKEN_KIND_MINUS, 0]);
+    } while (predicts(EXTokenType_MINUS, 0]);
     _filterExpr();
     {
     
@@ -536,7 +536,7 @@ void ExpressionParser::_signedFilterExpr() {
 void ExpressionParser::_filterExpr() {
     
     _primaryExpr();
-    while (predicts(TD_TOKEN_KIND_PIPE, 0)) {
+    while (predicts(EXTokenType_PIPE, 0)) {
         _filter();
         {
         
@@ -560,7 +560,7 @@ void ExpressionParser::_filterExpr() {
 
 void ExpressionParser::_filter() {
     
-    match(TD_TOKEN_KIND_PIPE, true);
+    match(EXTokenType_PIPE, true);
     [self matchWord:NO];
     _filterArgs();
 
@@ -568,11 +568,11 @@ void ExpressionParser::_filter() {
 
 void ExpressionParser::_filterArgs() {
     
-    if (predicts(TD_TOKEN_KIND_COLON, 0)) {
-        match(TD_TOKEN_KIND_COLON, false);
+    if (predicts(EXTokenType_COLON, 0)) {
+        match(EXTokenType_COLON, false);
         _filterArg();
-        while (predicts(TD_TOKEN_KIND_COMMA, 0)) {
-            match(TD_TOKEN_KIND_COMMA, true);
+        while (predicts(EXTokenType_COMMA, 0)) {
+            match(EXTokenType_COMMA, true);
             _filterArg();
         }
         {
@@ -603,9 +603,9 @@ void ExpressionParser::_filterArg() {
 
 void ExpressionParser::_primaryExpr() {
     
-    if (predicts(TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, TD_TOKEN_KIND_FALSE, TD_TOKEN_KIND_NO_UPPER, TD_TOKEN_KIND_TRUE, TD_TOKEN_KIND_YES_UPPER, TD_TOKEN_KIND_NULL, 0)) {
+    if (predicts(TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, EXTokenType_FALSE, EXTokenType_NO_UPPER, EXTokenType_TRUE, EXTokenType_YES_UPPER, EXTokenType_NULL, 0)) {
         _atom();
-    } else if (predicts(TD_TOKEN_KIND_OPEN_PAREN, 0)) {
+    } else if (predicts(EXTokenType_OPEN_PAREN, 0)) {
         _subExpr();
     } else {
         raise("No viable alternative found in rule 'primaryExpr'.");
@@ -615,9 +615,9 @@ void ExpressionParser::_primaryExpr() {
 
 void ExpressionParser::_subExpr() {
     
-    match(TD_TOKEN_KIND_OPEN_PAREN, false);
+    match(EXTokenType_OPEN_PAREN, false);
     _expr();
-    match(TD_TOKEN_KIND_CLOSE_PAREN, true);
+    match(EXTokenType_CLOSE_PAREN, true);
     {
     
     id objs = ABOVE(_openParen);
@@ -630,7 +630,7 @@ void ExpressionParser::_subExpr() {
 
 void ExpressionParser::_atom() {
     
-    if (predicts(TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TD_TOKEN_KIND_FALSE, TD_TOKEN_KIND_NO_UPPER, TD_TOKEN_KIND_TRUE, TD_TOKEN_KIND_YES_UPPER, TD_TOKEN_KIND_NULL, 0)) {
+    if (predicts(TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, EXTokenType_FALSE, EXTokenType_NO_UPPER, EXTokenType_TRUE, EXTokenType_YES_UPPER, EXTokenType_NULL, 0)) {
         _literal();
     } else if (predicts(TOKEN_KIND_BUILTIN_WORD, 0)) {
         _pathExpr();
@@ -648,8 +648,8 @@ void ExpressionParser::_pathExpr() {
 
     }
     _identifier();
-    while (predicts(TD_TOKEN_KIND_DOT, 0)) {
-        match(TD_TOKEN_KIND_DOT, true);
+    while (predicts(EXTokenType_DOT, 0)) {
+        match(EXTokenType_DOT, true);
         _step();
     }
     {
@@ -689,9 +689,9 @@ void ExpressionParser::_literal() {
         _str();
     } else if (predicts(TOKEN_KIND_BUILTIN_NUMBER, 0)) {
         _num();
-    } else if (predicts(TD_TOKEN_KIND_FALSE, TD_TOKEN_KIND_NO_UPPER, TD_TOKEN_KIND_TRUE, TD_TOKEN_KIND_YES_UPPER, 0)) {
+    } else if (predicts(EXTokenType_FALSE, EXTokenType_NO_UPPER, EXTokenType_TRUE, EXTokenType_YES_UPPER, 0)) {
         _bool();
-    } else if (predicts(TD_TOKEN_KIND_NULL, 0)) {
+    } else if (predicts(EXTokenType_NULL, 0)) {
         _null();
     } else {
         raise("No viable alternative found in rule 'literal'.");
@@ -701,12 +701,12 @@ void ExpressionParser::_literal() {
 
 void ExpressionParser::_bool() {
     
-    if (predicts(TD_TOKEN_KIND_TRUE, TD_TOKEN_KIND_YES_UPPER, 0)) {
+    if (predicts(EXTokenType_TRUE, EXTokenType_YES_UPPER, 0)) {
         _true();
         {
          PUSH([TDBooleanValue booleanValueWithBoolean:YES]);
         }
-    } else if (predicts(TD_TOKEN_KIND_FALSE, TD_TOKEN_KIND_NO_UPPER, 0)) {
+    } else if (predicts(EXTokenType_FALSE, EXTokenType_NO_UPPER, 0)) {
         _false();
         {
          PUSH([TDBooleanValue booleanValueWithBoolean:NO]);
@@ -719,10 +719,10 @@ void ExpressionParser::_bool() {
 
 void ExpressionParser::_true() {
     
-    if (predicts(TD_TOKEN_KIND_TRUE, 0)) {
-        match(TD_TOKEN_KIND_TRUE, true);
-    } else if (predicts(TD_TOKEN_KIND_YES_UPPER, 0)) {
-        match(TD_TOKEN_KIND_YES_UPPER, true);
+    if (predicts(EXTokenType_TRUE, 0)) {
+        match(EXTokenType_TRUE, true);
+    } else if (predicts(EXTokenType_YES_UPPER, 0)) {
+        match(EXTokenType_YES_UPPER, true);
     } else {
         raise("No viable alternative found in rule 'true'.");
     }
@@ -731,10 +731,10 @@ void ExpressionParser::_true() {
 
 void ExpressionParser::_false() {
     
-    if (predicts(TD_TOKEN_KIND_FALSE, 0)) {
-        match(TD_TOKEN_KIND_FALSE, true);
-    } else if (predicts(TD_TOKEN_KIND_NO_UPPER, 0)) {
-        match(TD_TOKEN_KIND_NO_UPPER, true);
+    if (predicts(EXTokenType_FALSE, 0)) {
+        match(EXTokenType_FALSE, true);
+    } else if (predicts(EXTokenType_NO_UPPER, 0)) {
+        match(EXTokenType_NO_UPPER, true);
     } else {
         raise("No viable alternative found in rule 'false'.");
     }
@@ -743,7 +743,7 @@ void ExpressionParser::_false() {
 
 void ExpressionParser::_num() {
     
-    [self matchNumber:NO];
+    match(TokenType_NUMBER, false);
     {
     
     PUSH([TDNumericValue numericValueWithNumber:POP_DOUBLE()]);
@@ -754,7 +754,7 @@ void ExpressionParser::_num() {
 
 void ExpressionParser::_str() {
     
-    [self matchQuotedString:NO];
+    match(TokenType_QUOTED_STRING, false);
     {
     
     PUSH([TDStringValue stringValueWithString:POP_QUOTED_STR()]);
@@ -765,7 +765,7 @@ void ExpressionParser::_str() {
 
 void ExpressionParser::_null() {
     
-    match(TD_TOKEN_KIND_NULL discard:YES];
+    match(EXTokenType_NULL discard:YES];
     {
     
     PUSH([TDObjectValue objectValueWithObject:[NSNull null]]);
