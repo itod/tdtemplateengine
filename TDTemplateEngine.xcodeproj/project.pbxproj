@@ -586,6 +586,8 @@
 		D3D0F6FC1ACB4566006B6112 /* TDSkipException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDSkipException.m; path = src/TDSkipException.m; sourceTree = SOURCE_ROOT; };
 		D3DF01FC2D851FC100EC2D02 /* TDBoolFilter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TDBoolFilter.h; path = src/TDBoolFilter.h; sourceTree = SOURCE_ROOT; };
 		D3DF01FD2D851FC100EC2D02 /* TDBoolFilter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TDBoolFilter.m; path = src/TDBoolFilter.m; sourceTree = SOURCE_ROOT; };
+		D3E52A0C2DCEF9230071F521 /* ExpressionParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExpressionParser.h; sourceTree = SOURCE_ROOT; };
+		D3E52A0D2DCEF9230071F521 /* ExpressionParser.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ExpressionParser.mm; sourceTree = SOURCE_ROOT; };
 		D3E95F0F1AB08E6300D19992 /* TDTrimTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDTrimTag.h; path = src/TDTrimTag.h; sourceTree = SOURCE_ROOT; };
 		D3E95F101AB08E6300D19992 /* TDTrimTag.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TDTrimTag.mm; path = src/TDTrimTag.mm; sourceTree = SOURCE_ROOT; };
 		D3E95F131AB08FC900D19992 /* TDVerbatimTagTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TDVerbatimTagTests.mm; path = test/TDVerbatimTagTests.mm; sourceTree = SOURCE_ROOT; };
@@ -904,6 +906,8 @@
 			children = (
 				D3A29E0C18E65AC400DC591E /* TDParser.h */,
 				D3A29E0D18E65AC400DC591E /* TDParser.mm */,
+				D3E52A0C2DCEF9230071F521 /* ExpressionParser.h */,
+				D3E52A0D2DCEF9230071F521 /* ExpressionParser.mm */,
 				D3A29E1518E6659400DC591E /* expression.grammar */,
 			);
 			name = Parser;
