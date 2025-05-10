@@ -20,20 +20,14 @@
 #import <ParseKitCPP/DefaultTokenizerMode.hpp>
 
 #define PUSH(obj) _assembly->push_object((obj))
-#define POP(obj) _assembly->pop_object((obj))
+#define POP() _assembly->pop_object()
 
 using namespace parsekit;
 namespace tdtemplateengine {
 
-//@interface ExpressionParser ()
-//
 //@property (nonatomic, retain) PKToken *openParen;
 //@property (nonatomic, retain) PKToken *minus;
 //@property (nonatomic, retain) PKToken *colon;
-//@property (nonatomic, assign) BOOL negation;
-//@property (nonatomic, assign) BOOL negative;
-//
-//@end
 
 static Tokenizer *tokenizer() {
     static Tokenizer *t = nullptr;
@@ -467,7 +461,7 @@ void ExpressionParser::_unaryExpr() {
     
     if (predicts(EXTokenType_BANG, EXTokenType_NOT, 0)) {
         _negatedUnary();
-    } else if (predicts(TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, EXTokenType_FALSE, EXTokenType_MINUS, EXTokenType_NO_UPPER, EXTokenType_OPEN_PAREN, EXTokenType_TRUE, EXTokenType_YES_UPPER, EXTokenType_NULL, 0)) {
+    } else if (predicts(TokenType_NUMBER, TokenType_QUOTED_STRING, TokenType_WORD, EXTokenType_FALSE, EXTokenType_MINUS, EXTokenType_NO_UPPER, EXTokenType_OPEN_PAREN, EXTokenType_TRUE, EXTokenType_YES_UPPER, EXTokenType_NULL, 0)) {
         _unary();
     } else {
         raise("No viable alternative found in rule 'unaryExpr'.");
@@ -491,7 +485,7 @@ void ExpressionParser::_negatedUnary() {
         {
          _negation = !_negation;
         }
-    } while (predicts(EXTokenType_BANG, EXTokenType_NOT, 0]);
+    } while (predicts(EXTokenType_BANG, EXTokenType_NOT, 0));
     _unary();
     {
     
@@ -510,7 +504,7 @@ void ExpressionParser::_unary() {
     
     if (predicts(EXTokenType_MINUS, 0)) {
         _signedFilterExpr();
-    } else if (predicts(TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, EXTokenType_FALSE, EXTokenType_NO_UPPER, EXTokenType_OPEN_PAREN, EXTokenType_TRUE, EXTokenType_YES_UPPER, EXTokenType_NULL, 0)) {
+    } else if (predicts(TokenType_NUMBER, TokenType_QUOTED_STRING, TokenType_WORD, EXTokenType_FALSE, EXTokenType_NO_UPPER, EXTokenType_OPEN_PAREN, EXTokenType_TRUE, EXTokenType_YES_UPPER, EXTokenType_NULL, 0)) {
         _filterExpr();
     } else {
         raise("No viable alternative found in rule 'unary'.");
@@ -530,7 +524,7 @@ void ExpressionParser::_signedFilterExpr() {
         {
          _negative = !_negative;
         }
-    } while (predicts(EXTokenType_MINUS, 0]);
+    } while (predicts(EXTokenType_MINUS, 0));
     _filterExpr();
     {
     
@@ -551,14 +545,14 @@ void ExpressionParser::_filterExpr() {
     NSArray *args = POP();
     NSString *filterName = POP_STR();
     id expr = POP();
-    ASSERT(_engine);
+    assert(_engine);
     TDFilter *filter = nil;
     @try {
         filter = [_engine makeFilterForName:filterName];
     } @catch (NSException *ex) {
-        [self raise:[ex reason]];
+        raise([[ex reason] UTF8String]);
     }
-    ASSERT(filter);
+    assert(filter);
     PUSH([TDFilterExpression filterExpressionWithExpression:expr filter:filter arguments:args]);
             
         }
@@ -569,7 +563,7 @@ void ExpressionParser::_filterExpr() {
 void ExpressionParser::_filter() {
     
     match(EXTokenType_PIPE, true);
-    [self matchWord:NO];
+    match(TokenType_WORD, false);
     _filterArgs();
 
 }
@@ -587,7 +581,7 @@ void ExpressionParser::_filterArgs() {
          id toks = ABOVE(_colon); POP(); PUSH(REV(toks));
         }
     } else {
-        [self matchEmpty:NO];
+        // empty
         {
          PUSH(@[]);
         }
@@ -597,12 +591,12 @@ void ExpressionParser::_filterArgs() {
 
 void ExpressionParser::_filterArg() {
     
-    if (predicts(TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0)) {
-        [self matchQuotedString:NO];
-    } else if (predicts(TOKEN_KIND_BUILTIN_WORD, 0)) {
-        [self matchWord:NO];
-    } else if (predicts(TOKEN_KIND_BUILTIN_NUMBER, 0)) {
-        [self matchNumber:NO];
+    if (predicts(TokenType_QUOTED_STRING, 0)) {
+        match(TokenType_QUOTED_STRING, false);
+    } else if (predicts(TokenType_WORD, 0)) {
+        match(TokenType_WORD, false);
+    } else if (predicts(TokenType_NUMBER, 0)) {
+        match(TokenType_NUMBER, false);
     } else {
         raise("No viable alternative found in rule 'filterArg'.");
     }
@@ -611,7 +605,7 @@ void ExpressionParser::_filterArg() {
 
 void ExpressionParser::_primaryExpr() {
     
-    if (predicts(TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, TOKEN_KIND_BUILTIN_WORD, EXTokenType_FALSE, EXTokenType_NO_UPPER, EXTokenType_TRUE, EXTokenType_YES_UPPER, EXTokenType_NULL, 0)) {
+    if (predicts(TokenType_NUMBER, TokenType_QUOTED_STRING, TokenType_WORD, EXTokenType_FALSE, EXTokenType_NO_UPPER, EXTokenType_TRUE, EXTokenType_YES_UPPER, EXTokenType_NULL, 0)) {
         _atom();
     } else if (predicts(EXTokenType_OPEN_PAREN, 0)) {
         _subExpr();
@@ -638,9 +632,9 @@ void ExpressionParser::_subExpr() {
 
 void ExpressionParser::_atom() {
     
-    if (predicts(TOKEN_KIND_BUILTIN_NUMBER, TOKEN_KIND_BUILTIN_QUOTEDSTRING, EXTokenType_FALSE, EXTokenType_NO_UPPER, EXTokenType_TRUE, EXTokenType_YES_UPPER, EXTokenType_NULL, 0)) {
+    if (predicts(TokenType_NUMBER, TokenType_QUOTED_STRING, EXTokenType_FALSE, EXTokenType_NO_UPPER, EXTokenType_TRUE, EXTokenType_YES_UPPER, EXTokenType_NULL, 0)) {
         _literal();
-    } else if (predicts(TOKEN_KIND_BUILTIN_WORD, 0)) {
+    } else if (predicts(TokenType_WORD, 0)) {
         _pathExpr();
     } else {
         raise("No viable alternative found in rule 'atom'.");
@@ -672,9 +666,9 @@ void ExpressionParser::_pathExpr() {
 
 void ExpressionParser::_step() {
     
-    if (predicts(TOKEN_KIND_BUILTIN_WORD, 0)) {
+    if (predicts(TokenType_WORD, 0)) {
         _identifier();
-    } else if (predicts(TOKEN_KIND_BUILTIN_NUMBER, 0)) {
+    } else if (predicts(TokenType_NUMBER, 0)) {
         _num();
     } else {
         raise("No viable alternative found in rule 'step'.");
@@ -684,7 +678,7 @@ void ExpressionParser::_step() {
 
 void ExpressionParser::_identifier() {
     
-    [self matchWord:NO];
+    match(TokenType_WORD, false);
     {
      PUSH(POP_STR());
     }
@@ -693,9 +687,9 @@ void ExpressionParser::_identifier() {
 
 void ExpressionParser::_literal() {
     
-    if (predicts(TOKEN_KIND_BUILTIN_QUOTEDSTRING, 0)) {
+    if (predicts(TokenType_QUOTED_STRING, 0)) {
         _str();
-    } else if (predicts(TOKEN_KIND_BUILTIN_NUMBER, 0)) {
+    } else if (predicts(TokenType_NUMBER, 0)) {
         _num();
     } else if (predicts(EXTokenType_FALSE, EXTokenType_NO_UPPER, EXTokenType_TRUE, EXTokenType_YES_UPPER, 0)) {
         _bool();
@@ -773,7 +767,7 @@ void ExpressionParser::_str() {
 
 void ExpressionParser::_null() {
     
-    match(EXTokenType_NULL discard:YES];
+    match(EXTokenType_NULL, true);
     {
     
     PUSH([TDObjectValue objectValueWithObject:[NSNull null]]);

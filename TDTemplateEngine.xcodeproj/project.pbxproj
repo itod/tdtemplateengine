@@ -389,6 +389,7 @@
 		D3DF02012D851FC100EC2D02 /* TDBoolFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D3DF01FD2D851FC100EC2D02 /* TDBoolFilter.m */; };
 		D3DF02022D851FC100EC2D02 /* TDBoolFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = D3DF01FC2D851FC100EC2D02 /* TDBoolFilter.h */; };
 		D3DF02032D851FC100EC2D02 /* TDBoolFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D3DF01FD2D851FC100EC2D02 /* TDBoolFilter.m */; };
+		D3E52E392DCF13300071F521 /* ExpressionAssembly.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3E52E362DCF0FC10071F521 /* ExpressionAssembly.mm */; };
 		D3E95F111AB08E6300D19992 /* TDTrimTag.h in Headers */ = {isa = PBXBuildFile; fileRef = D3E95F0F1AB08E6300D19992 /* TDTrimTag.h */; };
 		D3E95F121AB08E6300D19992 /* TDTrimTag.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3E95F101AB08E6300D19992 /* TDTrimTag.mm */; };
 		D3E95F171AB094DF00D19992 /* TDNewlineTag.h in Headers */ = {isa = PBXBuildFile; fileRef = D3E95F151AB094DF00D19992 /* TDNewlineTag.h */; };
@@ -1456,6 +1457,7 @@
 				D3A29E3218E75D3B00DC591E /* TDRelationalExpression.mm in Sources */,
 				D35E003D1AB61D2900096913 /* TDRoundFilter.m in Sources */,
 				D35E00391AB6189A00096913 /* TDNumberFormatFilter.m in Sources */,
+				D3E52E392DCF13300071F521 /* ExpressionAssembly.mm in Sources */,
 				D3A29E3E18E7B31A00DC591E /* TDObjectValue.mm in Sources */,
 				D3E95F2A1AB0D22700D19992 /* TDConditionalOutputTag.mm in Sources */,
 				D3AC68601A42022500F7EB6A /* TDTrimFilter.m in Sources */,

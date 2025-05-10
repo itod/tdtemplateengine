@@ -54,6 +54,9 @@ private:
     
     TDTemplateEngine *_engine; // weakref
     bool _doLoopExpr;
+    bool _negation;
+    bool _negative;
+
     
     
     void start();
