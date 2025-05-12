@@ -83,9 +83,9 @@ using namespace templateengine;
 - (TDExpression *)expressionFromReader:(Reader *)reader error:(NSError **)outErr {
     ExpressionParser p;
     
-    p.parse(reader);
+    TDExpression *expr = p.parse(reader);
     
-    return nil;
+    return expr;
 }
 
 

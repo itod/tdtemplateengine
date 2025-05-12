@@ -167,19 +167,21 @@ ExpressionParser::ExpressionParser() :
 TDExpression *ExpressionParser::parse(Reader *r) {
     _reader = r;
     
-    
+    TDExpression *expr = nil;
+    try {
+        _expr();
+        match(TokenType_EOF);
+        
+        expr = POP();
+    } catch (std::exception& ex) {
+        assert(0);
+    }
+
     _reader = nullptr;
     
-    return nil;
+    return expr;
 }
 
-
-void ExpressionParser::start() {
-
-    _expr();
-    match(TokenType_EOF);
-
-}
 
 void ExpressionParser::_expr() {
     
