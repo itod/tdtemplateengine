@@ -37,38 +37,35 @@ using namespace templateengine;
     XCTAssertTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
 }
 
-//- (void)test0 {
-//    NSString *input = @"0";
-//    NSArray *toks = [self tokenize:input];
-//    
-//    NSError *err = nil;
-//    TDExpression *expr = [self.eng expressionFromTokens:toks error:&err];
-//    TDNil(err);
-//    TDNotNil(expr);
-//    TDFalse([[expr simplify] evaluateAsBooleanInContext:nil]);
-//}
-//
-//- (void)testYES {
-//    NSString *input = @"YES";
-//    NSArray *toks = [self tokenize:input];
-//    
-//    NSError *err = nil;
-//    TDExpression *expr = [self.eng expressionFromTokens:toks error:&err];
-//    TDNil(err);
-//    TDNotNil(expr);
-//    TDTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
-//}
-//
-//- (void)testNO {
-//    NSString *input = @"NO";
-//    NSArray *toks = [self tokenize:input];
-//    
-//    NSError *err = nil;
-//    TDExpression *expr = [self.eng expressionFromTokens:toks error:&err];
-//    TDNil(err);
-//    TDNotNil(expr);
-//    TDFalse([[expr simplify] evaluateAsBooleanInContext:nil]);
-//}
+- (void)test0 {
+    std::string input = "0";
+    
+    ExpressionParser p;
+    Reader r(input);
+    TDExpression *expr = p.parse(&r);
+    XCTAssertNotNil(expr);
+    XCTAssertFalse([[expr simplify] evaluateAsBooleanInContext:nil]);
+}
+
+- (void)testYES {
+    std::string input = "YES";
+    
+    ExpressionParser p;
+    Reader r(input);
+    TDExpression *expr = p.parse(&r);
+    XCTAssertNotNil(expr);
+    XCTAssertTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
+}
+
+- (void)testNO {
+    std::string input = "NO";
+    
+    ExpressionParser p;
+    Reader r(input);
+    TDExpression *expr = p.parse(&r);
+    XCTAssertNotNil(expr);
+    XCTAssertFalse([[expr simplify] evaluateAsBooleanInContext:nil]);
+}
 //
 //- (void)testTrue {
 //    NSString *input = @"true";

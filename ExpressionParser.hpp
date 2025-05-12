@@ -121,6 +121,21 @@ public:
     static Tokenizer *tokenizer();
     static const EXTokenTable& tokenTable();
     
+    virtual Token edit_token_type(const Token& tok) const override {
+        
+        std::string s = _assembly->string_for_token(tok);
+        const EXTokenTable tab = ExpressionParser::tokenTable();
+        
+        TokenType tt;
+        try {
+            tt = tab.at(s);
+        } catch (std::exception& ex) {
+            tt = tok.token_type();
+        }
+        
+        return Token(tt, tok.range(), tok.line_number());
+    }
+    
     TDExpression *parse(Reader *r);
 
     Assembly *assembly() const override { return _assembly; }

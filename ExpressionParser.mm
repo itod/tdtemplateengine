@@ -62,7 +62,7 @@ Tokenizer *ExpressionParser::tokenizer() {
     return t;
 }
 
-static const EXTokenTable& tokenTable() {
+const EXTokenTable& ExpressionParser::tokenTable() {
     static EXTokenTable tokenTab = {
         {"gt", EXTokenType_GT},
         {">=", EXTokenType_GE_SYM},
