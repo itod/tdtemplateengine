@@ -357,6 +357,9 @@
 		D3AAFE422DCFA9F0009EDC64 /* ExpressionParser.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3E52A0D2DCEF9230071F521 /* ExpressionParser.mm */; };
 		D3AAFE432DD25363009EDC64 /* ExpressionParser.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D3E52A0C2DCEF9230071F521 /* ExpressionParser.hpp */; };
 		D3AAFE452DD299B5009EDC64 /* TDBooleanExpressionTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3AAFE442DD299B5009EDC64 /* TDBooleanExpressionTests.mm */; };
+		D3AAFE472DD29A32009EDC64 /* TDCPPTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3AAFE462DD29A32009EDC64 /* TDCPPTests.mm */; };
+		D3AAFE482DD29C0B009EDC64 /* ParseKitCPP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D39D35F62DBFE8AA006F1663 /* ParseKitCPP.framework */; };
+		D3AAFE492DD29C0B009EDC64 /* ParseKitCPP.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D39D35F62DBFE8AA006F1663 /* ParseKitCPP.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D3AC684F1A41D43400F7EB6A /* TDReplaceFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = D3AC684D1A41D43400F7EB6A /* TDReplaceFilter.h */; };
 		D3AC68501A41D43400F7EB6A /* TDReplaceFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AC684E1A41D43400F7EB6A /* TDReplaceFilter.m */; };
 		D3AC685F1A42022500F7EB6A /* TDTrimFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = D3AC685D1A42022500F7EB6A /* TDTrimFilter.h */; };
@@ -435,6 +438,17 @@
 			dstSubfolderSpec = 10;
 			files = (
 				D39D35F82DBFE8AA006F1663 /* ParseKitCPP.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D3AAFE4A2DD29C0B009EDC64 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				D3AAFE492DD29C0B009EDC64 /* ParseKitCPP.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -564,6 +578,7 @@
 		D3A7E27218F07782009BFD96 /* TDCommentTag.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TDCommentTag.mm; path = src/TDCommentTag.mm; sourceTree = SOURCE_ROOT; };
 		D3A7E27518F0788D009BFD96 /* TDCommentTagTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TDCommentTagTests.mm; path = test/TDCommentTagTests.mm; sourceTree = SOURCE_ROOT; };
 		D3AAFE442DD299B5009EDC64 /* TDBooleanExpressionTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TDBooleanExpressionTests.mm; sourceTree = SOURCE_ROOT; };
+		D3AAFE462DD29A32009EDC64 /* TDCPPTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TDCPPTests.mm; sourceTree = SOURCE_ROOT; };
 		D3AC684D1A41D43400F7EB6A /* TDReplaceFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDReplaceFilter.h; path = src/TDReplaceFilter.h; sourceTree = SOURCE_ROOT; };
 		D3AC684E1A41D43400F7EB6A /* TDReplaceFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDReplaceFilter.m; path = src/TDReplaceFilter.m; sourceTree = SOURCE_ROOT; };
 		D3AC685D1A42022500F7EB6A /* TDTrimFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDTrimFilter.h; path = src/TDTrimFilter.h; sourceTree = SOURCE_ROOT; };
@@ -648,6 +663,7 @@
 				D319137218F197F200430BAD /* PEGKit.framework in Frameworks */,
 				D367DFCD18E5EF6900F97BCC /* TDTemplateEngine.framework in Frameworks */,
 				D367DFC918E5EF6900F97BCC /* XCTest.framework in Frameworks */,
+				D3AAFE482DD29C0B009EDC64 /* ParseKitCPP.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -660,6 +676,7 @@
 				D306D9C418F5854000E32DDC /* TDBaseExpressionTests.h */,
 				D306D9C218F5851D00E32DDC /* TDBaseExpressionTests.mm */,
 				D3AAFE442DD299B5009EDC64 /* TDBooleanExpressionTests.mm */,
+				D3AAFE462DD29A32009EDC64 /* TDCPPTests.mm */,
 				D3A21F3C1AC9E40D0009A712 /* TDUnaryExpressionTests.mm */,
 				D3CAF8BC18EF59EB00166A95 /* TDNegationExpressionTests.mm */,
 				D3A29E3418E7700500DC591E /* TDEqualityExpressionTests.mm */,
@@ -1228,6 +1245,7 @@
 				D367DFC318E5EF6900F97BCC /* Sources */,
 				D367DFC418E5EF6900F97BCC /* Frameworks */,
 				D367DFC518E5EF6900F97BCC /* Resources */,
+				D3AAFE4A2DD29C0B009EDC64 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1530,6 +1548,7 @@
 				D33915DE18F0818500BDA4FD /* TDArithmeticExpressionTests.mm in Sources */,
 				D3CAF8B518EF3B5C00166A95 /* TDCollectionExpressionTests.mm in Sources */,
 				D3B982FD18F0804D00EEFE99 /* TDRelationalExpressionTests.mm in Sources */,
+				D3AAFE472DD29A32009EDC64 /* TDCPPTests.mm in Sources */,
 				D3A3E54D18EC5706004FEB2C /* TDForTagTests.mm in Sources */,
 				D306D9C318F5851D00E32DDC /* TDBaseExpressionTests.mm in Sources */,
 				D3CD8BAE2D7FFB7A006B1167 /* TDPadFilterTests.mm in Sources */,

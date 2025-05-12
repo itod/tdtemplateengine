@@ -36,7 +36,7 @@
 #define POP_INT()        [_assembly->pop_object() integerValue]
 #define POP_UINT()       [_assembly->pop_object() unsignedIntegerValue]
 #define POP_FLOAT()      [_assembly->pop_object() floatValue]
-#define POP_DOUBLE()     [_assembly->pop_object() doubleValue]
+#define POP_DOUBLE()     _assembly->float_for_token(_assembly->pop_token())
 
 using namespace parsekit;
 namespace templateengine {
@@ -58,6 +58,7 @@ Tokenizer *ExpressionParser::tokenizer() {
         mode->getWordState()->setWordChars(false, '\'', '\'');
     }
     
+    assert(t);
     return t;
 }
 
@@ -161,11 +162,19 @@ NSString *ExpressionParser::stringByTrimmingQuotes(NSString *inStr) {
 }
 
 ExpressionParser::ExpressionParser() :
-    _tokenizer(tokenizer())
+    BaseParser(tokenizer())
 {}
 
 TDExpression *ExpressionParser::parse(Reader *r) {
-    _reader = r;
+    TokenList lookahead;
+    _lookahead = &lookahead;
+    
+    TokenList token_stack;
+    TokenList consumed;
+    ExpressionAssembly a(r, &token_stack, &consumed);
+    _assembly = &a;
+
+    _p = 0;
     
     TDExpression *expr = nil;
     try {
@@ -177,8 +186,9 @@ TDExpression *ExpressionParser::parse(Reader *r) {
         assert(0);
     }
 
-    _reader = nullptr;
-    
+    _assembly = nullptr;
+    _lookahead = nullptr;
+
     return expr;
 }
 

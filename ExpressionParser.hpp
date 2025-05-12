@@ -53,9 +53,6 @@ typedef std::map<std::string, EXTokenType> EXTokenTable;
 
 class ExpressionParser : public BaseParser {
 private:
-    Tokenizer *_tokenizer;
-    Reader *_reader;
-    
     ExpressionAssembly *_assembly;
     
     TDTemplateEngine *_engine; // weakref
