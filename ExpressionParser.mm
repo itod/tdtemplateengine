@@ -30,8 +30,8 @@
 
 #define POP()            _assembly->pop_object()
 
-#define POP_STR()        [_assembly->pop_object() description]
-#define POP_QUOTED_STR() stringByTrimmingQuotes([_assembly->pop_object() description])
+#define POP_STR()        [NSString stringWithUTF8String:_assembly->string_for_token(_assembly->pop_token()).c_str()]
+#define POP_QUOTED_STR() stringByTrimmingQuotes(POP_STR())
 #define POP_BOOL()       [_assembly->pop_object() boolValue]
 #define POP_INT()        [_assembly->pop_object() integerValue]
 #define POP_UINT()       [_assembly->pop_object() unsignedIntegerValue]
