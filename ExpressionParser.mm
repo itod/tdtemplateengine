@@ -199,11 +199,9 @@ void ExpressionParser::_loopExpr() {
     match(EXTokenType_IN, true);
     _enumExpr();
     {
-    
-    id enumExpr = POP();
-    id vars = POP();
-    PUSH([TDLoopExpression loopExpressionWithVariables:vars enumeration:enumExpr]);
-
+        id enumExpr = POP();
+        id vars = POP();
+        PUSH([TDLoopExpression loopExpressionWithVariables:vars enumeration:enumExpr]);
     }
 
 }
@@ -211,7 +209,7 @@ void ExpressionParser::_loopExpr() {
 void ExpressionParser::_identifiers() {
     
     {
-     PUSH(OPEN_PAREN);
+        PUSH(OPEN_PAREN);
     }
     _identifier();
     if (predicts(EXTokenType_COMMA, 0)) {
@@ -219,11 +217,9 @@ void ExpressionParser::_identifiers() {
         _identifier();
     }
     {
-    
-    id strs = REV(ABOVE(OPEN_PAREN));
-    POP(); // discard `(`
-    PUSH(strs);
-
+        id strs = REV(ABOVE(OPEN_PAREN));
+        POP(); // discard `(`
+        PUSH(strs);
     }
 
 }
@@ -244,10 +240,8 @@ void ExpressionParser::_collectionExpr() {
     
     _primaryExpr();
     {
-    
-    id expr = POP();
-    PUSH([TDCollectionExpression collectionExpressionWithExpression:expr]);
-
+        id expr = POP();
+        PUSH([TDCollectionExpression collectionExpressionWithExpression:expr]);
     }
 
 }
@@ -259,12 +253,10 @@ void ExpressionParser::_rangeExpr() {
     _unaryExpr();
     _optBy();
     {
-    
-    id by = POP();
-    id stop = POP();
-    id start = POP();
-    PUSH([TDRangeExpression rangeExpressionWithStart:start stop:stop by:by]);
-
+        id by = POP();
+        id stop = POP();
+        id start = POP();
+        PUSH([TDRangeExpression rangeExpressionWithStart:start stop:stop by:by]);
     }
 
 }
@@ -277,7 +269,7 @@ void ExpressionParser::_optBy() {
     } else {
         //[self matchEmpty:NO];
         {
-         PUSH([TDNumericValue numericValueWithNumber:0.0]);
+            PUSH([TDNumericValue numericValueWithNumber:0.0]);
         }
     }
 
@@ -302,11 +294,9 @@ void ExpressionParser::_orExpr() {
         _orOp();
         _andExpr();
         {
-        
-    TDValue *rhs = POP();
-    TDValue *lhs = POP();
-    PUSH([TDBooleanExpression booleanExpressionWithOperand:lhs operator:EXTokenType_OR operand:rhs]);
-
+            TDValue *rhs = POP();
+            TDValue *lhs = POP();
+            PUSH([TDBooleanExpression booleanExpressionWithOperand:lhs operator:EXTokenType_OR operand:rhs]);
         }
     }
 
@@ -331,11 +321,9 @@ void ExpressionParser::_andExpr() {
         _andOp();
         _equalityExpr();
         {
-        
-    TDValue *rhs = POP();
-    TDValue *lhs = POP();
-    PUSH([TDBooleanExpression booleanExpressionWithOperand:lhs operator:EXTokenType_AND operand:rhs]);
-
+            TDValue *rhs = POP();
+            TDValue *lhs = POP();
+            PUSH([TDBooleanExpression booleanExpressionWithOperand:lhs operator:EXTokenType_AND operand:rhs]);
         }
     }
 
@@ -351,7 +339,7 @@ void ExpressionParser::_eqOp() {
         raise("No viable alternative found in rule 'eqOp'.");
     }
     {
-     PUSH(@(EXTokenType_EQ));
+        PUSH(@(EXTokenType_EQ));
     }
 
 }
@@ -366,7 +354,7 @@ void ExpressionParser::_neOp() {
         raise("No viable alternative found in rule 'neOp'.");
     }
     {
-     PUSH(@(EXTokenType_NE));
+        PUSH(@(EXTokenType_NE));
     }
 
 }
@@ -384,12 +372,10 @@ void ExpressionParser::_equalityExpr() {
         }
         _relationalExpr();
         {
-        
-    TDValue *rhs = POP();
-    NSInteger op = POP_INT();
-    TDValue *lhs = POP();
-    PUSH([TDRelationalExpression relationalExpressionWithOperand:lhs operator:op operand:rhs]);
-
+            TDValue *rhs = POP();
+            NSInteger op = POP_INT();
+            TDValue *lhs = POP();
+            PUSH([TDRelationalExpression relationalExpressionWithOperand:lhs operator:op operand:rhs]);
         }
     }
 
@@ -405,7 +391,7 @@ void ExpressionParser::_ltOp() {
         raise("No viable alternative found in rule 'ltOp'.");
     }
     {
-     PUSH(@(EXTokenType_LT));
+        PUSH(@(EXTokenType_LT));
     }
 
 }
@@ -420,7 +406,7 @@ void ExpressionParser::_gtOp() {
         raise("No viable alternative found in rule 'gtOp'.");
     }
     {
-     PUSH(@(EXTokenType_GT));
+        PUSH(@(EXTokenType_GT));
     }
 
 }
@@ -435,7 +421,7 @@ void ExpressionParser::_leOp() {
         raise("No viable alternative found in rule 'leOp'.");
     }
     {
-     PUSH(@(EXTokenType_LE));
+        PUSH(@(EXTokenType_LE));
     }
 
 }
@@ -450,7 +436,7 @@ void ExpressionParser::_geOp() {
         raise("No viable alternative found in rule 'geOp'.");
     }
     {
-     PUSH(@(EXTokenType_GE));
+        PUSH(@(EXTokenType_GE));
     }
 
 }
@@ -472,12 +458,10 @@ void ExpressionParser::_relationalExpr() {
         }
         _additiveExpr();
         {
-        
-    TDValue *rhs = POP();
-    NSInteger op = POP_INT();
-    TDValue *lhs = POP();
-    PUSH([TDRelationalExpression relationalExpressionWithOperand:lhs operator:op operand:rhs]);
-
+            TDValue *rhs = POP();
+            NSInteger op = POP_INT();
+            TDValue *lhs = POP();
+            PUSH([TDRelationalExpression relationalExpressionWithOperand:lhs operator:op operand:rhs]);
         }
     }
 
@@ -487,7 +471,7 @@ void ExpressionParser::_plus() {
     
     match(EXTokenType_PLUS, true);
     {
-     PUSH(@(EXTokenType_PLUS));
+        PUSH(@(EXTokenType_PLUS));
     }
 
 }
@@ -496,7 +480,7 @@ void ExpressionParser::_minus() {
     
     match(EXTokenType_MINUS, true);
     {
-     PUSH(@(EXTokenType_MINUS));
+        PUSH(@(EXTokenType_MINUS));
     }
 
 }
@@ -514,12 +498,10 @@ void ExpressionParser::_additiveExpr() {
         }
         _multiplicativeExpr();
         {
-        
-    TDValue *rhs = POP();
-    NSInteger op = POP_INT();
-    TDValue *lhs = POP();
-    PUSH([TDArithmeticExpression arithmeticExpressionWithOperand:lhs operator:op operand:rhs]);
-
+            TDValue *rhs = POP();
+            NSInteger op = POP_INT();
+            TDValue *lhs = POP();
+            PUSH([TDArithmeticExpression arithmeticExpressionWithOperand:lhs operator:op operand:rhs]);
         }
     }
 
@@ -529,7 +511,7 @@ void ExpressionParser::_times() {
     
     match(EXTokenType_TIMES, true);
     {
-     PUSH(@(EXTokenType_TIMES));
+        PUSH(@(EXTokenType_TIMES));
     }
 
 }
@@ -538,7 +520,7 @@ void ExpressionParser::_div() {
     
     match(EXTokenType_DIV, true);
     {
-     PUSH(@(EXTokenType_DIV));
+        PUSH(@(EXTokenType_DIV));
     }
 
 }
@@ -547,7 +529,7 @@ void ExpressionParser::_mod() {
     
     match(EXTokenType_MOD, true);
     {
-     PUSH(@(EXTokenType_MOD));
+        PUSH(@(EXTokenType_MOD));
     }
 
 }
@@ -567,12 +549,10 @@ void ExpressionParser::_multiplicativeExpr() {
         }
         _unaryExpr();
         {
-        
-    TDValue *rhs = POP();
-    NSInteger op = POP_INT();
-    TDValue *lhs = POP();
-    PUSH([TDArithmeticExpression arithmeticExpressionWithOperand:lhs operator:op operand:rhs]);
-
+            TDValue *rhs = POP();
+            NSInteger op = POP_INT();
+            TDValue *lhs = POP();
+            PUSH([TDArithmeticExpression arithmeticExpressionWithOperand:lhs operator:op operand:rhs]);
         }
     }
 
@@ -609,14 +589,9 @@ void ExpressionParser::_negatedUnary() {
     } while (predicts(EXTokenType_BANG, EXTokenType_NOT, 0));
     _unary();
     {
-    
-
-    }
-    {
-    
-    if (_negation)
-        PUSH([TDNegationExpression negationExpressionWithExpression:POP()]);
-
+        if (_negation) {
+            PUSH([TDNegationExpression negationExpressionWithExpression:POP()]);
+        }
     }
 
 }
@@ -636,9 +611,7 @@ void ExpressionParser::_unary() {
 void ExpressionParser::_signedFilterExpr() {
     
     {
-    
-    _negative = NO;
-
+        _negative = NO;
     }
     do {
         match(EXTokenType_MINUS, true);
@@ -648,10 +621,9 @@ void ExpressionParser::_signedFilterExpr() {
     } while (predicts(EXTokenType_MINUS, 0));
     _filterExpr();
     {
-    
-    if (_negative)
-        PUSH([TDUnaryExpression unaryExpressionWithExpression:POP()]);
-
+        if (_negative) {
+            PUSH([TDUnaryExpression unaryExpressionWithExpression:POP()]);
+        }
     }
 
 }
@@ -662,20 +634,18 @@ void ExpressionParser::_filterExpr() {
     while (predicts(EXTokenType_PIPE, 0)) {
         _filter();
         {
-        
-    NSArray *args = POP();
-    NSString *filterName = POP_STR();
-    id expr = POP();
-    assert(_engine);
-    TDFilter *filter = nil;
-    @try {
-        filter = [_engine makeFilterForName:filterName];
-    } @catch (NSException *ex) {
-        raise([[ex reason] UTF8String]);
-    }
-    assert(filter);
-    PUSH([TDFilterExpression filterExpressionWithExpression:expr filter:filter arguments:args]);
-            
+            NSArray *args = POP();
+            NSString *filterName = POP_STR();
+            id expr = POP();
+            assert(_engine);
+            TDFilter *filter = nil;
+            @try {
+                filter = [_engine makeFilterForName:filterName];
+            } @catch (NSException *ex) {
+                raise([[ex reason] UTF8String]);
+            }
+            assert(filter);
+            PUSH([TDFilterExpression filterExpressionWithExpression:expr filter:filter arguments:args]);
         }
     }
 
@@ -699,12 +669,12 @@ void ExpressionParser::_filterArgs() {
             _filterArg();
         }
         {
-         id toks = ABOVE(COLON); POP(); PUSH(REV(toks));
+            id toks = ABOVE(COLON); POP(); PUSH(REV(toks));
         }
     } else {
         // empty
         {
-         PUSH(@[]);
+            PUSH(@[]);
         }
     }
 
@@ -742,11 +712,9 @@ void ExpressionParser::_subExpr() {
     _expr();
     match(EXTokenType_CLOSE_PAREN, true);
     {
-    
-    id objs = ABOVE(OPEN_PAREN);
-    POP(); // discard `(`
-    PUSH_ALL(REV(objs));
-
+        id objs = ABOVE(OPEN_PAREN);
+        POP(); // discard `(`
+        PUSH_ALL(REV(objs));
     }
 
 }
@@ -766,9 +734,7 @@ void ExpressionParser::_atom() {
 void ExpressionParser::_pathExpr() {
     
     {
-    
-    PUSH(OPEN_PAREN);
-
+        PUSH(OPEN_PAREN);
     }
     _identifier();
     while (predicts(EXTokenType_DOT, 0)) {
@@ -776,11 +742,9 @@ void ExpressionParser::_pathExpr() {
         _step();
     }
     {
-    
-    id toks = REV(ABOVE(OPEN_PAREN));
-    POP(); // discard `OPEN_PAREN`
-    PUSH([TDPathExpression pathExpressionWithSteps:toks]);
-
+        id toks = REV(ABOVE(OPEN_PAREN));
+        POP(); // discard `OPEN_PAREN`
+        PUSH([TDPathExpression pathExpressionWithSteps:toks]);
     }
 
 }
@@ -801,7 +765,7 @@ void ExpressionParser::_identifier() {
     
     match(TokenType_WORD, false);
     {
-     PUSH(POP_STR());
+        PUSH(POP_STR());
     }
 
 }
@@ -827,12 +791,12 @@ void ExpressionParser::_bool() {
     if (predicts(EXTokenType_TRUE, EXTokenType_YES_UPPER, 0)) {
         _true();
         {
-         PUSH([TDBooleanValue booleanValueWithBoolean:YES]);
+            PUSH([TDBooleanValue booleanValueWithBoolean:YES]);
         }
     } else if (predicts(EXTokenType_FALSE, EXTokenType_NO_UPPER, 0)) {
         _false();
         {
-         PUSH([TDBooleanValue booleanValueWithBoolean:NO]);
+            PUSH([TDBooleanValue booleanValueWithBoolean:NO]);
         }
     } else {
         raise("No viable alternative found in rule 'bool'.");
@@ -868,9 +832,7 @@ void ExpressionParser::_num() {
     
     match(TokenType_NUMBER, false);
     {
-    
-    PUSH([TDNumericValue numericValueWithNumber:POP_DOUBLE()]);
-
+        PUSH([TDNumericValue numericValueWithNumber:POP_DOUBLE()]);
     }
 
 }
@@ -879,9 +841,7 @@ void ExpressionParser::_str() {
     
     match(TokenType_QUOTED_STRING, false);
     {
-    
-    PUSH([TDStringValue stringValueWithString:POP_QUOTED_STR()]);
-
+        PUSH([TDStringValue stringValueWithString:POP_QUOTED_STR()]);
     }
 
 }
@@ -890,9 +850,7 @@ void ExpressionParser::_null() {
     
     match(EXTokenType_NULL, true);
     {
-    
-    PUSH([TDObjectValue objectValueWithObject:[NSNull null]]);
-
+        PUSH([TDObjectValue objectValueWithObject:[NSNull null]]);
     }
 
 }
