@@ -43,7 +43,7 @@ namespace templateengine {
 //}
 
 TemplateAssembly::TemplateAssembly(TokenList *token_stack, TokenList *consumed, NSMutableArray *node_stack) :
-    Assembly(token_stack, consumed),
+    Assembly(nullptr, token_stack, consumed),
     _node_stack([node_stack retain])
 {}
 

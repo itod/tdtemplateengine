@@ -3,8 +3,8 @@
 using namespace parsekit;
 namespace templateengine {
 
-ExpressionAssembly::ExpressionAssembly(TokenList *token_stack, TokenList *consumed) :
-    Assembly(token_stack, consumed),
+ExpressionAssembly::ExpressionAssembly(Reader *reader, TokenList *token_stack, TokenList *consumed) :
+    Assembly(reader, token_stack, consumed),
     _object_stack([NSMutableArray new])
 {}
 
