@@ -21,6 +21,7 @@
 // THE SOFTWARE.
 
 #import <TDTemplateEngine/TDTemplateEngine.h>
+#import <ParseKitCPP/Reader.hpp>
 
 @class PKTokenizer;
 @class TDExpression;
@@ -30,4 +31,8 @@
 - (TDExpression *)expressionFromString:(NSString *)str error:(NSError **)outErr;
 - (TDExpression *)expressionFromTokens:(NSArray *)toks error:(NSError **)outErr;
 - (TDExpression *)loopExpressionFromTokens:(NSArray *)toks error:(NSError **)outErr;
+
+
+- (TDExpression *)expressionFromReader:(parsekit::Reader *)reader error:(NSError **)outErr;
+- (TDExpression *)loopExpressionFromReader:(parsekit::Reader *)reader error:(NSError **)outErr;
 @end

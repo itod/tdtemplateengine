@@ -27,6 +27,12 @@
 
 #import <PEGKit/PKAssembly.h>
 
+#import <ParseKitCPP/Reader.hpp>
+#import "ExpressionParser.hpp"
+
+using namespace parsekit;
+using namespace templateengine;
+
 @interface TDTemplateEngine ()
 @property (nonatomic, retain) TDParser *expressionParser;
 @end
@@ -71,6 +77,20 @@
     
     expr = [expr simplify];
     return expr;
+}
+
+
+- (TDExpression *)expressionFromReader:(Reader *)reader error:(NSError **)outErr {
+    ExpressionParser p;
+    
+    p.parse(reader);
+    
+    return nil;
+}
+
+
+- (TDExpression *)loopExpressionFromReader:(Reader *)reader error:(NSError **)outErr {
+    return nil;
 }
 
 @end

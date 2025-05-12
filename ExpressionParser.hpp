@@ -4,6 +4,7 @@
 #import "ExpressionAssembly.hpp"
 
 @class TDTemplateEngine;
+@class TDExpression;
 
 using namespace parsekit;
 namespace templateengine {
@@ -118,10 +119,12 @@ private:
     void _null();
 
 public:
-    ExpressionParser(Reader *r);
+    ExpressionParser();
 
     static Tokenizer *tokenizer();
     static const EXTokenTable& tokenTable();
+    
+    TDExpression *parse(Reader *r);
 
     Assembly *assembly() const override { return _assembly; }
     

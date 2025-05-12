@@ -160,9 +160,19 @@ NSString *ExpressionParser::stringByTrimmingQuotes(NSString *inStr) {
     }
 }
 
-ExpressionParser::ExpressionParser(Reader *r) :
+ExpressionParser::ExpressionParser() :
     _tokenizer(tokenizer())
 {}
+
+TDExpression *ExpressionParser::parse(Reader *r) {
+    _reader = r;
+    
+    
+    _reader = nullptr;
+    
+    return nil;
+}
+
 
 void ExpressionParser::start() {
 
