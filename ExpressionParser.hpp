@@ -6,7 +6,7 @@
 @class TDTemplateEngine;
 
 using namespace parsekit;
-namespace tdtemplateengine {
+namespace templateengine {
 
 typedef NS_ENUM(int, EXTokenType) {
     EXTokenType_GT                   =   2,
@@ -48,9 +48,13 @@ typedef NS_ENUM(int, EXTokenType) {
     EXTokenType_NULL                 =  38,
 };
 
+typedef std::map<std::string, EXTokenType> EXTokenTable;
+
 class ExpressionParser : public BaseParser {
 private:
     Tokenizer *_tokenizer;
+    Reader *_reader;
+    
     ExpressionAssembly *_assembly;
     
     TDTemplateEngine *_engine; // weakref
@@ -114,9 +118,10 @@ private:
     void _null();
 
 public:
-    ExpressionParser();
+    ExpressionParser(Reader *r);
 
     static Tokenizer *tokenizer();
+    static const EXTokenTable& tokenTable();
 
     Assembly *assembly() const override { return _assembly; }
     

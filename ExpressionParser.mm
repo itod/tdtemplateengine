@@ -39,7 +39,7 @@
 #define POP_DOUBLE()     [_assembly->pop_object() doubleValue]
 
 using namespace parsekit;
-namespace tdtemplateengine {
+namespace templateengine {
 
 Tokenizer *ExpressionParser::tokenizer() {
     static Tokenizer *t = nullptr;
@@ -59,6 +59,49 @@ Tokenizer *ExpressionParser::tokenizer() {
     }
     
     return t;
+}
+
+static const EXTokenTable& tokenTable() {
+    static EXTokenTable tokenTab = {
+        {"gt", EXTokenType_GT},
+        {">=", EXTokenType_GE_SYM},
+        {"&&", EXTokenType_DOUBLE_AMPERSAND},
+        {"|", EXTokenType_PIPE},
+        {"true", EXTokenType_TRUE},
+        {"!=", EXTokenType_NOT_EQUAL},
+        {"!", EXTokenType_BANG},
+        {":", EXTokenType_COLON},
+        {"<", EXTokenType_LT_SYM},
+        {"%", EXTokenType_MOD},
+        {"le", EXTokenType_LE},
+        {">", EXTokenType_GT_SYM},
+        {"lt", EXTokenType_LT},
+        {"(", EXTokenType_OPEN_PAREN},
+        {")", EXTokenType_CLOSE_PAREN},
+        {"eq", EXTokenType_EQ},
+        {"ne", EXTokenType_NE},
+        {"or", EXTokenType_OR},
+        {"not", EXTokenType_NOT},
+        {"*", EXTokenType_TIMES},
+        {"+", EXTokenType_PLUS},
+        {"||", EXTokenType_DOUBLE_PIPE},
+        {",", EXTokenType_COMMA},
+        {"and", EXTokenType_AND},
+        {"YES", EXTokenType_YES_UPPER},
+        {"-", EXTokenType_MINUS},
+        {"in", EXTokenType_IN},
+        {".", EXTokenType_DOT},
+        {"/", EXTokenType_DIV},
+        {"by", EXTokenType_BY},
+        {"false", EXTokenType_FALSE},
+        {"<=", EXTokenType_LE_SYM},
+        {"to", EXTokenType_TO},
+        {"ge", EXTokenType_GE},
+        {"NO", EXTokenType_NO_UPPER},
+        {"==", EXTokenType_DOUBLE_EQUALS},
+        {"null", EXTokenType_NULL},
+    };
+    return tokenTab;
 }
 
 NSArray *ExpressionParser::reversedArray(NSArray *inArray) {
@@ -117,7 +160,7 @@ NSString *ExpressionParser::stringByTrimmingQuotes(NSString *inStr) {
     }
 }
 
-ExpressionParser::ExpressionParser() :
+ExpressionParser::ExpressionParser(Reader *r) :
     _tokenizer(tokenizer())
 {}
 

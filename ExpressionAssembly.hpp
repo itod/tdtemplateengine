@@ -3,7 +3,7 @@
 #import <ParseKitCPP/Tokenizer.hpp>
 
 using namespace parsekit;
-namespace tdtemplateengine {
+namespace templateengine {
 
 class ExpressionAssembly : public Assembly {
 private:

@@ -355,6 +355,7 @@
 		D3A7E27418F07782009BFD96 /* TDCommentTag.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3A7E27218F07782009BFD96 /* TDCommentTag.mm */; };
 		D3A7E27618F0788D009BFD96 /* TDCommentTagTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3A7E27518F0788D009BFD96 /* TDCommentTagTests.mm */; };
 		D3AAFE422DCFA9F0009EDC64 /* ExpressionParser.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3E52A0D2DCEF9230071F521 /* ExpressionParser.mm */; };
+		D3AAFE432DD25363009EDC64 /* ExpressionParser.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D3E52A0C2DCEF9230071F521 /* ExpressionParser.hpp */; };
 		D3AC684F1A41D43400F7EB6A /* TDReplaceFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = D3AC684D1A41D43400F7EB6A /* TDReplaceFilter.h */; };
 		D3AC68501A41D43400F7EB6A /* TDReplaceFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AC684E1A41D43400F7EB6A /* TDReplaceFilter.m */; };
 		D3AC685F1A42022500F7EB6A /* TDTrimFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = D3AC685D1A42022500F7EB6A /* TDTrimFilter.h */; };
@@ -1135,6 +1136,7 @@
 				D3A29E2B18E75D3B00DC591E /* TDArithmeticExpression.h in Headers */,
 				D3A29DF518E6583600DC591E /* TDExpression.h in Headers */,
 				D3AC684F1A41D43400F7EB6A /* TDReplaceFilter.h in Headers */,
+				D3AAFE432DD25363009EDC64 /* ExpressionParser.hpp in Headers */,
 				D369BD4A18EF8921003E715B /* TDEnumeration.h in Headers */,
 				D3A29DDD18E63D6D00DC591E /* TDTag.h in Headers */,
 				D3F5063818EC5C9800BAC93B /* TDRangeExpression.h in Headers */,
