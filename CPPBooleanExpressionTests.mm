@@ -137,50 +137,46 @@ using namespace templateengine;
     XCTAssertFalse([[expr simplify] evaluateAsBooleanInContext:nil]);
 }
 
-//- (void)test1AmpAmp0 {
-//    NSString *input = @"1 && 0";
-//    NSArray *toks = [self tokenize:input];
-//    
-//    NSError *err = nil;
-//    TDExpression *expr = [self.eng expressionFromTokens:toks error:&err];
-//    TDNil(err);
-//    TDNotNil(expr);
-//    TDFalse([[expr simplify] evaluateAsBooleanInContext:nil]);
-//}
-//
-//- (void)test0And1 {
-//    NSString *input = @"0 and 1";
-//    NSArray *toks = [self tokenize:input];
-//    
-//    NSError *err = nil;
-//    TDExpression *expr = [self.eng expressionFromTokens:toks error:&err];
-//    TDNil(err);
-//    TDNotNil(expr);
-//    TDFalse([[expr simplify] evaluateAsBooleanInContext:nil]);
-//}
-//
-//- (void)test1And1 {
-//    NSString *input = @"1 and 1";
-//    NSArray *toks = [self tokenize:input];
-//    
-//    NSError *err = nil;
-//    TDExpression *expr = [self.eng expressionFromTokens:toks error:&err];
-//    TDNil(err);
-//    TDNotNil(expr);
-//    TDTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
-//}
-//
-//- (void)test1AmpAmp1 {
-//    NSString *input = @"1 && 1";
-//    NSArray *toks = [self tokenize:input];
-//    
-//    NSError *err = nil;
-//    TDExpression *expr = [self.eng expressionFromTokens:toks error:&err];
-//    TDNil(err);
-//    TDNotNil(expr);
-//    TDTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
-//}
-//
+- (void)test1AmpAmp0 {
+    std::string input = "1 && 0";
+    
+    ExpressionParser p;
+    Reader r(input);
+    TDExpression *expr = p.parse(&r);
+    XCTAssertNotNil(expr);
+    XCTAssertFalse([[expr simplify] evaluateAsBooleanInContext:nil]);
+}
+
+- (void)test0And1 {
+    std::string input = "0 and 1";
+    
+    ExpressionParser p;
+    Reader r(input);
+    TDExpression *expr = p.parse(&r);
+    XCTAssertNotNil(expr);
+    XCTAssertFalse([[expr simplify] evaluateAsBooleanInContext:nil]);
+}
+
+- (void)test1And1 {
+    std::string input = "1 and 1";
+    
+    ExpressionParser p;
+    Reader r(input);
+    TDExpression *expr = p.parse(&r);
+    XCTAssertNotNil(expr);
+    XCTAssertTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
+}
+
+- (void)test1AmpAmp1 {
+    std::string input = "1 && 1";
+    
+    ExpressionParser p;
+    Reader r(input);
+    TDExpression *expr = p.parse(&r);
+    XCTAssertNotNil(expr);
+    XCTAssertTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
+}
+
 //- (void)test1Or0 {
 //    NSString *input = @"1 or 0";
 //    NSArray *toks = [self tokenize:input];
