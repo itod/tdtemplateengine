@@ -177,59 +177,74 @@ using namespace templateengine;
     XCTAssertTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
 }
 
-//- (void)test1Or0 {
-//    NSString *input = @"1 or 0";
-//    NSArray *toks = [self tokenize:input];
-//    
-//    NSError *err = nil;
-//    TDExpression *expr = [self.eng expressionFromTokens:toks error:&err];
-//    TDNil(err);
-//    TDNotNil(expr);
-//    TDTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
-//}
-//
-//- (void)test1PipePipe0 {
-//    NSString *input = @"1 || 0";
-//    NSArray *toks = [self tokenize:input];
-//    
-//    NSError *err = nil;
-//    TDExpression *expr = [self.eng expressionFromTokens:toks error:&err];
-//    TDNil(err);
-//    TDNotNil(expr);
-//    TDTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
-//}
-//
-//- (void)test0Or1 {
-//    NSString *input = @"0 or 1";
-//    NSArray *toks = [self tokenize:input];
-//    
-//    NSError *err = nil;
-//    TDExpression *expr = [self.eng expressionFromTokens:toks error:&err];
-//    TDNil(err);
-//    TDNotNil(expr);
-//    TDTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
-//}
-//
-//- (void)test0PipePipe1 {
-//    NSString *input = @"0 || 1";
-//    NSArray *toks = [self tokenize:input];
-//    
-//    NSError *err = nil;
-//    TDExpression *expr = [self.eng expressionFromTokens:toks error:&err];
-//    TDNil(err);
-//    TDNotNil(expr);
-//    TDTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
-//}
-//
-//- (void)test1Or1 {
-//    NSString *input = @"1 or 1";
-//    NSArray *toks = [self tokenize:input];
-//    
-//    NSError *err = nil;
-//    TDExpression *expr = [self.eng expressionFromTokens:toks error:&err];
-//    TDNil(err);
-//    TDNotNil(expr);
-//    TDTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
-//}
+- (void)test0Or0 {
+    std::string input = "0 or 0";
+    
+    ExpressionParser p;
+    Reader r(input);
+    TDExpression *expr = p.parse(&r);
+    XCTAssertNotNil(expr);
+    XCTAssertFalse([[expr simplify] evaluateAsBooleanInContext:nil]);
+}
+
+- (void)test0PipePipe0 {
+    std::string input = "0 || 0";
+    
+    ExpressionParser p;
+    Reader r(input);
+    TDExpression *expr = p.parse(&r);
+    XCTAssertNotNil(expr);
+    XCTAssertFalse([[expr simplify] evaluateAsBooleanInContext:nil]);
+}
+
+- (void)test1Or0 {
+    std::string input = "1 or 0";
+    
+    ExpressionParser p;
+    Reader r(input);
+    TDExpression *expr = p.parse(&r);
+    XCTAssertNotNil(expr);
+    XCTAssertTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
+}
+
+- (void)test1PipePipe0 {
+    std::string input = "1 || 1";
+    
+    ExpressionParser p;
+    Reader r(input);
+    TDExpression *expr = p.parse(&r);
+    XCTAssertNotNil(expr);
+    XCTAssertTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
+}
+
+- (void)test0Or1 {
+    std::string input = "0 or 1";
+    
+    ExpressionParser p;
+    Reader r(input);
+    TDExpression *expr = p.parse(&r);
+    XCTAssertNotNil(expr);
+    XCTAssertTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
+}
+
+- (void)test0PipePipe1 {
+    std::string input = "0 || 1";
+    
+    ExpressionParser p;
+    Reader r(input);
+    TDExpression *expr = p.parse(&r);
+    XCTAssertNotNil(expr);
+    XCTAssertTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
+}
+
+- (void)test1Or1 {
+    std::string input = "1 or 1";
+    
+    ExpressionParser p;
+    Reader r(input);
+    TDExpression *expr = p.parse(&r);
+    XCTAssertNotNil(expr);
+    XCTAssertTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
+}
 
 @end
