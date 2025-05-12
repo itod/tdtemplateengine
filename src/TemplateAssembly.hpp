@@ -27,7 +27,7 @@ public:
 //    NodePtr pop_node();
 //    void push_node(NodePtr node);
 
-    TemplateAssembly(Tokenizer *t, TokenList *token_stack, TokenList *consumed, NSMutableArray *node_stack);
+    TemplateAssembly(TokenList *token_stack, TokenList *consumed, NSMutableArray *node_stack);
     ~TemplateAssembly();
 
     bool is_node_stack_empty() const;

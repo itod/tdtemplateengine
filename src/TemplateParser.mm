@@ -46,17 +46,19 @@ TemplateParser::~TemplateParser() {
 }
 
 TDNode *TemplateParser::parse(TokenListPtr frags) {
+    TokenListTokenizer tokenizer(frags);
+    _tokenizer = &tokenizer;
+
     TokenList lookahead;
     _lookahead = &lookahead;
     
     _p = 0;
-
-    TokenListTokenizer tokenizer(frags);
+    
     TokenList token_stack;
     TokenList consumed;
     
     NSMutableArray *node_stack = [NSMutableArray array];
-    TemplateAssembly assembly(&tokenizer, &token_stack, &consumed, node_stack);
+    TemplateAssembly assembly(&token_stack, &consumed, node_stack);
     _assembly = &assembly;
     
     TDNode *node = nil;

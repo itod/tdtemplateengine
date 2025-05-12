@@ -10,7 +10,7 @@ private:
     NSMutableArray *_object_stack;
         
 public:
-    ExpressionAssembly(Tokenizer *t, TokenList *token_stack, TokenList *consumed);
+    ExpressionAssembly(TokenList *token_stack, TokenList *consumed);
     
     void push_object(id obj) {
         assert(_object_stack);

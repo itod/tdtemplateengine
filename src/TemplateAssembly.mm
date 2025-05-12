@@ -42,9 +42,8 @@ namespace templateengine {
 //    _node_stack->push_back(node);
 //}
 
-TemplateAssembly::TemplateAssembly(Tokenizer *t, TokenList *token_stack, TokenList *consumed, NSMutableArray *node_stack) :
-    Assembly(t, token_stack, consumed),
-    
+TemplateAssembly::TemplateAssembly(TokenList *token_stack, TokenList *consumed, NSMutableArray *node_stack) :
+    Assembly(token_stack, consumed),
     _node_stack([node_stack retain])
 {}
 
