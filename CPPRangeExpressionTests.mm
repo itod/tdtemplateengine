@@ -52,15 +52,15 @@ using namespace templateengine;
 }
 
 - (void)testIIn5To2 {
-    NSString *input = @"i in 5 to 2";
-    NSArray *toks = [self tokenize:input];
-    
+    std::string input = "i in 5 to 2";
+    Reader reader(input);
+
     id foo = @[@(5), @(4), @(3), @(2)];
     id vars = @{@"foo": foo};
     TDTemplateContext *ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     
     NSError *err = nil;
-    TDExpression *expr = [[self.eng loopExpressionFromTokens:toks error:&err] simplify];
+    TDExpression *expr = [[self.eng loopExpressionFromReader:&reader error:&err] simplify];
     TDNil(err);
     TDNotNil(expr);
     TDTrue([expr isKindOfClass:[TDLoopExpression class]]);
@@ -72,15 +72,15 @@ using namespace templateengine;
 }
 
 - (void)testIIn0To10By2 {
-    NSString *input = @"i in 0 to 10 by 2";
-    NSArray *toks = [self tokenize:input];
-    
+    std::string input = "i in 0 to 10 by 2";
+    Reader reader(input);
+
     id foo = @[@(0), @(2), @(4), @(6), @(8), @(10)];
     id vars = @{@"foo": foo};
     TDTemplateContext *ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     
     NSError *err = nil;
-    TDExpression *expr = [[self.eng loopExpressionFromTokens:toks error:&err] simplify];
+    TDExpression *expr = [[self.eng loopExpressionFromReader:&reader error:&err] simplify];
     TDNil(err);
     TDNotNil(expr);
     TDTrue([expr isKindOfClass:[TDLoopExpression class]]);
@@ -92,15 +92,15 @@ using namespace templateengine;
 }
 
 - (void)testIIn10To0ByNeg2 {
-    NSString *input = @"i in 10 to 0 by -2";
-    NSArray *toks = [self tokenize:input];
-    
+    std::string input = "i in 10 to 0 by -2";
+    Reader reader(input);
+
     id foo = @[@(10), @(8), @(6), @(4), @(2), @(0)];
     id vars = @{@"foo": foo};
     TDTemplateContext *ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     
     NSError *err = nil;
-    TDExpression *expr = [[self.eng loopExpressionFromTokens:toks error:&err] simplify];
+    TDExpression *expr = [[self.eng loopExpressionFromReader:&reader error:&err] simplify];
     TDNil(err);
     TDNotNil(expr);
     TDTrue([expr isKindOfClass:[TDLoopExpression class]]);
