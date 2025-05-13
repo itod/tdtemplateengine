@@ -55,21 +55,21 @@ using namespace parsekit;
 //    NSString *res = [expr evaluateAsStringInContext:ctx];
 //    TDEqualObjects(@"Goodbye, Cruel World!", res);
 //}
-//
-//- (void)testFooVarTrimUppercase {
-//    std::string input = "foo|trim|uppercase";
-//    Reader reader(input);
-//    
-//    id vars = @{@"foo": @"  \nbar   "};
-//    id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
-//    
-//    NSError *err = nil;
-//    TDExpression *expr = [self.eng expressionFromReader:&reader error:&err];
-//    TDNil(err);
-//    TDNotNil(expr);
-//    TDEqualObjects(@"BAR", [expr evaluateAsStringInContext:ctx]);
-//}
-//
+
+- (void)testFooVarTrimUppercase {
+    std::string input = "foo|trim|uppercase";
+    Reader reader(input);
+    
+    id vars = @{@"foo": @"  \nbar   "};
+    id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
+    
+    NSError *err = nil;
+    TDExpression *expr = [self.eng expressionFromReader:&reader error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDEqualObjects(@"BAR", [expr evaluateAsStringInContext:ctx]);
+}
+
 //- (void)testFooVarReplace {
 //    std::string input = "foo|replace:'r', 'z'";
 //    Reader reader(input);
@@ -112,104 +112,104 @@ using namespace parsekit;
 //    TDEqualObjects(@"baz", [expr evaluateAsStringInContext:ctx]);
 //}
 //
-//- (void)testFooVarCapitalized {
-//    std::string input = "foo|capitalize";
-//    Reader reader(input);
-//    
-//    id vars = @{@"foo": @"bar"};
-//    id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
-//    
-//    NSError *err = nil;
-//    TDExpression *expr = [self.eng expressionFromReader:&reader error:&err];
-//    TDNil(err);
-//    TDNotNil(expr);
-//    TDEqualObjects(@"Bar", [expr evaluateAsStringInContext:ctx]);
-//}
-//
-//- (void)testFooLiteralCapitalized {
-//    std::string input = "'foo'|capitalize";
-//    Reader reader(input);
-//    
-//    id vars = nil;
-//    id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
-//    
-//    NSError *err = nil;
-//    TDExpression *expr = [self.eng expressionFromReader:&reader error:&err];
-//    TDNil(err);
-//    TDNotNil(expr);
-//    TDEqualObjects(@"Foo", [expr evaluateAsStringInContext:ctx]);
-//}
-//
-//- (void)testFooVarLowercase {
-//    std::string input = "foo|lowercase";
-//    Reader reader(input);
-//    
-//    id vars = @{@"foo": @"BAR"};
-//    id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
-//    
-//    NSError *err = nil;
-//    TDExpression *expr = [self.eng expressionFromReader:&reader error:&err];
-//    TDNil(err);
-//    TDNotNil(expr);
-//    TDEqualObjects(@"bar", [expr evaluateAsStringInContext:ctx]);
-//}
-//
-//- (void)testFooLiteralLowercase {
-//    std::string input = "'fOO'|lowercase";
-//    Reader reader(input);
-//    
-//    id vars = nil;
-//    id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
-//    
-//    NSError *err = nil;
-//    TDExpression *expr = [self.eng expressionFromReader:&reader error:&err];
-//    TDNil(err);
-//    TDNotNil(expr);
-//    TDEqualObjects(@"foo", [expr evaluateAsStringInContext:ctx]);
-//}
-//
-//- (void)testFooVarUppercase {
-//    std::string input = "foo|uppercase";
-//    Reader reader(input);
-//    
-//    id vars = @{@"foo": @"bAr"};
-//    id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
-//    
-//    NSError *err = nil;
-//    TDExpression *expr = [self.eng expressionFromReader:&reader error:&err];
-//    TDNil(err);
-//    TDNotNil(expr);
-//    TDEqualObjects(@"BAR", [expr evaluateAsStringInContext:ctx]);
-//}
-//
-//- (void)testFooLiteralUppercase {
-//    std::string input = "'fOO'|uppercase";
-//    Reader reader(input);
-//    
-//    id vars = nil;
-//    id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
-//    
-//    NSError *err = nil;
-//    TDExpression *expr = [self.eng expressionFromReader:&reader error:&err];
-//    TDNil(err);
-//    TDNotNil(expr);
-//    TDEqualObjects(@"FOO", [expr evaluateAsStringInContext:ctx]);
-//}
-//
-//- (void)testmonteSerenoLiteralUppercase {
-//    std::string input = "'monteSereno'|capitalize";
-//    Reader reader(input);
-//    
-//    id vars = nil;
-//    id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
-//    
-//    NSError *err = nil;
-//    TDExpression *expr = [self.eng expressionFromReader:&reader error:&err];
-//    TDNil(err);
-//    TDNotNil(expr);
-//    TDEqualObjects(@"MonteSereno", [expr evaluateAsStringInContext:ctx]);
-//}
-//
+- (void)testFooVarCapitalized {
+    std::string input = "foo|capitalize";
+    Reader reader(input);
+    
+    id vars = @{@"foo": @"bar"};
+    id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
+    
+    NSError *err = nil;
+    TDExpression *expr = [self.eng expressionFromReader:&reader error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDEqualObjects(@"Bar", [expr evaluateAsStringInContext:ctx]);
+}
+
+- (void)testFooLiteralCapitalized {
+    std::string input = "'foo'|capitalize";
+    Reader reader(input);
+    
+    id vars = nil;
+    id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
+    
+    NSError *err = nil;
+    TDExpression *expr = [self.eng expressionFromReader:&reader error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDEqualObjects(@"Foo", [expr evaluateAsStringInContext:ctx]);
+}
+
+- (void)testFooVarLowercase {
+    std::string input = "foo|lowercase";
+    Reader reader(input);
+    
+    id vars = @{@"foo": @"BAR"};
+    id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
+    
+    NSError *err = nil;
+    TDExpression *expr = [self.eng expressionFromReader:&reader error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDEqualObjects(@"bar", [expr evaluateAsStringInContext:ctx]);
+}
+
+- (void)testFooLiteralLowercase {
+    std::string input = "'fOO'|lowercase";
+    Reader reader(input);
+    
+    id vars = nil;
+    id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
+    
+    NSError *err = nil;
+    TDExpression *expr = [self.eng expressionFromReader:&reader error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDEqualObjects(@"foo", [expr evaluateAsStringInContext:ctx]);
+}
+
+- (void)testFooVarUppercase {
+    std::string input = "foo|uppercase";
+    Reader reader(input);
+    
+    id vars = @{@"foo": @"bAr"};
+    id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
+    
+    NSError *err = nil;
+    TDExpression *expr = [self.eng expressionFromReader:&reader error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDEqualObjects(@"BAR", [expr evaluateAsStringInContext:ctx]);
+}
+
+- (void)testFooLiteralUppercase {
+    std::string input = "'fOO'|uppercase";
+    Reader reader(input);
+    
+    id vars = nil;
+    id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
+    
+    NSError *err = nil;
+    TDExpression *expr = [self.eng expressionFromReader:&reader error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDEqualObjects(@"FOO", [expr evaluateAsStringInContext:ctx]);
+}
+
+- (void)testmonteSerenoLiteralUppercase {
+    std::string input = "'monteSereno'|capitalize";
+    Reader reader(input);
+    
+    id vars = nil;
+    id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
+    
+    NSError *err = nil;
+    TDExpression *expr = [self.eng expressionFromReader:&reader error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDEqualObjects(@"MonteSereno", [expr evaluateAsStringInContext:ctx]);
+}
+
 //- (void)testDateFormatToday {
 //    NSString *fmtStr = @"EEE, MMM d, yy";
 //    NSString *input = [NSString stringWithFormat:@"'today'|fmtDate:'%@'", fmtStr];
