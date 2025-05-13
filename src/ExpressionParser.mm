@@ -169,6 +169,9 @@ TDExpression *ExpressionParser::parse(Reader *r) {
     TokenList lookahead;
     _lookahead = &lookahead;
     
+    IntStack markers;
+    _markers = &markers;
+    
     TokenList token_stack;
     TokenList consumed;
     ExpressionAssembly a(r, &token_stack, &consumed);
@@ -187,6 +190,7 @@ TDExpression *ExpressionParser::parse(Reader *r) {
     }
 
     _assembly = nullptr;
+    _markers = nullptr;
     _lookahead = nullptr;
 
     return expr;
@@ -208,7 +212,7 @@ void ExpressionParser::_loopExpr() {
     _identifiers();
     match(EXTokenType_IN, true);
     _enumExpr();
-    {
+    if (!isSpeculating()) {
         id enumExpr = POP();
         id vars = POP();
         PUSH([TDLoopExpression loopExpressionWithVariables:vars enumeration:enumExpr]);
@@ -218,7 +222,7 @@ void ExpressionParser::_loopExpr() {
 
 void ExpressionParser::_identifiers() {
     
-    {
+    if (!isSpeculating()) {
         PUSH(OPEN_PAREN);
     }
     _identifier();
@@ -226,7 +230,7 @@ void ExpressionParser::_identifiers() {
         match(EXTokenType_COMMA, true);
         _identifier();
     }
-    {
+    if (!isSpeculating()) {
         id strs = REV(ABOVE(OPEN_PAREN));
         POP(); // discard `(`
         PUSH(strs);
@@ -249,7 +253,7 @@ void ExpressionParser::_enumExpr() {
 void ExpressionParser::_collectionExpr() {
     
     _primaryExpr();
-    {
+    if (!isSpeculating()) {
         id expr = POP();
         PUSH([TDCollectionExpression collectionExpressionWithExpression:expr]);
     }
@@ -262,7 +266,7 @@ void ExpressionParser::_rangeExpr() {
     match(EXTokenType_TO, true);
     _unaryExpr();
     _optBy();
-    {
+    if (!isSpeculating()) {
         id by = POP();
         id stop = POP();
         id start = POP();
@@ -278,7 +282,7 @@ void ExpressionParser::_optBy() {
         _unaryExpr();
     } else {
         //[self matchEmpty:NO];
-        {
+        if (!isSpeculating()) {
             PUSH([TDNumericValue numericValueWithNumber:0.0]);
         }
     }
@@ -303,7 +307,7 @@ void ExpressionParser::_orExpr() {
     while (predicts(EXTokenType_OR, EXTokenType_DOUBLE_PIPE, 0)) {
         _orOp();
         _andExpr();
-        {
+        if (!isSpeculating()) {
             TDValue *rhs = POP();
             TDValue *lhs = POP();
             PUSH([TDBooleanExpression booleanExpressionWithOperand:lhs operator:EXTokenType_OR operand:rhs]);
@@ -330,7 +334,7 @@ void ExpressionParser::_andExpr() {
     while (predicts(EXTokenType_AND, EXTokenType_DOUBLE_AMPERSAND, 0)) {
         _andOp();
         _equalityExpr();
-        {
+        if (!isSpeculating()) {
             TDValue *rhs = POP();
             TDValue *lhs = POP();
             PUSH([TDBooleanExpression booleanExpressionWithOperand:lhs operator:EXTokenType_AND operand:rhs]);
@@ -348,7 +352,7 @@ void ExpressionParser::_eqOp() {
     } else {
         raise("No viable alternative found in rule 'eqOp'.");
     }
-    {
+    if (!isSpeculating()) {
         PUSH(@(EXTokenType_EQ));
     }
 
@@ -363,7 +367,7 @@ void ExpressionParser::_neOp() {
     } else {
         raise("No viable alternative found in rule 'neOp'.");
     }
-    {
+    if (!isSpeculating()) {
         PUSH(@(EXTokenType_NE));
     }
 
@@ -381,7 +385,7 @@ void ExpressionParser::_equalityExpr() {
             raise("No viable alternative found in rule 'equalityExpr'.");
         }
         _relationalExpr();
-        {
+        if (!isSpeculating()) {
             TDValue *rhs = POP();
             NSInteger op = POP_INT();
             TDValue *lhs = POP();
@@ -400,7 +404,7 @@ void ExpressionParser::_ltOp() {
     } else {
         raise("No viable alternative found in rule 'ltOp'.");
     }
-    {
+    if (!isSpeculating()) {
         PUSH(@(EXTokenType_LT));
     }
 
@@ -415,7 +419,7 @@ void ExpressionParser::_gtOp() {
     } else {
         raise("No viable alternative found in rule 'gtOp'.");
     }
-    {
+    if (!isSpeculating()) {
         PUSH(@(EXTokenType_GT));
     }
 
@@ -430,7 +434,7 @@ void ExpressionParser::_leOp() {
     } else {
         raise("No viable alternative found in rule 'leOp'.");
     }
-    {
+    if (!isSpeculating()) {
         PUSH(@(EXTokenType_LE));
     }
 
@@ -467,7 +471,7 @@ void ExpressionParser::_relationalExpr() {
             raise("No viable alternative found in rule 'relationalExpr'.");
         }
         _additiveExpr();
-        {
+        if (!isSpeculating()) {
             TDValue *rhs = POP();
             NSInteger op = POP_INT();
             TDValue *lhs = POP();
@@ -480,7 +484,7 @@ void ExpressionParser::_relationalExpr() {
 void ExpressionParser::_plus() {
     
     match(EXTokenType_PLUS, true);
-    {
+    if (!isSpeculating()) {
         PUSH(@(EXTokenType_PLUS));
     }
 
@@ -489,7 +493,7 @@ void ExpressionParser::_plus() {
 void ExpressionParser::_minus() {
     
     match(EXTokenType_MINUS, true);
-    {
+    if (!isSpeculating()) {
         PUSH(@(EXTokenType_MINUS));
     }
 
@@ -507,7 +511,7 @@ void ExpressionParser::_additiveExpr() {
             raise("No viable alternative found in rule 'additiveExpr'.");
         }
         _multiplicativeExpr();
-        {
+        if (!isSpeculating()) {
             TDValue *rhs = POP();
             NSInteger op = POP_INT();
             TDValue *lhs = POP();
@@ -520,7 +524,7 @@ void ExpressionParser::_additiveExpr() {
 void ExpressionParser::_times() {
     
     match(EXTokenType_TIMES, true);
-    {
+    if (!isSpeculating()) {
         PUSH(@(EXTokenType_TIMES));
     }
 
@@ -529,7 +533,7 @@ void ExpressionParser::_times() {
 void ExpressionParser::_div() {
     
     match(EXTokenType_DIV, true);
-    {
+    if (!isSpeculating()) {
         PUSH(@(EXTokenType_DIV));
     }
 
@@ -538,7 +542,7 @@ void ExpressionParser::_div() {
 void ExpressionParser::_mod() {
     
     match(EXTokenType_MOD, true);
-    {
+    if (!isSpeculating()) {
         PUSH(@(EXTokenType_MOD));
     }
 
@@ -558,7 +562,7 @@ void ExpressionParser::_multiplicativeExpr() {
             raise("No viable alternative found in rule 'multiplicativeExpr'.");
         }
         _unaryExpr();
-        {
+        if (!isSpeculating()) {
             TDValue *rhs = POP();
             NSInteger op = POP_INT();
             TDValue *lhs = POP();
@@ -582,8 +586,8 @@ void ExpressionParser::_unaryExpr() {
 
 void ExpressionParser::_negatedUnary() {
     
-    {
-     _negation = NO;
+    if (!isSpeculating()) {
+        _negation = NO;
     }
     do {
         if (predicts(EXTokenType_NOT, 0)) {
@@ -593,12 +597,12 @@ void ExpressionParser::_negatedUnary() {
         } else {
             raise("No viable alternative found in rule 'negatedUnary'.");
         }
-        {
+        if (!isSpeculating()) {
          _negation = !_negation;
         }
     } while (predicts(EXTokenType_BANG, EXTokenType_NOT, 0));
     _unary();
-    {
+    if (!isSpeculating()) {
         if (_negation) {
             PUSH([TDNegationExpression negationExpressionWithExpression:POP()]);
         }
@@ -620,7 +624,7 @@ void ExpressionParser::_unary() {
 
 void ExpressionParser::_signedFilterExpr() {
     
-    {
+    if (!isSpeculating()) {
         _negative = NO;
     }
     do {
@@ -630,7 +634,7 @@ void ExpressionParser::_signedFilterExpr() {
         }
     } while (predicts(EXTokenType_MINUS, 0));
     _filterExpr();
-    {
+    if (!isSpeculating()) {
         if (_negative) {
             PUSH([TDUnaryExpression unaryExpressionWithExpression:POP()]);
         }
@@ -643,7 +647,7 @@ void ExpressionParser::_filterExpr() {
     _primaryExpr();
     while (predicts(EXTokenType_PIPE, 0)) {
         _filter();
-        {
+        if (!isSpeculating()) {
             NSArray *args = POP();
             NSString *filterName = POP_STR();
             id expr = POP();
@@ -678,12 +682,12 @@ void ExpressionParser::_filterArgs() {
             match(EXTokenType_COMMA, true);
             _filterArg();
         }
-        {
+        if (!isSpeculating()) {
             id toks = ABOVE(COLON); POP(); PUSH(REV(toks));
         }
     } else {
         // empty
-        {
+        if (!isSpeculating()) {
             PUSH(@[]);
         }
     }
@@ -721,7 +725,7 @@ void ExpressionParser::_subExpr() {
     match(EXTokenType_OPEN_PAREN, false);
     _expr();
     match(EXTokenType_CLOSE_PAREN, true);
-    {
+    if (!isSpeculating()) {
         id objs = ABOVE(OPEN_PAREN);
         POP(); // discard `(`
         PUSH_ALL(REV(objs));
@@ -743,7 +747,7 @@ void ExpressionParser::_atom() {
 
 void ExpressionParser::_pathExpr() {
     
-    {
+    if (!isSpeculating()) {
         PUSH(OPEN_PAREN);
     }
     _identifier();
@@ -751,7 +755,7 @@ void ExpressionParser::_pathExpr() {
         match(EXTokenType_DOT, true);
         _step();
     }
-    {
+    if (!isSpeculating()) {
         id toks = REV(ABOVE(OPEN_PAREN));
         POP(); // discard `OPEN_PAREN`
         PUSH([TDPathExpression pathExpressionWithSteps:toks]);
@@ -774,7 +778,7 @@ void ExpressionParser::_step() {
 void ExpressionParser::_identifier() {
     
     match(TokenType_WORD, false);
-    {
+    if (!isSpeculating()) {
         PUSH(POP_STR());
     }
 
@@ -800,12 +804,12 @@ void ExpressionParser::_bool() {
     
     if (predicts(EXTokenType_TRUE, EXTokenType_YES_UPPER, 0)) {
         _true();
-        {
+        if (!isSpeculating()) {
             PUSH([TDBooleanValue booleanValueWithBoolean:YES]);
         }
     } else if (predicts(EXTokenType_FALSE, EXTokenType_NO_UPPER, 0)) {
         _false();
-        {
+        if (!isSpeculating()) {
             PUSH([TDBooleanValue booleanValueWithBoolean:NO]);
         }
     } else {
@@ -841,7 +845,7 @@ void ExpressionParser::_false() {
 void ExpressionParser::_num() {
     
     match(TokenType_NUMBER, false);
-    {
+    if (!isSpeculating()) {
         PUSH([TDNumericValue numericValueWithNumber:POP_DOUBLE()]);
     }
 
@@ -850,7 +854,7 @@ void ExpressionParser::_num() {
 void ExpressionParser::_str() {
     
     match(TokenType_QUOTED_STRING, false);
-    {
+    if (!isSpeculating()) {
         PUSH([TDStringValue stringValueWithString:POP_QUOTED_STR()]);
     }
 
@@ -859,7 +863,7 @@ void ExpressionParser::_str() {
 void ExpressionParser::_null() {
     
     match(EXTokenType_NULL, true);
-    {
+    if (!isSpeculating()) {
         PUSH([TDObjectValue objectValueWithObject:[NSNull null]]);
     }
 

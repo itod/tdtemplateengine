@@ -90,7 +90,24 @@ using namespace templateengine;
 
 
 - (TDExpression *)loopExpressionFromReader:(Reader *)reader error:(NSError **)outErr {
-    return nil;
+    ExpressionParser p;
+    p.setDoLoopExpr(true);
+    TDExpression *expr = nil;
+    
+    try {
+        expr = p.parse(reader);
+    } catch (ParseException& ex) {
+        if (outErr) {
+            NSError *err = [NSError errorWithDomain:@"TDTemplateEngine"
+                                               code:0
+                                           userInfo:@{
+                NSLocalizedDescriptionKey: [NSString stringWithUTF8String:ex.message().c_str()],
+            }];
+            *outErr = err;
+        }
+    }
+    p.setDoLoopExpr(false);
+    return expr;
 }
 
 @end
