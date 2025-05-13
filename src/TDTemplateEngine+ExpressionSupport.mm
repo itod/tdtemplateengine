@@ -80,11 +80,40 @@ using namespace templateengine;
 }
 
 
+//- (TDExpression *)expressionFromString:(NSString *)str error:(NSError **)outErr {
+//    NSStringEncoding enc = NSUTF16StringEncoding;
+//    NSUInteger maxLen = [str maximumLengthOfBytesUsingEncoding:enc];
+//    NSUInteger usedLen;
+//    
+//    char bytes[maxLen+1];
+//    [str getBytes:&bytes maxLength:maxLen usedLength:&usedLen encoding:enc options:0 range:NSMakeRange(0, maxLen) remainingRange:NULL]; // warn not NULL-terminated
+//    bytes[maxLen] = NULL;
+//    
+//    std::string s(bytes);
+//    Reader reader(s);
+//    return [self expressionFromReader:&reader error:outErr];
+//}
+
+
 - (TDExpression *)expressionFromReader:(Reader *)reader error:(NSError **)outErr {
     ExpressionParser p(self);
     
-    TDExpression *expr = p.parse(reader);
+    TDExpression *expr = nil;
     
+    try {
+        expr = p.parse(reader);
+    } catch (ParseException& ex) {
+        if (outErr) {
+            NSError *err = [NSError errorWithDomain:@"TDTemplateEngine"
+                                               code:0
+                                           userInfo:@{
+                NSLocalizedDescriptionKey: [NSString stringWithUTF8String:ex.message().c_str()],
+            }];
+            *outErr = err;
+        }
+    }
+
+    expr = [expr simplify];
     return expr;
 }
 
@@ -107,6 +136,8 @@ using namespace templateengine;
         }
     }
     p.setDoLoopExpr(false);
+    
+    expr = [expr simplify];
     return expr;
 }
 
