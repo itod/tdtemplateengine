@@ -25,7 +25,11 @@
 #import <TDTemplateEngine/TDTemplateEngine.h>
 #import <TDTemplateEngine/TDTemplateContext.h>
 #import <TDTemplateEngine/TDFilter.h>
-#import <PEGKit/PKToken.h>
+#import <PEGKit/PKToken.h> // TODO RM
+#import <ParseKitCPP/Token.hpp>
+#import "EXToken.h"
+
+using namespace parsekit;
 
 @interface TDFilterExpression ()
 @property (nonatomic, retain) TDExpression *expr;
@@ -65,6 +69,12 @@
 }
 
 
+- (NSString *)description {
+    return [NSString stringWithFormat:@"<%@ %p `%@|%@:%@`>", [self class], self, self.expr, self.filter, self.args];
+}
+
+
+
 - (TDValue *)evaluateInContext:(TDTemplateContext *)ctx {
     TDAssert(ctx);
     TDAssert(_expr);
@@ -86,22 +96,34 @@
     if (c) {
         evaledArgs = [NSMutableArray arrayWithCapacity:c];
         
-        for (PKToken *tok in _args) {
+        for (EXToken *tok in _args) {
             switch (tok.tokenType) {
+                case TokenType_QUOTED_STRING:
+                    [evaledArgs addObject:tok.stringValue];
+                    break;
+                case TokenType_WORD:
+                    [evaledArgs addObject:[ctx resolveVariable:tok.stringValue]];
+                    break;
+                case TokenType_NUMBER:
+                    [evaledArgs addObject:@(tok.doubleValue)];
+                    break;
+
+                // TODO REMOVE
                 case PKTokenTypeQuotedString:
                     [evaledArgs addObject:[tok.stringValue substringWithRange:NSMakeRange(1, [tok.stringValue length]-2)]];
                     break;
                 case PKTokenTypeWord:
                     [evaledArgs addObject:[ctx resolveVariable:tok.stringValue]];
                     break;
-                case PKTokenTypeNumber:
-                    [evaledArgs addObject:@(tok.doubleValue)];
-                    break;
+                // DONE RM
+
                 default:
                     TDAssert(0);
                     break;
             }
         }
+//            }
+//        }
     }
     
     return evaledArgs;

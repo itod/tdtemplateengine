@@ -70,20 +70,20 @@ using namespace parsekit;
     TDEqualObjects(@"BAR", [expr evaluateAsStringInContext:ctx]);
 }
 
-//- (void)testFooVarReplace {
-//    std::string input = "foo|replace:'r', 'z'";
-//    Reader reader(input);
-//    
-//    id vars = @{@"foo": @"bar"};
-//    id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
-//    
-//    NSError *err = nil;
-//    TDExpression *expr = [self.eng expressionFromReader:&reader error:&err];
-//    TDNil(err);
-//    TDNotNil(expr);
-//    TDEqualObjects(@"baz", [expr evaluateAsStringInContext:ctx]);
-//}
-//
+- (void)testFooVarReplace {
+    std::string input = "foo|replace:'r', 'z'";
+    Reader reader(input);
+    
+    id vars = @{@"foo": @"bar"};
+    id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
+    
+    NSError *err = nil;
+    TDExpression *expr = [self.eng expressionFromReader:&reader error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    TDEqualObjects(@"baz", [expr evaluateAsStringInContext:ctx]);
+}
+
 //- (void)testFooVarReplaceNotCaseInsensitive {
 //    std::string input = "foo|replace:'R', 'z'";
 //    Reader reader(input);
