@@ -155,7 +155,8 @@ private:
     void _null();
 
 public:
-    ExpressionParser();
+    ExpressionParser(); // testing only
+    ExpressionParser(TDTemplateEngine *engine);
 
     static Tokenizer *tokenizer();
     static const EXTokenTable& tokenTable();

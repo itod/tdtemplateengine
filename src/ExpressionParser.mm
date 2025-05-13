@@ -162,7 +162,13 @@ NSString *ExpressionParser::stringByTrimmingQuotes(NSString *inStr) {
 }
 
 ExpressionParser::ExpressionParser() :
-    BaseParser(tokenizer())
+    BaseParser(tokenizer()),
+    _engine(nullptr)
+{}
+
+ExpressionParser::ExpressionParser(TDTemplateEngine *engine) :
+    BaseParser(tokenizer()),
+    _engine(engine)
 {}
 
 TDExpression *ExpressionParser::parse(Reader *r) {

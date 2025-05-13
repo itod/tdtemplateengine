@@ -81,7 +81,7 @@ using namespace templateengine;
 
 
 - (TDExpression *)expressionFromReader:(Reader *)reader error:(NSError **)outErr {
-    ExpressionParser p;
+    ExpressionParser p(self);
     
     TDExpression *expr = p.parse(reader);
     
@@ -90,7 +90,7 @@ using namespace templateengine;
 
 
 - (TDExpression *)loopExpressionFromReader:(Reader *)reader error:(NSError **)outErr {
-    ExpressionParser p;
+    ExpressionParser p(self);
     p.setDoLoopExpr(true);
     TDExpression *expr = nil;
     
