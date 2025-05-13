@@ -8,13 +8,9 @@
 
 #import "TDBaseExpressionTests.h"
 #import "TDLoopExpression.h"
-#import "TDRangeExpression.h"
-#import "TDPathExpression.h"
-#import "TDParser.h"
-#import "ExpressionParser.hpp"
+#import <ParseKitCPP/Reader.hpp>
 
 using namespace parsekit;
-using namespace templateengine;
 
 @interface CPPRangeExpressionTests : TDBaseExpressionTests
 @end
