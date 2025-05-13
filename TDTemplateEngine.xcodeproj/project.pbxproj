@@ -375,7 +375,7 @@
 		D3AAFE862DD2C2B9009EDC64 /* TDPrintNodeTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3AAFE852DD2C2B9009EDC64 /* TDPrintNodeTests.mm */; };
 		D3AAFE882DD2C2F4009EDC64 /* TDBooleanExpressionTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3AAFE872DD2C2F4009EDC64 /* TDBooleanExpressionTests.mm */; };
 		D3AAFE8E2DD2CC64009EDC64 /* CPPArithmeticExpressionTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3AAFE8D2DD2CC64009EDC64 /* CPPArithmeticExpressionTests.mm */; };
-		D3AAFE902DD2CE38009EDC64 /* CPPRangeExpressionTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3AAFE8F2DD2CE38009EDC64 /* CPPRangeExpressionTests.mm */; };
+		D3AAFE922DD2E77C009EDC64 /* CPPRangeExpressionTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3AAFE912DD2E77C009EDC64 /* CPPRangeExpressionTests.mm */; };
 		D3AC684F1A41D43400F7EB6A /* TDReplaceFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = D3AC684D1A41D43400F7EB6A /* TDReplaceFilter.h */; };
 		D3AC68501A41D43400F7EB6A /* TDReplaceFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AC684E1A41D43400F7EB6A /* TDReplaceFilter.m */; };
 		D3AC685F1A42022500F7EB6A /* TDTrimFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = D3AC685D1A42022500F7EB6A /* TDTrimFilter.h */; };
@@ -603,7 +603,7 @@
 		D3AAFE852DD2C2B9009EDC64 /* TDPrintNodeTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = TDPrintNodeTests.mm; path = test/TDPrintNodeTests.mm; sourceTree = SOURCE_ROOT; };
 		D3AAFE872DD2C2F4009EDC64 /* TDBooleanExpressionTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = TDBooleanExpressionTests.mm; path = test/TDBooleanExpressionTests.mm; sourceTree = SOURCE_ROOT; };
 		D3AAFE8D2DD2CC64009EDC64 /* CPPArithmeticExpressionTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = CPPArithmeticExpressionTests.mm; path = test/CPPArithmeticExpressionTests.mm; sourceTree = SOURCE_ROOT; };
-		D3AAFE8F2DD2CE38009EDC64 /* CPPRangeExpressionTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = CPPRangeExpressionTests.mm; sourceTree = SOURCE_ROOT; };
+		D3AAFE912DD2E77C009EDC64 /* CPPRangeExpressionTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = CPPRangeExpressionTests.mm; path = test/CPPRangeExpressionTests.mm; sourceTree = SOURCE_ROOT; };
 		D3AC684D1A41D43400F7EB6A /* TDReplaceFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDReplaceFilter.h; path = src/TDReplaceFilter.h; sourceTree = SOURCE_ROOT; };
 		D3AC684E1A41D43400F7EB6A /* TDReplaceFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDReplaceFilter.m; path = src/TDReplaceFilter.m; sourceTree = SOURCE_ROOT; };
 		D3AC685D1A42022500F7EB6A /* TDTrimFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDTrimFilter.h; path = src/TDTrimFilter.h; sourceTree = SOURCE_ROOT; };
@@ -709,7 +709,7 @@
 				D33915DD18F0818500BDA4FD /* TDArithmeticExpressionTests.mm */,
 				D3AAFE8D2DD2CC64009EDC64 /* CPPArithmeticExpressionTests.mm */,
 				D3CAF8B618EF3C9100166A95 /* TDRangeExpressionTests.mm */,
-				D3AAFE8F2DD2CE38009EDC64 /* CPPRangeExpressionTests.mm */,
+				D3AAFE912DD2E77C009EDC64 /* CPPRangeExpressionTests.mm */,
 				D3CAF8B318EF3ABD00166A95 /* TDCollectionExpressionTests.mm */,
 				D33915E318F081ED00BDA4FD /* TDPathExpressionTests.mm */,
 				D319138718F1A80300430BAD /* TDFilterExpressionTests.mm */,
@@ -1590,11 +1590,11 @@
 				D3CAF8BE18EF5A0000166A95 /* TDNegationExpressionTests.mm in Sources */,
 				D3A3E54F18EC5706004FEB2C /* TDTemplateEngineTests.mm in Sources */,
 				D3AAFE862DD2C2B9009EDC64 /* TDPrintNodeTests.mm in Sources */,
+				D3AAFE922DD2E77C009EDC64 /* CPPRangeExpressionTests.mm in Sources */,
 				D3AAFE6C2DD2C1DD009EDC64 /* CPPBooleanExpressionTests.mm in Sources */,
 				D3AAFE6D2DD2C1DD009EDC64 /* CPPNegationExpressionTests.mm in Sources */,
 				D3AAFE6E2DD2C1DD009EDC64 /* CPPRelationalExpressionTests.mm in Sources */,
 				D3AAFE8E2DD2CC64009EDC64 /* CPPArithmeticExpressionTests.mm in Sources */,
-				D3AAFE902DD2CE38009EDC64 /* CPPRangeExpressionTests.mm in Sources */,
 				D3AAFE6F2DD2C1DD009EDC64 /* CPPUnaryExpressionTests.mm in Sources */,
 				D3AAFE702DD2C1DD009EDC64 /* CPPEqualityExpressionTests.mm in Sources */,
 				D33915E418F081ED00BDA4FD /* TDPathExpressionTests.mm in Sources */,
