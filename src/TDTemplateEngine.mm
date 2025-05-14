@@ -490,7 +490,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     }
 
     std::string input(zstr);
-    Reader r(input); // TODO use -getBytes: here to remove allocation. would be messier tho.
+    Reader r(input);
     
     Token tok = t->next(&r);
     TDAssert(TokenType_WORD == tok.token_type());
