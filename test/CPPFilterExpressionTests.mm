@@ -28,7 +28,7 @@ using namespace parsekit;
 
 - (void)testFooVarTrim {
     std::string input = "foo|trim";
-    Reader reader(input);
+    ReaderCPP reader(input);
     
     id vars = @{@"foo": @"\n  bar   "};
     id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
@@ -42,7 +42,7 @@ using namespace parsekit;
 
 - (void)testReplaceLiteral {
     std::string input = "'Hello World!'|replace:'hello', farewell, 'i'";
-    Reader reader(input);
+    ReaderCPP reader(input);
     
     id vars = @{@"farewell": @"Goodbye, Cruel"};
     id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
@@ -58,7 +58,7 @@ using namespace parsekit;
 
 - (void)testFooVarTrimUppercase {
     std::string input = "foo|trim|uppercase";
-    Reader reader(input);
+    ReaderCPP reader(input);
     
     id vars = @{@"foo": @"  \nbar   "};
     id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
@@ -72,7 +72,7 @@ using namespace parsekit;
 
 - (void)testFooVarReplace {
     std::string input = "foo|replace:'r', 'z'";
-    Reader reader(input);
+    ReaderCPP reader(input);
     
     id vars = @{@"foo": @"bar"};
     id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
@@ -86,7 +86,7 @@ using namespace parsekit;
 
 - (void)testFooVarReplaceNotCaseInsensitive {
     std::string input = "foo|replace:'R', 'z'";
-    Reader reader(input);
+    ReaderCPP reader(input);
     
     id vars = @{@"foo": @"bar"};
     id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
@@ -100,7 +100,7 @@ using namespace parsekit;
 
 - (void)testFooVarReplaceCaseInsensitive {
     std::string input = "foo|replace:'R', 'z', 'i'";
-    Reader reader(input);
+    ReaderCPP reader(input);
     
     id vars = @{@"foo": @"bar"};
     id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
@@ -114,7 +114,7 @@ using namespace parsekit;
 
 - (void)testFooVarCapitalized {
     std::string input = "foo|capitalize";
-    Reader reader(input);
+    ReaderCPP reader(input);
     
     id vars = @{@"foo": @"bar"};
     id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
@@ -128,7 +128,7 @@ using namespace parsekit;
 
 - (void)testFooLiteralCapitalized {
     std::string input = "'foo'|capitalize";
-    Reader reader(input);
+    ReaderCPP reader(input);
     
     id vars = nil;
     id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
@@ -142,7 +142,7 @@ using namespace parsekit;
 
 - (void)testFooVarLowercase {
     std::string input = "foo|lowercase";
-    Reader reader(input);
+    ReaderCPP reader(input);
     
     id vars = @{@"foo": @"BAR"};
     id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
@@ -156,7 +156,7 @@ using namespace parsekit;
 
 - (void)testFooLiteralLowercase {
     std::string input = "'fOO'|lowercase";
-    Reader reader(input);
+    ReaderCPP reader(input);
     
     id vars = nil;
     id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
@@ -170,7 +170,7 @@ using namespace parsekit;
 
 - (void)testFooVarUppercase {
     std::string input = "foo|uppercase";
-    Reader reader(input);
+    ReaderCPP reader(input);
     
     id vars = @{@"foo": @"bAr"};
     id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
@@ -184,7 +184,7 @@ using namespace parsekit;
 
 - (void)testFooLiteralUppercase {
     std::string input = "'fOO'|uppercase";
-    Reader reader(input);
+    ReaderCPP reader(input);
     
     id vars = nil;
     id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
@@ -198,7 +198,7 @@ using namespace parsekit;
 
 - (void)testmonteSerenoLiteralUppercase {
     std::string input = "'monteSereno'|capitalize";
-    Reader reader(input);
+    ReaderCPP reader(input);
     
     id vars = nil;
     id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
@@ -213,7 +213,7 @@ using namespace parsekit;
 - (void)testDateFormatToday {
     NSString *fmtStr = @"EEE, MMM d, yy";
     NSString *input = [NSString stringWithFormat:@"'today'|fmtDate:'%@'", fmtStr];
-    Reader reader([input UTF8String]);
+    ReaderObjC reader(input);
     
     id vars = nil;
     id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
@@ -236,7 +236,7 @@ using namespace parsekit;
 - (void)testDateFormatNow {
     NSString *fmtStr = @"EEE, MMM d, yy";
     NSString *input = [NSString stringWithFormat:@"'now'|fmtDate:'%@'", fmtStr];
-    Reader reader([input UTF8String]);
+    ReaderObjC reader(input);
 
     id vars = nil;
     id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
@@ -259,7 +259,7 @@ using namespace parsekit;
 - (void)testDateFormatOct26Literal {
     NSString *fmtStr = @"EEE, MMM d, yy";
     NSString *input = [NSString stringWithFormat:@"'Oct 26, 1977'|fmtDate:'%@'", fmtStr];
-    Reader reader([input UTF8String]);
+    ReaderObjC reader(input);
 
     id vars = nil;
     id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
@@ -281,7 +281,7 @@ using namespace parsekit;
 - (void)testDateFormatApril25Var {
     NSString *fmtStr = @"EEE, MMM d, yy";
     NSString *input = [NSString stringWithFormat:@"mydate|fmtDate:'%@'", fmtStr];
-    Reader reader([input UTF8String]);
+    ReaderObjC reader(input);
 
     NSDate *date = [NSDate dateWithNaturalLanguageString:@"April 25 1996"];
     id vars = @{@"mydate": date};
@@ -300,7 +300,7 @@ using namespace parsekit;
 - (void)testDateFormatApril25Var2 {
     NSString *fmtStr = @"yyyyy.MMMM.dd GGG hh:mm aaa";
     NSString *input = [NSString stringWithFormat:@"mydate|fmtDate:'%@'", fmtStr];
-    Reader reader([input UTF8String]);
+    ReaderObjC reader(input);
 
     NSDate *date = [NSDate dateWithNaturalLanguageString:@"April 25 1996"];
     id vars = @{@"mydate": date};
@@ -320,7 +320,7 @@ using namespace parsekit;
 - (void)testDateFormatApril25Arg {
     NSString *fmtStr = @"EEE, MMM d, yy";
     std::string input = "mydate|fmtDate:fmt";
-    Reader reader(input);
+    ReaderCPP reader(input);
     
     NSDate *date = [NSDate dateWithNaturalLanguageString:@"April 25 1996"];
     id vars = @{@"mydate": date, @"fmt": fmtStr};

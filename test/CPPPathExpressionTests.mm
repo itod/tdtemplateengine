@@ -28,7 +28,7 @@ using namespace parsekit;
 
 - (void)testPathFooBar8 {
     std::string input = "foo.bar";
-    Reader reader(input);
+    ReaderCPP reader(input);
 
     id vars = @{@"foo": @{@"bar": @(8)}};
     id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];

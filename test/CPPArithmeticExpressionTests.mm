@@ -31,7 +31,7 @@ using namespace templateengine;
     std::string input = "1 + 2";
 
     ExpressionParser p;
-    Reader r(input);
+    ReaderCPP r(input);
     TDExpression *expr = p.parse(&r);
     XCTAssertNotNil(expr);
     TDEquals(3.0, [[expr simplify] evaluateAsNumberInContext:nil]);
@@ -41,7 +41,7 @@ using namespace templateengine;
     std::string input = "1+2";
 
     ExpressionParser p;
-    Reader r(input);
+    ReaderCPP r(input);
     TDExpression *expr = p.parse(&r);
     XCTAssertNotNil(expr);
     TDEquals(3.0, [[expr simplify] evaluateAsNumberInContext:nil]);
@@ -51,7 +51,7 @@ using namespace templateengine;
     std::string input = "1 - 1";
 
     ExpressionParser p;
-    Reader r(input);
+    ReaderCPP r(input);
     TDExpression *expr = p.parse(&r);
     XCTAssertNotNil(expr);
     TDEquals(0.0, [[expr simplify] evaluateAsNumberInContext:nil]);
@@ -61,7 +61,7 @@ using namespace templateengine;
     std::string input = "true + 1";
 
     ExpressionParser p;
-    Reader r(input);
+    ReaderCPP r(input);
     TDExpression *expr = p.parse(&r);
     XCTAssertNotNil(expr);
     TDEquals(2.0, [[expr simplify] evaluateAsNumberInContext:nil]);
@@ -71,7 +71,7 @@ using namespace templateengine;
     std::string input = "YES + 1";
 
     ExpressionParser p;
-    Reader r(input);
+    ReaderCPP r(input);
     TDExpression *expr = p.parse(&r);
     XCTAssertNotNil(expr);
     TDEquals(2.0, [[expr simplify] evaluateAsNumberInContext:nil]);
@@ -81,7 +81,7 @@ using namespace templateengine;
     std::string input = "false + 1";
 
     ExpressionParser p;
-    Reader r(input);
+    ReaderCPP r(input);
     TDExpression *expr = p.parse(&r);
     XCTAssertNotNil(expr);
     TDEquals(1.0, [[expr simplify] evaluateAsNumberInContext:nil]);
@@ -91,7 +91,7 @@ using namespace templateengine;
     std::string input = "NO + 1";
 
     ExpressionParser p;
-    Reader r(input);
+    ReaderCPP r(input);
     TDExpression *expr = p.parse(&r);
     XCTAssertNotNil(expr);
     TDEquals(1.0, [[expr simplify] evaluateAsNumberInContext:nil]);
@@ -101,7 +101,7 @@ using namespace templateengine;
     std::string input = "2*2";
 
     ExpressionParser p;
-    Reader r(input);
+    ReaderCPP r(input);
     TDExpression *expr = p.parse(&r);
     XCTAssertNotNil(expr);
     TDEquals(4.0, [[expr simplify] evaluateAsNumberInContext:nil]);
@@ -111,7 +111,7 @@ using namespace templateengine;
     std::string input = "2/2";
 
     ExpressionParser p;
-    Reader r(input);
+    ReaderCPP r(input);
     TDExpression *expr = p.parse(&r);
     XCTAssertNotNil(expr);
     TDEquals(1.0, [[expr simplify] evaluateAsNumberInContext:nil]);
@@ -121,7 +121,7 @@ using namespace templateengine;
     std::string input = "3+2*2";
 
     ExpressionParser p;
-    Reader r(input);
+    ReaderCPP r(input);
     TDExpression *expr = p.parse(&r);
     XCTAssertNotNil(expr);
     TDEquals(7.0, [[expr simplify] evaluateAsNumberInContext:nil]);
@@ -131,7 +131,7 @@ using namespace templateengine;
     std::string input = "(3+2)*2";
 
     ExpressionParser p;
-    Reader r(input);
+    ReaderCPP r(input);
     TDExpression *expr = p.parse(&r);
     XCTAssertNotNil(expr);
     TDEquals(10.0, [[expr simplify] evaluateAsNumberInContext:nil]);
@@ -141,7 +141,7 @@ using namespace templateengine;
     std::string input = "-2%2";
 
     ExpressionParser p;
-    Reader r(input);
+    ReaderCPP r(input);
     TDExpression *expr = p.parse(&r);
     XCTAssertNotNil(expr);
     TDEquals(-0.0, [[expr simplify] evaluateAsNumberInContext:nil]);
@@ -151,7 +151,7 @@ using namespace templateengine;
     std::string input = "-1%2";
 
     ExpressionParser p;
-    Reader r(input);
+    ReaderCPP r(input);
     TDExpression *expr = p.parse(&r);
     XCTAssertNotNil(expr);
     TDEquals(-1.0, [[expr simplify] evaluateAsNumberInContext:nil]);
@@ -161,7 +161,7 @@ using namespace templateengine;
     std::string input = "0%2";
 
     ExpressionParser p;
-    Reader r(input);
+    ReaderCPP r(input);
     TDExpression *expr = p.parse(&r);
     XCTAssertNotNil(expr);
     TDEquals(0.0, [[expr simplify] evaluateAsNumberInContext:nil]);
@@ -171,7 +171,7 @@ using namespace templateengine;
     std::string input = "1%2";
 
     ExpressionParser p;
-    Reader r(input);
+    ReaderCPP r(input);
     TDExpression *expr = p.parse(&r);
     XCTAssertNotNil(expr);
     TDEquals(1.0, [[expr simplify] evaluateAsNumberInContext:nil]);
@@ -181,7 +181,7 @@ using namespace templateengine;
     std::string input = "2%2";
 
     ExpressionParser p;
-    Reader r(input);
+    ReaderCPP r(input);
     TDExpression *expr = p.parse(&r);
     XCTAssertNotNil(expr);
     TDEquals(0.0, [[expr simplify] evaluateAsNumberInContext:nil]);
@@ -191,7 +191,7 @@ using namespace templateengine;
     std::string input = "3%2";
 
     ExpressionParser p;
-    Reader r(input);
+    ReaderCPP r(input);
     TDExpression *expr = p.parse(&r);
     XCTAssertNotNil(expr);
     TDEquals(1.0, [[expr simplify] evaluateAsNumberInContext:nil]);
@@ -201,7 +201,7 @@ using namespace templateengine;
     std::string input = "4%2";
 
     ExpressionParser p;
-    Reader r(input);
+    ReaderCPP r(input);
     TDExpression *expr = p.parse(&r);
     XCTAssertNotNil(expr);
     TDEquals(0.0, [[expr simplify] evaluateAsNumberInContext:nil]);
@@ -211,7 +211,7 @@ using namespace templateengine;
     std::string input = "-1";
 
     ExpressionParser p;
-    Reader r(input);
+    ReaderCPP r(input);
     TDExpression *expr = p.parse(&r);
     XCTAssertNotNil(expr);
     TDEquals(-1.0, [[expr simplify] evaluateAsNumberInContext:nil]);
@@ -221,7 +221,7 @@ using namespace templateengine;
     std::string input = "--1";
 
     ExpressionParser p;
-    Reader r(input);
+    ReaderCPP r(input);
     TDExpression *expr = p.parse(&r);
     XCTAssertNotNil(expr);
     TDEquals(1.0, [[expr simplify] evaluateAsNumberInContext:nil]);
@@ -231,7 +231,7 @@ using namespace templateengine;
     std::string input = "1 + --1";
 
     ExpressionParser p;
-    Reader r(input);
+    ReaderCPP r(input);
     TDExpression *expr = p.parse(&r);
     XCTAssertNotNil(expr);
     TDEquals(2.0, [[expr simplify] evaluateAsNumberInContext:nil]);
@@ -241,7 +241,7 @@ using namespace templateengine;
     std::string input = "1 - --1";
 
     ExpressionParser p;
-    Reader r(input);
+    ReaderCPP r(input);
     TDExpression *expr = p.parse(&r);
     XCTAssertNotNil(expr);
     TDEquals(0.0, [[expr simplify] evaluateAsNumberInContext:nil]);
@@ -251,7 +251,7 @@ using namespace templateengine;
     std::string input = "--1 + 1";
 
     ExpressionParser p;
-    Reader r(input);
+    ReaderCPP r(input);
     TDExpression *expr = p.parse(&r);
     XCTAssertNotNil(expr);
     TDEquals(2.0, [[expr simplify] evaluateAsNumberInContext:nil]);
@@ -261,7 +261,7 @@ using namespace templateengine;
     std::string input = "--1 - 1";
 
     ExpressionParser p;
-    Reader r(input);
+    ReaderCPP r(input);
     TDExpression *expr = p.parse(&r);
     XCTAssertNotNil(expr);
     TDEquals(0.0, [[expr simplify] evaluateAsNumberInContext:nil]);
@@ -271,7 +271,7 @@ using namespace templateengine;
     std::string input = "---1";
 
     ExpressionParser p;
-    Reader r(input);
+    ReaderCPP r(input);
     TDExpression *expr = p.parse(&r);
     XCTAssertNotNil(expr);
     TDEquals(-1.0, [[expr simplify] evaluateAsNumberInContext:nil]);
@@ -281,7 +281,7 @@ using namespace templateengine;
     std::string input = "----4";
 
     ExpressionParser p;
-    Reader r(input);
+    ReaderCPP r(input);
     TDExpression *expr = p.parse(&r);
     XCTAssertNotNil(expr);
     TDEquals(4.0, [[expr simplify] evaluateAsNumberInContext:nil]);
@@ -289,7 +289,7 @@ using namespace templateengine;
 
 - (void)testPathFooBar8Plus2 {
     std::string input = "foo.bar+2";
-    Reader r(input);
+    ReaderCPP r(input);
     
     id vars = @{@"foo": @{@"bar": @(8)}};
     id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];

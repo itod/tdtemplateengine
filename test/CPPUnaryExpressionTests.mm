@@ -39,7 +39,7 @@ using namespace templateengine;
     std::string input = "-1";
     
     ExpressionParser p;
-    Reader r(input);
+    ReaderCPP r(input);
     TDExpression *expr = p.parse(&r);
     XCTAssertNotNil(expr);
     XCTAssertEqual(-1, [[expr simplify] evaluateAsNumberInContext:nil]);
@@ -50,7 +50,7 @@ using namespace templateengine;
     std::string input = "--1";
     
     ExpressionParser p;
-    Reader r(input);
+    ReaderCPP r(input);
     TDExpression *expr = p.parse(&r);
     XCTAssertNotNil(expr);
     XCTAssertEqual(1, [[expr simplify] evaluateAsNumberInContext:nil]);
@@ -60,7 +60,7 @@ using namespace templateengine;
     std::string input = "---1";
     
     ExpressionParser p;
-    Reader r(input);
+    ReaderCPP r(input);
     TDExpression *expr = p.parse(&r);
     XCTAssertNotNil(expr);
     XCTAssertEqual(-1, [[expr simplify] evaluateAsNumberInContext:nil]);
@@ -70,7 +70,7 @@ using namespace templateengine;
     std::string input = "----1";
     
     ExpressionParser p;
-    Reader r(input);
+    ReaderCPP r(input);
     TDExpression *expr = p.parse(&r);
     XCTAssertNotNil(expr);
     XCTAssertEqual(1, [[expr simplify] evaluateAsNumberInContext:nil]);

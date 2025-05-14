@@ -32,7 +32,7 @@ using namespace templateengine;
     std::string input = "1 eq 1";
 
     ExpressionParser p;
-    Reader r(input);
+    ReaderCPP r(input);
     TDExpression *expr = p.parse(&r);
     XCTAssertNotNil(expr);
     XCTAssertTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
@@ -42,7 +42,7 @@ using namespace templateengine;
     std::string input = "0 = -0";
     
     ExpressionParser p;
-    Reader r(input);
+    ReaderCPP r(input);
     TDExpression *expr = nil;
     try {
         expr = p.parse(&r);
@@ -55,7 +55,7 @@ using namespace templateengine;
     std::string input = "0 == -0";
 
     ExpressionParser p;
-    Reader r(input);
+    ReaderCPP r(input);
     TDExpression *expr = p.parse(&r);
     XCTAssertNotNil(expr);
     XCTAssertTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
@@ -65,7 +65,7 @@ using namespace templateengine;
     std::string input = "-0 == 0";
 
     ExpressionParser p;
-    Reader r(input);
+    ReaderCPP r(input);
     TDExpression *expr = p.parse(&r);
     XCTAssertNotNil(expr);
     XCTAssertTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
@@ -75,7 +75,7 @@ using namespace templateengine;
     std::string input = "-0==-0";
 
     ExpressionParser p;
-    Reader r(input);
+    ReaderCPP r(input);
     TDExpression *expr = p.parse(&r);
     XCTAssertNotNil(expr);
     XCTAssertTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
@@ -85,7 +85,7 @@ using namespace templateengine;
     std::string input = "1 = 1";
     
     ExpressionParser p;
-    Reader r(input);
+    ReaderCPP r(input);
     TDExpression *expr = nil;
     try {
         expr = p.parse(&r);
@@ -98,7 +98,7 @@ using namespace templateengine;
     std::string input = "1 == 1";
 
     ExpressionParser p;
-    Reader r(input);
+    ReaderCPP r(input);
     TDExpression *expr = p.parse(&r);
     XCTAssertNotNil(expr);
     XCTAssertTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
@@ -108,7 +108,7 @@ using namespace templateengine;
     std::string input = "1 eq 2";
 
     ExpressionParser p;
-    Reader r(input);
+    ReaderCPP r(input);
     TDExpression *expr = p.parse(&r);
     XCTAssertNotNil(expr);
     XCTAssertFalse([[expr simplify] evaluateAsBooleanInContext:nil]);
@@ -118,7 +118,7 @@ using namespace templateengine;
     std::string input = "1 = 2";
     
     ExpressionParser p;
-    Reader r(input);
+    ReaderCPP r(input);
     TDExpression *expr = nil;
     try {
         expr = p.parse(&r);
@@ -131,7 +131,7 @@ using namespace templateengine;
     std::string input = "1 == 2";
 
     ExpressionParser p;
-    Reader r(input);
+    ReaderCPP r(input);
     TDExpression *expr = p.parse(&r);
     XCTAssertNotNil(expr);
     XCTAssertFalse([[expr simplify] evaluateAsBooleanInContext:nil]);
@@ -141,7 +141,7 @@ using namespace templateengine;
     std::string input = "1 ne 1";
 
     ExpressionParser p;
-    Reader r(input);
+    ReaderCPP r(input);
     TDExpression *expr = p.parse(&r);
     XCTAssertNotNil(expr);
     XCTAssertFalse([[expr simplify] evaluateAsBooleanInContext:nil]);
@@ -151,7 +151,7 @@ using namespace templateengine;
     std::string input = "1 != 1";
 
     ExpressionParser p;
-    Reader r(input);
+    ReaderCPP r(input);
     TDExpression *expr = p.parse(&r);
     XCTAssertNotNil(expr);
     XCTAssertFalse([[expr simplify] evaluateAsBooleanInContext:nil]);
@@ -161,7 +161,7 @@ using namespace templateengine;
     std::string input = "1 ne 2";
 
     ExpressionParser p;
-    Reader r(input);
+    ReaderCPP r(input);
     TDExpression *expr = p.parse(&r);
     XCTAssertNotNil(expr);
     XCTAssertTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
@@ -171,7 +171,7 @@ using namespace templateengine;
     std::string input = "1 != 2";
 
     ExpressionParser p;
-    Reader r(input);
+    ReaderCPP r(input);
     TDExpression *expr = p.parse(&r);
     XCTAssertNotNil(expr);
     XCTAssertTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
@@ -183,7 +183,7 @@ using namespace templateengine;
     XCTAssertEqual(0, -0);
     
     ExpressionParser p;
-    Reader r(input);
+    ReaderCPP r(input);
     TDExpression *expr = p.parse(&r);
     XCTAssertNotNil(expr);
     XCTAssertTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
@@ -193,7 +193,7 @@ using namespace templateengine;
     std::string input = "0 != -0";
 
     ExpressionParser p;
-    Reader r(input);
+    ReaderCPP r(input);
     TDExpression *expr = p.parse(&r);
     XCTAssertNotNil(expr);
     XCTAssertFalse([[expr simplify] evaluateAsBooleanInContext:nil]);
@@ -205,7 +205,7 @@ using namespace templateengine;
     XCTAssertEqual(0.0, -0.0);
     
     ExpressionParser p;
-    Reader r(input);
+    ReaderCPP r(input);
     TDExpression *expr = p.parse(&r);
     XCTAssertNotNil(expr);
     XCTAssertTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
@@ -215,7 +215,7 @@ using namespace templateengine;
     std::string input = "0.0 != -0.0";
 
     ExpressionParser p;
-    Reader r(input);
+    ReaderCPP r(input);
     TDExpression *expr = p.parse(&r);
     XCTAssertNotNil(expr);
     XCTAssertFalse([[expr simplify] evaluateAsBooleanInContext:nil]);

@@ -29,7 +29,7 @@ using namespace parsekit;
 
 - (void)testIInArray4Thru6 {
     std::string input = "i in foo";
-    Reader reader(input);
+    ReaderCPP reader(input);
 
     id foo = @[@(4), @(5), @(6)];
     id vars = @{@"foo": foo};
@@ -51,7 +51,7 @@ using namespace parsekit;
 
 - (void)testIInArrayOneTwoThree {
     std::string input = "i in foo";
-    Reader reader(input);
+    ReaderCPP reader(input);
     
     id foo = @[@"one", @"two", @"three"];
     id vars = @{@"foo": foo};
@@ -73,7 +73,7 @@ using namespace parsekit;
 
 - (void)testObjInSetOneTwoThree {
     std::string input = "i in foo";
-    Reader reader(input);
+    ReaderCPP reader(input);
     
     id foo = [NSSet setWithObjects:@"one", @"two", @"three", nil];
     id vars = @{@"foo": foo};
@@ -102,7 +102,7 @@ using namespace parsekit;
 
 - (void)testKeyInDictOneTwoThree {
     std::string input = "key in dict";
-    Reader reader(input);
+    ReaderCPP reader(input);
     
     id dict = @{@"one": @(1), @"two": @(2), @"three": @(3)};
     id vars = @{@"dict": dict};
@@ -125,7 +125,7 @@ using namespace parsekit;
 
 - (void)testKeyValInDictOneTwoThree {
     std::string input = "key,val in dict";
-    Reader reader(input);
+    ReaderCPP reader(input);
     
     id dict = @{@"one": @(1), @"two": @(2), @"three": @(3)};
     id vars = @{@"dict": dict};
@@ -150,7 +150,7 @@ using namespace parsekit;
 
 - (void)testKeyValInDictNumsOneTwoThree {
     std::string input = "key,val in dict.nums";
-    Reader reader(input);
+    ReaderCPP reader(input);
     
     id nums = @{@"one": @(1), @"two": @(2), @"three": @(3)};
     id dict = @{@"nums": nums};

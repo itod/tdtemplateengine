@@ -51,7 +51,7 @@ using namespace templateengine;
     zstr[byteLen] = '\0';
     
     std::string input(zstr);
-    Reader reader(input);
+    ReaderCPP reader(input);
     
     expr = [self expressionFromReader:&reader error:outErr];
     return expr;

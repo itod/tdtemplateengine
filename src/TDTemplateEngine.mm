@@ -487,12 +487,12 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     zstr[byteLen] = '\0';
 
     std::string input(zstr);
-    Reader r(input);
+    ReaderCPP r(input);
     
     Tokenizer *t = ExpressionParser::tokenizer();
     Token tok = t->next(&r);
     TDAssert(TokenType_WORD == tok.token_type());
-    NSString *tagName = [NSString stringWithUTF8String:r.substring(tok).c_str()];
+    NSString *tagName = [NSString stringWithUTF8String:r.cpp_substr(tok).c_str()];
     
     // tokenize
     TDTag *tag = [self makeTagForName:tagName token:frag parent:parent];
