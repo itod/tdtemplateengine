@@ -471,8 +471,26 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     
     Tokenizer *t = ExpressionParser::tokenizer();
     
-    NSString *s = [_staticContext templateSubstringForToken:frag];
-    Reader r([s UTF8String]);
+    NSString *str = [_staticContext templateSubstringForToken:frag];
+    
+    NSUInteger strLen = str.length;
+    
+    NSStringEncoding enc = NSUTF8StringEncoding;
+    NSUInteger maxByteLen = [str maximumLengthOfBytesUsingEncoding:enc];
+    char zstr[maxByteLen+1];
+    NSUInteger byteLen;
+    NSRange remaining;
+    
+    // TODO make while loop and check `remaining`
+    if ([str getBytes:zstr maxLength:maxByteLen usedLength:&byteLen encoding:enc options:0 range:NSMakeRange(0, strLen) remainingRange:&remaining]) {
+        TDAssert(0 == remaining.length);
+        
+        // must make it null-terminated bc -getBytes: does not include NULL.
+        zstr[byteLen] = NULL;
+    }
+
+    std::string input(zstr);
+    Reader r(input); // TODO use -getBytes: here to remove allocation. would be messier tho.
     
     Token tok = t->next(&r);
     TDAssert(TokenType_WORD == tok.token_type());
