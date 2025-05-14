@@ -70,6 +70,7 @@
 #import <ParseKitCPP/Tokenizer.hpp>
 #import <ParseKitCPP/ParseException.hpp>
 #import "TemplateParser.hpp"
+#import "ExpressionParser.hpp"
 
 using namespace parsekit;
 using namespace templateengine;
@@ -411,7 +412,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 //    }
     catch (ParseException& ex) {
         NSString *domain = PEGKitErrorDomain;
-        NSString *name = @"FOO"; //[ex name];
+        NSString *name = @"TemplateError"; //[ex name];
         NSString *reason = [NSString stringWithUTF8String:ex.message().c_str()]; //[ex reason];
         //NSLog(@"%@", reason);
         
@@ -475,87 +476,46 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 }
 
 
-//- (TDTag *)tagFromFragment:(Token)frag withParent:(TDNode *)parent {
-//    NSParameterAssert(!frag.is_eof());
-//    NSParameterAssert(parent);
-//    
-//    Tokenizer *t = [self cpp_tokenizer];
-//    
-//    NSString *s = [_staticContext templateSubstringForToken:frag];
-//    Reader r([s UTF8String]);
-//    t->set_reader(&r);
-//    
-//    Token tok = t->next();
-//    TDAssert(TokenType_WORD == tok.token_type());
-//    NSString *tagName = [NSString stringWithUTF8String:r.substring(tok).c_str()];
-//    
-//    // tokenize
-//    TDTag *tag = [self makeTagForName:tagName token:frag parent:parent];
-//    TDAssert(tag);
-//    
-//    // compile expression if present
-//    tok = t->next();
-//    if (TokenType_EOF != tok.token_type()) {
-//        tag.expression = [self expressionForTagName:tagName fromFragment:frag tokenizer:t];
-//    }
-//    
-//    return tag;
-//}
-
-
 - (TDTag *)tagFromFragment:(Token)frag withParent:(TDNode *)parent {
     NSParameterAssert(!frag.is_eof());
     NSParameterAssert(parent);
     
-    NSMutableArray *toks = [NSMutableArray array];
-    NSString *tagName = [self tagNameFromTokens:toks inFragment:frag];
+    Tokenizer *t = ExpressionParser::tokenizer();
+    
+    NSString *s = [_staticContext templateSubstringForToken:frag];
+    Reader r([s UTF8String]);
+    
+    Token tok = t->next(&r);
+    TDAssert(TokenType_WORD == tok.token_type());
+    NSString *tagName = [NSString stringWithUTF8String:r.substring(tok).c_str()];
     
     // tokenize
     TDTag *tag = [self makeTagForName:tagName token:frag parent:parent];
     TDAssert(tag);
     
     // compile expression if present
-    if ([toks count]) {
-        tag.expression = [self expressionForTagName:tagName fromFragment:frag tokens:toks];
+    size_t offset = r.offset();
+    tok = t->next(&r);
+    if (TokenType_EOF != tok.token_type()) {
+        r.set_offset(offset);
+        tag.expression = [self expressionForTagName:tagName fromFragment:frag reader:&r];
     }
     
     return tag;
 }
 
 
-- (NSString *)tagNameFromTokens:(NSMutableArray *)outToks inFragment:(Token)frag {
-    NSString *tagName = nil;
-    
-    PKTokenizer *t = [self tokenizer];
-    t.string = [_staticContext templateSubstringForToken:frag];
-    
-    PKToken *tok = nil;
-    PKToken *eof = [PKToken EOFToken];
-    while (eof != (tok = [t nextToken])) {
-        if (!tagName && PKTokenTypeWord == tok.tokenType) {
-            tagName = tok.stringValue;
-            continue;
-        }
-        
-        [outToks addObject:tok];
-    }
-    
-    TDAssert([tagName length]);
-    return tagName;
-}
-
-
-- (TDExpression *)expressionForTagName:(NSString *)tagName fromFragment:(Token)frag tokens:(NSArray *)toks {
-    NSParameterAssert([toks count]);
+- (TDExpression *)expressionForTagName:(NSString *)tagName fromFragment:(Token)frag reader:(Reader *)reader {
+    NSParameterAssert(reader);
     
     TDExpression *expr = nil;
     NSError *err = nil;
     
     BOOL doLoop = [tagName isEqualToString:@"for"];
     if (doLoop) {
-        expr = [self loopExpressionFromTokens:toks error:&err];
+        expr = [self loopExpressionFromReader:reader error:&err];
     } else {
-        expr = [self expressionFromTokens:toks error:&err];
+        expr = [self expressionFromReader:reader error:&err];
     }
     
     if (!expr) {
@@ -567,6 +527,72 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     
     return expr;
 }
+
+
+//- (TDTag *)tagFromFragment:(Token)frag withParent:(TDNode *)parent {
+//    NSParameterAssert(!frag.is_eof());
+//    NSParameterAssert(parent);
+//    
+//    NSMutableArray *toks = [NSMutableArray array];
+//    NSString *tagName = [self tagNameFromTokens:toks inFragment:frag];
+//    
+//    // tokenize
+//    TDTag *tag = [self makeTagForName:tagName token:frag parent:parent];
+//    TDAssert(tag);
+//    
+//    // compile expression if present
+//    if ([toks count]) {
+//        tag.expression = [self expressionForTagName:tagName fromFragment:frag tokens:toks];
+//    }
+//    
+//    return tag;
+//}
+//
+//
+//- (NSString *)tagNameFromTokens:(NSMutableArray *)outToks inFragment:(Token)frag {
+//    NSString *tagName = nil;
+//    
+//    PKTokenizer *t = [self tokenizer];
+//    t.string = [_staticContext templateSubstringForToken:frag];
+//    
+//    PKToken *tok = nil;
+//    PKToken *eof = [PKToken EOFToken];
+//    while (eof != (tok = [t nextToken])) {
+//        if (!tagName && PKTokenTypeWord == tok.tokenType) {
+//            tagName = tok.stringValue;
+//            continue;
+//        }
+//        
+//        [outToks addObject:tok];
+//    }
+//    
+//    TDAssert([tagName length]);
+//    return tagName;
+//}
+
+
+//- (TDExpression *)expressionForTagName:(NSString *)tagName fromFragment:(Token)frag tokens:(NSArray *)toks {
+//    NSParameterAssert([toks count]);
+//    
+//    TDExpression *expr = nil;
+//    NSError *err = nil;
+//    
+//    BOOL doLoop = [tagName isEqualToString:@"for"];
+//    if (doLoop) {
+//        expr = [self loopExpressionFromTokens:toks error:&err];
+//    } else {
+//        expr = [self expressionFromTokens:toks error:&err];
+//    }
+//    
+//    if (!expr) {
+//        // TODO
+//        NSString *exprString = [_staticContext templateSubstringForToken:frag];
+//        NSString *msg = [NSString stringWithFormat:@"Error while compiling tag expression `%@` : %@", exprString, [err localizedFailureReason]];
+//        throw ParseException([msg UTF8String]);
+//    }
+//    
+//    return expr;
+//}
 
 
 #pragma mark -
