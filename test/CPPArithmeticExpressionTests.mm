@@ -288,14 +288,14 @@ using namespace templateengine;
 }
 
 - (void)testPathFooBar8Plus2 {
-    NSString *input = @"foo.bar+2";
-    NSArray *toks = [self tokenize:input];
+    std::string input = "foo.bar+2";
+    Reader r(input);
     
     id vars = @{@"foo": @{@"bar": @(8)}};
     id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     
     NSError *err = nil;
-    TDExpression *expr = [self.eng expressionFromTokens:toks error:&err];
+    TDExpression *expr = [self.eng expressionFromReader:&r error:&err];
     TDNil(err);
     TDNotNil(expr);
     TDEquals(10.0, [[expr simplify] evaluateAsNumberInContext:ctx]);

@@ -25,7 +25,6 @@
 #import <TDTemplateEngine/TDTemplateEngine.h>
 #import <TDTemplateEngine/TDTemplateContext.h>
 #import <TDTemplateEngine/TDFilter.h>
-#import <PEGKit/PKToken.h> // TODO RM
 #import <ParseKitCPP/Token.hpp>
 #import "EXToken.h"
 
@@ -107,23 +106,11 @@ using namespace parsekit;
                 case TokenType_NUMBER:
                     [evaledArgs addObject:@(tok.doubleValue)];
                     break;
-
-                // TODO REMOVE
-                case PKTokenTypeQuotedString:
-                    [evaledArgs addObject:[tok.stringValue substringWithRange:NSMakeRange(1, [tok.stringValue length]-2)]];
-                    break;
-                case PKTokenTypeWord:
-                    [evaledArgs addObject:[ctx resolveVariable:tok.stringValue]];
-                    break;
-                // DONE RM
-
                 default:
                     TDAssert(0);
                     break;
             }
         }
-//            }
-//        }
     }
     
     return evaledArgs;

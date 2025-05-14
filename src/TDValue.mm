@@ -26,7 +26,9 @@
 #import "TDStringValue.h"
 #import "TDObjectValue.h"
 #import "TDTemplateContext.h"
-#import "TDParser.h"
+#import "ExpressionParser.hpp"
+
+using namespace templateengine;
 
 TDValue *TDValueFromObject(id obj) {
     //NSCAssert(obj, @""); obj may be nil
@@ -115,8 +117,8 @@ double TDNumberFromString(NSString *s) {
 
 - (BOOL)compareToValue:(TDValue *)other usingOperator:(NSInteger)op {
 
-    if (op == TD_TOKEN_KIND_EQ) return [self isEqualToValue:other];
-    if (op == TD_TOKEN_KIND_NE) return [self isNotEqualToValue:other];
+    if (op == EXTokenType_EQ) return [self isEqualToValue:other];
+    if (op == EXTokenType_NE) return [self isNotEqualToValue:other];
         
     return [self compareNumber:[self doubleValue] toNumber:[other doubleValue] usingOperator:op];
 }
@@ -124,13 +126,13 @@ double TDNumberFromString(NSString *s) {
 
 - (BOOL)compareNumber:(double)x toNumber:(double)y usingOperator:(NSInteger)op {
     switch (op) {
-        case TD_TOKEN_KIND_LT:
+        case EXTokenType_LT:
             return x < y;
-        case TD_TOKEN_KIND_LE:
+        case EXTokenType_LE:
             return x <= y;
-        case TD_TOKEN_KIND_GT:
+        case EXTokenType_GT:
             return x > y;
-        case TD_TOKEN_KIND_GE:
+        case EXTokenType_GE:
             return x >= y;
         default:
             return NO;

@@ -24,7 +24,6 @@
 
 @class TDTemplateContext;
 @class TDExpression;
-@class PKToken;
 
 typedef NS_ENUM(NSUInteger, TDTagType) {
     TDTagTypeEmpty,

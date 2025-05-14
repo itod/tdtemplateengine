@@ -25,13 +25,6 @@
 #import <TDTemplateEngine/TDTemplateContext.h>
 #import <TDTemplateEngine/TDWriter.h>
 #import <TDTemplateEngine/TDExpression.h>
-#import <PEGKit/PKToken.h>
-#import <PEGKit/PKTokenizer.h>
-#import <PEGKit/PKWhitespaceState.h>
-
-@interface TDTag ()
-@property (nonatomic, retain) PKToken *endTagToken;
-@end
 
 @implementation TDTag
 
@@ -44,12 +37,6 @@
 + (TDTagType)tagType {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
     return TDTagTypeEmpty;
-}
-
-
-- (void)dealloc {
-    self.endTagToken = nil;
-    [super dealloc];
 }
 
 

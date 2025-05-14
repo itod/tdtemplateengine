@@ -23,8 +23,6 @@
 #import <TDTemplateEngine/TDExpression.h>
 #import <TDTemplateEngine/TDTemplateContext.h>
 #import "TDValue.h"
-#import "TDParser.h"
-#import <PEGKit/PKTokenizer.h>
 
 @implementation TDExpression
 

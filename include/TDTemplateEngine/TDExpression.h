@@ -24,7 +24,6 @@
 
 @class TDTemplateContext;
 @class TDValue;
-@class PKTokenizer;
 
 typedef NS_ENUM(NSUInteger, TDDataType) {
     TDDataTypeBoolean,

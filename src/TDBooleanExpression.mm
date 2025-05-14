@@ -23,7 +23,9 @@
 #import "TDBooleanExpression.h"
 #import "TDValue.h"
 #import "TDBooleanValue.h"
-#import "TDParser.h"
+#import "ExpressionParser.hpp"
+
+using namespace templateengine;
 
 @interface TDBinaryExpression ()
 @property (nonatomic, retain) TDExpression *p1;
@@ -68,10 +70,10 @@
     
     BOOL result = NO;
     switch (self.binaryOperator) {
-        case TD_TOKEN_KIND_AND:
+        case EXTokenType_AND:
             result = b1 && b2;
             break;
-        case TD_TOKEN_KIND_OR:
+        case EXTokenType_OR:
             result = b1 || b2;
             break;
         default:

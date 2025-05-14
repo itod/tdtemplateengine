@@ -29,7 +29,6 @@
 #import "TDTextNode.h"
 #import "TDPrintNode.h"
 
-#import "TDParser.h"
 #import "TDExpression.h"
 
 #import "TDIfTag.h"
@@ -62,11 +61,6 @@
 #import "TDReplaceFilter.h"
 #import "TDPadFilters.h"
 
-#import <PEGKit/PKAssembly.h>
-#import <PEGKit/PKTokenizer.h>
-#import <PEGKit/PKToken.h>
-#import <PEGKit/PKRecognitionException.h>
-
 #import <ParseKitCPP/Tokenizer.hpp>
 #import <ParseKitCPP/ParseException.hpp>
 #import "TemplateParser.hpp"
@@ -85,7 +79,6 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 @property (nonatomic, retain, readwrite) TDTemplateContext *staticContext;
 @property (nonatomic, retain) NSMutableDictionary *tagTab;
 @property (nonatomic, retain) NSMutableDictionary *filterTab;
-@property (nonatomic, retain) TDParser *expressionParser;
 
 @property (nonatomic, retain) NSRegularExpression *tagNameRegex;
 @end
@@ -143,9 +136,6 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
         [self registerFilterClass:[TDReplaceFilter class] forName:[TDReplaceFilter filterName]];
         [self registerFilterClass:[TDLpadFilter class] forName:[TDLpadFilter filterName]];
         [self registerFilterClass:[TDRpadFilter class] forName:[TDRpadFilter filterName]];
-        
-        self.expressionParser = [[[TDParser alloc] initWithDelegate:nil] autorelease];
-        _expressionParser.engine = self;
     }
     return self;
 }
@@ -161,7 +151,6 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     self.staticContext = nil;
     self.tagTab = nil;
     self.filterTab = nil;
-    self.expressionParser = nil;
     self.tagNameRegex = nil;
     [super dealloc];
 }
@@ -411,8 +400,8 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 //        }
 //    }
     catch (ParseException& ex) {
-        NSString *domain = PEGKitErrorDomain;
-        NSString *name = @"TemplateError"; //[ex name];
+        NSString *domain = @"ParseKitErrorDomain";
+        NSString *name = @"ParseError"; //[ex name];
         NSString *reason = [NSString stringWithUTF8String:ex.message().c_str()]; //[ex reason];
         //NSLog(@"%@", reason);
         
@@ -437,7 +426,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     // get reason
     reason = reason ? reason : @"";
     userInfo[NSLocalizedFailureReasonErrorKey] = reason;
-    userInfo[PEGKitErrorRangeKey] = [NSValue valueWithRange:r];
+    userInfo[@"ParseKitErrorRangeKey"] = [NSValue valueWithRange:r];
     
     id lineNumVal = nil;
     if (NSNotFound == lineNum) {
@@ -445,10 +434,10 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     } else {
         lineNumVal = @(lineNum);
     }
-    userInfo[PEGKitErrorLineNumberKey] = lineNumVal;
+    userInfo[@"ParseKitErrorLineNumberKey"] = lineNumVal;
     
     // convert to NSError
-    NSError *err = [NSError errorWithDomain:PEGKitErrorDomain code:PEGKitRecognitionErrorCode userInfo:[[userInfo copy] autorelease]];
+    NSError *err = [NSError errorWithDomain:@"ParseKitErrorDomain" code:0 userInfo:[[userInfo copy] autorelease]];
     return err;
 }
 
@@ -527,72 +516,6 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     
     return expr;
 }
-
-
-//- (TDTag *)tagFromFragment:(Token)frag withParent:(TDNode *)parent {
-//    NSParameterAssert(!frag.is_eof());
-//    NSParameterAssert(parent);
-//    
-//    NSMutableArray *toks = [NSMutableArray array];
-//    NSString *tagName = [self tagNameFromTokens:toks inFragment:frag];
-//    
-//    // tokenize
-//    TDTag *tag = [self makeTagForName:tagName token:frag parent:parent];
-//    TDAssert(tag);
-//    
-//    // compile expression if present
-//    if ([toks count]) {
-//        tag.expression = [self expressionForTagName:tagName fromFragment:frag tokens:toks];
-//    }
-//    
-//    return tag;
-//}
-//
-//
-//- (NSString *)tagNameFromTokens:(NSMutableArray *)outToks inFragment:(Token)frag {
-//    NSString *tagName = nil;
-//    
-//    PKTokenizer *t = [self tokenizer];
-//    t.string = [_staticContext templateSubstringForToken:frag];
-//    
-//    PKToken *tok = nil;
-//    PKToken *eof = [PKToken EOFToken];
-//    while (eof != (tok = [t nextToken])) {
-//        if (!tagName && PKTokenTypeWord == tok.tokenType) {
-//            tagName = tok.stringValue;
-//            continue;
-//        }
-//        
-//        [outToks addObject:tok];
-//    }
-//    
-//    TDAssert([tagName length]);
-//    return tagName;
-//}
-
-
-//- (TDExpression *)expressionForTagName:(NSString *)tagName fromFragment:(Token)frag tokens:(NSArray *)toks {
-//    NSParameterAssert([toks count]);
-//    
-//    TDExpression *expr = nil;
-//    NSError *err = nil;
-//    
-//    BOOL doLoop = [tagName isEqualToString:@"for"];
-//    if (doLoop) {
-//        expr = [self loopExpressionFromTokens:toks error:&err];
-//    } else {
-//        expr = [self expressionFromTokens:toks error:&err];
-//    }
-//    
-//    if (!expr) {
-//        // TODO
-//        NSString *exprString = [_staticContext templateSubstringForToken:frag];
-//        NSString *msg = [NSString stringWithFormat:@"Error while compiling tag expression `%@` : %@", exprString, [err localizedFailureReason]];
-//        throw ParseException([msg UTF8String]);
-//    }
-//    
-//    return expr;
-//}
 
 
 #pragma mark -

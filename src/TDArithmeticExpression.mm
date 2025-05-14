@@ -23,7 +23,9 @@
 #import "TDArithmeticExpression.h"
 #import "TDValue.h"
 #import "TDNumericValue.h"
-#import "TDParser.h"
+#import "ExpressionParser.hpp"
+
+using namespace templateengine;
 
 @interface TDBinaryExpression ()
 @property (nonatomic, retain) TDExpression *p1;
@@ -55,19 +57,19 @@
 
     double res = 0.0;
     switch (self.binaryOperator) {
-        case TD_TOKEN_KIND_PLUS:
+        case EXTokenType_PLUS:
             res = n1 + n2;
             break;
-        case TD_TOKEN_KIND_MINUS:
+        case EXTokenType_MINUS:
             res = n1 - n2;
             break;
-        case TD_TOKEN_KIND_TIMES:
+        case EXTokenType_TIMES:
             res = n1 * n2;
             break;
-        case TD_TOKEN_KIND_DIV:
+        case EXTokenType_DIV:
             res = n1 / n2;
             break;
-        case TD_TOKEN_KIND_MOD:
+        case EXTokenType_MOD:
             res = lrint(n1) % lrint(n2);
             break;
         default:

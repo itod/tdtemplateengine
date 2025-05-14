@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import <XCTest/XCTest.h>
-#import <PEGKit/PEGKit.h>
 //#import <OCMock/OCMock.h>
 #import <TDTemplateEngine/TDTemplateEngine.h>
 #import <TDTemplateEngine/TDTemplateContext.h>

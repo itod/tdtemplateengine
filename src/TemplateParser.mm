@@ -21,10 +21,6 @@ using namespace parsekit;
 - (TDTag *)tagFromFragment:(Token)tok withParent:(TDNode *)parent;
 @end
 
-@interface TDTag ()
-@property (nonatomic, retain) PKToken *endTagToken;
-@end
-
 namespace templateengine {
 
 TemplateParser::TemplateParser(TDTemplateEngine *engine, TDTemplateContext *staticContext) :

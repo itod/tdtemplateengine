@@ -8,12 +8,8 @@
 
 #import "TDTestScaffold.h"
 #import "TDExpression.h"
-#import "TDParser.h"
 
 @interface TDBaseExpressionTests : XCTestCase
-- (NSArray *)tokenize:(NSString *)input;
-
 @property (nonatomic, retain) TDTemplateEngine *eng;
 @property (nonatomic, retain) TDExpression *expr;
-@property (nonatomic, retain) PKTokenizer *t;
 @end

@@ -21,11 +21,7 @@
 // THE SOFTWARE.
 
 #import "TDTemplateEngine+ExpressionSupport.h"
-
-#import "TDParser.h"
 #import "TDExpression.h"
-
-#import <PEGKit/PKAssembly.h>
 
 #import <ParseKitCPP/Reader.hpp>
 #import "ExpressionParser.hpp"
@@ -33,66 +29,32 @@
 using namespace parsekit;
 using namespace templateengine;
 
-@interface TDTemplateEngine ()
-@property (nonatomic, retain) TDParser *expressionParser;
-@end
-
 @implementation TDTemplateEngine (ExpressionSupport)
 
-- (PKTokenizer *)tokenizer {
-    TDAssert(self.expressionParser);
-    return [self.expressionParser tokenizer];
-}
-
-
 - (TDExpression *)expressionFromString:(NSString *)str error:(NSError **)outErr {
-    TDAssert(self.expressionParser);
-    PKAssembly *a = [self.expressionParser parseString:str error:outErr];
+    TDExpression *expr = nil;
     
-    TDExpression *expr = [a pop];
+    NSUInteger strLen = str.length;
     
-    expr = [expr simplify];
+    NSStringEncoding enc = NSUTF8StringEncoding;
+    NSUInteger maxByteLen = [str maximumLengthOfBytesUsingEncoding:enc];
+    char zstr[maxByteLen+1];
+    NSUInteger byteLen;
+    NSRange remaining;
+    
+    // TODO make while loop and check `remaining`
+    if ([str getBytes:zstr maxLength:maxByteLen usedLength:&byteLen encoding:enc options:0 range:NSMakeRange(0, strLen) remainingRange:&remaining]) {
+        // must make it null-terminated bc -getBytes: does not include NULL.
+        zstr[byteLen] = NULL;
+        
+        std::string input(zstr);
+        Reader reader(input);
+        
+        expr = [self expressionFromReader:&reader error:outErr];
+    }
+    
     return expr;
 }
-
-
-- (TDExpression *)expressionFromTokens:(NSArray *)toks error:(NSError **)outErr {
-    TDAssert(self.expressionParser);
-    PKAssembly *a = [self.expressionParser parseTokens:toks error:outErr];
-    
-    TDExpression *expr = [a pop];
-    
-    expr = [expr simplify];
-    return expr;
-}
-
-
-- (TDExpression *)loopExpressionFromTokens:(NSArray *)toks error:(NSError **)outErr {
-    TDAssert(self.expressionParser);
-    self.expressionParser.doLoopExpr = YES;
-    PKAssembly *a = [self.expressionParser parseTokens:toks error:outErr];
-    self.expressionParser.doLoopExpr = NO;
-    
-    TDExpression *expr = [a pop];
-    
-    expr = [expr simplify];
-    return expr;
-}
-
-
-//- (TDExpression *)expressionFromString:(NSString *)str error:(NSError **)outErr {
-//    NSStringEncoding enc = NSUTF16StringEncoding;
-//    NSUInteger maxLen = [str maximumLengthOfBytesUsingEncoding:enc];
-//    NSUInteger usedLen;
-//    
-//    char bytes[maxLen+1];
-//    [str getBytes:&bytes maxLength:maxLen usedLength:&usedLen encoding:enc options:0 range:NSMakeRange(0, maxLen) remainingRange:NULL]; // warn not NULL-terminated
-//    bytes[maxLen] = NULL;
-//    
-//    std::string s(bytes);
-//    Reader reader(s);
-//    return [self expressionFromReader:&reader error:outErr];
-//}
 
 
 - (TDExpression *)expressionFromReader:(Reader *)reader error:(NSError **)outErr {
