@@ -60,20 +60,7 @@ using namespace templateengine;
 - (TDExpression *)expressionFromReader:(Reader *)reader error:(NSError **)outErr {
     ExpressionParser p(self);
     
-    TDExpression *expr = nil;
-    
-    try {
-        expr = p.parse(reader);
-    } catch (ParseException& ex) {
-        if (outErr) {
-            NSError *err = [NSError errorWithDomain:@"TDTemplateEngine"
-                                               code:0
-                                           userInfo:@{
-                NSLocalizedDescriptionKey: [NSString stringWithUTF8String:ex.message().c_str()],
-            }];
-            *outErr = err;
-        }
-    }
+    TDExpression *expr = [self expressionFromParser:&p reader:reader error:outErr];
 
     expr = [expr simplify];
     return expr;
@@ -83,10 +70,21 @@ using namespace templateengine;
 - (TDExpression *)loopExpressionFromReader:(Reader *)reader error:(NSError **)outErr {
     ExpressionParser p(self);
     p.setDoLoopExpr(true);
+    
+    TDExpression *expr = [self expressionFromParser:&p reader:reader error:outErr];
+    
+    p.setDoLoopExpr(false);
+    
+    expr = [expr simplify];
+    return expr;
+}
+
+
+- (TDExpression *)expressionFromParser:(ExpressionParser *)parser reader:(Reader *)reader error:(NSError **)outErr {
     TDExpression *expr = nil;
     
     try {
-        expr = p.parse(reader);
+        expr = parser->parse(reader);
     } catch (ParseException& ex) {
         if (outErr) {
             NSError *err = [NSError errorWithDomain:@"TDTemplateEngine"
@@ -97,9 +95,6 @@ using namespace templateengine;
             *outErr = err;
         }
     }
-    p.setDoLoopExpr(false);
-    
-    expr = [expr simplify];
     return expr;
 }
 
