@@ -546,8 +546,6 @@
 		D3A29DFC18E6584D00DC591E /* TDStringValue.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TDStringValue.mm; path = src/TDStringValue.mm; sourceTree = SOURCE_ROOT; };
 		D3A29DFD18E6584D00DC591E /* TDValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDValue.h; path = src/TDValue.h; sourceTree = SOURCE_ROOT; };
 		D3A29DFE18E6584D00DC591E /* TDValue.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = TDValue.mm; path = src/TDValue.mm; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		D3A29E0C18E65AC400DC591E /* TDParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDParser.h; path = src/TDParser.h; sourceTree = SOURCE_ROOT; };
-		D3A29E0D18E65AC400DC591E /* TDParser.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TDParser.mm; path = src/TDParser.mm; sourceTree = SOURCE_ROOT; };
 		D3A29E1518E6659400DC591E /* expression.grammar */ = {isa = PBXFileReference; lastKnownFileType = text; name = expression.grammar; path = res/expression.grammar; sourceTree = SOURCE_ROOT; };
 		D3A29E2318E75D3B00DC591E /* TDArithmeticExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = TDArithmeticExpression.h; path = src/TDArithmeticExpression.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		D3A29E2418E75D3B00DC591E /* TDArithmeticExpression.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = TDArithmeticExpression.mm; path = src/TDArithmeticExpression.mm; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -591,8 +589,6 @@
 		D3AC684E1A41D43400F7EB6A /* TDReplaceFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDReplaceFilter.m; path = src/TDReplaceFilter.m; sourceTree = SOURCE_ROOT; };
 		D3AC685D1A42022500F7EB6A /* TDTrimFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDTrimFilter.h; path = src/TDTrimFilter.h; sourceTree = SOURCE_ROOT; };
 		D3AC685E1A42022500F7EB6A /* TDTrimFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDTrimFilter.m; path = src/TDTrimFilter.m; sourceTree = SOURCE_ROOT; };
-		D3BB32E218F76116005E0A3A /* PKToken+Verbatim.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PKToken+Verbatim.h"; path = "src/PKToken+Verbatim.h"; sourceTree = SOURCE_ROOT; };
-		D3BB32E318F76116005E0A3A /* PKToken+Verbatim.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "PKToken+Verbatim.m"; path = "src/PKToken+Verbatim.m"; sourceTree = SOURCE_ROOT; };
 		D3CAF8A918EDF27F00166A95 /* TDCollectionExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDCollectionExpression.h; path = src/TDCollectionExpression.h; sourceTree = SOURCE_ROOT; };
 		D3CAF8AA18EDF27F00166A95 /* TDCollectionExpression.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TDCollectionExpression.mm; path = src/TDCollectionExpression.mm; sourceTree = SOURCE_ROOT; };
 		D3CAF8AD18EDF39200166A95 /* TDLoopExpression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDLoopExpression.h; path = src/TDLoopExpression.h; sourceTree = SOURCE_ROOT; };
@@ -893,8 +889,6 @@
 			children = (
 				D3A7E26918EF9286009BFD96 /* TDTemplateEngine+ExpressionSupport.h */,
 				D3A7E26A18EF9286009BFD96 /* TDTemplateEngine+ExpressionSupport.mm */,
-				D3BB32E218F76116005E0A3A /* PKToken+Verbatim.h */,
-				D3BB32E318F76116005E0A3A /* PKToken+Verbatim.m */,
 				D3A29E1618E6659D00DC591E /* Parser */,
 				D3A29DF418E6583600DC591E /* TDExpression.h */,
 				D3A29DF818E6584D00DC591E /* TDExpression.mm */,
@@ -923,8 +917,6 @@
 		D3A29E1618E6659D00DC591E /* Parser */ = {
 			isa = PBXGroup;
 			children = (
-				D3A29E0C18E65AC400DC591E /* TDParser.h */,
-				D3A29E0D18E65AC400DC591E /* TDParser.mm */,
 				D3AAFE712DD2C268009EDC64 /* ExpressionAssembly.hpp */,
 				D3AAFE722DD2C268009EDC64 /* ExpressionAssembly.mm */,
 				D3AAFE732DD2C268009EDC64 /* ExpressionParser.hpp */,
@@ -1779,7 +1771,6 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					lib/PEGKit/include,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.5;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c++";
@@ -1833,7 +1824,6 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					lib/PEGKit/include,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.5;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c++";
@@ -1974,10 +1964,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					lib/PEGKit/include,
-				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				MACOSX_DEPLOYMENT_TARGET = 13.5;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c++";
 				ONLY_ACTIVE_ARCH = YES;

@@ -474,17 +474,17 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     
     NSStringEncoding enc = NSUTF8StringEncoding;
     NSUInteger maxByteLen = [str maximumLengthOfBytesUsingEncoding:enc];
-    char zstr[maxByteLen+1];
+    char zstr[maxByteLen+1]; // +1 for null-term
     NSUInteger byteLen;
     NSRange remaining;
     
-    // TODO make while loop and check `remaining`
-    if ([str getBytes:zstr maxLength:maxByteLen usedLength:&byteLen encoding:enc options:0 range:NSMakeRange(0, strLen) remainingRange:&remaining]) {
-        TDAssert(0 == remaining.length);
-        
-        // must make it null-terminated bc -getBytes: does not include NULL.
-        zstr[byteLen] = NULL;
+    if (![str getBytes:zstr maxLength:maxByteLen usedLength:&byteLen encoding:enc options:0 range:NSMakeRange(0, strLen) remainingRange:&remaining]) {
+        TDAssert(0);
     }
+    TDAssert(0 == remaining.length);
+    
+    // must make it null-terminated bc -getBytes: does not include terminator
+    zstr[byteLen] = '\0';
 
     std::string input(zstr);
     Reader r(input);

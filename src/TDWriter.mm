@@ -9,6 +9,8 @@
 #import <TDTemplateEngine/TDWriter.h>
 #import <TDTemplateEngine/TDTemplateEngine.h>
 
+#define USE_GET_BYTES 1
+
 @implementation TDWriter
 
 + (instancetype)writerWithOutputStream:(NSOutputStream *)output {
@@ -33,20 +35,26 @@
 
 - (void)appendString:(NSString *)str {
     TDAssert(_output);
-    TDAssert(str);
-    
-//    NSUInteger maxLen = [str maximumLengthOfBytesUsingEncoding:NSUTF8StringEncoding];
-//    if (maxLen) {
-//        const uint8_t *zstr = (const uint8_t *)[str UTF8String];
-//        NSInteger written = [_output write:zstr maxLength:maxLen];
-//        if (-1 == written) {
-//            [NSException raise:TDTemplateEngineErrorDomain format:@"Error while writing template output string"];
-//        }
-//    }
-    
-    NSUInteger len = [str lengthOfBytesUsingEncoding:NSUTF8StringEncoding];
+    //TDAssert(str);
+        
+#if USE_GET_BYTES
+    NSStringEncoding enc = NSUTF8StringEncoding;
+    NSUInteger maxLen = [str maximumLengthOfBytesUsingEncoding:enc];
+    if (maxLen) {
+        NSUInteger len;
+        char bytes[maxLen+1]; // +1 for null-term
+        if (![str getBytes:bytes maxLength:maxLen usedLength:&len encoding:enc options:0 range:NSMakeRange(0, str.length) remainingRange:NULL]) {
+            TDAssert(0);
+            TDAssert(len <= maxLen);
+        }
+        // must make it null-terminated bc -getBytes: does not include terminator
+        bytes[len] = '\0';
+        const uint8_t *zstr = (const uint8_t *)bytes;
+#else
+    const uint8_t *zstr = (const uint8_t *)[str UTF8String];
+    size_t len = strlen((const char *)zstr);
     if (len) {
-        const uint8_t *zstr = (const uint8_t *)[str UTF8String];
+#endif
         NSUInteger remaining = len;
         do {
             NSInteger trim = remaining - len;
