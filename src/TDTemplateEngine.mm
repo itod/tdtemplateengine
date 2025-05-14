@@ -469,10 +469,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     NSParameterAssert(!frag.is_eof());
     NSParameterAssert(parent);
     
-    Tokenizer *t = ExpressionParser::tokenizer();
-    
     NSString *str = [_staticContext templateSubstringForToken:frag];
-    
     NSUInteger strLen = str.length;
     
     NSStringEncoding enc = NSUTF8StringEncoding;
@@ -492,6 +489,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     std::string input(zstr);
     Reader r(input);
     
+    Tokenizer *t = ExpressionParser::tokenizer();
     Token tok = t->next(&r);
     TDAssert(TokenType_WORD == tok.token_type());
     NSString *tagName = [NSString stringWithUTF8String:r.substring(tok).c_str()];
