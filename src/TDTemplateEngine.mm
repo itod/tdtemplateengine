@@ -470,7 +470,6 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     NSParameterAssert(parent);
     
     NSString *str = [_staticContext templateSubstringForToken:frag];
-    NSUInteger strLen = str.length;
     
     NSStringEncoding enc = NSUTF8StringEncoding;
     NSUInteger maxByteLen = [str maximumLengthOfBytesUsingEncoding:enc];
@@ -478,7 +477,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     NSUInteger byteLen;
     NSRange remaining;
     
-    if (![str getBytes:zstr maxLength:maxByteLen usedLength:&byteLen encoding:enc options:0 range:NSMakeRange(0, strLen) remainingRange:&remaining]) {
+    if (![str getBytes:zstr maxLength:maxByteLen usedLength:&byteLen encoding:enc options:0 range:NSMakeRange(0, str.length) remainingRange:&remaining]) {
         TDAssert(0);
     }
     TDAssert(0 == remaining.length);

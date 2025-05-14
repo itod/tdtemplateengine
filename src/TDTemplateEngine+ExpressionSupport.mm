@@ -34,15 +34,13 @@ using namespace templateengine;
 - (TDExpression *)expressionFromString:(NSString *)str error:(NSError **)outErr {
     TDExpression *expr = nil;
     
-    NSUInteger strLen = str.length;
-    
     NSStringEncoding enc = NSUTF8StringEncoding;
     NSUInteger maxByteLen = [str maximumLengthOfBytesUsingEncoding:enc];
     char zstr[maxByteLen+1]; // +1 for null-term
     NSUInteger byteLen;
     NSRange remaining;
     
-    if (![str getBytes:zstr maxLength:maxByteLen usedLength:&byteLen encoding:enc options:0 range:NSMakeRange(0, strLen) remainingRange:&remaining]) {
+    if (![str getBytes:zstr maxLength:maxByteLen usedLength:&byteLen encoding:enc options:0 range:NSMakeRange(0, str.length) remainingRange:&remaining]) {
         TDAssert(0);
     }
     TDAssert(0 == remaining.length);
