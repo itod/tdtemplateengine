@@ -32,7 +32,7 @@
 #define POP_OBJ()             _assembly->pop_object()
 
 #define POP_TOK()             _assembly->pop_token()
-#define POP_TOK_STR()         [NSString stringWithUTF8String:_assembly->string_for_token(POP_TOK()).c_str()]
+#define POP_TOK_STR()         [NSString stringWithUTF8String:_assembly->cpp_string_for_token(POP_TOK()).c_str()]
 #define POP_TOK_QUOTED_STR()  stringByTrimmingQuotes(POP_TOK_STR())
 #define POP_TOK_DOUBLE()      _assembly->float_for_token(_assembly->pop_token())
 

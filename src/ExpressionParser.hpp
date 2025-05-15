@@ -163,7 +163,7 @@ public:
     
     virtual Token edit_token_type(const Token& tok) const override {
         
-        std::string s = _assembly->string_for_token(tok);
+        std::string s = _assembly->cpp_string_for_token(tok);
         const EXTokenTable tab = ExpressionParser::tokenTable();
         
         TokenType tt;
