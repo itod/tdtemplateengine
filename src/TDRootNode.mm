@@ -23,6 +23,10 @@
 #import "TDRootNode.h"
 #import <ParseKitCPP/Token.hpp>
 
+@interface TDRootNode ()
+@property (nonatomic, retain) NSMutableDictionary *blockTab;
+@end
+
 @implementation TDRootNode
 
 + (instancetype)rootNode {
@@ -35,7 +39,44 @@
 - (void)dealloc {
     self.extendsPath = nil;
     self.templateString = nil;
+    self.blockTab = nil;
     [super dealloc];
+}
+
+
+#pragma mark -
+#pragma mark NSCopying
+
+- (id)copyWithZone:(NSZone *)zone {
+    TDRootNode *node = [[TDRootNode alloc] init];
+    
+    for (TDNode *kid in self.children) {
+        [node addChild:kid];
+    }
+    
+    node->_extendsPath = [_extendsPath copy];
+    node->_templateString = [_templateString retain];
+    node->_blockTab = [_blockTab mutableCopy];
+    
+    return node;
+}
+
+
+#pragma mark -
+#pragma mark Public
+
+- (TDNode *)blockForKey:(NSString *)key {
+    return [_blockTab objectForKey:key];
+}
+
+
+- (void)setBlock:(TDNode *)block forKey:(NSString *)key {
+    TDAssert(block);
+    TDAssert(key.length);
+    if (!_blockTab) {
+        self.blockTab = [NSMutableDictionary dictionary];
+    }
+    [_blockTab setObject:block forKey:key];
 }
 
 @end

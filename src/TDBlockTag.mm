@@ -21,6 +21,12 @@
 // THE SOFTWARE.
 
 #import "TDBlockTag.h"
+#import "TDRootNode.h"
+#import "TDPathExpression.h"
+
+@interface TDPathExpression ()
+@property (nonatomic, retain) NSString *head;
+@end
 
 @implementation TDBlockTag
 
@@ -30,12 +36,33 @@
 
 
 + (TDTagType)tagType {
-    return TDTagTypeEmpty;
+    return TDTagTypeComplex;
 }
 
+
+#pragma mark -
+#pragma mark Compiletime
 
 - (void)compileInContext:(TDTemplateContext *)staticContext {
-    NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
+    if ([self.expression isKindOfClass:[TDPathExpression class]]) {
+        TDPathExpression *pexpr = (id)self.expression;
+        NSString *key = pexpr.head;
+        
+        TDRootNode *root = (id)[self firstAncestorOfClass:[TDRootNode class]];
+        [root setBlock:self forKey:key];
+    } else {
+        TDAssert(0);
+    }
 }
+
+
+#pragma mark -
+#pragma mark Runtime
+
+- (void)doTagInContext:(TDTemplateContext *)ctx {
+    NSParameterAssert(ctx);
+    [self renderChildrenInContext:ctx];
+}
+
 
 @end

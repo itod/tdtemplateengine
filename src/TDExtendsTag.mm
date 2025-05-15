@@ -32,13 +32,12 @@
 
 
 + (TDTagType)tagType {
-    return TDTagTypeEmpty;
+    return TDTagTypeSimple;
 }
 
 
 - (void)compileInContext:(TDTemplateContext *)staticContext {
-    TDRootNode *root = (id)[self.parent firstAncestorOfClass:[TDRootNode class]];
-    
+    TDRootNode *root = (id)[self firstAncestorOfClass:[TDRootNode class]];
     root.extendsPath = [self.expression evaluateAsStringInContext:staticContext];
 }
 

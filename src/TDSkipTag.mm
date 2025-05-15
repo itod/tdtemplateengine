@@ -32,7 +32,7 @@
 
 
 + (TDTagType)tagType {
-    return TDTagTypeEmpty;
+    return TDTagTypeSimple;
 }
 
 

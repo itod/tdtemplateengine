@@ -22,9 +22,12 @@
 
 #import "TDNode.h"
 
-@interface TDRootNode : TDNode
+@interface TDRootNode : TDNode <NSCopying>
 + (instancetype)rootNode;
 
 @property (nonatomic, copy) NSString *extendsPath;
 @property (nonatomic, retain) NSString *templateString;
+
+- (TDNode *)blockForKey:(NSString *)key;
+- (void)setBlock:(TDNode *)block forKey:(NSString *)key;
 @end

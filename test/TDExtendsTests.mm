@@ -42,7 +42,7 @@
 
 - (void)testInheritance {
     _engine.cacheTemplates = YES;
-    return;
+    //return;
     NSString *parentStr = @"<html><head>{% block head %}{% endblock %}</head><body>{% block body %}{% endblock %}</body></html>";
     NSString *childStr = @"{% extends 'parent.html' %}\n{% block body %}bar{% endblock %}";
     NSString *enkelStr = @"{% extends 'child.html' %}\n{% block head %}foo{% endblock %}";
@@ -65,7 +65,7 @@
     [_engine _setCachedTemplate:enkel forPath:@"enkel.html"];
     
     id vars = nil;
-    BOOL success = [parent render:vars toStream:_output error:&err];
+    BOOL success = [enkel render:vars toStream:_output error:&err];
     XCTAssertTrue(success);
     XCTAssertNil(err);
 

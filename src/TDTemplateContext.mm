@@ -262,6 +262,7 @@ static NSCharacterSet *sNewlineSet = nil;
 }
 
 
+// TODO remove
 - (NSString *)templateSubstringForToken:(parsekit::Token)token {
     NSString *result = nil;
     if (_templateString) {

@@ -18,7 +18,7 @@
 
 
 + (TDTagType)tagType {
-    return TDTagTypeBlock;
+    return TDTagTypeComplex;
 }
 
 

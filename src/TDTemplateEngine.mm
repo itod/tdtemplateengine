@@ -32,7 +32,9 @@
 
 #import "TDExpression.h"
 
-#import "TDCompileTimeTag.h"
+#import "TDExtendsTag.h"
+#import "TDBlockTag.h"
+#import "TDLoadTag.h"
 #import "TDIfTag.h"
 #import "TDElseTag.h"
 #import "TDElseIfTag.h"
@@ -77,7 +79,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 
 @interface TDTemplate ()
 - (instancetype)initWithDocument:(TDNode *)doc;
-- (void)addBlocksFromNode:(TDNode *)node;
+- (void)adoptBlocksFromNode:(TDRootNode *)node;
 @end
 
 // PRIVATE
@@ -119,6 +121,10 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
         TDAssert(_cleanerRegex);
         
         self.tagTab = [NSMutableDictionary dictionary];
+        [self registerTagClass:[TDExtendsTag class] forName:[TDExtendsTag tagName]];
+        [self registerTagClass:[TDBlockTag class] forName:[TDBlockTag tagName]];
+        [self registerTagClass:[TDLoadTag class] forName:[TDLoadTag tagName]];
+
         [self registerTagClass:[TDIfTag class] forName:[TDIfTag tagName]];
         [self registerTagClass:[TDElseTag class] forName:[TDElseTag tagName]];
         [self registerTagClass:[TDElseIfTag class] forName:[TDElseIfTag tagName]];
@@ -333,8 +339,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
         }
         
         tmpl = [[superTemplate copy] autorelease];
-        [tmpl addBlocksFromNode:node];
-        
+        [tmpl adoptBlocksFromNode:node];
     } else {
         tmpl = [[[TDTemplate alloc] initWithDocument:node] autorelease];
     }
@@ -433,10 +438,10 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
                 Class tagCls = [self registerdTagClassForName:tagName];
                 
                 switch ([tagCls tagType]) {
-                    case TDTagTypeBlock:
+                    case TDTagTypeComplex:
                         tokenType = TemplateTokenType_BLOCK_START_TAG;
                         break;
-                    case TDTagTypeEmpty:
+                    case TDTagTypeSimple:
                         tokenType = TemplateTokenType_EMPTY_TAG;
                         break;
                     default:

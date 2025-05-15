@@ -13,7 +13,7 @@
 @implementation TDConditionalOutputTag
 
 + (TDTagType)tagType {
-    return TDTagTypeEmpty;
+    return TDTagTypeSimple;
 }
 
 

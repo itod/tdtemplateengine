@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <ParseKitCPP/Token.hpp>
 
 @interface TDTemplate : NSObject <NSCopying>
 
@@ -15,7 +16,8 @@
 
 //- (BOOL)compile:(NSError **)outErr;
 
-- (NSString *)render:(NSDictionary *)vars error:(NSError **)outErr;
-- (BOOL)render:(NSDictionary *)vars toStream:(NSOutputStream *)stream error:(NSError **)outErr;
+- (NSString *)render:(NSDictionary *)vars error:(NSError **)err;
+- (BOOL)render:(NSDictionary *)vars toStream:(NSOutputStream *)output error:(NSError **)err;
 
+- (NSString *)templateSubstringForToken:(parsekit::Token)token;
 @end
