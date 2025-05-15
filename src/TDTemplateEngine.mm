@@ -276,13 +276,29 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 }
 
 
-- (TDTemplate *)templateWithContentsOfFile:(NSString *)path error:(NSError **)err {
+- (TDTemplate *)_cachedTemplateForPath:(NSString *)path {
     TDTemplate *tmpl = nil;
-    
     if (_cacheTemplates) {
         tmpl = [_templateCache objectForKey:path];
         if (tmpl) return tmpl;
     }
+    return tmpl;
+}
+
+
+- (void)_setCachedTemplate:(TDTemplate *)tmpl forPath:(NSString *)path {
+    if (tmpl && _cacheTemplates) {
+        if (!_templateCache) {
+            self.templateCache = [NSMutableDictionary dictionary];
+        }
+        [_templateCache setObject:tmpl forKey:path];
+    }
+}
+
+
+- (TDTemplate *)templateWithContentsOfFile:(NSString *)path error:(NSError **)err {
+    TDTemplate *tmpl = [self _cachedTemplateForPath:path];
+    if (tmpl) return tmpl;
     
     NSStringEncoding enc;
     NSString *str = [NSString stringWithContentsOfFile:path usedEncoding:&enc error:err];
@@ -293,12 +309,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     
     tmpl = [self _templateFromString:str error:err];
     
-    if (tmpl && _cacheTemplates) {
-        if (!_templateCache) {
-            self.templateCache = [NSMutableDictionary dictionary];
-        }
-        [_templateCache setObject:tmpl forKey:path];
-    }
+    [self _setCachedTemplate:tmpl forPath:path];
     
     return tmpl;
 }
