@@ -67,12 +67,10 @@
     id vars = nil;
     BOOL success = [parent render:vars toStream:_output error:&err];
     XCTAssertTrue(success);
-    
-//    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
-//    TDTrue(success);
-//    TDNil(err);
+    XCTAssertNil(err);
+
     NSString *res = [self outputString];
-    TDEqualObjects(@"foo", res);
+    TDEqualObjects(@"<html><head>foo</head><body>bar</body></html>", res);
 }
 
 @end
