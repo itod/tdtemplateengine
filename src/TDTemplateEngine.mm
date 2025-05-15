@@ -23,6 +23,7 @@
 #import <TDTemplateEngine/TDTemplateEngine.h>
 #import <TDTemplateEngine/TDNode.h>
 #import <TDTemplateEngine/TDTemplateContext.h>
+#import <TDTemplateEngine/TDTemplate.h>
 #import "TDTemplateEngine+ExpressionSupport.h"
 
 #import "TDRootNode.h"
@@ -73,6 +74,11 @@ NSString * const TDTemplateEngineTagEndPrefix = @"end";
 NSString * const TDTemplateEngineErrorDomain = @"TDTemplateEngineErrorDomain";
 const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 
+@interface TDTemplate ()
+- (instancetype)initWithDocument:(TDNode *)doc;
+- (void)addBlocksFromNode:(TDNode *)node;
+@end
+
 @interface TDTemplateEngine ()
 @property (nonatomic, retain) NSRegularExpression *delimiterRegex;
 @property (nonatomic, retain) NSRegularExpression *cleanerRegex;
@@ -81,6 +87,8 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 @property (nonatomic, retain) NSMutableDictionary *filterTab;
 
 @property (nonatomic, retain) NSRegularExpression *tagNameRegex;
+
+@property (nonatomic, retain) NSMutableDictionary *templateCache;
 @end
 
 @implementation TDTemplateEngine
@@ -152,6 +160,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     self.tagTab = nil;
     self.filterTab = nil;
     self.tagNameRegex = nil;
+    self.templateCache = nil;
     [super dealloc];
 }
 
@@ -258,6 +267,63 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     }
     
     return success;
+}
+
+
+- (TDTemplate *)templateWithContentsOfFile:(NSString *)path error:(NSError **)err {
+    TDTemplate *tmpl = nil;
+    
+    if (_cacheTemplates) {
+        tmpl = [_templateCache objectForKey:path];
+        if (tmpl) return tmpl;
+    }
+    
+    NSStringEncoding enc;
+    NSString *str = [NSString stringWithContentsOfFile:path usedEncoding:&enc error:err];
+    if (!str) {
+        if (*err) NSLog(@"%@", *err);
+        return nil;
+    }
+    
+    tmpl = [self _templateFromString:str error:err];
+    
+    if (tmpl && _cacheTemplates) {
+        if (!_templateCache) {
+            self.templateCache = [NSMutableDictionary dictionary];
+        }
+        [_templateCache setObject:tmpl forKey:path];
+    }
+    
+    return tmpl;
+}
+
+
+- (TDTemplate *)_templateFromString:(NSString *)str error:(NSError **)err {
+    TDNode *node = [self compileTemplateString:str error:err];
+    if (!node) {
+        if (*err) NSLog(@"%@", *err);
+        return nil;
+    }
+    
+    TDTemplate *tmpl = nil;
+    
+    NSString *superTemplatePath = nil; // check `doc` to see if starts wtih {% extends %}
+    if (superTemplatePath) {
+        TDTemplate *superTemplate = [self templateWithContentsOfFile:superTemplatePath error:err];
+        if (!superTemplate) {
+            NSLog(@"Could not extend template `%@` bc it coult not be loaded or compiled.", superTemplatePath);
+            return nil;
+        }
+        
+        tmpl = [[superTemplate copy] autorelease];
+        [tmpl addBlocksFromNode:node];
+        
+    } else {
+        tmpl = [[[TDTemplate alloc] initWithDocument:node] autorelease];
+    }
+    
+    TDAssert(tmpl);
+    return tmpl;
 }
 
 

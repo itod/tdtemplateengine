@@ -366,9 +366,9 @@
 		D3AAFEA42DD408DC009EDC64 /* EXToken.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3AAFEA02DD408DC009EDC64 /* EXToken.mm */; };
 		D3AAFEA52DD408DC009EDC64 /* EXToken.h in Headers */ = {isa = PBXBuildFile; fileRef = D3AAFE9F2DD408DC009EDC64 /* EXToken.h */; };
 		D3AAFEA62DD408DC009EDC64 /* EXToken.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3AAFEA02DD408DC009EDC64 /* EXToken.mm */; };
-		D3AAFEE72DD57439009EDC64 /* TDTemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AAFEE52DD57439009EDC64 /* TDTemplate.m */; };
-		D3AAFEE92DD57439009EDC64 /* TDTemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AAFEE52DD57439009EDC64 /* TDTemplate.m */; };
-		D3AAFEEB2DD57439009EDC64 /* TDTemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AAFEE52DD57439009EDC64 /* TDTemplate.m */; };
+		D3AAFEE72DD57439009EDC64 /* TDTemplate.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3AAFEE52DD57439009EDC64 /* TDTemplate.mm */; };
+		D3AAFEE92DD57439009EDC64 /* TDTemplate.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3AAFEE52DD57439009EDC64 /* TDTemplate.mm */; };
+		D3AAFEEB2DD57439009EDC64 /* TDTemplate.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3AAFEE52DD57439009EDC64 /* TDTemplate.mm */; };
 		D3AAFEED2DD57457009EDC64 /* TDTemplate.h in Headers */ = {isa = PBXBuildFile; fileRef = D3AAFEEC2DD57457009EDC64 /* TDTemplate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3AAFEEE2DD57457009EDC64 /* TDTemplate.h in Headers */ = {isa = PBXBuildFile; fileRef = D3AAFEEC2DD57457009EDC64 /* TDTemplate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3AAFEEF2DD57457009EDC64 /* TDTemplate.h in Headers */ = {isa = PBXBuildFile; fileRef = D3AAFEEC2DD57457009EDC64 /* TDTemplate.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -591,7 +591,7 @@
 		D3AAFE9B2DD2F009009EDC64 /* CPPPathExpressionTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = CPPPathExpressionTests.mm; path = test/CPPPathExpressionTests.mm; sourceTree = SOURCE_ROOT; };
 		D3AAFE9F2DD408DC009EDC64 /* EXToken.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = EXToken.h; path = src/EXToken.h; sourceTree = SOURCE_ROOT; };
 		D3AAFEA02DD408DC009EDC64 /* EXToken.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = EXToken.mm; path = src/EXToken.mm; sourceTree = SOURCE_ROOT; };
-		D3AAFEE52DD57439009EDC64 /* TDTemplate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TDTemplate.m; path = src/TDTemplate.m; sourceTree = SOURCE_ROOT; };
+		D3AAFEE52DD57439009EDC64 /* TDTemplate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = TDTemplate.mm; path = src/TDTemplate.mm; sourceTree = SOURCE_ROOT; };
 		D3AAFEEC2DD57457009EDC64 /* TDTemplate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TDTemplate.h; path = include/TDTemplateEngine/TDTemplate.h; sourceTree = SOURCE_ROOT; };
 		D3AC684D1A41D43400F7EB6A /* TDReplaceFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDReplaceFilter.h; path = src/TDReplaceFilter.h; sourceTree = SOURCE_ROOT; };
 		D3AC684E1A41D43400F7EB6A /* TDReplaceFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDReplaceFilter.m; path = src/TDReplaceFilter.m; sourceTree = SOURCE_ROOT; };
@@ -791,7 +791,7 @@
 				D3A29DE918E64FB800DC591E /* TDTemplateContext.h */,
 				D3A29DCF18E63A1C00DC591E /* TDTemplateContext.mm */,
 				D3AAFEEC2DD57457009EDC64 /* TDTemplate.h */,
-				D3AAFEE52DD57439009EDC64 /* TDTemplate.m */,
+				D3AAFEE52DD57439009EDC64 /* TDTemplate.mm */,
 				D39D36422DBFEB6E006F1663 /* TemplateParser.hpp */,
 				D39D36432DBFEB6E006F1663 /* TemplateParser.mm */,
 				D39D3A6A2DC03595006F1663 /* TemplateAssembly.hpp */,
@@ -1394,7 +1394,7 @@
 				D3100CF41CE52ED7007B38BE /* TDObjectValue.mm in Sources */,
 				D3100CF51CE52ED7007B38BE /* TDArithmeticExpression.mm in Sources */,
 				D3100CF61CE52ED7007B38BE /* TDBinaryExpression.mm in Sources */,
-				D3AAFEE92DD57439009EDC64 /* TDTemplate.m in Sources */,
+				D3AAFEE92DD57439009EDC64 /* TDTemplate.mm in Sources */,
 				D36AC9BE2D7FD0D3001C99FD /* TDSepTag.mm in Sources */,
 				D3100CF71CE52ED7007B38BE /* TDBooleanExpression.mm in Sources */,
 				D3294B7D2D8517D000C19D79 /* TDUncapitalizeFilter.m in Sources */,
@@ -1465,7 +1465,7 @@
 				D31E3E711F1C1D04004BD0C6 /* TDObjectValue.mm in Sources */,
 				D31E3E721F1C1D04004BD0C6 /* TDArithmeticExpression.mm in Sources */,
 				D31E3E731F1C1D04004BD0C6 /* TDBinaryExpression.mm in Sources */,
-				D3AAFEEB2DD57439009EDC64 /* TDTemplate.m in Sources */,
+				D3AAFEEB2DD57439009EDC64 /* TDTemplate.mm in Sources */,
 				D36AC9BA2D7FD0D3001C99FD /* TDSepTag.mm in Sources */,
 				D31E3E741F1C1D04004BD0C6 /* TDBooleanExpression.mm in Sources */,
 				D3294B802D8517D000C19D79 /* TDUncapitalizeFilter.m in Sources */,
@@ -1536,7 +1536,7 @@
 				D3A7E27418F07782009BFD96 /* TDCommentTag.mm in Sources */,
 				D3D0F6FE1ACB4566006B6112 /* TDSkipException.m in Sources */,
 				D319138C18F1AC4500430BAD /* TDLowercaseFilter.m in Sources */,
-				D3AAFEE72DD57439009EDC64 /* TDTemplate.m in Sources */,
+				D3AAFEE72DD57439009EDC64 /* TDTemplate.mm in Sources */,
 				D36AC9BD2D7FD0D3001C99FD /* TDSepTag.mm in Sources */,
 				D319138418F1A58A00430BAD /* TDCapitalizeFilter.m in Sources */,
 				D3294B812D8517D000C19D79 /* TDUncapitalizeFilter.m in Sources */,

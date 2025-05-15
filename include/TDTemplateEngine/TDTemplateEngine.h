@@ -30,6 +30,7 @@
 #import <TDTemplateEngine/TDTemplateContext.h>
 #import <TDTemplateEngine/TDTemplateEngine.h>
 #import <TDTemplateEngine/TDWriter.h>
+#import <TDTemplateEngine/TDTemplate.h>
 #endif
 
 //
@@ -50,6 +51,7 @@ FOUNDATION_EXPORT const unsigned char TDTemplateengineVersionString[];
 @class TDTag;
 @class TDFilter;
 @class TDTemplateContext;
+@class TDTemplate;
 
 extern NSString * const TDTemplateEngineTagEndPrefix;
 extern NSString * const TDTemplateEngineErrorDomain;
@@ -77,6 +79,12 @@ extern const NSInteger TDTemplateEngineRenderingErrorCode;
 @property (nonatomic, copy) NSString *printEndDelimiter;
 @property (nonatomic, copy) NSString *tagStartDelimiter;
 @property (nonatomic, copy) NSString *tagEndDelimiter;
+
+
+// new Template API
+- (TDTemplate *)templateWithContentsOfFile:(NSString *)path error:(NSError **)err;
+@property (nonatomic, assign) BOOL cacheTemplates;
+
 @end
 
 @interface TDTemplateEngine (TagRegistration)

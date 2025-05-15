@@ -8,10 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-@interface TDTemplate : NSObject
+@interface TDTemplate : NSObject <NSCopying>
 
-+ (instancetype)templateWithContentsOfFile:(NSString *)path error:(NSError **)err;
-+ (instancetype)templateWithString:(NSString *)path error:(NSError **)err;
+//+ (instancetype)templateWithContentsOfFile:(NSString *)path error:(NSError **)err;
+//+ (instancetype)templateWithString:(NSString *)path error:(NSError **)err;
 
 //- (BOOL)compile:(NSError **)outErr;
 
