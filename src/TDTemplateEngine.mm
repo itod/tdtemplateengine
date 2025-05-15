@@ -32,6 +32,7 @@
 
 #import "TDExpression.h"
 
+#import "TDCompileTimeTag.h"
 #import "TDIfTag.h"
 #import "TDElseTag.h"
 #import "TDElseIfTag.h"
@@ -574,6 +575,11 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     if (TokenType_EOF != tok.token_type()) {
         r.set_offset(offset);
         tag.expression = [self expressionForTagName:tagName fromFragment:frag reader:&r];
+    }
+    
+    if ([tag isKindOfClass:[TDCompileTimeTag class]]) {
+        TDCompileTimeTag *cttag = (TDCompileTimeTag *)tag;
+        [cttag compile];
     }
     
     return tag;
