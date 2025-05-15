@@ -41,7 +41,7 @@ TemplateParser::~TemplateParser() {
     _root = nil;
 }
 
-TDNode *TemplateParser::parse(TokenListPtr frags) {
+TDRootNode *TemplateParser::parse(TokenListPtr frags) {
     TokenListTokenizer tokenizer(frags);
     _tokenizer = &tokenizer;
 
@@ -57,7 +57,7 @@ TDNode *TemplateParser::parse(TokenListPtr frags) {
     TemplateAssembly assembly(&token_stack, &consumed, node_stack);
     _assembly = &assembly;
     
-    TDNode *node = nil;
+    TDRootNode *node = nil;
     //try {
         _template();
         _eof();
@@ -190,7 +190,7 @@ void TemplateParser::raise(std::string reason) {
     //[NSException raise:@"FIXME" format:@"%@", reason];
 }
 
-void TemplateParser::setRoot(TDNode *n) {
+void TemplateParser::setRoot(TDRootNode *n) {
     if (_root != n) {
         [_root autorelease];
         _root = [n retain];

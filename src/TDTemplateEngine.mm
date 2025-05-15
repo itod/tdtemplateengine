@@ -79,16 +79,21 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 - (void)addBlocksFromNode:(TDNode *)node;
 @end
 
+// PRIVATE
 @interface TDTemplateEngine ()
+@property (nonatomic, retain) NSMutableDictionary *templateCache;
+
 @property (nonatomic, retain) NSRegularExpression *delimiterRegex;
 @property (nonatomic, retain) NSRegularExpression *cleanerRegex;
+@property (nonatomic, retain) NSRegularExpression *tagNameRegex;
 @property (nonatomic, retain, readwrite) TDTemplateContext *staticContext;
 @property (nonatomic, retain) NSMutableDictionary *tagTab;
 @property (nonatomic, retain) NSMutableDictionary *filterTab;
 
-@property (nonatomic, retain) NSRegularExpression *tagNameRegex;
-
-@property (nonatomic, retain) NSMutableDictionary *templateCache;
+@property (nonatomic, copy) NSString *printStartDelimiter;
+@property (nonatomic, copy) NSString *printEndDelimiter;
+@property (nonatomic, copy) NSString *tagStartDelimiter;
+@property (nonatomic, copy) NSString *tagEndDelimiter;
 @end
 
 @implementation TDTemplateEngine
@@ -168,10 +173,10 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 #pragma mark -
 #pragma mark Public
 
-- (TDNode *)compileTemplateFile:(NSString *)path encoding:(NSStringEncoding)enc error:(NSError **)err {
+- (TDRootNode *)compileTemplateFile:(NSString *)path encoding:(NSStringEncoding)enc error:(NSError **)err {
     NSParameterAssert([path length]);
     
-    TDNode *root = nil;
+    TDRootNode *root = nil;
     NSString *str = [NSString stringWithContentsOfFile:path encoding:enc error:err];
     
     if (str) {
@@ -182,7 +187,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 }
 
 
-- (TDNode *)compileTemplateString:(NSString *)str error:(NSError **)err {
+- (TDRootNode *)compileTemplateString:(NSString *)str error:(NSError **)err {
     NSParameterAssert([str length]);
     TDAssert([_printStartDelimiter length]);
     TDAssert([_printEndDelimiter length]);
@@ -210,7 +215,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     TDAssert(frags);
     
     // compile
-    TDNode *root = [self compile:frags error:err];
+    TDRootNode *root = [self compile:frags error:err];
     
     _staticContext.templateString = nil;
     
@@ -442,12 +447,12 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 }
 
 
-- (TDNode *)compile:(TokenListPtr)frags error:(NSError **)outError {
+- (TDRootNode *)compile:(TokenListPtr)frags error:(NSError **)outError {
     
     TDAssert(_staticContext);
     TemplateParser p(self, _staticContext);
     
-    TDNode *root = nil;
+    TDRootNode *root = nil;
     try {
         root = p.parse(frags);
     }

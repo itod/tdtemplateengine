@@ -12,6 +12,7 @@
 @class TDTemplateEngine;
 @class TDTemplateContext;
 @class TDNode;
+@class TDRootNode;
 
 namespace templateengine {
 
@@ -30,8 +31,8 @@ private:
     
     TemplateAssembly *_assembly;
     
-    TDNode *_root;
-    void setRoot(TDNode *n);
+    TDRootNode *_root;
+    void setRoot(TDRootNode *n);
     
     TDNode *_currentParent;
     void setCurrentParent(TDNode *n);
@@ -53,7 +54,7 @@ public:
     
     virtual parsekit::Assembly *assembly() const override { return _assembly; }
     
-    TDNode *parse(parsekit::TokenListPtr);
+    TDRootNode *parse(parsekit::TokenListPtr);
 };
 
 }

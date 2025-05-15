@@ -15,7 +15,6 @@ using namespace templateengine;
 
 @interface TDTemplateEngine ()
 - (TokenListPtr)fragmentsFromString:(NSString *)inStr;
-- (TDNode *)compileTemplateString:(NSString *)str error:(NSError **)err;
 @end
 
 @interface TDTemplateEngineTests : XCTestCase
@@ -76,7 +75,7 @@ using namespace templateengine;
 
     TDTemplateEngine *engine = [TDTemplateEngine templateEngine];
     NSError *err = nil;
-    TDNode *root = [engine compileTemplateString:input error:&err];
+    TDRootNode *root = [engine compileTemplateString:input error:&err];
     
     XCTAssertNotNil(root);
 }

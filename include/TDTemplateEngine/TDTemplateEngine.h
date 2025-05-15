@@ -47,7 +47,6 @@ FOUNDATION_EXPORT double TDTemplateengineVersionNumber;
 //! Project version string for TDTemplateengine.
 FOUNDATION_EXPORT const unsigned char TDTemplateengineVersionString[];
 
-@class TDNode;
 @class TDTag;
 @class TDFilter;
 @class TDTemplateContext;
@@ -61,30 +60,11 @@ extern const NSInteger TDTemplateEngineRenderingErrorCode;
 
 + (instancetype)templateEngine;
 
-// pre-compile template into a tree
-- (TDNode *)compileTemplateString:(NSString *)str error:(NSError **)err;
-- (TDNode *)compileTemplateFile:(NSString *)path encoding:(NSStringEncoding)enc error:(NSError **)err;
-
-// render pre-compiled tree with render-time vars
-- (BOOL)renderTemplateTree:(TDNode *)root withVariables:(NSDictionary *)vars toStream:(NSOutputStream *)output error:(NSError **)err;
-
-// convenience. compile + render with render-time vars in one shot
-- (BOOL)processTemplateString:(NSString *)str withVariables:(NSDictionary *)vars toStream:(NSOutputStream *)output error:(NSError **)err;
-- (BOOL)processTemplateFile:(NSString *)path encoding:(NSStringEncoding)enc withVariables:(NSDictionary *)vars toStream:(NSOutputStream *)output error:(NSError **)err;
-
 // static/compile-time vars go here. this is the global scope at both compile-time and render-time. persists across compiles and renders.
 @property (nonatomic, retain, readonly) TDTemplateContext *staticContext;
 
-@property (nonatomic, copy) NSString *printStartDelimiter;
-@property (nonatomic, copy) NSString *printEndDelimiter;
-@property (nonatomic, copy) NSString *tagStartDelimiter;
-@property (nonatomic, copy) NSString *tagEndDelimiter;
-
-
-// new Template API
 - (TDTemplate *)templateWithContentsOfFile:(NSString *)path error:(NSError **)err;
 @property (nonatomic, assign) BOOL cacheTemplates;
-
 @end
 
 @interface TDTemplateEngine (TagRegistration)
@@ -97,4 +77,20 @@ extern const NSInteger TDTemplateEngineRenderingErrorCode;
 - (void)registerFilterClass:(Class)cls forName:(NSString *)filterName;
 - (Class)registeredFilterClassForName:(NSString *)filterName;
 - (TDFilter *)makeFilterForName:(NSString *)filterName;
+@end
+
+// TODO move all this to private & testing?
+@class TDRootNode;
+
+@interface TDTemplateEngine (FriendAPI)
+// pre-compile template into a tree
+- (TDRootNode *)compileTemplateString:(NSString *)str error:(NSError **)err;
+- (TDRootNode *)compileTemplateFile:(NSString *)path encoding:(NSStringEncoding)enc error:(NSError **)err;
+
+// render pre-compiled tree with render-time vars
+- (BOOL)renderTemplateTree:(TDNode *)root withVariables:(NSDictionary *)vars toStream:(NSOutputStream *)output error:(NSError **)err;
+
+// convenience. compile + render with render-time vars in one shot
+- (BOOL)processTemplateString:(NSString *)str withVariables:(NSDictionary *)vars toStream:(NSOutputStream *)output error:(NSError **)err;
+- (BOOL)processTemplateFile:(NSString *)path encoding:(NSStringEncoding)enc withVariables:(NSDictionary *)vars toStream:(NSOutputStream *)output error:(NSError **)err;
 @end
