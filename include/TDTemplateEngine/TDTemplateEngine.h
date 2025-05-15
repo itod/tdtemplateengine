@@ -81,7 +81,6 @@ extern const NSInteger TDTemplateEngineRenderingErrorCode;
 
 // TODO move all this to private & testing?
 @class TDRootNode;
-
 @interface TDTemplateEngine (FriendAPI)
 // pre-compile template into a tree
 - (TDRootNode *)compileTemplateString:(NSString *)str error:(NSError **)err;
