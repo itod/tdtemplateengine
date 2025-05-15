@@ -25,5 +25,6 @@
 @interface TDRootNode : TDNode
 + (instancetype)rootNode;
 
+@property (nonatomic, copy) NSString *extendsPath;
 @property (nonatomic, retain) NSString *templateString;
 @end

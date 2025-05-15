@@ -80,6 +80,7 @@ extern const NSInteger TDTemplateEngineRenderingErrorCode;
 @end
 
 // TODO move all this to private & testing?
+@class TDNode;
 @class TDRootNode;
 @interface TDTemplateEngine (FriendAPI)
 // pre-compile template into a tree

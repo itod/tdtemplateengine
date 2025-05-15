@@ -304,7 +304,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 
 
 - (TDTemplate *)_templateFromString:(NSString *)str error:(NSError **)err {
-    TDNode *node = [self compileTemplateString:str error:err];
+    TDRootNode *node = [self compileTemplateString:str error:err];
     if (!node) {
         if (*err) NSLog(@"%@", *err);
         return nil;
@@ -312,11 +312,11 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     
     TDTemplate *tmpl = nil;
     
-    NSString *superTemplatePath = nil; // check `doc` to see if starts wtih {% extends %}
-    if (superTemplatePath) {
-        TDTemplate *superTemplate = [self templateWithContentsOfFile:superTemplatePath error:err];
+    // check `doc` to see if starts wtih {% extends %}
+    if (node.extendsPath) {
+        TDTemplate *superTemplate = [self templateWithContentsOfFile:node.extendsPath error:err];
         if (!superTemplate) {
-            NSLog(@"Could not extend template `%@` bc it coult not be loaded or compiled.", superTemplatePath);
+            NSLog(@"Could not extend template `%@` bc it coult not be loaded or compiled.", node.extendsPath);
             return nil;
         }
         
