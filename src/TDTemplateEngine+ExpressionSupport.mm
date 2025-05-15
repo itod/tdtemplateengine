@@ -34,22 +34,24 @@ using namespace templateengine;
 - (TDExpression *)expressionFromString:(NSString *)str error:(NSError **)outErr {
     TDExpression *expr = nil;
     
-    NSStringEncoding enc = NSUTF8StringEncoding;
-    NSUInteger maxByteLen = [str maximumLengthOfBytesUsingEncoding:enc];
-    char zstr[maxByteLen+1]; // +1 for null-term
-    NSUInteger byteLen;
-    NSRange remaining;
+//    NSStringEncoding enc = NSUTF8StringEncoding;
+//    NSUInteger maxByteLen = [str maximumLengthOfBytesUsingEncoding:enc];
+//    char zstr[maxByteLen+1]; // +1 for null-term
+//    NSUInteger byteLen;
+//    NSRange remaining;
+//    
+//    if (![str getBytes:zstr maxLength:maxByteLen usedLength:&byteLen encoding:enc options:0 range:NSMakeRange(0, str.length) remainingRange:&remaining]) {
+//        TDAssert(0);
+//    }
+//    TDAssert(0 == remaining.length);
+//
+//    // must make it null-terminated bc -getBytes: does not include terminator
+//    zstr[byteLen] = '\0';
+//    
+//    std::string input(zstr);
+//    ReaderCPP reader(input);
     
-    if (![str getBytes:zstr maxLength:maxByteLen usedLength:&byteLen encoding:enc options:0 range:NSMakeRange(0, str.length) remainingRange:&remaining]) {
-        TDAssert(0);
-    }
-    TDAssert(0 == remaining.length);
-
-    // must make it null-terminated bc -getBytes: does not include terminator
-    zstr[byteLen] = '\0';
-    
-    std::string input(zstr);
-    ReaderCPP reader(input);
+    ReaderObjC reader(str);
     
     expr = [self expressionFromReader:&reader error:outErr];
     return expr;
