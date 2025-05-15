@@ -43,16 +43,20 @@
 #pragma mark -
 #pragma mark Compiletime
 
-- (void)compileInContext:(TDTemplateContext *)staticContext {
+- (NSString *)key {
+    NSString *key = nil;
     if ([self.expression isKindOfClass:[TDPathExpression class]]) {
         TDPathExpression *pexpr = (id)self.expression;
-        NSString *key = pexpr.head;
-        
-        TDRootNode *root = (id)[self firstAncestorOfClass:[TDRootNode class]];
-        [root setBlock:self forKey:key];
-    } else {
-        TDAssert(0);
+        key = pexpr.head;
     }
+    TDAssert(key);
+    return key;
+}
+
+
+- (void)compileInContext:(TDTemplateContext *)staticContext {
+    TDRootNode *root = (id)[self firstAncestorOfClass:[TDRootNode class]];
+    [root setBlock:self forKey:self.key];
 }
 
 
@@ -61,8 +65,11 @@
 
 - (void)doTagInContext:(TDTemplateContext *)ctx {
     NSParameterAssert(ctx);
-    [self renderChildrenInContext:ctx];
+    
+    TDRootNode *root = (id)[self firstAncestorOfClass:[TDRootNode class]];
+    TDNode *delegate = [root blockForKey:self.key];
+    
+    [delegate renderChildrenInContext:ctx];
 }
-
 
 @end

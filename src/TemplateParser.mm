@@ -98,8 +98,8 @@ void TemplateParser::_content() {
         _block_tag();
     } else if (predicts(TemplateTokenType_TEXT, 0)) {
         _text();
-//    } else {
-//        raise("No viable alternative found in rule `content`.");
+    } else {
+        raise("No viable alternative found in rule `content`.");
     }
 }
 
@@ -156,7 +156,6 @@ void TemplateParser::_block_start_tag() {
     assert(startTagNode);
     [_currentParent addChild:startTagNode];
     setCurrentParent(startTagNode);
-    
 }
 
 void TemplateParser::_block_end_tag() {

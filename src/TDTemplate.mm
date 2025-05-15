@@ -61,7 +61,7 @@
 - (id)copyWithZone:(NSZone *)zone {
     TDTemplate *tmpl = [[TDTemplate alloc] init];
     
-    tmpl->_document = [_document copy];
+    tmpl->_document = [_document retain];
     
     return tmpl;
 }
