@@ -21,6 +21,8 @@
 // THE SOFTWARE.
 
 #import "TDExtendsTag.h"
+#import "TDRootNode.h"
+#import "TDExpression.h"
 
 @implementation TDExtendsTag
 
@@ -34,8 +36,10 @@
 }
 
 
-- (void)compile {
-    NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
+- (void)compileInContext:(TDTemplateContext *)staticContext {
+    TDRootNode *root = (id)[self.parent firstAncestorOfClass:[TDRootNode class]];
+    
+    root.extendsPath = [self.expression evaluateAsStringInContext:staticContext];
 }
 
 @end

@@ -579,7 +579,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     
     if ([tag isKindOfClass:[TDCompileTimeTag class]]) {
         TDCompileTimeTag *cttag = (TDCompileTimeTag *)tag;
-        [cttag compile];
+        [cttag compileInContext:_staticContext];
     }
     
     return tag;

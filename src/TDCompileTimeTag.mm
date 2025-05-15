@@ -10,8 +10,13 @@
 
 @implementation TDCompileTimeTag
 
-- (void)compile {
+- (void)compileInContext:(TDTemplateContext *)staticContext {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
+}
+
+
+- (void)doTagInContext:(TDTemplateContext *)ctx {
+    // runtime is a noop
 }
 
 @end

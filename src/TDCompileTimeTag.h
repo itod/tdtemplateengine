@@ -10,6 +10,6 @@
 
 @interface TDCompileTimeTag : TDTag
 
-- (void)compile;
+- (void)compileInContext:(TDTemplateContext *)staticContext;
 
 @end
