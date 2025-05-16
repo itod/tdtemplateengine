@@ -28,7 +28,6 @@
 #import <TDTemplateEngine/TDTemplateContext.h>
 
 @interface TDPathExpression ()
-@property (nonatomic, retain) NSString *head;
 @property (nonatomic, retain) NSArray *tail;
 @end
 

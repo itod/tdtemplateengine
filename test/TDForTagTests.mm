@@ -83,7 +83,7 @@
 }
 
 - (void)testForloopCurrentIndex {
-    NSString *input = @"{% for i in 5 to 2 %}{{currentLoop.currentIndex}}{% endfor %}";
+    NSString *input = @"{% for i in 5 to 2 %}{{currentLoop.counter0}}{% endfor %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -165,7 +165,7 @@
 - (void)testNestedForParentloop {
     NSString *input =   @"{% for i in 0 to 1 %}"
                             @"{% for j in 0 to 2 %}"
-                                @"{{currentLoop.parentLoop.currentIndex}}:{{currentLoop.currentIndex}}\n"
+                                @"{{currentLoop.parentloop.counter0}}:{{currentLoop.counter0}}\n"
                             @"{% endfor %}"
                         @"{% endfor %}";
     id vars = nil;

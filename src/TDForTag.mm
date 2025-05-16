@@ -75,7 +75,7 @@
             continue;
         }
         @finally {
-            _currentLoop.currentIndex++;
+            _currentLoop.counter0++;
             _currentLoop.first = NO;
         }
     }
@@ -88,7 +88,7 @@
     self.currentLoop = [[[TDForLoop alloc] init] autorelease];
     
     TDForTag *enclosingForTag = (id)[self firstAncestorOfTagName:@"for"];
-    _currentLoop.parentLoop = enclosingForTag.currentLoop;
+    _currentLoop.parentloop = enclosingForTag.currentLoop;
 
     [ctx defineVariable:@"currentLoop" value:_currentLoop];
 }
@@ -96,7 +96,7 @@
 
 - (void)tearDownForLoop:(TDTemplateContext *)ctx {
     [ctx defineVariable:@"currentLoop" value:nil];
-    _currentLoop.parentLoop = nil;
+    _currentLoop.parentloop = nil;
     self.currentLoop = nil;
 }
 

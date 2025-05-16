@@ -27,7 +27,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.currentIndex = 0;
+        self.counter0 = 0;
         self.first = YES;
         self.last = NO;
     }
@@ -36,18 +36,13 @@
 
 
 - (void)dealloc {
-    self.parentLoop = nil;
+    self.parentloop = nil;
     [super dealloc];
 }
 
 
-- (BOOL)isOdd {
-    return (_currentIndex & 1) == 0;
-}
-
-
-- (BOOL)isEven {
-    return (_currentIndex & 1) != 0;
+- (NSUInteger)counter {
+    return _counter0 + 1;
 }
 
 @end

@@ -27,4 +27,6 @@
 + (instancetype)pathExpressionWithSteps:(NSArray *)steps;
 
 - (instancetype)initWithSteps:(NSArray *)steps;
+
+@property (nonatomic, retain) NSString *head;
 @end

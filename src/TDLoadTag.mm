@@ -21,7 +21,7 @@
 // THE SOFTWARE.
 
 #import "TDLoadTag.h"
-#import "TDExpression.h"
+#import "TDPathExpression.h"
 #import "TDTemplateContext.h"
 
 @implementation TDLoadTag
@@ -36,8 +36,19 @@
 }
 
 
+- (NSString *)name {
+    NSString *name = nil;
+    if ([self.expression isKindOfClass:[TDPathExpression class]]) {
+        TDPathExpression *pexpr = (id)self.expression;
+        name = pexpr.head;
+    }
+    TDAssert(name);
+    return name;
+}
+
+
 - (void)compileInContext:(TDTemplateContext *)staticContext {
-    NSString *name = [self.expression evaluateAsStringInContext:staticContext];
+    NSString *name = self.name;
     
     NSError *err = nil;
     BOOL success = [staticContext.delegate templateContext:staticContext loadTagPackage:name error:&err];

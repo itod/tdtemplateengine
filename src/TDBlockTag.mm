@@ -31,10 +31,6 @@
 - (void)setBlock:(TDNode *)block forKey:(NSString *)key;
 @end
 
-@interface TDPathExpression ()
-@property (nonatomic, retain) NSString *head;
-@end
-
 @implementation TDBlockTag
 
 + (NSString *)tagName {
