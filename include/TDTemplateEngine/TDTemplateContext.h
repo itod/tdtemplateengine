@@ -29,6 +29,7 @@
 
 @protocol TDTemplateContextDelegate <NSObject>
 - (TDTemplate *)templateContext:(TDTemplateContext *)ctx templateForFilePath:(NSString *)filePath error:(NSError **)err;
+- (BOOL)templateContext:(TDTemplateContext *)ctx loadTagPackage:(NSString *)tagPackageName error:(NSError **)err;
 @end
 
 @interface TDTemplateContext : NSObject //<NSCopying>

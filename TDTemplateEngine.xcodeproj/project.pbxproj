@@ -1022,10 +1022,10 @@
 				D3C2A0522DD65A1800C1A42F /* TDExtendsTag.mm */,
 				D3C2A04F2DD65A1800C1A42F /* TDBlockTag.h */,
 				D3C2A0502DD65A1800C1A42F /* TDBlockTag.mm */,
-				D3C2A0532DD65A1800C1A42F /* TDLoadTag.h */,
-				D3C2A0542DD65A1800C1A42F /* TDLoadTag.mm */,
 				D36F33702DD7A5ED00AB2F36 /* TDIncludeTag.h */,
 				D36F33712DD7A5ED00AB2F36 /* TDIncludeTag.mm */,
+				D3C2A0532DD65A1800C1A42F /* TDLoadTag.h */,
+				D3C2A0542DD65A1800C1A42F /* TDLoadTag.mm */,
 			);
 			path = CompileTimeTags;
 			sourceTree = "<group>";

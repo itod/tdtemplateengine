@@ -21,6 +21,8 @@
 // THE SOFTWARE.
 
 #import "TDLoadTag.h"
+#import "TDExpression.h"
+#import "TDTemplateContext.h"
 
 @implementation TDLoadTag
 
@@ -35,7 +37,14 @@
 
 
 - (void)compileInContext:(TDTemplateContext *)staticContext {
-    NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
+    NSString *name = [self.expression evaluateAsStringInContext:staticContext];
+    
+    NSError *err = nil;
+    BOOL success = [staticContext.delegate templateContext:staticContext loadTagPackage:name error:&err];
+    if (!success) {
+        if (err) NSLog(@"%@", err);
+        // raise HTTP500
+    }
 }
 
 @end

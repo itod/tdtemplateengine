@@ -314,6 +314,10 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 }
 
 
+- (BOOL)templateContext:(TDTemplateContext *)ctx loadTagPackage:(NSString *)tagPackageName error:(NSError **)err {
+    return NO;
+}
+
 
 #pragma mark -
 #pragma mark Private
