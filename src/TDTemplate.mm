@@ -16,29 +16,10 @@
 @end
 
 @interface TDTemplate ()
-- (instancetype)initWithDocument:(TDRootNode *)doc;
-- (void)adoptBlocksFromNode:(TDRootNode *)node;
 @property (nonatomic, retain) TDRootNode *document;
 @end
 
 @implementation TDTemplate
-
-//+ (instancetype)templateWithContentsOfFile:(NSString *)path error:(NSError **)outErr {
-//    NSStringEncoding enc;
-//    NSString *str = [NSString stringWithContentsOfFile:path usedEncoding:&enc error:outErr];
-//    if (!str) return nil;
-//    
-//    return [self templateWithString:str error:outErr];
-//}
-//
-//
-//+ (instancetype)templateWithString:(NSString *)path error:(NSError **)outErr {
-//    id node = nil; // compile
-//    
-//    TDTemplate *tmpl = [[[TDTemplate alloc] init] autorelease];
-//    return tmpl;
-//}
-
 
 - (instancetype)initWithDocument:(TDRootNode *)doc {
     self = [super init];
