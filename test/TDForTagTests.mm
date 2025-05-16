@@ -83,7 +83,7 @@
 }
 
 - (void)testForloopCurrentIndex {
-    NSString *input = @"{% for i in 5 to 2 %}{{currentLoop.counter0}}{% endfor %}";
+    NSString *input = @"{% for i in 5 to 2 %}{{forloop.counter0}}{% endfor %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -95,7 +95,7 @@
 }
 
 - (void)testForloopFirst {
-    NSString *input = @"{% for i in 5 to 2 %}{{currentLoop.first}}{% endfor %}";
+    NSString *input = @"{% for i in 5 to 2 %}{{forloop.first}}{% endfor %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -107,7 +107,7 @@
 }
 
 - (void)testForloopLast {
-    NSString *input = @"{% for i in 5 to 2 %}{{currentLoop.last}}{% endfor %}";
+    NSString *input = @"{% for i in 5 to 2 %}{{forloop.last}}{% endfor %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -165,7 +165,7 @@
 - (void)testNestedForParentloop {
     NSString *input =   @"{% for i in 0 to 1 %}"
                             @"{% for j in 0 to 2 %}"
-                                @"{{currentLoop.parentloop.counter0}}:{{currentLoop.counter0}}\n"
+                                @"{{forloop.parentloop.counter0}}:{{forloop.counter0}}\n"
                             @"{% endfor %}"
                         @"{% endfor %}";
     id vars = nil;
@@ -179,7 +179,7 @@
 
 - (void)testReverseBy {
     NSString *input =  @"{% for i in 70 to 60 by 2 %}"
-                            @"{{i}}{% if not currentLoop.last %},{% endif %}"
+                            @"{{i}}{% if not forloop.last %},{% endif %}"
                         @"{% endfor %}";
     id vars = nil;
     NSError *err = nil;
@@ -192,7 +192,7 @@
 
 - (void)testSkip {
     NSString *input =  @"{% for i in 1 to 3 %}"
-    @"{% skip %}{{i}}{% if not currentLoop.last %},{% endif %}"
+    @"{% skip %}{{i}}{% if not forloop.last %},{% endif %}"
     @"{% endfor %}";
     id vars = nil;
     NSError *err = nil;
@@ -205,7 +205,7 @@
 
 - (void)testSkipIeq1 {
     NSString *input =  @"{% for i in 1 to 3 %}"
-                            @"{% skip i == 1 %}{{i}}{% if not currentLoop.last %},{% endif %}"
+                            @"{% skip i == 1 %}{{i}}{% if not forloop.last %},{% endif %}"
                         @"{% endfor %}";
     id vars = nil;
     NSError *err = nil;
@@ -218,7 +218,7 @@
 
 - (void)testSkipIeq2 {
     NSString *input =  @"{% for i in 1 to 3 %}"
-                            @"{% skip i == 2 %}{{i}}{% if not currentLoop.last %},{% endif %}"
+                            @"{% skip i == 2 %}{{i}}{% if not forloop.last %},{% endif %}"
                         @"{% endfor %}";
     id vars = nil;
     NSError *err = nil;
@@ -231,7 +231,7 @@
 
 - (void)testSkipIeq3 {
     NSString *input =  @"{% for i in 1 to 3 %}"
-                            @"{% skip i == 3 %}{{i}}{% if not currentLoop.last %},{% endif %}"
+                            @"{% skip i == 3 %}{{i}}{% if not forloop.last %},{% endif %}"
                         @"{% endfor %}";
     id vars = nil;
     NSError *err = nil;

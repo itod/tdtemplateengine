@@ -90,7 +90,7 @@
     TDForTag *enclosingForTag = (id)[self firstAncestorOfTagName:@"for"];
     _currentLoop.parentloop = enclosingForTag.currentLoop;
 
-    [ctx defineVariable:@"currentLoop" value:_currentLoop];
+    [ctx defineVariable:@"forloop" value:_currentLoop];
 }
 
 
