@@ -46,9 +46,9 @@
 - (void)renderInContext:(TDTemplateContext *)ctx {
     NSParameterAssert(ctx);
 
-    TDTemplateContext *local = [[ctx copy] autorelease];
+    //ctx = [[ctx copy] autorelease];
     
-    [self doTagInContext:local];
+    [self doTagInContext:ctx];
 }
 
 

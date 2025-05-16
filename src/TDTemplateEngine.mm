@@ -34,6 +34,7 @@
 
 #import "TDExtendsTag.h"
 #import "TDBlockTag.h"
+#import "TDIncludeTag.h"
 #import "TDLoadTag.h"
 #import "TDIfTag.h"
 #import "TDElseTag.h"
@@ -126,6 +127,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
         self.tagTab = [NSMutableDictionary dictionary];
         [self registerTagClass:[TDExtendsTag class] forName:[TDExtendsTag tagName]];
         [self registerTagClass:[TDBlockTag class] forName:[TDBlockTag tagName]];
+        [self registerTagClass:[TDIncludeTag class] forName:[TDIncludeTag tagName]];
         [self registerTagClass:[TDLoadTag class] forName:[TDLoadTag tagName]];
 
         [self registerTagClass:[TDIfTag class] forName:[TDIfTag tagName]];
@@ -256,7 +258,8 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     
     TDTemplate *tmpl = [[[TDTemplate alloc] initWithFilePath:path] autorelease];
     TDTemplateContext *staticContext = [[[TDTemplateContext alloc] initWithTemplate:tmpl] autorelease];
-    TDAssert(staticContext);
+    staticContext.delegate = self;
+
     [staticContext pushTemplateString:str];
     
     // lex
@@ -301,6 +304,15 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 
     return tmpl;
 }
+
+
+#pragma mark -
+#pragma mark TDTemplateContextDelegate
+
+- (TDTemplate *)templateContext:(TDTemplateContext *)ctx templateForFilePath:(NSString *)filePath error:(NSError **)err {
+    return [self templateWithContentsOfFile:filePath error:err];
+}
+
 
 
 #pragma mark -

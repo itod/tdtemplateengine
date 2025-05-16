@@ -21,12 +21,12 @@
 // THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
+#import <TDTemplateEngine/TDTemplateContext.h>
 
 #ifdef TARGET_OS_IPHONE
 #import <TDTemplateEngine/TDExpression.h>
 #import <TDTemplateEngine/TDFilter.h>
 #import <TDTemplateEngine/TDTag.h>
-#import <TDTemplateEngine/TDTemplateContext.h>
 #import <TDTemplateEngine/TDTemplateEngine.h>
 #import <TDTemplateEngine/TDWriter.h>
 #import <TDTemplateEngine/TDTemplate.h>
@@ -48,14 +48,13 @@ FOUNDATION_EXPORT const unsigned char TDTemplateengineVersionString[];
 
 @class TDTag;
 @class TDFilter;
-@class TDTemplateContext;
 @class TDTemplate;
 
 extern NSString * const TDTemplateEngineTagEndPrefix;
 extern NSString * const TDTemplateEngineErrorDomain;
 extern const NSInteger TDTemplateEngineRenderingErrorCode;
 
-@interface TDTemplateEngine : NSObject
+@interface TDTemplateEngine : NSObject <TDTemplateContextDelegate>
 
 + (instancetype)templateEngine;
 

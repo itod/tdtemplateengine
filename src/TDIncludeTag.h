@@ -20,37 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "TDRootNode.h"
-#import <ParseKitCPP/Token.hpp>
+#import <TDTemplateEngine/TDCompileTimeTag.h>
 
-@interface TDRootNode ()
-@end
-
-@implementation TDRootNode
-
-+ (instancetype)rootNode {
-    parsekit::Token tok;
-    TDRootNode *rootNode = [self nodeWithToken:tok parent:nil];
-    return rootNode;
-}
-
-
-- (void)dealloc {
-    self.templateString = nil;
-    [super dealloc];
-}
-
-
-//#pragma mark -
-//#pragma mark NSCopying
-//
-//// needed for include tag
-//- (id)copyWithZone:(NSZone *)zone {
-//    TDRootNode *that = [[TDRootNode allocWithZone:zone] init];
-//    
-//    that->_templateString = [_templateString retain];
-//    
-//    return that;
-//}
+@interface TDIncludeTag : TDTag <TDCompileTimeTag>
 
 @end

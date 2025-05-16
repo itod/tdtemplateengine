@@ -25,12 +25,18 @@
 
 @class TDTemplate;
 @class TDWriter;
+@class TDTemplateContext;
 
-@interface TDTemplateContext : NSObject <NSCopying>
+@protocol TDTemplateContextDelegate <NSObject>
+- (TDTemplate *)templateContext:(TDTemplateContext *)ctx templateForFilePath:(NSString *)filePath error:(NSError **)err;
+@end
+
+@interface TDTemplateContext : NSObject //<NSCopying>
 
 - (instancetype)initWithTemplate:(TDTemplate *)tmpl; // static
 - (instancetype)initWithVariables:(NSDictionary *)vars output:(NSOutputStream *)output; // dynamic
 
+@property (nonatomic, assign) id <TDTemplateContextDelegate>delegate; // weakref
 @property (nonatomic, retain, readonly) TDWriter *writer;
 
 // Scope
@@ -48,6 +54,7 @@
 @property (nonatomic, assign) NSInteger indentDepth;
 
 @property (nonatomic, retain) TDTemplate *derivedTemplate;
+- (NSString *)absolutePathForPath:(NSString *)relPath;
 
 - (NSString *)templateSubstringForToken:(parsekit::Token)token;
 - (void)pushTemplateString:(NSString *)str;

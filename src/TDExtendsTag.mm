@@ -42,27 +42,12 @@
 
 
 - (void)compileInContext:(TDTemplateContext *)staticContext {
-    NSString *path = staticContext.derivedTemplate.filePath;
     NSString *extendsPath = [self.expression evaluateAsStringInContext:staticContext];
     
-    extendsPath = [self absolutePathForPath:extendsPath relativeTo:path];
+    extendsPath = [staticContext absolutePathForPath:extendsPath];
     
     TDTemplate *tmpl = staticContext.derivedTemplate;
     tmpl.extendsPath = extendsPath;
-}
-
-
-- (NSString *)absolutePathForPath:(NSString *)relPath relativeTo:(NSString *)peerPath {
-    NSString *absPath = nil;
-    
-    if (!peerPath || [relPath hasPrefix:@"/"]) {
-        absPath = relPath;
-    } else {
-        NSString *dirPath = [peerPath stringByDeletingLastPathComponent];
-        absPath = [dirPath stringByAppendingPathComponent:relPath];
-    }
-
-    return absPath;
 }
 
 @end

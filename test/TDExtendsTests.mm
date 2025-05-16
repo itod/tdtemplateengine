@@ -44,25 +44,35 @@
     _engine.cacheTemplates = YES;
     //return;
     NSString *parentStr = @"<html><head>{% block head %}{% endblock %}</head><body>{% block body %}{% endblock %}</body></html>";
-    NSString *childStr = @"{% extends 'parent.html' %}\n{% block body %}bar{% endblock %}";
-    NSString *enkelStr = @"{% extends 'child.html' %}\n{% block head %}foo{% endblock %}";
+    NSString *cousinStr = @"baz";
+    NSString *childStr  = @"{% extends 'parent.html' %}\n{% block body %}bar {% include 'cousin.html' %}{% endblock %}";
+    NSString *enkelStr  = @"{% extends 'child.html' %}\n{% block head %}foo{% endblock %}";
 
     NSError *err = nil;
     
-    TDTemplate *parent = [_engine _templateFromString:parentStr filePath:@"parent.html" error:&err];
+    NSString *path = @"parent.html";
+    TDTemplate *parent = [_engine _templateFromString:parentStr filePath:path error:&err];
     XCTAssert(parent);
     XCTAssertNil(err);
-    [_engine _setCachedTemplate:parent forPath:@"parent.html"];
+    [_engine _setCachedTemplate:parent forPath:path];
+    
+    path = @"cousin.html";
+    TDTemplate *cousin = [_engine _templateFromString:cousinStr filePath:path error:&err];
+    XCTAssert(cousin);
+    XCTAssertNil(err);
+    [_engine _setCachedTemplate:cousin forPath:path];
 
-    TDTemplate *child = [_engine _templateFromString:childStr filePath:@"child.html" error:&err];
+    path = @"child.html";
+    TDTemplate *child = [_engine _templateFromString:childStr filePath:path error:&err];
     XCTAssert(child);
     XCTAssertNil(err);
-    [_engine _setCachedTemplate:child forPath:@"child.html"];
+    [_engine _setCachedTemplate:child forPath:path];
 
-    TDTemplate *enkel = [_engine _templateFromString:enkelStr filePath:@"enkel.html" error:&err];
+    path = @"enkel.html";
+    TDTemplate *enkel = [_engine _templateFromString:enkelStr filePath:path error:&err];
     XCTAssert(enkel);
     XCTAssertNil(err);
-    [_engine _setCachedTemplate:enkel forPath:@"enkel.html"];
+    [_engine _setCachedTemplate:enkel forPath:path];
     
     id vars = nil;
     BOOL success = [enkel render:vars toStream:_output error:&err];
@@ -70,7 +80,7 @@
     XCTAssertNil(err);
 
     NSString *res = [self outputString];
-    TDEqualObjects(@"<html><head>foo</head><body>bar</body></html>", res);
+    TDEqualObjects(@"<html><head>foo</head><body>bar baz</body></html>", res);
 }
 
 @end

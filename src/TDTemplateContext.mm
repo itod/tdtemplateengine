@@ -124,6 +124,7 @@ static NSCharacterSet *sNewlineSet = nil;
 
 
 - (void)dealloc {
+    self.delegate = nil;
     self.writer = nil;
     self.enclosingScope = nil;
     self.derivedTemplate = nil;
@@ -142,18 +143,18 @@ static NSCharacterSet *sNewlineSet = nil;
 #pragma mark -
 #pragma mark NSCopying
 
-- (instancetype)copyWithZone:(NSZone *)zone {  // TODO remove????
-    TDTemplateContext *ctx = [[TDTemplateContext alloc] initWithVariables:nil output:_writer.output];
-    ctx.derivedTemplate = _derivedTemplate;
-    ctx.templateStringStack = [_templateStringStack mutableCopy];
-    ctx.trimLines = _trimLines;
-    ctx.indentDepth = _indentDepth;
-    ctx.firstWriteAfterIndent = _firstWriteAfterIndent;
-    ctx.enclosingScope = self;
-    ctx.wroteNewline = _wroteNewline;
-    ctx.wroteChars = _wroteChars;
-    return ctx;
-}
+//- (instancetype)copyWithZone:(NSZone *)zone {  // TODO remove????
+//    TDTemplateContext *ctx = [[TDTemplateContext alloc] initWithVariables:nil output:_writer.output];
+//    ctx.derivedTemplate = _derivedTemplate;
+//    ctx.templateStringStack = [_templateStringStack mutableCopy];
+//    ctx.trimLines = _trimLines;
+//    ctx.indentDepth = _indentDepth;
+//    ctx.firstWriteAfterIndent = _firstWriteAfterIndent;
+//    ctx.enclosingScope = self;
+//    ctx.wroteNewline = _wroteNewline;
+//    ctx.wroteChars = _wroteChars;
+//    return ctx;
+//}
 
 
 #pragma mark -
@@ -279,6 +280,21 @@ static NSCharacterSet *sNewlineSet = nil;
 - (void)decreaseIndentDepth:(NSUInteger)times {
     self.indentDepth -= times;
     self.firstWriteAfterIndent = YES;
+}
+
+
+- (NSString *)absolutePathForPath:(NSString *)relPath {
+    NSString *peerPath = _derivedTemplate.filePath;
+    NSString *absPath = nil;
+    
+    if (!peerPath || [relPath hasPrefix:@"/"]) {
+        absPath = relPath;
+    } else {
+        NSString *dirPath = [peerPath stringByDeletingLastPathComponent];
+        absPath = [dirPath stringByAppendingPathComponent:relPath];
+    }
+
+    return absPath;
 }
 
 
