@@ -42,7 +42,7 @@
 
 
 - (void)compileInContext:(TDTemplateContext *)staticContext {
-    NSString *path = staticContext.filePath;
+    NSString *path = staticContext.derivedTemplate.filePath;
     NSString *extendsPath = [self.expression evaluateAsStringInContext:staticContext];
     
     extendsPath = [self absolutePathForPath:extendsPath relativeTo:path];
