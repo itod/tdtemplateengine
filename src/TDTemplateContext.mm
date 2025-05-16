@@ -292,12 +292,6 @@ static NSCharacterSet *sNewlineSet = nil;
 }
 
 
-- (NSString *)absolutePathForStaticRelativePath:(NSString *)relPath {
-    NSString *peerPath = [_delegate staticRootPathForTemplateContext:self];
-    return [self absolutePathForPath:relPath relativeTo:peerPath];
-}
-
-
 - (NSString *)absolutePathForPath:(NSString *)relPath relativeTo:(NSString *)peerPath {
     NSString *absPath = nil;
     

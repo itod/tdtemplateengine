@@ -63,7 +63,6 @@ extern const NSInteger TDTemplateEngineRenderingErrorCode;
 
 - (TDTemplate *)templateWithContentsOfFile:(NSString *)path error:(NSError **)err;
 @property (nonatomic, assign) BOOL cacheTemplates;
-@property (nonatomic, copy) NSString *staticRootPath;
 @end
 
 @interface TDTemplateEngine (TagRegistration)

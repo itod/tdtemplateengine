@@ -53,10 +53,10 @@
 
 
 - (void)compileInContext:(TDTemplateContext *)ctx {
-    NSString *name = self.name;
+    NSString *libName = self.name;
     
     NSError *err = nil;
-    BOOL success = [ctx.delegate templateContext:ctx loadTagPackage:name error:&err];
+    BOOL success = [ctx.delegate templateContext:ctx loadTagLibrary:libName error:&err];
     if (!success) {
         if (err) NSLog(@"%@", err);
         // raise HTTP500

@@ -29,8 +29,7 @@
 
 @protocol TDTemplateContextDelegate <NSObject>
 - (TDTemplate *)templateContext:(TDTemplateContext *)ctx templateForFilePath:(NSString *)filePath error:(NSError **)err;
-- (BOOL)templateContext:(TDTemplateContext *)ctx loadTagPackage:(NSString *)tagPackageName error:(NSError **)err;
-- (NSString *)staticRootPathForTemplateContext:(TDTemplateContext *)ctx;
+- (BOOL)templateContext:(TDTemplateContext *)ctx loadTagLibrary:(NSString *)libName error:(NSError **)err;
 @end
 
 @interface TDTemplateContext : NSObject //<NSCopying>
@@ -58,12 +57,10 @@
 
 @property (nonatomic, retain) TDTemplate *derivedTemplate;
 - (NSString *)absolutePathForTemplateRelativePath:(NSString *)relPath;
-- (NSString *)absolutePathForStaticRelativePath:(NSString *)relPath;
+- (NSString *)absolutePathForPath:(NSString *)relPath relativeTo:(NSString *)peerPath;
 
 - (NSString *)templateSubstringForToken:(parsekit::Token)token;
 - (void)pushTemplateString:(NSString *)str;
 - (void)popTemplateString;
 - (NSString *)peekTemplateString;
-
-@property (nonatomic, copy) NSString *staticRootPath;
 @end

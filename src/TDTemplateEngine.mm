@@ -36,8 +36,6 @@
 #import "TDBlockTag.h"
 #import "TDIncludeTag.h"
 #import "TDLoadTag.h"
-#import "TDStaticTag.h"
-#import "TDURLTag.h"
 #import "TDIfTag.h"
 #import "TDElseTag.h"
 #import "TDElseIfTag.h"
@@ -109,7 +107,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 @implementation TDTemplateEngine
 
 + (instancetype)templateEngine {
-    return [[[TDTemplateEngine alloc] init] autorelease];
+    return [[[self alloc] init] autorelease];
 }
 
 
@@ -135,8 +133,6 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
         [self registerTagClass:[TDIncludeTag class] forName:[TDIncludeTag tagName]];
         [self registerTagClass:[TDLoadTag class] forName:[TDLoadTag tagName]];
 
-        [self registerTagClass:[TDStaticTag class] forName:[TDStaticTag tagName]];
-        [self registerTagClass:[TDURLTag class] forName:[TDURLTag tagName]];
         [self registerTagClass:[TDIfTag class] forName:[TDIfTag tagName]];
         [self registerTagClass:[TDElseTag class] forName:[TDElseTag tagName]];
         [self registerTagClass:[TDElseIfTag class] forName:[TDElseIfTag tagName]];
@@ -325,13 +321,8 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 }
 
 
-- (BOOL)templateContext:(TDTemplateContext *)ctx loadTagPackage:(NSString *)tagPackageName error:(NSError **)err {
+- (BOOL)templateContext:(TDTemplateContext *)ctx loadTagLibrary:(NSString *)libName error:(NSError **)err {
     return NO;
-}
-
-
-- (NSString *)staticRootPathForTemplateContext:(TDTemplateContext *)ctx {
-    return _staticRootPath;
 }
 
 
