@@ -23,9 +23,6 @@
 #import "TDRootNode.h"
 #import <ParseKitCPP/Token.hpp>
 
-@interface TDRootNode ()
-@end
-
 @implementation TDRootNode
 
 + (instancetype)rootNode {
@@ -39,18 +36,5 @@
     self.templateString = nil;
     [super dealloc];
 }
-
-
-//#pragma mark -
-//#pragma mark NSCopying
-//
-//// needed for include tag
-//- (id)copyWithZone:(NSZone *)zone {
-//    TDRootNode *that = [[TDRootNode allocWithZone:zone] init];
-//    
-//    that->_templateString = [_templateString retain];
-//    
-//    return that;
-//}
 
 @end

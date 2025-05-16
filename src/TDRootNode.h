@@ -22,7 +22,7 @@
 
 #import "TDNode.h"
 
-@interface TDRootNode : TDNode// <NSCopying>
+@interface TDRootNode : TDNode
 + (instancetype)rootNode;
 
 @property (nonatomic, retain) NSString *templateString;
