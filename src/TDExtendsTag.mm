@@ -41,12 +41,12 @@
 }
 
 
-- (void)compileInContext:(TDTemplateContext *)staticContext {
-    NSString *extendsPath = [self.expression evaluateAsStringInContext:staticContext];
+- (void)compileInContext:(TDTemplateContext *)ctx {
+    NSString *extendsPath = [self.expression evaluateAsStringInContext:ctx];
     
-    extendsPath = [staticContext absolutePathForTemplateRelativePath:extendsPath];
+    extendsPath = [ctx absolutePathForTemplateRelativePath:extendsPath];
     
-    TDTemplate *tmpl = staticContext.derivedTemplate;
+    TDTemplate *tmpl = ctx.derivedTemplate;
     tmpl.extendsPath = extendsPath;
 }
 

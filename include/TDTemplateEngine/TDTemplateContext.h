@@ -35,8 +35,9 @@
 
 @interface TDTemplateContext : NSObject //<NSCopying>
 
-- (instancetype)initWithTemplate:(TDTemplate *)tmpl; // static
-- (instancetype)initWithVariables:(NSDictionary *)vars output:(NSOutputStream *)output; // dynamic
+- (instancetype)init; // static
+- (instancetype)initWithTemplate:(TDTemplate *)tmpl; // compile time
+- (instancetype)initWithVariables:(NSDictionary *)vars output:(NSOutputStream *)output; // runtime
 
 @property (nonatomic, assign) id <TDTemplateContextDelegate>delegate; // weakref
 @property (nonatomic, retain, readonly) TDWriter *writer;

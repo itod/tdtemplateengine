@@ -97,8 +97,11 @@ static NSCharacterSet *sNewlineSet = nil;
 
 
 - (instancetype)init {
-    TDAssert(0);
-    return nil;
+    self = [super init];
+    if (self) {
+        self.vars = [NSMutableDictionary dictionary];
+    }
+    return self;
 }
 
 

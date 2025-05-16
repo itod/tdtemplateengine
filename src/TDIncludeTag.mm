@@ -54,15 +54,15 @@
 }
 
 
-- (void)compileInContext:(TDTemplateContext *)staticContext {
-    NSString *relPath = [self.expression evaluateAsStringInContext:staticContext];
+- (void)compileInContext:(TDTemplateContext *)ctx {
+    NSString *relPath = [self.expression evaluateAsStringInContext:ctx];
     
-    NSString *absPath = [staticContext absolutePathForTemplateRelativePath:relPath];
+    NSString *absPath = [ctx absolutePathForTemplateRelativePath:relPath];
     self.key = [NSString stringWithFormat:@"__include:%@", absPath];
     
     NSError *err = nil;
-    TDAssert(staticContext.delegate);
-    TDTemplate *tmpl = [staticContext.delegate templateContext:staticContext templateForFilePath:absPath error:&err];
+    TDAssert(ctx.delegate);
+    TDTemplate *tmpl = [ctx.delegate templateContext:ctx templateForFilePath:absPath error:&err];
     
     if (!tmpl) {
         if (err) NSLog(@"%@", err);
@@ -71,7 +71,7 @@
     }
     
     TDRootNode *root = tmpl.rootNode;
-    [staticContext.derivedTemplate setBlock:root forKey:self.key];
+    [ctx.derivedTemplate setBlock:root forKey:self.key];
 }
 
 

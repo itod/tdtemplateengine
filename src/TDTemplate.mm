@@ -14,6 +14,7 @@
 @interface TDTemplate () // FriendAPI
 @property (nonatomic, retain) TDRootNode *rootNode;
 @property (nonatomic, retain) TDTemplate *superTemplate;
+@property (nonatomic, retain) TDTemplateContext *staticContext;
 @property (nonatomic, copy) NSString *extendsPath;
 
 // blocks
@@ -37,6 +38,7 @@
     self.filePath = nil;
     self.rootNode = nil;
     self.superTemplate = nil;
+    self.staticContext = nil;
     self.extendsPath = nil;
 
     self.blockTab = nil;
@@ -79,26 +81,29 @@
     [output open];
     TDAssert([output hasSpaceAvailable]);
     
-    TDTemplateContext *dynamicContext = [[[TDTemplateContext alloc] initWithVariables:vars output:output] autorelease];
-    dynamicContext.derivedTemplate = self;
+    TDTemplateContext *ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:output] autorelease];
+    ctx.derivedTemplate = self;
+    
+    TDAssert(_staticContext);
+    ctx.enclosingScope = _staticContext;
+    
     TDAssert(document.templateString);
-    [dynamicContext pushTemplateString:document.templateString];
+    [ctx pushTemplateString:document.templateString];
     
     //TDAssert(_staticContext);
     //dynamicContext.enclosingScope = _staticContext;
-    //dynamicContext.templateString = [(id)root templateString];
     
     BOOL success = YES;
     
     @try {
-        [document renderInContext:dynamicContext];
+        [document renderInContext:ctx];
     }
     @catch (NSException *ex) {
         success = NO;
         if (err) *err = [NSError errorWithDomain:TDTemplateEngineErrorDomain code:TDTemplateEngineRenderingErrorCode userInfo:[[[ex userInfo] copy] autorelease]];
     }
     
-    [dynamicContext popTemplateString];
+    [ctx popTemplateString];
     
     return success;
 }

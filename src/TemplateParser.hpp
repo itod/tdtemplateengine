@@ -28,7 +28,7 @@ const TemplateTokenType TemplateTokenType_TAG = 7;
 class TemplateParser : public parsekit::BaseParser {
 private:
     TDTemplateEngine *_engine; // weakref, aka delegate
-    TDTemplateContext *_staticContext;
+    TDTemplateContext *_context;
     
     TemplateAssembly *_assembly;
     

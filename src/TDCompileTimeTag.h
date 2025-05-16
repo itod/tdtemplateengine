@@ -10,6 +10,6 @@
 
 @protocol TDCompileTimeTag <NSObject>
 
-- (void)compileInContext:(TDTemplateContext *)staticContext;
+- (void)compileInContext:(TDTemplateContext *)ctx;
 
 @end

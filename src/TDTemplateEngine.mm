@@ -84,12 +84,14 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 - (instancetype)initWithFilePath:(NSString *)path;
 @property (nonatomic, retain) TDNode *rootNode;
 @property (nonatomic, retain, readwrite) TDTemplate *superTemplate;
+@property (nonatomic, retain) TDTemplateContext *staticContext;
 @property (nonatomic, copy) NSString *extendsPath;
 - (void)setBlock:(TDNode *)block forKey:(NSString *)key;
 @end
 
 // PRIVATE
 @interface TDTemplateEngine ()
+@property (nonatomic, retain, readwrite) TDTemplateContext *staticContext;
 @property (nonatomic, retain) NSMutableDictionary *templateCache;
 
 @property (nonatomic, retain) NSRegularExpression *delimiterRegex;
@@ -114,6 +116,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 - (instancetype)init {
     self = [super init];
     if (self) {
+        self.staticContext = [[[TDTemplateContext alloc] init] autorelease];
         self.templateCache = [NSMutableDictionary dictionary];
 
         self.printStartDelimiter = @"{{";
@@ -171,6 +174,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 
 
 - (void)dealloc {
+    self.staticContext = nil;
     self.printStartDelimiter = nil;
     self.printEndDelimiter = nil;
     self.tagStartDelimiter = nil;
@@ -261,10 +265,12 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     TDAssert([_tagEndDelimiter length]);
     
     TDTemplate *tmpl = [[[TDTemplate alloc] initWithFilePath:path] autorelease];
-    TDTemplateContext *staticContext = [[[TDTemplateContext alloc] initWithTemplate:tmpl] autorelease];
-    staticContext.delegate = self;
+    TDTemplateContext *ctx = [[[TDTemplateContext alloc] initWithTemplate:tmpl] autorelease];
+    ctx.delegate = self;
+    TDAssert(_staticContext);
+    ctx.enclosingScope = _staticContext;
 
-    [staticContext pushTemplateString:str];
+    [ctx pushTemplateString:str];
     
     // lex
     TokenListPtr frags = nil;
@@ -284,12 +290,13 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     TDAssert(frags);
     
     // compile
-    TDRootNode *root = [self compile:frags inContext:staticContext error:err];
+    TDRootNode *root = [self compile:frags inContext:ctx error:err];
     if (!root) {
         if (*err) NSLog(@"%@", *err);
         return nil;
     }
     tmpl.rootNode = root;
+    tmpl.staticContext = _staticContext;
     
     // check new tmpl to see if starts wtih {% extends %}, if so inherit
     if (tmpl.extendsPath) {
@@ -304,7 +311,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
         [tmpl setBlock:root forKey:@""];
     }
     
-    [staticContext popTemplateString];
+    [ctx popTemplateString];
 
     return tmpl;
 }
@@ -450,10 +457,10 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 }
 
 
-- (TDRootNode *)compile:(TokenListPtr)frags inContext:(TDTemplateContext *)staticContext error:(NSError **)outError {
+- (TDRootNode *)compile:(TokenListPtr)frags inContext:(TDTemplateContext *)ctx error:(NSError **)outError {
     
-    TDAssert(staticContext);
-    TemplateParser p(self, staticContext);
+    TDAssert(ctx);
+    TemplateParser p(self, ctx);
     
     TDRootNode *root = nil;
     try {
@@ -522,11 +529,11 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 #pragma mark -
 #pragma mark TemplateParser API
 
-- (TDPrintNode *)printNodeFromFragment:(Token)frag withParent:(TDNode *)parent inContext:(TDTemplateContext *)staticContext {
+- (TDPrintNode *)printNodeFromFragment:(Token)frag withParent:(TDNode *)parent inContext:(TDTemplateContext *)ctx {
     NSParameterAssert(!frag.is_eof());
     NSParameterAssert(parent);
     
-    NSString *str = [staticContext templateSubstringForToken:frag];
+    NSString *str = [ctx templateSubstringForToken:frag];
     TDAssert(str.length);
     
     NSError *err = nil;
@@ -542,11 +549,11 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 }
 
 
-- (TDTag *)tagFromFragment:(Token)frag withParent:(TDNode *)parent inContext:(TDTemplateContext *)staticContext {
+- (TDTag *)tagFromFragment:(Token)frag withParent:(TDNode *)parent inContext:(TDTemplateContext *)ctx {
     NSParameterAssert(!frag.is_eof());
     NSParameterAssert(parent);
     
-    NSString *str = [staticContext templateSubstringForToken:frag];
+    NSString *str = [ctx templateSubstringForToken:frag];
     
 //    NSStringEncoding enc = NSUTF8StringEncoding;
 //    NSUInteger maxByteLen = [str maximumLengthOfBytesUsingEncoding:enc];
@@ -581,19 +588,19 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     tok = t->next(&r);
     if (TokenType_EOF != tok.token_type()) {
         r.set_offset(offset);
-        tag.expression = [self expressionForTagName:tagName fromFragment:frag reader:&r inContext:staticContext];
+        tag.expression = [self expressionForTagName:tagName fromFragment:frag reader:&r inContext:ctx];
     }
     
     if ([tag conformsToProtocol:@protocol(TDCompileTimeTag)]) {
         id <TDCompileTimeTag>cttag = (id <TDCompileTimeTag>)tag;
-        [cttag compileInContext:staticContext];
+        [cttag compileInContext:ctx];
     }
     
     return tag;
 }
 
 
-- (TDExpression *)expressionForTagName:(NSString *)tagName fromFragment:(Token)frag reader:(Reader *)reader inContext:(TDTemplateContext *)staticContext {
+- (TDExpression *)expressionForTagName:(NSString *)tagName fromFragment:(Token)frag reader:(Reader *)reader inContext:(TDTemplateContext *)ctx {
     NSParameterAssert(reader);
     
     Class cls = [self registerdTagClassForName:tagName];
@@ -604,7 +611,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     
     if (!expr) {
         // TODO
-        NSString *exprString = [staticContext templateSubstringForToken:frag];
+        NSString *exprString = [ctx templateSubstringForToken:frag];
         NSString *msg = [NSString stringWithFormat:@"Error while compiling tag expression `%@` : %@", exprString, [err localizedFailureReason]];
         throw ParseException([msg UTF8String]);
     }

@@ -68,8 +68,8 @@
 }
 
 
-- (void)compileInContext:(TDTemplateContext *)staticContext {
-    [staticContext.derivedTemplate setBlock:self forKey:self.key];
+- (void)compileInContext:(TDTemplateContext *)ctx {
+    [ctx.derivedTemplate setBlock:self forKey:self.key];
 }
 
 
