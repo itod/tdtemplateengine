@@ -48,6 +48,11 @@
 }
 
 
++ (TDTagExpressionType)tagExpressionType {
+    return TDTagExpressionTypeArgs;
+}
+
+
 - (void)dealloc {
     self.key = nil;
     [super dealloc];
@@ -55,8 +60,12 @@
 
 
 - (void)compileInContext:(TDTemplateContext *)ctx {
-    NSString *relPath = [self.expression evaluateAsStringInContext:ctx];
     
+//    TDAssert(0);
+    
+    // must get args here
+    NSString *relPath = [self.expression evaluateAsStringInContext:ctx];
+
     NSString *absPath = [ctx absolutePathForTemplateRelativePath:relPath];
     self.key = [NSString stringWithFormat:@"__include:%@", absPath];
     
@@ -66,8 +75,7 @@
     
     if (!tmpl) {
         if (err) NSLog(@"%@", err);
-        // raise HTTP500
-        return;
+        [NSException raise:@"HTTP500" format:@"%@", err.localizedDescription];
     }
     
     TDRootNode *root = tmpl.rootNode;

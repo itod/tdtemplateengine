@@ -109,6 +109,7 @@ static NSCharacterSet *sNewlineSet = nil;
     self = [super init];
     if (self) {
         self.derivedTemplate = tmpl;
+        self.vars = [NSMutableDictionary dictionary];
     }
     return self;
 }

@@ -46,8 +46,9 @@ typedef NS_ENUM(int, EXTokenType) {
     EXTokenType_TO                   =  34,
     EXTokenType_GE                   =  35,
     EXTokenType_NO_UPPER             =  36,
-    EXTokenType_DOUBLE_EQUALS        =  37,
-    EXTokenType_NULL                 =  38,
+    EXTokenType_ASSIGN               =  37,
+    EXTokenType_DOUBLE_EQUALS        =  38,
+    EXTokenType_NULL                 =  39,
 };
 
 typedef std::map<std::string, EXTokenType> EXTokenTable;
@@ -70,8 +71,11 @@ private:
     void start();
     
     void _expr();
+    
     void _loopExpr();
-    void _argsExpr();
+    void _argsList();
+    void _namedArg();
+    
     void _identifiers();
     void _enumExpr();
     void _collectionExpr();

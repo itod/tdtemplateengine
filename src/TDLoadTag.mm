@@ -59,7 +59,7 @@
     BOOL success = [ctx.delegate templateContext:ctx loadTagLibrary:libName error:&err];
     if (!success) {
         if (err) NSLog(@"%@", err);
-        // raise HTTP500
+        [NSException raise:@"HTTP500" format:@"%@", err.localizedDescription];
     }
 }
 

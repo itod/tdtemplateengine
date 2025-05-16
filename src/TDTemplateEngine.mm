@@ -325,8 +325,23 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 }
 
 
-- (BOOL)templateContext:(TDTemplateContext *)ctx loadTagLibrary:(NSString *)libName error:(NSError **)err {
-    return NO;
+- (BOOL)templateContext:(TDTemplateContext *)ctx loadTagLibrary:(NSString *)libName error:(NSError **)outErr {
+    static NSSet *sKnown = nil;
+    if (!sKnown) {
+        sKnown = [[NSSet alloc] initWithObjects:@"static", nil];
+    }
+    
+    if ([sKnown containsObject:libName]) {
+        return YES;
+    } else {
+        if (outErr) {
+            id userInfo = @{
+                NSLocalizedFailureReasonErrorKey: [NSString stringWithFormat:@"Unknown Tag Library: `%@`", libName],
+            };
+            *outErr = [NSError errorWithDomain:TDTemplateEngineErrorDomain code:TDTemplateEngineRenderingErrorCode userInfo:userInfo];
+        }
+        return NO;
+    }
 }
 
 
@@ -598,6 +613,9 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 - (TDExpression *)expressionForTagName:(NSString *)tagName fromFragment:(Token)frag reader:(Reader *)reader inContext:(TDTemplateContext *)ctx {
     NSParameterAssert(reader);
     
+//    if ([tagName isEqualToString:@"include"]) {
+//        NSLog(@"%@", tagName);
+//    }
     Class cls = [self registerdTagClassForName:tagName];
     TDTagExpressionType et = [cls tagExpressionType];
     

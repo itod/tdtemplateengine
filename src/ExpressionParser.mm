@@ -97,6 +97,7 @@ const EXTokenTable& ExpressionParser::tokenTable() {
         {"to", EXTokenType_TO},
         {"ge", EXTokenType_GE},
         {"NO", EXTokenType_NO_UPPER},
+        {"=", EXTokenType_ASSIGN},
         {"==", EXTokenType_DOUBLE_EQUALS},
         {"null", EXTokenType_NULL},
     };
@@ -211,7 +212,7 @@ void ExpressionParser::_expr() {
             _loopExpr();
             break;
         case TDTagExpressionTypeArgs:
-            _argsExpr();
+            _argsList();
             break;
         default:
             assert(0);
@@ -233,12 +234,22 @@ void ExpressionParser::_loopExpr() {
 
 }
 
-void ExpressionParser::_argsExpr() {
+void ExpressionParser::_argsList() {
     
     while (!predicts(TokenType_EOF, 0)) {
-        _atom();
+        if (predicts(TokenType_WORD, 0) && la(2) == EXTokenType_ASSIGN) {
+            _namedArg();
+        } else {
+            _atom();
+        }
     }
 
+}
+
+void ExpressionParser::_namedArg() {
+    match(TokenType_WORD, false);
+    match(EXTokenType_EQ, false);
+    _atom();
 }
 
 void ExpressionParser::_identifiers() {
