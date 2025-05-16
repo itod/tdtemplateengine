@@ -47,7 +47,7 @@ private:
     void _block_end_tag();
     void _text();
 
-    void raise(std::string reason);
+    void raise(NSString *reason, Token tok);
     
 public:
     explicit TemplateParser(TDTemplateEngine *, TDTemplateContext *);

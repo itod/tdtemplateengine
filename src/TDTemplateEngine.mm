@@ -36,6 +36,7 @@
 #import "TDBlockTag.h"
 #import "TDIncludeTag.h"
 #import "TDLoadTag.h"
+#import "TDStaticTag.h"
 #import "TDIfTag.h"
 #import "TDElseTag.h"
 #import "TDElseIfTag.h"
@@ -130,6 +131,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
         [self registerTagClass:[TDIncludeTag class] forName:[TDIncludeTag tagName]];
         [self registerTagClass:[TDLoadTag class] forName:[TDLoadTag tagName]];
 
+        [self registerTagClass:[TDStaticTag class] forName:[TDStaticTag tagName]];
         [self registerTagClass:[TDIfTag class] forName:[TDIfTag tagName]];
         [self registerTagClass:[TDElseTag class] forName:[TDElseTag tagName]];
         [self registerTagClass:[TDElseIfTag class] forName:[TDElseIfTag tagName]];
@@ -472,11 +474,14 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     catch (ParseException& ex) {
         NSString *domain = @"ParseKitErrorDomain";
         NSString *name = @"ParseError"; //[ex name];
-        NSString *reason = [NSString stringWithUTF8String:ex.message().c_str()]; //[ex reason];
         //NSLog(@"%@", reason);
         
         if (outError) {
-            *outError = [self errorWithDomain:domain name:name reason:reason range:NSMakeRange(NSNotFound, 0) lineNumber:0];
+            NSString *reason = [NSString stringWithUTF8String:ex.message().c_str()]; //[ex reason];
+            //NSString *sample = [NSString stringWithUTF8String:ex.sample().c_str()];
+            Token tok = ex.token();
+            NSRange range = {tok.location(), tok.length()};
+            *outError = [self errorWithDomain:domain name:name reason:reason range:range lineNumber:tok.line_number()];
         } else {
             throw ex;
         }

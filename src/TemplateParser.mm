@@ -104,7 +104,7 @@ void TemplateParser::_content() {
     } else if (predicts(TemplateTokenType_TEXT, 0)) {
         _text();
     } else {
-        raise("No viable alternative found in rule `content`.");
+        raise(@"No viable alternative found in rule `content`.", lt(1));
     }
 }
 
@@ -129,7 +129,7 @@ void TemplateParser::_empty_tag() {
     @try {
         startTagNode = [_engine tagFromFragment:tok withParent:_currentParent inContext:_staticContext];
     } @catch (NSException *ex) {
-        raise(std::string([[ex reason] UTF8String]));
+        raise([ex reason], tok);
     }
     assert(startTagNode);
     [_currentParent addChild:startTagNode];
@@ -176,7 +176,7 @@ void TemplateParser::_block_start_tag() {
     @try {
         startTagNode = [_engine tagFromFragment:tok withParent:_currentParent inContext:_staticContext];
     } @catch (NSException *ex) {
-        raise(std::string([[ex reason] UTF8String]));
+        raise([ex reason], tok);
     }
     assert(startTagNode);
     [_currentParent addChild:startTagNode];
@@ -194,7 +194,7 @@ void TemplateParser::_block_end_tag() {
     }
     
     if (!_currentParent || ![_currentParent.tagName isEqualToString:tagName]) {
-        raise(std::string([[NSString stringWithFormat:@"Could not find block start tag named: `%@`", tagName] UTF8String]));
+        raise([NSString stringWithFormat:@"Could not find block start tag named: `%@`", tagName], tok);
     }
     assert([_currentParent isKindOfClass:[TDTag class]]);
     
@@ -209,9 +209,11 @@ void TemplateParser::_text() {
 
 }
 
-void TemplateParser::raise(std::string reason) {
-    throw ParseException(reason);
-    //[NSException raise:@"FIXME" format:@"%@", reason];
+void TemplateParser::raise(NSString *reason, Token tok) {
+    reason = [NSString stringWithFormat:@"Error while parsing Template `%@`:\n%@", _staticContext.derivedTemplate.filePath, reason];
+    std::string msg = [reason UTF8String];
+    std::string sample = [[_staticContext templateSubstringForToken:tok] UTF8String];
+    throw ParseException(msg, tok, sample);
 }
 
 void TemplateParser::setRoot(TDRootNode *n) {
