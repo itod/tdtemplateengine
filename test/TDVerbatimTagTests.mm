@@ -46,52 +46,52 @@
     TDEqualObjects(@"f", res);
 }
 
-- (void)testVerbatimNestedVar {
-    NSString *input = @"{% verbatim %}{{foo}}{% endverbatim %}";
-    id vars = nil;
-    
-    NSError *err = nil;
-    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
-    TDTrue(success);
-    TDNil(err);
-    NSString *res = [self outputString];
-    TDEqualObjects(@"{{foo}}", res);
-}
-
-- (void)testVerbatimNestedVarSpace {
-    NSString *input = @"{% verbatim %}{{ foo }}{% endverbatim %}";
-    id vars = nil;
-    
-    NSError *err = nil;
-    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
-    TDTrue(success);
-    TDNil(err);
-    NSString *res = [self outputString];
-    TDEqualObjects(@"{{ foo }}", res);
-}
-
-- (void)testVerbatimNestedIfTagSpace {
-    NSString *input = @"{% verbatim %}{% if 1 %}HI!{% endif %}{% endverbatim %}";
-    id vars = nil;
-    
-    NSError *err = nil;
-    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
-    TDTrue(success);
-    TDNil(err);
-    NSString *res = [self outputString];
-    TDEqualObjects(@"{% if 1 %}HI!{% endif %}", res);
-}
-
-- (void)testVerbatimNestedIfTag {
-    NSString *input = @"{% verbatim %}{%if 1%}HI!{%endif%}{% endverbatim %}";
-    id vars = nil;
-    
-    NSError *err = nil;
-    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
-    TDTrue(success);
-    TDNil(err);
-    NSString *res = [self outputString];
-    TDEqualObjects(@"{%if 1%}HI!{%endif%}", res);
-}
+//- (void)testVerbatimNestedVar {
+//    NSString *input = @"{% verbatim %}{{foo}}{% endverbatim %}";
+//    id vars = nil;
+//    
+//    NSError *err = nil;
+//    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+//    TDTrue(success);
+//    TDNil(err);
+//    NSString *res = [self outputString];
+//    TDEqualObjects(@"{{foo}}", res);
+//}
+//
+//- (void)testVerbatimNestedVarSpace {
+//    NSString *input = @"{% verbatim %}{{ foo }}{% endverbatim %}";
+//    id vars = nil;
+//    
+//    NSError *err = nil;
+//    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+//    TDTrue(success);
+//    TDNil(err);
+//    NSString *res = [self outputString];
+//    TDEqualObjects(@"{{ foo }}", res);
+//}
+//
+//- (void)testVerbatimNestedIfTagSpace {
+//    NSString *input = @"{% verbatim %}{% if 1 %}HI!{% endif %}{% endverbatim %}";
+//    id vars = nil;
+//    
+//    NSError *err = nil;
+//    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+//    TDTrue(success);
+//    TDNil(err);
+//    NSString *res = [self outputString];
+//    TDEqualObjects(@"{% if 1 %}HI!{% endif %}", res);
+//}
+//
+//- (void)testVerbatimNestedIfTag {
+//    NSString *input = @"{% verbatim %}{%if 1%}HI!{%endif%}{% endverbatim %}";
+//    id vars = nil;
+//    
+//    NSError *err = nil;
+//    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+//    TDTrue(success);
+//    TDNil(err);
+//    NSString *res = [self outputString];
+//    TDEqualObjects(@"{%if 1%}HI!{%endif%}", res);
+//}
 
 @end

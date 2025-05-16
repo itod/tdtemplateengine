@@ -10,4 +10,5 @@
 
 @interface TDVerbatimTag : TDTag
 
+@property (nonatomic, assign) parsekit::Token verbatimToken;
 @end

@@ -13,8 +13,13 @@
 #import <TDTemplateEngine/TDPrintNode.h>
 #import <TDTemplateEngine/TDTextNode.h>
 #import <TDTemplateEngine/TDTag.h>
+#import <TDTemplateEngine/TDVerbatimTag.h>
 
 using namespace parsekit;
+
+@interface TDNode ()
+- (void)setToken:(Token)token;
+@end
 
 @interface TDTemplateEngine ()
 - (TDPrintNode *)printNodeFromFragment:(Token)frag withParent:(TDNode *)parent;
@@ -133,13 +138,29 @@ void TemplateParser::_empty_tag() {
 void TemplateParser::_block_tag() {
     _assembly->push_node(_currentParent);
     
+    Token beg_tok = lt(1);
     _block_start_tag();
+    
     while (!predicts(TemplateTokenType_BLOCK_END_TAG, 0)) {
         _content();
     }
-    _block_end_tag();
-    setCurrentParent(_assembly->pop_node());
     
+    Token end_tok = lt(1);
+    _block_end_tag();
+    
+    if ([_currentParent isKindOfClass:[TDVerbatimTag class]]) {
+        TokenRange beg_range = beg_tok.range();
+        size_t beg_offset = beg_range.location + beg_range.length;
+        
+        TokenRange end_range = end_tok.range();
+        size_t end_offset = end_range.location;// + end_range.length;
+        
+        size_t length = end_offset - beg_offset;
+        Token tok = Token(TemplateTokenType_BLOCK_START_TAG, beg_offset, length, _currentParent.token.line_number());
+        _currentParent.token = tok;
+    }
+
+    setCurrentParent(_assembly->pop_node());
 }
 
 void TemplateParser::_block_start_tag() {

@@ -149,4 +149,9 @@
     return _token;
 }
 
+
+- (void)setToken:(parsekit::Token)token {
+    _token = token;
+}
+
 @end

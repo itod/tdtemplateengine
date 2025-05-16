@@ -41,7 +41,7 @@
 #import "TDForTag.h"
 #import "TDSkipTag.h"
 #import "TDCommentTag.h"
-//#import "TDVerbatimTag.h"
+#import "TDVerbatimTag.h"
 #import "TDTrimTag.h"
 #import "TDIndentTag.h"
 #import "TDNewlineTag.h"
@@ -131,7 +131,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
         [self registerTagClass:[TDForTag class] forName:[TDForTag tagName]];
         [self registerTagClass:[TDSkipTag class] forName:[TDSkipTag tagName]];
         [self registerTagClass:[TDCommentTag class] forName:[TDCommentTag tagName]];
-//        [self registerTagClass:[TDVerbatimTag class] forName:[TDVerbatimTag tagName]];
+        [self registerTagClass:[TDVerbatimTag class] forName:[TDVerbatimTag tagName]];
         [self registerTagClass:[TDTrimTag class] forName:[TDTrimTag tagName]];
         [self registerTagClass:[TDIndentTag class] forName:[TDIndentTag tagName]];
         [self registerTagClass:[TDNewlineTag class] forName:[TDNewlineTag tagName]];
@@ -432,8 +432,8 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
             TDAssert(0);
         }
         
-        Token frag_(tokenType, {contentRange.location, contentRange.length});
-        frags->push_back(frag_);
+        Token frag(tokenType, {contentRange.location, contentRange.length});
+        frags->push_back(frag);
     }];
     
     // detect trailing text node
@@ -538,27 +538,29 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     
     NSString *str = [_staticContext templateSubstringForToken:frag];
     
-    NSStringEncoding enc = NSUTF8StringEncoding;
-    NSUInteger maxByteLen = [str maximumLengthOfBytesUsingEncoding:enc];
-    char zstr[maxByteLen+1]; // +1 for null-term
-    NSUInteger byteLen;
-    NSRange remaining;
+//    NSStringEncoding enc = NSUTF8StringEncoding;
+//    NSUInteger maxByteLen = [str maximumLengthOfBytesUsingEncoding:enc];
+//    char zstr[maxByteLen+1]; // +1 for null-term
+//    NSUInteger byteLen;
+//    NSRange remaining;
+//    
+//    if (![str getBytes:zstr maxLength:maxByteLen usedLength:&byteLen encoding:enc options:0 range:NSMakeRange(0, str.length) remainingRange:&remaining]) {
+//        TDAssert(0);
+//    }
+//    TDAssert(0 == remaining.length);
+//    
+//    // must make it null-terminated bc -getBytes: does not include terminator
+//    zstr[byteLen] = '\0';
+//
+//    std::string input(zstr);
+//    ReaderCPP r(input);
     
-    if (![str getBytes:zstr maxLength:maxByteLen usedLength:&byteLen encoding:enc options:0 range:NSMakeRange(0, str.length) remainingRange:&remaining]) {
-        TDAssert(0);
-    }
-    TDAssert(0 == remaining.length);
-    
-    // must make it null-terminated bc -getBytes: does not include terminator
-    zstr[byteLen] = '\0';
-
-    std::string input(zstr);
-    ReaderCPP r(input);
+    ReaderObjC r(str);
     
     Tokenizer *t = ExpressionParser::tokenizer();
     Token tok = t->next(&r);
     TDAssert(TokenType_WORD == tok.token_type());
-    NSString *tagName = [NSString stringWithUTF8String:r.cpp_substr(tok).c_str()];
+    NSString *tagName = r.objc_substr(tok);
     
     // tokenize
     TDTag *tag = [self makeTagForName:tagName token:frag parent:parent];
