@@ -22,8 +22,8 @@ using namespace parsekit;
 @end
 
 @interface TDTemplateEngine ()
-- (TDPrintNode *)printNodeFromFragment:(Token)frag withParent:(TDNode *)parent;
-- (TDTag *)tagFromFragment:(Token)tok withParent:(TDNode *)parent;
+- (TDPrintNode *)printNodeFromFragment:(Token)frag withParent:(TDNode *)parent inContext:(TDTemplateContext *)staticContext;
+- (TDTag *)tagFromFragment:(Token)tok withParent:(TDNode *)parent inContext:(TDTemplateContext *)staticContext;
 @end
 
 namespace templateengine {
@@ -114,7 +114,7 @@ void TemplateParser::_print() {
     Token tok = _assembly->pop_token();
     assert(_engine);
     
-    TDNode *printNode = [_engine printNodeFromFragment:tok withParent:_currentParent];
+    TDNode *printNode = [_engine printNodeFromFragment:tok withParent:_currentParent inContext:_staticContext];
     assert(printNode);
     
     [_currentParent addChild:printNode];
@@ -127,7 +127,7 @@ void TemplateParser::_empty_tag() {
     assert(_engine);
     TDTag *startTagNode = nil;
     @try {
-        startTagNode = [_engine tagFromFragment:tok withParent:_currentParent];
+        startTagNode = [_engine tagFromFragment:tok withParent:_currentParent inContext:_staticContext];
     } @catch (NSException *ex) {
         raise(std::string([[ex reason] UTF8String]));
     }
@@ -174,7 +174,7 @@ void TemplateParser::_block_start_tag() {
     assert(_engine);
     TDTag *startTagNode = nil;
     @try {
-        startTagNode = [_engine tagFromFragment:tok withParent:_currentParent];
+        startTagNode = [_engine tagFromFragment:tok withParent:_currentParent inContext:_staticContext];
     } @catch (NSException *ex) {
         raise(std::string([[ex reason] UTF8String]));
     }

@@ -89,7 +89,6 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 @property (nonatomic, retain) NSRegularExpression *delimiterRegex;
 @property (nonatomic, retain) NSRegularExpression *cleanerRegex;
 @property (nonatomic, retain) NSRegularExpression *tagNameRegex;
-@property (nonatomic, retain, readwrite) TDTemplateContext *staticContext;
 @property (nonatomic, retain) NSMutableDictionary *tagTab;
 @property (nonatomic, retain) NSMutableDictionary *filterTab;
 
@@ -113,7 +112,6 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
         self.printEndDelimiter = @"}}";
         self.tagStartDelimiter = @"{%";
         self.tagEndDelimiter = @"%}";
-        self.staticContext = [[[TDTemplateContext alloc] init] autorelease];
         
         NSError *err = nil;
         self.cleanerRegex = [NSRegularExpression regularExpressionWithPattern:@"([{}\\[\\]\\(\\).+?*])" options:NSRegularExpressionAnchorsMatchLines error:&err];
@@ -168,7 +166,6 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     self.tagEndDelimiter = nil;
     self.delimiterRegex = nil;
     self.cleanerRegex = nil;
-    self.staticContext = nil;
     self.tagTab = nil;
     self.filterTab = nil;
     self.tagNameRegex = nil;
@@ -201,8 +198,9 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     TDAssert([_tagStartDelimiter length]);
     TDAssert([_tagEndDelimiter length]);
     
-    TDAssert(_staticContext);
-    [_staticContext pushTemplateString:str];
+    TDTemplateContext *staticContext = [[[TDTemplateContext alloc] init] autorelease];
+    TDAssert(staticContext);
+    [staticContext pushTemplateString:str];
     
     // lex
     TokenListPtr frags = nil;
@@ -222,9 +220,9 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     TDAssert(frags);
     
     // compile
-    TDRootNode *root = [self compile:frags error:err];
+    TDRootNode *root = [self compile:frags inContext:staticContext error:err];
     
-    [_staticContext popTemplateString];
+    [staticContext popTemplateString];
     
     return root;
 }
@@ -450,10 +448,10 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 }
 
 
-- (TDRootNode *)compile:(TokenListPtr)frags error:(NSError **)outError {
+- (TDRootNode *)compile:(TokenListPtr)frags inContext:(TDTemplateContext *)staticContext error:(NSError **)outError {
     
-    TDAssert(_staticContext);
-    TemplateParser p(self, _staticContext);
+    TDAssert(staticContext);
+    TemplateParser p(self, staticContext);
     
     TDRootNode *root = nil;
     try {
@@ -519,11 +517,11 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 #pragma mark -
 #pragma mark TemplateParser API
 
-- (TDPrintNode *)printNodeFromFragment:(Token)frag withParent:(TDNode *)parent {
+- (TDPrintNode *)printNodeFromFragment:(Token)frag withParent:(TDNode *)parent inContext:(TDTemplateContext *)staticContext {
     NSParameterAssert(!frag.is_eof());
     NSParameterAssert(parent);
     
-    NSString *str = [_staticContext templateSubstringForToken:frag];
+    NSString *str = [staticContext templateSubstringForToken:frag];
     TDAssert(str.length);
     
     NSError *err = nil;
@@ -539,11 +537,11 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 }
 
 
-- (TDTag *)tagFromFragment:(Token)frag withParent:(TDNode *)parent {
+- (TDTag *)tagFromFragment:(Token)frag withParent:(TDNode *)parent inContext:(TDTemplateContext *)staticContext {
     NSParameterAssert(!frag.is_eof());
     NSParameterAssert(parent);
     
-    NSString *str = [_staticContext templateSubstringForToken:frag];
+    NSString *str = [staticContext templateSubstringForToken:frag];
     
 //    NSStringEncoding enc = NSUTF8StringEncoding;
 //    NSUInteger maxByteLen = [str maximumLengthOfBytesUsingEncoding:enc];
@@ -578,19 +576,19 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     tok = t->next(&r);
     if (TokenType_EOF != tok.token_type()) {
         r.set_offset(offset);
-        tag.expression = [self expressionForTagName:tagName fromFragment:frag reader:&r];
+        tag.expression = [self expressionForTagName:tagName fromFragment:frag reader:&r inContext:staticContext];
     }
     
     if ([tag isKindOfClass:[TDCompileTimeTag class]]) {
         TDCompileTimeTag *cttag = (TDCompileTimeTag *)tag;
-        [cttag compileInContext:_staticContext];
+        [cttag compileInContext:staticContext];
     }
     
     return tag;
 }
 
 
-- (TDExpression *)expressionForTagName:(NSString *)tagName fromFragment:(Token)frag reader:(Reader *)reader {
+- (TDExpression *)expressionForTagName:(NSString *)tagName fromFragment:(Token)frag reader:(Reader *)reader inContext:(TDTemplateContext *)staticContext {
     NSParameterAssert(reader);
     
     TDExpression *expr = nil;
@@ -605,7 +603,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     
     if (!expr) {
         // TODO
-        NSString *exprString = [_staticContext templateSubstringForToken:frag];
+        NSString *exprString = [staticContext templateSubstringForToken:frag];
         NSString *msg = [NSString stringWithFormat:@"Error while compiling tag expression `%@` : %@", exprString, [err localizedFailureReason]];
         throw ParseException([msg UTF8String]);
     }
