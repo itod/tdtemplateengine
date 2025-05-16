@@ -24,4 +24,5 @@
 
 @interface TDBlockTag : TDCompileTimeTag
 
+@property (nonatomic, retain) NSString *templateString;
 @end

@@ -76,10 +76,10 @@ TDRootNode *TemplateParser::parse(TokenListPtr frags) {
 }
 
 void TemplateParser::_template() {
-    assert(_staticContext.templateString);
+    assert([_staticContext peekTemplateString]);
     
     TDRootNode *root = [TDRootNode rootNode];
-    root.templateString = _staticContext.templateString;
+    root.templateString = [_staticContext peekTemplateString];
     
     setRoot(root);
     setCurrentParent(root);

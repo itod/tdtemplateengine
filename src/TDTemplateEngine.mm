@@ -202,7 +202,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     TDAssert([_tagEndDelimiter length]);
     
     TDAssert(_staticContext);
-    _staticContext.templateString = str;
+    [_staticContext pushTemplateString:str];
     
     // lex
     TokenListPtr frags = nil;
@@ -224,13 +224,13 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     // compile
     TDRootNode *root = [self compile:frags error:err];
     
-    _staticContext.templateString = nil;
+    [_staticContext popTemplateString];
     
     return root;
 }
 
 
-- (BOOL)renderTemplateTree:(TDNode *)root withVariables:(NSDictionary *)vars toStream:(NSOutputStream *)output error:(NSError **)err {
+- (BOOL)renderTemplateTree:(TDRootNode *)root withVariables:(NSDictionary *)vars toStream:(NSOutputStream *)output error:(NSError **)err {
     NSParameterAssert([root isKindOfClass:[TDRootNode class]]);
     NSParameterAssert(output);
     
@@ -240,7 +240,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     TDTemplateContext *dynamicContext = [[[TDTemplateContext alloc] initWithVariables:vars output:output] autorelease];
     TDAssert(_staticContext);
     dynamicContext.enclosingScope = _staticContext;
-    dynamicContext.templateString = [(id)root templateString];
+    [dynamicContext pushTemplateString:root.templateString];
     
     BOOL success = YES;
     
@@ -252,12 +252,14 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
         if (err) *err = [NSError errorWithDomain:TDTemplateEngineErrorDomain code:TDTemplateEngineRenderingErrorCode userInfo:[[[ex userInfo] copy] autorelease]];
     }
     
+    [dynamicContext popTemplateString];
+    
     return success;
 }
 
 
 - (BOOL)processTemplateFile:(NSString *)path encoding:(NSStringEncoding)enc withVariables:(NSDictionary *)vars toStream:(NSOutputStream *)output error:(NSError **)err {
-    TDNode *root = [self compileTemplateFile:path encoding:enc error:err];
+    TDRootNode *root = [self compileTemplateFile:path encoding:enc error:err];
     
     BOOL success = NO;
     
@@ -270,7 +272,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 
 
 - (BOOL)processTemplateString:(NSString *)str withVariables:(NSDictionary *)vars toStream:(NSOutputStream *)output error:(NSError **)err {
-    TDNode *root = [self compileTemplateString:str error:err];
+    TDRootNode *root = [self compileTemplateString:str error:err];
     
     BOOL success = NO;
     

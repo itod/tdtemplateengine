@@ -70,6 +70,8 @@ static NSCharacterSet *sNewlineSet = nil;
 @end
 
 @interface TDTemplateContext ()
+@property (nonatomic, retain) NSMutableArray *templateStringStack;
+
 @property (nonatomic, retain) NSMutableDictionary *vars;
 @property (nonatomic, retain, readwrite) TDWriter *writer;
 @property (nonatomic, assign) BOOL wroteNewline;
@@ -99,7 +101,7 @@ static NSCharacterSet *sNewlineSet = nil;
     if (self) {
         self.vars = [NSMutableDictionary dictionary];
         [_vars addEntriesFromDictionary:vars];
-
+        
         self.writer = [TDWriter writerWithOutputStream:output];
     }
     return self;
@@ -110,7 +112,7 @@ static NSCharacterSet *sNewlineSet = nil;
     self.vars = nil;
     self.writer = nil;
     self.enclosingScope = nil;
-    self.templateString = nil;
+    self.templateStringStack = nil;
     [super dealloc];
 }
 
@@ -131,7 +133,7 @@ static NSCharacterSet *sNewlineSet = nil;
     ctx.enclosingScope = self;
     ctx.wroteNewline = _wroteNewline;
     ctx.wroteChars = _wroteChars;
-    ctx.templateString = _templateString;
+    ctx.templateStringStack = [_templateStringStack mutableCopy];
     return ctx;
 }
 
@@ -154,7 +156,7 @@ static NSCharacterSet *sNewlineSet = nil;
 
 - (void)defineVariable:(NSString *)name value:(id)value {
     //NSLog(@"%s %@=%@", __PRETTY_FUNCTION__, name, value);
-
+    
     NSParameterAssert([name length]);
     TDAssert(_vars);
     if (value) {
@@ -171,7 +173,7 @@ static NSCharacterSet *sNewlineSet = nil;
 
 - (void)writeObject:(id)obj {
     TDAssert(_writer);
-
+    
     NSString *str = nil;
     if ([obj isKindOfClass:[NSString class]]) {
         str = obj;
@@ -186,7 +188,7 @@ static NSCharacterSet *sNewlineSet = nil;
 
 - (void)writeString:(NSString *)str {
     TDAssert(_writer);
-
+    
     if (_trimLines) {
         NSArray *comps = [str componentsSeparatedByCharactersInSet:sNewlineSet];
         
@@ -262,15 +264,34 @@ static NSCharacterSet *sNewlineSet = nil;
 }
 
 
-// TODO remove
 - (NSString *)templateSubstringForToken:(parsekit::Token)token {
     NSString *result = nil;
-    if (_templateString) {
-        result = [_templateString substringWithRange:NSMakeRange(token.range().location, token.range().length)];
+    if ([self peekTemplateString]) {
+        result = [[self peekTemplateString] substringWithRange:NSMakeRange(token.range().location, token.range().length)];
     } else {
         result = [self.enclosingScope templateSubstringForToken:token];
     }
     return result;
+}
+
+
+- (void)pushTemplateString:(NSString *)str {
+    TDAssert(str);
+    if (!_templateStringStack) {
+        self.templateStringStack = [NSMutableArray array];
+    }
+    [_templateStringStack addObject:str];
+}
+
+
+- (void)popTemplateString {
+    TDAssert(_templateStringStack);
+    [_templateStringStack removeLastObject];
+}
+
+
+- (NSString *)peekTemplateString {
+    return _templateStringStack.lastObject;
 }
 
 @end

@@ -23,6 +23,7 @@
 #import "TDBlockTag.h"
 #import "TDRootNode.h"
 #import "TDPathExpression.h"
+#import "TDTemplateContext.h"
 
 @interface TDPathExpression ()
 @property (nonatomic, retain) NSString *head;
@@ -37,6 +38,17 @@
 
 + (TDTagType)tagType {
     return TDTagTypeComplex;
+}
+
+
+- (void)dealloc {
+    self.templateString = nil;
+    [super dealloc];
+}
+
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"<%@ %p %@>", [self class], self, self.key];
 }
 
 
@@ -66,10 +78,14 @@
 - (void)doTagInContext:(TDTemplateContext *)ctx {
     NSParameterAssert(ctx);
     
-    TDRootNode *root = (id)[self firstAncestorOfClass:[TDRootNode class]];
-    TDNode *delegate = [root blockForKey:self.key];
+    TDRootNode *document = (id)[self firstAncestorOfClass:[TDRootNode class]];
+    TDNode *delegate = [document blockForKey:self.key];
     
+    TDRootNode *blockRoot = (id)[delegate firstAncestorOfClass:[TDRootNode class]];
+    
+    [ctx pushTemplateString:blockRoot.templateString];
     [delegate renderChildrenInContext:ctx];
+    [ctx popTemplateString];
 }
 
 @end

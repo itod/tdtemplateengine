@@ -93,7 +93,7 @@
     
     TDTemplateContext *dynamicContext = [[[TDTemplateContext alloc] initWithVariables:vars output:output] autorelease];
     TDAssert(_document.templateString);
-    dynamicContext.templateString = _document.templateString;
+    [dynamicContext pushTemplateString:_document.templateString];
     
     //TDAssert(_staticContext);
     //dynamicContext.enclosingScope = _staticContext;
@@ -108,6 +108,8 @@
         success = NO;
         if (err) *err = [NSError errorWithDomain:TDTemplateEngineErrorDomain code:TDTemplateEngineRenderingErrorCode userInfo:[[[ex userInfo] copy] autorelease]];
     }
+    
+    [dynamicContext popTemplateString];
     
     return success;
 }
