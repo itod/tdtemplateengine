@@ -47,7 +47,7 @@
             TDAssert(0);
             TDAssert(len <= maxLen);
         }
-        // must make it null-terminated bc -getBytes: does not include terminator
+        // make it null-terminated bc -getBytes: does not include terminator
         bytes[len] = '\0';
         const uint8_t *zstr = (const uint8_t *)bytes;
 #else
