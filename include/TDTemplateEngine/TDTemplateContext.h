@@ -47,9 +47,6 @@
 - (void)decreaseIndentDepth:(NSUInteger)times;
 @property (nonatomic, assign) NSInteger indentDepth;
 
-@property (nonatomic, copy, readonly) NSString *filePath;
-
-
 @property (nonatomic, retain) TDTemplate *derivedTemplate;
 
 - (NSString *)templateSubstringForToken:(parsekit::Token)token;

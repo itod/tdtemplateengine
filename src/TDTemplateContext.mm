@@ -124,11 +124,12 @@ static NSCharacterSet *sNewlineSet = nil;
 
 
 - (void)dealloc {
-    self.derivedTemplate = nil;
-    self.templateStringStack = nil;
     self.writer = nil;
-    self.vars = nil;
     self.enclosingScope = nil;
+    self.derivedTemplate = nil;
+    
+    self.templateStringStack = nil;
+    self.vars = nil;
     [super dealloc];
 }
 
