@@ -27,7 +27,8 @@
 #import "TDTemplateContext.h"
 
 @interface TDTemplate ()
-@property (nonatomic, retain) TDRootNode *rootNode;
+- (TDNode *)blockForKey:(NSString *)key;
+- (void)setBlock:(TDNode *)block forKey:(NSString *)key;
 @end
 
 @interface TDPathExpression ()
@@ -87,9 +88,6 @@
     TDNode *delegate = [tmpl blockForKey:self.key];
     TDAssert(delegate);
     
-//    TDRootNode *document = (id)[self firstAncestorOfClass:[TDRootNode class]];
-//    TDNode *delegate = [document blockForKey:self.key];
-//    
     TDRootNode *blockRoot = (id)[delegate firstAncestorOfClass:[TDRootNode class]];
     
     [ctx pushTemplateString:blockRoot.templateString];

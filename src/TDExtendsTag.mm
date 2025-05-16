@@ -25,6 +25,10 @@
 #import "TDExpression.h"
 #import "TDTemplateContext.h"
 
+@interface TDTemplate ()
+@property (nonatomic, copy) NSString *extendsPath;
+@end
+
 @implementation TDExtendsTag
 
 + (NSString *)tagName {

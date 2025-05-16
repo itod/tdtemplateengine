@@ -79,8 +79,10 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 
 @interface TDTemplate ()
 - (instancetype)initWithFilePath:(NSString *)path;
-@property (nonatomic, retain, readwrite) TDTemplate *superTemplate;
 @property (nonatomic, retain) TDNode *rootNode;
+@property (nonatomic, retain, readwrite) TDTemplate *superTemplate;
+@property (nonatomic, copy) NSString *extendsPath;
+- (void)setBlock:(TDNode *)block forKey:(NSString *)key;
 @end
 
 // PRIVATE

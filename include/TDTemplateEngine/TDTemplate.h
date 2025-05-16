@@ -9,8 +9,6 @@
 #import <Foundation/Foundation.h>
 #import <ParseKitCPP/Token.hpp>
 
-@class TDNode;
-
 @interface TDTemplate : NSObject
 
 - (NSString *)render:(NSDictionary *)vars error:(NSError **)err;
@@ -19,12 +17,4 @@
 - (NSString *)templateSubstringForToken:(parsekit::Token)token;
 
 @property (nonatomic, copy) NSString *filePath;
-
-@property (nonatomic, retain, readonly) TDTemplate *superTemplate;
-@property (nonatomic, copy) NSString *extendsPath; // TODO rm???
-
-// blocks
-- (TDNode *)blockForKey:(NSString *)key;
-- (void)setBlock:(TDNode *)block forKey:(NSString *)key;
-
 @end

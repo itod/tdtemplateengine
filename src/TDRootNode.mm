@@ -40,27 +40,4 @@
     [super dealloc];
 }
 
-
-//#pragma mark -
-//#pragma mark NSCopying
-//
-//- (id)copyWithZone:(NSZone *)zone {
-//    TDRootNode *node = [[TDRootNode alloc] init];
-//    
-//    for (TDNode *kid in self.children) {
-//        [node addChild:kid];
-//    }
-//    
-//    node->_extendsPath = [_extendsPath copy];
-//    node->_templateString = [_templateString retain];
-//    node->_blockTab = [_blockTab mutableCopy];
-//    
-//    return node;
-//}
-
-
-#pragma mark -
-#pragma mark Public
-
-
 @end
