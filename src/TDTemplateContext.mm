@@ -21,6 +21,8 @@
 // THE SOFTWARE.
 
 #import <TDTemplateEngine/TDTemplateContext.h>
+#import <TDTemplateEngine/TDTemplate.h>
+#import <TDTemplateEngine/TDRootNode.h>
 #import <TDTemplateEngine/TDWriter.h>
 #import <ParseKitCPP/Token.hpp>
 
@@ -69,8 +71,11 @@ static NSCharacterSet *sNewlineSet = nil;
 
 @end
 
+@interface TDTemplate ()
+@property (nonatomic, retain) TDRootNode *rootNode;
+@end
+
 @interface TDTemplateContext ()
-@property (nonatomic, copy, readwrite) NSString *filePath;
 @property (nonatomic, retain) NSMutableArray *templateStringStack;
 
 @property (nonatomic, retain) NSMutableDictionary *vars;
@@ -97,10 +102,10 @@ static NSCharacterSet *sNewlineSet = nil;
 }
 
 
-- (instancetype)initWithFilePath:(NSString *)path {
+- (instancetype)initWithTemplate:(TDTemplate *)tmpl {
     self = [super init];
     if (self) {
-        self.filePath = path;
+        self.derivedTemplate = tmpl;
     }
     return self;
 }
@@ -119,10 +124,11 @@ static NSCharacterSet *sNewlineSet = nil;
 
 
 - (void)dealloc {
-    self.vars = nil;
-    self.writer = nil;
-    self.enclosingScope = nil;
+    self.derivedTemplate = nil;
     self.templateStringStack = nil;
+    self.writer = nil;
+    self.vars = nil;
+    self.enclosingScope = nil;
     [super dealloc];
 }
 
@@ -135,15 +141,16 @@ static NSCharacterSet *sNewlineSet = nil;
 #pragma mark -
 #pragma mark NSCopying
 
-- (instancetype)copyWithZone:(NSZone *)zone {
+- (instancetype)copyWithZone:(NSZone *)zone {  // TODO remove????
     TDTemplateContext *ctx = [[TDTemplateContext alloc] initWithVariables:nil output:_writer.output];
+    ctx.derivedTemplate = _derivedTemplate;
+    ctx.templateStringStack = [_templateStringStack mutableCopy];
     ctx.trimLines = _trimLines;
     ctx.indentDepth = _indentDepth;
     ctx.firstWriteAfterIndent = _firstWriteAfterIndent;
     ctx.enclosingScope = self;
     ctx.wroteNewline = _wroteNewline;
     ctx.wroteChars = _wroteChars;
-    ctx.templateStringStack = [_templateStringStack mutableCopy];
     return ctx;
 }
 
@@ -302,6 +309,7 @@ static NSCharacterSet *sNewlineSet = nil;
 
 
 - (NSString *)peekTemplateString {
+    TDAssert(_templateStringStack);
     return _templateStringStack.lastObject;
 }
 

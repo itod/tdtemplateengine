@@ -11,51 +11,59 @@
 #import <TDTemplateEngine/TDTemplateEngine.h>
 #import "TDRootNode.h"
 
-@interface TDRootNode ()
-@property (nonatomic, retain) NSMutableDictionary *blockTab;
-@end
-
 @interface TDTemplate ()
-@property (nonatomic, retain) TDRootNode *document;
+@property (nonatomic, retain, readwrite) TDTemplate *superTemplate;
+@property (nonatomic, retain) TDRootNode *rootNode;
+@property (nonatomic, retain) NSMutableDictionary *blockTab;
 @end
 
 @implementation TDTemplate
 
-- (instancetype)initWithDocument:(TDRootNode *)doc {
+- (instancetype)initWithFilePath:(NSString *)path {
     self = [super init];
     if (self) {
-        self.document = doc;
+        self.filePath = path;
     }
     return self;
 }
+//- (instancetype)initWithDocument:(TDRootNode *)doc {
+//    self = [super init];
+//    if (self) {
+//        self.document = doc;
+//    }
+//    return self;
+//}
 
 
 - (void)dealloc {
-    self.document = nil;
+    self.rootNode = nil;
+    self.blockTab = nil;
+
     self.filePath = nil;
+
+    self.superTemplate = nil;
+    self.extendsPath = nil;
+
     [super dealloc];
 }
 
 
-#pragma mark -
-#pragma mark NSCopying
-
-- (id)copyWithZone:(NSZone *)zone {
-    TDTemplate *tmpl = [[TDTemplate alloc] init];
-    
-    tmpl->_document = [_document retain];
-    
-    return tmpl;
+- (NSString *)description {
+    return [NSString stringWithFormat:@"<%@ %p %@>", [self class], self, _filePath];
 }
 
 
-#pragma mark -
-#pragma mark Friend API
 
-- (void)adoptBlocksFromNode:(TDRootNode *)that {
-    // absorb the blocks in node into this template's root node
-    [self.document.blockTab addEntriesFromDictionary:that.blockTab];
-}
+//#pragma mark -
+//#pragma mark NSCopying
+//
+//- (id)copyWithZone:(NSZone *)zone {
+//    TDTemplate *tmpl = [[TDTemplate alloc] init];
+//    
+//    tmpl->_document = [_document retain];
+//    
+//    return tmpl;
+//}
 
 
 #pragma mark -
@@ -67,15 +75,24 @@
 
 
 - (BOOL)render:(NSDictionary *)vars toStream:(NSOutputStream *)output error:(NSError **)err {
-    NSParameterAssert([_document isKindOfClass:[TDRootNode class]]);
+    NSParameterAssert([_rootNode isKindOfClass:[TDRootNode class]]);
     NSParameterAssert(output);
+    
+    TDRootNode *document = (id)[self blockForKey:@""];
+    if (!document) {
+        *err = [NSError errorWithDomain:TDTemplateEngineErrorDomain code:TDTemplateEngineRenderingErrorCode userInfo:@{
+            NSLocalizedFailureReasonErrorKey: [NSString stringWithFormat:@"Could not find Document Node for template: `%@`", _filePath],
+        }];
+        return NO;
+    }
     
     [output open];
     TDAssert([output hasSpaceAvailable]);
     
     TDTemplateContext *dynamicContext = [[[TDTemplateContext alloc] initWithVariables:vars output:output] autorelease];
-    TDAssert(_document.templateString);
-    [dynamicContext pushTemplateString:_document.templateString];
+    dynamicContext.derivedTemplate = self;
+    TDAssert(document.templateString);
+    [dynamicContext pushTemplateString:document.templateString];
     
     //TDAssert(_staticContext);
     //dynamicContext.enclosingScope = _staticContext;
@@ -84,7 +101,7 @@
     BOOL success = YES;
     
     @try {
-        [_document renderInContext:dynamicContext];
+        [document renderInContext:dynamicContext];
     }
     @catch (NSException *ex) {
         success = NO;
@@ -98,9 +115,28 @@
 
 
 - (NSString *)templateSubstringForToken:(parsekit::Token)token {
-    TDAssert(_document.templateString);
-    NSString *result = [_document.templateString substringWithRange:NSMakeRange(token.range().location, token.range().length)];
+    TDAssert(_rootNode.templateString);
+    NSString *result = [_rootNode.templateString substringWithRange:NSMakeRange(token.range().location, token.range().length)];
     return result;
+}
+
+
+- (TDNode *)blockForKey:(NSString *)key {
+    TDNode *node = [_blockTab objectForKey:key];
+    if (!node) {
+        node = [_superTemplate blockForKey:key];
+    }
+    return node;
+}
+
+
+- (void)setBlock:(TDNode *)block forKey:(NSString *)key {
+    TDAssert(block);
+    TDAssert(key);
+    if (!_blockTab) {
+        self.blockTab = [NSMutableDictionary dictionary];
+    }
+    [_blockTab setObject:block forKey:key];
 }
 
 @end

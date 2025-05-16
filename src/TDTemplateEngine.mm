@@ -78,8 +78,9 @@ NSString * const TDTemplateEngineErrorDomain = @"TDTemplateEngineErrorDomain";
 const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 
 @interface TDTemplate ()
-- (instancetype)initWithDocument:(TDNode *)doc;
-- (void)adoptBlocksFromNode:(TDRootNode *)node;
+- (instancetype)initWithFilePath:(NSString *)path;
+@property (nonatomic, retain, readwrite) TDTemplate *superTemplate;
+@property (nonatomic, retain) TDNode *rootNode;
 @end
 
 // PRIVATE
@@ -179,55 +180,21 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 #pragma mark -
 #pragma mark Public
 
-- (TDRootNode *)compileTemplateFile:(NSString *)path encoding:(NSStringEncoding)enc error:(NSError **)err {
-    NSParameterAssert([path length]);
-    
-    TDRootNode *root = nil;
-    NSString *str = [NSString stringWithContentsOfFile:path encoding:enc error:err];
-    
-    if (str) {
-        root = [self compileTemplateString:str filePath:path error:err];
-    }
-    
-    return root;
-}
+//- (TDRootNode *)compileTemplateFile:(NSString *)path encoding:(NSStringEncoding)enc error:(NSError **)err {
+//    NSParameterAssert([path length]);
+//    
+//    TDRootNode *root = nil;
+//    NSString *str = [NSString stringWithContentsOfFile:path encoding:enc error:err];
+//    
+//    if (str) {
+//        root = [self compileTemplateString:str filePath:path error:err];
+//    }
+//    
+//    return root;
+//}
 
 
-- (TDRootNode *)compileTemplateString:(NSString *)str filePath:(NSString *)path error:(NSError **)err {
-    NSParameterAssert([str length]);
-    TDAssert([_printStartDelimiter length]);
-    TDAssert([_printEndDelimiter length]);
-    TDAssert([_tagStartDelimiter length]);
-    TDAssert([_tagEndDelimiter length]);
-    
-    TDTemplateContext *staticContext = [[[TDTemplateContext alloc] initWithFilePath:path] autorelease];
-    TDAssert(staticContext);
-    [staticContext pushTemplateString:str];
-    
-    // lex
-    TokenListPtr frags = nil;
-    
-    @try {
-        frags = [self fragmentsFromString:str];
-    } @catch (NSException *ex) {
-        if (err) {
-            NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithDictionary:[ex userInfo]];
-            if (![userInfo count]) {
-                userInfo[NSLocalizedFailureReasonErrorKey] = ex.reason;
-            }
-            *err = [NSError errorWithDomain:TDTemplateEngineErrorDomain code:TDTemplateEngineRenderingErrorCode userInfo:userInfo];
-        }
-        return nil;
-    }
-    TDAssert(frags);
-    
-    // compile
-    TDRootNode *root = [self compile:frags inContext:staticContext error:err];
-    
-    [staticContext popTemplateString];
-    
-    return root;
-}
+//- (TDRootNode *)compileTemplateString:(NSString *)str filePath:(NSString *)path error:(NSError **)err 
 
 
 - (BOOL)processTemplateFile:(NSString *)path encoding:(NSStringEncoding)enc withVariables:(NSDictionary *)vars toStream:(NSOutputStream *)output error:(NSError **)err {
@@ -288,7 +255,6 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     }
     
     tmpl = [self _templateFromString:str filePath:path error:err];
-    tmpl.filePath = path;
     
     [self _setCachedTemplate:tmpl forPath:path];
     
@@ -297,34 +263,57 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 
 
 - (TDTemplate *)_templateFromString:(NSString *)str filePath:(NSString *)path error:(NSError **)err {
-    TDRootNode *root = [self compileTemplateString:str filePath:path error:err];
+    NSParameterAssert([str length]);
+    TDAssert([_printStartDelimiter length]);
+    TDAssert([_printEndDelimiter length]);
+    TDAssert([_tagStartDelimiter length]);
+    TDAssert([_tagEndDelimiter length]);
+    
+    TDTemplate *tmpl = [[[TDTemplate alloc] initWithFilePath:path] autorelease];
+    TDTemplateContext *staticContext = [[[TDTemplateContext alloc] initWithTemplate:tmpl] autorelease];
+    TDAssert(staticContext);
+    [staticContext pushTemplateString:str];
+    
+    // lex
+    TokenListPtr frags = nil;
+    
+    @try {
+        frags = [self fragmentsFromString:str];
+    } @catch (NSException *ex) {
+        if (err) {
+            NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithDictionary:[ex userInfo]];
+            if (![userInfo count]) {
+                userInfo[NSLocalizedFailureReasonErrorKey] = ex.reason;
+            }
+            *err = [NSError errorWithDomain:TDTemplateEngineErrorDomain code:TDTemplateEngineRenderingErrorCode userInfo:userInfo];
+        }
+        return nil;
+    }
+    TDAssert(frags);
+    
+    // compile
+    TDRootNode *root = [self compile:frags inContext:staticContext error:err];
     if (!root) {
         if (*err) NSLog(@"%@", *err);
         return nil;
     }
+    tmpl.rootNode = root;
     
-    return [self _templateFromRootNode:root error:err];
-}
-
-
-- (TDTemplate *)_templateFromRootNode:(TDRootNode *)root error:(NSError **)err {
-    TDTemplate *tmpl = nil;
-    
-    // check `doc` to see if starts wtih {% extends %}
-    if (root.extendsPath) {
-        TDTemplate *superTemplate = [self templateWithContentsOfFile:root.extendsPath error:err];
+    // check new tmpl to see if starts wtih {% extends %}, if so inherit
+    if (tmpl.extendsPath) {
+        TDTemplate *superTemplate = [self templateWithContentsOfFile:tmpl.extendsPath error:err];
         if (!superTemplate) {
-            NSLog(@"Could not extend template `%@` bc it coult not be loaded or compiled.", root.extendsPath);
+            NSLog(@"Could not extend template `%@` bc it coult not be loaded or compiled.", tmpl.extendsPath);
             return nil;
         }
         
-        tmpl = [[superTemplate copy] autorelease];
-        [tmpl adoptBlocksFromNode:root];
+        tmpl.superTemplate = superTemplate;
     } else {
-        tmpl = [[[TDTemplate alloc] initWithDocument:root] autorelease];
+        [tmpl setBlock:root forKey:@""];
     }
     
-    TDAssert(tmpl);
+    [staticContext popTemplateString];
+
     return tmpl;
 }
 

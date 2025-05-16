@@ -23,11 +23,12 @@
 #import <Foundation/Foundation.h>
 #import <ParseKitCPP/Token.hpp>
 
+@class TDTemplate;
 @class TDWriter;
 
 @interface TDTemplateContext : NSObject <NSCopying>
 
-- (instancetype)initWithFilePath:(NSString *)path; // static
+- (instancetype)initWithTemplate:(TDTemplate *)tmpl; // static
 - (instancetype)initWithVariables:(NSDictionary *)vars output:(NSOutputStream *)output; // dynamic
 
 @property (nonatomic, retain, readonly) TDWriter *writer;
@@ -47,6 +48,9 @@
 @property (nonatomic, assign) NSInteger indentDepth;
 
 @property (nonatomic, copy, readonly) NSString *filePath;
+
+
+@property (nonatomic, retain) TDTemplate *derivedTemplate;
 
 - (NSString *)templateSubstringForToken:(parsekit::Token)token;
 - (void)pushTemplateString:(NSString *)str;

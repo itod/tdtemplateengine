@@ -77,15 +77,4 @@ using namespace templateengine;
     XCTAssertEqualObjects([input substringWithRange:NSMakeRange(tok.range().location, tok.range().length)], @"{% endif %}");
 }
 
-- (void)testCompileTemplate {
-    NSString *input = @"{% if test %}{{a}}{% else %} foo bar { baz } {% endif %}";
-    //NSString *input = @"{{foo}}";
-
-    TDTemplateEngine *engine = [TDTemplateEngine templateEngine];
-    NSError *err = nil;
-    TDRootNode *root = [engine compileTemplateString:input filePath:nil error:&err];
-    
-    XCTAssertNotNil(root);
-}
-
 @end

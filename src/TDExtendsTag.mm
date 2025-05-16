@@ -21,7 +21,7 @@
 // THE SOFTWARE.
 
 #import "TDExtendsTag.h"
-#import "TDRootNode.h"
+#import "TDTemplate.h"
 #import "TDExpression.h"
 #import "TDTemplateContext.h"
 
@@ -38,14 +38,13 @@
 
 
 - (void)compileInContext:(TDTemplateContext *)staticContext {
-    TDRootNode *root = (id)[self firstAncestorOfClass:[TDRootNode class]];
-    
     NSString *path = staticContext.filePath;
     NSString *extendsPath = [self.expression evaluateAsStringInContext:staticContext];
     
     extendsPath = [self absolutePathForPath:extendsPath relativeTo:path];
     
-    root.extendsPath = extendsPath;
+    TDTemplate *tmpl = staticContext.derivedTemplate;
+    tmpl.extendsPath = extendsPath;
 }
 
 

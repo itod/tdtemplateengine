@@ -21,9 +21,14 @@
 // THE SOFTWARE.
 
 #import "TDBlockTag.h"
+#import "TDTemplate.h"
 #import "TDRootNode.h"
 #import "TDPathExpression.h"
 #import "TDTemplateContext.h"
+
+@interface TDTemplate ()
+@property (nonatomic, retain) TDRootNode *rootNode;
+@end
 
 @interface TDPathExpression ()
 @property (nonatomic, retain) NSString *head;
@@ -67,8 +72,7 @@
 
 
 - (void)compileInContext:(TDTemplateContext *)staticContext {
-    TDRootNode *root = (id)[self firstAncestorOfClass:[TDRootNode class]];
-    [root setBlock:self forKey:self.key];
+    [staticContext.derivedTemplate setBlock:self forKey:self.key];
 }
 
 
@@ -78,9 +82,14 @@
 - (void)doTagInContext:(TDTemplateContext *)ctx {
     NSParameterAssert(ctx);
     
-    TDRootNode *document = (id)[self firstAncestorOfClass:[TDRootNode class]];
-    TDNode *delegate = [document blockForKey:self.key];
+    TDTemplate *tmpl = ctx.derivedTemplate;
+    TDAssert(tmpl);
+    TDNode *delegate = [tmpl blockForKey:self.key];
+    TDAssert(delegate);
     
+//    TDRootNode *document = (id)[self firstAncestorOfClass:[TDRootNode class]];
+//    TDNode *delegate = [document blockForKey:self.key];
+//    
     TDRootNode *blockRoot = (id)[delegate firstAncestorOfClass:[TDRootNode class]];
     
     [ctx pushTemplateString:blockRoot.templateString];
