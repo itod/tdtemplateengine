@@ -23,7 +23,7 @@
 
 
 - (void)doTagInContext:(TDTemplateContext *)ctx {
-    TDForLoop *loop = [ctx resolveVariable:@"currentLoop"];
+    TDForLoop *loop = [ctx resolveVariable:@"forloop"];
     if (loop && !loop.last) {
         [self renderChildrenInContext:ctx];
     }

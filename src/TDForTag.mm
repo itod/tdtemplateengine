@@ -100,7 +100,7 @@
 
 
 - (void)tearDownForLoop:(TDTemplateContext *)ctx {
-    [ctx defineVariable:@"currentLoop" value:nil];
+    [ctx defineVariable:@"forloop" value:nil];
     _currentLoop.parentloop = nil;
     self.currentLoop = nil;
 }
