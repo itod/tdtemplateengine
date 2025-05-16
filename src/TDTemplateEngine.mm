@@ -556,8 +556,8 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
         tag.expression = [self expressionForTagName:tagName fromFragment:frag reader:&r inContext:staticContext];
     }
     
-    if ([tag isKindOfClass:[TDCompileTimeTag class]]) {
-        TDCompileTimeTag *cttag = (TDCompileTimeTag *)tag;
+    if ([tag conformsToProtocol:@protocol(TDCompileTimeTag)]) {
+        id <TDCompileTimeTag>cttag = (id <TDCompileTimeTag>)tag;
         [cttag compileInContext:staticContext];
     }
     

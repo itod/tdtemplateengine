@@ -8,7 +8,7 @@
 
 #import <TDTemplateEngine/TDTag.h>
 
-@interface TDCompileTimeTag : TDTag
+@protocol TDCompileTimeTag <NSObject>
 
 - (void)compileInContext:(TDTemplateContext *)staticContext;
 

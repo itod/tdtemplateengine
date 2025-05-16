@@ -22,7 +22,7 @@
 
 #import <TDTemplateEngine/TDCompileTimeTag.h>
 
-@interface TDBlockTag : TDCompileTimeTag
+@interface TDBlockTag : TDTag <TDCompileTimeTag>
 
 @property (nonatomic, retain) NSString *templateString;
 @end

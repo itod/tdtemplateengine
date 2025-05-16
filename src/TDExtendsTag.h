@@ -22,6 +22,6 @@
 
 #import <TDTemplateEngine/TDCompileTimeTag.h>
 
-@interface TDExtendsTag : TDCompileTimeTag
+@interface TDExtendsTag : TDTag <TDCompileTimeTag>
 
 @end
