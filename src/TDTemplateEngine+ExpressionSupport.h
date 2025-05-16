@@ -29,4 +29,5 @@
 - (TDExpression *)expressionFromString:(NSString *)objc_str error:(NSError **)outErr;
 - (TDExpression *)expressionFromReader:(parsekit::Reader *)reader error:(NSError **)outErr;
 - (TDExpression *)loopExpressionFromReader:(parsekit::Reader *)reader error:(NSError **)outErr;
+- (TDExpression *)expressionOfType:(TDTagExpressionType)et fromReader:(parsekit::Reader *)reader error:(NSError **)outErr;
 @end

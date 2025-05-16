@@ -25,9 +25,15 @@
 @class TDTemplateContext;
 @class TDExpression;
 
-typedef NS_ENUM(NSUInteger, TDTagType) {
-    TDTagTypeSimple,
-    TDTagTypeComplex,
+typedef NS_ENUM(NSUInteger, TDTagContentType) {
+    TDTagContentTypeSimple = 0,
+    TDTagContentTypeComplex,
+};
+
+typedef NS_ENUM(NSUInteger, TDTagExpressionType) {
+    TDTagExpressionTypeDefault = 0,
+    TDTagExpressionTypeLoop,
+    TDTagExpressionTypeArgs,
 };
 
 @interface TDTag : TDNode
@@ -37,7 +43,8 @@ typedef NS_ENUM(NSUInteger, TDTagType) {
 // Subclasses must override these methods
 @interface TDTag (Override)
 + (NSString *)tagName;
-+ (TDTagType)tagType;
++ (TDTagContentType)tagContentType;
++ (TDTagExpressionType)tagExpressionType;
 
 - (void)doTagInContext:(TDTemplateContext *)ctx;
 

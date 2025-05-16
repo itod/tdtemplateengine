@@ -53,28 +53,27 @@ using namespace templateengine;
     
     ReaderObjC reader(str);
     
-    expr = [self expressionFromReader:&reader error:outErr];
+    expr = [self expressionOfType:TDTagExpressionTypeDefault fromReader:&reader error:outErr];
     return expr;
 }
 
 
-- (TDExpression *)expressionFromReader:(Reader *)reader error:(NSError **)outErr {
-    ExpressionParser p(self);
-    p.setDoLoopExpr(false);
-
-    TDExpression *expr = [self expressionFromParser:&p reader:reader error:outErr];
-
-    expr = [expr simplify];
-    return expr;
+- (TDExpression *)expressionFromReader:(parsekit::Reader *)reader error:(NSError **)outErr {
+    return [self expressionOfType:TDTagExpressionTypeDefault fromReader:reader error:outErr];
 }
 
 
-- (TDExpression *)loopExpressionFromReader:(Reader *)reader error:(NSError **)outErr {
+- (TDExpression *)loopExpressionFromReader:(parsekit::Reader *)reader error:(NSError **)outErr {
+    return [self expressionOfType:TDTagExpressionTypeLoop fromReader:reader error:outErr];
+}
+
+
+- (TDExpression *)expressionOfType:(TDTagExpressionType)et fromReader:(parsekit::Reader *)reader error:(NSError **)outErr {
     ExpressionParser p(self);
-    p.setDoLoopExpr(true);
-    
+    p.setTagExpressionType(et);
+
     TDExpression *expr = [self expressionFromParser:&p reader:reader error:outErr];
-        
+
     expr = [expr simplify];
     return expr;
 }

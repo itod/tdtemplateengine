@@ -31,8 +31,13 @@
 }
 
 
-+ (TDTagType)tagType {
-    return TDTagTypeSimple;
++ (TDTagContentType)tagContentType {
+    return TDTagContentTypeSimple;
+}
+
+
++ (TDTagExpressionType)tagExpressionType {
+    return TDTagExpressionTypeArgs;
 }
 
 

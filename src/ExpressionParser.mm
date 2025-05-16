@@ -203,10 +203,19 @@ TDExpression *ExpressionParser::parse(Reader *r) {
 
 void ExpressionParser::_expr() {
     
-    if (_doLoopExpr) {
-        _loopExpr();
-    } else {
-        _orExpr();
+    switch (_tagExpressionType) {
+        case TDTagExpressionTypeDefault:
+            _orExpr();
+            break;
+        case TDTagExpressionTypeLoop:
+            _loopExpr();
+            break;
+        case TDTagExpressionTypeArgs:
+            _argsExpr();
+            break;
+        default:
+            assert(0);
+            break;
     }
 
 }
@@ -220,6 +229,14 @@ void ExpressionParser::_loopExpr() {
         id enumExpr = POP_OBJ();
         id vars = POP_OBJ();
         PUSH_OBJ([TDLoopExpression loopExpressionWithVariables:vars enumeration:enumExpr]);
+    }
+
+}
+
+void ExpressionParser::_argsExpr() {
+    
+    while (!predicts(TokenType_EOF, 0)) {
+        _atom();
     }
 
 }

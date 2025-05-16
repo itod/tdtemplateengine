@@ -422,13 +422,13 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
                 NSString *tagName = [inStr substringWithRange:tagNameRange];
                 Class tagCls = [self registerdTagClassForName:tagName];
                 
-                switch ([tagCls tagType]) {
-                    case TDTagTypeComplex:
+                switch ([tagCls tagContentType]) {
+                    case TDTagContentTypeComplex:
                         tokenType = TemplateTokenType_BLOCK_START_TAG;
                         frags->push_back(Token(tokenType, {contentRange.location, contentRange.length}));
                         frags->push_back(Token(TemplateTokenType_TAG, {currRange.location, currRange.length}));
                         break;
-                    case TDTagTypeSimple:
+                    case TDTagContentTypeSimple:
                         tokenType = TemplateTokenType_EMPTY_TAG;
                         frags->push_back(Token(tokenType, {contentRange.location, contentRange.length}));
                         break;
@@ -596,15 +596,11 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 - (TDExpression *)expressionForTagName:(NSString *)tagName fromFragment:(Token)frag reader:(Reader *)reader inContext:(TDTemplateContext *)staticContext {
     NSParameterAssert(reader);
     
-    TDExpression *expr = nil;
-    NSError *err = nil;
+    Class cls = [self registerdTagClassForName:tagName];
+    TDTagExpressionType et = [cls tagExpressionType];
     
-    BOOL doLoop = [tagName isEqualToString:@"for"];
-    if (doLoop) {
-        expr = [self loopExpressionFromReader:reader error:&err];
-    } else {
-        expr = [self expressionFromReader:reader error:&err];
-    }
+    NSError *err = nil;
+    TDExpression *expr = [self expressionOfType:et fromReader:reader error:&err];
     
     if (!expr) {
         // TODO

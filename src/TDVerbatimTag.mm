@@ -17,8 +17,8 @@
 }
 
 
-+ (TDTagType)tagType {
-    return TDTagTypeComplex;
++ (TDTagContentType)tagContentType {
+    return TDTagContentTypeComplex;
 }
 
 
