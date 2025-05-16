@@ -37,6 +37,7 @@
 #import "TDIncludeTag.h"
 #import "TDLoadTag.h"
 #import "TDStaticTag.h"
+#import "TDURLTag.h"
 #import "TDIfTag.h"
 #import "TDElseTag.h"
 #import "TDElseIfTag.h"
@@ -132,6 +133,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
         [self registerTagClass:[TDLoadTag class] forName:[TDLoadTag tagName]];
 
         [self registerTagClass:[TDStaticTag class] forName:[TDStaticTag tagName]];
+        [self registerTagClass:[TDURLTag class] forName:[TDURLTag tagName]];
         [self registerTagClass:[TDIfTag class] forName:[TDIfTag tagName]];
         [self registerTagClass:[TDElseTag class] forName:[TDElseTag tagName]];
         [self registerTagClass:[TDElseIfTag class] forName:[TDElseIfTag tagName]];

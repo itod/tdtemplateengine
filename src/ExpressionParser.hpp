@@ -180,6 +180,10 @@ public:
 
     Assembly *assembly() const override { return _assembly; }
     
+    //type:
+//    expr
+//    loopExpr
+//    args
     bool doLoopExpr() const { return _doLoopExpr; }
     void setDoLoopExpr(bool yn) { _doLoopExpr = yn; }
 };

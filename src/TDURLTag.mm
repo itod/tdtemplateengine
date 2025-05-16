@@ -20,26 +20,40 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <TDTemplateEngine/TDNode.h>
+#import "TDURLTag.h"
+#import <TDTemplateEngine/TDTemplateContext.h>
+#import <TDTemplateEngine/TDExpression.h>
+#import <TDTemplateEngine/TDWriter.h>
 
-@class TDTemplateContext;
-@class TDExpression;
-
-typedef NS_ENUM(NSUInteger, TDTagType) {
-    TDTagTypeSimple,
-    TDTagTypeComplex,
-};
-
-@interface TDTag : TDNode
-
+@interface NSObject ()
++ (id)instance;
+- (NSString *)pathForName:(NSString *)name args:(NSArray *)args;
 @end
 
-// Subclasses must override these methods
-@interface TDTag (Override)
-+ (NSString *)tagName;
-+ (TDTagType)tagType;
+@implementation TDURLTag
 
-- (void)doTagInContext:(TDTemplateContext *)ctx;
++ (NSString *)tagName {
+    return @"url";
+}
 
-- (NSArray *)evaluatedArgs:(TDTemplateContext *)ctx;
+
++ (TDTagType)tagType {
+    return TDTagTypeSimple;
+}
+
+
+- (void)doTagInContext:(TDTemplateContext *)ctx {
+    TDAssert(ctx);
+    TDAssert(self.expression);
+    
+    NSArray *args = [self evaluatedArgs:ctx];
+    NSString *name = [[args.firstObject retain] autorelease];
+    args = [args subarrayWithRange:NSMakeRange(1, args.count-1)];
+    
+    id router = [NSClassFromString(@"Router") instance];
+    NSString *path = [router pathForName:name args:args];
+        
+    [ctx.writer appendString:path];
+}
+
 @end
