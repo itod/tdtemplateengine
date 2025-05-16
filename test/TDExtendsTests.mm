@@ -49,17 +49,17 @@
 
     NSError *err = nil;
     
-    TDTemplate *parent = [_engine _templateFromString:parentStr filePath:nil error:&err];
+    TDTemplate *parent = [_engine _templateFromString:parentStr filePath:@"parent.html" error:&err];
     XCTAssert(parent);
     XCTAssertNil(err);
     [_engine _setCachedTemplate:parent forPath:@"parent.html"];
 
-    TDTemplate *child = [_engine _templateFromString:childStr filePath:nil error:&err];
+    TDTemplate *child = [_engine _templateFromString:childStr filePath:@"child.html" error:&err];
     XCTAssert(child);
     XCTAssertNil(err);
     [_engine _setCachedTemplate:child forPath:@"child.html"];
 
-    TDTemplate *enkel = [_engine _templateFromString:enkelStr filePath:nil error:&err];
+    TDTemplate *enkel = [_engine _templateFromString:enkelStr filePath:@"enkel.html" error:&err];
     XCTAssert(enkel);
     XCTAssertNil(err);
     [_engine _setCachedTemplate:enkel forPath:@"enkel.html"];
