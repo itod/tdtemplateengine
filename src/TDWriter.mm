@@ -35,7 +35,7 @@
 
 - (void)appendString:(NSString *)str {
     TDAssert(_output);
-    TDAssert(str);
+    //TDAssert(str);
         
 #if USE_GET_BYTES
     NSStringEncoding enc = NSUTF8StringEncoding;

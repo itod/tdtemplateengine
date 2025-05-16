@@ -60,7 +60,9 @@
 
 - (NSString *)stringValue {
     NSString *str = @"";
-    if ([_value isKindOfClass:[NSString class]]) {
+    if (!_value) {
+        str = @"((null))";
+    } else if ([_value isKindOfClass:[NSString class]]) {
         str = _value;
     } else if (([_value isKindOfClass:[NSArray class]] || [_value isKindOfClass:[NSDictionary class]] || [_value isKindOfClass:[NSSet class]]) && 0 == [_value count]) {
         str = @"";
