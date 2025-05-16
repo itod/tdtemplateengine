@@ -122,7 +122,7 @@ void TemplateParser::_print() {
 
 void TemplateParser::_empty_tag() {
     match(TemplateTokenType_EMPTY_TAG, false);
-
+    
     Token tok = assembly()->pop_token();
     assert(_engine);
     TDTag *startTagNode = nil;
@@ -138,16 +138,20 @@ void TemplateParser::_empty_tag() {
 void TemplateParser::_block_tag() {
     _assembly->push_node(_currentParent);
     
-    Token beg_tok = lt(1);
     _block_start_tag();
+
+    Token beg_tok = lt(1);
+    match(TemplateTokenType_TAG, true);
     
     while (!predicts(TemplateTokenType_BLOCK_END_TAG, 0)) {
         _content();
     }
     
-    Token end_tok = lt(1);
     _block_end_tag();
-    
+
+    Token end_tok = lt(1);
+    match(TemplateTokenType_TAG, true);
+
     if ([_currentParent isKindOfClass:[TDVerbatimTag class]]) {
         TokenRange beg_range = beg_tok.range();
         size_t beg_offset = beg_range.location + beg_range.length;

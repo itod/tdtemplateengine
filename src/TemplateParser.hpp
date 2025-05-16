@@ -23,6 +23,7 @@ const TemplateTokenType TemplateTokenType_PRINT = 3;
 const TemplateTokenType TemplateTokenType_BLOCK_START_TAG = 4;
 const TemplateTokenType TemplateTokenType_BLOCK_END_TAG = 5;
 const TemplateTokenType TemplateTokenType_EMPTY_TAG = 6;
+const TemplateTokenType TemplateTokenType_TAG = 7;
 
 class TemplateParser : public parsekit::BaseParser {
 private:

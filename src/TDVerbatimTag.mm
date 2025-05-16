@@ -8,11 +8,7 @@
 
 #import "TDVerbatimTag.h"
 #import <TDTemplateEngine/TDTemplateContext.h>
-//#import "PKToken+Verbatim.h"
 
-//@interface TDTag ()
-//@property (nonatomic, retain) PKToken *endTagToken;
-//@end
 
 @implementation TDVerbatimTag
 
@@ -36,29 +32,8 @@
     //NSLog(@"%s %@", __PRETTY_FUNCTION__, self);
     TDAssert(ctx);
     
-    NSString *str = [ctx templateSubstringForToken:self.verbatimToken];
+    NSString *str = [ctx templateSubstringForToken:self.token];
     [ctx writeString:str];
-    
-//    for (TDNode *child in self.children) {
-//        [self render:child to:ctx];
-//    }
-//}
-//
-//
-//- (void)render:(TDNode *)node to:(TDTemplateContext *)ctx {
-//    
-//    NSString *str = [ctx templateSubstringForToken:node.token];
-//    [ctx writeString:str];
-//    
-//    for (TDNode *child in node.children) {
-//        [self render:child to:ctx];
-//    }
-//    
-//    if ([node isKindOfClass:[TDTag class]]) {
-//        TDTag *tag = (id)node;
-//        str = [ctx templateSubstringForToken:tag.token];
-//        [ctx writeString:str];
-//    }
 }
 
 @end

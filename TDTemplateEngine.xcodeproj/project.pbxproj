@@ -404,6 +404,7 @@
 		D3C2A06E2DD6BE0D00C1A42F /* TDVerbatimTag.mm in Sources */ = {isa = PBXBuildFile; fileRef = D319139318F2ED3300430BAD /* TDVerbatimTag.mm */; };
 		D3C2A06F2DD6BE0D00C1A42F /* TDVerbatimTag.mm in Sources */ = {isa = PBXBuildFile; fileRef = D319139318F2ED3300430BAD /* TDVerbatimTag.mm */; };
 		D3C2A0702DD6BE0E00C1A42F /* TDVerbatimTag.mm in Sources */ = {isa = PBXBuildFile; fileRef = D319139318F2ED3300430BAD /* TDVerbatimTag.mm */; };
+		D3C2A0722DD6E25700C1A42F /* TDVerbatimTagTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3E95F131AB08FC900D19992 /* TDVerbatimTagTests.mm */; };
 		D3C7358F1ABDAB5F00FA0B15 /* TDTrimTagTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = D319139618F2EF7000430BAD /* TDTrimTagTests.mm */; };
 		D3CAF8AB18EDF27F00166A95 /* TDCollectionExpression.h in Headers */ = {isa = PBXBuildFile; fileRef = D3CAF8A918EDF27F00166A95 /* TDCollectionExpression.h */; };
 		D3CAF8AC18EDF27F00166A95 /* TDCollectionExpression.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3CAF8AA18EDF27F00166A95 /* TDCollectionExpression.mm */; };
@@ -1631,6 +1632,7 @@
 			files = (
 				D3A7E27618F0788D009BFD96 /* TDCommentTagTests.mm in Sources */,
 				D3C7358F1ABDAB5F00FA0B15 /* TDTrimTagTests.mm in Sources */,
+				D3C2A0722DD6E25700C1A42F /* TDVerbatimTagTests.mm in Sources */,
 				D36AC9E32D7FD9CE001C99FD /* TDIndentTagTests.mm in Sources */,
 				D3AAFE9C2DD2F009009EDC64 /* CPPFilterExpressionTests.mm in Sources */,
 				D3AAFE9D2DD2F009009EDC64 /* CPPCollectionExpressionTests.mm in Sources */,

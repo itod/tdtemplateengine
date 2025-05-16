@@ -51,22 +51,30 @@ using namespace templateengine;
     Token tok = toks->at(0);
     XCTAssertEqual(tok.token_type(), TemplateTokenType_BLOCK_START_TAG);
     XCTAssertEqualObjects([input substringWithRange:NSMakeRange(tok.range().location, tok.range().length)], @" if test ");
-    
+
     tok = toks->at(1);
+    XCTAssertEqual(tok.token_type(), TemplateTokenType_TAG);
+    XCTAssertEqualObjects([input substringWithRange:NSMakeRange(tok.range().location, tok.range().length)], @"{% if test %}");
+    
+    tok = toks->at(2);
     XCTAssertEqual(tok.token_type(), TemplateTokenType_PRINT);
     XCTAssertEqualObjects([input substringWithRange:NSMakeRange(tok.range().location, tok.range().length)], @"a");
     
-    tok = toks->at(2);
+    tok = toks->at(3);
     XCTAssertEqual(tok.token_type(), TemplateTokenType_EMPTY_TAG);
     XCTAssertEqualObjects([input substringWithRange:NSMakeRange(tok.range().location, tok.range().length)], @" else ");
-    
-    tok = toks->at(3);
+
+    tok = toks->at(4);
     XCTAssertEqual(tok.token_type(), TemplateTokenType_TEXT);
     XCTAssertEqualObjects([input substringWithRange:NSMakeRange(tok.range().location, tok.range().length)], @" foo bar { baz } ");
     
-    tok = toks->at(4);
+    tok = toks->at(5);
     XCTAssertEqual(tok.token_type(), TemplateTokenType_BLOCK_END_TAG);
     XCTAssertEqualObjects([input substringWithRange:NSMakeRange(tok.range().location, tok.range().length)], @"endif");
+
+    tok = toks->at(6);
+    XCTAssertEqual(tok.token_type(), TemplateTokenType_TAG);
+    XCTAssertEqualObjects([input substringWithRange:NSMakeRange(tok.range().location, tok.range().length)], @"{% endif %}");
 }
 
 - (void)testCompileTemplate {

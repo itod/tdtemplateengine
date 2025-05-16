@@ -402,6 +402,9 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
             contentRange.location += printStartDelimLen;
             contentRange.length -= printStartDelimLen + printEndDelimLen;
             
+            Token frag(tokenType, {contentRange.location, contentRange.length});
+            frags->push_back(frag);
+
             // else if Block Tag {% if .. %} or {% endif %}
         } else if (NSOrderedSame == [inStr compare:_tagStartDelimiter options:NSAnchoredSearch range:NSMakeRange(currRange.location, tagStartDelimLen)]) {
             contentRange.location += tagStartDelimLen;
@@ -412,6 +415,9 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
             if (NSOrderedSame == [inStr compare:TDTemplateEngineTagEndPrefix options:NSAnchoredSearch range:endPrefixCheckRange]) {
                 contentRange = tagNameRange;
                 tokenType = TemplateTokenType_BLOCK_END_TAG;
+                
+                frags->push_back(Token(tokenType, {contentRange.location, contentRange.length}));
+                frags->push_back(Token(TemplateTokenType_TAG, {currRange.location, currRange.length}));
             } else {
                 NSString *tagName = [inStr substringWithRange:tagNameRange];
                 Class tagCls = [self registerdTagClassForName:tagName];
@@ -419,21 +425,22 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
                 switch ([tagCls tagType]) {
                     case TDTagTypeComplex:
                         tokenType = TemplateTokenType_BLOCK_START_TAG;
+                        frags->push_back(Token(tokenType, {contentRange.location, contentRange.length}));
+                        frags->push_back(Token(TemplateTokenType_TAG, {currRange.location, currRange.length}));
                         break;
                     case TDTagTypeSimple:
                         tokenType = TemplateTokenType_EMPTY_TAG;
+                        frags->push_back(Token(tokenType, {contentRange.location, contentRange.length}));
                         break;
                     default:
                         TDAssert(0);
                         break;
                 }
+                
             }
         } else {
             TDAssert(0);
         }
-        
-        Token frag(tokenType, {contentRange.location, contentRange.length});
-        frags->push_back(frag);
     }];
     
     // detect trailing text node
