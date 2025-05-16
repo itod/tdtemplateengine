@@ -182,23 +182,6 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 #pragma mark -
 #pragma mark Public
 
-//- (TDRootNode *)compileTemplateFile:(NSString *)path encoding:(NSStringEncoding)enc error:(NSError **)err {
-//    NSParameterAssert([path length]);
-//    
-//    TDRootNode *root = nil;
-//    NSString *str = [NSString stringWithContentsOfFile:path encoding:enc error:err];
-//    
-//    if (str) {
-//        root = [self compileTemplateString:str filePath:path error:err];
-//    }
-//    
-//    return root;
-//}
-
-
-//- (TDRootNode *)compileTemplateString:(NSString *)str filePath:(NSString *)path error:(NSError **)err 
-
-
 - (BOOL)processTemplateFile:(NSString *)path encoding:(NSStringEncoding)enc withVariables:(NSDictionary *)vars toStream:(NSOutputStream *)output error:(NSError **)err {
     TDTemplate *tmpl = [self templateWithContentsOfFile:path error:err];
     
