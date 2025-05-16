@@ -76,52 +76,52 @@ using namespace templateengine;
     XCTAssertEqual(1, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
 
-//- (void)testNegVar {
-//    NSString *input = @"{{-foo}}";
-//    id vars = @{@"foo": @1};
-//    
-//    NSError *err = nil;
-//    BOOL success = [self.eng processTemplateString:input withVariables:vars toStream:_output error:&err];
-//    XCTAssertTrue(success);
-//    XCTAssertNil(err);
-//    NSString *res = [self outputString];
-//    XCTAssertEqualObjects(@"-1", res);
-//}
-//
-//- (void)testNegNegVar {
-//    NSString *input = @"{{--foo}}";
-//    id vars = @{@"foo": @1};
-//    
-//    NSError *err = nil;
-//    BOOL success = [self.eng processTemplateString:input withVariables:vars toStream:_output error:&err];
-//    XCTAssertTrue(success);
-//    XCTAssertNil(err);
-//    NSString *res = [self outputString];
-//    XCTAssertEqualObjects(@"1", res);
-//}
-//
-//- (void)testNegNegNegVar {
-//    NSString *input = @"{{---foo}}";
-//    id vars = @{@"foo": @1};
-//    
-//    NSError *err = nil;
-//    BOOL success = [self.eng processTemplateString:input withVariables:vars toStream:_output error:&err];
-//    XCTAssertTrue(success);
-//    XCTAssertNil(err);
-//    NSString *res = [self outputString];
-//    XCTAssertEqualObjects(@"-1", res);
-//}
-//
-//- (void)testNegNegNegNegVar {
-//    NSString *input = @"{{----foo}}";
-//    id vars = @{@"foo": @1};
-//    
-//    NSError *err = nil;
-//    BOOL success = [self.eng processTemplateString:input withVariables:vars toStream:_output error:&err];
-//    XCTAssertTrue(success);
-//    XCTAssertNil(err);
-//    NSString *res = [self outputString];
-//    XCTAssertEqualObjects(@"1", res);
-//}
+- (void)testNegVar {
+    NSString *input = @"{{-foo}}";
+    id vars = @{@"foo": @1};
+    
+    NSError *err = nil;
+    BOOL success = [self.eng processTemplateString:input withVariables:vars toStream:_output error:&err];
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
+    NSString *res = [self outputString];
+    XCTAssertEqualObjects(@"-1", res);
+}
+
+- (void)testNegNegVar {
+    NSString *input = @"{{--foo}}";
+    id vars = @{@"foo": @1};
+    
+    NSError *err = nil;
+    BOOL success = [self.eng processTemplateString:input withVariables:vars toStream:_output error:&err];
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
+    NSString *res = [self outputString];
+    XCTAssertEqualObjects(@"1", res);
+}
+
+- (void)testNegNegNegVar {
+    NSString *input = @"{{---foo}}";
+    id vars = @{@"foo": @1};
+    
+    NSError *err = nil;
+    BOOL success = [self.eng processTemplateString:input withVariables:vars toStream:_output error:&err];
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
+    NSString *res = [self outputString];
+    XCTAssertEqualObjects(@"-1", res);
+}
+
+- (void)testNegNegNegNegVar {
+    NSString *input = @"{{----foo}}";
+    id vars = @{@"foo": @1};
+    
+    NSError *err = nil;
+    BOOL success = [self.eng processTemplateString:input withVariables:vars toStream:_output error:&err];
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
+    NSString *res = [self outputString];
+    XCTAssertEqualObjects(@"1", res);
+}
 
 @end
