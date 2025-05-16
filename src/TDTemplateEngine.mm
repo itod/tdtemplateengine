@@ -108,6 +108,8 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 - (instancetype)init {
     self = [super init];
     if (self) {
+        self.templateCache = [NSMutableDictionary dictionary];
+
         self.printStartDelimiter = @"{{";
         self.printEndDelimiter = @"}}";
         self.tagStartDelimiter = @"{%";
@@ -257,8 +259,9 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 - (TDTemplate *)_cachedTemplateForPath:(NSString *)path {
     TDTemplate *tmpl = nil;
     if (_cacheTemplates) {
-        tmpl = [_templateCache objectForKey:path];
-        if (tmpl) return tmpl;
+        @synchronized (_templateCache) {
+            tmpl = [_templateCache objectForKey:path];
+        }
     }
     return tmpl;
 }
@@ -266,10 +269,9 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 
 - (void)_setCachedTemplate:(TDTemplate *)tmpl forPath:(NSString *)path {
     if (tmpl && _cacheTemplates) {
-        if (!_templateCache) {
-            self.templateCache = [NSMutableDictionary dictionary];
+        @synchronized (_templateCache) {
+            [_templateCache setObject:tmpl forKey:path];
         }
-        [_templateCache setObject:tmpl forKey:path];
     }
 }
 
