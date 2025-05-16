@@ -20,19 +20,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "TDExtendsTag.h"
-#import "TDTemplate.h"
-#import "TDExpression.h"
-#import "TDTemplateContext.h"
+#import "TDStaticTag.h"
+#import <TDTemplateEngine/TDTemplateContext.h>
+#import <TDTemplateEngine/TDExpression.h>
+#import <TDTemplateEngine/TDWriter.h>
 
-@interface TDTemplate ()
-@property (nonatomic, copy) NSString *extendsPath;
-@end
-
-@implementation TDExtendsTag
+@implementation TDStaticTag
 
 + (NSString *)tagName {
-    return @"extends";
+    return @"static";
 }
 
 
@@ -41,13 +37,18 @@
 }
 
 
-- (void)compileInContext:(TDTemplateContext *)staticContext {
-    NSString *extendsPath = [self.expression evaluateAsStringInContext:staticContext];
+- (void)doTagInContext:(TDTemplateContext *)ctx {
+    TDAssert(ctx);
+    TDAssert(self.expression);
     
-    extendsPath = [staticContext absolutePathForTemplateRelativePath:extendsPath];
+    NSString *relPath = [self.expression evaluateAsStringInContext:ctx];
+    NSString *absPath = [ctx absolutePathForStaticRelativePath:relPath];
+    if (!absPath.length) {
+        NSLog(@"Could not find relative static path: `%@`. Did you forget to define `STATIC_ROOT` in Settings.plist?", relPath);
+        return;
+    }
     
-    TDTemplate *tmpl = staticContext.derivedTemplate;
-    tmpl.extendsPath = extendsPath;
+    [ctx.writer appendString:absPath];
 }
 
 @end

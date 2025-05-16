@@ -20,34 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "TDExtendsTag.h"
-#import "TDTemplate.h"
-#import "TDExpression.h"
-#import "TDTemplateContext.h"
+#import <TDTemplateEngine/TDTag.h>
 
-@interface TDTemplate ()
-@property (nonatomic, copy) NSString *extendsPath;
-@end
-
-@implementation TDExtendsTag
-
-+ (NSString *)tagName {
-    return @"extends";
-}
-
-
-+ (TDTagType)tagType {
-    return TDTagTypeSimple;
-}
-
-
-- (void)compileInContext:(TDTemplateContext *)staticContext {
-    NSString *extendsPath = [self.expression evaluateAsStringInContext:staticContext];
-    
-    extendsPath = [staticContext absolutePathForTemplateRelativePath:extendsPath];
-    
-    TDTemplate *tmpl = staticContext.derivedTemplate;
-    tmpl.extendsPath = extendsPath;
-}
+@interface TDStaticTag : TDTag
 
 @end

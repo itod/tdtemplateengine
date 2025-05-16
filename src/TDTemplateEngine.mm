@@ -319,6 +319,11 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 }
 
 
+- (NSString *)staticRootPathForTemplateContext:(TDTemplateContext *)ctx {
+    return _staticRootPath;
+}
+
+
 #pragma mark -
 #pragma mark Private
 

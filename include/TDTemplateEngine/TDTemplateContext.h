@@ -30,6 +30,7 @@
 @protocol TDTemplateContextDelegate <NSObject>
 - (TDTemplate *)templateContext:(TDTemplateContext *)ctx templateForFilePath:(NSString *)filePath error:(NSError **)err;
 - (BOOL)templateContext:(TDTemplateContext *)ctx loadTagPackage:(NSString *)tagPackageName error:(NSError **)err;
+- (NSString *)staticRootPathForTemplateContext:(TDTemplateContext *)ctx;
 @end
 
 @interface TDTemplateContext : NSObject //<NSCopying>
@@ -55,10 +56,13 @@
 @property (nonatomic, assign) NSInteger indentDepth;
 
 @property (nonatomic, retain) TDTemplate *derivedTemplate;
-- (NSString *)absolutePathForPath:(NSString *)relPath;
+- (NSString *)absolutePathForTemplateRelativePath:(NSString *)relPath;
+- (NSString *)absolutePathForStaticRelativePath:(NSString *)relPath;
 
 - (NSString *)templateSubstringForToken:(parsekit::Token)token;
 - (void)pushTemplateString:(NSString *)str;
 - (void)popTemplateString;
 - (NSString *)peekTemplateString;
+
+@property (nonatomic, copy) NSString *staticRootPath;
 @end

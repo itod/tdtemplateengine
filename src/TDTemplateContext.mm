@@ -283,8 +283,19 @@ static NSCharacterSet *sNewlineSet = nil;
 }
 
 
-- (NSString *)absolutePathForPath:(NSString *)relPath {
+- (NSString *)absolutePathForTemplateRelativePath:(NSString *)relPath {
     NSString *peerPath = _derivedTemplate.filePath;
+    return [self absolutePathForPath:relPath relativeTo:peerPath];
+}
+
+
+- (NSString *)absolutePathForStaticRelativePath:(NSString *)relPath {
+    NSString *peerPath = [_delegate staticRootPathForTemplateContext:self];
+    return [self absolutePathForPath:relPath relativeTo:peerPath];
+}
+
+
+- (NSString *)absolutePathForPath:(NSString *)relPath relativeTo:(NSString *)peerPath {
     NSString *absPath = nil;
     
     if (!peerPath || [relPath hasPrefix:@"/"]) {

@@ -57,7 +57,7 @@
 - (void)compileInContext:(TDTemplateContext *)staticContext {
     NSString *relPath = [self.expression evaluateAsStringInContext:staticContext];
     
-    NSString *absPath = [staticContext absolutePathForPath:relPath];
+    NSString *absPath = [staticContext absolutePathForTemplateRelativePath:relPath];
     self.key = [NSString stringWithFormat:@"__include:%@", absPath];
     
     NSError *err = nil;
