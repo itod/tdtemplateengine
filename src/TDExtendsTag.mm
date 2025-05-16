@@ -52,7 +52,7 @@
 - (NSString *)absolutePathForPath:(NSString *)relPath relativeTo:(NSString *)peerPath {
     NSString *absPath = nil;
     
-    if ([relPath hasPrefix:@"/"]) {
+    if (!peerPath || [relPath hasPrefix:@"/"]) {
         absPath = relPath;
     } else {
         NSString *dirPath = [peerPath stringByDeletingLastPathComponent];
