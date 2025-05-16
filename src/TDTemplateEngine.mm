@@ -230,41 +230,42 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 }
 
 
-- (BOOL)renderTemplateTree:(TDRootNode *)root withVariables:(NSDictionary *)vars toStream:(NSOutputStream *)output error:(NSError **)err {
-    NSParameterAssert([root isKindOfClass:[TDRootNode class]]);
-    NSParameterAssert(output);
-    
-    [output open];
-    TDAssert([output hasSpaceAvailable]);
-    
-    TDTemplateContext *dynamicContext = [[[TDTemplateContext alloc] initWithVariables:vars output:output] autorelease];
-    TDAssert(_staticContext);
-    dynamicContext.enclosingScope = _staticContext;
-    [dynamicContext pushTemplateString:root.templateString];
-    
-    BOOL success = YES;
-    
-    @try {
-        [root renderInContext:dynamicContext];
-    }
-    @catch (NSException *ex) {
-        success = NO;
-        if (err) *err = [NSError errorWithDomain:TDTemplateEngineErrorDomain code:TDTemplateEngineRenderingErrorCode userInfo:[[[ex userInfo] copy] autorelease]];
-    }
-    
-    [dynamicContext popTemplateString];
-    
-    return success;
-}
+//- (BOOL)renderTemplateTree:(TDRootNode *)root withVariables:(NSDictionary *)vars toStream:(NSOutputStream *)output error:(NSError **)err {
+//    return NO;
+//    NSParameterAssert([root isKindOfClass:[TDRootNode class]]);
+//    NSParameterAssert(output);
+//    
+//    [output open];
+//    TDAssert([output hasSpaceAvailable]);
+//    
+//    TDTemplateContext *dynamicContext = [[[TDTemplateContext alloc] initWithVariables:vars output:output] autorelease];
+//    TDAssert(_staticContext);
+//    dynamicContext.enclosingScope = _staticContext;
+//    [dynamicContext pushTemplateString:root.templateString];
+//    
+//    BOOL success = YES;
+//    
+//    @try {
+//        [root renderInContext:dynamicContext];
+//    }
+//    @catch (NSException *ex) {
+//        success = NO;
+//        if (err) *err = [NSError errorWithDomain:TDTemplateEngineErrorDomain code:TDTemplateEngineRenderingErrorCode userInfo:[[[ex userInfo] copy] autorelease]];
+//    }
+//    
+//    [dynamicContext popTemplateString];
+//    
+//    return success;
+//}
 
 
 - (BOOL)processTemplateFile:(NSString *)path encoding:(NSStringEncoding)enc withVariables:(NSDictionary *)vars toStream:(NSOutputStream *)output error:(NSError **)err {
-    TDRootNode *root = [self compileTemplateFile:path encoding:enc error:err];
+    TDTemplate *tmpl = [self templateWithContentsOfFile:path error:err];
     
     BOOL success = NO;
-    
-    if (root) {
-        success = [self renderTemplateTree:root withVariables:vars toStream:output error:err];
+
+    if (tmpl) {
+        success = [tmpl render:vars toStream:output error:err];
     }
     
     return success;
@@ -272,12 +273,12 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 
 
 - (BOOL)processTemplateString:(NSString *)str withVariables:(NSDictionary *)vars toStream:(NSOutputStream *)output error:(NSError **)err {
-    TDRootNode *root = [self compileTemplateString:str error:err];
-    
+    TDTemplate *tmpl = [self _templateFromString:str error:err];
+
     BOOL success = NO;
     
-    if (root) {
-        success = [self renderTemplateTree:root withVariables:vars toStream:output error:err];
+    if (tmpl) {
+        success = [tmpl render:vars toStream:output error:err];
     }
     
     return success;
@@ -324,26 +325,31 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 
 
 - (TDTemplate *)_templateFromString:(NSString *)str error:(NSError **)err {
-    TDRootNode *node = [self compileTemplateString:str error:err];
-    if (!node) {
+    TDRootNode *root = [self compileTemplateString:str error:err];
+    if (!root) {
         if (*err) NSLog(@"%@", *err);
         return nil;
     }
     
+    return [self _templateFromRootNode:root error:err];
+}
+
+
+- (TDTemplate *)_templateFromRootNode:(TDRootNode *)root error:(NSError **)err {
     TDTemplate *tmpl = nil;
     
     // check `doc` to see if starts wtih {% extends %}
-    if (node.extendsPath) {
-        TDTemplate *superTemplate = [self templateWithContentsOfFile:node.extendsPath error:err];
+    if (root.extendsPath) {
+        TDTemplate *superTemplate = [self templateWithContentsOfFile:root.extendsPath error:err];
         if (!superTemplate) {
-            NSLog(@"Could not extend template `%@` bc it coult not be loaded or compiled.", node.extendsPath);
+            NSLog(@"Could not extend template `%@` bc it coult not be loaded or compiled.", root.extendsPath);
             return nil;
         }
         
         tmpl = [[superTemplate copy] autorelease];
-        [tmpl adoptBlocksFromNode:node];
+        [tmpl adoptBlocksFromNode:root];
     } else {
-        tmpl = [[[TDTemplate alloc] initWithDocument:node] autorelease];
+        tmpl = [[[TDTemplate alloc] initWithDocument:root] autorelease];
     }
     
     TDAssert(tmpl);

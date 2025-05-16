@@ -88,9 +88,9 @@ extern const NSInteger TDTemplateEngineRenderingErrorCode;
 - (TDRootNode *)compileTemplateFile:(NSString *)path encoding:(NSStringEncoding)enc error:(NSError **)err;
 
 
-// TODO these need to go away
+// TODO all these need to go away
 // render pre-compiled tree with render-time vars
-- (BOOL)renderTemplateTree:(TDRootNode *)root withVariables:(NSDictionary *)vars toStream:(NSOutputStream *)output error:(NSError **)err;
+//- (BOOL)renderTemplateTree:(TDRootNode *)root withVariables:(NSDictionary *)vars toStream:(NSOutputStream *)output error:(NSError **)err;
 
 // convenience. compile + render with render-time vars in one shot
 - (BOOL)processTemplateString:(NSString *)str withVariables:(NSDictionary *)vars toStream:(NSOutputStream *)output error:(NSError **)err;

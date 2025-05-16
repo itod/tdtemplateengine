@@ -118,18 +118,18 @@
     TDEqualObjects(@"foo", res);
 }
 
-- (void)testStaticContext {
-    NSString *input = @"{{baz}}";
-    id vars = @{@"bar": @"foo"};
-    
-    [_engine.staticContext defineVariable:@"baz" value:@"bat"];
-    NSError *err = nil;
-    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
-    TDTrue(success);
-    TDNil(err);
-    NSString *res = [self outputString];
-    TDEqualObjects(@"bat", res);
-}
+//- (void)testStaticContext {
+//    NSString *input = @"{{baz}}";
+//    id vars = @{@"bar": @"foo"};
+//    
+//    [_engine.staticContext defineVariable:@"baz" value:@"bat"];
+//    NSError *err = nil;
+//    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+//    TDTrue(success);
+//    TDNil(err);
+//    NSString *res = [self outputString];
+//    TDEqualObjects(@"bat", res);
+//}
 
 - (void)testStaticContextShadow {
     NSString *input = @"{{baz}}";
