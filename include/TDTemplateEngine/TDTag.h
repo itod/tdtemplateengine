@@ -46,7 +46,7 @@ typedef NS_ENUM(NSUInteger, TDTagExpressionType) {
 + (TDTagContentType)tagContentType;
 + (TDTagExpressionType)tagExpressionType;
 
-- (void)doTagInContext:(TDTemplateContext *)ctx;
+- (void)runInContext:(TDTemplateContext *)ctx;
 
 - (NSArray *)evaluatedArgs:(TDTemplateContext *)ctx;
 @end

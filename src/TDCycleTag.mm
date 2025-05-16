@@ -20,31 +20,24 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "TDIfTag.h"
-#import "TDElseTag.h"
-#import "TDElseIfTag.h"
+#import "TDCycleTag.h"
 #import <TDTemplateEngine/TDTemplateContext.h>
 #import <TDTemplateEngine/TDExpression.h>
 
-@implementation TDIfTag
+@implementation TDCycleTag
 
 + (NSString *)tagName {
-    return @"if";
+    return @"cycle";
 }
 
 
 + (TDTagContentType)tagContentType {
-    return TDTagContentTypeComplex;
+    return TDTagContentTypeSimple;
 }
 
 
-- (BOOL)isElse:(TDNode *)node {
-    return [node.tagName isEqualToString:[TDElseTag tagName]];
-}
-
-
-- (BOOL)isElseIf:(TDNode *)node {
-    return [node.tagName isEqualToString:[TDElseIfTag tagName]];
++ (TDTagExpressionType)tagExpressionType {
+    return TDTagExpressionTypeArgs;
 }
 
 
@@ -52,20 +45,8 @@
     TDAssert(ctx);
     TDAssert(self.expression);
     
-    BOOL test = [self.expression evaluateAsBooleanInContext:ctx];
+//    NSArray *args = [self evaluatedArgs:ctx];
     
-    for (TDNode *child in self.children) {
-        if ([self isElseIf:child]) {
-            if (test) break;
-            TDElseIfTag *elseIf = (id)child;
-            test = [elseIf.expression evaluateAsBooleanInContext:ctx];
-        } else if ([self isElse:child]) {
-            if (test) break;
-            test = YES;
-        } else if (test) {
-            [child renderInContext:ctx];
-        }
-    }
 }
 
 @end

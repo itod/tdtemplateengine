@@ -65,14 +65,14 @@
 
     //ctx = [[ctx copy] autorelease];
     
-    [self doTagInContext:ctx];
+    [self runInContext:ctx];
 }
 
 
 #pragma mark -
 #pragma mark TDTag
 
-- (void)doTagInContext:(TDTemplateContext *)ctx {
+- (void)runInContext:(TDTemplateContext *)ctx {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
 }
 

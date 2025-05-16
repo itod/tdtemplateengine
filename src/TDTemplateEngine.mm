@@ -43,6 +43,8 @@
 #import "TDSkipTag.h"
 #import "TDCommentTag.h"
 #import "TDVerbatimTag.h"
+#import "TDCycleTag.h"
+#import "TDResetCycleTag.h"
 #import "TDTrimTag.h"
 #import "TDIndentTag.h"
 #import "TDNewlineTag.h"
@@ -140,6 +142,8 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
         [self registerTagClass:[TDSkipTag class] forName:[TDSkipTag tagName]];
         [self registerTagClass:[TDCommentTag class] forName:[TDCommentTag tagName]];
         [self registerTagClass:[TDVerbatimTag class] forName:[TDVerbatimTag tagName]];
+        [self registerTagClass:[TDCycleTag class] forName:[TDCycleTag tagName]];
+        [self registerTagClass:[TDResetCycleTag class] forName:[TDResetCycleTag tagName]];
         [self registerTagClass:[TDTrimTag class] forName:[TDTrimTag tagName]];
         [self registerTagClass:[TDIndentTag class] forName:[TDIndentTag tagName]];
         [self registerTagClass:[TDNewlineTag class] forName:[TDNewlineTag tagName]];

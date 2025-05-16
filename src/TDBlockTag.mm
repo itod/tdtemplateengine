@@ -76,7 +76,7 @@
 #pragma mark -
 #pragma mark Runtime
 
-- (void)doTagInContext:(TDTemplateContext *)ctx {
+- (void)runInContext:(TDTemplateContext *)ctx {
     NSParameterAssert(ctx);
     
     TDTemplate *tmpl = ctx.derivedTemplate;

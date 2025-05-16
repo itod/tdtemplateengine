@@ -25,7 +25,7 @@
 @implementation TDLowercaseFilter
 
 + (NSString *)filterName {
-    return @"lowercase";
+    return @"lower";
 }
 
 

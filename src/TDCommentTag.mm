@@ -44,7 +44,7 @@
 }
 
 
-- (void)doTagInContext:(TDTemplateContext *)ctx {
+- (void)runInContext:(TDTemplateContext *)ctx {
     // noop
 }
 

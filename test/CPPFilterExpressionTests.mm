@@ -57,7 +57,7 @@ using namespace parsekit;
 }
 
 - (void)testFooVarTrimUppercase {
-    std::string input = "foo|trim|uppercase";
+    std::string input = "foo|trim|upper";
     ReaderCPP reader(input);
     
     id vars = @{@"foo": @"  \nbar   "};
@@ -141,7 +141,7 @@ using namespace parsekit;
 }
 
 - (void)testFooVarLowercase {
-    std::string input = "foo|lowercase";
+    std::string input = "foo|lower";
     ReaderCPP reader(input);
     
     id vars = @{@"foo": @"BAR"};
@@ -155,7 +155,7 @@ using namespace parsekit;
 }
 
 - (void)testFooLiteralLowercase {
-    std::string input = "'fOO'|lowercase";
+    std::string input = "'fOO'|lower";
     ReaderCPP reader(input);
     
     id vars = nil;
@@ -169,7 +169,7 @@ using namespace parsekit;
 }
 
 - (void)testFooVarUppercase {
-    std::string input = "foo|uppercase";
+    std::string input = "foo|upper";
     ReaderCPP reader(input);
     
     id vars = @{@"foo": @"bAr"};
@@ -183,7 +183,7 @@ using namespace parsekit;
 }
 
 - (void)testFooLiteralUppercase {
-    std::string input = "'fOO'|uppercase";
+    std::string input = "'fOO'|upper";
     ReaderCPP reader(input);
     
     id vars = nil;
@@ -212,7 +212,7 @@ using namespace parsekit;
 
 - (void)testDateFormatToday {
     NSString *fmtStr = @"EEE, MMM d, yy";
-    NSString *input = [NSString stringWithFormat:@"'today'|fmtDate:'%@'", fmtStr];
+    NSString *input = [NSString stringWithFormat:@"'today'|date:'%@'", fmtStr];
     ReaderObjC reader(input);
     
     id vars = nil;
@@ -235,7 +235,7 @@ using namespace parsekit;
 
 - (void)testDateFormatNow {
     NSString *fmtStr = @"EEE, MMM d, yy";
-    NSString *input = [NSString stringWithFormat:@"'now'|fmtDate:'%@'", fmtStr];
+    NSString *input = [NSString stringWithFormat:@"'now'|date:'%@'", fmtStr];
     ReaderObjC reader(input);
 
     id vars = nil;
@@ -258,7 +258,7 @@ using namespace parsekit;
 
 - (void)testDateFormatOct26Literal {
     NSString *fmtStr = @"EEE, MMM d, yy";
-    NSString *input = [NSString stringWithFormat:@"'Oct 26, 1977'|fmtDate:'%@'", fmtStr];
+    NSString *input = [NSString stringWithFormat:@"'Oct 26, 1977'|date:'%@'", fmtStr];
     ReaderObjC reader(input);
 
     id vars = nil;
@@ -280,7 +280,7 @@ using namespace parsekit;
 
 - (void)testDateFormatApril25Var {
     NSString *fmtStr = @"EEE, MMM d, yy";
-    NSString *input = [NSString stringWithFormat:@"mydate|fmtDate:'%@'", fmtStr];
+    NSString *input = [NSString stringWithFormat:@"mydate|date:'%@'", fmtStr];
     ReaderObjC reader(input);
 
     NSDate *date = [NSDate dateWithNaturalLanguageString:@"April 25 1996"];
@@ -299,7 +299,7 @@ using namespace parsekit;
 
 - (void)testDateFormatApril25Var2 {
     NSString *fmtStr = @"yyyyy.MMMM.dd GGG hh:mm aaa";
-    NSString *input = [NSString stringWithFormat:@"mydate|fmtDate:'%@'", fmtStr];
+    NSString *input = [NSString stringWithFormat:@"mydate|date:'%@'", fmtStr];
     ReaderObjC reader(input);
 
     NSDate *date = [NSDate dateWithNaturalLanguageString:@"April 25 1996"];
@@ -319,7 +319,7 @@ using namespace parsekit;
 
 - (void)testDateFormatApril25Arg {
     NSString *fmtStr = @"EEE, MMM d, yy";
-    std::string input = "mydate|fmtDate:fmt";
+    std::string input = "mydate|date:fmt";
     ReaderCPP reader(input);
     
     NSDate *date = [NSDate dateWithNaturalLanguageString:@"April 25 1996"];

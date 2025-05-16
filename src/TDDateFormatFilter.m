@@ -11,7 +11,7 @@
 @implementation TDDateFormatFilter
 
 + (NSString *)filterName {
-    return @"fmtDate";
+    return @"date";
 }
 
 

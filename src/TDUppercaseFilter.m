@@ -25,7 +25,7 @@
 @implementation TDUppercaseFilter
 
 + (NSString *)filterName {
-    return @"uppercase";
+    return @"upper";
 }
 
 

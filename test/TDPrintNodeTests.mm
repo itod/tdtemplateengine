@@ -83,7 +83,7 @@
 }
 
 - (void)testSimpleVarReplacementFooLowercase {
-    NSString *input = @"{{foo|lowercase}}";
+    NSString *input = @"{{foo|lower}}";
     id vars = @{@"foo": @"BAR"};
     
     NSError *err = nil;
@@ -95,7 +95,7 @@
 }
 
 - (void)testSimpleVarReplacementFooUppercase {
-    NSString *input = @"{{foo | uppercase}}";
+    NSString *input = @"{{foo | upper}}";
     id vars = @{@"foo": @"bar"};
     
     NSError *err = nil;

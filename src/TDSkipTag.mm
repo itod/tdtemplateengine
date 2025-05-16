@@ -36,7 +36,7 @@
 }
 
 
-- (void)doTagInContext:(TDTemplateContext *)ctx {
+- (void)runInContext:(TDTemplateContext *)ctx {
     TDAssert(ctx);
 
     BOOL test = YES;
