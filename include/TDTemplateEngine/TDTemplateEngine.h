@@ -25,7 +25,6 @@
 #ifdef TARGET_OS_IPHONE
 #import <TDTemplateEngine/TDExpression.h>
 #import <TDTemplateEngine/TDFilter.h>
-#import <TDTemplateEngine/TDNode.h>
 #import <TDTemplateEngine/TDTag.h>
 #import <TDTemplateEngine/TDTemplateContext.h>
 #import <TDTemplateEngine/TDTemplateEngine.h>
@@ -80,19 +79,13 @@ extern const NSInteger TDTemplateEngineRenderingErrorCode;
 @end
 
 // TODO move all this to private & testing?
-@class TDNode;
 @class TDRootNode;
 @interface TDTemplateEngine (FriendAPI)
 // pre-compile template into a tree
 - (TDRootNode *)compileTemplateString:(NSString *)str error:(NSError **)err;
 - (TDRootNode *)compileTemplateFile:(NSString *)path encoding:(NSStringEncoding)enc error:(NSError **)err;
 
-
-// TODO all these need to go away
-// render pre-compiled tree with render-time vars
-//- (BOOL)renderTemplateTree:(TDRootNode *)root withVariables:(NSDictionary *)vars toStream:(NSOutputStream *)output error:(NSError **)err;
-
-// convenience. compile + render with render-time vars in one shot
+// convenience for testing only. compile + render with render-time vars in one shot
 - (BOOL)processTemplateString:(NSString *)str withVariables:(NSDictionary *)vars toStream:(NSOutputStream *)output error:(NSError **)err;
 - (BOOL)processTemplateFile:(NSString *)path encoding:(NSStringEncoding)enc withVariables:(NSDictionary *)vars toStream:(NSOutputStream *)output error:(NSError **)err;
 @end

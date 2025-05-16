@@ -230,35 +230,6 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 }
 
 
-//- (BOOL)renderTemplateTree:(TDRootNode *)root withVariables:(NSDictionary *)vars toStream:(NSOutputStream *)output error:(NSError **)err {
-//    return NO;
-//    NSParameterAssert([root isKindOfClass:[TDRootNode class]]);
-//    NSParameterAssert(output);
-//    
-//    [output open];
-//    TDAssert([output hasSpaceAvailable]);
-//    
-//    TDTemplateContext *dynamicContext = [[[TDTemplateContext alloc] initWithVariables:vars output:output] autorelease];
-//    TDAssert(_staticContext);
-//    dynamicContext.enclosingScope = _staticContext;
-//    [dynamicContext pushTemplateString:root.templateString];
-//    
-//    BOOL success = YES;
-//    
-//    @try {
-//        [root renderInContext:dynamicContext];
-//    }
-//    @catch (NSException *ex) {
-//        success = NO;
-//        if (err) *err = [NSError errorWithDomain:TDTemplateEngineErrorDomain code:TDTemplateEngineRenderingErrorCode userInfo:[[[ex userInfo] copy] autorelease]];
-//    }
-//    
-//    [dynamicContext popTemplateString];
-//    
-//    return success;
-//}
-
-
 - (BOOL)processTemplateFile:(NSString *)path encoding:(NSStringEncoding)enc withVariables:(NSDictionary *)vars toStream:(NSOutputStream *)output error:(NSError **)err {
     TDTemplate *tmpl = [self templateWithContentsOfFile:path error:err];
     
