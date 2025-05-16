@@ -186,21 +186,21 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     NSString *str = [NSString stringWithContentsOfFile:path encoding:enc error:err];
     
     if (str) {
-        root = [self compileTemplateString:str error:err];
+        root = [self compileTemplateString:str filePath:path error:err];
     }
     
     return root;
 }
 
 
-- (TDRootNode *)compileTemplateString:(NSString *)str error:(NSError **)err {
+- (TDRootNode *)compileTemplateString:(NSString *)str filePath:(NSString *)path error:(NSError **)err {
     NSParameterAssert([str length]);
     TDAssert([_printStartDelimiter length]);
     TDAssert([_printEndDelimiter length]);
     TDAssert([_tagStartDelimiter length]);
     TDAssert([_tagEndDelimiter length]);
     
-    TDTemplateContext *staticContext = [[[TDTemplateContext alloc] init] autorelease];
+    TDTemplateContext *staticContext = [[[TDTemplateContext alloc] initWithFilePath:path] autorelease];
     TDAssert(staticContext);
     [staticContext pushTemplateString:str];
     
@@ -244,7 +244,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 
 
 - (BOOL)processTemplateString:(NSString *)str withVariables:(NSDictionary *)vars toStream:(NSOutputStream *)output error:(NSError **)err {
-    TDTemplate *tmpl = [self _templateFromString:str error:err];
+    TDTemplate *tmpl = [self _templateFromString:str filePath:nil error:err];
 
     BOOL success = NO;
     
@@ -287,7 +287,8 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
         return nil;
     }
     
-    tmpl = [self _templateFromString:str error:err];
+    tmpl = [self _templateFromString:str filePath:path error:err];
+    tmpl.filePath = path;
     
     [self _setCachedTemplate:tmpl forPath:path];
     
@@ -295,8 +296,8 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 }
 
 
-- (TDTemplate *)_templateFromString:(NSString *)str error:(NSError **)err {
-    TDRootNode *root = [self compileTemplateString:str error:err];
+- (TDTemplate *)_templateFromString:(NSString *)str filePath:(NSString *)path error:(NSError **)err {
+    TDRootNode *root = [self compileTemplateString:str filePath:path error:err];
     if (!root) {
         if (*err) NSLog(@"%@", *err);
         return nil;

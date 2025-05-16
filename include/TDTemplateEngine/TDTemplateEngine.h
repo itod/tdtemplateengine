@@ -82,7 +82,7 @@ extern const NSInteger TDTemplateEngineRenderingErrorCode;
 @class TDRootNode;
 @interface TDTemplateEngine (FriendAPI)
 // pre-compile template into a tree
-- (TDRootNode *)compileTemplateString:(NSString *)str error:(NSError **)err;
+- (TDRootNode *)compileTemplateString:(NSString *)str filePath:(NSString *)path error:(NSError **)err;
 - (TDRootNode *)compileTemplateFile:(NSString *)path encoding:(NSStringEncoding)enc error:(NSError **)err;
 
 // convenience for testing only. compile + render with render-time vars in one shot

@@ -83,7 +83,7 @@ using namespace templateengine;
 
     TDTemplateEngine *engine = [TDTemplateEngine templateEngine];
     NSError *err = nil;
-    TDRootNode *root = [engine compileTemplateString:input error:&err];
+    TDRootNode *root = [engine compileTemplateString:input filePath:nil error:&err];
     
     XCTAssertNotNil(root);
 }

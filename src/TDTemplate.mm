@@ -51,6 +51,7 @@
 
 - (void)dealloc {
     self.document = nil;
+    self.filePath = nil;
     [super dealloc];
 }
 

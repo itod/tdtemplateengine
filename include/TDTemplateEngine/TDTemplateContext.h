@@ -27,7 +27,8 @@
 
 @interface TDTemplateContext : NSObject <NSCopying>
 
-- (instancetype)initWithVariables:(NSDictionary *)vars output:(NSOutputStream *)output;
+- (instancetype)initWithFilePath:(NSString *)path; // static
+- (instancetype)initWithVariables:(NSDictionary *)vars output:(NSOutputStream *)output; // dynamic
 
 @property (nonatomic, retain, readonly) TDWriter *writer;
 
@@ -44,6 +45,8 @@
 - (void)increaseIndentDepth:(NSUInteger)times;
 - (void)decreaseIndentDepth:(NSUInteger)times;
 @property (nonatomic, assign) NSInteger indentDepth;
+
+@property (nonatomic, copy, readonly) NSString *filePath;
 
 - (NSString *)templateSubstringForToken:(parsekit::Token)token;
 - (void)pushTemplateString:(NSString *)str;

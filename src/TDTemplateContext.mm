@@ -70,6 +70,7 @@ static NSCharacterSet *sNewlineSet = nil;
 @end
 
 @interface TDTemplateContext ()
+@property (nonatomic, copy, readwrite) NSString *filePath;
 @property (nonatomic, retain) NSMutableArray *templateStringStack;
 
 @property (nonatomic, retain) NSMutableDictionary *vars;
@@ -91,7 +92,16 @@ static NSCharacterSet *sNewlineSet = nil;
 
 
 - (instancetype)init {
-    self = [self initWithVariables:nil output:nil];
+    TDAssert(0);
+    return nil;
+}
+
+
+- (instancetype)initWithFilePath:(NSString *)path {
+    self = [super init];
+    if (self) {
+        self.filePath = path;
+    }
     return self;
 }
 

@@ -11,13 +11,10 @@
 
 @interface TDTemplate : NSObject <NSCopying>
 
-//+ (instancetype)templateWithContentsOfFile:(NSString *)path error:(NSError **)err;
-//+ (instancetype)templateWithString:(NSString *)path error:(NSError **)err;
-
-//- (BOOL)compile:(NSError **)outErr;
-
 - (NSString *)render:(NSDictionary *)vars error:(NSError **)err;
 - (BOOL)render:(NSDictionary *)vars toStream:(NSOutputStream *)output error:(NSError **)err;
 
 - (NSString *)templateSubstringForToken:(parsekit::Token)token;
+
+@property (nonatomic, copy) NSString *filePath;
 @end

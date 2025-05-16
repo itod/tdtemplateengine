@@ -23,6 +23,7 @@
 #import "TDExtendsTag.h"
 #import "TDRootNode.h"
 #import "TDExpression.h"
+#import "TDTemplateContext.h"
 
 @implementation TDExtendsTag
 
@@ -38,7 +39,18 @@
 
 - (void)compileInContext:(TDTemplateContext *)staticContext {
     TDRootNode *root = (id)[self firstAncestorOfClass:[TDRootNode class]];
-    root.extendsPath = [self.expression evaluateAsStringInContext:staticContext];
+    
+    NSString *path = staticContext.filePath;
+    NSString *extendsPath = [self.expression evaluateAsStringInContext:staticContext];
+    
+    extendsPath = [self absolutePathForPath:extendsPath relativeTo:path];
+    
+    root.extendsPath = extendsPath;
+}
+
+
+- (NSString *)absolutePathForPath:(NSString *)relPath relativeTo:(NSString *)peerPath {
+    return relPath;
 }
 
 @end
