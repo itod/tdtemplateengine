@@ -613,9 +613,9 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 - (TDExpression *)expressionForTagName:(NSString *)tagName fromFragment:(Token)frag reader:(Reader *)reader inContext:(TDTemplateContext *)ctx {
     NSParameterAssert(reader);
     
-//    if ([tagName isEqualToString:@"include"]) {
-//        NSLog(@"%@", tagName);
-//    }
+    if ([tagName isEqualToString:@"include"]) {
+        NSLog(@"%@", tagName);
+    }
     Class cls = [self registerdTagClassForName:tagName];
     TDTagExpressionType et = [cls tagExpressionType];
     

@@ -248,7 +248,7 @@ void ExpressionParser::_argsList() {
 
 void ExpressionParser::_namedArg() {
     match(TokenType_WORD, false);
-    match(EXTokenType_EQ, false);
+    match(EXTokenType_ASSIGN, false);
     _atom();
 }
 
