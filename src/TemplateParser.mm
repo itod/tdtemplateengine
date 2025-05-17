@@ -122,10 +122,10 @@ void TemplateParser::_empty_tag() {
     Token tok = assembly()->pop_token();
     assert(_engine);
     TDTag *startTagNode = nil;
-    @try {
+    try {
         startTagNode = [_engine tagFromFragment:tok withParent:_currentParent inContext:_context];
-    } @catch (NSException *ex) {
-        raise([ex reason], tok);
+    } catch (ParseException& ex) {
+        raise([NSString stringWithUTF8String:ex.message().c_str()], tok);
     }
     assert(startTagNode);
     [_currentParent addChild:startTagNode];
@@ -169,10 +169,11 @@ void TemplateParser::_block_start_tag() {
     Token tok = _assembly->pop_token();
     assert(_engine);
     TDTag *startTagNode = nil;
-    @try {
+    try {
         startTagNode = [_engine tagFromFragment:tok withParent:_currentParent inContext:_context];
-    } @catch (NSException *ex) {
-        raise([ex reason], tok);
+    } catch (ParseException& ex) {
+//        raise([ex reason], tok);
+        throw ex;
     }
     assert(startTagNode);
     [_currentParent addChild:startTagNode];

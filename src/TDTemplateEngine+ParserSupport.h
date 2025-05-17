@@ -27,14 +27,16 @@
 @class TDNode;
 @class TDPrintNode;
 @class TDTag;
+@class TDFilter;
 @class TDExpression;
 
 using namespace parsekit;
 
 @interface TDTemplateEngine (ParserSupport)
-- (TDTag *)makeTagForName:(NSString *)tagName token:(Token)token parent:(TDNode *)parent;
-
+- (TDFilter *)makeFilterForName:(NSString *)filterName;
 - (TDPrintNode *)printNodeFromFragment:(Token)frag withParent:(TDNode *)parent inContext:(TDTemplateContext *)ctx;
+
+- (TDTag *)makeTagForName:(NSString *)tagName token:(Token)token parent:(TDNode *)parent;
 - (TDTag *)tagFromFragment:(Token)frag withParent:(TDNode *)parent inContext:(TDTemplateContext *)ctx;
 - (TDTag *)tagFromReader:(Reader *)reader withParent:(TDNode *)parent inContext:(TDTemplateContext *)ctx;
 

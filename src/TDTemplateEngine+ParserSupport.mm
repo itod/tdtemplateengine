@@ -31,10 +31,26 @@
 using namespace parsekit;
 using namespace templateengine;
 
+@interface TDTemplateEngine ()
+@property (nonatomic, retain) NSMutableDictionary *filterTab;
+@end
+
 @implementation TDTemplateEngine (ParserSupport)
 
 #pragma mark -
 #pragma mark TemplateParser API
+
+- (TDFilter *)makeFilterForName:(NSString *)filterName {
+    Class cls = [self.filterTab objectForKey:filterName];
+    if (!cls) {
+        [NSException raise:TDTemplateEngineErrorDomain format:@"Unknown filter name '%@'", filterName];
+    }
+    TDFilter *filter = [[[cls alloc] init] autorelease];
+    TDAssert(filter);
+    TDAssert([filter.filterName isEqualToString:filterName]);
+    return filter;
+}
+
 
 - (TDPrintNode *)printNodeFromFragment:(Token)frag withParent:(TDNode *)parent inContext:(TDTemplateContext *)ctx {
     NSParameterAssert(!frag.is_eof());
@@ -56,29 +72,24 @@ using namespace templateengine;
 }
 
 
+- (TDTag *)makeTagForName:(NSString *)tagName token:(Token)token parent:(TDNode *)parent {
+    Class cls = [self registerdTagClassForName:tagName];
+    if (!cls) {
+        [NSException raise:TDTemplateEngineErrorDomain format:@"Unknown tag name '%@'", tagName];
+    }
+    TDTag *tag = [[[cls alloc] initWithToken:token parent:parent] autorelease];
+    TDAssert(tag);
+    TDAssert([tag.tagName isEqualToString:tagName]);
+    
+    return tag;
+}
+
+
 - (TDTag *)tagFromFragment:(Token)frag withParent:(TDNode *)parent inContext:(TDTemplateContext *)ctx {
     NSParameterAssert(!frag.is_eof());
     NSParameterAssert(parent);
     
     NSString *str = [ctx templateSubstringForToken:frag];
-    
-//    NSStringEncoding enc = NSUTF8StringEncoding;
-//    NSUInteger maxByteLen = [str maximumLengthOfBytesUsingEncoding:enc];
-//    char zstr[maxByteLen+1]; // +1 for null-term
-//    NSUInteger byteLen;
-//    NSRange remaining;
-//
-//    if (![str getBytes:zstr maxLength:maxByteLen usedLength:&byteLen encoding:enc options:0 range:NSMakeRange(0, str.length) remainingRange:&remaining]) {
-//        TDAssert(0);
-//    }
-//    TDAssert(0 == remaining.length);
-//
-//    // must make it null-terminated bc -getBytes: does not include terminator
-//    zstr[byteLen] = '\0';
-//
-//    std::string input(zstr);
-//    ReaderCPP r(input);
-    
     ReaderObjC reader(str);
     
     // tokenize
@@ -99,33 +110,13 @@ using namespace templateengine;
     
     TagParser parser(self);
 
-    TDTag *tag = nil;
-    try {
-        tag = parser.parseTag(reader, parent);
-    } catch (ParseException& ex) {
-        TDAssert(0);
-//        if (0) {
-//            NSError *err = [NSError errorWithDomain:@"TDTemplateEngine"
-//                                               code:0
-//                                           userInfo:@{
-//                NSLocalizedDescriptionKey: [NSString stringWithUTF8String:ex.message().c_str()],
-//            }];
-//            //*outErr = err;
-//        }
-    }
-    
-    return tag;
-}
-
-
-- (TDTag *)makeTagForName:(NSString *)tagName token:(Token)token parent:(TDNode *)parent {
-    Class cls = [self registerdTagClassForName:tagName];
-    if (!cls) {
-        [NSException raise:TDTemplateEngineErrorDomain format:@"Unknown tag name '%@'", tagName];
-    }
-    TDTag *tag = [[[cls alloc] initWithToken:token parent:parent] autorelease];
-    TDAssert(tag);
-    TDAssert([tag.tagName isEqualToString:tagName]);
+    TDTag *tag = parser.parseTag(reader, parent);
+//    try {
+//        tag = parser.parseTag(reader, parent);
+//    } catch (ParseException& ex) {
+//        NSString *reason = [NSString stringWithUTF8String:ex.message().c_str()];
+//        [NSException raise:@"TDTemplateEngine" format:@"%@", reason];
+//    }
     
     return tag;
 }

@@ -568,18 +568,6 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 }
 
 
-- (TDFilter *)makeFilterForName:(NSString *)filterName {
-    Class cls = _filterTab[filterName];
-    if (!cls) {
-        [NSException raise:TDTemplateEngineErrorDomain format:@"Unknown filter name '%@'", filterName];
-    }
-    TDFilter *filter = [[[cls alloc] init] autorelease];
-    TDAssert(filter);
-    TDAssert([filter.filterName isEqualToString:filterName]);
-    return filter;
-}
-
-
 #pragma mark -
 #pragma mark Properties
 
