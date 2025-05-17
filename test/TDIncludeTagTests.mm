@@ -1,5 +1,5 @@
 //
-//  CPPIncludeExpressionTests.m
+//  TDIncludeTagTests.m
 //  TDTemplateEngineTests
 //
 //  Created by Todd Ditchendorf on 3/28/14.
@@ -13,10 +13,10 @@
 
 using namespace parsekit;
 
-@interface CPPIncludeExpressionTests : TDBaseExpressionTests
+@interface TDIncludeTagTests : TDBaseExpressionTests
 @end
 
-@implementation CPPIncludeExpressionTests
+@implementation TDIncludeTagTests
 
 - (void)setUp {
     [super setUp];

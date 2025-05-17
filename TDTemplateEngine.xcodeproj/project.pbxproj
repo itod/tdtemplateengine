@@ -280,8 +280,7 @@
 		D36F33AE2DD7FB0900AB2F36 /* TDResetCycleTag.h in Headers */ = {isa = PBXBuildFile; fileRef = D36F33A92DD7FB0900AB2F36 /* TDResetCycleTag.h */; };
 		D36F33AF2DD7FB0900AB2F36 /* TDResetCycleTag.mm in Sources */ = {isa = PBXBuildFile; fileRef = D36F33AA2DD7FB0900AB2F36 /* TDResetCycleTag.mm */; };
 		D36F33B02DD7FB0900AB2F36 /* TDResetCycleTag.h in Headers */ = {isa = PBXBuildFile; fileRef = D36F33A92DD7FB0900AB2F36 /* TDResetCycleTag.h */; };
-		D36F33B72DD8FB0800AB2F36 /* CPPIncludeExpressionTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = D36F33B52DD8FB0800AB2F36 /* CPPIncludeExpressionTests.mm */; };
-		D36F33B82DD8FB0800AB2F36 /* CPPPathExpressionTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = D36F33B62DD8FB0800AB2F36 /* CPPPathExpressionTests.mm */; };
+		D36F33B72DD8FB0800AB2F36 /* TDIncludeTagTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = D36F33B52DD8FB0800AB2F36 /* TDIncludeTagTests.mm */; };
 		D36F33BB2DD91CCB00AB2F36 /* TDArgListTag.mm in Sources */ = {isa = PBXBuildFile; fileRef = D36F33BA2DD91CCB00AB2F36 /* TDArgListTag.mm */; };
 		D36F33BC2DD91CCB00AB2F36 /* TDArgListTag.h in Headers */ = {isa = PBXBuildFile; fileRef = D36F33B92DD91CCB00AB2F36 /* TDArgListTag.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D36F33BD2DD91CCB00AB2F36 /* TDArgListTag.mm in Sources */ = {isa = PBXBuildFile; fileRef = D36F33BA2DD91CCB00AB2F36 /* TDArgListTag.mm */; };
@@ -565,8 +564,7 @@
 		D36F33A22DD7F9E000AB2F36 /* TDCycleTag.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = TDCycleTag.mm; path = src/TDCycleTag.mm; sourceTree = SOURCE_ROOT; };
 		D36F33A92DD7FB0900AB2F36 /* TDResetCycleTag.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TDResetCycleTag.h; path = src/TDResetCycleTag.h; sourceTree = SOURCE_ROOT; };
 		D36F33AA2DD7FB0900AB2F36 /* TDResetCycleTag.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = TDResetCycleTag.mm; path = src/TDResetCycleTag.mm; sourceTree = SOURCE_ROOT; };
-		D36F33B52DD8FB0800AB2F36 /* CPPIncludeExpressionTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = CPPIncludeExpressionTests.mm; path = test/CPPIncludeExpressionTests.mm; sourceTree = SOURCE_ROOT; };
-		D36F33B62DD8FB0800AB2F36 /* CPPPathExpressionTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = CPPPathExpressionTests.mm; path = test/CPPPathExpressionTests.mm; sourceTree = SOURCE_ROOT; };
+		D36F33B52DD8FB0800AB2F36 /* TDIncludeTagTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = TDIncludeTagTests.mm; path = test/TDIncludeTagTests.mm; sourceTree = SOURCE_ROOT; };
 		D36F33B92DD91CCB00AB2F36 /* TDArgListTag.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TDArgListTag.h; path = src/TDArgListTag.h; sourceTree = SOURCE_ROOT; };
 		D36F33BA2DD91CCB00AB2F36 /* TDArgListTag.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = TDArgListTag.mm; path = src/TDArgListTag.mm; sourceTree = SOURCE_ROOT; };
 		D37BC6B318F4415200938644 /* TDDateFormatFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDDateFormatFilter.h; path = src/TDDateFormatFilter.h; sourceTree = SOURCE_ROOT; };
@@ -757,8 +755,6 @@
 				D3AAFE992DD2F009009EDC64 /* CPPCollectionExpressionTests.mm */,
 				D3AAFE9B2DD2F009009EDC64 /* CPPPathExpressionTests.mm */,
 				D3AAFE9A2DD2F009009EDC64 /* CPPFilterExpressionTests.mm */,
-				D36F33B52DD8FB0800AB2F36 /* CPPIncludeExpressionTests.mm */,
-				D36F33B62DD8FB0800AB2F36 /* CPPPathExpressionTests.mm */,
 			);
 			name = "Expression Tests";
 			sourceTree = "<group>";
@@ -767,6 +763,7 @@
 			isa = PBXGroup;
 			children = (
 				D3C2A06C2DD65D7A00C1A42F /* TDExtendsTests.mm */,
+				D36F33B52DD8FB0800AB2F36 /* TDIncludeTagTests.mm */,
 				D3AAFE852DD2C2B9009EDC64 /* TDPrintNodeTests.mm */,
 				D3A3E54B18EC5706004FEB2C /* TDIfTagTests.mm */,
 				D33915E518F09DFF00BDA4FD /* TDElseTagTests.mm */,
@@ -1710,8 +1707,7 @@
 				D3AAFE6E2DD2C1DD009EDC64 /* CPPRelationalExpressionTests.mm in Sources */,
 				D3AAFE8E2DD2CC64009EDC64 /* CPPArithmeticExpressionTests.mm in Sources */,
 				D3AAFE6F2DD2C1DD009EDC64 /* CPPUnaryExpressionTests.mm in Sources */,
-				D36F33B72DD8FB0800AB2F36 /* CPPIncludeExpressionTests.mm in Sources */,
-				D36F33B82DD8FB0800AB2F36 /* CPPPathExpressionTests.mm in Sources */,
+				D36F33B72DD8FB0800AB2F36 /* TDIncludeTagTests.mm in Sources */,
 				D3AAFE702DD2C1DD009EDC64 /* CPPEqualityExpressionTests.mm in Sources */,
 				D3A3E54E18EC5706004FEB2C /* TDIfTagTests.mm in Sources */,
 				D33915E618F09DFF00BDA4FD /* TDElseTagTests.mm in Sources */,
