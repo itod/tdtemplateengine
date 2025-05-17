@@ -11,6 +11,7 @@
 
 using namespace parsekit;
 
+// TODO REMOVE
 @interface EXToken : NSObject
 
 + (EXToken *)tokenWithTokenType:(TokenType)tt stringValue:(NSString *)s doubleValue:(double)n;

@@ -365,7 +365,7 @@ void TagParser::_kwargs() {
     }
     
     while (!predicts(TokenType_EOF, 0)) {
-        match(TokenType_WORD, false);
+        _identifier();
         match(TDTokenType_ASSIGN, true);
         _atom();
         
