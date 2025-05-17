@@ -23,13 +23,21 @@
 #import <TDTemplateEngine/TDTemplateEngine.h>
 #import <ParseKitCPP/Reader.hpp>
 
+@class TDTemplateContext;
+@class TDNode;
+@class TDPrintNode;
+@class TDTag;
 @class TDExpression;
 
-@interface TDTemplateEngine (ExpressionSupport)
-- (TDTag *)makeTagForName:(NSString *)tagName token:(parsekit::Token)token parent:(TDNode *)parent;
+using namespace parsekit;
+
+@interface TDTemplateEngine (ParserSupport)
+- (TDTag *)makeTagForName:(NSString *)tagName token:(Token)token parent:(TDNode *)parent;
+
+- (TDPrintNode *)printNodeFromFragment:(Token)frag withParent:(TDNode *)parent inContext:(TDTemplateContext *)ctx;
+- (TDTag *)tagFromFragment:(Token)frag withParent:(TDNode *)parent inContext:(TDTemplateContext *)ctx;
+- (TDTag *)tagFromReader:(Reader *)reader withParent:(TDNode *)parent inContext:(TDTemplateContext *)ctx;
 
 - (TDExpression *)expressionFromString:(NSString *)objc_str error:(NSError **)outErr;
-- (TDExpression *)expressionFromReader:(parsekit::Reader *)reader error:(NSError **)outErr;
-- (TDExpression *)loopExpressionFromReader:(parsekit::Reader *)reader error:(NSError **)outErr;
-- (TDExpression *)expressionOfType:(TDTagExpressionType)et fromReader:(parsekit::Reader *)reader error:(NSError **)outErr;
+- (TDExpression *)expressionFromReader:(Reader *)reader error:(NSError **)outErr;
 @end

@@ -49,11 +49,12 @@ typedef NS_ENUM(int, EXTokenType) {
     EXTokenType_ASSIGN               =  37,
     EXTokenType_DOUBLE_EQUALS        =  38,
     EXTokenType_NULL                 =  39,
-    EXTokenType_LOAD                 =  40,
-    EXTokenType_INCLUDE              =  41,
-    EXTokenType_WITH                 =  42,
-    EXTokenType_CYCLE                =  43,
-    EXTokenType_AS                   =  44,
+//    EXTokenType_FOR                  =  40,
+//    EXTokenType_LOAD                 =  41,
+//    EXTokenType_INCLUDE              =  42,
+    EXTokenType_WITH                 =  43,
+//    EXTokenType_CYCLE                =  44,
+    EXTokenType_AS                   =  45,
 };
 
 typedef std::map<std::string, EXTokenType> EXTokenTable;
@@ -63,7 +64,7 @@ private:
     ExpressionAssembly *_assembly;
     
     TDTemplateEngine *_engine; // weakref
-    TDTagExpressionType _tagExpressionType = TDTagExpressionTypeDefault;
+    //TDTagExpressionType _tagExpressionType = TDTagExpressionTypeDefault;
     
     bool _negation;
     bool _negative;
@@ -92,7 +93,7 @@ private:
     void _expr();
     
     // loop
-    void _loopExpr();
+    void _loopExpr(); // TODO REMOVE
     
     // args
     
@@ -150,8 +151,8 @@ public:
     static Tokenizer *tokenizer();
     static const EXTokenTable& tokenTable();
     
-    TDTagExpressionType tagExpressionType() const { return _tagExpressionType; }
-    void setTagExpressionType(TDTagExpressionType t) { _tagExpressionType = t; }
+//    TDTagExpressionType tagExpressionType() const { return _tagExpressionType; }
+//    void setTagExpressionType(TDTagExpressionType t) { _tagExpressionType = t; }
     
     virtual Token edit_token_type(const Token& tok) const override {
         

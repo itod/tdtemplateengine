@@ -1,7 +1,7 @@
 #import "ExpressionParser.hpp"
     
 #import "TDTemplateEngine.h"
-#import "TDTemplateEngine+ExpressionSupport.h"
+#import "TDTemplateEngine+ParserSupport.h"
 #import "TDTag.h"
 #import "TDBooleanValue.h"
 #import "TDNumericValue.h"
@@ -107,10 +107,11 @@ const EXTokenTable& ExpressionParser::tokenTable() {
         {"=", EXTokenType_ASSIGN},
         {"==", EXTokenType_DOUBLE_EQUALS},
         {"null", EXTokenType_NULL},
-        {"load", EXTokenType_LOAD},
-        {"include", EXTokenType_INCLUDE},
+//        {"for", EXTokenType_FOR},
+//        {"load", EXTokenType_LOAD},
+//        {"include", EXTokenType_INCLUDE},
         {"with", EXTokenType_WITH},
-        {"cycle", EXTokenType_CYCLE},
+//        {"cycle", EXTokenType_CYCLE},
         {"as", EXTokenType_AS},
     };
     return tokenTab;
@@ -247,12 +248,11 @@ void ExpressionParser::_tag(TDNode *parent) {
                 break;
         }
     }
-    
-    match(TokenType_EOF);
 }
 
 void ExpressionParser::_tagName(TDNode *parent) {
-    if (predicts(TokenType_WORD, EXTokenType_LOAD, EXTokenType_INCLUDE, EXTokenType_CYCLE, 0)) {
+//    if (predicts(TokenType_WORD, EXTokenType_FOR, EXTokenType_LOAD, EXTokenType_INCLUDE, EXTokenType_CYCLE, 0)) {
+    if (predicts(TokenType_WORD, 0)) {
         match(TokenType_ANY, false);
     }
     
@@ -271,7 +271,7 @@ void ExpressionParser::_tagName(TDNode *parent) {
 #pragma mark ExprTag
 
 void ExpressionParser::_exprTag() {
-    _orExpr(); //_expr(); // TODO
+    _expr();
     
     assert(!isSpeculating());
     
@@ -284,7 +284,15 @@ void ExpressionParser::_exprTag() {
 #pragma mark LoopTag
 
 void ExpressionParser::_loopTag() {
-    // TODO
+    _identifiers();
+    match(EXTokenType_IN, true);
+    _enumExpr();
+    if (!isSpeculating()) {
+        id enumExpr = POP_OBJ();
+        id vars = POP_OBJ();
+        TDTag *tag = PEEK_OBJ();
+        tag.expression = [TDLoopExpression loopExpressionWithVariables:vars enumeration:enumExpr];
+    }
 }
 
 #pragma mark -
@@ -429,36 +437,7 @@ TDExpression *ExpressionParser::parseExpression(Reader *r) {
 #pragma mark Default
 
 void ExpressionParser::_expr() {
-
-    // TODO
-    switch (_tagExpressionType) {
-        case TDTagExpressionTypeDefault:
-            _orExpr();
-            break;
-        case TDTagExpressionTypeLoop:
-            _loopExpr();
-            break;
-        default:
-            //assert(0);
-            break;
-    }
-
-}
-
-#pragma mark -
-#pragma mark Loop
-// TODO
-void ExpressionParser::_loopExpr() {
-    
-    _identifiers();
-    match(EXTokenType_IN, true);
-    _enumExpr();
-    if (!isSpeculating()) {
-        id enumExpr = POP_OBJ();
-        id vars = POP_OBJ();
-        PUSH_OBJ([TDLoopExpression loopExpressionWithVariables:vars enumeration:enumExpr]);
-    }
-
+    _orExpr();
 }
 
 void ExpressionParser::_identifiers() {

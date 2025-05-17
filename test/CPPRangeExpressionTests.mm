@@ -28,17 +28,17 @@ using namespace parsekit;
 }
 
 - (void)testIIn0To4 {
-    std::string input = "i in 0 to 4";
+    std::string input = "for i in 0 to 4";
     ReaderCPP reader(input);
     
     id foo = @[@(0), @(1), @(2), @(3)];
     id vars = @{@"foo": foo};
     TDTemplateContext *ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     
-    NSError *err = nil;
-    TDExpression *expr = [[self.eng loopExpressionFromReader:&reader error:&err] simplify];
-    TDNil(err);
-    TDNotNil(expr);
+    TDTag *tag = [self.eng tagFromReader:&reader withParent:nil inContext:ctx];
+    XCTAssertNotNil(tag);
+    
+    TDExpression *expr = [tag.expression simplify];
     TDTrue([expr isKindOfClass:[TDLoopExpression class]]);
     
     for (id obj in foo) {
@@ -48,19 +48,19 @@ using namespace parsekit;
 }
 
 - (void)testIIn5To2 {
-    std::string input = "i in 5 to 2";
+    std::string input = "for i in 5 to 2";
     ReaderCPP reader(input);
 
     id foo = @[@(5), @(4), @(3), @(2)];
     id vars = @{@"foo": foo};
     TDTemplateContext *ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     
-    NSError *err = nil;
-    TDExpression *expr = [[self.eng loopExpressionFromReader:&reader error:&err] simplify];
-    TDNil(err);
-    TDNotNil(expr);
-    TDTrue([expr isKindOfClass:[TDLoopExpression class]]);
+    TDTag *tag = [self.eng tagFromReader:&reader withParent:nil inContext:ctx];
+    XCTAssertNotNil(tag);
     
+    TDExpression *expr = [tag.expression simplify];
+    TDTrue([expr isKindOfClass:[TDLoopExpression class]]);
+
     for (id obj in foo) {
         id res = [expr evaluateInContext:ctx];
         TDEqualObjects(obj, res);
@@ -68,19 +68,19 @@ using namespace parsekit;
 }
 
 - (void)testIIn0To10By2 {
-    std::string input = "i in 0 to 10 by 2";
+    std::string input = "for i in 0 to 10 by 2";
     ReaderCPP reader(input);
 
     id foo = @[@(0), @(2), @(4), @(6), @(8), @(10)];
     id vars = @{@"foo": foo};
     TDTemplateContext *ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     
-    NSError *err = nil;
-    TDExpression *expr = [[self.eng loopExpressionFromReader:&reader error:&err] simplify];
-    TDNil(err);
-    TDNotNil(expr);
-    TDTrue([expr isKindOfClass:[TDLoopExpression class]]);
+    TDTag *tag = [self.eng tagFromReader:&reader withParent:nil inContext:ctx];
+    XCTAssertNotNil(tag);
     
+    TDExpression *expr = [tag.expression simplify];
+    TDTrue([expr isKindOfClass:[TDLoopExpression class]]);
+
     for (id obj in foo) {
         id res = [expr evaluateInContext:ctx];
         TDEqualObjects(obj, res);
@@ -88,19 +88,19 @@ using namespace parsekit;
 }
 
 - (void)testIIn10To0ByNeg2 {
-    std::string input = "i in 10 to 0 by -2";
+    std::string input = "for i in 10 to 0 by -2";
     ReaderCPP reader(input);
 
     id foo = @[@(10), @(8), @(6), @(4), @(2), @(0)];
     id vars = @{@"foo": foo};
     TDTemplateContext *ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     
-    NSError *err = nil;
-    TDExpression *expr = [[self.eng loopExpressionFromReader:&reader error:&err] simplify];
-    TDNil(err);
-    TDNotNil(expr);
-    TDTrue([expr isKindOfClass:[TDLoopExpression class]]);
+    TDTag *tag = [self.eng tagFromReader:&reader withParent:nil inContext:ctx];
+    XCTAssertNotNil(tag);
     
+    TDExpression *expr = [tag.expression simplify];
+    TDTrue([expr isKindOfClass:[TDLoopExpression class]]);
+
     for (id obj in foo) {
         id res = [expr evaluateInContext:ctx];
         TDEqualObjects(obj, res);

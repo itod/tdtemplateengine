@@ -24,7 +24,7 @@
 #import <TDTemplateEngine/TDNode.h>
 #import <TDTemplateEngine/TDTemplateContext.h>
 #import <TDTemplateEngine/TDTemplate.h>
-#import "TDTemplateEngine+ExpressionSupport.h"
+#import "TDTemplateEngine+ParserSupport.h"
 
 #import "TDRootNode.h"
 #import "TDTextNode.h"
@@ -537,127 +537,6 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 
 
 #pragma mark -
-#pragma mark TemplateParser API
-
-- (TDPrintNode *)printNodeFromFragment:(Token)frag withParent:(TDNode *)parent inContext:(TDTemplateContext *)ctx {
-    NSParameterAssert(!frag.is_eof());
-    NSParameterAssert(parent);
-    
-    NSString *str = [ctx templateSubstringForToken:frag];
-    TDAssert(str.length);
-    
-    NSError *err = nil;
-    TDExpression *expr = [self expressionFromString:str error:&err];
-    if (!expr) {
-        [NSException raise:TDTemplateEngineErrorDomain format:@"Error while compiling print node expression `%@`\n\n%@", str, [err localizedFailureReason]];
-    }
-    
-    TDAssert(expr);
-    TDPrintNode *printNode = [TDPrintNode nodeWithToken:frag parent:parent];
-    printNode.expression = expr;
-    return printNode;
-}
-
-
-- (TDTag *)_new_tagFromReader:(Reader *)reader withParent:(TDNode *)parent inContext:(TDTemplateContext *)ctx {
-    NSParameterAssert(reader);
-    
-    ExpressionParser parser(self);
-
-    TDTag *tag = nil;
-    try {
-        tag = parser.parseTag(reader, parent);
-    } catch (ParseException& ex) {
-        TDAssert(0);
-//        if (0) {
-//            NSError *err = [NSError errorWithDomain:@"TDTemplateEngine"
-//                                               code:0
-//                                           userInfo:@{
-//                NSLocalizedDescriptionKey: [NSString stringWithUTF8String:ex.message().c_str()],
-//            }];
-//            //*outErr = err;
-//        }
-    }
-    
-    return tag;
-}
-
-
-- (TDTag *)tagFromFragment:(Token)frag withParent:(TDNode *)parent inContext:(TDTemplateContext *)ctx {
-    NSParameterAssert(!frag.is_eof());
-    NSParameterAssert(parent);
-    
-    NSString *str = [ctx templateSubstringForToken:frag];
-    
-//    NSStringEncoding enc = NSUTF8StringEncoding;
-//    NSUInteger maxByteLen = [str maximumLengthOfBytesUsingEncoding:enc];
-//    char zstr[maxByteLen+1]; // +1 for null-term
-//    NSUInteger byteLen;
-//    NSRange remaining;
-//    
-//    if (![str getBytes:zstr maxLength:maxByteLen usedLength:&byteLen encoding:enc options:0 range:NSMakeRange(0, str.length) remainingRange:&remaining]) {
-//        TDAssert(0);
-//    }
-//    TDAssert(0 == remaining.length);
-//    
-//    // must make it null-terminated bc -getBytes: does not include terminator
-//    zstr[byteLen] = '\0';
-//
-//    std::string input(zstr);
-//    ReaderCPP r(input);
-    
-    ReaderObjC r(str);
-    
-    Tokenizer *t = ExpressionParser::tokenizer();
-    Token tok = t->next(&r);
-    TDAssert(TokenType_WORD == tok.token_type());
-    NSString *tagName = r.objc_substr(tok);
-    
-    // tokenize
-    TDTag *tag = [self makeTagForName:tagName token:frag parent:parent];
-    TDAssert(tag);
-    
-    // compile expression if present
-    size_t offset = r.offset();
-    tok = t->next(&r);
-    if (TokenType_EOF != tok.token_type()) {
-        r.set_offset(offset);
-        tag.expression = [self expressionForTagName:tagName fromFragment:frag reader:&r inContext:ctx];
-    }
-    
-    if ([tag conformsToProtocol:@protocol(TDCompileTimeTag)]) {
-        id <TDCompileTimeTag>cttag = (id <TDCompileTimeTag>)tag;
-        [cttag compileInContext:ctx];
-    }
-    
-    return tag;
-}
-
-
-- (TDExpression *)expressionForTagName:(NSString *)tagName fromFragment:(Token)frag reader:(Reader *)reader inContext:(TDTemplateContext *)ctx {
-    NSParameterAssert(reader);
-    
-    if ([tagName isEqualToString:@"include"]) {
-        NSLog(@"%@", tagName);
-    }
-    Class cls = [self registerdTagClassForName:tagName];
-    TDTagExpressionType et = [cls tagExpressionType];
-    
-    NSError *err = nil;
-    TDExpression *expr = [self expressionOfType:et fromReader:reader error:&err];
-    
-    if (!expr) {
-        // TODO
-        NSString *exprString = [ctx templateSubstringForToken:frag];
-        NSString *msg = [NSString stringWithFormat:@"Error while compiling tag expression `%@` : %@", exprString, [err localizedFailureReason]];
-        throw ParseException([msg UTF8String]);
-    }
-    
-    return expr;
-}
-
-
-#pragma mark -
 #pragma mark TagRegistration
 
 - (void)registerTagClass:(Class)cls forName:(NSString *)tagName {
@@ -670,19 +549,6 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     TDAssert(_tagTab);
     Class cls = _tagTab[tagName];
     return cls;
-}
-
-
-- (TDTag *)makeTagForName:(NSString *)tagName token:(Token)token parent:(TDNode *)parent {
-    TDAssert(_tagTab);
-    Class cls = [self registerdTagClassForName:tagName];
-    if (!cls) {
-        [NSException raise:TDTemplateEngineErrorDomain format:@"Unknown tag name '%@'", tagName];
-    }
-    TDTag *tag = [[[cls alloc] initWithToken:token parent:parent] autorelease];
-    TDAssert(tag);
-    TDAssert([tag.tagName isEqualToString:tagName]);
-    return tag;
 }
 
 

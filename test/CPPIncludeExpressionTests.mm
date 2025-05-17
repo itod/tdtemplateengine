@@ -7,8 +7,9 @@
 //
 
 #import "TDBaseExpressionTests.h"
-#import <ParseKitCPP/Reader.hpp>
+#import "TDTemplateEngine+ParserSupport.h"
 #import <TDTemplateEngine/TDIncludeTag.h>
+#import <ParseKitCPP/Reader.hpp>
 
 using namespace parsekit;
 
@@ -36,7 +37,7 @@ using namespace parsekit;
     id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     
     NSError *err = nil;
-    TDIncludeTag *tag = [self.eng _new_tagFromReader:&reader withParent:nil inContext:ctx];
+    TDIncludeTag *tag = (id)[self.eng tagFromReader:&reader withParent:nil inContext:ctx];
 
     XCTAssertNil(err);
     XCTAssertNotNil(tag);
