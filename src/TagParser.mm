@@ -22,6 +22,7 @@
 #import "TDArgListTag.h"
 #import "TDIncludeTag.h"
 #import "TDLoadTag.h"
+#import "TDCycleTag.h"
 
 #import <ParseKitCPP/ModalTokenizer.hpp>
 #import <ParseKitCPP/DefaultTokenizerMode.hpp>
@@ -109,6 +110,7 @@ const EXTokenTable& TagParser::tokenTable() {
         {"null", TDTokenType_NULL},
         {"with", TDTokenType_WITH},
         {"as", TDTokenType_AS},
+        {"silent", TDTokenType_SILENT},
     };
     return tokenTab;
 }
@@ -385,15 +387,34 @@ void TagParser::_kwargs() {
 #pragma mark CycleTag
 
 void TagParser::_cycleTag() {
+    
+    NSMutableArray *values = [NSMutableArray array];
+    
     while (!predicts(TDTokenType_AS, TokenType_EOF, 0)) {
         _atom();
-        // TODO
+        
+        TDExpression *expr = POP_OBJ();
+        [values addObject:expr];
     }
+    
+    TDCycleTag *tag = PEEK_OBJ();
+    tag.values = values;
+    
     if (predicts(TDTokenType_AS, 0)) {
         match(TDTokenType_AS, true);
-        match(TokenType_WORD, false);
-        // TODO
+        _identifier();
+        
+        NSString *name = POP_OBJ();
+        tag.name = name;
     }
+    
+    if (predicts(TDTokenType_SILENT, 0)) {
+        match(TDTokenType_SILENT, true);
+        tag.silent = YES;
+    } else {
+        tag.silent = NO;
+    }
+    
 }
 
 TDExpression *TagParser::parseExpression(Reader *r) {

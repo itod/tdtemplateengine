@@ -51,6 +51,7 @@ typedef NS_ENUM(int, TDTokenType) {
     TDTokenType_NULL                 =  39,
     TDTokenType_WITH                 =  40,
     TDTokenType_AS                   =  41,
+    TDTokenType_SILENT               =  42,
 };
 
 typedef std::map<std::string, TDTokenType> EXTokenTable;

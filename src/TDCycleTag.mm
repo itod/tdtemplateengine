@@ -41,11 +41,18 @@
 }
 
 
+- (void)dealloc {
+    self.values = nil;
+    self.name = nil;
+    [super dealloc];
+}
+
+
 - (void)runInContext:(TDTemplateContext *)ctx {
     TDAssert(ctx);
-    TDAssert(self.expression);
+    TDAssert(self.values);
+
     
-//    NSArray *args = [self evaluatedArgs:ctx];
     
 }
 
