@@ -7,7 +7,7 @@
 //
 
 #import "TDBaseExpressionTests.h"
-#import "ExpressionParser.hpp"
+#import "TagParser.hpp"
 
 using namespace parsekit;
 using namespace templateengine;
@@ -38,7 +38,7 @@ using namespace templateengine;
 - (void)testNeg1 {
     std::string input = "-1";
     
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
@@ -49,7 +49,7 @@ using namespace templateengine;
 - (void)testNegNeg1 {
     std::string input = "--1";
     
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
@@ -59,7 +59,7 @@ using namespace templateengine;
 - (void)testNegNegNeg1 {
     std::string input = "---1";
     
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
@@ -69,7 +69,7 @@ using namespace templateengine;
 - (void)testNegNegNegNeg1 {
     std::string input = "----1";
     
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);

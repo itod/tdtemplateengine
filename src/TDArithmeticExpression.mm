@@ -23,7 +23,7 @@
 #import "TDArithmeticExpression.h"
 #import "TDValue.h"
 #import "TDNumericValue.h"
-#import "ExpressionParser.hpp"
+#import "TagParser.hpp"
 
 using namespace templateengine;
 
@@ -57,19 +57,19 @@ using namespace templateengine;
 
     double res = 0.0;
     switch (self.binaryOperator) {
-        case EXTokenType_PLUS:
+        case TDTokenType_PLUS:
             res = n1 + n2;
             break;
-        case EXTokenType_MINUS:
+        case TDTokenType_MINUS:
             res = n1 - n2;
             break;
-        case EXTokenType_TIMES:
+        case TDTokenType_TIMES:
             res = n1 * n2;
             break;
-        case EXTokenType_DIV:
+        case TDTokenType_DIV:
             res = n1 / n2;
             break;
-        case EXTokenType_MOD:
+        case TDTokenType_MOD:
             res = lrint(n1) % lrint(n2);
             break;
         default:

@@ -71,7 +71,7 @@
 #import <ParseKitCPP/Tokenizer.hpp>
 #import <ParseKitCPP/ParseException.hpp>
 #import "TemplateParser.hpp"
-#import "ExpressionParser.hpp"
+#import "TagParser.hpp"
 
 using namespace parsekit;
 using namespace templateengine;

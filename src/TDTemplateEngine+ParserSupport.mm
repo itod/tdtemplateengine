@@ -26,7 +26,7 @@
 #import <TDTemplateEngine/TDPrintNode.h>
 
 #import <ParseKitCPP/Reader.hpp>
-#import "ExpressionParser.hpp"
+#import "TagParser.hpp"
 
 using namespace parsekit;
 using namespace templateengine;
@@ -97,7 +97,7 @@ using namespace templateengine;
 - (TDTag *)tagFromReader:(Reader *)reader withParent:(TDNode *)parent inContext:(TDTemplateContext *)ctx {
     NSParameterAssert(reader);
     
-    ExpressionParser parser(self);
+    TagParser parser(self);
 
     TDTag *tag = nil;
     try {
@@ -159,7 +159,7 @@ using namespace templateengine;
 
 
 - (TDExpression *)expressionFromReader:(parsekit::Reader *)reader error:(NSError **)outErr {
-    ExpressionParser p(self);
+    TagParser p(self);
 
     TDExpression *expr = [self expressionFromParser:&p reader:reader error:outErr];
 
@@ -168,7 +168,7 @@ using namespace templateengine;
 }
 
 
-- (TDExpression *)expressionFromParser:(ExpressionParser *)parser reader:(Reader *)reader error:(NSError **)outErr {
+- (TDExpression *)expressionFromParser:(TagParser *)parser reader:(Reader *)reader error:(NSError **)outErr {
     TDExpression *expr = nil;
     
     try {

@@ -7,7 +7,7 @@
 //
 
 #import "TDBaseExpressionTests.h"
-#import "ExpressionParser.hpp"
+#import "TagParser.hpp"
 
 using namespace parsekit;
 using namespace templateengine;
@@ -31,7 +31,7 @@ using namespace templateengine;
 - (void)test1Lt1 {
     std::string input = "1 < 1";
 
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
@@ -41,7 +41,7 @@ using namespace templateengine;
 - (void)test1LtEq1 {
     std::string input = "1 <= 1";
 
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
@@ -51,7 +51,7 @@ using namespace templateengine;
 - (void)test1Lt2 {
     std::string input = "1 < 2";
 
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
@@ -61,7 +61,7 @@ using namespace templateengine;
 - (void)test1LtEq2 {
     std::string input = "1 <= 2";
 
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
@@ -71,7 +71,7 @@ using namespace templateengine;
 - (void)test1Gt1 {
     std::string input = "1 > 1";
 
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
@@ -81,7 +81,7 @@ using namespace templateengine;
 - (void)test1GtEq1 {
     std::string input = "1 >= 1";
 
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
@@ -91,7 +91,7 @@ using namespace templateengine;
 - (void)test1Gt2 {
     std::string input = "1 > 2";
 
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
@@ -101,7 +101,7 @@ using namespace templateengine;
 - (void)test1GtEq2 {
     std::string input = "1 >= 2";
 
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
@@ -111,7 +111,7 @@ using namespace templateengine;
 - (void)testNeg0Lt0 {
     std::string input = "-0 < 0";
 
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
@@ -121,7 +121,7 @@ using namespace templateengine;
 - (void)testNeg0Gt0 {
     std::string input = "-0.0 > 0.0";
 
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);

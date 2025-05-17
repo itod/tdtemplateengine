@@ -7,7 +7,7 @@
 //
 
 #import "TDBaseExpressionTests.h"
-#import "ExpressionParser.hpp"
+#import "TagParser.hpp"
 
 using namespace parsekit;
 using namespace templateengine;
@@ -30,7 +30,7 @@ using namespace templateengine;
 - (void)test1SpacePlusSpace2 {
     std::string input = "1 + 2";
 
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
@@ -40,7 +40,7 @@ using namespace templateengine;
 - (void)test1Plus2 {
     std::string input = "1+2";
 
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
@@ -50,7 +50,7 @@ using namespace templateengine;
 - (void)test1SpaceMinusSpace1 {
     std::string input = "1 - 1";
 
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
@@ -60,7 +60,7 @@ using namespace templateengine;
 - (void)testTruePlus1 {
     std::string input = "true + 1";
 
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
@@ -70,7 +70,7 @@ using namespace templateengine;
 - (void)testYesPlus1 {
     std::string input = "YES + 1";
 
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
@@ -80,7 +80,7 @@ using namespace templateengine;
 - (void)testFalsePlus1 {
     std::string input = "false + 1";
 
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
@@ -90,7 +90,7 @@ using namespace templateengine;
 - (void)testNoPlus1 {
     std::string input = "NO + 1";
 
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
@@ -100,7 +100,7 @@ using namespace templateengine;
 - (void)test2Times2 {
     std::string input = "2*2";
 
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
@@ -110,7 +110,7 @@ using namespace templateengine;
 - (void)test2Div2 {
     std::string input = "2/2";
 
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
@@ -120,7 +120,7 @@ using namespace templateengine;
 - (void)test3Plus2Times2 {
     std::string input = "3+2*2";
 
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
@@ -130,7 +130,7 @@ using namespace templateengine;
 - (void)testOpen3Plus2CloseTimes2 {
     std::string input = "(3+2)*2";
 
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
@@ -140,7 +140,7 @@ using namespace templateengine;
 - (void)testNeg2Mod2 {
     std::string input = "-2%2";
 
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
@@ -150,7 +150,7 @@ using namespace templateengine;
 - (void)testNeg1Mod2 {
     std::string input = "-1%2";
 
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
@@ -160,7 +160,7 @@ using namespace templateengine;
 - (void)test0Mod2 {
     std::string input = "0%2";
 
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
@@ -170,7 +170,7 @@ using namespace templateengine;
 - (void)test1Mod2 {
     std::string input = "1%2";
 
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
@@ -180,7 +180,7 @@ using namespace templateengine;
 - (void)test2Mod2 {
     std::string input = "2%2";
 
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
@@ -190,7 +190,7 @@ using namespace templateengine;
 - (void)test3Mod2 {
     std::string input = "3%2";
 
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
@@ -200,7 +200,7 @@ using namespace templateengine;
 - (void)test4Mod2 {
     std::string input = "4%2";
 
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
@@ -210,7 +210,7 @@ using namespace templateengine;
 - (void)testMinus1 {
     std::string input = "-1";
 
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
@@ -220,7 +220,7 @@ using namespace templateengine;
 - (void)testMinusMinus1 {
     std::string input = "--1";
 
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
@@ -230,7 +230,7 @@ using namespace templateengine;
 - (void)test1PlusMinusMinus1 {
     std::string input = "1 + --1";
 
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
@@ -240,7 +240,7 @@ using namespace templateengine;
 - (void)test1MinusMinusMinus1 {
     std::string input = "1 - --1";
 
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
@@ -250,7 +250,7 @@ using namespace templateengine;
 - (void)testMinusMinus1Plus1 {
     std::string input = "--1 + 1";
 
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
@@ -260,7 +260,7 @@ using namespace templateengine;
 - (void)testMinusMinus1Minus1 {
     std::string input = "--1 - 1";
 
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
@@ -270,7 +270,7 @@ using namespace templateengine;
 - (void)testMinusMinusMinus1 {
     std::string input = "---1";
 
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
@@ -280,7 +280,7 @@ using namespace templateengine;
 - (void)testMinusMinusMinusMinus4 {
     std::string input = "----4";
 
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);

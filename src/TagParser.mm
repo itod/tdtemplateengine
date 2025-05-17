@@ -1,4 +1,4 @@
-#import "ExpressionParser.hpp"
+#import "TagParser.hpp"
     
 #import "TDTemplateEngine.h"
 #import "TDTemplateEngine+ParserSupport.h"
@@ -46,7 +46,7 @@
 using namespace parsekit;
 namespace templateengine {
 
-Tokenizer *ExpressionParser::tokenizer() {
+Tokenizer *TagParser::tokenizer() {
     static Tokenizer *t = nullptr;
     if (!t) {
         DefaultTokenizerModePtr mode(new DefaultTokenizerMode());
@@ -67,57 +67,53 @@ Tokenizer *ExpressionParser::tokenizer() {
     return t;
 }
 
-const EXTokenTable& ExpressionParser::tokenTable() {
+const EXTokenTable& TagParser::tokenTable() {
     static EXTokenTable tokenTab = {
-        {"gt", EXTokenType_GT},
-        {">=", EXTokenType_GE_SYM},
-        {"&&", EXTokenType_DOUBLE_AMPERSAND},
-        {"|", EXTokenType_PIPE},
-        {"true", EXTokenType_TRUE},
-        {"!=", EXTokenType_NOT_EQUAL},
-        {"!", EXTokenType_BANG},
-        {":", EXTokenType_COLON},
-        {"<", EXTokenType_LT_SYM},
-        {"%", EXTokenType_MOD},
-        {"le", EXTokenType_LE},
-        {">", EXTokenType_GT_SYM},
-        {"lt", EXTokenType_LT},
-        {"(", EXTokenType_OPEN_PAREN},
-        {")", EXTokenType_CLOSE_PAREN},
-        {"eq", EXTokenType_EQ},
-        {"ne", EXTokenType_NE},
-        {"or", EXTokenType_OR},
-        {"not", EXTokenType_NOT},
-        {"*", EXTokenType_TIMES},
-        {"+", EXTokenType_PLUS},
-        {"||", EXTokenType_DOUBLE_PIPE},
-        {",", EXTokenType_COMMA},
-        {"and", EXTokenType_AND},
-        {"YES", EXTokenType_YES_UPPER},
-        {"-", EXTokenType_MINUS},
-        {"in", EXTokenType_IN},
-        {".", EXTokenType_DOT},
-        {"/", EXTokenType_DIV},
-        {"by", EXTokenType_BY},
-        {"false", EXTokenType_FALSE},
-        {"<=", EXTokenType_LE_SYM},
-        {"to", EXTokenType_TO},
-        {"ge", EXTokenType_GE},
-        {"NO", EXTokenType_NO_UPPER},
-        {"=", EXTokenType_ASSIGN},
-        {"==", EXTokenType_DOUBLE_EQUALS},
-        {"null", EXTokenType_NULL},
-//        {"for", EXTokenType_FOR},
-//        {"load", EXTokenType_LOAD},
-//        {"include", EXTokenType_INCLUDE},
-        {"with", EXTokenType_WITH},
-//        {"cycle", EXTokenType_CYCLE},
-        {"as", EXTokenType_AS},
+        {"gt", TDTokenType_GT},
+        {">=", TDTokenType_GE_SYM},
+        {"&&", TDTokenType_DOUBLE_AMPERSAND},
+        {"|", TDTokenType_PIPE},
+        {"true", TDTokenType_TRUE},
+        {"!=", TDTokenType_NOT_EQUAL},
+        {"!", TDTokenType_BANG},
+        {":", TDTokenType_COLON},
+        {"<", TDTokenType_LT_SYM},
+        {"%", TDTokenType_MOD},
+        {"le", TDTokenType_LE},
+        {">", TDTokenType_GT_SYM},
+        {"lt", TDTokenType_LT},
+        {"(", TDTokenType_OPEN_PAREN},
+        {")", TDTokenType_CLOSE_PAREN},
+        {"eq", TDTokenType_EQ},
+        {"ne", TDTokenType_NE},
+        {"or", TDTokenType_OR},
+        {"not", TDTokenType_NOT},
+        {"*", TDTokenType_TIMES},
+        {"+", TDTokenType_PLUS},
+        {"||", TDTokenType_DOUBLE_PIPE},
+        {",", TDTokenType_COMMA},
+        {"and", TDTokenType_AND},
+        {"YES", TDTokenType_YES_UPPER},
+        {"-", TDTokenType_MINUS},
+        {"in", TDTokenType_IN},
+        {".", TDTokenType_DOT},
+        {"/", TDTokenType_DIV},
+        {"by", TDTokenType_BY},
+        {"false", TDTokenType_FALSE},
+        {"<=", TDTokenType_LE_SYM},
+        {"to", TDTokenType_TO},
+        {"ge", TDTokenType_GE},
+        {"NO", TDTokenType_NO_UPPER},
+        {"=", TDTokenType_ASSIGN},
+        {"==", TDTokenType_DOUBLE_EQUALS},
+        {"null", TDTokenType_NULL},
+        {"with", TDTokenType_WITH},
+        {"as", TDTokenType_AS},
     };
     return tokenTab;
 }
 
-NSArray *ExpressionParser::reversedArray(NSArray *inArray) {
+NSArray *TagParser::reversedArray(NSArray *inArray) {
     NSMutableArray *result = [NSMutableArray arrayWithCapacity:inArray.count];
     for (id obj in [inArray reverseObjectEnumerator]) {
         [result addObject:obj];
@@ -125,13 +121,13 @@ NSArray *ExpressionParser::reversedArray(NSArray *inArray) {
     return result;
 }
 
-void ExpressionParser::pushAll(NSArray *a) {
+void TagParser::pushAll(NSArray *a) {
     for (id obj in a) {
         _assembly->push_object(obj);
     }
 }
 
-NSArray *ExpressionParser::objectsAbove(id fence) {
+NSArray *TagParser::objectsAbove(id fence) {
     NSMutableArray *result = [NSMutableArray array];
     
     while (!_assembly->is_object_stack_empty()) {
@@ -148,7 +144,7 @@ NSArray *ExpressionParser::objectsAbove(id fence) {
     return result;
 }
 
-NSString *ExpressionParser::stringByTrimmingQuotes(NSString *inStr) {
+NSString *TagParser::stringByTrimmingQuotes(NSString *inStr) {
     NSUInteger len = [inStr length];
     
     if (len < 2) {
@@ -173,17 +169,17 @@ NSString *ExpressionParser::stringByTrimmingQuotes(NSString *inStr) {
     }
 }
 
-ExpressionParser::ExpressionParser() :
+TagParser::TagParser() :
     BaseParser(tokenizer()),
     _engine(nullptr)
 {}
 
-ExpressionParser::ExpressionParser(TDTemplateEngine *engine) :
+TagParser::TagParser(TDTemplateEngine *engine) :
     BaseParser(tokenizer()),
     _engine(engine)
 {}
 
-TDTag *ExpressionParser::parseTag(Reader *r, TDNode *parent) {
+TDTag *TagParser::parseTag(Reader *r, TDNode *parent) {
     TokenList lookahead;
     _lookahead = &lookahead;
     
@@ -214,7 +210,7 @@ TDTag *ExpressionParser::parseTag(Reader *r, TDNode *parent) {
     return tag;
 }
 
-void ExpressionParser::_tag(TDNode *parent) {
+void TagParser::_tag(TDNode *parent) {
     
     _tagName(parent);
     
@@ -250,8 +246,7 @@ void ExpressionParser::_tag(TDNode *parent) {
     }
 }
 
-void ExpressionParser::_tagName(TDNode *parent) {
-//    if (predicts(TokenType_WORD, EXTokenType_FOR, EXTokenType_LOAD, EXTokenType_INCLUDE, EXTokenType_CYCLE, 0)) {
+void TagParser::_tagName(TDNode *parent) {
     if (predicts(TokenType_WORD, 0)) {
         match(TokenType_ANY, false);
     }
@@ -270,7 +265,7 @@ void ExpressionParser::_tagName(TDNode *parent) {
 #pragma mark -
 #pragma mark ExprTag
 
-void ExpressionParser::_exprTag() {
+void TagParser::_exprTag() {
     _expr();
     
     assert(!isSpeculating());
@@ -283,9 +278,9 @@ void ExpressionParser::_exprTag() {
 #pragma mark -
 #pragma mark LoopTag
 
-void ExpressionParser::_loopTag() {
+void TagParser::_loopTag() {
     _identifiers();
-    match(EXTokenType_IN, true);
+    match(TDTokenType_IN, true);
     _enumExpr();
     if (!isSpeculating()) {
         id enumExpr = POP_OBJ();
@@ -298,7 +293,7 @@ void ExpressionParser::_loopTag() {
 #pragma mark -
 #pragma mark ArgListTag
 
-void ExpressionParser::_argListTag() {
+void TagParser::_argListTag() {
     assert(!isSpeculating());
     
     NSMutableArray *args = [NSMutableArray array];
@@ -308,7 +303,6 @@ void ExpressionParser::_argListTag() {
         _atom();
         
         TDExpression *expr = POP_OBJ();
-        //TDCollectionExpression *col = [TDCollectionExpression collectionExpressionWithExpression:<#(TDExpression *)#>]
         [args addObject:expr];
     }
     
@@ -319,7 +313,7 @@ void ExpressionParser::_argListTag() {
 #pragma mark -
 #pragma mark LoadTag
 
-void ExpressionParser::_loadTag() {
+void TagParser::_loadTag() {
     assert(!isSpeculating());
     
     // lib names are compile time constants, not to be eval'ed at runtime
@@ -339,7 +333,7 @@ void ExpressionParser::_loadTag() {
 #pragma mark -
 #pragma mark IncludeTag
 
-void ExpressionParser::_includeTag() {
+void TagParser::_includeTag() {
     _atom(); // path
     // path is on stack here
     assert(!isSpeculating());
@@ -352,8 +346,8 @@ void ExpressionParser::_includeTag() {
     
     includeTag.expression = path;
     
-    if (predicts(EXTokenType_WITH, 0)) {
-        match(EXTokenType_WITH, true);
+    if (predicts(TDTokenType_WITH, 0)) {
+        match(TDTokenType_WITH, true);
         _kwargs();
         // kwargs are on stack here
         NSDictionary *kwargs = POP_OBJ();
@@ -363,7 +357,7 @@ void ExpressionParser::_includeTag() {
     PUSH_OBJ(includeTag);
 }
 
-void ExpressionParser::_kwargs() {
+void TagParser::_kwargs() {
     
     NSMutableDictionary *tab = nil;
     if (!isSpeculating()) {
@@ -372,7 +366,7 @@ void ExpressionParser::_kwargs() {
     
     while (!predicts(TokenType_EOF, 0)) {
         match(TokenType_WORD, false);
-        match(EXTokenType_ASSIGN, true);
+        match(TDTokenType_ASSIGN, true);
         _atom();
         
         if (!isSpeculating()) {
@@ -390,19 +384,19 @@ void ExpressionParser::_kwargs() {
 #pragma mark -
 #pragma mark CycleTag
 
-void ExpressionParser::_cycleTag() {
-    while (!predicts(EXTokenType_AS, TokenType_EOF, 0)) {
+void TagParser::_cycleTag() {
+    while (!predicts(TDTokenType_AS, TokenType_EOF, 0)) {
         _atom();
         // TODO
     }
-    if (predicts(EXTokenType_AS, 0)) {
-        match(EXTokenType_AS, true);
+    if (predicts(TDTokenType_AS, 0)) {
+        match(TDTokenType_AS, true);
         match(TokenType_WORD, false);
         // TODO
     }
 }
 
-TDExpression *ExpressionParser::parseExpression(Reader *r) {
+TDExpression *TagParser::parseExpression(Reader *r) {
     TokenList lookahead;
     _lookahead = &lookahead;
     
@@ -436,18 +430,18 @@ TDExpression *ExpressionParser::parseExpression(Reader *r) {
 #pragma mark -
 #pragma mark Default
 
-void ExpressionParser::_expr() {
+void TagParser::_expr() {
     _orExpr();
 }
 
-void ExpressionParser::_identifiers() {
+void TagParser::_identifiers() {
     
     if (!isSpeculating()) {
         PUSH_OBJ(OPEN_PAREN);
     }
     _identifier();
-    if (predicts(EXTokenType_COMMA, 0)) {
-        match(EXTokenType_COMMA, true);
+    if (predicts(TDTokenType_COMMA, 0)) {
+        match(TDTokenType_COMMA, true);
         _identifier();
     }
     if (!isSpeculating()) {
@@ -458,7 +452,7 @@ void ExpressionParser::_identifiers() {
 
 }
 
-void ExpressionParser::_enumExpr() {
+void TagParser::_enumExpr() {
     
     if (speculate([&]{ _rangeExpr(); })) {
         _rangeExpr();
@@ -470,7 +464,7 @@ void ExpressionParser::_enumExpr() {
 
 }
 
-void ExpressionParser::_collectionExpr() {
+void TagParser::_collectionExpr() {
     
     _primaryExpr();
     if (!isSpeculating()) {
@@ -480,10 +474,10 @@ void ExpressionParser::_collectionExpr() {
 
 }
 
-void ExpressionParser::_rangeExpr() {
+void TagParser::_rangeExpr() {
     
     _unaryExpr();
-    match(EXTokenType_TO, true);
+    match(TDTokenType_TO, true);
     _unaryExpr();
     _optBy();
     if (!isSpeculating()) {
@@ -495,10 +489,10 @@ void ExpressionParser::_rangeExpr() {
 
 }
 
-void ExpressionParser::_optBy() {
+void TagParser::_optBy() {
     
-    if (predicts(EXTokenType_BY, 0)) {
-        match(EXTokenType_BY, true);
+    if (predicts(TDTokenType_BY, 0)) {
+        match(TDTokenType_BY, true);
         _unaryExpr();
     } else {
         //[self matchEmpty:NO];
@@ -509,97 +503,97 @@ void ExpressionParser::_optBy() {
 
 }
 
-void ExpressionParser::_orOp() {
+void TagParser::_orOp() {
     
-    if (predicts(EXTokenType_OR, 0)) {
-        match(EXTokenType_OR, true);
-    } else if (predicts(EXTokenType_DOUBLE_PIPE, 0)) {
-        match(EXTokenType_DOUBLE_PIPE, true);
+    if (predicts(TDTokenType_OR, 0)) {
+        match(TDTokenType_OR, true);
+    } else if (predicts(TDTokenType_DOUBLE_PIPE, 0)) {
+        match(TDTokenType_DOUBLE_PIPE, true);
     } else {
         raise("No viable alternative found in rule 'orOp'.");
     }
 
 }
 
-void ExpressionParser::_orExpr() {
+void TagParser::_orExpr() {
     
     _andExpr();
-    while (predicts(EXTokenType_OR, EXTokenType_DOUBLE_PIPE, 0)) {
+    while (predicts(TDTokenType_OR, TDTokenType_DOUBLE_PIPE, 0)) {
         _orOp();
         _andExpr();
         if (!isSpeculating()) {
             TDValue *rhs = POP_OBJ();
             TDValue *lhs = POP_OBJ();
-            PUSH_OBJ([TDBooleanExpression booleanExpressionWithOperand:lhs operator:EXTokenType_OR operand:rhs]);
+            PUSH_OBJ([TDBooleanExpression booleanExpressionWithOperand:lhs operator:TDTokenType_OR operand:rhs]);
         }
     }
 
 }
 
-void ExpressionParser::_andOp() {
+void TagParser::_andOp() {
     
-    if (predicts(EXTokenType_AND, 0)) {
-        match(EXTokenType_AND, true);
-    } else if (predicts(EXTokenType_DOUBLE_AMPERSAND, 0)) {
-        match(EXTokenType_DOUBLE_AMPERSAND, true);
+    if (predicts(TDTokenType_AND, 0)) {
+        match(TDTokenType_AND, true);
+    } else if (predicts(TDTokenType_DOUBLE_AMPERSAND, 0)) {
+        match(TDTokenType_DOUBLE_AMPERSAND, true);
     } else {
         raise("No viable alternative found in rule 'andOp'.");
     }
 
 }
 
-void ExpressionParser::_andExpr() {
+void TagParser::_andExpr() {
     
     _equalityExpr();
-    while (predicts(EXTokenType_AND, EXTokenType_DOUBLE_AMPERSAND, 0)) {
+    while (predicts(TDTokenType_AND, TDTokenType_DOUBLE_AMPERSAND, 0)) {
         _andOp();
         _equalityExpr();
         if (!isSpeculating()) {
             TDValue *rhs = POP_OBJ();
             TDValue *lhs = POP_OBJ();
-            PUSH_OBJ([TDBooleanExpression booleanExpressionWithOperand:lhs operator:EXTokenType_AND operand:rhs]);
+            PUSH_OBJ([TDBooleanExpression booleanExpressionWithOperand:lhs operator:TDTokenType_AND operand:rhs]);
         }
     }
 
 }
 
-void ExpressionParser::_eqOp() {
+void TagParser::_eqOp() {
     
-    if (predicts(EXTokenType_DOUBLE_EQUALS, 0)) {
-        match(EXTokenType_DOUBLE_EQUALS, true);
-    } else if (predicts(EXTokenType_EQ, 0)) {
-        match(EXTokenType_EQ, true);
+    if (predicts(TDTokenType_DOUBLE_EQUALS, 0)) {
+        match(TDTokenType_DOUBLE_EQUALS, true);
+    } else if (predicts(TDTokenType_EQ, 0)) {
+        match(TDTokenType_EQ, true);
     } else {
         raise("No viable alternative found in rule 'eqOp'.");
     }
     if (!isSpeculating()) {
-        PUSH_OBJ(@(EXTokenType_EQ));
+        PUSH_OBJ(@(TDTokenType_EQ));
     }
 
 }
 
-void ExpressionParser::_neOp() {
+void TagParser::_neOp() {
     
-    if (predicts(EXTokenType_NOT_EQUAL, 0)) {
-        match(EXTokenType_NOT_EQUAL, true);
-    } else if (predicts(EXTokenType_NE, 0)) {
-        match(EXTokenType_NE, true);
+    if (predicts(TDTokenType_NOT_EQUAL, 0)) {
+        match(TDTokenType_NOT_EQUAL, true);
+    } else if (predicts(TDTokenType_NE, 0)) {
+        match(TDTokenType_NE, true);
     } else {
         raise("No viable alternative found in rule 'neOp'.");
     }
     if (!isSpeculating()) {
-        PUSH_OBJ(@(EXTokenType_NE));
+        PUSH_OBJ(@(TDTokenType_NE));
     }
 
 }
 
-void ExpressionParser::_equalityExpr() {
+void TagParser::_equalityExpr() {
     
     _relationalExpr();
-    while (predicts(EXTokenType_DOUBLE_EQUALS, EXTokenType_EQ, EXTokenType_NE, EXTokenType_NOT_EQUAL, 0)) {
-        if (predicts(EXTokenType_DOUBLE_EQUALS, EXTokenType_EQ, 0)) {
+    while (predicts(TDTokenType_DOUBLE_EQUALS, TDTokenType_EQ, TDTokenType_NE, TDTokenType_NOT_EQUAL, 0)) {
+        if (predicts(TDTokenType_DOUBLE_EQUALS, TDTokenType_EQ, 0)) {
             _eqOp();
-        } else if (predicts(EXTokenType_NE, EXTokenType_NOT_EQUAL, 0)) {
+        } else if (predicts(TDTokenType_NE, TDTokenType_NOT_EQUAL, 0)) {
             _neOp();
         } else {
             raise("No viable alternative found in rule 'equalityExpr'.");
@@ -615,77 +609,77 @@ void ExpressionParser::_equalityExpr() {
 
 }
 
-void ExpressionParser::_ltOp() {
+void TagParser::_ltOp() {
     
-    if (predicts(EXTokenType_LT_SYM, 0)) {
-        match(EXTokenType_LT_SYM, true);
-    } else if (predicts(EXTokenType_LT, 0)) {
-        match(EXTokenType_LT, true);
+    if (predicts(TDTokenType_LT_SYM, 0)) {
+        match(TDTokenType_LT_SYM, true);
+    } else if (predicts(TDTokenType_LT, 0)) {
+        match(TDTokenType_LT, true);
     } else {
         raise("No viable alternative found in rule 'ltOp'.");
     }
     if (!isSpeculating()) {
-        PUSH_OBJ(@(EXTokenType_LT));
+        PUSH_OBJ(@(TDTokenType_LT));
     }
 
 }
 
-void ExpressionParser::_gtOp() {
+void TagParser::_gtOp() {
     
-    if (predicts(EXTokenType_GT_SYM, 0)) {
-        match(EXTokenType_GT_SYM, true);
-    } else if (predicts(EXTokenType_GT, 0)) {
-        match(EXTokenType_GT, true);
+    if (predicts(TDTokenType_GT_SYM, 0)) {
+        match(TDTokenType_GT_SYM, true);
+    } else if (predicts(TDTokenType_GT, 0)) {
+        match(TDTokenType_GT, true);
     } else {
         raise("No viable alternative found in rule 'gtOp'.");
     }
     if (!isSpeculating()) {
-        PUSH_OBJ(@(EXTokenType_GT));
+        PUSH_OBJ(@(TDTokenType_GT));
     }
 
 }
 
-void ExpressionParser::_leOp() {
+void TagParser::_leOp() {
     
-    if (predicts(EXTokenType_LE_SYM, 0)) {
-        match(EXTokenType_LE_SYM, true);
-    } else if (predicts(EXTokenType_LE, 0)) {
-        match(EXTokenType_LE, true);
+    if (predicts(TDTokenType_LE_SYM, 0)) {
+        match(TDTokenType_LE_SYM, true);
+    } else if (predicts(TDTokenType_LE, 0)) {
+        match(TDTokenType_LE, true);
     } else {
         raise("No viable alternative found in rule 'leOp'.");
     }
     if (!isSpeculating()) {
-        PUSH_OBJ(@(EXTokenType_LE));
+        PUSH_OBJ(@(TDTokenType_LE));
     }
 
 }
 
-void ExpressionParser::_geOp() {
+void TagParser::_geOp() {
     
-    if (predicts(EXTokenType_GE_SYM, 0)) {
-        match(EXTokenType_GE_SYM, true);
-    } else if (predicts(EXTokenType_GE, 0)) {
-        match(EXTokenType_GE, true);
+    if (predicts(TDTokenType_GE_SYM, 0)) {
+        match(TDTokenType_GE_SYM, true);
+    } else if (predicts(TDTokenType_GE, 0)) {
+        match(TDTokenType_GE, true);
     } else {
         raise("No viable alternative found in rule 'geOp'.");
     }
     {
-        PUSH_OBJ(@(EXTokenType_GE));
+        PUSH_OBJ(@(TDTokenType_GE));
     }
 
 }
 
-void ExpressionParser::_relationalExpr() {
+void TagParser::_relationalExpr() {
     
     _additiveExpr();
-    while (predicts(EXTokenType_LT, EXTokenType_LT_SYM, EXTokenType_GT, EXTokenType_GT_SYM, EXTokenType_LE, EXTokenType_LE_SYM, EXTokenType_GE, EXTokenType_GE_SYM, 0)) {
-        if (predicts(EXTokenType_LT, EXTokenType_LT_SYM, 0)) {
+    while (predicts(TDTokenType_LT, TDTokenType_LT_SYM, TDTokenType_GT, TDTokenType_GT_SYM, TDTokenType_LE, TDTokenType_LE_SYM, TDTokenType_GE, TDTokenType_GE_SYM, 0)) {
+        if (predicts(TDTokenType_LT, TDTokenType_LT_SYM, 0)) {
             _ltOp();
-        } else if (predicts(EXTokenType_GT, EXTokenType_GT_SYM, 0)) {
+        } else if (predicts(TDTokenType_GT, TDTokenType_GT_SYM, 0)) {
             _gtOp();
-        } else if (predicts(EXTokenType_LE, EXTokenType_LE_SYM, 0)) {
+        } else if (predicts(TDTokenType_LE, TDTokenType_LE_SYM, 0)) {
             _leOp();
-        } else if (predicts(EXTokenType_GE, EXTokenType_GE_SYM, 0)) {
+        } else if (predicts(TDTokenType_GE, TDTokenType_GE_SYM, 0)) {
             _geOp();
         } else {
             raise("No viable alternative found in rule 'relationalExpr'.");
@@ -701,31 +695,31 @@ void ExpressionParser::_relationalExpr() {
 
 }
 
-void ExpressionParser::_plus() {
+void TagParser::_plus() {
     
-    match(EXTokenType_PLUS, true);
+    match(TDTokenType_PLUS, true);
     if (!isSpeculating()) {
-        PUSH_OBJ(@(EXTokenType_PLUS));
+        PUSH_OBJ(@(TDTokenType_PLUS));
     }
 
 }
 
-void ExpressionParser::_minus() {
+void TagParser::_minus() {
     
-    match(EXTokenType_MINUS, true);
+    match(TDTokenType_MINUS, true);
     if (!isSpeculating()) {
-        PUSH_OBJ(@(EXTokenType_MINUS));
+        PUSH_OBJ(@(TDTokenType_MINUS));
     }
 
 }
 
-void ExpressionParser::_additiveExpr() {
+void TagParser::_additiveExpr() {
     
     _multiplicativeExpr();
-    while (predicts(EXTokenType_PLUS, EXTokenType_MINUS, 0)) {
-        if (predicts(EXTokenType_PLUS, 0)) {
+    while (predicts(TDTokenType_PLUS, TDTokenType_MINUS, 0)) {
+        if (predicts(TDTokenType_PLUS, 0)) {
             _plus();
-        } else if (predicts(EXTokenType_MINUS, 0)) {
+        } else if (predicts(TDTokenType_MINUS, 0)) {
             _minus();
         } else {
             raise("No viable alternative found in rule 'additiveExpr'.");
@@ -741,42 +735,42 @@ void ExpressionParser::_additiveExpr() {
 
 }
 
-void ExpressionParser::_times() {
+void TagParser::_times() {
     
-    match(EXTokenType_TIMES, true);
+    match(TDTokenType_TIMES, true);
     if (!isSpeculating()) {
-        PUSH_OBJ(@(EXTokenType_TIMES));
+        PUSH_OBJ(@(TDTokenType_TIMES));
     }
 
 }
 
-void ExpressionParser::_div() {
+void TagParser::_div() {
     
-    match(EXTokenType_DIV, true);
+    match(TDTokenType_DIV, true);
     if (!isSpeculating()) {
-        PUSH_OBJ(@(EXTokenType_DIV));
+        PUSH_OBJ(@(TDTokenType_DIV));
     }
 
 }
 
-void ExpressionParser::_mod() {
+void TagParser::_mod() {
     
-    match(EXTokenType_MOD, true);
+    match(TDTokenType_MOD, true);
     if (!isSpeculating()) {
-        PUSH_OBJ(@(EXTokenType_MOD));
+        PUSH_OBJ(@(TDTokenType_MOD));
     }
 
 }
 
-void ExpressionParser::_multiplicativeExpr() {
+void TagParser::_multiplicativeExpr() {
     
     _unaryExpr();
-    while (predicts(EXTokenType_TIMES, EXTokenType_DIV, EXTokenType_MOD, 0)) {
-        if (predicts(EXTokenType_TIMES, 0)) {
+    while (predicts(TDTokenType_TIMES, TDTokenType_DIV, TDTokenType_MOD, 0)) {
+        if (predicts(TDTokenType_TIMES, 0)) {
             _times();
-        } else if (predicts(EXTokenType_DIV, 0)) {
+        } else if (predicts(TDTokenType_DIV, 0)) {
             _div();
-        } else if (predicts(EXTokenType_MOD, 0)) {
+        } else if (predicts(TDTokenType_MOD, 0)) {
             _mod();
         } else {
             raise("No viable alternative found in rule 'multiplicativeExpr'.");
@@ -792,11 +786,11 @@ void ExpressionParser::_multiplicativeExpr() {
 
 }
 
-void ExpressionParser::_unaryExpr() {
+void TagParser::_unaryExpr() {
     
-    if (predicts(EXTokenType_BANG, EXTokenType_NOT, 0)) {
+    if (predicts(TDTokenType_BANG, TDTokenType_NOT, 0)) {
         _negatedUnary();
-    } else if (predicts(TokenType_NUMBER, TokenType_QUOTED_STRING, TokenType_WORD, EXTokenType_FALSE, EXTokenType_MINUS, EXTokenType_NO_UPPER, EXTokenType_OPEN_PAREN, EXTokenType_TRUE, EXTokenType_YES_UPPER, EXTokenType_NULL, 0)) {
+    } else if (predicts(TokenType_NUMBER, TokenType_QUOTED_STRING, TokenType_WORD, TDTokenType_FALSE, TDTokenType_MINUS, TDTokenType_NO_UPPER, TDTokenType_OPEN_PAREN, TDTokenType_TRUE, TDTokenType_YES_UPPER, TDTokenType_NULL, 0)) {
         _unary();
     } else {
         raise("No viable alternative found in rule 'unaryExpr'.");
@@ -804,23 +798,23 @@ void ExpressionParser::_unaryExpr() {
 
 }
 
-void ExpressionParser::_negatedUnary() {
+void TagParser::_negatedUnary() {
     
     if (!isSpeculating()) {
         _negation = NO;
     }
     do {
-        if (predicts(EXTokenType_NOT, 0)) {
-            match(EXTokenType_NOT, true);
-        } else if (predicts(EXTokenType_BANG, 0)) {
-            match(EXTokenType_BANG, true);
+        if (predicts(TDTokenType_NOT, 0)) {
+            match(TDTokenType_NOT, true);
+        } else if (predicts(TDTokenType_BANG, 0)) {
+            match(TDTokenType_BANG, true);
         } else {
             raise("No viable alternative found in rule 'negatedUnary'.");
         }
         if (!isSpeculating()) {
          _negation = !_negation;
         }
-    } while (predicts(EXTokenType_BANG, EXTokenType_NOT, 0));
+    } while (predicts(TDTokenType_BANG, TDTokenType_NOT, 0));
     _unary();
     if (!isSpeculating()) {
         if (_negation) {
@@ -830,11 +824,11 @@ void ExpressionParser::_negatedUnary() {
 
 }
 
-void ExpressionParser::_unary() {
+void TagParser::_unary() {
     
-    if (predicts(EXTokenType_MINUS, 0)) {
+    if (predicts(TDTokenType_MINUS, 0)) {
         _signedFilterExpr();
-    } else if (predicts(TokenType_NUMBER, TokenType_QUOTED_STRING, TokenType_WORD, EXTokenType_FALSE, EXTokenType_NO_UPPER, EXTokenType_OPEN_PAREN, EXTokenType_TRUE, EXTokenType_YES_UPPER, EXTokenType_NULL, 0)) {
+    } else if (predicts(TokenType_NUMBER, TokenType_QUOTED_STRING, TokenType_WORD, TDTokenType_FALSE, TDTokenType_NO_UPPER, TDTokenType_OPEN_PAREN, TDTokenType_TRUE, TDTokenType_YES_UPPER, TDTokenType_NULL, 0)) {
         _filterExpr();
     } else {
         raise("No viable alternative found in rule 'unary'.");
@@ -842,17 +836,17 @@ void ExpressionParser::_unary() {
 
 }
 
-void ExpressionParser::_signedFilterExpr() {
+void TagParser::_signedFilterExpr() {
     
     if (!isSpeculating()) {
         _negative = NO;
     }
     do {
-        match(EXTokenType_MINUS, true);
+        match(TDTokenType_MINUS, true);
         if (!isSpeculating()) {
             _negative = !_negative;
         }
-    } while (predicts(EXTokenType_MINUS, 0));
+    } while (predicts(TDTokenType_MINUS, 0));
     _filterExpr();
     if (!isSpeculating()) {
         if (_negative) {
@@ -862,10 +856,10 @@ void ExpressionParser::_signedFilterExpr() {
 
 }
 
-void ExpressionParser::_filterExpr() {
+void TagParser::_filterExpr() {
     
     _primaryExpr();
-    while (predicts(EXTokenType_PIPE, 0)) {
+    while (predicts(TDTokenType_PIPE, 0)) {
         _filter();
         if (!isSpeculating()) {
             NSArray *args = POP_OBJ();
@@ -885,22 +879,22 @@ void ExpressionParser::_filterExpr() {
 
 }
 
-void ExpressionParser::_filter() {
+void TagParser::_filter() {
     
-    match(EXTokenType_PIPE, true);
+    match(TDTokenType_PIPE, true);
     _identifier();
     _filterArgs();
 
 }
 
-void ExpressionParser::_filterArgs() {
+void TagParser::_filterArgs() {
     
-    if (predicts(EXTokenType_COLON, 0)) {
-        match(EXTokenType_COLON, true);
+    if (predicts(TDTokenType_COLON, 0)) {
+        match(TDTokenType_COLON, true);
         PUSH_OBJ(COLON);
         _filterArg();
-        while (predicts(EXTokenType_COMMA, 0)) {
-            match(EXTokenType_COMMA, true);
+        while (predicts(TDTokenType_COMMA, 0)) {
+            match(TDTokenType_COMMA, true);
             _filterArg();
         }
         if (!isSpeculating()) {
@@ -918,7 +912,7 @@ void ExpressionParser::_filterArgs() {
 
 }
 
-void ExpressionParser::_filterArg() {
+void TagParser::_filterArg() {
     
     if (predicts(TokenType_QUOTED_STRING, 0)) {
         _str();
@@ -938,11 +932,11 @@ void ExpressionParser::_filterArg() {
 
 }
 
-void ExpressionParser::_primaryExpr() {
+void TagParser::_primaryExpr() {
     
-    if (predicts(TokenType_NUMBER, TokenType_QUOTED_STRING, TokenType_WORD, EXTokenType_FALSE, EXTokenType_NO_UPPER, EXTokenType_TRUE, EXTokenType_YES_UPPER, EXTokenType_NULL, 0)) {
+    if (predicts(TokenType_NUMBER, TokenType_QUOTED_STRING, TokenType_WORD, TDTokenType_FALSE, TDTokenType_NO_UPPER, TDTokenType_TRUE, TDTokenType_YES_UPPER, TDTokenType_NULL, 0)) {
         _atom();
-    } else if (predicts(EXTokenType_OPEN_PAREN, 0)) {
+    } else if (predicts(TDTokenType_OPEN_PAREN, 0)) {
         _subExpr();
     } else {
         raise("No viable alternative found in rule 'primaryExpr'.");
@@ -950,14 +944,14 @@ void ExpressionParser::_primaryExpr() {
 
 }
 
-void ExpressionParser::_subExpr() {
+void TagParser::_subExpr() {
     
-    match(EXTokenType_OPEN_PAREN, true);
+    match(TDTokenType_OPEN_PAREN, true);
     if (!isSpeculating()) {
         PUSH_OBJ(OPEN_PAREN);
     }
     _expr();
-    match(EXTokenType_CLOSE_PAREN, true);
+    match(TDTokenType_CLOSE_PAREN, true);
     if (!isSpeculating()) {
         id objs = OBJS_ABOVE(OPEN_PAREN);
         POP_OBJ(); // discard `(`
@@ -966,9 +960,9 @@ void ExpressionParser::_subExpr() {
 
 }
 
-void ExpressionParser::_atom() {
+void TagParser::_atom() {
     
-    if (predicts(TokenType_NUMBER, TokenType_QUOTED_STRING, EXTokenType_FALSE, EXTokenType_NO_UPPER, EXTokenType_TRUE, EXTokenType_YES_UPPER, EXTokenType_NULL, 0)) {
+    if (predicts(TokenType_NUMBER, TokenType_QUOTED_STRING, TDTokenType_FALSE, TDTokenType_NO_UPPER, TDTokenType_TRUE, TDTokenType_YES_UPPER, TDTokenType_NULL, 0)) {
         _literal();
     } else if (predicts(TokenType_WORD, 0)) {
         _pathExpr();
@@ -978,14 +972,14 @@ void ExpressionParser::_atom() {
 
 }
 
-void ExpressionParser::_pathExpr() {
+void TagParser::_pathExpr() {
     
     if (!isSpeculating()) {
         PUSH_OBJ(OPEN_PAREN);
     }
     _identifier();
-    while (predicts(EXTokenType_DOT, 0)) {
-        match(EXTokenType_DOT, true);
+    while (predicts(TDTokenType_DOT, 0)) {
+        match(TDTokenType_DOT, true);
         _step();
     }
     if (!isSpeculating()) {
@@ -996,7 +990,7 @@ void ExpressionParser::_pathExpr() {
 
 }
 
-void ExpressionParser::_step() {
+void TagParser::_step() {
     
     if (predicts(TokenType_WORD, 0)) {
         _identifier();
@@ -1008,7 +1002,7 @@ void ExpressionParser::_step() {
 
 }
 
-void ExpressionParser::_identifier() {
+void TagParser::_identifier() {
     
     match(TokenType_WORD, false);
     if (!isSpeculating()) {
@@ -1017,15 +1011,15 @@ void ExpressionParser::_identifier() {
 
 }
 
-void ExpressionParser::_literal() {
+void TagParser::_literal() {
     
     if (predicts(TokenType_QUOTED_STRING, 0)) {
         _str();
     } else if (predicts(TokenType_NUMBER, 0)) {
         _num();
-    } else if (predicts(EXTokenType_FALSE, EXTokenType_NO_UPPER, EXTokenType_TRUE, EXTokenType_YES_UPPER, 0)) {
+    } else if (predicts(TDTokenType_FALSE, TDTokenType_NO_UPPER, TDTokenType_TRUE, TDTokenType_YES_UPPER, 0)) {
         _bool();
-    } else if (predicts(EXTokenType_NULL, 0)) {
+    } else if (predicts(TDTokenType_NULL, 0)) {
         _null();
     } else {
         raise("No viable alternative found in rule 'literal'.");
@@ -1033,14 +1027,14 @@ void ExpressionParser::_literal() {
 
 }
 
-void ExpressionParser::_bool() {
+void TagParser::_bool() {
     
-    if (predicts(EXTokenType_TRUE, EXTokenType_YES_UPPER, 0)) {
+    if (predicts(TDTokenType_TRUE, TDTokenType_YES_UPPER, 0)) {
         _true();
         if (!isSpeculating()) {
             PUSH_OBJ([TDBooleanValue booleanValueWithBoolean:YES]);
         }
-    } else if (predicts(EXTokenType_FALSE, EXTokenType_NO_UPPER, 0)) {
+    } else if (predicts(TDTokenType_FALSE, TDTokenType_NO_UPPER, 0)) {
         _false();
         if (!isSpeculating()) {
             PUSH_OBJ([TDBooleanValue booleanValueWithBoolean:NO]);
@@ -1051,31 +1045,31 @@ void ExpressionParser::_bool() {
 
 }
 
-void ExpressionParser::_true() {
+void TagParser::_true() {
     
-    if (predicts(EXTokenType_TRUE, 0)) {
-        match(EXTokenType_TRUE, true);
-    } else if (predicts(EXTokenType_YES_UPPER, 0)) {
-        match(EXTokenType_YES_UPPER, true);
+    if (predicts(TDTokenType_TRUE, 0)) {
+        match(TDTokenType_TRUE, true);
+    } else if (predicts(TDTokenType_YES_UPPER, 0)) {
+        match(TDTokenType_YES_UPPER, true);
     } else {
         raise("No viable alternative found in rule 'true'.");
     }
 
 }
 
-void ExpressionParser::_false() {
+void TagParser::_false() {
     
-    if (predicts(EXTokenType_FALSE, 0)) {
-        match(EXTokenType_FALSE, true);
-    } else if (predicts(EXTokenType_NO_UPPER, 0)) {
-        match(EXTokenType_NO_UPPER, true);
+    if (predicts(TDTokenType_FALSE, 0)) {
+        match(TDTokenType_FALSE, true);
+    } else if (predicts(TDTokenType_NO_UPPER, 0)) {
+        match(TDTokenType_NO_UPPER, true);
     } else {
         raise("No viable alternative found in rule 'false'.");
     }
 
 }
 
-void ExpressionParser::_num() {
+void TagParser::_num() {
     
     match(TokenType_NUMBER, false);
     if (!isSpeculating()) {
@@ -1084,7 +1078,7 @@ void ExpressionParser::_num() {
 
 }
 
-void ExpressionParser::_str() {
+void TagParser::_str() {
     
     match(TokenType_QUOTED_STRING, false);
     if (!isSpeculating()) {
@@ -1093,9 +1087,9 @@ void ExpressionParser::_str() {
 
 }
 
-void ExpressionParser::_null() {
+void TagParser::_null() {
     
-    match(EXTokenType_NULL, true);
+    match(TDTokenType_NULL, true);
     if (!isSpeculating()) {
         PUSH_OBJ([TDObjectValue objectValueWithObject:[NSNull null]]);
     }

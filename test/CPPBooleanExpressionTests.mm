@@ -7,7 +7,7 @@
 //
 
 #import "TDBaseExpressionTests.h"
-#import "ExpressionParser.hpp"
+#import "TagParser.hpp"
 
 using namespace parsekit;
 using namespace templateengine;
@@ -30,7 +30,7 @@ using namespace templateengine;
 - (void)test1 {
     std::string input = "1";
     
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
@@ -40,7 +40,7 @@ using namespace templateengine;
 - (void)test0 {
     std::string input = "0";
     
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
@@ -50,7 +50,7 @@ using namespace templateengine;
 - (void)testYES {
     std::string input = "YES";
     
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
@@ -60,7 +60,7 @@ using namespace templateengine;
 - (void)testNO {
     std::string input = "NO";
     
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
@@ -70,7 +70,7 @@ using namespace templateengine;
 - (void)testTrue {
     std::string input = "true";
     
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
@@ -80,7 +80,7 @@ using namespace templateengine;
 - (void)testFalse {
     std::string input = "false";
     
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
@@ -90,7 +90,7 @@ using namespace templateengine;
 - (void)testOpenTrueClose {
     std::string input = "(true)";
     
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
@@ -100,7 +100,7 @@ using namespace templateengine;
 - (void)testOpenFalseClose {
     std::string input = "(false)";
     
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
@@ -110,7 +110,7 @@ using namespace templateengine;
 - (void)testSQString {
     std::string input = "'hello'";
     
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
@@ -120,7 +120,7 @@ using namespace templateengine;
 - (void)testEmptySQString {
     std::string input = "''";
     
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
@@ -130,7 +130,7 @@ using namespace templateengine;
 - (void)test1And0 {
     std::string input = "1 and 0";
     
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
@@ -140,7 +140,7 @@ using namespace templateengine;
 - (void)test1AmpAmp0 {
     std::string input = "1 && 0";
     
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
@@ -150,7 +150,7 @@ using namespace templateengine;
 - (void)test0And1 {
     std::string input = "0 and 1";
     
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
@@ -160,7 +160,7 @@ using namespace templateengine;
 - (void)test1And1 {
     std::string input = "1 and 1";
     
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
@@ -170,7 +170,7 @@ using namespace templateengine;
 - (void)test1AmpAmp1 {
     std::string input = "1 && 1";
     
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
@@ -180,7 +180,7 @@ using namespace templateengine;
 - (void)test0Or0 {
     std::string input = "0 or 0";
     
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
@@ -190,7 +190,7 @@ using namespace templateengine;
 - (void)test0PipePipe0 {
     std::string input = "0 || 0";
     
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
@@ -200,7 +200,7 @@ using namespace templateengine;
 - (void)test1Or0 {
     std::string input = "1 or 0";
     
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
@@ -210,7 +210,7 @@ using namespace templateengine;
 - (void)test1PipePipe0 {
     std::string input = "1 || 1";
     
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
@@ -220,7 +220,7 @@ using namespace templateengine;
 - (void)test0Or1 {
     std::string input = "0 or 1";
     
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
@@ -230,7 +230,7 @@ using namespace templateengine;
 - (void)test0PipePipe1 {
     std::string input = "0 || 1";
     
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
@@ -240,7 +240,7 @@ using namespace templateengine;
 - (void)test1Or1 {
     std::string input = "1 or 1";
     
-    ExpressionParser p;
+    TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);

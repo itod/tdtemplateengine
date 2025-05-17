@@ -23,7 +23,7 @@
 #import "TDBooleanExpression.h"
 #import "TDValue.h"
 #import "TDBooleanValue.h"
-#import "ExpressionParser.hpp"
+#import "TagParser.hpp"
 
 using namespace templateengine;
 
@@ -70,10 +70,10 @@ using namespace templateengine;
     
     BOOL result = NO;
     switch (self.binaryOperator) {
-        case EXTokenType_AND:
+        case TDTokenType_AND:
             result = b1 && b2;
             break;
-        case EXTokenType_OR:
+        case TDTokenType_OR:
             result = b1 || b2;
             break;
         default:

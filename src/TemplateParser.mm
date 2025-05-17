@@ -7,6 +7,7 @@
 //
 
 #import "TemplateParser.hpp"
+#import "TDTemplateEngine+ParserSupport.h"
 #import <ParseKitCPP/ParseException.hpp>
 #import <TDTemplateEngine/TDTemplateEngine.h>
 #import <TDTemplateEngine/TDRootNode.h>
@@ -19,11 +20,6 @@ using namespace parsekit;
 
 @interface TDNode ()
 - (void)setToken:(Token)token;
-@end
-
-@interface TDTemplateEngine ()
-- (TDPrintNode *)printNodeFromFragment:(Token)frag withParent:(TDNode *)parent inContext:(TDTemplateContext *)context;
-- (TDTag *)tagFromFragment:(Token)tok withParent:(TDNode *)parent inContext:(TDTemplateContext *)context;
 @end
 
 namespace templateengine {

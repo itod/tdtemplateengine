@@ -367,17 +367,17 @@
 		D3AAFE6E2DD2C1DD009EDC64 /* CPPRelationalExpressionTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3AAFE6A2DD2C1DD009EDC64 /* CPPRelationalExpressionTests.mm */; };
 		D3AAFE6F2DD2C1DD009EDC64 /* CPPUnaryExpressionTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3AAFE6B2DD2C1DD009EDC64 /* CPPUnaryExpressionTests.mm */; };
 		D3AAFE702DD2C1DD009EDC64 /* CPPEqualityExpressionTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3AAFE682DD2C1DD009EDC64 /* CPPEqualityExpressionTests.mm */; };
-		D3AAFE752DD2C268009EDC64 /* ExpressionParser.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3AAFE742DD2C268009EDC64 /* ExpressionParser.mm */; };
+		D3AAFE752DD2C268009EDC64 /* TagParser.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3AAFE742DD2C268009EDC64 /* TagParser.mm */; };
 		D3AAFE762DD2C268009EDC64 /* ExpressionAssembly.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3AAFE722DD2C268009EDC64 /* ExpressionAssembly.mm */; };
 		D3AAFE772DD2C268009EDC64 /* ExpressionAssembly.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D3AAFE712DD2C268009EDC64 /* ExpressionAssembly.hpp */; };
-		D3AAFE782DD2C268009EDC64 /* ExpressionParser.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D3AAFE732DD2C268009EDC64 /* ExpressionParser.hpp */; };
+		D3AAFE782DD2C268009EDC64 /* TagParser.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D3AAFE732DD2C268009EDC64 /* TagParser.hpp */; };
 		D3AAFE792DD2C268009EDC64 /* ExpressionAssembly.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D3AAFE712DD2C268009EDC64 /* ExpressionAssembly.hpp */; };
-		D3AAFE7A2DD2C268009EDC64 /* ExpressionParser.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D3AAFE732DD2C268009EDC64 /* ExpressionParser.hpp */; };
-		D3AAFE7B2DD2C268009EDC64 /* ExpressionParser.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3AAFE742DD2C268009EDC64 /* ExpressionParser.mm */; };
+		D3AAFE7A2DD2C268009EDC64 /* TagParser.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D3AAFE732DD2C268009EDC64 /* TagParser.hpp */; };
+		D3AAFE7B2DD2C268009EDC64 /* TagParser.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3AAFE742DD2C268009EDC64 /* TagParser.mm */; };
 		D3AAFE7C2DD2C268009EDC64 /* ExpressionAssembly.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3AAFE722DD2C268009EDC64 /* ExpressionAssembly.mm */; };
 		D3AAFE7D2DD2C268009EDC64 /* ExpressionAssembly.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D3AAFE712DD2C268009EDC64 /* ExpressionAssembly.hpp */; };
-		D3AAFE7E2DD2C268009EDC64 /* ExpressionParser.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D3AAFE732DD2C268009EDC64 /* ExpressionParser.hpp */; };
-		D3AAFE7F2DD2C268009EDC64 /* ExpressionParser.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3AAFE742DD2C268009EDC64 /* ExpressionParser.mm */; };
+		D3AAFE7E2DD2C268009EDC64 /* TagParser.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D3AAFE732DD2C268009EDC64 /* TagParser.hpp */; };
+		D3AAFE7F2DD2C268009EDC64 /* TagParser.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3AAFE742DD2C268009EDC64 /* TagParser.mm */; };
 		D3AAFE802DD2C268009EDC64 /* ExpressionAssembly.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3AAFE722DD2C268009EDC64 /* ExpressionAssembly.mm */; };
 		D3AAFE862DD2C2B9009EDC64 /* TDPrintNodeTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3AAFE852DD2C2B9009EDC64 /* TDPrintNodeTests.mm */; };
 		D3AAFE8E2DD2CC64009EDC64 /* CPPArithmeticExpressionTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3AAFE8D2DD2CC64009EDC64 /* CPPArithmeticExpressionTests.mm */; };
@@ -641,8 +641,8 @@
 		D3AAFE6B2DD2C1DD009EDC64 /* CPPUnaryExpressionTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = CPPUnaryExpressionTests.mm; path = test/CPPUnaryExpressionTests.mm; sourceTree = SOURCE_ROOT; };
 		D3AAFE712DD2C268009EDC64 /* ExpressionAssembly.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = ExpressionAssembly.hpp; path = src/ExpressionAssembly.hpp; sourceTree = SOURCE_ROOT; };
 		D3AAFE722DD2C268009EDC64 /* ExpressionAssembly.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = ExpressionAssembly.mm; path = src/ExpressionAssembly.mm; sourceTree = SOURCE_ROOT; };
-		D3AAFE732DD2C268009EDC64 /* ExpressionParser.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = ExpressionParser.hpp; path = src/ExpressionParser.hpp; sourceTree = SOURCE_ROOT; };
-		D3AAFE742DD2C268009EDC64 /* ExpressionParser.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = ExpressionParser.mm; path = src/ExpressionParser.mm; sourceTree = SOURCE_ROOT; };
+		D3AAFE732DD2C268009EDC64 /* TagParser.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = TagParser.hpp; path = src/TagParser.hpp; sourceTree = SOURCE_ROOT; };
+		D3AAFE742DD2C268009EDC64 /* TagParser.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = TagParser.mm; path = src/TagParser.mm; sourceTree = SOURCE_ROOT; };
 		D3AAFE852DD2C2B9009EDC64 /* TDPrintNodeTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = TDPrintNodeTests.mm; path = test/TDPrintNodeTests.mm; sourceTree = SOURCE_ROOT; };
 		D3AAFE8D2DD2CC64009EDC64 /* CPPArithmeticExpressionTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = CPPArithmeticExpressionTests.mm; path = test/CPPArithmeticExpressionTests.mm; sourceTree = SOURCE_ROOT; };
 		D3AAFE912DD2E77C009EDC64 /* CPPRangeExpressionTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = CPPRangeExpressionTests.mm; path = test/CPPRangeExpressionTests.mm; sourceTree = SOURCE_ROOT; };
@@ -1006,8 +1006,8 @@
 			children = (
 				D3AAFE712DD2C268009EDC64 /* ExpressionAssembly.hpp */,
 				D3AAFE722DD2C268009EDC64 /* ExpressionAssembly.mm */,
-				D3AAFE732DD2C268009EDC64 /* ExpressionParser.hpp */,
-				D3AAFE742DD2C268009EDC64 /* ExpressionParser.mm */,
+				D3AAFE732DD2C268009EDC64 /* TagParser.hpp */,
+				D3AAFE742DD2C268009EDC64 /* TagParser.mm */,
 				D3A29E1518E6659400DC591E /* expression.grammar */,
 				D3AAFE9F2DD408DC009EDC64 /* EXToken.h */,
 				D3AAFEA02DD408DC009EDC64 /* EXToken.mm */,
@@ -1136,7 +1136,7 @@
 				D36AC9BF2D7FD0D3001C99FD /* TDSepTag.h in Headers */,
 				D3100D2E1CE52F43007B38BE /* TDBinaryExpression.h in Headers */,
 				D3AAFE7D2DD2C268009EDC64 /* ExpressionAssembly.hpp in Headers */,
-				D3AAFE7E2DD2C268009EDC64 /* ExpressionParser.hpp in Headers */,
+				D3AAFE7E2DD2C268009EDC64 /* TagParser.hpp in Headers */,
 				D3100D2F1CE52F43007B38BE /* TDBooleanExpression.h in Headers */,
 				D3F2D16E1F6592C6006E575D /* TDNullFormatFilter.h in Headers */,
 				D39D36442DBFEB6E006F1663 /* TemplateParser.hpp in Headers */,
@@ -1215,7 +1215,7 @@
 				D36AC9BB2D7FD0D3001C99FD /* TDSepTag.h in Headers */,
 				D31E3F041F1C2334004BD0C6 /* TDArithmeticExpression.h in Headers */,
 				D3AAFE792DD2C268009EDC64 /* ExpressionAssembly.hpp in Headers */,
-				D3AAFE7A2DD2C268009EDC64 /* ExpressionParser.hpp in Headers */,
+				D3AAFE7A2DD2C268009EDC64 /* TagParser.hpp in Headers */,
 				D31E3F051F1C2334004BD0C6 /* TDBinaryExpression.h in Headers */,
 				D3F2D16D1F6592C6006E575D /* TDNullFormatFilter.h in Headers */,
 				D39D36482DBFEB6E006F1663 /* TemplateParser.hpp in Headers */,
@@ -1268,7 +1268,7 @@
 				D3F5064818ECA36B00BAC93B /* TDWriter.h in Headers */,
 				D391AAFD202D6C9900ECCE37 /* TDFabsFilter.h in Headers */,
 				D3AAFE772DD2C268009EDC64 /* ExpressionAssembly.hpp in Headers */,
-				D3AAFE782DD2C268009EDC64 /* ExpressionParser.hpp in Headers */,
+				D3AAFE782DD2C268009EDC64 /* TagParser.hpp in Headers */,
 				D35E003C1AB61D2900096913 /* TDRoundFilter.h in Headers */,
 				D3A29E2B18E75D3B00DC591E /* TDArithmeticExpression.h in Headers */,
 				D3A29DF518E6583600DC591E /* TDExpression.h in Headers */,
@@ -1464,7 +1464,7 @@
 				D3100CC91CE52ED7007B38BE /* TDTag.mm in Sources */,
 				D3100CCA1CE52ED7007B38BE /* TDIfTag.mm in Sources */,
 				D3100CCB1CE52ED7007B38BE /* TDElseIfTag.mm in Sources */,
-				D3AAFE7F2DD2C268009EDC64 /* ExpressionParser.mm in Sources */,
+				D3AAFE7F2DD2C268009EDC64 /* TagParser.mm in Sources */,
 				D36F33AF2DD7FB0900AB2F36 /* TDResetCycleTag.mm in Sources */,
 				D3AAFE802DD2C268009EDC64 /* ExpressionAssembly.mm in Sources */,
 				D3100CCC1CE52ED7007B38BE /* TDElseTag.mm in Sources */,
@@ -1543,7 +1543,7 @@
 				D31E3E461F1C1D04004BD0C6 /* TDTag.mm in Sources */,
 				D31E3E471F1C1D04004BD0C6 /* TDIfTag.mm in Sources */,
 				D31E3E481F1C1D04004BD0C6 /* TDElseIfTag.mm in Sources */,
-				D3AAFE7B2DD2C268009EDC64 /* ExpressionParser.mm in Sources */,
+				D3AAFE7B2DD2C268009EDC64 /* TagParser.mm in Sources */,
 				D36F33AC2DD7FB0900AB2F36 /* TDResetCycleTag.mm in Sources */,
 				D3AAFE7C2DD2C268009EDC64 /* ExpressionAssembly.mm in Sources */,
 				D31E3E491F1C1D04004BD0C6 /* TDElseTag.mm in Sources */,
@@ -1621,7 +1621,7 @@
 				D3A29E3218E75D3B00DC591E /* TDRelationalExpression.mm in Sources */,
 				D35E003D1AB61D2900096913 /* TDRoundFilter.m in Sources */,
 				D35E00391AB6189A00096913 /* TDNumberFormatFilter.m in Sources */,
-				D3AAFE752DD2C268009EDC64 /* ExpressionParser.mm in Sources */,
+				D3AAFE752DD2C268009EDC64 /* TagParser.mm in Sources */,
 				D3AAFE762DD2C268009EDC64 /* ExpressionAssembly.mm in Sources */,
 				D36F33AD2DD7FB0900AB2F36 /* TDResetCycleTag.mm in Sources */,
 				D3A29E3E18E7B31A00DC591E /* TDObjectValue.mm in Sources */,
