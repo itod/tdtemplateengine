@@ -24,4 +24,7 @@
 
 @interface TDIncludeTag : TDTag <TDCompileTimeTag>
 
+// _expression is the file path
+
+@property (nonatomic, retain) NSDictionary *kwargs;
 @end

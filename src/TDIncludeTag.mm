@@ -49,20 +49,19 @@
 
 
 + (TDTagExpressionType)tagExpressionType {
-    return TDTagExpressionTypeArgs;
+    return TDTagExpressionTypeInclude;
 }
 
 
 - (void)dealloc {
     self.key = nil;
+    self.kwargs = nil;
     [super dealloc];
 }
 
 
 - (void)compileInContext:(TDTemplateContext *)ctx {
-    
-//    TDAssert(0);
-    
+        
     // must get args here
     NSString *relPath = [self.expression evaluateAsStringInContext:ctx];
 
@@ -86,13 +85,20 @@
 #pragma mark -
 #pragma mark Runtime
 
-- (void)runInContext:(TDTemplateContext *)ctx {
-    NSParameterAssert(ctx);
+- (void)runInContext:(TDTemplateContext *)inCtx {
+    NSParameterAssert(inCtx);
     
-    TDTemplate *tmpl = ctx.derivedTemplate;
+    TDTemplate *tmpl = inCtx.derivedTemplate;
     TDAssert(tmpl);
     TDRootNode *delegate = (TDRootNode *)[tmpl blockForKey:self.key];
     TDAssert([delegate isKindOfClass:[TDRootNode class]]);
+    
+    TDTemplateContext *ctx = inCtx;
+    if (_kwargs.count) {
+        ctx = [[[TDTemplateContext alloc] init] autorelease];
+        ctx.enclosingScope = inCtx;
+        [ctx defineVariables:_kwargs];
+    }
     
     [ctx pushTemplateString:delegate.templateString];
     [delegate renderChildrenInContext:ctx];

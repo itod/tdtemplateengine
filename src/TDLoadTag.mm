@@ -37,29 +37,18 @@
 
 
 + (TDTagExpressionType)tagExpressionType {
-    return TDTagExpressionTypeArgs;
-}
-
-
-- (NSString *)name {
-    NSString *name = nil;
-    if ([self.expression isKindOfClass:[TDPathExpression class]]) {
-        TDPathExpression *pexpr = (id)self.expression;
-        name = pexpr.head;
-    }
-    TDAssert(name);
-    return name;
+    return TDTagExpressionTypeLoad;
 }
 
 
 - (void)compileInContext:(TDTemplateContext *)ctx {
-    NSString *libName = self.name;
-    
-    NSError *err = nil;
-    BOOL success = [ctx.delegate templateContext:ctx loadTagLibrary:libName error:&err];
-    if (!success) {
-        if (err) NSLog(@"%@", err);
-        [NSException raise:@"HTTP500" format:@"%@", err.localizedDescription];
+    for (NSString *libName in _tagLibraryNames) {
+        NSError *err = nil;
+        BOOL success = [ctx.delegate templateContext:ctx loadTagLibrary:libName error:&err];
+        if (!success) {
+            if (err) NSLog(@"%@", err);
+            [NSException raise:@"HTTP500" format:@"%@", err.localizedDescription];
+        }
     }
 }
 

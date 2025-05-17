@@ -32,7 +32,7 @@ using namespace templateengine;
 
     ExpressionParser p;
     ReaderCPP r(input);
-    TDExpression *expr = p.parse(&r);
+    TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
     TDEquals(3.0, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
@@ -42,7 +42,7 @@ using namespace templateengine;
 
     ExpressionParser p;
     ReaderCPP r(input);
-    TDExpression *expr = p.parse(&r);
+    TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
     TDEquals(3.0, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
@@ -52,7 +52,7 @@ using namespace templateengine;
 
     ExpressionParser p;
     ReaderCPP r(input);
-    TDExpression *expr = p.parse(&r);
+    TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
     TDEquals(0.0, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
@@ -62,7 +62,7 @@ using namespace templateengine;
 
     ExpressionParser p;
     ReaderCPP r(input);
-    TDExpression *expr = p.parse(&r);
+    TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
     TDEquals(2.0, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
@@ -72,7 +72,7 @@ using namespace templateengine;
 
     ExpressionParser p;
     ReaderCPP r(input);
-    TDExpression *expr = p.parse(&r);
+    TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
     TDEquals(2.0, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
@@ -82,7 +82,7 @@ using namespace templateengine;
 
     ExpressionParser p;
     ReaderCPP r(input);
-    TDExpression *expr = p.parse(&r);
+    TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
     TDEquals(1.0, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
@@ -92,7 +92,7 @@ using namespace templateengine;
 
     ExpressionParser p;
     ReaderCPP r(input);
-    TDExpression *expr = p.parse(&r);
+    TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
     TDEquals(1.0, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
@@ -102,7 +102,7 @@ using namespace templateengine;
 
     ExpressionParser p;
     ReaderCPP r(input);
-    TDExpression *expr = p.parse(&r);
+    TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
     TDEquals(4.0, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
@@ -112,7 +112,7 @@ using namespace templateengine;
 
     ExpressionParser p;
     ReaderCPP r(input);
-    TDExpression *expr = p.parse(&r);
+    TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
     TDEquals(1.0, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
@@ -122,7 +122,7 @@ using namespace templateengine;
 
     ExpressionParser p;
     ReaderCPP r(input);
-    TDExpression *expr = p.parse(&r);
+    TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
     TDEquals(7.0, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
@@ -132,7 +132,7 @@ using namespace templateengine;
 
     ExpressionParser p;
     ReaderCPP r(input);
-    TDExpression *expr = p.parse(&r);
+    TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
     TDEquals(10.0, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
@@ -142,7 +142,7 @@ using namespace templateengine;
 
     ExpressionParser p;
     ReaderCPP r(input);
-    TDExpression *expr = p.parse(&r);
+    TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
     TDEquals(-0.0, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
@@ -152,7 +152,7 @@ using namespace templateengine;
 
     ExpressionParser p;
     ReaderCPP r(input);
-    TDExpression *expr = p.parse(&r);
+    TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
     TDEquals(-1.0, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
@@ -162,7 +162,7 @@ using namespace templateengine;
 
     ExpressionParser p;
     ReaderCPP r(input);
-    TDExpression *expr = p.parse(&r);
+    TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
     TDEquals(0.0, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
@@ -172,7 +172,7 @@ using namespace templateengine;
 
     ExpressionParser p;
     ReaderCPP r(input);
-    TDExpression *expr = p.parse(&r);
+    TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
     TDEquals(1.0, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
@@ -182,7 +182,7 @@ using namespace templateengine;
 
     ExpressionParser p;
     ReaderCPP r(input);
-    TDExpression *expr = p.parse(&r);
+    TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
     TDEquals(0.0, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
@@ -192,7 +192,7 @@ using namespace templateengine;
 
     ExpressionParser p;
     ReaderCPP r(input);
-    TDExpression *expr = p.parse(&r);
+    TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
     TDEquals(1.0, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
@@ -202,7 +202,7 @@ using namespace templateengine;
 
     ExpressionParser p;
     ReaderCPP r(input);
-    TDExpression *expr = p.parse(&r);
+    TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
     TDEquals(0.0, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
@@ -212,7 +212,7 @@ using namespace templateengine;
 
     ExpressionParser p;
     ReaderCPP r(input);
-    TDExpression *expr = p.parse(&r);
+    TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
     TDEquals(-1.0, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
@@ -222,7 +222,7 @@ using namespace templateengine;
 
     ExpressionParser p;
     ReaderCPP r(input);
-    TDExpression *expr = p.parse(&r);
+    TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
     TDEquals(1.0, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
@@ -232,7 +232,7 @@ using namespace templateengine;
 
     ExpressionParser p;
     ReaderCPP r(input);
-    TDExpression *expr = p.parse(&r);
+    TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
     TDEquals(2.0, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
@@ -242,7 +242,7 @@ using namespace templateengine;
 
     ExpressionParser p;
     ReaderCPP r(input);
-    TDExpression *expr = p.parse(&r);
+    TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
     TDEquals(0.0, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
@@ -252,7 +252,7 @@ using namespace templateengine;
 
     ExpressionParser p;
     ReaderCPP r(input);
-    TDExpression *expr = p.parse(&r);
+    TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
     TDEquals(2.0, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
@@ -262,7 +262,7 @@ using namespace templateengine;
 
     ExpressionParser p;
     ReaderCPP r(input);
-    TDExpression *expr = p.parse(&r);
+    TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
     TDEquals(0.0, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
@@ -272,7 +272,7 @@ using namespace templateengine;
 
     ExpressionParser p;
     ReaderCPP r(input);
-    TDExpression *expr = p.parse(&r);
+    TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
     TDEquals(-1.0, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
@@ -282,7 +282,7 @@ using namespace templateengine;
 
     ExpressionParser p;
     ReaderCPP r(input);
-    TDExpression *expr = p.parse(&r);
+    TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
     TDEquals(4.0, [[expr simplify] evaluateAsNumberInContext:nil]);
 }

@@ -44,6 +44,7 @@
 // Scope
 - (id)resolveVariable:(NSString *)name;
 - (void)defineVariable:(NSString *)name value:(id)value;
+- (void)defineVariables:(NSDictionary *)vars;
 
 - (void)writeObject:(id)obj;
 - (void)writeString:(NSString *)str;

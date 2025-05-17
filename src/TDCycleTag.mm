@@ -37,7 +37,7 @@
 
 
 + (TDTagExpressionType)tagExpressionType {
-    return TDTagExpressionTypeArgs;
+    return TDTagExpressionTypeCycle;
 }
 
 

@@ -26,7 +26,6 @@
 #import <TDTemplateEngine/TDWriter.h>
 #import <TDTemplateEngine/TDExpression.h>
 #import "TDValue.h"
-#import "EXToken.h"
 
 @interface TDTag ()
 @property (nonatomic, retain) NSArray *args;
@@ -79,35 +78,6 @@
 
 - (NSString *)tagName {
     return [[self class] tagName];
-}
-
-
-- (NSArray *)evaluatedArgs:(TDTemplateContext *)ctx {
-    NSUInteger c = [_args count];
-    
-    id evaledArgs = nil;
-    if (c) {
-        evaledArgs = [NSMutableArray arrayWithCapacity:c];
-        
-        for (EXToken *tok in _args) {
-            switch (tok.tokenType) {
-                case TokenType_QUOTED_STRING:
-                    [evaledArgs addObject:tok.stringValue];
-                    break;
-                case TokenType_WORD:
-                    [evaledArgs addObject:[ctx resolveVariable:tok.stringValue]];
-                    break;
-                case TokenType_NUMBER:
-                    [evaledArgs addObject:@(tok.doubleValue)];
-                    break;
-                default:
-                    TDAssert(0);
-                    break;
-            }
-        }
-    }
-    
-    return evaledArgs;
 }
 
 @end

@@ -26,6 +26,8 @@
 @class TDExpression;
 
 @interface TDTemplateEngine (ExpressionSupport)
+- (TDTag *)makeTagForName:(NSString *)tagName token:(parsekit::Token)token parent:(TDNode *)parent;
+
 - (TDExpression *)expressionFromString:(NSString *)objc_str error:(NSError **)outErr;
 - (TDExpression *)expressionFromReader:(parsekit::Reader *)reader error:(NSError **)outErr;
 - (TDExpression *)loopExpressionFromReader:(parsekit::Reader *)reader error:(NSError **)outErr;

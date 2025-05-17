@@ -49,6 +49,11 @@ typedef NS_ENUM(int, EXTokenType) {
     EXTokenType_ASSIGN               =  37,
     EXTokenType_DOUBLE_EQUALS        =  38,
     EXTokenType_NULL                 =  39,
+    EXTokenType_LOAD                 =  40,
+    EXTokenType_INCLUDE              =  41,
+    EXTokenType_WITH                 =  42,
+    EXTokenType_CYCLE                =  43,
+    EXTokenType_AS                   =  44,
 };
 
 typedef std::map<std::string, EXTokenType> EXTokenTable;
@@ -70,11 +75,27 @@ private:
     
     void start();
     
+    // tag
+    void _tag(TDNode *parent);
+    void _tagName(TDNode *parent);
+    
+    void _exprTag();
+    void _loopTag();
+    void _loadTag();
+    void _argListTag();
+    void _includeTag(); void _kwargs();
+    void _cycleTag();
+
+    
+    // TODO cleanup
+    // default
     void _expr();
     
+    // loop
     void _loopExpr();
-    void _argsList();
-    void _namedArg();
+    
+    // args
+    
     
     void _identifiers();
     void _enumExpr();
@@ -147,7 +168,8 @@ public:
         return Token(tt, tok.range(), tok.line_number());
     }
     
-    TDExpression *parse(Reader *r);
+    TDTag *parseTag(Reader *r, TDNode *parent);
+    TDExpression *parseExpression(Reader *r);
 
     Assembly *assembly() const override { return _assembly; }
 };

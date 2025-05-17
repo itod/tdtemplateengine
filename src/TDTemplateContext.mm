@@ -191,6 +191,11 @@ static NSCharacterSet *sNewlineSet = nil;
 }
 
 
+- (void)defineVariables:(NSDictionary *)inVars {
+    [_vars addEntriesFromDictionary:inVars];
+}
+
+
 #pragma mark -
 #pragma mark Rendering
 

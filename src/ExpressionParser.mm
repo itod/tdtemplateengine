@@ -1,6 +1,8 @@
 #import "ExpressionParser.hpp"
     
 #import "TDTemplateEngine.h"
+#import "TDTemplateEngine+ExpressionSupport.h"
+#import "TDTag.h"
 #import "TDBooleanValue.h"
 #import "TDNumericValue.h"
 #import "TDStringValue.h"
@@ -15,7 +17,11 @@
 #import "TDRangeExpression.h"
 #import "TDPathExpression.h"
 #import "TDFilterExpression.h"
-#import "EXToken.h"
+#import "EXToken.h" // TODO remove
+
+#import "TDArgListTag.h"
+#import "TDIncludeTag.h"
+#import "TDLoadTag.h"
 
 #import <ParseKitCPP/ModalTokenizer.hpp>
 #import <ParseKitCPP/DefaultTokenizerMode.hpp>
@@ -30,6 +36,7 @@
 #define PUSH_ALL_OBJS(a)      pushAll((a))
 
 #define POP_OBJ()             _assembly->pop_object()
+#define PEEK_OBJ()            _assembly->peek_object()
 
 #define POP_TOK()             _assembly->pop_token()
 #define POP_TOK_STR()         [NSString stringWithUTF8String:_assembly->cpp_string_for_token(POP_TOK()).c_str()]
@@ -100,6 +107,11 @@ const EXTokenTable& ExpressionParser::tokenTable() {
         {"=", EXTokenType_ASSIGN},
         {"==", EXTokenType_DOUBLE_EQUALS},
         {"null", EXTokenType_NULL},
+        {"load", EXTokenType_LOAD},
+        {"include", EXTokenType_INCLUDE},
+        {"with", EXTokenType_WITH},
+        {"cycle", EXTokenType_CYCLE},
+        {"as", EXTokenType_AS},
     };
     return tokenTab;
 }
@@ -170,7 +182,219 @@ ExpressionParser::ExpressionParser(TDTemplateEngine *engine) :
     _engine(engine)
 {}
 
-TDExpression *ExpressionParser::parse(Reader *r) {
+TDTag *ExpressionParser::parseTag(Reader *r, TDNode *parent) {
+    TokenList lookahead;
+    _lookahead = &lookahead;
+    
+    IntStack markers;
+    _markers = &markers;
+    
+    TokenList token_stack;
+    TokenList consumed;
+    ExpressionAssembly a(r, &token_stack, &consumed);
+    _assembly = &a;
+
+    _p = 0;
+    
+    TDTag *tag = nil;
+    try {
+        _tag(parent);
+        match(TokenType_EOF);
+        
+        tag = POP_OBJ();
+    } catch (std::exception& ex) {
+        assert(0);
+    }
+
+    _assembly = nullptr;
+    _markers = nullptr;
+    _lookahead = nullptr;
+
+    return tag;
+}
+
+void ExpressionParser::_tag(TDNode *parent) {
+    
+    _tagName(parent);
+    
+    if (!predicts(TokenType_EOF, 0)) {
+        assert(!isSpeculating());
+        
+        TDTag *tag = PEEK_OBJ();
+        TDTagExpressionType et = [[tag class] tagExpressionType];
+
+        switch (et) {
+            case TDTagExpressionTypeDefault:
+                _exprTag();
+                break;
+            case TDTagExpressionTypeLoop:
+                _loopTag();
+                break;
+            case TDTagExpressionTypeArgList:
+                _argListTag();
+                break;
+            case TDTagExpressionTypeLoad:
+                _loadTag();
+                break;
+            case TDTagExpressionTypeInclude:
+                _includeTag();
+                break;
+            case TDTagExpressionTypeCycle:
+                _cycleTag();
+                break;
+            default:
+                assert(0);
+                break;
+        }
+    }
+    
+    match(TokenType_EOF);
+}
+
+void ExpressionParser::_tagName(TDNode *parent) {
+    if (predicts(TokenType_WORD, EXTokenType_LOAD, EXTokenType_INCLUDE, EXTokenType_CYCLE, 0)) {
+        match(TokenType_ANY, false);
+    }
+    
+    assert(!isSpeculating());
+    Token tok = POP_TOK();
+    
+    NSString *tagName = _assembly->reader()->objc_substr(tok);
+
+    TDTag *tag = [_engine makeTagForName:tagName token:tok parent:parent];
+    assert(tag);
+    
+    PUSH_OBJ(tag);
+}
+
+#pragma mark -
+#pragma mark ExprTag
+
+void ExpressionParser::_exprTag() {
+    _orExpr(); //_expr(); // TODO
+    
+    assert(!isSpeculating());
+    
+    TDExpression *path = POP_OBJ();
+    TDTag *tag = PEEK_OBJ();
+    tag.expression = path;
+}
+
+#pragma mark -
+#pragma mark LoopTag
+
+void ExpressionParser::_loopTag() {
+    // TODO
+}
+
+#pragma mark -
+#pragma mark ArgListTag
+
+void ExpressionParser::_argListTag() {
+    assert(!isSpeculating());
+    
+    NSMutableArray *args = [NSMutableArray array];
+
+    // args must be evaled at run time
+    while (!predicts(TokenType_EOF, 0)) {
+        _atom();
+        
+        TDExpression *expr = POP_OBJ();
+        //TDCollectionExpression *col = [TDCollectionExpression collectionExpressionWithExpression:<#(TDExpression *)#>]
+        [args addObject:expr];
+    }
+    
+    TDArgListTag *tag = POP_OBJ();
+    tag.args = args;
+}
+
+#pragma mark -
+#pragma mark LoadTag
+
+void ExpressionParser::_loadTag() {
+    assert(!isSpeculating());
+    
+    // lib names are compile time constants, not to be eval'ed at runtime
+    NSMutableArray *libNames = [NSMutableArray array];
+    
+    while (predicts(TokenType_WORD, 0)) {
+        match(TokenType_WORD, false);
+        Token tok = POP_TOK();
+        NSString *libName = assembly()->reader()->objc_substr(tok);
+        [libNames addObject:libName];
+    }
+    
+    TDLoadTag *loadTag = POP_OBJ();
+    loadTag.tagLibraryNames = libNames;
+}
+
+#pragma mark -
+#pragma mark IncludeTag
+
+void ExpressionParser::_includeTag() {
+    _atom(); // path
+    // path is on stack here
+    assert(!isSpeculating());
+    
+    TDExpression *path = POP_OBJ();
+    assert(path);
+    
+    TDIncludeTag *includeTag = POP_OBJ();
+    assert(includeTag);
+    
+    includeTag.expression = path;
+    
+    if (predicts(EXTokenType_WITH, 0)) {
+        match(EXTokenType_WITH, true);
+        _kwargs();
+        // kwargs are on stack here
+        NSDictionary *kwargs = POP_OBJ();
+        includeTag.kwargs = kwargs;
+    }
+    
+    PUSH_OBJ(includeTag);
+}
+
+void ExpressionParser::_kwargs() {
+    
+    NSMutableDictionary *tab = nil;
+    if (!isSpeculating()) {
+        tab = [NSMutableDictionary dictionary];
+    }
+    
+    while (!predicts(TokenType_EOF, 0)) {
+        match(TokenType_WORD, false);
+        match(EXTokenType_ASSIGN, true);
+        _atom();
+        
+        if (!isSpeculating()) {
+            id val = POP_OBJ();
+            id key = POP_OBJ();
+            [tab setObject:val forKey:key];
+        }
+    }
+    
+    if (!isSpeculating()) {
+        PUSH_OBJ(tab);
+    }
+}
+
+#pragma mark -
+#pragma mark CycleTag
+
+void ExpressionParser::_cycleTag() {
+    while (!predicts(EXTokenType_AS, TokenType_EOF, 0)) {
+        _atom();
+        // TODO
+    }
+    if (predicts(EXTokenType_AS, 0)) {
+        match(EXTokenType_AS, true);
+        match(TokenType_WORD, false);
+        // TODO
+    }
+}
+
+TDExpression *ExpressionParser::parseExpression(Reader *r) {
     TokenList lookahead;
     _lookahead = &lookahead;
     
@@ -201,9 +425,12 @@ TDExpression *ExpressionParser::parse(Reader *r) {
     return expr;
 }
 
+#pragma mark -
+#pragma mark Default
 
 void ExpressionParser::_expr() {
-    
+
+    // TODO
     switch (_tagExpressionType) {
         case TDTagExpressionTypeDefault:
             _orExpr();
@@ -211,16 +438,16 @@ void ExpressionParser::_expr() {
         case TDTagExpressionTypeLoop:
             _loopExpr();
             break;
-        case TDTagExpressionTypeArgs:
-            _argsList();
-            break;
         default:
-            assert(0);
+            //assert(0);
             break;
     }
 
 }
 
+#pragma mark -
+#pragma mark Loop
+// TODO
 void ExpressionParser::_loopExpr() {
     
     _identifiers();
@@ -232,24 +459,6 @@ void ExpressionParser::_loopExpr() {
         PUSH_OBJ([TDLoopExpression loopExpressionWithVariables:vars enumeration:enumExpr]);
     }
 
-}
-
-void ExpressionParser::_argsList() {
-    
-    while (!predicts(TokenType_EOF, 0)) {
-        if (predicts(TokenType_WORD, 0) && la(2) == EXTokenType_ASSIGN) {
-            _namedArg();
-        } else {
-            _atom();
-        }
-    }
-
-}
-
-void ExpressionParser::_namedArg() {
-    match(TokenType_WORD, false);
-    match(EXTokenType_ASSIGN, false);
-    _atom();
 }
 
 void ExpressionParser::_identifiers() {

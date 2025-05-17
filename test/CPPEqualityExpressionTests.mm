@@ -33,7 +33,7 @@ using namespace templateengine;
 
     ExpressionParser p;
     ReaderCPP r(input);
-    TDExpression *expr = p.parse(&r);
+    TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
     XCTAssertTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
 }
@@ -45,7 +45,7 @@ using namespace templateengine;
     ReaderCPP r(input);
     TDExpression *expr = nil;
     try {
-        expr = p.parse(&r);
+        expr = p.parseExpression(&r);
         XCTAssert(0);
     } catch (ParseException& ex) {}
     XCTAssertNil(expr);
@@ -56,7 +56,7 @@ using namespace templateengine;
 
     ExpressionParser p;
     ReaderCPP r(input);
-    TDExpression *expr = p.parse(&r);
+    TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
     XCTAssertTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
 }
@@ -66,7 +66,7 @@ using namespace templateengine;
 
     ExpressionParser p;
     ReaderCPP r(input);
-    TDExpression *expr = p.parse(&r);
+    TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
     XCTAssertTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
 }
@@ -76,7 +76,7 @@ using namespace templateengine;
 
     ExpressionParser p;
     ReaderCPP r(input);
-    TDExpression *expr = p.parse(&r);
+    TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
     XCTAssertTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
 }
@@ -88,7 +88,7 @@ using namespace templateengine;
     ReaderCPP r(input);
     TDExpression *expr = nil;
     try {
-        expr = p.parse(&r);
+        expr = p.parseExpression(&r);
         XCTAssert(0);
     } catch (ParseException& ex) {}
     XCTAssertNil(expr);
@@ -99,7 +99,7 @@ using namespace templateengine;
 
     ExpressionParser p;
     ReaderCPP r(input);
-    TDExpression *expr = p.parse(&r);
+    TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
     XCTAssertTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
 }
@@ -109,7 +109,7 @@ using namespace templateengine;
 
     ExpressionParser p;
     ReaderCPP r(input);
-    TDExpression *expr = p.parse(&r);
+    TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
     XCTAssertFalse([[expr simplify] evaluateAsBooleanInContext:nil]);
 }
@@ -121,7 +121,7 @@ using namespace templateengine;
     ReaderCPP r(input);
     TDExpression *expr = nil;
     try {
-        expr = p.parse(&r);
+        expr = p.parseExpression(&r);
         XCTAssert(0);
     } catch (ParseException& ex) {}
     XCTAssertNil(expr);
@@ -132,7 +132,7 @@ using namespace templateengine;
 
     ExpressionParser p;
     ReaderCPP r(input);
-    TDExpression *expr = p.parse(&r);
+    TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
     XCTAssertFalse([[expr simplify] evaluateAsBooleanInContext:nil]);
 }
@@ -142,7 +142,7 @@ using namespace templateengine;
 
     ExpressionParser p;
     ReaderCPP r(input);
-    TDExpression *expr = p.parse(&r);
+    TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
     XCTAssertFalse([[expr simplify] evaluateAsBooleanInContext:nil]);
 }
@@ -152,7 +152,7 @@ using namespace templateengine;
 
     ExpressionParser p;
     ReaderCPP r(input);
-    TDExpression *expr = p.parse(&r);
+    TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
     XCTAssertFalse([[expr simplify] evaluateAsBooleanInContext:nil]);
 }
@@ -162,7 +162,7 @@ using namespace templateengine;
 
     ExpressionParser p;
     ReaderCPP r(input);
-    TDExpression *expr = p.parse(&r);
+    TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
     XCTAssertTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
 }
@@ -172,7 +172,7 @@ using namespace templateengine;
 
     ExpressionParser p;
     ReaderCPP r(input);
-    TDExpression *expr = p.parse(&r);
+    TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
     XCTAssertTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
 }
@@ -184,7 +184,7 @@ using namespace templateengine;
     
     ExpressionParser p;
     ReaderCPP r(input);
-    TDExpression *expr = p.parse(&r);
+    TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
     XCTAssertTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
 }
@@ -194,7 +194,7 @@ using namespace templateengine;
 
     ExpressionParser p;
     ReaderCPP r(input);
-    TDExpression *expr = p.parse(&r);
+    TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
     XCTAssertFalse([[expr simplify] evaluateAsBooleanInContext:nil]);
 }
@@ -206,7 +206,7 @@ using namespace templateengine;
     
     ExpressionParser p;
     ReaderCPP r(input);
-    TDExpression *expr = p.parse(&r);
+    TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
     XCTAssertTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
 }
@@ -216,7 +216,7 @@ using namespace templateengine;
 
     ExpressionParser p;
     ReaderCPP r(input);
-    TDExpression *expr = p.parse(&r);
+    TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
     XCTAssertFalse([[expr simplify] evaluateAsBooleanInContext:nil]);
 }

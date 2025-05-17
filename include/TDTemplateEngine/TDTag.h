@@ -33,7 +33,10 @@ typedef NS_ENUM(NSUInteger, TDTagContentType) {
 typedef NS_ENUM(NSUInteger, TDTagExpressionType) {
     TDTagExpressionTypeDefault = 0,
     TDTagExpressionTypeLoop,
-    TDTagExpressionTypeArgs,
+    TDTagExpressionTypeArgList,
+    TDTagExpressionTypeLoad,
+    TDTagExpressionTypeInclude,
+    TDTagExpressionTypeCycle,
 };
 
 @interface TDTag : TDNode
@@ -47,6 +50,4 @@ typedef NS_ENUM(NSUInteger, TDTagExpressionType) {
 + (TDTagExpressionType)tagExpressionType;
 
 - (void)runInContext:(TDTemplateContext *)ctx;
-
-- (NSArray *)evaluatedArgs:(TDTemplateContext *)ctx;
 @end

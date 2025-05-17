@@ -83,7 +83,7 @@ using namespace templateengine;
     TDExpression *expr = nil;
     
     try {
-        expr = parser->parse(reader);
+        expr = parser->parseExpression(reader);
     } catch (ParseException& ex) {
         if (outErr) {
             NSError *err = [NSError errorWithDomain:@"TDTemplateEngine"

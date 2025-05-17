@@ -559,6 +559,30 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 }
 
 
+- (TDTag *)_new_tagFromReader:(Reader *)reader withParent:(TDNode *)parent inContext:(TDTemplateContext *)ctx {
+    NSParameterAssert(reader);
+    
+    ExpressionParser parser(self);
+
+    TDTag *tag = nil;
+    try {
+        tag = parser.parseTag(reader, parent);
+    } catch (ParseException& ex) {
+        TDAssert(0);
+//        if (0) {
+//            NSError *err = [NSError errorWithDomain:@"TDTemplateEngine"
+//                                               code:0
+//                                           userInfo:@{
+//                NSLocalizedDescriptionKey: [NSString stringWithUTF8String:ex.message().c_str()],
+//            }];
+//            //*outErr = err;
+//        }
+    }
+    
+    return tag;
+}
+
+
 - (TDTag *)tagFromFragment:(Token)frag withParent:(TDNode *)parent inContext:(TDTemplateContext *)ctx {
     NSParameterAssert(!frag.is_eof());
     NSParameterAssert(parent);

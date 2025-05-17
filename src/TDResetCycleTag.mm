@@ -36,11 +36,6 @@
 }
 
 
-+ (TDTagExpressionType)tagExpressionType {
-    return TDTagExpressionTypeArgs;
-}
-
-
 - (void)runInContext:(TDTemplateContext *)ctx {
     TDAssert(ctx);
     TDAssert(self.expression);

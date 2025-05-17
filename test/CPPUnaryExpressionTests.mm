@@ -40,7 +40,7 @@ using namespace templateengine;
     
     ExpressionParser p;
     ReaderCPP r(input);
-    TDExpression *expr = p.parse(&r);
+    TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
     XCTAssertEqual(-1, [[expr simplify] evaluateAsNumberInContext:nil]);
 
@@ -51,7 +51,7 @@ using namespace templateengine;
     
     ExpressionParser p;
     ReaderCPP r(input);
-    TDExpression *expr = p.parse(&r);
+    TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
     XCTAssertEqual(1, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
@@ -61,7 +61,7 @@ using namespace templateengine;
     
     ExpressionParser p;
     ReaderCPP r(input);
-    TDExpression *expr = p.parse(&r);
+    TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
     XCTAssertEqual(-1, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
@@ -71,7 +71,7 @@ using namespace templateengine;
     
     ExpressionParser p;
     ReaderCPP r(input);
-    TDExpression *expr = p.parse(&r);
+    TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
     XCTAssertEqual(1, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
