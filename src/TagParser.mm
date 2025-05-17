@@ -308,7 +308,7 @@ void TagParser::_argListTag() {
         [args addObject:expr];
     }
     
-    TDArgListTag *tag = POP_OBJ();
+    TDArgListTag *tag = PEEK_OBJ();
     tag.args = args;
 }
 
@@ -322,13 +322,12 @@ void TagParser::_loadTag() {
     NSMutableArray *libNames = [NSMutableArray array];
     
     while (predicts(TokenType_WORD, 0)) {
-        match(TokenType_WORD, false);
-        Token tok = POP_TOK();
-        NSString *libName = assembly()->reader()->objc_substr(tok);
+        _identifier();
+        NSString *libName = POP_OBJ();
         [libNames addObject:libName];
     }
     
-    TDLoadTag *loadTag = POP_OBJ();
+    TDLoadTag *loadTag = PEEK_OBJ();
     loadTag.tagLibraryNames = libNames;
 }
 
@@ -343,7 +342,7 @@ void TagParser::_includeTag() {
     TDExpression *path = POP_OBJ();
     assert(path);
     
-    TDIncludeTag *includeTag = POP_OBJ();
+    TDIncludeTag *includeTag = PEEK_OBJ();
     assert(includeTag);
     
     includeTag.expression = path;
@@ -355,8 +354,6 @@ void TagParser::_includeTag() {
         NSDictionary *kwargs = POP_OBJ();
         includeTag.kwargs = kwargs;
     }
-    
-    PUSH_OBJ(includeTag);
 }
 
 void TagParser::_kwargs() {

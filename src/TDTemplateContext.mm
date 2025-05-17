@@ -145,23 +145,6 @@ static NSCharacterSet *sNewlineSet = nil;
 
 
 #pragma mark -
-#pragma mark NSCopying
-
-//- (instancetype)copyWithZone:(NSZone *)zone {  // TODO remove????
-//    TDTemplateContext *ctx = [[TDTemplateContext alloc] initWithVariables:nil output:_writer.output];
-//    ctx.derivedTemplate = _derivedTemplate;
-//    ctx.templateStringStack = [_templateStringStack mutableCopy];
-//    ctx.trimLines = _trimLines;
-//    ctx.indentDepth = _indentDepth;
-//    ctx.firstWriteAfterIndent = _firstWriteAfterIndent;
-//    ctx.enclosingScope = self;
-//    ctx.wroteNewline = _wroteNewline;
-//    ctx.wroteChars = _wroteChars;
-//    return ctx;
-//}
-
-
-#pragma mark -
 #pragma mark TDScope
 
 - (id)resolveVariable:(NSString *)name {

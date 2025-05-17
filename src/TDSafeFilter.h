@@ -20,21 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "TDUppercaseFilter.h"
+#import <TDTemplateEngine/TDFilter.h>
 
-@implementation TDUppercaseFilter
-
-+ (NSString *)filterName {
-    return @"upper";
-}
-
-
-- (id)runFilter:(id)input withArguments:(NSArray *)args {
-    TDAssert(input);
-    NSString *inStr = TDStringFromObject(input);
-    
-    NSString *result = [inStr uppercaseString];
-    return result;
-}
+@interface TDSafeFilter : TDFilter
 
 @end

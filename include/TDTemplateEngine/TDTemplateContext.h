@@ -32,7 +32,7 @@
 - (BOOL)templateContext:(TDTemplateContext *)ctx loadTagLibrary:(NSString *)libName error:(NSError **)err;
 @end
 
-@interface TDTemplateContext : NSObject //<NSCopying>
+@interface TDTemplateContext : NSObject
 
 - (instancetype)init; // static
 - (instancetype)initWithTemplate:(TDTemplate *)tmpl; // compile time

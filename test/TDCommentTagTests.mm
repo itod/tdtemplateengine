@@ -18,7 +18,7 @@
 - (void)setUp {
     [super setUp];
     
-    self.engine = [TDTemplateEngine templateEngine];
+    self.engine = [[TDTemplateEngine new] autorelease];
     self.output = [NSOutputStream outputStreamToMemory];
 }
 

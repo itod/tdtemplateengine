@@ -56,7 +56,7 @@ extern const NSInteger TDTemplateEngineRenderingErrorCode;
 
 @interface TDTemplateEngine : NSObject <TDTemplateContextDelegate>
 
-+ (instancetype)templateEngine;
++ (instancetype)instance;
 
 // static/compile-time vars go here. this is the global scope at both compile-time and render-time. persists across compiles and renders.
 @property (nonatomic, retain, readonly) TDTemplateContext *staticContext;

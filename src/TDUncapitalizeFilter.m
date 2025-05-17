@@ -29,7 +29,7 @@
 }
 
 
-- (id)doFilter:(id)input withArguments:(NSArray *)args {
+- (id)runFilter:(id)input withArguments:(NSArray *)args {
     TDAssert(input);
     NSString *inStr = TDStringFromObject(input);
     NSString *result = inStr;

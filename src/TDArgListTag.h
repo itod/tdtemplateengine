@@ -6,7 +6,7 @@
 //  Copyright © 2025 Todd Ditchendorf. All rights reserved.
 //
 
-#import <TDTemplateEngine/TDTemplateEngine.h>
+#import <TDTemplateEngine/TDTag.h>
 
 @interface TDArgListTag : TDTag
 

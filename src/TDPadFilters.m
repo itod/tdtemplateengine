@@ -24,7 +24,7 @@
 
 @implementation TDAbstractPadFilter
 
-- (id)doFilter:(id)input withArguments:(NSArray *)args {
+- (id)runFilter:(id)input withArguments:(NSArray *)args {
     TDAssert(input);
     
     [self validateArguments:args min:1 max:2];

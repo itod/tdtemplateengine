@@ -13,7 +13,7 @@
 - (void)setUp {
     [super setUp];
     
-    self.eng = [TDTemplateEngine templateEngine]; // create thread local temp engine
+    self.eng = [[TDTemplateEngine new] autorelease]; // create thread local temp engine
     self.expr = nil;
 }
 

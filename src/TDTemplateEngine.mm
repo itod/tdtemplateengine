@@ -52,6 +52,7 @@
 #import "TDTabTag.h"
 #import "TDSepTag.h"
 
+#import "TDSafeFilter.h"
 #import "TDTrimFilter.h"
 #import "TDRoundFilter.h"
 #import "TDFloorFilter.h"
@@ -79,6 +80,8 @@ using namespace templateengine;
 NSString * const TDTemplateEngineTagEndPrefix = @"end";
 NSString * const TDTemplateEngineErrorDomain = @"TDTemplateEngineErrorDomain";
 const NSInteger TDTemplateEngineRenderingErrorCode = 1;
+
+static TDTemplateEngine *sInstance = nil;
 
 @interface TDTemplate ()
 - (instancetype)initWithFilePath:(NSString *)path;
@@ -108,8 +111,16 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 
 @implementation TDTemplateEngine
 
-+ (instancetype)templateEngine {
-    return [[[self alloc] init] autorelease];
++ (void)initialize {
+    if ([TDTemplateEngine class] == self) {
+        sInstance = [[TDTemplateEngine alloc] init];
+    }
+}
+
+
++ (instancetype)instance {
+    TDAssert(sInstance);
+    return sInstance;
 }
 
 
@@ -152,6 +163,7 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
         [self registerTagClass:[TDSepTag class] forName:[TDSepTag tagName]];
         
         self.filterTab = [NSMutableDictionary dictionary];
+        [self registerFilterClass:[TDSafeFilter class] forName:[TDSafeFilter filterName]];
         [self registerFilterClass:[TDTrimFilter class] forName:[TDTrimFilter filterName]];
         [self registerFilterClass:[TDRoundFilter class] forName:[TDRoundFilter filterName]];
         [self registerFilterClass:[TDFloorFilter class] forName:[TDFloorFilter filterName]];
@@ -334,13 +346,15 @@ const NSInteger TDTemplateEngineRenderingErrorCode = 1;
     if ([sKnown containsObject:libName]) {
         return YES;
     } else {
-        if (outErr) {
-            id userInfo = @{
-                NSLocalizedFailureReasonErrorKey: [NSString stringWithFormat:@"Unknown Tag Library: `%@`", libName],
-            };
-            *outErr = [NSError errorWithDomain:TDTemplateEngineErrorDomain code:TDTemplateEngineRenderingErrorCode userInfo:userInfo];
-        }
-        return NO;
+        // TODO
+        return YES;
+//        if (outErr) {
+//            id userInfo = @{
+//                NSLocalizedFailureReasonErrorKey: [NSString stringWithFormat:@"Unknown Tag Library: `%@`", libName],
+//            };
+//            *outErr = [NSError errorWithDomain:TDTemplateEngineErrorDomain code:TDTemplateEngineRenderingErrorCode userInfo:userInfo];
+//        }
+//        return NO;
     }
 }
 
