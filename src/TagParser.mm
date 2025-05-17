@@ -188,7 +188,7 @@ TDTag *TagParser::parseTag(Reader *r, TDNode *parent) {
     
     TokenList token_stack;
     TokenList consumed;
-    ExpressionAssembly a(r, &token_stack, &consumed);
+    TagAssembly a(r, &token_stack, &consumed);
     _assembly = &a;
 
     _p = 0;
@@ -405,7 +405,7 @@ TDExpression *TagParser::parseExpression(Reader *r) {
     
     TokenList token_stack;
     TokenList consumed;
-    ExpressionAssembly a(r, &token_stack, &consumed);
+    TagAssembly a(r, &token_stack, &consumed);
     _assembly = &a;
 
     _p = 0;

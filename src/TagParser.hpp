@@ -1,7 +1,7 @@
 #import <Foundation/Foundation.h>
 #import <ParseKitCPP/BaseParser.hpp>
 #import <ParseKitCPP/ModalTokenizer.hpp>
-#import "ExpressionAssembly.hpp"
+#import "TagAssembly.hpp"
 #import <TDTemplateEngine/TDTag.h>
 
 @class TDTemplateEngine;
@@ -57,7 +57,7 @@ typedef std::map<std::string, TDTokenType> EXTokenTable;
 
 class TagParser : public BaseParser {
 private:
-    ExpressionAssembly *_assembly;
+    TagAssembly *_assembly;
     
     TDTemplateEngine *_engine; // weakref
     

@@ -1,16 +1,15 @@
 #import <Foundation/Foundation.h>
 #import <ParseKitCPP/Assembly.hpp>
-#import <ParseKitCPP/Tokenizer.hpp>
 
 using namespace parsekit;
 namespace templateengine {
 
-class ExpressionAssembly : public Assembly {
+class TagAssembly : public Assembly {
 private:
     NSMutableArray *_object_stack;
         
 public:
-    ExpressionAssembly(Reader *reader, TokenList *token_stack, TokenList *consumed);
+    TagAssembly(Reader *reader, TokenList *token_stack, TokenList *consumed);
     
     void push_object(id obj) {
         assert(_object_stack);
