@@ -62,10 +62,9 @@
 
 - (void)compileInContext:(TDTemplateContext *)ctx {
         
-    // must get args here
     NSString *relPath = [self.expression evaluateAsStringInContext:ctx];
-
     NSString *absPath = [ctx absolutePathForTemplateRelativePath:relPath];
+
     self.key = [NSString stringWithFormat:@"__include:%@", absPath];
     
     NSError *err = nil;

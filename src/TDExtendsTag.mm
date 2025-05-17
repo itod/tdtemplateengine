@@ -42,12 +42,11 @@
 
 
 - (void)compileInContext:(TDTemplateContext *)ctx {
-    NSString *extendsPath = [self.expression evaluateAsStringInContext:ctx];
-    
-    extendsPath = [ctx absolutePathForTemplateRelativePath:extendsPath];
-    
+    NSString *relPath = [self.expression evaluateAsStringInContext:ctx];
+    NSString *absPath = [ctx absolutePathForTemplateRelativePath:relPath];
+
     TDTemplate *tmpl = ctx.derivedTemplate;
-    tmpl.extendsPath = extendsPath;
+    tmpl.extendsPath = absPath;
 }
 
 @end
