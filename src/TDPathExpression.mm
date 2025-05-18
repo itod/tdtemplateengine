@@ -88,8 +88,12 @@
 //            }
 //            obj = [obj valueForKeyPath:[strs componentsJoinedByString:@"."]];
             NSString *path = [_tail componentsJoinedByString:@"."];
-            //NSLog(@"%@  %@", _head, path);
-            obj = [obj valueForKeyPath:path];
+            NSLog(@"%@  %@", _head, path);
+            @try {
+                obj = [obj valueForKeyPath:path];
+            } @catch (NSException *ex) {
+                obj = @""; // TODO RM
+            }
         }
         
         result = TDValueFromObject(obj);

@@ -38,7 +38,7 @@
 
 - (void)runInContext:(TDTemplateContext *)ctx {
     TDAssert(ctx);
-    TDAssert(self.expression);
+    //TDAssert(self.expression);
     
 //    NSArray *args = [self evaluatedArgs:ctx];
     
