@@ -10,6 +10,7 @@ private:
         
 public:
     TagAssembly(Reader *reader, TokenList *token_stack, TokenList *consumed);
+    ~TagAssembly();
     
     void push_object(id obj) {
         assert(_object_stack);

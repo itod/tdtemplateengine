@@ -8,4 +8,9 @@ TagAssembly::TagAssembly(Reader *reader, TokenList *token_stack, TokenList *cons
     _object_stack([NSMutableArray new])
 {}
 
+TagAssembly::~TagAssembly() {
+    [_object_stack release];
+    _object_stack = nil;
+}
+
 }
