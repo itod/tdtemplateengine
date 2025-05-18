@@ -41,6 +41,12 @@
 }
 
 
+- (void)dealloc {
+    self.tagLibraryNames = nil;
+    [super dealloc];
+}
+
+
 - (void)compileInContext:(TDTemplateContext *)ctx {
     //  TODO make runtime???
     for (NSString *libName in _tagLibraryNames) {
