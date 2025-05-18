@@ -21,6 +21,7 @@
 // THE SOFTWARE.
 
 #import "TDLoopExpression.h"
+#import "TDPair.h"
 #import <TDTemplateEngine/TDTemplateContext.h>
 
 @implementation TDLoopExpression
@@ -76,10 +77,10 @@
     id firstObj = nil;
     id secondObj = nil;
 
-    if ([res isKindOfClass:[NSArray class]]) {
-        TDAssert(2 == [res count]);
-        firstObj = res[0];
-        secondObj = res[1];
+    if ([res isKindOfClass:[TDPair class]]) {
+        TDPair *pair = (TDPair *)res;
+        firstObj = pair.first;
+        secondObj = pair.second;
     } else {
         firstObj = res;
     }

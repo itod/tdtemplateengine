@@ -11,6 +11,17 @@
 
 using namespace parsekit;
 
+@interface TestPerson : NSObject
+@property (nonatomic, retain) NSString *name;
+@end
+
+@implementation TestPerson
+- (void)dealloc {
+    self.name = nil;
+    [super dealloc];
+}
+@end
+
 @interface CPPPathExpressionTests : TDBaseExpressionTests
 @end
 
@@ -26,7 +37,7 @@ using namespace parsekit;
     [super tearDown];
 }
 
-- (void)testPathFooBar8 {
+- (void)testPathFooBarDictionary {
     std::string input = "foo.bar";
     ReaderCPP reader(input);
 
@@ -38,6 +49,22 @@ using namespace parsekit;
     TDNil(err);
     TDNotNil(expr);
     TDEquals(8.0, [[expr simplify] evaluateAsNumberInContext:ctx]);
+}
+
+- (void)testPathFooBarProperty {
+    std::string input = "foo.name";
+    ReaderCPP reader(input);
+
+    TestPerson *p = [[[TestPerson alloc] init] autorelease];
+    p.name = @"John";
+    id vars = @{@"foo": p};
+    id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
+    
+    NSError *err = nil;
+    TDExpression *expr = [self.eng expressionFromReader:&reader error:&err];
+    TDNil(err);
+    TDNotNil(expr);
+    XCTAssertEqualObjects(@"John", [[expr simplify] evaluateAsStringInContext:ctx]);
 }
 
 @end

@@ -25,6 +25,7 @@
 #import "TDTemplate.h"
 #import "TDTemplateContext.h"
 #import "TDRootNode.h"
+#import "TDWriter.h"
 
 @interface TDTemplate ()
 @property (nonatomic, retain) TDRootNode *rootNode;
@@ -94,7 +95,7 @@
     
     TDTemplateContext *ctx = inCtx;
     if (_kwargs.count) {
-        ctx = [[[TDTemplateContext alloc] init] autorelease];
+        ctx = [[[TDTemplateContext alloc] initWithVariables:nil output:inCtx.writer.output] autorelease];
         ctx.enclosingScope = inCtx;
         [ctx defineVariables:_kwargs];
     }

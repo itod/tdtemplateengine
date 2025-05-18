@@ -21,6 +21,7 @@
 // THE SOFTWARE.
 
 #import "TDCollectionExpression.h"
+#import "TDPair.h"
 #import <TDTemplateEngine/TDTemplateContext.h>
 
 @interface TDCollectionExpression ()
@@ -91,7 +92,7 @@
             TDAssert(key);
             id val = self.values[self.current];
             TDAssert(val);
-            result = @[key, val];
+            result = [TDPair pairWithFirst:key second:val];
         } else {
             result = self.values[self.current];
             TDAssert(result);

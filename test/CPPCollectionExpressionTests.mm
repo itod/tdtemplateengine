@@ -8,6 +8,7 @@
 
 #import "TDBaseExpressionTests.h"
 #import "TDLoopExpression.h"
+#import "TDPair.h"
 #import <ParseKitCPP/Reader.hpp>
 
 using namespace parsekit;
@@ -140,9 +141,9 @@ using namespace parsekit;
     for (id key in [dict allKeys]) {
         id val = dict[key];
         id res = [expr evaluateInContext:ctx];
-        TDEqualObjects((@[key, val]), res);
-        TDEqualObjects(key, [ctx resolveVariable:@"key"]);
-        TDEqualObjects(val, [ctx resolveVariable:@"val"]);
+        XCTAssertEqualObjects([TDPair pairWithFirst:key second:val], res);
+        XCTAssertEqualObjects(key, [ctx resolveVariable:@"key"]);
+        XCTAssertEqualObjects(val, [ctx resolveVariable:@"val"]);
     }
     
     TDNil([expr evaluateInContext:ctx]);
@@ -166,7 +167,7 @@ using namespace parsekit;
     for (id key in [dict[@"nums"] allKeys]) {
         id val = dict[@"nums"][key];
         id res = [expr evaluateInContext:ctx];
-        TDEqualObjects((@[key, val]), res);
+        XCTAssertEqualObjects([TDPair pairWithFirst:key second:val], res);
         TDEqualObjects(key, [ctx resolveVariable:@"key"]);
         TDEqualObjects(val, [ctx resolveVariable:@"val"]);
     }
