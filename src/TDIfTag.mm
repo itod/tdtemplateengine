@@ -52,6 +52,7 @@
     TDAssert(ctx);
     TDAssert(self.expression);
     
+    //NSLog(@"%@", self.expression);
     BOOL test = [self.expression evaluateAsBooleanInContext:ctx];
     
     for (TDNode *child in self.children) {

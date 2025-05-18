@@ -96,6 +96,8 @@
         yn = (0.0 != [_value doubleValue] && !isnan([_value doubleValue]));
     } else if ([_value respondsToSelector:@selector(stringValue)]) {
         yn = [[_value stringValue] length];
+    } else if (_value != nil) {
+        yn = YES;
     }
     return yn;
 }

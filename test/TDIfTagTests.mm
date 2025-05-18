@@ -207,7 +207,8 @@
     id vars = nil;
     
     NSError *err = nil;
-    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    BOOL success = [_engine processTemplateString:input wi
+                                      thVariables:vars toStream:_output error:&err];
     TDTrue(success);
     TDNil(err);
     NSString *res = [self outputString];
