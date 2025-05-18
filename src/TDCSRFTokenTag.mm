@@ -20,14 +20,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "TDLoadTag.h"
-#import "TDPathExpression.h"
-#import "TDTemplateContext.h"
+#import "TDCSRFTokenTag.h"
 
-@implementation TDLoadTag
+@implementation TDCSRFTokenTag
 
 + (NSString *)tagName {
-    return @"load";
+    return @"csrf_token";
 }
 
 
@@ -36,28 +34,8 @@
 }
 
 
-+ (TDTagExpressionType)tagExpressionType {
-    return TDTagExpressionTypeLoad;
-}
-
-
-- (void)compileInContext:(TDTemplateContext *)ctx {
-    //  TODO make runtime???
-    for (NSString *libName in _tagLibraryNames) {
-        NSError *err = nil;
-        BOOL success = [ctx.delegate templateContext:ctx loadTagLibrary:libName error:&err];
-        if (!success) {
-            if (err) NSLog(@"%@", err);
-            [NSException raise:@"HTTP500" format:@"%@", err.localizedDescription];
-        }
-    }
-}
-
-
 - (void)runInContext:(TDTemplateContext *)ctx {
-    // noop
-    
-    
+
 }
 
 @end

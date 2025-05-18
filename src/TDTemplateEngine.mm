@@ -36,6 +36,7 @@
 #import "TDBlockTag.h"
 #import "TDIncludeTag.h"
 #import "TDLoadTag.h"
+#import "TDCSRFTokenTag.h"
 #import "TDIfTag.h"
 #import "TDElseTag.h"
 #import "TDElseIfTag.h"
@@ -146,6 +147,7 @@ static TDTemplateEngine *sInstance = nil;
         [self registerTagClass:[TDIncludeTag class] forName:[TDIncludeTag tagName]];
         [self registerTagClass:[TDLoadTag class] forName:[TDLoadTag tagName]];
 
+        [self registerTagClass:[TDCSRFTokenTag class] forName:[TDCSRFTokenTag tagName]];
         [self registerTagClass:[TDIfTag class] forName:[TDIfTag tagName]];
         [self registerTagClass:[TDElseTag class] forName:[TDElseTag tagName]];
         [self registerTagClass:[TDElseIfTag class] forName:[TDElseIfTag tagName]];
