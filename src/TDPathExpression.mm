@@ -88,7 +88,7 @@
 //            }
 //            obj = [obj valueForKeyPath:[strs componentsJoinedByString:@"."]];
             NSString *path = [_tail componentsJoinedByString:@"."];
-            NSLog(@"%@  %@", _head, path);
+            //NSLog(@"%@  %@", _head, path);
             @try {
                 obj = [obj valueForKeyPath:path];
             } @catch (NSException *ex) {
