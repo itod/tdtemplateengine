@@ -87,68 +87,8 @@ using namespace templateengine;
     XCTAssertTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
 }
 
-- (void)testNotYES {
-    std::string input = "not YES";
-
-    TagParser p;
-    ReaderCPP r(input);
-    TDExpression *expr = p.parseExpression(&r);
-    XCTAssertNotNil(expr);
-    XCTAssertFalse([[expr simplify] evaluateAsBooleanInContext:nil]);
-}
-
-- (void)testBangSpaceYES {
-    std::string input = "! YES";
-
-    TagParser p;
-    ReaderCPP r(input);
-    TDExpression *expr = p.parseExpression(&r);
-    XCTAssertNotNil(expr);
-    XCTAssertFalse([[expr simplify] evaluateAsBooleanInContext:nil]);
-}
-
-- (void)testBangYES {
-    std::string input = "!YES";
-
-    TagParser p;
-    ReaderCPP r(input);
-    TDExpression *expr = p.parseExpression(&r);
-    XCTAssertNotNil(expr);
-    XCTAssertFalse([[expr simplify] evaluateAsBooleanInContext:nil]);
-}
-
-- (void)testNotNO {
-    std::string input = "not NO";
-
-    TagParser p;
-    ReaderCPP r(input);
-    TDExpression *expr = p.parseExpression(&r);
-    XCTAssertNotNil(expr);
-    XCTAssertTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
-}
-
-- (void)testBangSpaceNO {
-    std::string input = "! NO";
-
-    TagParser p;
-    ReaderCPP r(input);
-    TDExpression *expr = p.parseExpression(&r);
-    XCTAssertNotNil(expr);
-    XCTAssertTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
-}
-
-- (void)testBangNO {
-    std::string input = "!NO";
-
-    TagParser p;
-    ReaderCPP r(input);
-    TDExpression *expr = p.parseExpression(&r);
-    XCTAssertNotNil(expr);
-    XCTAssertTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
-}
-
 - (void)testNotTrue {
-    std::string input = "not true";
+    std::string input = "not True";
 
     TagParser p;
     ReaderCPP r(input);
@@ -158,7 +98,7 @@ using namespace templateengine;
 }
 
 - (void)testBangSpaceTrue {
-    std::string input = "! true";
+    std::string input = "! True";
 
     TagParser p;
     ReaderCPP r(input);
@@ -168,7 +108,7 @@ using namespace templateengine;
 }
 
 - (void)testBangTrue {
-    std::string input = "!true";
+    std::string input = "!True";
 
     TagParser p;
     ReaderCPP r(input);
@@ -178,7 +118,7 @@ using namespace templateengine;
 }
 
 - (void)testNotFalse {
-    std::string input = "not false";
+    std::string input = "not False";
 
     TagParser p;
     ReaderCPP r(input);
@@ -188,7 +128,7 @@ using namespace templateengine;
 }
 
 - (void)testBangSpaceFalse {
-    std::string input = "! false";
+    std::string input = "! False";
 
     TagParser p;
     ReaderCPP r(input);
@@ -198,7 +138,7 @@ using namespace templateengine;
 }
 
 - (void)testBangFalse {
-    std::string input = "!false";
+    std::string input = "!False";
 
     TagParser p;
     ReaderCPP r(input);
@@ -208,7 +148,7 @@ using namespace templateengine;
 }
 
 - (void)testNotOpenTrueClose {
-    std::string input = "not(true)";
+    std::string input = "not(True)";
 
     TagParser p;
     ReaderCPP r(input);
@@ -218,7 +158,7 @@ using namespace templateengine;
 }
 
 - (void)testNotSpaceOpenTrueClose {
-    std::string input = "not(true)";
+    std::string input = "not(True)";
 
     TagParser p;
     ReaderCPP r(input);
@@ -228,7 +168,7 @@ using namespace templateengine;
 }
 
 - (void)testBangSpaceOpenTrueClose {
-    std::string input = "! (true)";
+    std::string input = "! (True)";
 
     TagParser p;
     ReaderCPP r(input);
@@ -238,7 +178,7 @@ using namespace templateengine;
 }
 
 - (void)testBangOpenTrueClose {
-    std::string input = "!(true)";
+    std::string input = "!(True)";
 
     TagParser p;
     ReaderCPP r(input);
@@ -248,7 +188,7 @@ using namespace templateengine;
 }
 
 - (void)testNotOpenFalseClose {
-    std::string input = "not(false)";
+    std::string input = "not(False)";
 
     TagParser p;
     ReaderCPP r(input);
@@ -258,7 +198,7 @@ using namespace templateengine;
 }
 
 - (void)testNotSpaceOpenFalseClose {
-    std::string input = "not (false)";
+    std::string input = "not (False)";
 
     TagParser p;
     ReaderCPP r(input);
@@ -268,7 +208,7 @@ using namespace templateengine;
 }
 
 - (void)testBangOpenFalseClose {
-    std::string input = "!(false)";
+    std::string input = "!(False)";
 
     TagParser p;
     ReaderCPP r(input);
@@ -278,7 +218,7 @@ using namespace templateengine;
 }
 
 - (void)testBangSpaceOpenFalseClose {
-    std::string input = "! (false)";
+    std::string input = "! (False)";
 
     TagParser p;
     ReaderCPP r(input);

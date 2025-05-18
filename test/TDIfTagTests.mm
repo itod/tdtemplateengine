@@ -166,32 +166,8 @@
     TDEqualObjects(@"", res);
 }
 
-- (void)testIfYES {
-    NSString *input = @"{% if YES %} text {% endif %}";
-    id vars = nil;
-    
-    NSError *err = nil;
-    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
-    TDTrue(success);
-    TDNil(err);
-    NSString *res = [self outputString];
-    TDEqualObjects(@" text ", res);
-}
-
-- (void)testIfNO {
-    NSString *input = @"{% if NO %} text {% endif %}";
-    id vars = nil;
-    
-    NSError *err = nil;
-    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
-    TDTrue(success);
-    TDNil(err);
-    NSString *res = [self outputString];
-    TDEqualObjects(@"", res);
-}
-
 - (void)testIfTrue {
-    NSString *input = @"{% if true %} text {% endif %}";
+    NSString *input = @"{% if True %} text {% endif %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -203,7 +179,7 @@
 }
 
 - (void)testIfFalse {
-    NSString *input = @"{% if false %} text {% endif %}";
+    NSString *input = @"{% if False %} text {% endif %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -215,7 +191,7 @@
 }
 
 - (void)testIfOpenTrueClose {
-    NSString *input = @"{% if (true) %} text {% endif %}";
+    NSString *input = @"{% if (True) %} text {% endif %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -227,7 +203,7 @@
 }
 
 - (void)testIfOpenFalseClose {
-    NSString *input = @"{% if (false) %} text {% endif %}";
+    NSString *input = @"{% if (False) %} text {% endif %}";
     id vars = nil;
     
     NSError *err = nil;

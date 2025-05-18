@@ -47,28 +47,8 @@ using namespace templateengine;
     XCTAssertFalse([[expr simplify] evaluateAsBooleanInContext:nil]);
 }
 
-- (void)testYES {
-    std::string input = "YES";
-    
-    TagParser p;
-    ReaderCPP r(input);
-    TDExpression *expr = p.parseExpression(&r);
-    XCTAssertNotNil(expr);
-    XCTAssertTrue([[expr simplify] evaluateAsBooleanInContext:nil]);
-}
-
-- (void)testNO {
-    std::string input = "NO";
-    
-    TagParser p;
-    ReaderCPP r(input);
-    TDExpression *expr = p.parseExpression(&r);
-    XCTAssertNotNil(expr);
-    XCTAssertFalse([[expr simplify] evaluateAsBooleanInContext:nil]);
-}
-
 - (void)testTrue {
-    std::string input = "true";
+    std::string input = "True";
     
     TagParser p;
     ReaderCPP r(input);
@@ -78,7 +58,7 @@ using namespace templateengine;
 }
 
 - (void)testFalse {
-    std::string input = "false";
+    std::string input = "False";
     
     TagParser p;
     ReaderCPP r(input);
@@ -88,7 +68,7 @@ using namespace templateengine;
 }
 
 - (void)testOpenTrueClose {
-    std::string input = "(true)";
+    std::string input = "(True)";
     
     TagParser p;
     ReaderCPP r(input);
@@ -98,7 +78,7 @@ using namespace templateengine;
 }
 
 - (void)testOpenFalseClose {
-    std::string input = "(false)";
+    std::string input = "(False)";
     
     TagParser p;
     ReaderCPP r(input);

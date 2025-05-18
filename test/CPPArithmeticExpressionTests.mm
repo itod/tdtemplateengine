@@ -58,17 +58,7 @@ using namespace templateengine;
 }
 
 - (void)testTruePlus1 {
-    std::string input = "true + 1";
-
-    TagParser p;
-    ReaderCPP r(input);
-    TDExpression *expr = p.parseExpression(&r);
-    XCTAssertNotNil(expr);
-    TDEquals(2.0, [[expr simplify] evaluateAsNumberInContext:nil]);
-}
-
-- (void)testYesPlus1 {
-    std::string input = "YES + 1";
+    std::string input = "True + 1";
 
     TagParser p;
     ReaderCPP r(input);
@@ -78,17 +68,7 @@ using namespace templateengine;
 }
 
 - (void)testFalsePlus1 {
-    std::string input = "false + 1";
-
-    TagParser p;
-    ReaderCPP r(input);
-    TDExpression *expr = p.parseExpression(&r);
-    XCTAssertNotNil(expr);
-    TDEquals(1.0, [[expr simplify] evaluateAsNumberInContext:nil]);
-}
-
-- (void)testNoPlus1 {
-    std::string input = "NO + 1";
+    std::string input = "False + 1";
 
     TagParser p;
     ReaderCPP r(input);

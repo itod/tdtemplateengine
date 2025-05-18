@@ -74,7 +74,7 @@ const EXTokenTable& TagParser::tokenTable() {
         {">=", TDTokenType_GE_SYM},
         {"&&", TDTokenType_DOUBLE_AMPERSAND},
         {"|", TDTokenType_PIPE},
-        {"true", TDTokenType_TRUE},
+        {"True", TDTokenType_TRUE},
         {"!=", TDTokenType_NOT_EQUAL},
         {"!", TDTokenType_BANG},
         {":", TDTokenType_COLON},
@@ -94,17 +94,15 @@ const EXTokenTable& TagParser::tokenTable() {
         {"||", TDTokenType_DOUBLE_PIPE},
         {",", TDTokenType_COMMA},
         {"and", TDTokenType_AND},
-        {"YES", TDTokenType_YES_UPPER},
         {"-", TDTokenType_MINUS},
         {"in", TDTokenType_IN},
         {".", TDTokenType_DOT},
         {"/", TDTokenType_DIV},
         {"by", TDTokenType_BY},
-        {"false", TDTokenType_FALSE},
+        {"False", TDTokenType_FALSE},
         {"<=", TDTokenType_LE_SYM},
         {"to", TDTokenType_TO},
         {"ge", TDTokenType_GE},
-        {"NO", TDTokenType_NO_UPPER},
         {"=", TDTokenType_ASSIGN},
         {"==", TDTokenType_DOUBLE_EQUALS},
         {"null", TDTokenType_NULL},
@@ -808,7 +806,7 @@ void TagParser::_unaryExpr() {
     
     if (predicts(TDTokenType_BANG, TDTokenType_NOT, 0)) {
         _negatedUnary();
-    } else if (predicts(TokenType_NUMBER, TokenType_QUOTED_STRING, TokenType_WORD, TDTokenType_FALSE, TDTokenType_MINUS, TDTokenType_NO_UPPER, TDTokenType_OPEN_PAREN, TDTokenType_TRUE, TDTokenType_YES_UPPER, TDTokenType_NULL, 0)) {
+    } else if (predicts(TokenType_NUMBER, TokenType_QUOTED_STRING, TokenType_WORD, TDTokenType_FALSE, TDTokenType_MINUS, TDTokenType_OPEN_PAREN, TDTokenType_TRUE, TDTokenType_NULL, 0)) {
         _unary();
     } else {
         raise("No viable alternative found in rule 'unaryExpr'.");
@@ -846,7 +844,7 @@ void TagParser::_unary() {
     
     if (predicts(TDTokenType_MINUS, 0)) {
         _signedFilterExpr();
-    } else if (predicts(TokenType_NUMBER, TokenType_QUOTED_STRING, TokenType_WORD, TDTokenType_FALSE, TDTokenType_NO_UPPER, TDTokenType_OPEN_PAREN, TDTokenType_TRUE, TDTokenType_YES_UPPER, TDTokenType_NULL, 0)) {
+    } else if (predicts(TokenType_NUMBER, TokenType_QUOTED_STRING, TokenType_WORD, TDTokenType_FALSE, TDTokenType_OPEN_PAREN, TDTokenType_TRUE, TDTokenType_NULL, 0)) {
         _filterExpr();
     } else {
         raise("No viable alternative found in rule 'unary'.");
@@ -952,7 +950,7 @@ void TagParser::_filterArg() {
 
 void TagParser::_primaryExpr() {
     
-    if (predicts(TokenType_NUMBER, TokenType_QUOTED_STRING, TokenType_WORD, TDTokenType_FALSE, TDTokenType_NO_UPPER, TDTokenType_TRUE, TDTokenType_YES_UPPER, TDTokenType_NULL, 0)) {
+    if (predicts(TokenType_NUMBER, TokenType_QUOTED_STRING, TokenType_WORD, TDTokenType_FALSE, TDTokenType_TRUE, TDTokenType_NULL, 0)) {
         _atom();
     } else if (predicts(TDTokenType_OPEN_PAREN, 0)) {
         _subExpr();
@@ -980,7 +978,7 @@ void TagParser::_subExpr() {
 
 void TagParser::_atom() {
     
-    if (predicts(TokenType_NUMBER, TokenType_QUOTED_STRING, TDTokenType_FALSE, TDTokenType_NO_UPPER, TDTokenType_TRUE, TDTokenType_YES_UPPER, TDTokenType_NULL, 0)) {
+    if (predicts(TokenType_NUMBER, TokenType_QUOTED_STRING, TDTokenType_FALSE, TDTokenType_TRUE, TDTokenType_NULL, 0)) {
         _literal();
     } else if (predicts(TokenType_WORD, 0)) {
         _pathExpr();
@@ -1035,7 +1033,7 @@ void TagParser::_literal() {
         _str();
     } else if (predicts(TokenType_NUMBER, 0)) {
         _num();
-    } else if (predicts(TDTokenType_FALSE, TDTokenType_NO_UPPER, TDTokenType_TRUE, TDTokenType_YES_UPPER, 0)) {
+    } else if (predicts(TDTokenType_FALSE, TDTokenType_TRUE, 0)) {
         _bool();
     } else if (predicts(TDTokenType_NULL, 0)) {
         _null();
@@ -1047,12 +1045,12 @@ void TagParser::_literal() {
 
 void TagParser::_bool() {
     
-    if (predicts(TDTokenType_TRUE, TDTokenType_YES_UPPER, 0)) {
+    if (predicts(TDTokenType_TRUE, 0)) {
         _true();
         if (!isSpeculating()) {
             PUSH_OBJ([TDBooleanValue booleanValueWithBoolean:YES]);
         }
-    } else if (predicts(TDTokenType_FALSE, TDTokenType_NO_UPPER, 0)) {
+    } else if (predicts(TDTokenType_FALSE, 0)) {
         _false();
         if (!isSpeculating()) {
             PUSH_OBJ([TDBooleanValue booleanValueWithBoolean:NO]);
@@ -1067,8 +1065,6 @@ void TagParser::_true() {
     
     if (predicts(TDTokenType_TRUE, 0)) {
         match(TDTokenType_TRUE, true);
-    } else if (predicts(TDTokenType_YES_UPPER, 0)) {
-        match(TDTokenType_YES_UPPER, true);
     } else {
         raise("No viable alternative found in rule 'true'.");
     }
@@ -1079,8 +1075,6 @@ void TagParser::_false() {
     
     if (predicts(TDTokenType_FALSE, 0)) {
         match(TDTokenType_FALSE, true);
-    } else if (predicts(TDTokenType_NO_UPPER, 0)) {
-        match(TDTokenType_NO_UPPER, true);
     } else {
         raise("No viable alternative found in rule 'false'.");
     }
