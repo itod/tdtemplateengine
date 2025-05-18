@@ -97,7 +97,12 @@
     if (_kwargs.count) {
         ctx = [[[TDTemplateContext alloc] initWithVariables:nil output:inCtx.writer.output] autorelease];
         ctx.enclosingScope = inCtx;
-        [ctx defineVariables:_kwargs];
+        
+        for (NSString *name in _kwargs) {
+            TDExpression *expr = [_kwargs objectForKey:name];
+            id val = [expr evaluateAsObjectInContext:ctx];
+            [ctx defineVariable:name value:val];
+        }
     }
     
     [ctx pushTemplateString:delegate.templateString];
