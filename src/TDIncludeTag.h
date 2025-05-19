@@ -20,11 +20,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#import <TDTemplateEngine/TDKwargsTag.h>
 #import <TDTemplateEngine/TDCompileTimeTag.h>
 
-@interface TDIncludeTag : TDTag <TDCompileTimeTag>
+@interface TDIncludeTag : TDKwargsTag <TDCompileTimeTag>
 
 // _expression is the file path
-
-@property (nonatomic, retain) NSDictionary *kwargs;
 @end

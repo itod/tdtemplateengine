@@ -20,35 +20,18 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <TDTemplateEngine/TDNode.h>
+#import "TDKwargsTag.h"
 
-@class TDTemplateContext;
-@class TDExpression;
+@implementation TDKwargsTag
 
-typedef NS_ENUM(NSUInteger, TDTagContentType) {
-    TDTagContentTypeSimple = 0,
-    TDTagContentTypeComplex,
-};
++ (TDTagExpressionType)tagExpressionType {
+    return TDTagExpressionTypeKwargs;
+}
 
-typedef NS_ENUM(NSUInteger, TDTagExpressionType) {
-    TDTagExpressionTypeDefault = 0,
-    TDTagExpressionTypeLoop,
-    TDTagExpressionTypeArgList,
-    TDTagExpressionTypeKwargs,
-    TDTagExpressionTypeLoad,
-    TDTagExpressionTypeInclude,
-    TDTagExpressionTypeCycle,
-};
 
-@interface TDTag : TDNode
+- (void)dealloc {
+    self.kwargs = nil;
+    [super dealloc];
+}
 
-@end
-
-// Subclasses must override these methods
-@interface TDTag (Override)
-+ (NSString *)tagName;
-+ (TDTagContentType)tagContentType;
-+ (TDTagExpressionType)tagExpressionType;
-
-- (void)runInContext:(TDTemplateContext *)ctx;
 @end

@@ -56,7 +56,6 @@
 
 - (void)dealloc {
     self.key = nil;
-    self.kwargs = nil;
     [super dealloc];
 }
 
@@ -94,12 +93,12 @@
     TDAssert([delegate isKindOfClass:[TDRootNode class]]);
     
     TDTemplateContext *ctx = inCtx;
-    if (_kwargs.count) {
+    if (self.kwargs.count) {
         ctx = [[[TDTemplateContext alloc] initWithVariables:nil output:inCtx.writer.output] autorelease];
         ctx.enclosingScope = inCtx;
         
-        for (NSString *name in _kwargs) {
-            TDExpression *expr = [_kwargs objectForKey:name];
+        for (NSString *name in self.kwargs) {
+            TDExpression *expr = [self.kwargs objectForKey:name];
             id val = [expr evaluateAsObjectInContext:ctx];
             [ctx defineVariable:name value:val];
         }

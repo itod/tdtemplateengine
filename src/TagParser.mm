@@ -60,6 +60,7 @@ Tokenizer *TagParser::tokenizer() {
         mode->getSymbolState()->add("&&");
         mode->getSymbolState()->add("||");
         
+        mode->set_tokenizer_state(mode->getSymbolState(), '.', '.');
         mode->set_tokenizer_state(mode->getSymbolState(), '-', '-');
         mode->getWordState()->setWordChars(false, '\'', '\'');
     }
@@ -230,6 +231,9 @@ void TagParser::_tag(TDNode *parent) {
             case TDTagExpressionTypeArgList:
                 _argListTag();
                 break;
+            case TDTagExpressionTypeKwargs:
+                _kwargsTag();
+                break;
             case TDTagExpressionTypeLoad:
                 _loadTag();
                 break;
@@ -311,6 +315,13 @@ void TagParser::_argListTag() {
 }
 
 #pragma mark -
+#pragma mark KwargsTag
+
+void TagParser::_kwargsTag() {
+    _kwargs();
+}
+
+#pragma mark -
 #pragma mark LoadTag
 
 void TagParser::_loadTag() {
@@ -357,7 +368,7 @@ void TagParser::_includeTag() {
 void TagParser::_kwargs() {
     
     NSMutableDictionary *tab = nil;
-    if (!isSpeculating()) {
+    if (!isSpeculating() && !predicts(TokenType_EOF, 0)) {
         tab = [NSMutableDictionary dictionary];
     }
     
@@ -373,7 +384,7 @@ void TagParser::_kwargs() {
         }
     }
     
-    if (!isSpeculating()) {
+    if (!isSpeculating() && tab) {
         PUSH_OBJ(tab);
     }
 }

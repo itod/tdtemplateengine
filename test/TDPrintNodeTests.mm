@@ -71,7 +71,7 @@
 }
 
 - (void)testSimpleVarReplacementFooCapitalize {
-    NSString *input = @"{{foo|capitalize}}";
+    NSString *input = @"{{foo|title}}";
     id vars = @{@"foo": @"bar"};
     
     NSError *err = nil;

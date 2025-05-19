@@ -113,7 +113,7 @@ using namespace parsekit;
 }
 
 - (void)testFooVarCapitalized {
-    std::string input = "foo|capitalize";
+    std::string input = "foo|title";
     ReaderCPP reader(input);
     
     id vars = @{@"foo": @"bar"};
@@ -127,7 +127,7 @@ using namespace parsekit;
 }
 
 - (void)testFooLiteralCapitalized {
-    std::string input = "'foo'|capitalize";
+    std::string input = "'foo'|title";
     ReaderCPP reader(input);
     
     id vars = nil;
@@ -197,7 +197,7 @@ using namespace parsekit;
 }
 
 - (void)testmonteSerenoLiteralUppercase {
-    std::string input = "'monteSereno'|capitalize";
+    std::string input = "'monteSereno'|title";
     ReaderCPP reader(input);
     
     id vars = nil;

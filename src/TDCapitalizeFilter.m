@@ -25,7 +25,7 @@
 @implementation TDCapitalizeFilter
 
 + (NSString *)filterName {
-    return @"capitalize";
+    return @"title";
 }
 
 
