@@ -98,7 +98,7 @@
                     @try {
                         obj = [obj valueForKey:step];
                     } @catch (NSException *ex) {
-                        NSLog(@"%@", ex);
+                        //NSLog(@"%@", ex);
                         obj = @""; // TODO RM
                     }
                 }
