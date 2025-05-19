@@ -68,6 +68,7 @@
 #import "TDUncapitalizeFilter.h"
 #import "TDBoolFilter.h"
 #import "TDReplaceFilter.h"
+#import "TDDefaultIfNoneFilter.h"
 #import "TDPadFilters.h"
 
 #import <ParseKitCPP/Tokenizer.hpp>
@@ -180,6 +181,7 @@ static TDTemplateEngine *sInstance = nil;
         [self registerFilterClass:[TDUncapitalizeFilter class] forName:[TDUncapitalizeFilter filterName]];
         [self registerFilterClass:[TDBoolFilter class] forName:[TDBoolFilter filterName]];
         [self registerFilterClass:[TDReplaceFilter class] forName:[TDReplaceFilter filterName]];
+        [self registerFilterClass:[TDDefaultIfNoneFilter class] forName:[TDDefaultIfNoneFilter filterName]];
         [self registerFilterClass:[TDLpadFilter class] forName:[TDLpadFilter filterName]];
         [self registerFilterClass:[TDRpadFilter class] forName:[TDRpadFilter filterName]];
     }
