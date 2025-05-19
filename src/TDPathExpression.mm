@@ -81,19 +81,38 @@
     
     if (obj) {
         if (_tail) {
-            // TODO
-//            NSMutableArray *strs = [NSMutableArray arrayWithCapacity:[_tail count]];
-//            for (PKToken *tok in _tail) {
-//                [strs addObject:tok.stringValue];
+            
+//            NSMutableArray *tailBuf = [NSMutableArray array];
+//            for (TDExpression *expr in _tail) {
+//                NSString *str = [expr evaluateAsStringInContext:ctx];
+//                [tailBuf addObject:str];
 //            }
-//            obj = [obj valueForKeyPath:[strs componentsJoinedByString:@"."]];
-            NSString *path = [_tail componentsJoinedByString:@"."];
-            //NSLog(@"%@  %@", _head, path);
-            @try {
-                obj = [obj valueForKeyPath:path];
-            } @catch (NSException *ex) {
-                obj = @""; // TODO RM
+            
+            // to support indexed path steps like foo.0.title, we must go one by one:
+            for (id step in _tail) {
+                if ([step isKindOfClass:[NSNumber class]]) {
+                    int idx = [step intValue];
+                    TDAssert([obj isKindOfClass:[NSArray class]]);
+                    obj = [obj objectAtIndex:idx];
+                } else {
+                    @try {
+                        obj = [obj valueForKey:step];
+                    } @catch (NSException *ex) {
+                        NSLog(@"%@", ex);
+                        obj = @""; // TODO RM
+                    }
+                }
             }
+            
+//            NSString *path = [_tail componentsJoinedByString:@"."];
+//            
+//            //NSLog(@"%@  %@", _head, path);
+//            @try {
+//                obj = [obj valueForKeyPath:path];
+//            } @catch (NSException *ex) {
+//                NSLog(@"%@", ex);
+//                obj = @""; // TODO RM
+//            }
         }
         
         result = TDValueFromObject(obj);

@@ -42,6 +42,7 @@
 #define POP_TOK()             _assembly->pop_token()
 #define POP_TOK_STR()         [NSString stringWithUTF8String:_assembly->cpp_string_for_token(POP_TOK()).c_str()]
 #define POP_TOK_QUOTED_STR()  stringByTrimmingQuotes(POP_TOK_STR())
+#define POP_TOK_INT()         _assembly->int_for_token(_assembly->pop_token())
 #define POP_TOK_DOUBLE()      _assembly->float_for_token(_assembly->pop_token())
 
 using namespace parsekit;
@@ -319,6 +320,12 @@ void TagParser::_argListTag() {
 
 void TagParser::_kwargsTag() {
     _kwargs();
+
+    if (!isSpeculating()) {
+        NSDictionary *kwags = POP_OBJ();
+        TDKwargsTag *tag = PEEK_OBJ();
+        tag.kwargs = kwags;
+    }
 }
 
 #pragma mark -
@@ -1022,7 +1029,11 @@ void TagParser::_step() {
     if (predicts(TokenType_WORD, 0)) {
         _identifier();
     } else if (predicts(TokenType_NUMBER, 0)) {
-        _num();
+        // support for indexed path steps like: foo.0.title
+        //_num(); // no. the numer here is just a string, not a TDValue number. so just get the string value:
+        match(TokenType_NUMBER, false);
+        int i = POP_TOK_INT();
+        PUSH_OBJ([NSNumber numberWithInt:i]);
     } else {
         raise("No viable alternative found in rule 'step'.");
     }
