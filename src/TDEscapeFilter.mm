@@ -20,27 +20,29 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "TDDefaultIfNoneFilter.h"
+#import "TDEscapeFilter.h"
+#import "TDTemplateContext.h"
 
-@implementation TDDefaultIfNoneFilter
+@implementation TDEscapeFilter
 
 + (NSString *)filterName {
-    return @"default_if_none";
+    return @"escape";
 }
 
 
-- (id)runFilter:(id)input withArguments:(NSArray *)args {
+- (id)runFilter:(id)input inContext:(TDTemplateContext *)ctx withArgs:(NSArray *)args {
     TDAssert(input);
     
-    [self validateArguments:args min:1 max:1];
-    
-    id result = input;
-    
-    if (!input) {
-        result = [args objectAtIndex:0];
+    [self validateArgs:args min:0 max:0];
+
+    NSString *output = input;
+    if (!ctx.autoescape) {
+        NSString *inStr = TDStringFromObject(input);
+
+        output = [ctx escapedStringForString:inStr];
     }
-     
-    return result;
+    
+    return output;
 }
 
 @end

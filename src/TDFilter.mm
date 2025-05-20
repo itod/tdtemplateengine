@@ -44,7 +44,7 @@ NSString *TDStringFromObject(id obj) {
 }
 
 
-- (id)runFilter:(id)input withArguments:(NSArray *)args {
+- (id)runFilter:(id)input inContext:(TDTemplateContext *)ctx withArgs:(NSArray *)args {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
     return nil;
 }
@@ -55,7 +55,7 @@ NSString *TDStringFromObject(id obj) {
 }
 
 
-- (void)validateArguments:(NSArray *)args min:(NSUInteger)min max:(NSUInteger)max {
+- (void)validateArgs:(NSArray *)args min:(NSUInteger)min max:(NSUInteger)max {
     NSUInteger actual = [args count];
     
     NSString *plural = min > 1 ? @"s" : @"";

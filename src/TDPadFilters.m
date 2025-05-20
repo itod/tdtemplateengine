@@ -24,10 +24,10 @@
 
 @implementation TDAbstractPadFilter
 
-- (id)runFilter:(id)input withArguments:(NSArray *)args {
+- (id)runFilter:(id)input inContext:(TDTemplateContext *)ctx withArgs:(NSArray *)args {
     TDAssert(input);
     
-    [self validateArguments:args min:1 max:2];
+    [self validateArgs:args min:1 max:2];
     
     NSString *inStr = TDStringFromObject(input);
     NSString *result = inStr;

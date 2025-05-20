@@ -22,18 +22,11 @@
 }
 
 
-- (void)dealloc {
-    
-    [super dealloc];
-}
-
-
 - (void)runInContext:(TDTemplateContext *)ctx {
     //NSLog(@"%s %@", __PRETTY_FUNCTION__, self);
     TDAssert(ctx);
     
     BOOL oldTrim = ctx.trimLines;
-    
     BOOL newTrim = YES;
     
     if (self.expression) {

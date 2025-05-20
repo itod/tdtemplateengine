@@ -24,9 +24,11 @@
 
 FOUNDATION_EXPORT NSString *TDStringFromObject(id obj);
 
+@class TDTemplateContext;
+
 @interface TDFilter : NSObject
 
-- (void)validateArguments:(NSArray *)args min:(NSUInteger)min max:(NSUInteger)max;
+- (void)validateArgs:(NSArray *)args min:(NSUInteger)min max:(NSUInteger)max;
 
 @property (nonatomic, assign, readonly) NSString *filterName; // convenience for class method
 @end
@@ -34,5 +36,5 @@ FOUNDATION_EXPORT NSString *TDStringFromObject(id obj);
 @interface TDFilter (Override)
 + (NSString *)filterName;
 
-- (id)runFilter:(id)input withArguments:(NSArray *)args;
+- (id)runFilter:(id)input inContext:(TDTemplateContext *)ctx withArgs:(NSArray *)args;
 @end

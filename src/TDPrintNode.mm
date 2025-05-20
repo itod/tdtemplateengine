@@ -40,9 +40,12 @@
     
     TDAssert(self.expression);
     
-    id val = [self.expression evaluateInContext:ctx];
-    if (val) {
-        [ctx writeObject:val];
+    NSString *str = [self.expression evaluateAsStringInContext:ctx];
+    if (str.length) {
+        if (ctx.autoescape) {
+            str = [ctx escapedStringForString:str];
+        }
+        [ctx writeObject:str];
     }
 }
 

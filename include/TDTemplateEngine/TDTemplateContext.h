@@ -39,7 +39,6 @@
 - (instancetype)initWithVariables:(NSDictionary *)vars output:(NSOutputStream *)output; // runtime
 
 @property (nonatomic, assign) id <TDTemplateContextDelegate>delegate; // weakref
-@property (nonatomic, retain, readonly) TDWriter *writer;
 
 // Scope
 - (id)resolveVariable:(NSString *)name;
@@ -47,9 +46,11 @@
 
 - (void)writeObject:(id)obj;
 - (void)writeString:(NSString *)str;
+- (NSString *)escapedStringForString:(NSString *)inStr;
 
 @property (nonatomic, retain) TDTemplateContext *enclosingScope;
 @property (nonatomic, assign) BOOL trimLines;
+@property (nonatomic, assign) BOOL autoescape;
 @property (nonatomic, retain) NSMutableArray *expressionObjectStack;
 
 - (void)increaseIndentDepth:(NSUInteger)times;

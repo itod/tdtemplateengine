@@ -30,7 +30,7 @@
 }
 
 
-- (id)runFilter:(id)input withArguments:(NSArray *)args {
+- (id)runFilter:(id)input inContext:(TDTemplateContext *)ctx withArgs:(NSArray *)args {
     TDAssert(input);
     
     if ([input isNullValue]) {

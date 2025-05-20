@@ -22,12 +22,7 @@
 }
 
 
-- (void)dealloc {
-    
-    [super dealloc];
-}
-
-
+// optimization for TemplateParser
 - (BOOL)isVerbatim {
     return YES;
 }

@@ -33,6 +33,10 @@
 - (void)setBlock:(TDNode *)block forKey:(NSString *)key;
 @end
 
+@interface TDTemplateContext ()
+@property (nonatomic, retain) TDWriter *writer;
+@end
+
 @interface TDIncludeTag ()
 @property (nonatomic, copy) NSString *key;
 @end

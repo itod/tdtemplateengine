@@ -29,10 +29,10 @@
 }
 
 
-- (id)runFilter:(id)input withArguments:(NSArray *)args {
+- (id)runFilter:(id)input inContext:(TDTemplateContext *)ctx withArgs:(NSArray *)args {
     TDAssert(input);
     
-    [self validateArguments:args min:1 max:1];
+    [self validateArgs:args min:1 max:1];
     
     double num = [input doubleValue];
     

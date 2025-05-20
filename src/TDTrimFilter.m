@@ -29,10 +29,10 @@
 }
 
 
-- (id)runFilter:(id)input withArguments:(NSArray *)args {
+- (id)runFilter:(id)input inContext:(TDTemplateContext *)ctx withArgs:(NSArray *)args {
     TDAssert(input);
     
-    [self validateArguments:args min:0 max:0];
+    [self validateArgs:args min:0 max:0];
     
     NSString *inStr = TDStringFromObject(input);
 

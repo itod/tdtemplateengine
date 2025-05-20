@@ -20,24 +20,26 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "TDFloorFilter.h"
+#import "TDDefaultIfNoneFilter.h"
 
-@implementation TDFloorFilter
+@implementation TDDefaultIfNoneFilter
 
 + (NSString *)filterName {
-    return @"floor";
+    return @"default_if_none";
 }
 
 
 - (id)runFilter:(id)input inContext:(TDTemplateContext *)ctx withArgs:(NSArray *)args {
     TDAssert(input);
     
-    [self validateArgs:args min:0 max:0];
+    [self validateArgs:args min:1 max:1];
     
-    double num = [input doubleValue];
-
-    id result = @(floor(num));
+    id result = input;
     
+    if (!input) {
+        result = [args objectAtIndex:0];
+    }
+     
     return result;
 }
 

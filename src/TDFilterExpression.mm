@@ -80,7 +80,7 @@ using namespace parsekit;
     
     NSArray *evaledArgs = [self evaluatedArgs:ctx];
     id obj = [_expr evaluateInContext:ctx];
-    obj = [_filter runFilter:obj withArguments:evaledArgs];
+    obj = [_filter runFilter:obj inContext:ctx withArgs:evaledArgs];
     
     TDValue *val = TDValueFromObject(obj);
     return val;

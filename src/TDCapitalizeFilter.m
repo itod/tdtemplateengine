@@ -29,7 +29,7 @@
 }
 
 
-- (id)runFilter:(id)input withArguments:(NSArray *)args {
+- (id)runFilter:(id)input inContext:(TDTemplateContext *)ctx withArgs:(NSArray *)args {
     TDAssert(input);
     NSString *inStr = TDStringFromObject(input);
     NSString *result = inStr;

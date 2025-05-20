@@ -20,25 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "TDFloorFilter.h"
+#import <TDTemplateEngine/TDFilter.h>
 
-@implementation TDFloorFilter
-
-+ (NSString *)filterName {
-    return @"floor";
-}
-
-
-- (id)runFilter:(id)input inContext:(TDTemplateContext *)ctx withArgs:(NSArray *)args {
-    TDAssert(input);
-    
-    [self validateArgs:args min:0 max:0];
-    
-    double num = [input doubleValue];
-
-    id result = @(floor(num));
-    
-    return result;
-}
+@interface TDDefaultFilter : TDFilter
 
 @end

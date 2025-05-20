@@ -101,6 +101,7 @@ static NSCharacterSet *sNewlineSet = nil;
     if (self) {
         self.vars = [NSMutableDictionary dictionary];
         self.expressionObjectStack = [NSMutableArray array];
+        self.autoescape = YES;
     }
     return self;
 }
@@ -112,6 +113,7 @@ static NSCharacterSet *sNewlineSet = nil;
         self.derivedTemplate = tmpl;
         self.vars = [NSMutableDictionary dictionary];
         self.expressionObjectStack = [NSMutableArray array];
+        self.autoescape = YES;
     }
     return self;
 }
@@ -123,6 +125,7 @@ static NSCharacterSet *sNewlineSet = nil;
         self.vars = [NSMutableDictionary dictionary];
         [_vars addEntriesFromDictionary:vars];
         self.expressionObjectStack = [NSMutableArray array];
+        self.autoescape = YES;
 
         self.writer = [TDWriter writerWithOutputStream:output];
     }
@@ -248,6 +251,16 @@ static NSCharacterSet *sNewlineSet = nil;
     } else {
         [_writer appendString:str];
     }
+}
+
+
+- (NSString *)escapedStringForString:(NSString *)inStr {
+    NSString *output = [[[[[inStr stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"]
+                 stringByReplacingOccurrencesOfString:@"<" withString:@"&lt;"]
+                stringByReplacingOccurrencesOfString:@">" withString:@"&gt;"]
+               stringByReplacingOccurrencesOfString:@"'" withString:@"&#x27;"]
+              stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"];
+    return output;
 }
 
 

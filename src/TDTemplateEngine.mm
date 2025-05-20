@@ -46,6 +46,7 @@
 #import "TDVerbatimTag.h"
 #import "TDCycleTag.h"
 #import "TDResetCycleTag.h"
+#import "TDAutoescapeTag.h"
 #import "TDTrimTag.h"
 #import "TDIndentTag.h"
 #import "TDNewlineTag.h"
@@ -54,6 +55,7 @@
 #import "TDSepTag.h"
 
 #import "TDSafeFilter.h"
+#import "TDEscapeFilter.h"
 #import "TDTrimFilter.h"
 #import "TDRoundFilter.h"
 #import "TDFloorFilter.h"
@@ -158,6 +160,7 @@ static TDTemplateEngine *sInstance = nil;
         [self registerTagClass:[TDVerbatimTag class] forName:[TDVerbatimTag tagName]];
         [self registerTagClass:[TDCycleTag class] forName:[TDCycleTag tagName]];
         [self registerTagClass:[TDResetCycleTag class] forName:[TDResetCycleTag tagName]];
+        [self registerTagClass:[TDAutoescapeTag class] forName:[TDAutoescapeTag tagName]];
         [self registerTagClass:[TDTrimTag class] forName:[TDTrimTag tagName]];
         [self registerTagClass:[TDIndentTag class] forName:[TDIndentTag tagName]];
         [self registerTagClass:[TDNewlineTag class] forName:[TDNewlineTag tagName]];
@@ -167,6 +170,7 @@ static TDTemplateEngine *sInstance = nil;
         
         self.filterTab = [NSMutableDictionary dictionary];
         [self registerFilterClass:[TDSafeFilter class] forName:[TDSafeFilter filterName]];
+        [self registerFilterClass:[TDEscapeFilter class] forName:[TDEscapeFilter filterName]];
         [self registerFilterClass:[TDTrimFilter class] forName:[TDTrimFilter filterName]];
         [self registerFilterClass:[TDRoundFilter class] forName:[TDRoundFilter filterName]];
         [self registerFilterClass:[TDFloorFilter class] forName:[TDFloorFilter filterName]];
