@@ -50,6 +50,7 @@
 
 @property (nonatomic, retain) TDTemplateContext *enclosingScope;
 @property (nonatomic, assign) BOOL trimLines;
+@property (nonatomic, retain) NSMutableArray *expressionObjectStack;
 
 - (void)increaseIndentDepth:(NSUInteger)times;
 - (void)decreaseIndentDepth:(NSUInteger)times;

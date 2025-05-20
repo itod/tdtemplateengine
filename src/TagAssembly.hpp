@@ -9,7 +9,7 @@ private:
     NSMutableArray *_object_stack;
         
 public:
-    TagAssembly(Reader *reader, TokenList *token_stack, TokenList *consumed);
+    TagAssembly(Reader *reader, TokenList *token_stack, TokenList *consumed, NSMutableArray *object_stack);
     ~TagAssembly();
     
     void push_object(id obj) {

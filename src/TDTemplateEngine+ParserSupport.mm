@@ -60,7 +60,7 @@ using namespace templateengine;
     TDAssert(str.length);
     
     NSError *err = nil;
-    TDExpression *expr = [self expressionFromString:str error:&err];
+    TDExpression *expr = [self expressionFromString:str inContext:ctx error:&err];
     if (!expr) {
         [NSException raise:TDTemplateEngineErrorDomain format:@"Error while compiling print node expression `%@`\n\n%@", str, [err localizedFailureReason]];
     }
@@ -107,8 +107,9 @@ using namespace templateengine;
 
 - (TDTag *)tagFromReader:(Reader *)reader withParent:(TDNode *)parent inContext:(TDTemplateContext *)ctx {
     NSParameterAssert(reader);
+    NSParameterAssert(ctx.expressionObjectStack);
     
-    TagParser parser(self);
+    TagParser parser(self, ctx.expressionObjectStack);
 
     TDTag *tag = parser.parseTag(reader, parent);
 //    try {
@@ -122,7 +123,7 @@ using namespace templateengine;
 }
 
 
-- (TDExpression *)expressionFromString:(NSString *)str error:(NSError **)outErr {
+- (TDExpression *)expressionFromString:(NSString *)str inContext:(TDTemplateContext *)ctx error:(NSError **)outErr {
     TDExpression *expr = nil;
     
 //    NSStringEncoding enc = NSUTF8StringEncoding;
@@ -144,18 +145,25 @@ using namespace templateengine;
     
     ReaderObjC reader(str);
     
-    expr = [self expressionFromReader:&reader error:outErr];
+    expr = [self expressionFromReader:&reader inContext:ctx error:outErr];
     return expr;
 }
 
 
-- (TDExpression *)expressionFromReader:(parsekit::Reader *)reader error:(NSError **)outErr {
-    TagParser p(self);
+- (TDExpression *)expressionFromReader:(parsekit::Reader *)reader inContext:(TDTemplateContext *)ctx error:(NSError **)outErr {
+    TagParser p(self, ctx.expressionObjectStack);
 
     TDExpression *expr = [self expressionFromParser:&p reader:reader error:outErr];
 
     expr = [expr simplify];
     return expr;
+}
+
+
+// TESTing only
+- (TDExpression *)expressionFromReader:(Reader *)reader error:(NSError **)outErr {
+    TDTemplateContext *ctx = [[[TDTemplateContext alloc] init] autorelease];
+    return [self expressionFromReader:reader inContext:ctx error:outErr];
 }
 
 

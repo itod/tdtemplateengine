@@ -68,6 +68,8 @@ private:
     NSArray *objectsAbove(id fence);
     NSString *stringByTrimmingQuotes(NSString *inStr);
     
+    NSMutableArray *_objectStack;
+    
     void start();
     
     // tag
@@ -131,7 +133,8 @@ private:
 
 public:
     TagParser(); // testing only
-    TagParser(TDTemplateEngine *engine);
+    TagParser(TDTemplateEngine *engine, NSMutableArray *objectStack);
+    ~TagParser();
 
     static Tokenizer *tokenizer();
     static const EXTokenTable& tokenTable();

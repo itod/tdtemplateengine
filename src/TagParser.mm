@@ -173,13 +173,22 @@ NSString *TagParser::stringByTrimmingQuotes(NSString *inStr) {
 
 TagParser::TagParser() :
     BaseParser(tokenizer()),
-    _engine(nullptr)
+    _engine(nullptr),
+    _objectStack([NSMutableArray new])
 {}
 
-TagParser::TagParser(TDTemplateEngine *engine) :
+TagParser::TagParser(TDTemplateEngine *engine, NSMutableArray *objectStack) :
     BaseParser(tokenizer()),
-    _engine(engine)
-{}
+    _engine(engine),
+    _objectStack([objectStack retain])
+{
+    assert(!_objectStack.count);
+}
+
+TagParser::~TagParser() {
+    [_objectStack release];
+    _objectStack = nil;
+}
 
 TDTag *TagParser::parseTag(Reader *r, TDNode *parent) {
     TokenList lookahead;
@@ -190,7 +199,8 @@ TDTag *TagParser::parseTag(Reader *r, TDNode *parent) {
     
     TokenList token_stack;
     TokenList consumed;
-    TagAssembly a(r, &token_stack, &consumed);
+        
+    TagAssembly a(r, &token_stack, &consumed, _objectStack);
     _assembly = &a;
 
     _p = 0;
@@ -439,7 +449,8 @@ TDExpression *TagParser::parseExpression(Reader *r) {
     
     TokenList token_stack;
     TokenList consumed;
-    TagAssembly a(r, &token_stack, &consumed);
+    
+    TagAssembly a(r, &token_stack, &consumed, _objectStack);
     _assembly = &a;
 
     _p = 0;

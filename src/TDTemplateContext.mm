@@ -100,6 +100,7 @@ static NSCharacterSet *sNewlineSet = nil;
     self = [super init];
     if (self) {
         self.vars = [NSMutableDictionary dictionary];
+        self.expressionObjectStack = [NSMutableArray array];
     }
     return self;
 }
@@ -110,6 +111,7 @@ static NSCharacterSet *sNewlineSet = nil;
     if (self) {
         self.derivedTemplate = tmpl;
         self.vars = [NSMutableDictionary dictionary];
+        self.expressionObjectStack = [NSMutableArray array];
     }
     return self;
 }
@@ -120,7 +122,8 @@ static NSCharacterSet *sNewlineSet = nil;
     if (self) {
         self.vars = [NSMutableDictionary dictionary];
         [_vars addEntriesFromDictionary:vars];
-        
+        self.expressionObjectStack = [NSMutableArray array];
+
         self.writer = [TDWriter writerWithOutputStream:output];
     }
     return self;
@@ -134,6 +137,7 @@ static NSCharacterSet *sNewlineSet = nil;
     self.derivedTemplate = nil;
     
     self.templateStringStack = nil;
+    self.expressionObjectStack = nil;
     self.vars = nil;
     [super dealloc];
 }
