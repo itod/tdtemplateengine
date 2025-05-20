@@ -85,5 +85,39 @@
     TDEqualObjects(foo, res);
 }
 
+- (void)testAutoescapeOnEscapeFilter {
+    NSString *foo = @"<a>'\"&";
+    id vars = @{
+        @"foo": foo,
+    };
+    
+    // MUST NOT DOUBLE-ESCAPE HERE!!!
+    NSString *input = @"{% autoescape on %}{{foo|escape}}{% endautoescape %}";
+    NSError *err = nil;
+    BOOL success = NO;
+    
+    success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"&lt;a&gt;&#x27;&quot;&amp;", res);
+}
+
+- (void)testAutoescapeOffEscapeFilter {
+    NSString *foo = @"<a>'\"&";
+    id vars = @{
+        @"foo": foo,
+    };
+    
+    NSString *input = @"{% autoescape off %}{{foo|escape}}{% endautoescape %}";
+    NSError *err = nil;
+    BOOL success = NO;
+    
+    success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"&lt;a&gt;&#x27;&quot;&amp;", res);
+}
 
 @end
