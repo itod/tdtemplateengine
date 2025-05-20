@@ -52,7 +52,7 @@ typedef NS_ENUM(int, TDTokenType) {
     TDTokenType_SILENT               =  42,
 };
 
-typedef std::map<std::string, TDTokenType> EXTokenTable;
+typedef std::map<std::string, TDTokenType> TDTagTokenTable;
 
 class TagParser : public BaseParser {
 private:
@@ -116,7 +116,6 @@ private:
     void _filterExpr();
     void _filter();
     void _filterArgs();
-    void _filterArg();
     void _primaryExpr();
     void _subExpr();
     void _atom();
@@ -137,12 +136,12 @@ public:
     ~TagParser();
 
     static Tokenizer *tokenizer();
-    static const EXTokenTable& tokenTable();
+    static const TDTagTokenTable& tokenTable();
     
     virtual Token edit_token_type(const Token& tok) const override {
         
         std::string s = _assembly->cpp_string_for_token(tok);
-        const EXTokenTable tab = TagParser::tokenTable();
+        const TDTagTokenTable tab = TagParser::tokenTable();
         
         TokenType tt;
         try {

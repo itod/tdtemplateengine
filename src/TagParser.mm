@@ -68,8 +68,8 @@ Tokenizer *TagParser::tokenizer() {
     return t;
 }
 
-const EXTokenTable& TagParser::tokenTable() {
-    static EXTokenTable tokenTab = {
+const TDTagTokenTable& TagParser::tokenTable() {
+    static TDTagTokenTable tokenTab = {
         {"gt", TDTokenType_GT},
         {">=", TDTokenType_GE_SYM},
         {"&&", TDTokenType_DOUBLE_AMPERSAND},
@@ -933,10 +933,10 @@ void TagParser::_filterArgs() {
     if (predicts(TDTokenType_COLON, 0)) {
         match(TDTokenType_COLON, true);
         PUSH_OBJ(COLON);
-        _filterArg();
+        _atom();
         while (predicts(TDTokenType_COMMA, 0)) {
             match(TDTokenType_COMMA, true);
-            _filterArg();
+            _atom();
         }
         if (!isSpeculating()) {
             id args = OBJS_ABOVE(COLON);
@@ -950,27 +950,6 @@ void TagParser::_filterArgs() {
             PUSH_OBJ(@[]);
         }
     }
-
-}
-
-void TagParser::_filterArg() {
-    _atom();
-//    
-//    if (predicts(TokenType_QUOTED_STRING, 0)) {
-//        _str();
-//        TDStringValue *str = POP_OBJ();
-//        PUSH_OBJ([EXToken tokenWithTokenType:TokenType_QUOTED_STRING stringValue:str.stringValue doubleValue:0]);
-//    } else if (predicts(TokenType_WORD, 0)) {
-//        _identifier();
-//        id str = POP_OBJ();
-//        PUSH_OBJ([EXToken tokenWithTokenType:TokenType_WORD stringValue:str doubleValue:0]);
-//    } else if (predicts(TokenType_NUMBER, 0)) {
-//        _num();
-//        id num = POP_OBJ();
-//        PUSH_OBJ([EXToken tokenWithTokenType:TokenType_NUMBER stringValue:nil doubleValue:[num doubleValue]]);
-//    } else {
-//        raise("No viable alternative found in rule 'filterArg'.");
-//    }
 
 }
 
