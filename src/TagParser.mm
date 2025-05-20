@@ -17,7 +17,6 @@
 #import "TDRangeExpression.h"
 #import "TDPathExpression.h"
 #import "TDFilterExpression.h"
-#import "EXToken.h" // TODO remove
 
 #import "TDIncludeTag.h"
 #import "TDLoadTag.h"
@@ -955,22 +954,23 @@ void TagParser::_filterArgs() {
 }
 
 void TagParser::_filterArg() {
-    
-    if (predicts(TokenType_QUOTED_STRING, 0)) {
-        _str();
-        TDStringValue *str = POP_OBJ();
-        PUSH_OBJ([EXToken tokenWithTokenType:TokenType_QUOTED_STRING stringValue:str.stringValue doubleValue:0]);
-    } else if (predicts(TokenType_WORD, 0)) {
-        _identifier();
-        id str = POP_OBJ();
-        PUSH_OBJ([EXToken tokenWithTokenType:TokenType_WORD stringValue:str doubleValue:0]);
-    } else if (predicts(TokenType_NUMBER, 0)) {
-        _num();
-        id num = POP_OBJ();
-        PUSH_OBJ([EXToken tokenWithTokenType:TokenType_NUMBER stringValue:nil doubleValue:[num doubleValue]]);
-    } else {
-        raise("No viable alternative found in rule 'filterArg'.");
-    }
+    _atom();
+//    
+//    if (predicts(TokenType_QUOTED_STRING, 0)) {
+//        _str();
+//        TDStringValue *str = POP_OBJ();
+//        PUSH_OBJ([EXToken tokenWithTokenType:TokenType_QUOTED_STRING stringValue:str.stringValue doubleValue:0]);
+//    } else if (predicts(TokenType_WORD, 0)) {
+//        _identifier();
+//        id str = POP_OBJ();
+//        PUSH_OBJ([EXToken tokenWithTokenType:TokenType_WORD stringValue:str doubleValue:0]);
+//    } else if (predicts(TokenType_NUMBER, 0)) {
+//        _num();
+//        id num = POP_OBJ();
+//        PUSH_OBJ([EXToken tokenWithTokenType:TokenType_NUMBER stringValue:nil doubleValue:[num doubleValue]]);
+//    } else {
+//        raise("No viable alternative found in rule 'filterArg'.");
+//    }
 
 }
 

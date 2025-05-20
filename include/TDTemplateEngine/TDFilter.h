@@ -36,5 +36,5 @@ FOUNDATION_EXPORT NSString *TDStringFromObject(id obj);
 @interface TDFilter (Override)
 + (NSString *)filterName;
 
-- (id)runFilter:(id)input inContext:(TDTemplateContext *)ctx withArgs:(NSArray *)args;
+- (id)runFilter:(id)input withArgs:(NSArray *)args inContext:(TDTemplateContext *)ctx;
 @end

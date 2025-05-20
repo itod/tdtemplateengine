@@ -44,7 +44,7 @@ NSString *TDStringFromObject(id obj) {
 }
 
 
-- (id)runFilter:(id)input inContext:(TDTemplateContext *)ctx withArgs:(NSArray *)args {
+- (id)runFilter:(id)input withArgs:(NSArray *)args inContext:(TDTemplateContext *)ctx {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
     return nil;
 }

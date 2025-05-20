@@ -21,11 +21,13 @@
 // THE SOFTWARE.
 
 #import "TDFilterExpression.h"
-#import "TDValue.h"
+#import "TDStringValue.h"
+#import "TDNumericValue.h"
+#import "TDBooleanValue.h"
+#import "TDObjectValue.h"
 #import <TDTemplateEngine/TDTemplateEngine.h>
 #import <TDTemplateEngine/TDTemplateContext.h>
 #import <TDTemplateEngine/TDFilter.h>
-#import "EXToken.h"
 
 using namespace parsekit;
 
@@ -72,7 +74,6 @@ using namespace parsekit;
 }
 
 
-
 - (TDValue *)evaluateInContext:(TDTemplateContext *)ctx {
     TDAssert(ctx);
     TDAssert(_expr);
@@ -80,7 +81,7 @@ using namespace parsekit;
     
     NSArray *evaledArgs = [self evaluatedArgs:ctx];
     id obj = [_expr evaluateInContext:ctx];
-    obj = [_filter runFilter:obj inContext:ctx withArgs:evaledArgs];
+    obj = [_filter runFilter:obj withArgs:evaledArgs inContext:ctx];
     
     TDValue *val = TDValueFromObject(obj);
     return val;
@@ -88,27 +89,15 @@ using namespace parsekit;
 
 
 - (NSArray *)evaluatedArgs:(TDTemplateContext *)ctx {
-    NSUInteger c = [_args count];
+    NSUInteger c = _args.count;
     
-    id evaledArgs = nil;
+    NSMutableArray *evaledArgs = nil;
     if (c) {
         evaledArgs = [NSMutableArray arrayWithCapacity:c];
         
-        for (EXToken *tok in _args) {
-            switch (tok.tokenType) {
-                case TokenType_QUOTED_STRING:
-                    [evaledArgs addObject:tok.stringValue];
-                    break;
-                case TokenType_WORD:
-                    [evaledArgs addObject:[ctx resolveVariable:tok.stringValue]];
-                    break;
-                case TokenType_NUMBER:
-                    [evaledArgs addObject:@(tok.doubleValue)];
-                    break;
-                default:
-                    TDAssert(0);
-                    break;
-            }
+        for (TDExpression *expr in _args) {
+            id obj = [expr evaluateAsObjectInContext:ctx];
+            [evaledArgs addObject:obj];
         }
     }
     
