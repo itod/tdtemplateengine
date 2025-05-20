@@ -27,10 +27,6 @@
 #import <TDTemplateEngine/TDExpression.h>
 #import "TDValue.h"
 
-@interface TDTag ()
-@property (nonatomic, retain) NSArray *args;
-@end
-
 @implementation TDTag
 
 + (NSString *)tagName {
@@ -52,6 +48,7 @@
 
 - (void)dealloc {
     self.args = nil;
+    self.kwargs = nil;
     [super dealloc];
 }
 

@@ -20,10 +20,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <TDTemplateEngine/TDKwargsTag.h>
+#import <TDTemplateEngine/TDTag.h>
 #import <TDTemplateEngine/TDCompileTimeTag.h>
 
-@interface TDIncludeTag : TDKwargsTag <TDCompileTimeTag>
+@interface TDIncludeTag : TDTag <TDCompileTimeTag>
 
 // _expression is the file path
 @end

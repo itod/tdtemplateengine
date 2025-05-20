@@ -41,17 +41,11 @@
 }
 
 
-- (void)dealloc {
-    self.values = nil;
-    self.name = nil;
-    [super dealloc];
-}
-
-
 - (void)runInContext:(TDTemplateContext *)ctx {
     TDAssert(ctx);
-    TDAssert(self.values);
+    TDAssert(self.args);
 
+    
     
     
 }

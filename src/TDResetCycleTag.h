@@ -20,8 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <TDTemplateEngine/TDArgListTag.h>
+#import <TDTemplateEngine/TDTag.h>
 
-@interface TDResetCycleTag : TDArgListTag
+@interface TDResetCycleTag : TDTag
 
 @end

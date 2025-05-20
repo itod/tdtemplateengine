@@ -19,7 +19,6 @@
 #import "TDFilterExpression.h"
 #import "EXToken.h" // TODO remove
 
-#import "TDArgListTag.h"
 #import "TDIncludeTag.h"
 #import "TDLoadTag.h"
 #import "TDCycleTag.h"
@@ -239,7 +238,7 @@ void TagParser::_tag(TDNode *parent) {
             case TDTagExpressionTypeLoop:
                 _loopTag();
                 break;
-            case TDTagExpressionTypeArgList:
+            case TDTagExpressionTypeArgs:
                 _argListTag();
                 break;
             case TDTagExpressionTypeKwargs:
@@ -321,7 +320,7 @@ void TagParser::_argListTag() {
         [args addObject:expr];
     }
     
-    TDArgListTag *tag = PEEK_OBJ();
+    TDTag *tag = PEEK_OBJ();
     tag.args = args;
 }
 
@@ -333,7 +332,7 @@ void TagParser::_kwargsTag() {
 
     if (!isSpeculating()) {
         NSDictionary *kwags = POP_OBJ();
-        TDKwargsTag *tag = PEEK_OBJ();
+        TDTag *tag = PEEK_OBJ();
         tag.kwargs = kwags;
     }
 }
@@ -421,14 +420,12 @@ void TagParser::_cycleTag() {
     }
     
     TDCycleTag *tag = PEEK_OBJ();
-    tag.values = values;
+    tag.args = values;
     
     if (predicts(TDTokenType_AS, 0)) {
-        match(TDTokenType_AS, true);
-        _identifier();
-        
-        NSString *name = POP_OBJ();
-        tag.name = name;
+        match(TDTokenType_AS);
+        _atom();
+        tag.expression = POP_OBJ();
     }
     
     if (predicts(TDTokenType_SILENT, 0)) {

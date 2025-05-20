@@ -24,7 +24,7 @@
 
 @interface TDCycleTag : TDTag
 
-@property (nonatomic, retain) NSArray *values;
-@property (nonatomic, retain) NSString *name;
+// _expression is the name
 @property (nonatomic, assign) BOOL silent;
 @end
+

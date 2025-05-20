@@ -33,7 +33,7 @@ typedef NS_ENUM(NSUInteger, TDTagContentType) {
 typedef NS_ENUM(NSUInteger, TDTagExpressionType) {
     TDTagExpressionTypeDefault = 0,
     TDTagExpressionTypeLoop,
-    TDTagExpressionTypeArgList,
+    TDTagExpressionTypeArgs,
     TDTagExpressionTypeKwargs,
     TDTagExpressionTypeLoad,
     TDTagExpressionTypeInclude,
@@ -42,6 +42,9 @@ typedef NS_ENUM(NSUInteger, TDTagExpressionType) {
 
 @interface TDTag : TDNode
 
+// exprs to be evaled at runtime
+@property (nonatomic, retain) NSArray *args;
+@property (nonatomic, retain) NSDictionary *kwargs;
 @end
 
 // Subclasses must override these methods
