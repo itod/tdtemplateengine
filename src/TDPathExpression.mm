@@ -94,6 +94,9 @@
                     int idx = [step intValue];
                     TDAssert([obj isKindOfClass:[NSArray class]]);
                     obj = [obj objectAtIndex:idx];
+                } else if ([step isEqualToString:@"items"] && [obj isKindOfClass:[NSDictionary class]]) {
+                    // support for python style `dict.items`
+                    obj = obj;
                 } else {
                     @try {
                         obj = [obj valueForKey:step];
