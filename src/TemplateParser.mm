@@ -148,7 +148,7 @@ void TemplateParser::_block_tag() {
     Token end_tok = lt(1);
     match(TemplateTokenType_TAG, true);
 
-    if ([_currentParent isKindOfClass:[TDVerbatimTag class]]) {
+    if (_currentParent.isVerbatim) {
         TokenRange beg_range = beg_tok.range();
         size_t beg_offset = beg_range.location + beg_range.length;
         

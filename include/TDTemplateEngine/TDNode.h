@@ -42,6 +42,7 @@
 
 @property (nonatomic, copy, readonly) NSString *tagName;
 @property (nonatomic, retain) TDExpression *expression;
+@property (nonatomic, assign, readonly) BOOL isVerbatim;
 
 - (void)addChild:(TDNode *)kid;
 @property (nonatomic, retain) NSMutableArray *children;

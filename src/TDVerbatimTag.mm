@@ -28,6 +28,11 @@
 }
 
 
+- (BOOL)isVerbatim {
+    return YES;
+}
+
+
 - (void)runInContext:(TDTemplateContext *)ctx {
     //NSLog(@"%s %@", __PRETTY_FUNCTION__, self);
     TDAssert(ctx);
