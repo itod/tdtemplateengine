@@ -48,7 +48,7 @@
     TDTrue(success);
     TDNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"&lt;a&gt;&#x27;&quot;&amp; <a>'\"&", res);
+    TDEqualObjects(@"&lt;a&gt;&apos;&quot;&amp; <a>'\"&", res);
 }
 
 - (void)testAutoescapeOn {
@@ -65,7 +65,7 @@
     TDTrue(success);
     TDNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"&lt;a&gt;&#x27;&quot;&amp;", res);
+    TDEqualObjects(@"&lt;a&gt;&apos;&quot;&amp;", res);
 }
 
 - (void)testAutoescapeOff {
@@ -100,7 +100,7 @@
     TDTrue(success);
     TDNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"&lt;a&gt;&#x27;&quot;&amp;", res);
+    TDEqualObjects(@"&lt;a&gt;&apos;&quot;&amp;", res);
 }
 
 - (void)testAutoescapeOffEscapeFilter {
@@ -117,7 +117,7 @@
     TDTrue(success);
     TDNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"&lt;a&gt;&#x27;&quot;&amp;", res);
+    TDEqualObjects(@"&lt;a&gt;&apos;&quot;&amp;", res);
 }
 
 @end
