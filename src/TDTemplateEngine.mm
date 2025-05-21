@@ -287,7 +287,6 @@ static TDTemplateEngine *sInstance = nil;
     TDTemplate *tmpl = [[[TDTemplate alloc] initWithFilePath:path] autorelease];
     TDTemplateContext *ctx = [[[TDTemplateContext alloc] initWithTemplate:tmpl] autorelease];
     ctx.delegate = self;
-    TDAssert(_staticContext);
     ctx.enclosingScope = _staticContext;
 
     [ctx pushTemplateString:str];

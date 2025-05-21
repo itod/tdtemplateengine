@@ -53,7 +53,7 @@ typedef NS_ENUM(NSUInteger, TDTagExpressionType) {
 + (TDTagContentType)tagContentType;
 + (TDTagExpressionType)tagExpressionType;
 
-+ (NSString *)outputTemplatePath;
-
 - (id)runInContext:(TDTemplateContext *)ctx;
+
+- (void)validateArgsWithMin:(NSUInteger)min max:(NSUInteger)max;
 @end

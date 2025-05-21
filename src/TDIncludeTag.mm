@@ -99,6 +99,7 @@
     TDTemplateContext *ctx = inCtx;
     if (self.kwargs.count) {
         ctx = [[[TDTemplateContext alloc] initWithVariables:nil output:inCtx.writer.output] autorelease];
+        ctx.delegate = inCtx.delegate;
         ctx.enclosingScope = inCtx;
         
         for (NSString *name in self.kwargs) {

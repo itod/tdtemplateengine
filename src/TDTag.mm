@@ -20,16 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "TDTag.h"
+#import <TDTemplateEngine/TDTag.h>
 #import <TDTemplateEngine/TDTemplateEngine.h>
-#import <TDTemplateEngine/TDTemplateContext.h>
-#import <TDTemplateEngine/TDWriter.h>
-#import <TDTemplateEngine/TDExpression.h>
-#import "TDValue.h"
-
-@interface TDTemplateContext ()
-@property (nonatomic, retain) TDWriter *writer;
-@end
 
 @implementation TDTag
 
@@ -50,11 +42,6 @@
 }
 
 
-+ (NSString *)outputTemplatePath {
-    return nil;
-}
-
-
 - (void)dealloc {
     self.args = nil;
     self.kwargs = nil;
@@ -68,23 +55,7 @@
 - (void)renderInContext:(TDTemplateContext *)ctx {
     NSParameterAssert(ctx);
     
-    id vars = [self runInContext:ctx];
-    
-    if (vars) {
-        NSString *templatePath = [[self class] outputTemplatePath];
-        NSError *err = nil;
-        TDTemplate *tmpl = [ctx.delegate templateContext:ctx templateForFilePath:templatePath error:&err];
-        if (!tmpl) {
-            if (err) NSLog(@"%@", err);
-            return;
-        }
-        
-        BOOL success = [tmpl render:vars toStream:ctx.writer.output error:&err];
-        if (!success) {
-            if (err) NSLog(@"%@", err);
-            return;
-        }
-    }
+    [self runInContext:ctx];
 }
 
 
@@ -99,6 +70,21 @@
 
 - (NSString *)tagName {
     return [[self class] tagName];
+}
+
+
+- (void)validateArgsWithMin:(NSUInteger)min max:(NSUInteger)max {
+    NSUInteger actual = self.args.count;
+    
+    NSString *plural = min > 1 ? @"s" : @"";
+    if (actual < min) {
+        [NSException raise:TDTemplateEngineErrorDomain format:@"Filter '%@' requires at least %lu argument%@. %lu given.", [[self class] filterName], min, plural, actual];
+    }
+
+    plural = (0 == max || max > 1) ? @"s" : @"";
+    if (actual > max) {
+        [NSException raise:TDTemplateEngineErrorDomain format:@"Filter '%@' requires at most %lu argument%@. %lu given.", [[self class] filterName], max, plural, actual];
+    }
 }
 
 @end
