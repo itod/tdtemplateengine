@@ -76,7 +76,7 @@
 #pragma mark -
 #pragma mark Runtime
 
-- (id)runInContext:(TDTemplateContext *)ctx {
+- (void)runInContext:(TDTemplateContext *)ctx {
     NSParameterAssert(ctx);
     
     TDTemplate *tmpl = ctx.derivedTemplate;
@@ -89,8 +89,6 @@
     [ctx pushTemplateString:blockRoot.templateString];
     [delegate renderChildrenInContext:ctx];
     [ctx popTemplateString];
-    
-    return nil;
 }
 
 @end

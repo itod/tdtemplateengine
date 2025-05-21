@@ -42,7 +42,7 @@
 }
 
 
-- (id)runInContext:(TDTemplateContext *)ctx {
+- (void)runInContext:(TDTemplateContext *)ctx {
     TDAssert(ctx);
     
     NSString *name = nil;
@@ -58,8 +58,6 @@
     }
     
     [ctx defineVariable:name value:@0];
-    
-    return nil;
 }
 
 @end

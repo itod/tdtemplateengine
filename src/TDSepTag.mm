@@ -22,13 +22,11 @@
 }
 
 
-- (id)runInContext:(TDTemplateContext *)ctx {
+- (void)runInContext:(TDTemplateContext *)ctx {
     TDForLoop *loop = [ctx resolveVariable:@"forloop"];
     if (loop && !loop.last) {
         [self renderChildrenInContext:ctx];
     }
-    
-    return nil;
 }
 
 @end

@@ -36,7 +36,7 @@
 }
 
 
-- (id)runInContext:(TDTemplateContext *)ctx {
+- (void)runInContext:(TDTemplateContext *)ctx {
     TDAssert(ctx);
     
     BOOL test = YES;
@@ -48,8 +48,6 @@
     if (test) {
         [TDSkipException raise:@"TDSkipException" format:@""];
     }
-    
-    return nil;
 }
 
 @end

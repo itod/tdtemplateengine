@@ -15,5 +15,7 @@
 
 + (NSString *)outputTemplatePath;
 
+- (id)runInContext:(TDTemplateContext *)ctx;
+
 @property (nonatomic, retain) TDTemplate *outputTemplate;
 @end

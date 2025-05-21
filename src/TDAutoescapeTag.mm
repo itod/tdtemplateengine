@@ -23,7 +23,7 @@
 }
 
 
-- (id)runInContext:(TDTemplateContext *)ctx {
+- (void)runInContext:(TDTemplateContext *)ctx {
     //NSLog(@"%s %@", __PRETTY_FUNCTION__, self);
     TDAssert(ctx);
     
@@ -52,8 +52,6 @@
     ctx.autoescape = newEscape;
     [self renderChildrenInContext:ctx];
     ctx.autoescape = oldEscape;
-
-    return nil;
 }
 
 @end

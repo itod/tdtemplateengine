@@ -34,9 +34,7 @@
 }
 
 
-- (id)runInContext:(TDTemplateContext *)ctx {
-
-    return nil;
+- (void)runInContext:(TDTemplateContext *)ctx {
 }
 
 @end

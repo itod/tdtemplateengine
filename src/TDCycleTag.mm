@@ -41,7 +41,7 @@
 }
 
 
-- (id)runInContext:(TDTemplateContext *)ctx {
+- (void)runInContext:(TDTemplateContext *)ctx {
     TDAssert(ctx);
     TDAssert(self.args);
     
@@ -75,8 +75,6 @@
         
         [ctx writeString:output];
     }
-    
-    return nil;
 }
 
 

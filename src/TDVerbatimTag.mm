@@ -28,14 +28,12 @@
 }
 
 
-- (id)runInContext:(TDTemplateContext *)ctx {
+- (void)runInContext:(TDTemplateContext *)ctx {
     //NSLog(@"%s %@", __PRETTY_FUNCTION__, self);
     TDAssert(ctx);
     
     NSString *str = [ctx templateSubstringForToken:self.token];
     [ctx writeString:str];
-    
-    return nil;
 }
 
 @end

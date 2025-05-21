@@ -48,7 +48,7 @@
 }
 
 
-- (id)runInContext:(TDTemplateContext *)ctx {
+- (void)runInContext:(TDTemplateContext *)ctx {
     TDAssert(ctx);
     TDAssert(self.expression);
     
@@ -67,8 +67,6 @@
             [child renderInContext:ctx];
         }
     }
-    
-    return nil;
 }
 
 @end
