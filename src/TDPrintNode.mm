@@ -24,6 +24,10 @@
 #import "TDExpression.h"
 #import <TDTemplateEngine/TDTemplateContext.h>
 
+@interface NSString ()
+- (BOOL)isSafe;
+@end
+
 @implementation TDPrintNode
 
 - (void)dealloc {
@@ -42,7 +46,7 @@
     
     NSString *str = [self.expression evaluateAsStringInContext:ctx];
     if (str.length) {
-        if (ctx.autoescape) {
+        if (ctx.autoescape && ![str isSafe]) {
             str = [ctx escapedStringForString:str];
         }
         [ctx writeObject:str];
