@@ -256,10 +256,19 @@ static NSCharacterSet *sNewlineSet = nil;
 
 - (NSString *)escapedStringForString:(NSString *)inStr {
     NSString *output = [[[[[inStr stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"]
-                 stringByReplacingOccurrencesOfString:@"<" withString:@"&lt;"]
-                stringByReplacingOccurrencesOfString:@">" withString:@"&gt;"]
-               stringByReplacingOccurrencesOfString:@"'" withString:@"&#x27;"]
-              stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"];
+                           stringByReplacingOccurrencesOfString:@"<" withString:@"&lt;"]
+                          stringByReplacingOccurrencesOfString:@">" withString:@"&gt;"]
+                         stringByReplacingOccurrencesOfString:@"'" withString:@"&#x27;"]
+                        stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"];
+
+//    id entites = @{
+//        @"&": @"&amp;",
+//        @"<": @"&lt;",
+//        @">": @"&gt;",
+//        @"'": @"&#x27;",
+//        @"\"": @"&quot;",
+//    };
+//    NSString *output = [(id)CFXMLCreateStringByEscapingEntities(NULL, (CFStringRef)inStr, (CFDictionaryRef)entites) autorelease];
     return output;
 }
 
