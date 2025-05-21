@@ -422,9 +422,10 @@ void TagParser::_cycleTag() {
     tag.args = values;
     
     if (predicts(TDTokenType_AS, 0)) {
-        match(TDTokenType_AS);
-        _atom();
-        tag.expression = POP_OBJ();
+        match(TDTokenType_AS, true);
+        match(TokenType_WORD, false);
+        NSString *name = POP_TOK_STR();
+        tag.name = name;
     }
     
     if (predicts(TDTokenType_SILENT, 0)) {

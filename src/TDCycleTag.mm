@@ -45,9 +45,41 @@
     TDAssert(ctx);
     TDAssert(self.args);
 
+    NSString *name = self.name;
+    if (!name) {
+        name = [TDCycleTag contextKey];
+    }
+    NSString *idxName = [NSString stringWithFormat:@"%@-idx", name];
+
+    // get the current index of this cycle tag, non-existant is the same as 0
+    // idx must be stored in the ctx, not as an ivar bc this tag class must be thread safe.
+    // so the idx must be unique to this execution of this template rendering.
+    NSUInteger idx = [[ctx resolveVariable:idxName] unsignedIntValue]; // nil returns 0
+    idx = idx % self.args.count;
     
+    // increment index for next time
+    [ctx defineVariable:idxName value:@(idx+1)];
     
+    // eval the value at the current index
+    NSString *output = [[self.args objectAtIndex:idx] evaluateAsStringInContext:ctx];
     
+    // define current indexed value in context in case it can be used in print tags {{foo}} or ref'ed in resetcycle tags
+    [ctx defineVariable:name value:output];
+
+    // if not silent, write the current indexed value to stream too
+    if (!self.silent) {
+        // django docs say cycle vals are autoescaped
+        if (ctx.autoescape) {
+            output = [ctx escapedStringForString:output];
+        }
+        
+        [ctx writeString:output];
+    }
+}
+
+
++ (NSString *)contextKey {
+    return [NSString stringWithFormat:@"__%@__", [TDCycleTag tagName]];
 }
 
 @end

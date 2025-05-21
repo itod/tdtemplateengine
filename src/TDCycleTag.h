@@ -24,7 +24,9 @@
 
 @interface TDCycleTag : TDTag
 
-// _expression is the name
++ (NSString *)contextKey;
+
+@property (nonatomic, copy) NSString *name;
 @property (nonatomic, assign) BOOL silent;
 @end
 

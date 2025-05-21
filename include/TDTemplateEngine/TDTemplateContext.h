@@ -42,7 +42,7 @@
 
 // Scope
 - (id)resolveVariable:(NSString *)name;
-- (void)defineVariable:(NSString *)name value:(id)value;
+- (void)defineVariable:(NSString *)name value:(id)value; // dont put TDValues or TDExpressions in here. should be evaled already
 
 - (void)writeObject:(id)obj;
 - (void)writeString:(NSString *)str;
