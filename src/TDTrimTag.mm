@@ -22,7 +22,7 @@
 }
 
 
-- (void)runInContext:(TDTemplateContext *)ctx {
+- (id)runInContext:(TDTemplateContext *)ctx {
     //NSLog(@"%s %@", __PRETTY_FUNCTION__, self);
     TDAssert(ctx);
     
@@ -35,10 +35,12 @@
             newTrim = NO;
         }
     }
-
+    
     ctx.trimLines = newTrim;
     [self renderChildrenInContext:ctx];
     ctx.trimLines = oldTrim;
+    
+    return nil;
 }
 
 @end

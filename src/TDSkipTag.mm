@@ -36,18 +36,20 @@
 }
 
 
-- (void)runInContext:(TDTemplateContext *)ctx {
+- (id)runInContext:(TDTemplateContext *)ctx {
     TDAssert(ctx);
-
+    
     BOOL test = YES;
     
     if (self.expression) {
         test = [self.expression evaluateAsBooleanInContext:ctx];
     }
-
+    
     if (test) {
         [TDSkipException raise:@"TDSkipException" format:@""];
     }
+    
+    return nil;
 }
 
 @end

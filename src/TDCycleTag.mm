@@ -41,16 +41,16 @@
 }
 
 
-- (void)runInContext:(TDTemplateContext *)ctx {
+- (id)runInContext:(TDTemplateContext *)ctx {
     TDAssert(ctx);
     TDAssert(self.args);
-
+    
     NSString *name = self.name;
     if (!name) {
         name = [TDCycleTag contextKey];
     }
     NSString *idxName = [NSString stringWithFormat:@"%@-idx", name];
-
+    
     // get the current index of this cycle tag, non-existant is the same as 0
     // idx must be stored in the ctx, not as an ivar bc this tag class must be thread safe.
     // so the idx must be unique to this execution of this template rendering.
@@ -65,7 +65,7 @@
     
     // define current indexed value in context in case it can be used in print tags {{foo}} or ref'ed in resetcycle tags
     [ctx defineVariable:name value:output];
-
+    
     // if not silent, write the current indexed value to stream too
     if (!self.silent) {
         // django docs say cycle vals are autoescaped
@@ -75,6 +75,8 @@
         
         [ctx writeString:output];
     }
+    
+    return nil;
 }
 
 

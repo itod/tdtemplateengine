@@ -28,7 +28,7 @@
 }
 
 
-- (void)runInContext:(TDTemplateContext *)ctx {
+- (id)runInContext:(TDTemplateContext *)ctx {
     //NSLog(@"%s %@", __PRETTY_FUNCTION__, self);
     TDAssert(ctx);
     
@@ -37,11 +37,11 @@
     if (self.expression) {
         times = (NSUInteger)[self.expression evaluateAsNumberInContext:ctx];
     }
-
+    
     
     [ctx increaseIndentDepth:times];
-
-    // leading indent WS
+    
+// leading indent WS
 //    {
 //        NSMutableString *str = [NSMutableString string];
 //        for (NSUInteger depth = 0; depth < ctx.indentDepth; ++depth) {
@@ -53,6 +53,8 @@
     [self renderChildrenInContext:ctx];
     
     [ctx decreaseIndentDepth:times];
+    
+    return nil;
 }
 
 @end

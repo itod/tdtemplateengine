@@ -53,8 +53,9 @@
 }
 
 
-- (void)runInContext:(TDTemplateContext *)ctx {
+- (id)runInContext:(TDTemplateContext *)ctx {
     // noop
+    return nil;
 }
 
 @end

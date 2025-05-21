@@ -42,7 +42,7 @@
 }
 
 
-- (void)runInContext:(TDTemplateContext *)ctx {
+- (id)runInContext:(TDTemplateContext *)ctx {
     TDAssert(ctx);
     
     NSString *name = nil;
@@ -56,8 +56,10 @@
     } else {
         name = [TDCycleTag contextKey];
     }
-
+    
     [ctx defineVariable:name value:@0];
+    
+    return nil;
 }
 
 @end

@@ -53,5 +53,7 @@ typedef NS_ENUM(NSUInteger, TDTagExpressionType) {
 + (TDTagContentType)tagContentType;
 + (TDTagExpressionType)tagExpressionType;
 
-- (void)runInContext:(TDTemplateContext *)ctx;
++ (NSString *)outputTemplatePath;
+
+- (id)runInContext:(TDTemplateContext *)ctx;
 @end

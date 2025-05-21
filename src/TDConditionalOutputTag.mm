@@ -34,7 +34,7 @@
 }
 
 
-- (void)runInContext:(TDTemplateContext *)ctx {
+- (id)runInContext:(TDTemplateContext *)ctx {
     //NSLog(@"%s %@", __PRETTY_FUNCTION__, self);
     TDAssert(ctx);
     
@@ -55,6 +55,8 @@
         }
         
     } ctx.trimLines = oldTrim;
+
+    return nil;
 }
 
 @end

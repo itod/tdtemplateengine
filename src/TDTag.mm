@@ -27,6 +27,10 @@
 #import <TDTemplateEngine/TDExpression.h>
 #import "TDValue.h"
 
+@interface TDTemplateContext ()
+@property (nonatomic, retain) TDWriter *writer;
+@end
+
 @implementation TDTag
 
 + (NSString *)tagName {
@@ -46,6 +50,11 @@
 }
 
 
++ (NSString *)outputTemplatePath {
+    return nil;
+}
+
+
 - (void)dealloc {
     self.args = nil;
     self.kwargs = nil;
@@ -58,18 +67,33 @@
 
 - (void)renderInContext:(TDTemplateContext *)ctx {
     NSParameterAssert(ctx);
-
-    //ctx = [[ctx copy] autorelease];
     
-    [self runInContext:ctx];
+    id vars = [self runInContext:ctx];
+    
+    if (vars) {
+        NSString *templatePath = [[self class] outputTemplatePath];
+        NSError *err = nil;
+        TDTemplate *tmpl = [ctx.delegate templateContext:ctx templateForFilePath:templatePath error:&err];
+        if (!tmpl) {
+            if (err) NSLog(@"%@", err);
+            return;
+        }
+        
+        BOOL success = [tmpl render:vars toStream:ctx.writer.output error:&err];
+        if (!success) {
+            if (err) NSLog(@"%@", err);
+            return;
+        }
+    }
 }
 
 
 #pragma mark -
 #pragma mark TDTag
 
-- (void)runInContext:(TDTemplateContext *)ctx {
+- (id)runInContext:(TDTemplateContext *)ctx {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
+    return nil;
 }
 
 
