@@ -24,5 +24,4 @@
 
 @interface TDLoadTag : TDTag <TDCompileTimeTag>
 
-@property (nonatomic, retain) NSArray *tagLibraryNames;
 @end

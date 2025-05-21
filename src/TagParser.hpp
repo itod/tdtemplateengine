@@ -144,9 +144,9 @@ public:
         const TDTagTokenTable tab = TagParser::tokenTable();
         
         TokenType tt;
-        try {
+        if (tab.contains(s)) {
             tt = tab.at(s);
-        } catch (std::exception& ex) {
+        } else {
             tt = tok.token_type();
         }
         

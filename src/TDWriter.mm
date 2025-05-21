@@ -8,6 +8,7 @@
 
 #import <TDTemplateEngine/TDWriter.h>
 #import <TDTemplateEngine/TDTemplateEngine.h>
+#import <objc/runtime.h>
 
 #define USE_GET_BYTES 1
 

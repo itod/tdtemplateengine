@@ -352,7 +352,7 @@ void TagParser::_loadTag() {
     }
     
     TDLoadTag *loadTag = PEEK_OBJ();
-    loadTag.tagLibraryNames = libNames;
+    loadTag.args = libNames; // just put strings into args. dont eval them!
 }
 
 #pragma mark -

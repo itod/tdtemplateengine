@@ -41,15 +41,8 @@
 }
 
 
-- (void)dealloc {
-    self.tagLibraryNames = nil;
-    [super dealloc];
-}
-
-
 - (void)compileInContext:(TDTemplateContext *)ctx {
-    //  TODO make runtime???
-    for (NSString *libName in _tagLibraryNames) {
+    for (NSString *libName in self.args) {
         NSError *err = nil;
         BOOL success = [ctx.delegate templateContext:ctx loadTagLibrary:libName error:&err];
         if (!success) {
@@ -62,8 +55,6 @@
 
 - (void)runInContext:(TDTemplateContext *)ctx {
     // noop
-    
-    
 }
 
 @end
