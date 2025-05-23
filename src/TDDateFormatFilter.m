@@ -7,8 +7,18 @@
 //
 
 #import "TDDateFormatFilter.h"
+#import <TDTemplateEngine/TDDateValue.h>
+
+static NSDateFormatter *sDateFormatter = nil;
 
 @implementation TDDateFormatFilter
+
++ (void)initialize {
+    if ([TDDateFormatFilter class] == self) {
+        sDateFormatter = [[NSDateFormatter alloc] init];
+    }
+}
+
 
 + (NSString *)filterName {
     return @"date";
@@ -20,22 +30,18 @@
     
     [self validateArgs:args min:1 max:1];
     
-    NSDate *date = nil;
-    if ([input isKindOfClass:[NSDate class]]) {
-        date = input;
-    } else {
-        NSString *inStr = TDStringFromObject(input);
-        date = [NSDate dateWithNaturalLanguageString:inStr];
-    }
+    NSDate *date = TDDateFromObject(input);
     
     TDAssert(1 == [args count]); // already validated above
     NSString *fmtStr = args[0];
-    
-    NSDateFormatter *formatter = [[[NSDateFormatter alloc] init] autorelease];
-    [formatter setDateFormat:fmtStr];
-    
-    NSString *result = [formatter stringFromDate:date];
-    TDAssert([result length]);
+
+    NSString *result = nil;
+    TDAssert(sDateFormatter);
+    @synchronized (sDateFormatter) {
+        sDateFormatter.dateFormat = fmtStr;
+        result = [sDateFormatter stringFromDate:date];
+    }
+    TDAssert(result.length);
     
     return result;
 }

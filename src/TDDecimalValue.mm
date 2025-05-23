@@ -20,27 +20,40 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "TDBooleanValue.h"
+#import "TDDecimalValue.h"
 
-@implementation TDBooleanValue {
-    BOOL _value;
+@interface TDDecimalValue ()
+@property (nonatomic, copy) NSDecimalNumber *value;
+@end
+
+@implementation TDDecimalValue
+
++ (TDDecimalValue *)decimalValueWithDecimal:(NSDecimalNumber *)d {
+    return [[[self alloc] initWithDecimal:d] autorelease];
 }
 
-+ (TDBooleanValue *)booleanValueWithBoolean:(BOOL)b {
-    return [[[self alloc] initWithBoolean:b] autorelease];
-}
 
-
-- (instancetype)initWithBoolean:(BOOL)b {
+- (instancetype)initWithDecimal:(NSDecimalNumber *)d {
     if (self = [super init]) {
-        _value = b;
+        self.value = d;
     }
     return self;
 }
 
 
+- (void)dealloc {
+    self.value = nil;
+    [super dealloc];
+}
+
+
+- (id)objectValue {
+    return _value;
+}
+
+
 - (NSString *)stringValue {
-    return _value ? @"true" : @"false";
+    return [_value stringValue];
 }
 
 
@@ -50,37 +63,27 @@
 
 
 - (NSDecimalNumber *)decimalValue {
-    return [NSDecimalNumber decimalNumberWithString:_value ? @"1" : @"0"];
-}
-
-
-- (id)objectValue {
-    return @(_value);
-}
-
-
-- (double)doubleValue {
-    return _value ? 1.0 : 0.0;
-}
-
-
-- (BOOL)boolValue {
     return _value;
 }
 
 
+- (double)doubleValue {
+    return [_value doubleValue];
+}
+
+
+- (BOOL)boolValue {
+    return _value != nil;
+}
+
+
 - (TDDataType)dataType {
-    return TDDataTypeBoolean;
+    return TDDataTypeDecimal;
 }
 
 
-- (void)display:(NSInteger)level {
-    //NSLog(@"%@boolean (%@)", [self indent:level], [self stringValue]);
-}
-
-
-- (NSString *)description {
-    return [NSString stringWithFormat:@"<TDBooleanValue %@>", [self stringValue]];
+- (BOOL)isEqualToDecimalValue:(TDDecimalValue *)v {
+    return [_value isEqual:v->_value];
 }
 
 @end

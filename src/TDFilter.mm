@@ -36,6 +36,33 @@ NSString *TDStringFromObject(id obj) {
     return str;
 }
 
+NSDate *TDDateFromObject(id obj) {
+    NSCAssert(obj, @"");
+    NSDate *date = nil;
+    if ([obj isKindOfClass:[NSDate class]]) {
+        date = obj;
+    } else if ([obj respondsToSelector:@selector(dateValue)]) {
+        date = [obj dateValue];
+    } else {
+        NSString *inStr = TDStringFromObject(obj);
+        date = [NSDate dateWithNaturalLanguageString:inStr];
+    }
+    return date;
+}
+
+NSDecimalNumber *TDDecimalFromObject(id obj) {
+    NSCAssert(obj, @"");
+    NSDecimalNumber *num = nil;
+    if ([obj isKindOfClass:[NSDecimalNumber class]]) {
+        num = obj;
+    } else if ([obj respondsToSelector:@selector(stringValue)]) {
+        num = [NSDecimalNumber decimalNumberWithString:[obj stringValue]];
+    } else {
+        num = [NSDecimalNumber decimalNumberWithString:[obj description]];
+    }
+    return num;
+}
+
 @implementation TDFilter
 
 + (NSString *)filterName {

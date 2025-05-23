@@ -24,6 +24,8 @@
 #import "TDBooleanValue.h"
 #import "TDNumericValue.h"
 #import "TDStringValue.h"
+#import "TDDateValue.h"
+#import "TDDecimalValue.h"
 #import "TDObjectValue.h"
 #import "TDTemplateContext.h"
 #import "TagParser.hpp"
@@ -36,6 +38,10 @@ TDValue *TDValueFromObject(id obj) {
     TDValue *result = nil;
     if ([obj isKindOfClass:[NSString class]]) {
         result = [TDStringValue stringValueWithString:obj];
+    } else if ([obj isKindOfClass:[NSDate class]]) {
+        result = [TDDateValue dateValueWithDate:obj];
+    } else if ([obj isKindOfClass:[NSDecimalNumber class]]) {
+        result = [TDDecimalValue decimalValueWithDecimal:obj];
     } else if ([obj isKindOfClass:[NSNumber class]]) {
         result = [TDNumericValue numericValueWithNumber:[obj doubleValue]];
     } else {
@@ -74,6 +80,18 @@ double TDNumberFromString(NSString *s) {
 
 
 - (NSString *)stringValue {
+    NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
+    return nil;
+}
+
+
+- (NSString *)dateValue {
+    NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
+    return nil;
+}
+
+
+- (NSString *)decimalValue {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
     return nil;
 }
@@ -152,6 +170,16 @@ double TDNumberFromString(NSString *s) {
 
 - (BOOL)isStringValue {
     return TDDataTypeString == [self dataType];
+}
+
+
+- (BOOL)isDateValue {
+    return TDDataTypeDate == [self dataType];
+}
+
+
+- (BOOL)isDecimalValue {
+    return TDDataTypeDecimal == [self dataType];
 }
 
 

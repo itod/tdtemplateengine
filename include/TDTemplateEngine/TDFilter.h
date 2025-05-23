@@ -23,6 +23,8 @@
 #import <Foundation/Foundation.h>
 
 FOUNDATION_EXPORT NSString *TDStringFromObject(id obj);
+FOUNDATION_EXPORT NSDate *TDDateFromObject(id obj);
+FOUNDATION_EXPORT NSDecimalNumber *TDDecimalFromObject(id obj);
 
 @class TDTemplateContext;
 

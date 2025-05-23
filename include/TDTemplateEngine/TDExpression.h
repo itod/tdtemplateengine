@@ -29,6 +29,8 @@ typedef NS_ENUM(NSUInteger, TDDataType) {
     TDDataTypeBoolean,
     TDDataTypeNumber,
     TDDataTypeString,
+    TDDataTypeDate,
+    TDDataTypeDecimal,
     TDDataTypeObject,
     TDDataTypeAny
 };
@@ -39,6 +41,8 @@ typedef NS_ENUM(NSUInteger, TDDataType) {
 - (BOOL)evaluateAsBooleanInContext:(TDTemplateContext *)ctx;
 - (double)evaluateAsNumberInContext:(TDTemplateContext *)ctx;
 - (NSString *)evaluateAsStringInContext:(TDTemplateContext *)ctx;
+- (NSDate *)evaluateAsDateInContext:(TDTemplateContext *)ctx;
+- (NSDecimalNumber *)evaluateAsDecimalInContext:(TDTemplateContext *)ctx;
 - (id)evaluateAsObjectInContext:(TDTemplateContext *)ctx;
 
 - (BOOL)isValue;

@@ -20,67 +20,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "TDBooleanValue.h"
+#import "TDValue.h"
 
-@implementation TDBooleanValue {
-    BOOL _value;
-}
+@interface TDDateValue : TDValue
 
-+ (TDBooleanValue *)booleanValueWithBoolean:(BOOL)b {
-    return [[[self alloc] initWithBoolean:b] autorelease];
-}
++ (TDDateValue *)dateValueWithDate:(NSDate *)d;
 
+- (instancetype)initWithDate:(NSDate *)d;
 
-- (instancetype)initWithBoolean:(BOOL)b {
-    if (self = [super init]) {
-        _value = b;
-    }
-    return self;
-}
-
-
-- (NSString *)stringValue {
-    return _value ? @"true" : @"false";
-}
-
-
-- (NSDate *)dateValue {
-    return nil;
-}
-
-
-- (NSDecimalNumber *)decimalValue {
-    return [NSDecimalNumber decimalNumberWithString:_value ? @"1" : @"0"];
-}
-
-
-- (id)objectValue {
-    return @(_value);
-}
-
-
-- (double)doubleValue {
-    return _value ? 1.0 : 0.0;
-}
-
-
-- (BOOL)boolValue {
-    return _value;
-}
-
-
-- (TDDataType)dataType {
-    return TDDataTypeBoolean;
-}
-
-
-- (void)display:(NSInteger)level {
-    //NSLog(@"%@boolean (%@)", [self indent:level], [self stringValue]);
-}
-
-
-- (NSString *)description {
-    return [NSString stringWithFormat:@"<TDBooleanValue %@>", [self stringValue]];
-}
+- (BOOL)isEqualToDateValue:(TDDateValue *)v;
 
 @end

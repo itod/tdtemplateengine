@@ -57,6 +57,16 @@
 }
 
 
+- (NSDate *)dateValue {
+    return nil;
+}
+
+
+- (NSDecimalNumber *)decimalValue {
+    return [NSDecimalNumber decimalNumberWithString:_value];
+}
+
+
 - (double)doubleValue {
     return TDNumberFromString(_value);
 }

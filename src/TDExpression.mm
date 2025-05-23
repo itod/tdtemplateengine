@@ -53,6 +53,16 @@
 }
 
 
+- (NSDate *)evaluateAsDateInContext:(TDTemplateContext *)ctx {
+    return [[self evaluateInContext:ctx] dateValue];
+}
+
+
+- (NSDecimalNumber *)evaluateAsDecimalInContext:(TDTemplateContext *)ctx {
+    return [[self evaluateInContext:ctx] decimalValue];
+}
+
+
 - (id)evaluateAsObjectInContext:(TDTemplateContext *)ctx {
     return [[self evaluateInContext:ctx] objectValue];
 }

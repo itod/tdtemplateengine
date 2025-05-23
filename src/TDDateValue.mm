@@ -20,67 +20,70 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "TDBooleanValue.h"
+#import "TDDateValue.h"
 
-@implementation TDBooleanValue {
-    BOOL _value;
+@interface TDDateValue ()
+@property (nonatomic, copy) NSDate *value;
+@end
+
+@implementation TDDateValue
+
++ (TDDateValue *)dateValueWithDate:(NSDate *)d {
+    return [[[self alloc] initWithDate:d] autorelease];
 }
 
-+ (TDBooleanValue *)booleanValueWithBoolean:(BOOL)b {
-    return [[[self alloc] initWithBoolean:b] autorelease];
-}
 
-
-- (instancetype)initWithBoolean:(BOOL)b {
+- (instancetype)initWithDate:(NSDate *)d {
     if (self = [super init]) {
-        _value = b;
+        self.value = d;
     }
     return self;
 }
 
 
-- (NSString *)stringValue {
-    return _value ? @"true" : @"false";
-}
-
-
-- (NSDate *)dateValue {
-    return nil;
-}
-
-
-- (NSDecimalNumber *)decimalValue {
-    return [NSDecimalNumber decimalNumberWithString:_value ? @"1" : @"0"];
+- (void)dealloc {
+    self.value = nil;
+    [super dealloc];
 }
 
 
 - (id)objectValue {
-    return @(_value);
-}
-
-
-- (double)doubleValue {
-    return _value ? 1.0 : 0.0;
-}
-
-
-- (BOOL)boolValue {
     return _value;
 }
 
 
+- (NSString *)stringValue {
+    return [_value description];
+}
+
+
+- (NSDate *)dateValue {
+    return _value;
+}
+
+
+- (NSDecimalNumber *)decimalValue {
+    return nil;
+}
+
+
+- (double)doubleValue {
+    return [_value timeIntervalSince1970];
+}
+
+
+- (BOOL)boolValue {
+    return _value != nil;
+}
+
+
 - (TDDataType)dataType {
-    return TDDataTypeBoolean;
+    return TDDataTypeDate;
 }
 
 
-- (void)display:(NSInteger)level {
-    //NSLog(@"%@boolean (%@)", [self indent:level], [self stringValue]);
-}
-
-
-- (NSString *)description {
-    return [NSString stringWithFormat:@"<TDBooleanValue %@>", [self stringValue]];
+- (BOOL)isEqualToDateValue:(TDDateValue *)v {
+    return [_value isEqualToDate:v->_value];
 }
 
 @end
