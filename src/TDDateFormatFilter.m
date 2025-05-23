@@ -33,8 +33,7 @@ static NSDateFormatter *sDateFormatter = nil;
     NSDate *date = TDDateFromObject(input);
     TDAssert(date);
     
-    TDAssert(1 == [args count]); // already validated above
-    NSString *fmtStr = args[0];
+    NSString *fmtStr = [args objectAtIndex:0];
 
     NSString *result = nil;
     TDAssert(sDateFormatter);
