@@ -22,11 +22,23 @@
 
 #import "TDDecimalValue.h"
 
+static NSNumberFormatter *sNumberFormatter = nil;
+
 @interface TDDecimalValue ()
 @property (nonatomic, copy) NSDecimalNumber *value;
 @end
 
 @implementation TDDecimalValue
+
++ (void)initialize {
+    if ([TDDecimalValue class] == self) {
+        sNumberFormatter = [[NSNumberFormatter alloc] init];
+        sNumberFormatter.roundingMode = NSNumberFormatterRoundHalfUp;
+        sNumberFormatter.maximumFractionDigits = 2;
+        sNumberFormatter.minimumFractionDigits = 2;
+    }
+}
+
 
 + (TDDecimalValue *)decimalValueWithDecimal:(NSDecimalNumber *)d {
     return [[[self alloc] initWithDecimal:d] autorelease];
@@ -53,7 +65,8 @@
 
 
 - (NSString *)stringValue {
-    return [_value stringValue];
+    TDAssert(sNumberFormatter);
+    return [sNumberFormatter stringFromNumber:_value];
 }
 
 

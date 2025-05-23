@@ -22,29 +22,13 @@
 
 #import "TDPrintNode.h"
 #import "TDExpression.h"
-#import "TDValue.h"
 #import <TDTemplateEngine/TDTemplateContext.h>
-
-static NSDateFormatter *sDateFormatter = nil;
-static NSNumberFormatter *sNumberFormatter = nil;
 
 @interface NSString ()
 - (BOOL)isSafe;
 @end
 
 @implementation TDPrintNode
-
-+ (void)initialize {
-    if ([TDPrintNode class] == self) {
-        sDateFormatter = [[NSDateFormatter alloc] init];
-        sDateFormatter.dateFormat = @"MMM d, Y";
-        
-        sNumberFormatter.roundingMode = NSNumberFormatterRoundHalfUp;
-        sNumberFormatter.maximumFractionDigits = 2;
-        sNumberFormatter.minimumFractionDigits = 2;
-    }
-}
-
 
 - (void)dealloc {
     self.expression = nil;
@@ -59,23 +43,7 @@ static NSNumberFormatter *sNumberFormatter = nil;
     NSParameterAssert(ctx);
     
     TDAssert(self.expression);
-    
-    TDValue *val = [self.expression evaluateInContext:ctx];
-    
-    NSString *str = nil;
-    switch (val.dataType) {
-        case TDDataTypeDate:
-            TDAssert(sDateFormatter);
-            str = [sDateFormatter stringFromDate:[val dateValue]];
-            break;
-        case TDDataTypeDecimal:
-            TDAssert(sNumberFormatter);
-            str = [sNumberFormatter stringFromNumber:[val decimalValue]];
-            break;
-        default:
-            str = [val stringValue];
-            break;
-    }
+    NSString *str = [self.expression evaluateAsStringInContext:ctx];
     
     if (str.length) {
         if (ctx.autoescape && ![str isSafe]) {

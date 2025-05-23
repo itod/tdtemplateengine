@@ -22,11 +22,21 @@
 
 #import "TDDateValue.h"
 
+static NSDateFormatter *sDateFormatter = nil;
+
 @interface TDDateValue ()
 @property (nonatomic, copy) NSDate *value;
 @end
 
 @implementation TDDateValue
+
++ (void)initialize {
+    if ([TDDateValue class] == self) {
+        sDateFormatter = [[NSDateFormatter alloc] init];
+        sDateFormatter.dateFormat = @"MMM d, Y";
+    }
+}
+
 
 + (TDDateValue *)dateValueWithDate:(NSDate *)d {
     return [[[self alloc] initWithDate:d] autorelease];
@@ -53,7 +63,8 @@
 
 
 - (NSString *)stringValue {
-    return [_value description];
+    TDAssert(sDateFormatter);
+    return [sDateFormatter stringFromDate:_value];
 }
 
 
