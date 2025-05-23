@@ -44,8 +44,11 @@ NSDate *TDDateFromObject(id obj) {
     } else if ([obj respondsToSelector:@selector(dateValue)]) {
         date = [obj dateValue];
     } else {
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
         NSString *inStr = TDStringFromObject(obj);
         date = [NSDate dateWithNaturalLanguageString:inStr];
+#pragma GCC diagnostic pop
     }
     return date;
 }

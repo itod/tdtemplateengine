@@ -31,6 +31,7 @@ static NSDateFormatter *sDateFormatter = nil;
     [self validateArgs:args min:1 max:1];
     
     NSDate *date = TDDateFromObject(input);
+    TDAssert(date);
     
     TDAssert(1 == [args count]); // already validated above
     NSString *fmtStr = args[0];

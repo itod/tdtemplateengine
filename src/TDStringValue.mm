@@ -57,9 +57,12 @@
 }
 
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 - (NSDate *)dateValue {
-    return nil;
+    return [NSDate dateWithNaturalLanguageString:_value];
 }
+#pragma GCC diagnostic pop
 
 
 - (NSDecimalNumber *)decimalValue {
