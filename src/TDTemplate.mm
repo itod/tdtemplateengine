@@ -96,7 +96,7 @@ using namespace parsekit;
     inner.currentTemplateFilePath = self.filePath;
     
     TDAssert(_staticContext);
-    inner.enclosingScopest = outer;
+    inner.enclosingScope = outer;
 
     TDAssert(document.templateString);
     [inner pushTemplateString:document.templateString];
