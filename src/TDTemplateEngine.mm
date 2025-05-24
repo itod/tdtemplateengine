@@ -292,7 +292,7 @@ static TDTemplateEngine *sInstance = nil;
     TDAssert([_tagEndDelimiter length]);
     
     TDTemplate *tmpl = [[[TDTemplate alloc] initWithFilePath:path] autorelease];
-    TDTemplateContext *ctx = [[[TDTemplateContext alloc] initWithTemplate:inCtx ? inCtx.derivedTemplate : tmpl] autorelease];
+    TDTemplateContext *ctx = [[[TDTemplateContext alloc] initWithTemplate:inCtx ? inCtx.originDerivedTemplate : tmpl] autorelease];
     ctx.delegate = self;
     ctx.enclosingScope = _staticContext;
 

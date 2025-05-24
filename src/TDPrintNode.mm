@@ -22,6 +22,7 @@
 
 #import "TDPrintNode.h"
 #import "TDExpression.h"
+#import <TDTemplateEngine/TDTemplate.h>
 #import <TDTemplateEngine/TDTemplateContext.h>
 #import <TDTemplateEngine/TDTemplateException.h>
 
@@ -48,8 +49,16 @@
     try {
         str = [self.expression evaluateAsStringInContext:ctx];
     } catch (NSException *ex) {
-        TDTemplateException *tex = [[[TDTemplateException alloc] initWithWrappedException:ex token:self.token] autorelease];
+        NSString *filePath = ctx.currentTemplate.filePath;
+        NSString *sample = [ctx templateSubstringForToken:self.token];
+//        TDTemplateException *tex = [[[TDTemplateException alloc] initWithWrappedException:ex token:self.token sample:sample] autorelease];
+//        TDTemplateException *tex = [[[TDTemplateException alloc] initWithTemplateFilePath:filePath token:self.token sample:sample] autorelease];
+        
+        TDTemplateException *tex = [[[TDTemplateException alloc] initWithName:ex.name reason:ex.reason userInfo:ex.userInfo] autorelease];
         TDAssert(tex);
+        tex.filePath = filePath;
+        tex.token = self.token;
+        tex.sample = sample;
         [tex raise];
     }
     

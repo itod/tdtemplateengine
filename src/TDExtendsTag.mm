@@ -45,7 +45,7 @@
     NSString *relPath = [self.expression evaluateAsStringInContext:ctx];
     NSString *absPath = [ctx absolutePathForTemplateRelativePath:relPath];
 
-    TDTemplate *tmpl = ctx.derivedTemplate;
+    TDTemplate *tmpl = ctx.originDerivedTemplate;
     tmpl.extendsPath = absPath;
 }
 

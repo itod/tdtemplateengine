@@ -110,7 +110,7 @@ static NSCharacterSet *sNewlineSet = nil;
 - (instancetype)initWithTemplate:(TDTemplate *)tmpl {
     self = [super init];
     if (self) {
-        self.derivedTemplate = tmpl;
+        self.originDerivedTemplate = tmpl;
         self.vars = [NSMutableDictionary dictionary];
         self.expressionObjectStack = [NSMutableArray array];
         self.autoescape = YES;
@@ -137,7 +137,8 @@ static NSCharacterSet *sNewlineSet = nil;
     self.delegate = nil;
     self.writer = nil;
     self.enclosingScope = nil;
-    self.derivedTemplate = nil;
+    self.originDerivedTemplate = nil;
+    self.currentTemplate = nil;
     
     self.templateStringStack = nil;
     self.expressionObjectStack = nil;
@@ -302,7 +303,7 @@ static NSCharacterSet *sNewlineSet = nil;
     if ([relPath hasPrefix:@"/"]) {
         absPath = relPath;
     } else if ([relPath hasPrefix:@"."]) {
-        NSString *peerPath = _derivedTemplate.filePath;
+        NSString *peerPath = _originDerivedTemplate.filePath;
         absPath = [self absolutePathForPath:relPath relativeTo:peerPath];
     } else {
         NSString *tmplRoot = [self resolveVariable:@"TEMPLATE_ROOT"];

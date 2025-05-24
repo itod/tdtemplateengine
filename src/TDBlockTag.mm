@@ -69,7 +69,7 @@
 
 
 - (void)compileInContext:(TDTemplateContext *)ctx {
-    [ctx.derivedTemplate setBlock:self forKey:self.key];
+    [ctx.originDerivedTemplate setBlock:self forKey:self.key];
 }
 
 
@@ -79,7 +79,7 @@
 - (void)runInContext:(TDTemplateContext *)ctx {
     NSParameterAssert(ctx);
     
-    TDTemplate *tmpl = ctx.derivedTemplate;
+    TDTemplate *tmpl = ctx.originDerivedTemplate;
     TDAssert(tmpl);
     TDNode *delegate = [tmpl blockForKey:self.key];
     TDAssert(delegate);

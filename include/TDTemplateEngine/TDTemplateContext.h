@@ -57,7 +57,8 @@
 - (void)decreaseIndentDepth:(NSUInteger)times;
 @property (nonatomic, assign) NSInteger indentDepth;
 
-@property (nonatomic, retain) TDTemplate *derivedTemplate;
+@property (nonatomic, retain) TDTemplate *originDerivedTemplate;
+@property (nonatomic, retain) TDTemplate *currentTemplate;
 - (NSString *)absolutePathForTemplateRelativePath:(NSString *)relPath;
 - (NSString *)absolutePathForPath:(NSString *)relPath relativeTo:(NSString *)peerPath;
 

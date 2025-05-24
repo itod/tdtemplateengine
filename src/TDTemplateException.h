@@ -13,8 +13,13 @@ using namespace parsekit;
 
 @interface TDTemplateException : NSException
 
-- (instancetype)initWithWrappedException:(NSException *)ex token:(Token)tok;
+// it seems like we dont actually need the wrapped ex. somehow, callStackSymbols is auto propogated???
+//- (instancetype)initWithWrappedException:(NSException *)ex token:(Token)tok sample:(NSString *)sample;
 
-@property (nonatomic, retain) NSException *wrappedException;
+//- (instancetype)initWithFilePath:(NSString *)filePath token:(Token)tok sample:(NSString *)sample;
+
+//@property (nonatomic, retain) NSException *wrappedException;
+@property (nonatomic, retain) NSString *filePath;
 @property (nonatomic, assign) Token token;
+@property (nonatomic, retain) NSString *sample;
 @end

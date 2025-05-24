@@ -81,7 +81,7 @@
     }
     
     TDRootNode *root = tmpl.rootNode;
-    [ctx.derivedTemplate setBlock:root forKey:self.key];
+    [ctx.originDerivedTemplate setBlock:root forKey:self.key];
 }
 
 
@@ -91,7 +91,7 @@
 - (void)runInContext:(TDTemplateContext *)inCtx {
     NSParameterAssert(inCtx);
     
-    TDTemplate *tmpl = inCtx.derivedTemplate;
+    TDTemplate *tmpl = inCtx.originDerivedTemplate;
     TDAssert(tmpl);
     TDRootNode *delegate = (TDRootNode *)[tmpl blockForKey:self.key];
     TDAssert([delegate isKindOfClass:[TDRootNode class]]);
@@ -100,7 +100,8 @@
     TDTemplateContext *outer = [[[TDTemplateContext alloc] initWithVariables:nil output:inCtx.writer.output] autorelease];
     outer.delegate = inCtx.delegate;
     outer.enclosingScope = inCtx;
-    outer.derivedTemplate = inCtx.derivedTemplate; // ??
+    outer.originDerivedTemplate = inCtx.originDerivedTemplate; // ??
+    outer.currentTemplate = tmpl;
     TDTemplateContext *ctx = outer;
 
     if (self.kwargs.count) {
@@ -114,7 +115,8 @@
         TDTemplateContext *inner = [[[TDTemplateContext alloc] initWithVariables:nil output:inCtx.writer.output] autorelease];
         inner.delegate = inCtx.delegate;
         inner.enclosingScope = outer;
-        inner.derivedTemplate = inCtx.derivedTemplate; // ??
+        inner.originDerivedTemplate = inCtx.originDerivedTemplate; // ??
+        inner.currentTemplate = tmpl;
         ctx = inner;
     }
     

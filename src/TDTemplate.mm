@@ -92,7 +92,8 @@ using namespace parsekit;
 
     // one inner context to hold template evars like `forloop`
     TDTemplateContext *inner = [[[TDTemplateContext alloc] initWithVariables:nil output:output] autorelease];
-    inner.derivedTemplate = self;
+    inner.originDerivedTemplate = self;
+    inner.currentTemplate = self;
     
     TDAssert(_staticContext);
     inner.enclosingScope = outer;
@@ -115,11 +116,13 @@ using namespace parsekit;
         if (tex.name) [info setObject:tex.name forKey:@"name"];
         if (tex.reason) [info setObject:tex.reason forKey:@"reason"];
         if (tex.callStackSymbols) [info setObject:tex.callStackSymbols forKey:@"callStackSymbols"];
-        
+        if (tex.filePath) [info setObject:tex.filePath forKey:@"filePath"];
+        if (tex.sample) [info setObject:tex.sample forKey:@"sample"];
+
         [info setObject:@(tex.token.line_number()) forKey:@"lineNumber"];
         [info setObject:@(tex.token.location()) forKey:@"location"];
         [info setObject:@(tex.token.length()) forKey:@"length"];
-        
+
         if (err) *err = [NSError errorWithDomain:TDTemplateEngineErrorDomain
                                             code:TDTemplateEngineRenderingErrorCode
                                         userInfo:info];
