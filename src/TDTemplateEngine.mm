@@ -316,7 +316,7 @@ static TDTemplateEngine *sInstance = nil;
     TDAssert(frags);
     
     // compile
-    TDRootNode *root = [self compile:frags inContext:ctx error:err];
+    TDRootNode *root = [self compile:frags filePath:path inContext:ctx error:err];
     if (!root) {
         if (*err) NSLog(@"%@", *err);
         return nil;
@@ -495,14 +495,14 @@ static TDTemplateEngine *sInstance = nil;
 }
 
 
-- (TDRootNode *)compile:(TokenListPtr)frags inContext:(TDTemplateContext *)ctx error:(NSError **)outError {
+- (TDRootNode *)compile:(TokenListPtr)frags filePath:(NSString *)filePath inContext:(TDTemplateContext *)ctx error:(NSError **)outError {
     
     TDAssert(ctx);
     TemplateParser p(self, ctx);
     
     TDRootNode *root = nil;
     try {
-        root = p.parse(frags);
+        root = p.parse(frags, filePath);
     }
 //    @catch (PKRecognitionException *rex) {
 //        NSString *domain = PEGKitErrorDomain;

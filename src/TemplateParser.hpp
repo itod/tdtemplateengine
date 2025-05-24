@@ -38,7 +38,7 @@ private:
     TDNode *_currentParent;
     void setCurrentParent(TDNode *n);
     
-    void _template();
+    void _template(NSString *filePath);
     void _content();
     void _print();
     void _empty_tag();
@@ -55,7 +55,7 @@ public:
     
     virtual parsekit::Assembly *assembly() const override { return _assembly; }
     
-    TDRootNode *parse(parsekit::TokenListPtr);
+    TDRootNode *parse(parsekit::TokenListPtr, NSString *filePath);
 };
 
 }

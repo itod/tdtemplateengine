@@ -42,7 +42,7 @@ TemplateParser::~TemplateParser() {
     _root = nil;
 }
 
-TDRootNode *TemplateParser::parse(TokenListPtr frags) {
+TDRootNode *TemplateParser::parse(TokenListPtr frags, NSString *filePath) {
     TokenListTokenizer tokenizer(frags);
     _tokenizer = &tokenizer;
 
@@ -60,7 +60,7 @@ TDRootNode *TemplateParser::parse(TokenListPtr frags) {
     
     TDRootNode *node = nil;
     //try {
-        _template();
+        _template(filePath);
         _eof();
         
         node = [[_root retain] autorelease];
@@ -76,10 +76,11 @@ TDRootNode *TemplateParser::parse(TokenListPtr frags) {
     return node;
 }
 
-void TemplateParser::_template() {
+void TemplateParser::_template(NSString *filePath) {
     assert([_context peekTemplateString]);
     
     TDRootNode *root = [TDRootNode rootNode];
+    root.templateFilePath = filePath;
     root.templateString = [_context peekTemplateString];
     
     setRoot(root);

@@ -101,7 +101,7 @@
     outer.delegate = inCtx.delegate;
     outer.enclosingScope = inCtx;
     outer.originDerivedTemplate = inCtx.originDerivedTemplate; // ??
-    outer.currentTemplate = tmpl;
+    outer.currentTemplateFilePath = delegate.templateFilePath;
     TDTemplateContext *ctx = outer;
 
     if (self.kwargs.count) {
@@ -116,7 +116,7 @@
         inner.delegate = inCtx.delegate;
         inner.enclosingScope = outer;
         inner.originDerivedTemplate = inCtx.originDerivedTemplate; // ??
-        inner.currentTemplate = tmpl;
+        inner.currentTemplateFilePath = delegate.templateFilePath;
         ctx = inner;
     }
     

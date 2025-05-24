@@ -33,6 +33,7 @@
 
 
 - (void)dealloc {
+    self.templateFilePath = nil;
     self.templateString = nil;
     [super dealloc];
 }

@@ -138,7 +138,7 @@ static NSCharacterSet *sNewlineSet = nil;
     self.writer = nil;
     self.enclosingScope = nil;
     self.originDerivedTemplate = nil;
-    self.currentTemplate = nil;
+    self.currentTemplateFilePath = nil;
     
     self.templateStringStack = nil;
     self.expressionObjectStack = nil;
