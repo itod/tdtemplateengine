@@ -9,6 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface NSString (TDAdditions)
-- (void)markSafe;
+- (NSString *)markSafe;
 - (BOOL)isSafe;
 @end

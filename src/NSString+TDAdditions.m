@@ -11,8 +11,9 @@
 
 @implementation NSString (TDAdditions)
 
-- (void)markSafe {
+- (NSString *)markSafe {
     objc_setAssociatedObject(self, "__html__", @YES, OBJC_ASSOCIATION_RETAIN);
+    return self;
 }
 
 
