@@ -135,6 +135,7 @@ double TDNumberFromString(NSString *s) {
 
 - (BOOL)compareToValue:(TDValue *)other usingOperator:(NSInteger)op {
 
+    if (op == TDTokenType_IS) return self == other;
     if (op == TDTokenType_EQ) return [self isEqualToValue:other];
     if (op == TDTokenType_NE) return [self isNotEqualToValue:other];
         

@@ -100,7 +100,10 @@
 
 
 - (void)tearDownForLoop:(TDTemplateContext *)ctx {
-    [ctx defineVariable:@"forloop" value:nil];
+    // pop stack
+    id newVal = _currentLoop.parentloop;
+    [ctx defineVariable:@"forloop" value:newVal];
+
     _currentLoop.parentloop = nil;
     self.currentLoop = nil;
 }

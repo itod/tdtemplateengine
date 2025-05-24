@@ -81,14 +81,21 @@
     [output open];
     TDAssert([output hasSpaceAvailable]);
     
-    TDTemplateContext *ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:output] autorelease];
-    ctx.derivedTemplate = self;
+    // one outer context to hold user variables. these should not be directly overwritable by template vars like `forloop`
+    TDTemplateContext *outer = [[[TDTemplateContext alloc] initWithVariables:vars output:output] autorelease];
     
     TDAssert(_staticContext);
-    ctx.enclosingScope = _staticContext;
+    outer.enclosingScope = _staticContext;
+
+    // one inner context to hold template evars like `forloop`
+    TDTemplateContext *inner = [[[TDTemplateContext alloc] initWithVariables:nil output:output] autorelease];
+    inner.derivedTemplate = self;
     
+    TDAssert(_staticContext);
+    inner.enclosingScope = outer;
+
     TDAssert(document.templateString);
-    [ctx pushTemplateString:document.templateString];
+    [inner pushTemplateString:document.templateString];
     
     //TDAssert(_staticContext);
     //dynamicContext.enclosingScope = _staticContext;
@@ -96,14 +103,14 @@
     BOOL success = YES;
     
     @try {
-        [document renderInContext:ctx];
+        [document renderInContext:inner];
     }
     @catch (NSException *ex) {
         success = NO;
         if (err) *err = [NSError errorWithDomain:TDTemplateEngineErrorDomain code:TDTemplateEngineRenderingErrorCode userInfo:[[[ex userInfo] copy] autorelease]];
     }
     
-    [ctx popTemplateString];
+    [inner popTemplateString];
     
     return success;
 }

@@ -46,10 +46,11 @@ typedef NS_ENUM(int, TDTokenType) {
     TDTokenType_GE                   =  35,
     TDTokenType_ASSIGN               =  37,
     TDTokenType_DOUBLE_EQUALS        =  38,
-    TDTokenType_NULL                 =  39,
-    TDTokenType_WITH                 =  40,
-    TDTokenType_AS                   =  41,
-    TDTokenType_SILENT               =  42,
+    TDTokenType_IS                   =  39,
+    TDTokenType_NULL                 =  40,
+    TDTokenType_WITH                 =  41,
+    TDTokenType_AS                   =  42,
+    TDTokenType_SILENT               =  43,
 };
 
 typedef std::map<std::string, TDTokenType> TDTagTokenTable;
@@ -95,6 +96,7 @@ private:
     void _andOp();
     void _andExpr();
     void _eqOp();
+    void _isOp();
     void _neOp();
     void _equalityExpr();
     void _ltOp();

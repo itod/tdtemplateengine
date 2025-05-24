@@ -61,6 +61,7 @@
 #import "TDFloorFilter.h"
 #import "TDCeilFilter.h"
 #import "TDFabsFilter.h"
+#import "TDDivisibleByFilter.h"
 #import "TDNumberFormatFilter.h"
 #import "TDDateFormatFilter.h"
 #import "TDNullFormatFilter.h"
@@ -176,6 +177,7 @@ static TDTemplateEngine *sInstance = nil;
         [self registerFilterClass:[TDFloorFilter class] forName:[TDFloorFilter filterName]];
         [self registerFilterClass:[TDCeilFilter class] forName:[TDCeilFilter filterName]];
         [self registerFilterClass:[TDFabsFilter class] forName:[TDFabsFilter filterName]];
+        [self registerFilterClass:[TDDivisibleByFilter class] forName:[TDDivisibleByFilter filterName]];
         [self registerFilterClass:[TDNumberFormatFilter class] forName:[TDNumberFormatFilter filterName]];
         [self registerFilterClass:[TDDateFormatFilter class] forName:[TDDateFormatFilter filterName]];
         [self registerFilterClass:[TDNullFormatFilter class] forName:[TDNullFormatFilter filterName]];
@@ -226,7 +228,7 @@ static TDTemplateEngine *sInstance = nil;
 
 
 - (BOOL)processTemplateString:(NSString *)str withVariables:(NSDictionary *)vars toStream:(NSOutputStream *)output error:(NSError **)err {
-    TDTemplate *tmpl = [self _templateFromString:str filePath:nil error:err];
+    TDTemplate *tmpl = [self _templateFromString:str filePath:nil context:nil error:err];
 
     BOOL success = NO;
     
@@ -259,6 +261,11 @@ static TDTemplateEngine *sInstance = nil;
 
 
 - (TDTemplate *)templateWithContentsOfFile:(NSString *)path error:(NSError **)err {
+    return [self templateWithContentsOfFile:path context:nil error:err];
+}
+
+
+- (TDTemplate *)templateWithContentsOfFile:(NSString *)path context:(TDTemplateContext *)ctx error:(NSError **)err {
     TDTemplate *tmpl = [self _cachedTemplateForPath:path];
     if (tmpl) return tmpl;
     
@@ -269,7 +276,7 @@ static TDTemplateEngine *sInstance = nil;
         return nil;
     }
     
-    tmpl = [self _templateFromString:str filePath:path error:err];
+    tmpl = [self _templateFromString:str filePath:path context:ctx error:err];
     
     [self _setCachedTemplate:tmpl forPath:path];
     
@@ -277,7 +284,7 @@ static TDTemplateEngine *sInstance = nil;
 }
 
 
-- (TDTemplate *)_templateFromString:(NSString *)str filePath:(NSString *)path error:(NSError **)err {
+- (TDTemplate *)_templateFromString:(NSString *)str filePath:(NSString *)path context:(TDTemplateContext *)inCtx error:(NSError **)err {
     NSParameterAssert([str length]);
     TDAssert([_printStartDelimiter length]);
     TDAssert([_printEndDelimiter length]);
@@ -285,7 +292,7 @@ static TDTemplateEngine *sInstance = nil;
     TDAssert([_tagEndDelimiter length]);
     
     TDTemplate *tmpl = [[[TDTemplate alloc] initWithFilePath:path] autorelease];
-    TDTemplateContext *ctx = [[[TDTemplateContext alloc] initWithTemplate:tmpl] autorelease];
+    TDTemplateContext *ctx = [[[TDTemplateContext alloc] initWithTemplate:inCtx ? inCtx.derivedTemplate : tmpl] autorelease];
     ctx.delegate = self;
     ctx.enclosingScope = _staticContext;
 
@@ -340,7 +347,7 @@ static TDTemplateEngine *sInstance = nil;
 #pragma mark TDTemplateContextDelegate
 
 - (TDTemplate *)templateContext:(TDTemplateContext *)ctx templateForFilePath:(NSString *)filePath error:(NSError **)err {
-    return [self templateWithContentsOfFile:filePath error:err];
+    return [self templateWithContentsOfFile:filePath context:ctx error:err];
 }
 
 

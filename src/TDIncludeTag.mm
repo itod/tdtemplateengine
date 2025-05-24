@@ -96,17 +96,26 @@
     TDRootNode *delegate = (TDRootNode *)[tmpl blockForKey:self.key];
     TDAssert([delegate isKindOfClass:[TDRootNode class]]);
     
-    TDTemplateContext *ctx = inCtx;
+    // need one outer ctx for user variables
+    TDTemplateContext *outer = [[[TDTemplateContext alloc] initWithVariables:nil output:inCtx.writer.output] autorelease];
+    outer.delegate = inCtx.delegate;
+    outer.enclosingScope = inCtx;
+    outer.derivedTemplate = inCtx.derivedTemplate; // ??
+    TDTemplateContext *ctx = outer;
+
     if (self.kwargs.count) {
-        ctx = [[[TDTemplateContext alloc] initWithVariables:nil output:inCtx.writer.output] autorelease];
-        ctx.delegate = inCtx.delegate;
-        ctx.enclosingScope = inCtx;
-        
         for (NSString *name in self.kwargs) {
             TDExpression *expr = [self.kwargs objectForKey:name];
-            id val = [expr evaluateAsObjectInContext:ctx];
-            [ctx defineVariable:name value:val];
+            id val = [expr evaluateAsObjectInContext:outer];
+            [outer defineVariable:name value:val];
         }
+        
+        // and another for variables generated in the template like `forloop`. we dont want these to overwrite any user vars
+        TDTemplateContext *inner = [[[TDTemplateContext alloc] initWithVariables:nil output:inCtx.writer.output] autorelease];
+        inner.delegate = inCtx.delegate;
+        inner.enclosingScope = outer;
+        inner.derivedTemplate = inCtx.derivedTemplate; // ??
+        ctx = inner;
     }
     
     [ctx pushTemplateString:delegate.templateString];

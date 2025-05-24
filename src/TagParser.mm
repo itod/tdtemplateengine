@@ -105,7 +105,8 @@ const TDTagTokenTable& TagParser::tokenTable() {
         {"ge", TDTokenType_GE},
         {"=", TDTokenType_ASSIGN},
         {"==", TDTokenType_DOUBLE_EQUALS},
-        {"null", TDTokenType_NULL},
+        {"is", TDTokenType_IS},
+        {"None", TDTokenType_NULL},
         {"with", TDTokenType_WITH},
         {"as", TDTokenType_AS},
         {"silent", TDTokenType_SILENT},
@@ -614,6 +615,19 @@ void TagParser::_eqOp() {
 
 }
 
+void TagParser::_isOp() {
+    
+    if (predicts(TDTokenType_IS, 0)) {
+        match(TDTokenType_IS, true);
+    } else {
+        raise("No viable alternative found in rule 'isOp'.");
+    }
+    if (!isSpeculating()) {
+        PUSH_OBJ(@(TDTokenType_IS));
+    }
+
+}
+
 void TagParser::_neOp() {
     
     if (predicts(TDTokenType_NOT_EQUAL, 0)) {
@@ -632,9 +646,11 @@ void TagParser::_neOp() {
 void TagParser::_equalityExpr() {
     
     _relationalExpr();
-    while (predicts(TDTokenType_DOUBLE_EQUALS, TDTokenType_EQ, TDTokenType_NE, TDTokenType_NOT_EQUAL, 0)) {
+    while (predicts(TDTokenType_DOUBLE_EQUALS, TDTokenType_EQ, TDTokenType_IS, TDTokenType_NE, TDTokenType_NOT_EQUAL, 0)) {
         if (predicts(TDTokenType_DOUBLE_EQUALS, TDTokenType_EQ, 0)) {
             _eqOp();
+        } else if (predicts(TDTokenType_IS, 0)) {
+            _isOp();
         } else if (predicts(TDTokenType_NE, TDTokenType_NOT_EQUAL, 0)) {
             _neOp();
         } else {

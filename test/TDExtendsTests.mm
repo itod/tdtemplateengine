@@ -11,7 +11,7 @@
 @interface TDTemplateEngine ()
 - (TDTemplate *)_cachedTemplateForPath:(NSString *)path;
 - (void)_setCachedTemplate:(TDTemplate *)tmpl forPath:(NSString *)path;
-- (TDTemplate *)_templateFromString:(NSString *)str filePath:(NSString *)path error:(NSError **)err;
+- (TDTemplate *)_templateFromString:(NSString *)str filePath:(NSString *)path context:(TDTemplateContext *)ctx error:(NSError **)err;
 @end
 
 @interface TDExtendsTests : XCTestCase
@@ -51,25 +51,25 @@
     NSError *err = nil;
     
     NSString *path = @"parent.html";
-    TDTemplate *parent = [_engine _templateFromString:parentStr filePath:path error:&err];
+    TDTemplate *parent = [_engine _templateFromString:parentStr filePath:path context:nil error:&err];
     XCTAssert(parent);
     XCTAssertNil(err);
     [_engine _setCachedTemplate:parent forPath:path];
     
     path = @"cousin.html";
-    TDTemplate *cousin = [_engine _templateFromString:cousinStr filePath:path error:&err];
+    TDTemplate *cousin = [_engine _templateFromString:cousinStr filePath:path context:nil error:&err];
     XCTAssert(cousin);
     XCTAssertNil(err);
     [_engine _setCachedTemplate:cousin forPath:path];
 
     path = @"child.html";
-    TDTemplate *child = [_engine _templateFromString:childStr filePath:path error:&err];
+    TDTemplate *child = [_engine _templateFromString:childStr filePath:path context:nil error:&err];
     XCTAssert(child);
     XCTAssertNil(err);
     [_engine _setCachedTemplate:child forPath:path];
 
     path = @"enkel.html";
-    TDTemplate *enkel = [_engine _templateFromString:enkelStr filePath:path error:&err];
+    TDTemplate *enkel = [_engine _templateFromString:enkelStr filePath:path context:nil error:&err];
     XCTAssert(enkel);
     XCTAssertNil(err);
     [_engine _setCachedTemplate:enkel forPath:path];
