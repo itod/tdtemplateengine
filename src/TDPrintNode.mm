@@ -49,16 +49,7 @@
     try {
         str = [self.expression evaluateAsStringInContext:ctx];
     } catch (NSException *ex) {
-        NSString *filePath = ctx.currentTemplateFilePath;
-        TDAssert(filePath);
-        NSString *sample = [ctx templateSubstringForToken:self.token];
-        TDAssert(sample);
-        TDTemplateException *tex = [[[TDTemplateException alloc] initWithName:ex.name reason:ex.reason userInfo:ex.userInfo] autorelease];
-        TDAssert(tex);
-        tex.filePath = filePath;
-        tex.token = self.token;
-        tex.sample = sample;
-        [tex raise];
+        [TDTemplateException raiseFromException:ex context:ctx node:self];
     }
     
     if (str.length) {

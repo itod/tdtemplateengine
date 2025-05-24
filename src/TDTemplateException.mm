@@ -7,10 +7,25 @@
 //
 
 #import <TDTemplateEngine/TDTemplateException.h>
+#import <TDTemplateEngine/TDTemplateContext.h>
+#import <TDTemplateEngine/TDNode.h>
 
 using namespace parsekit;
 
 @implementation TDTemplateException
+
++ (void)raiseFromException:(NSException *)ex context:(TDTemplateContext *)ctx node:(TDNode *)node {
+    NSString *filePath = ctx.currentTemplateFilePath;
+    TDAssert(filePath);
+    NSString *sample = [ctx templateSubstringForToken:node.token];
+    TDAssert(sample);
+    TDTemplateException *tex = [[[TDTemplateException alloc] initWithName:ex.name reason:ex.reason userInfo:ex.userInfo] autorelease];
+    TDAssert(tex);
+    tex.filePath = filePath;
+    tex.token = node.token;
+    tex.sample = sample;
+    [tex raise];
+}
 
 //- (instancetype)initWithWrappedException:(NSException *)ex token:(Token)tok sample:(NSString *)sample {
 //- (instancetype)initWithFilePath:(NSString *)filePath token:(Token)tok sample:(NSString *)sample {

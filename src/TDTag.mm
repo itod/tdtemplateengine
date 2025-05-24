@@ -22,6 +22,7 @@
 
 #import <TDTemplateEngine/TDTag.h>
 #import <TDTemplateEngine/TDTemplateEngine.h>
+#import <TDTemplateEngine/TDTemplateException.h>
 
 @implementation TDTag
 
@@ -55,7 +56,11 @@
 - (void)renderInContext:(TDTemplateContext *)ctx {
     NSParameterAssert(ctx);
     
-    [self runInContext:ctx];
+    @try {
+        [self runInContext:ctx];
+    } @catch (NSException *ex) {
+        [TDTemplateException raiseFromException:ex context:ctx node:self];
+    }
 }
 
 
