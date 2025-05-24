@@ -9,7 +9,10 @@
 #import <TDTemplateEngine/TDTemplate.h>
 #import <TDTemplateEngine/TDTemplateContext.h>
 #import <TDTemplateEngine/TDTemplateEngine.h>
+#import <TDTemplateEngine/TDTemplateException.h>
 #import "TDRootNode.h"
+
+using namespace parsekit;
 
 @interface TDTemplate () // FriendAPI
 @property (nonatomic, retain) TDRootNode *rootNode;
@@ -105,17 +108,24 @@
     @try {
         [document renderInContext:inner];
     }
-    @catch (NSException *ex) {
+    @catch (TDTemplateException *tex) {
         success = NO;
-        id info = [NSMutableDictionary dictionaryWithDictionary:[ex userInfo]];
+        id info = [NSMutableDictionary dictionaryWithDictionary:[tex userInfo]];
         
-        if (ex.name) [info setObject:ex.name forKey:@"name"];
-        if (ex.reason) [info setObject:ex.reason forKey:@"reason"];
-        if (ex.callStackSymbols) [info setObject:ex.callStackSymbols forKey:@"callStackSymbols"];
+        if (tex.name) [info setObject:tex.name forKey:@"name"];
+        if (tex.reason) [info setObject:tex.reason forKey:@"reason"];
+        if (tex.callStackSymbols) [info setObject:tex.callStackSymbols forKey:@"callStackSymbols"];
+        
+        [info setObject:@(tex.token.line_number()) forKey:@"lineNumber"];
+        [info setObject:@(tex.token.location()) forKey:@"location"];
+        [info setObject:@(tex.token.length()) forKey:@"length"];
         
         if (err) *err = [NSError errorWithDomain:TDTemplateEngineErrorDomain
                                             code:TDTemplateEngineRenderingErrorCode
                                         userInfo:info];
+    }
+    @catch (NSException *ex) {
+        TDAssert(0);
     }
     
     [inner popTemplateString];

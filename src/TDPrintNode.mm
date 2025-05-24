@@ -23,6 +23,7 @@
 #import "TDPrintNode.h"
 #import "TDExpression.h"
 #import <TDTemplateEngine/TDTemplateContext.h>
+#import <TDTemplateEngine/TDTemplateException.h>
 
 @interface NSString ()
 - (BOOL)isSafe;
@@ -41,9 +42,16 @@
 
 - (void)renderInContext:(TDTemplateContext *)ctx {
     NSParameterAssert(ctx);
-    
     TDAssert(self.expression);
-    NSString *str = [self.expression evaluateAsStringInContext:ctx];
+    
+    NSString *str = nil;
+    try {
+        str = [self.expression evaluateAsStringInContext:ctx];
+    } catch (NSException *ex) {
+        TDTemplateException *tex = [[[TDTemplateException alloc] initWithWrappedException:ex token:self.token] autorelease];
+        TDAssert(tex);
+        [tex raise];
+    }
     
     if (str.length) {
         if (ctx.autoescape && ![str isSafe]) {
