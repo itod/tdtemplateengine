@@ -107,7 +107,15 @@
     }
     @catch (NSException *ex) {
         success = NO;
-        if (err) *err = [NSError errorWithDomain:TDTemplateEngineErrorDomain code:TDTemplateEngineRenderingErrorCode userInfo:[[[ex userInfo] copy] autorelease]];
+        id info = [NSMutableDictionary dictionaryWithDictionary:[ex userInfo]];
+        
+        if (ex.name) [info setObject:ex.name forKey:@"name"];
+        if (ex.reason) [info setObject:ex.reason forKey:@"reason"];
+        if (ex.callStackSymbols) [info setObject:ex.callStackSymbols forKey:@"callStackSymbols"];
+        
+        if (err) *err = [NSError errorWithDomain:TDTemplateEngineErrorDomain
+                                            code:TDTemplateEngineRenderingErrorCode
+                                        userInfo:info];
     }
     
     [inner popTemplateString];

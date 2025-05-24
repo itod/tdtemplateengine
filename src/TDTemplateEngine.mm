@@ -84,7 +84,7 @@ using namespace templateengine;
 
 NSString * const TDTemplateEngineTagEndPrefix = @"end";
 NSString * const TDTemplateEngineErrorDomain = @"TDTemplateEngineErrorDomain";
-const NSInteger TDTemplateEngineRenderingErrorCode = 1;
+const NSInteger TDTemplateEngineRenderingErrorCode = 500;
 
 static TDTemplateEngine *sInstance = nil;
 

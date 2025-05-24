@@ -81,13 +81,6 @@
     
     if (obj) {
         if (_tail) {
-            
-//            NSMutableArray *tailBuf = [NSMutableArray array];
-//            for (TDExpression *expr in _tail) {
-//                NSString *str = [expr evaluateAsStringInContext:ctx];
-//                [tailBuf addObject:str];
-//            }
-            
             // to support indexed path steps like foo.0.title, we must go one by one:
             for (id step in _tail) {
                 if ([step isKindOfClass:[NSNumber class]]) {
@@ -101,21 +94,11 @@
                     @try {
                         obj = [obj valueForKey:step];
                     } @catch (NSException *ex) {
-                        //NSLog(@"%@", ex);
-                        obj = @""; // TODO RM
+                        NSLog(@"%@", ex);
+                        [ex raise];
                     }
                 }
             }
-            
-//            NSString *path = [_tail componentsJoinedByString:@"."];
-//            
-//            //NSLog(@"%@  %@", _head, path);
-//            @try {
-//                obj = [obj valueForKeyPath:path];
-//            } @catch (NSException *ex) {
-//                NSLog(@"%@", ex);
-//                obj = @""; // TODO RM
-//            }
         }
         
         result = TDValueFromObject(obj);
