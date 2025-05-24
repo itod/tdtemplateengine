@@ -58,6 +58,8 @@
     
     @try {
         [self runInContext:ctx];
+    } @catch (TDTemplateException *tex) {
+        [tex raise];
     } @catch (NSException *ex) {
         [TDTemplateException raiseFromException:ex context:ctx node:self];
     }

@@ -46,9 +46,11 @@
     TDAssert(self.expression);
     
     NSString *str = nil;
-    try {
+    @try {
         str = [self.expression evaluateAsStringInContext:ctx];
-    } catch (NSException *ex) {
+    } @catch (TDTemplateException *tex) {
+        [tex raise];
+    } @catch (NSException *ex) {
         [TDTemplateException raiseFromException:ex context:ctx node:self];
     }
     
