@@ -42,7 +42,7 @@ using namespace parsekit;
     TDTrue([expr isKindOfClass:[TDLoopExpression class]]);
     
     for (id obj in foo) {
-        id res = [expr evaluateInContext:ctx];
+        id res = [expr evaluateAsObjectInContext:ctx];
         TDEqualObjects(obj, res);
     }
 }
@@ -62,7 +62,7 @@ using namespace parsekit;
     TDTrue([expr isKindOfClass:[TDLoopExpression class]]);
 
     for (id obj in foo) {
-        id res = [expr evaluateInContext:ctx];
+        id res = [expr evaluateAsObjectInContext:ctx];
         TDEqualObjects(obj, res);
     }
 }
@@ -82,7 +82,7 @@ using namespace parsekit;
     TDTrue([expr isKindOfClass:[TDLoopExpression class]]);
 
     for (id obj in foo) {
-        id res = [expr evaluateInContext:ctx];
+        id res = [expr evaluateAsObjectInContext:ctx];
         TDEqualObjects(obj, res);
     }
 }
@@ -102,7 +102,7 @@ using namespace parsekit;
     TDTrue([expr isKindOfClass:[TDLoopExpression class]]);
 
     for (id obj in foo) {
-        id res = [expr evaluateInContext:ctx];
+        id res = [expr evaluateAsObjectInContext:ctx];
         TDEqualObjects(obj, res);
     }
 }

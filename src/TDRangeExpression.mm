@@ -21,6 +21,7 @@
 // THE SOFTWARE.
 
 #import "TDRangeExpression.h"
+#import "TDObjectValue.h"
 
 @interface TDRangeExpression ()
 @property (nonatomic, assign) BOOL started;
@@ -107,7 +108,7 @@
 }
 
 
-- (id)evaluateInContext:(TDTemplateContext *)ctx; {
+- (TDValue *)evaluateInContext:(TDTemplateContext *)ctx {
     if (!_started) {
         [self beginInContext:ctx];
         self.started = YES;
@@ -121,7 +122,7 @@
         self.started = NO;
     }
     
-    return result;
+    return result ? [TDObjectValue objectValueWithObject:result] : nil;
 }
 
 @end

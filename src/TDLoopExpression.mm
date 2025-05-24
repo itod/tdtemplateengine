@@ -22,6 +22,7 @@
 
 #import "TDLoopExpression.h"
 #import "TDPair.h"
+#import "TDObjectValue.h"
 #import <TDTemplateEngine/TDTemplateContext.h>
 
 @implementation TDLoopExpression
@@ -69,11 +70,11 @@
 }
 
 
-- (id)evaluateInContext:(TDTemplateContext *)ctx {
+- (TDValue *)evaluateInContext:(TDTemplateContext *)ctx {
     TDAssert([_firstVariable length]);
     TDAssert(_enumeration);
     
-    id res = [_enumeration evaluateInContext:ctx];
+    id res = [_enumeration evaluateAsObjectInContext:ctx];
     id firstObj = nil;
     id secondObj = nil;
 
@@ -93,7 +94,8 @@
         res = firstObj;
         [ctx defineVariable:_firstVariable value:firstObj];
     }
-    return res;
+    
+    return res ? [TDObjectValue objectValueWithObject:res] : nil;
 }
 
 @end

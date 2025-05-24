@@ -43,11 +43,11 @@ using namespace parsekit;
     TDTrue([expr isKindOfClass:[TDLoopExpression class]]);
 
     for (id obj in foo) {
-        id res = [expr evaluateInContext:ctx];
+        id res = [expr evaluateAsObjectInContext:ctx];
         TDEqualObjects(obj, res);
     }
 
-    TDNil([expr evaluateInContext:ctx]);
+    TDNil([expr evaluateAsObjectInContext:ctx]);
 }
 
 - (void)testIInArrayOneTwoThree {
@@ -65,7 +65,7 @@ using namespace parsekit;
     TDTrue([expr isKindOfClass:[TDLoopExpression class]]);
 
     for (id obj in foo) {
-        id res = [expr evaluateInContext:ctx];
+        id res = [expr evaluateAsObjectInContext:ctx];
         TDEqualObjects(obj, res);
     }
     
@@ -89,7 +89,7 @@ using namespace parsekit;
     NSMutableSet *test = [NSMutableSet setWithCapacity:[foo count]];
     for (id obj in foo) {
         TDNotNil(obj); // compiler warn
-        id res = [expr evaluateInContext:ctx];
+        id res = [expr evaluateAsObjectInContext:ctx];
         TDNotNil(res);
         [test addObject:res];
     }
@@ -116,7 +116,7 @@ using namespace parsekit;
     TDTrue([expr isKindOfClass:[TDLoopExpression class]]);
 
     for (id key in dict) {
-        id res = [expr evaluateInContext:ctx];
+        id res = [expr evaluateAsObjectInContext:ctx];
         TDEqualObjects(key, res);
         TDEqualObjects(key, [ctx resolveVariable:@"key"]);
     }
@@ -140,7 +140,7 @@ using namespace parsekit;
 
     for (id key in [dict allKeys]) {
         id val = dict[key];
-        id res = [expr evaluateInContext:ctx];
+        id res = [expr evaluateAsObjectInContext:ctx];
         XCTAssertEqualObjects([TDPair pairWithFirst:key second:val], res);
         XCTAssertEqualObjects(key, [ctx resolveVariable:@"key"]);
         XCTAssertEqualObjects(val, [ctx resolveVariable:@"val"]);
@@ -166,7 +166,7 @@ using namespace parsekit;
 
     for (id key in [dict[@"nums"] allKeys]) {
         id val = dict[@"nums"][key];
-        id res = [expr evaluateInContext:ctx];
+        id res = [expr evaluateAsObjectInContext:ctx];
         XCTAssertEqualObjects([TDPair pairWithFirst:key second:val], res);
         TDEqualObjects(key, [ctx resolveVariable:@"key"]);
         TDEqualObjects(val, [ctx resolveVariable:@"val"]);

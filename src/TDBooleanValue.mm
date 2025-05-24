@@ -22,12 +22,26 @@
 
 #import "TDBooleanValue.h"
 
+static TDBooleanValue *sTrue = nil;
+static TDBooleanValue *sFalse = nil;
+
 @implementation TDBooleanValue {
     BOOL _value;
 }
 
++ (void)initialize {
+    if ([TDBooleanValue class] == self) {
+        sTrue = [[TDBooleanValue alloc] initWithBoolean:YES];
+        sFalse = [[TDBooleanValue alloc] initWithBoolean:NO];
+    }
+}
+
++ (TDBooleanValue *)yes { return sTrue;  }
++ (TDBooleanValue *)no  { return sFalse; }
+
+
 + (TDBooleanValue *)booleanValueWithBoolean:(BOOL)b {
-    return [[[self alloc] initWithBoolean:b] autorelease];
+    return b ? sTrue : sFalse;
 }
 
 
@@ -40,7 +54,7 @@
 
 
 - (NSString *)stringValue {
-    return _value ? @"true" : @"false";
+    return _value ? @"True" : @"False";
 }
 
 
@@ -55,7 +69,7 @@
 
 
 - (id)objectValue {
-    return @(_value);
+    return _value ? @YES : @NO;
 }
 
 

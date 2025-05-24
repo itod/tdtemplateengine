@@ -22,6 +22,7 @@
 
 #import "TDCollectionExpression.h"
 #import "TDPair.h"
+#import "TDObjectValue.h"
 #import <TDTemplateEngine/TDTemplateContext.h>
 
 @interface TDCollectionExpression ()
@@ -79,7 +80,7 @@
 }
 
 
-- (id)evaluateInContext:(TDTemplateContext *)ctx; {
+- (TDValue *)evaluateInContext:(TDTemplateContext *)ctx {
     if (!_started) {
         [self beginInContext:ctx];
         self.started = YES;
@@ -102,7 +103,7 @@
         self.started = NO;
     }
     
-    return result;
+    return result ? [TDObjectValue objectValueWithObject:result] : nil;
 }
 
 @end

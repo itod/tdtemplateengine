@@ -25,6 +25,8 @@
 @interface TDBooleanValue : TDValue
 
 + (TDBooleanValue *)booleanValueWithBoolean:(BOOL)b;
++ (TDBooleanValue *)yes;
++ (TDBooleanValue *)no;
 
 - (instancetype)initWithBoolean:(BOOL)b;
 
