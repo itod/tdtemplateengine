@@ -57,18 +57,6 @@ using namespace parsekit;
 #pragma mark -
 #pragma mark Public
 
-- (NSString *)render:(NSDictionary *)vars error:(NSError **)err {
-    NSOutputStream *output = [NSOutputStream outputStreamToMemory];
-    
-    NSString *result = nil;
-    if ([self render:vars toStream:output error:err]) {
-        result = [[[NSString alloc] initWithData:[output propertyForKey:NSStreamDataWrittenToMemoryStreamKey] encoding:NSUTF8StringEncoding] autorelease];
-    }
-    
-    return result;
-}
-
-
 - (BOOL)render:(NSDictionary *)vars toStream:(NSOutputStream *)output error:(NSError **)err {
     NSParameterAssert([_rootNode isKindOfClass:[TDRootNode class]]);
     NSParameterAssert(output);

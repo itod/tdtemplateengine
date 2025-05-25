@@ -8,7 +8,7 @@
 
 #import <TDTemplateEngine/TDWriter.h>
 #import <TDTemplateEngine/TDTemplateEngine.h>
-#import <objc/runtime.h>
+#import <TDTemplateEngine/TDTemplate.h>
 
 #define USE_GET_BYTES 1
 
@@ -44,7 +44,8 @@
     TDAssert(str);
         
 #if USE_GET_BYTES
-    NSStringEncoding enc = NSUTF8StringEncoding;
+    NSStringEncoding enc = TD_TEMPLATE_ENCODING;
+    // NSUInteger maxLen = [str lengthOfBytesUsingEncoding:enc]; // NOOOOOOOOOO!! Big perf hit.
     NSUInteger maxLen = [str maximumLengthOfBytesUsingEncoding:enc];
     if (maxLen) {
         NSUInteger len;
@@ -57,7 +58,7 @@
         bytes[len] = '\0';
         const uint8_t *zstr = (const uint8_t *)bytes;
 #else
-    const uint8_t *zstr = (const uint8_t *)[str UTF8String];
+    const uint8_t *zstr = (const uint8_t *)[[str substringWithRange:inRange] UTF8String];
     size_t len = strlen((const char *)zstr);
     if (len) {
 #endif

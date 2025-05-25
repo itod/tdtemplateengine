@@ -9,9 +9,10 @@
 #import <Foundation/Foundation.h>
 #import <ParseKitCPP/Token.hpp>
 
+#define TD_TEMPLATE_ENCODING NSUTF8StringEncoding
+
 @interface TDTemplate : NSObject
 
-- (NSString *)render:(NSDictionary *)vars error:(NSError **)err;
 - (BOOL)render:(NSDictionary *)vars toStream:(NSOutputStream *)output error:(NSError **)err;
 
 - (NSString *)templateSubstringForToken:(parsekit::Token)token;
