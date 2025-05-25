@@ -31,7 +31,8 @@
 
 
 - (id)runFilter:(id)input withArgs:(NSArray *)args inContext:(TDTemplateContext *)ctx {
-    if (!input) {
+    // TODO this is not really correct. should show 0
+    if (!input || [NSNull null] == input || 0 == [input integerValue]) {
         return @"";
     } else {
         NSString *str = TDStringFromObject(input);
