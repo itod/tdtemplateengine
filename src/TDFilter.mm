@@ -43,6 +43,8 @@ NSDate *TDDateFromObject(id obj) {
         date = obj;
     } else if ([obj respondsToSelector:@selector(dateValue)]) {
         date = [obj dateValue];
+    } else if ([obj respondsToSelector:@selector(date)]) {
+        date = [obj date];
     } else {
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
