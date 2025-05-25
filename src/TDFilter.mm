@@ -24,7 +24,6 @@
 #import <TDTemplateEngine/TDTemplateEngine.h>
 
 NSString *TDStringFromObject(id obj) {
-    NSCAssert(obj, @"");
     NSString *str = nil;
     if ([obj isKindOfClass:[NSString class]]) {
         str = obj;
@@ -37,7 +36,6 @@ NSString *TDStringFromObject(id obj) {
 }
 
 NSDate *TDDateFromObject(id obj) {
-    NSCAssert(obj, @"");
     NSDate *date = nil;
     if ([obj isKindOfClass:[NSDate class]]) {
         date = obj;
