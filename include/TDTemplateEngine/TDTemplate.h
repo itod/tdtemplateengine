@@ -9,7 +9,13 @@
 #import <Foundation/Foundation.h>
 #import <ParseKitCPP/Token.hpp>
 
+//#define TD_TEMPLATE_ENCODING NSUTF16StringEncoding
+//#define TD_TEMPLATE_CHARSET "utf-16"
+//#define TD_HTML_MIME_TYPE "text/html; charset=utf-16"
+
 #define TD_TEMPLATE_ENCODING NSUTF8StringEncoding
+#define TD_TEMPLATE_CHARSET "utf-8"
+#define TD_HTML_MIME_TYPE "text/html; charset=utf-8"
 
 @interface TDTemplate : NSObject
 
