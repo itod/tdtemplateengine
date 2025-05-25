@@ -31,16 +31,16 @@
     parsekit::Token _token;
 }
 
-+ (instancetype)nodeWithToken:(parsekit::Token)frag parent:(TDNode *)parent {
-    return [[[self alloc] initWithToken:frag parent:parent] autorelease];
++ (instancetype)nodeWithToken:(parsekit::Token)tok parent:(TDNode *)parent {
+    return [[[self alloc] initWithToken:tok parent:parent] autorelease];
 }
 
 
-- (instancetype)initWithToken:(parsekit::Token)frag parent:(TDNode *)parent {
+- (instancetype)initWithToken:(parsekit::Token)tok parent:(TDNode *)parent {
     self = [super init];
     if (self) {
         self.parent = parent;
-        _token = frag;
+        self.token = tok;
     }
     return self;
 }
