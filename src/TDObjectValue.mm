@@ -22,11 +22,26 @@
 
 #import "TDObjectValue.h"
 
+static TDObjectValue *sNullValue = nil;
+
 @interface TDObjectValue ()
 @property (nonatomic, retain) id value;
 @end
 
 @implementation TDObjectValue
+
++ (void)initialize {
+    if ([TDObjectValue class] == self) {
+        sNullValue = [[TDObjectValue alloc] initWithObject:[NSNull null]];
+    }
+}
+
+
++ (TDObjectValue *)nullValue {
+    TDAssert(sNullValue);
+    return sNullValue;
+}
+
 
 + (TDObjectValue *)objectValueWithObject:(id)obj {
     return [[[self alloc] initWithObject:obj] autorelease];

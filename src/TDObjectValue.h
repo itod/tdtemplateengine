@@ -24,6 +24,7 @@
 
 @interface TDObjectValue : TDValue
 
++ (TDObjectValue *)nullValue;
 + (TDObjectValue *)objectValueWithObject:(id)obj;
 
 - (instancetype)initWithObject:(id)obj;

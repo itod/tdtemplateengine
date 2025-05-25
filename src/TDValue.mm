@@ -36,7 +36,9 @@ TDValue *TDValueFromObject(id obj) {
     //NSCAssert(obj, @""); obj may be nil
     
     TDValue *result = nil;
-    if ([obj isKindOfClass:[NSString class]]) {
+    if (!obj) {
+        obj = [TDObjectValue nullValue];
+    } else if ([obj isKindOfClass:[NSString class]]) {
         result = [TDStringValue stringValueWithString:obj];
     } else if ([obj isKindOfClass:[NSDate class]]) {
         result = [TDDateValue dateValueWithDate:obj];
