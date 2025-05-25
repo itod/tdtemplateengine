@@ -16,7 +16,7 @@ using namespace parsekit;
 
 + (void)raiseFromException:(NSException *)ex context:(TDTemplateContext *)ctx node:(TDNode *)node {
     NSString *filePath = ctx.currentTemplateFilePath;
-    TDAssert(filePath);
+    //TDAssert(filePath);
     NSString *sample = [ctx templateSubstringForToken:node.token];
     TDAssert(sample);
     TDTemplateException *tex = [[[TDTemplateException alloc] initWithName:ex.name reason:ex.reason userInfo:ex.userInfo] autorelease];

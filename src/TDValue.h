@@ -47,5 +47,6 @@ FOUNDATION_EXPORT double TDNumberFromString(NSString *s);
 - (BOOL)isStringValue;
 - (BOOL)isDateValue;
 - (BOOL)isDecimalValue;
+- (BOOL)isObjectValue;
 - (BOOL)isNullValue;
 @end

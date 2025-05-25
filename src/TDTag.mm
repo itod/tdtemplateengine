@@ -23,6 +23,7 @@
 #import <TDTemplateEngine/TDTag.h>
 #import <TDTemplateEngine/TDTemplateEngine.h>
 #import <TDTemplateEngine/TDTemplateException.h>
+#import <TDTemplateEngine/TDSkipException.h>
 
 @implementation TDTag
 
@@ -60,6 +61,8 @@
         [self runInContext:ctx];
     } @catch (TDTemplateException *tex) {
         [tex raise];
+    } @catch (TDSkipException *sex) {
+        [sex raise];
     } @catch (NSException *ex) {
         [TDTemplateException raiseFromException:ex context:ctx node:self];
     }

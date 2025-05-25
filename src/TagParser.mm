@@ -617,13 +617,18 @@ void TagParser::_eqOp() {
 
 void TagParser::_isOp() {
     
-    if (predicts(TDTokenType_IS, 0)) {
-        match(TDTokenType_IS, true);
+    match(TDTokenType_IS, true);
+    TDTokenType op;
+    
+    if (predicts(TDTokenType_NOT, 0)) {
+        match(TDTokenType_NOT, true);
+        op = TDTokenType_NOT;
     } else {
-        raise("No viable alternative found in rule 'isOp'.");
+        op = TDTokenType_IS;
     }
+
     if (!isSpeculating()) {
-        PUSH_OBJ(@(TDTokenType_IS));
+        PUSH_OBJ(@(op));
     }
 
 }

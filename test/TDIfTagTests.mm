@@ -558,4 +558,66 @@
     TDEqualObjects(@"", res);
 }
 
+- (void)testIfFooIsBar1 {
+    NSString *input = @"{% if foo is bar %}1{% else %}0{% endif %}";
+    NSString *s = @"baz";
+    id vars = @{
+        @"foo": s,
+        @"bar": s,
+    };
+    
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"1", res);
+}
+
+- (void)testIfFooIsBar0 {
+    NSString *input = @"{% if foo is bar %}1{% else %}0{% endif %}";
+    id vars = @{
+        @"foo": @"foo",
+        @"bar": @"bar",
+    };
+    
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"0", res);
+}
+
+- (void)testIfFooIsNotBar0 {
+    NSString *input = @"{% if foo is not bar %}1{% else %}0{% endif %}";
+    NSString *s = @"baz";
+    id vars = @{
+        @"foo": s,
+        @"bar": s,
+    };
+    
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"0", res);
+}
+
+- (void)testIfFooIsNotBar1 {
+    NSString *input = @"{% if foo is not bar %}1{% else %}0{% endif %}";
+    id vars = @{
+        @"foo": @"foo",
+        @"bar": @"bar",
+    };
+    
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"1", res);
+}
+
 @end

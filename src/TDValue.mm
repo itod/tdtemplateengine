@@ -128,16 +128,28 @@ double TDNumberFromString(NSString *s) {
 
 
 - (BOOL)isNotEqualToValue:(TDValue *)other {
-
     return ![self isEqualToValue:other];
 }
 
 
 - (BOOL)compareToValue:(TDValue *)other usingOperator:(NSInteger)op {
 
-    if (op == TDTokenType_IS) return self == other;
-    if (op == TDTokenType_EQ) return [self isEqualToValue:other];
-    if (op == TDTokenType_NE) return [self isNotEqualToValue:other];
+    if (op == TDTokenType_IS || op == TDTokenType_NOT) {
+        BOOL same = NO;
+        if (self == other) {
+            same = YES;
+        } else if (self.isNullValue && other.isNullValue) {
+            same = YES;
+        } else if (self.isStringValue && other.isStringValue) {
+            same = self.stringValue == other.stringValue;
+        } else if (self.isObjectValue && other.isObjectValue) {
+            same = self.objectValue == other.objectValue;
+        }
+        return op == TDTokenType_IS ? same : !same;
+    }
+    
+    if (op == TDTokenType_EQ)  return [self isEqualToValue:other];
+    if (op == TDTokenType_NE)  return [self isNotEqualToValue:other];
         
     return [self compareNumber:[self doubleValue] toNumber:[other doubleValue] usingOperator:op];
 }
@@ -181,6 +193,11 @@ double TDNumberFromString(NSString *s) {
 
 - (BOOL)isDecimalValue {
     return TDDataTypeDecimal == [self dataType];
+}
+
+
+- (BOOL)isObjectValue {
+    return TDDataTypeObject == [self dataType];
 }
 
 
