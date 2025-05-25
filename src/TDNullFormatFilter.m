@@ -31,14 +31,11 @@
 
 
 - (id)runFilter:(id)input withArgs:(NSArray *)args inContext:(TDTemplateContext *)ctx {
-    TDAssert(input);
-    
-    if ([input isNullValue]) {
+    if (!input) {
         return @"null";
-    } else if ([input isStringValue]) {
-        return [NSString stringWithFormat:@"\"%@\"", [input stringValue]];
     } else {
-        return input;
+        NSString *str = TDStringFromObject(input);
+        return [NSString stringWithFormat:@"\"%@\"", str];
     }
 }
 
