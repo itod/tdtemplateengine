@@ -101,6 +101,9 @@
             }
         }
         
+//        if (!obj && [_head isEqualToString:@"mark"] && [[_tail componentsJoinedByString:@"."] isEqualToString:@"score"]) {
+//            NSLog(@"%@", obj);
+//        }
         result = TDValueFromObject(obj);
     }
     

@@ -126,7 +126,7 @@ static NSCharacterSet *sNewlineSet = nil;
         [_vars addEntriesFromDictionary:vars];
         self.expressionObjectStack = [NSMutableArray array];
         self.autoescape = YES;
-
+        
         self.writer = [TDWriter writerWithOutputStream:output];
     }
     return self;
@@ -201,10 +201,15 @@ static NSCharacterSet *sNewlineSet = nil;
 
 
 - (void)writeString:(NSString *)str {
+    [self writeRange:NSMakeRange(0, str.length) ofString:str];
+}
+
+
+- (void)writeRange:(NSRange)range ofString:(NSString *)str {
     TDAssert(_writer);
     
     if (_trimLines) {
-        NSArray *comps = [str componentsSeparatedByCharactersInSet:sNewlineSet];
+        NSArray *comps = [[str substringWithRange:range] componentsSeparatedByCharactersInSet:sNewlineSet];
         
         BOOL isFirst = YES;
         BOOL isLast = NO;
@@ -250,25 +255,25 @@ static NSCharacterSet *sNewlineSet = nil;
             isFirst = NO;
         }
     } else {
-        [_writer appendString:str];
+        [_writer appendRange:range ofString:str];
     }
 }
 
 
 - (NSString *)escapedStringForString:(NSString *)inStr {
-//    NSString *output = [[[[[inStr stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"]
-//                           stringByReplacingOccurrencesOfString:@"<" withString:@"&lt;"]
-//                          stringByReplacingOccurrencesOfString:@">" withString:@"&gt;"]
-//                         stringByReplacingOccurrencesOfString:@"'" withString:@"&#x27;"]
-//                        stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"];
-
-//    id entites = @{
-//        @"&": @"&amp;",
-//        @"<": @"&lt;",
-//        @">": @"&gt;",
-//        @"'": @"&#x27;", &apos;
-//        @"\"": @"&quot;",
-//    };
+    //    NSString *output = [[[[[inStr stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"]
+    //                           stringByReplacingOccurrencesOfString:@"<" withString:@"&lt;"]
+    //                          stringByReplacingOccurrencesOfString:@">" withString:@"&gt;"]
+    //                         stringByReplacingOccurrencesOfString:@"'" withString:@"&#x27;"]
+    //                        stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"];
+    
+    //    id entites = @{
+    //        @"&": @"&amp;",
+    //        @"<": @"&lt;",
+    //        @">": @"&gt;",
+    //        @"'": @"&#x27;", &apos;
+    //        @"\"": @"&quot;",
+    //    };
     NSString *output = [(id)CFXMLCreateStringByEscapingEntities(NULL, (CFStringRef)inStr, (CFDictionaryRef)NULL) autorelease];
     return output;
 }
@@ -327,18 +332,24 @@ static NSCharacterSet *sNewlineSet = nil;
         NSString *dirPath = [peerPath stringByDeletingLastPathComponent];
         absPath = [dirPath stringByAppendingPathComponent:relPath];
     }
-
+    
     return absPath;
 }
 
 
 - (NSString *)templateSubstringForToken:(parsekit::Token)token {
+    parsekit::TokenRange range = token.range();
+    NSString *result = [[self templateString] substringWithRange:NSMakeRange(range.location, range.length)];
+    return result;
+}
+
+
+- (NSString *)templateString {
     NSString *result = nil;
     if ([self peekTemplateString]) {
-        parsekit::TokenRange range = token.range();
-        result = [[self peekTemplateString] substringWithRange:NSMakeRange(range.location, range.length)];
+        result = [self peekTemplateString];
     } else {
-        result = [self.enclosingScope templateSubstringForToken:token];
+        result = [self.enclosingScope templateString];
     }
     return result;
 }

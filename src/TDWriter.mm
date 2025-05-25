@@ -35,6 +35,11 @@
 
 
 - (void)appendString:(NSString *)str {
+    [self appendRange:NSMakeRange(0, str.length) ofString:str];
+}
+
+
+- (void)appendRange:(NSRange)inRange ofString:(NSString *)str {
     TDAssert(_output);
     TDAssert(str);
         
@@ -44,7 +49,7 @@
     if (maxLen) {
         NSUInteger len;
         char bytes[maxLen+1]; // +1 for null-term
-        if (![str getBytes:bytes maxLength:maxLen usedLength:&len encoding:enc options:0 range:NSMakeRange(0, str.length) remainingRange:NULL]) {
+        if (![str getBytes:bytes maxLength:maxLen usedLength:&len encoding:enc options:0 range:inRange remainingRange:NULL]) {
             TDAssert(0);
             TDAssert(len <= maxLen);
         }

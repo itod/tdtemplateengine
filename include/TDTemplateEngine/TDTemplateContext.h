@@ -46,6 +46,7 @@
 
 - (void)writeObject:(id)obj;
 - (void)writeString:(NSString *)str;
+- (void)writeRange:(NSRange)range ofString:(NSString *)str;
 - (NSString *)escapedStringForString:(NSString *)inStr;
 
 @property (nonatomic, retain) TDTemplateContext *enclosingScope;
@@ -63,6 +64,8 @@
 - (NSString *)absolutePathForPath:(NSString *)relPath relativeTo:(NSString *)peerPath;
 
 - (NSString *)templateSubstringForToken:(parsekit::Token)token;
+- (NSString *)templateString;
+
 - (void)pushTemplateString:(NSString *)str;
 - (void)popTemplateString;
 - (NSString *)peekTemplateString;
