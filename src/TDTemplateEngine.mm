@@ -55,6 +55,7 @@
 #import "TDSepTag.h"
 
 #import "TDSafeFilter.h"
+#import "TDIntCommaFilter.h"
 #import "TDEscapeFilter.h"
 #import "TDTrimFilter.h"
 #import "TDRoundFilter.h"
@@ -171,6 +172,7 @@ static TDTemplateEngine *sInstance = nil;
         
         self.filterTab = [NSMutableDictionary dictionary];
         [self registerFilterClass:[TDSafeFilter class] forName:[TDSafeFilter filterName]];
+        [self registerFilterClass:[TDIntCommaFilter class] forName:[TDIntCommaFilter filterName]];
         [self registerFilterClass:[TDEscapeFilter class] forName:[TDEscapeFilter filterName]];
         [self registerFilterClass:[TDTrimFilter class] forName:[TDTrimFilter filterName]];
         [self registerFilterClass:[TDRoundFilter class] forName:[TDRoundFilter filterName]];
