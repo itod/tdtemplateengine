@@ -32,10 +32,10 @@
 
 - (id)runFilter:(id)input withArgs:(NSArray *)args inContext:(TDTemplateContext *)ctx {
     if (!input) {
-        return @"null";
+        return @"";
     } else {
         NSString *str = TDStringFromObject(input);
-        return [NSString stringWithFormat:@"\"%@\"", str];
+        return str;
     }
 }
 
