@@ -311,11 +311,17 @@ static NSCharacterSet *sNewlineSet = nil;
         NSString *peerPath = _originDerivedTemplate.filePath;
         absPath = [self absolutePathForPath:relPath relativeTo:peerPath];
     } else {
-        NSString *tmplRoot = [self resolveVariable:@"TEMPLATE_ROOT"];
-        if (tmplRoot) {
-            absPath = [tmplRoot stringByAppendingPathComponent:relPath];
-        } else {
-            absPath = relPath;
+        NSArray *tmplRoots = [self resolveVariable:@"TEMPLATE_ROOTS"];
+        
+        NSFileManager *mgr = [NSFileManager defaultManager];
+        
+        for (NSString *tmplRoot in tmplRoots) {
+            NSString *candidate = [tmplRoot stringByAppendingPathComponent:relPath];
+            BOOL isDir;
+            if ([mgr fileExistsAtPath:candidate isDirectory:&isDir]) {
+                absPath = candidate;
+                break;
+            }
         }
     }
     
