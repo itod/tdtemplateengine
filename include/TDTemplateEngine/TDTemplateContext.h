@@ -28,8 +28,9 @@
 @class TDTemplateContext;
 
 @protocol TDTemplateContextDelegate <NSObject>
-- (TDTemplate *)templateContext:(TDTemplateContext *)ctx templateForFilePath:(NSString *)filePath error:(NSError **)err;
-- (BOOL)templateContext:(TDTemplateContext *)ctx loadTagLibrary:(NSString *)libName error:(NSError **)err;
+// these throw ParseException (need to bubble up to client)
+- (TDTemplate *)templateContext:(TDTemplateContext *)ctx templateForFilePath:(NSString *)filePath;
+- (BOOL)templateContext:(TDTemplateContext *)ctx loadTagLibrary:(NSString *)libName;
 @end
 
 @interface TDTemplateContext : NSObject

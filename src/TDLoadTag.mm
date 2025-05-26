@@ -43,11 +43,11 @@
 
 - (void)compileInContext:(TDTemplateContext *)ctx {
     for (NSString *libName in self.args) {
-        NSError *err = nil;
-        BOOL success = [ctx.delegate templateContext:ctx loadTagLibrary:libName error:&err];
+
+        // throws ParseException and bubbles up to client
+        BOOL success = [ctx.delegate templateContext:ctx loadTagLibrary:libName];
         if (!success) {
-            if (err) NSLog(@"%@", err);
-            [NSException raise:@"HTTP500" format:@"%@", err.localizedDescription];
+            TDAssert(0);
         }
     }
 }

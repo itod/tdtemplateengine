@@ -17,14 +17,14 @@
 
 @implementation TDInclusionTag
 
-+ (NSString *)outputTemplatePath {
++ (NSString *)inclusionTemplatePath {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
     return nil;
 }
 
 
 - (void)dealloc {
-    self.outputTemplate = nil;
+    self.inclusionTemplate = nil;
     [super dealloc];
 }
 
@@ -33,19 +33,18 @@
 #pragma mark TDCompileTimeTag
 
 - (void)compileInContext:(TDTemplateContext *)ctx {
-    NSString *relPath = [[self class] outputTemplatePath];
+    NSString *relPath = [[self class] inclusionTemplatePath];
     NSString *absPath = [ctx absolutePathForTemplateRelativePath:relPath];
 
-    NSError *err = nil;
     TDAssert(ctx.delegate);
-    TDTemplate *tmpl = [ctx.delegate templateContext:ctx templateForFilePath:absPath error:&err];
+    // throws ParseException & bubbles up to client
+    TDTemplate *tmpl = [ctx.delegate templateContext:ctx templateForFilePath:absPath];
     
-    if (!tmpl) {
-        if (err) NSLog(@"%@", err);
-        [NSException raise:@"HTTP500" format:@"%@", err.localizedDescription];
+    if (tmpl) {
+        self.inclusionTemplate = tmpl;
+    } else {
+        TDAssert(0);
     }
-    
-    self.outputTemplate = tmpl;
 }
 
 
@@ -58,11 +57,12 @@
     id vars = [self runInContext:ctx];
     
     if (vars) {
-        TDAssert(self.outputTemplate);
+        TDAssert(_inclusionTemplate);
         NSError *err = nil;
-        BOOL success = [self.outputTemplate render:vars toStream:ctx.writer.output error:&err];
+        BOOL success = [_inclusionTemplate render:vars toStream:ctx.writer.output error:&err];
         if (!success) {
             if (err) NSLog(@"%@", err);
+            TDAssert(0);
             return;
         }
     }

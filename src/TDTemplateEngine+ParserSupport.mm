@@ -43,7 +43,8 @@ using namespace templateengine;
 - (TDFilter *)makeFilterForName:(NSString *)filterName {
     Class cls = [self.filterTab objectForKey:filterName];
     if (!cls) {
-        [NSException raise:TDTemplateEngineErrorDomain format:@"Unknown filter name '%@'", filterName];
+        throw ParseException([[NSString stringWithFormat:@"Unknown filter name '%@'", filterName] UTF8String]);
+        //[NSException raise:TDTemplateEngineErrorDomain format:@"Unknown filter name '%@'", filterName];
     }
     TDFilter *filter = [[[cls alloc] init] autorelease];
     TDAssert(filter);

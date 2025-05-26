@@ -70,18 +70,17 @@
     NSString *absPath = [ctx absolutePathForTemplateRelativePath:relPath];
 
     self.key = [NSString stringWithFormat:@"__include:%@", absPath];
-    
-    NSError *err = nil;
+
     TDAssert(ctx.delegate);
-    TDTemplate *tmpl = [ctx.delegate templateContext:ctx templateForFilePath:absPath error:&err];
+    // throws ParseException & bubbles up to client
+    TDTemplate *tmpl = [ctx.delegate templateContext:ctx templateForFilePath:absPath];
     
-    if (!tmpl) {
-        if (err) NSLog(@"%@", err);
-        [NSException raise:@"HTTP500" format:@"%@", err.localizedDescription];
+    if (tmpl) {
+        TDRootNode *root = tmpl.rootNode;
+        [ctx.originDerivedTemplate setBlock:root forKey:self.key];
+    } else {
+        TDAssert(0);
     }
-    
-    TDRootNode *root = tmpl.rootNode;
-    [ctx.originDerivedTemplate setBlock:root forKey:self.key];
 }
 
 

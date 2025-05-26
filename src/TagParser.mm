@@ -938,11 +938,11 @@ void TagParser::_filterExpr() {
             id expr = POP_OBJ();
             assert(_engine);
             TDFilter *filter = nil;
-            @try {
+            //@try {
                 filter = [_engine makeFilterForName:filterName];
-            } @catch (NSException *ex) {
-                raise([[ex reason] UTF8String]);
-            }
+//            } @catch (NSException *ex) {
+//                raise([[ex reason] UTF8String]);
+//            }
             assert(filter);
             PUSH_OBJ([TDFilterExpression filterExpressionWithExpression:expr filter:filter arguments:args]);
         }

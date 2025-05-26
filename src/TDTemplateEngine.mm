@@ -229,20 +229,26 @@ static TDTemplateEngine *sInstance = nil;
 }
 
 
-- (BOOL)processTemplateString:(NSString *)str withVariables:(NSDictionary *)vars toStream:(NSOutputStream *)output error:(NSError **)err {
-    TDTemplate *tmpl = [self _templateFromString:str filePath:nil context:nil error:err];
-
-    BOOL success = NO;
+- (BOOL)processTemplateString:(NSString *)str withVariables:(NSDictionary *)vars toStream:(NSOutputStream *)output error:(NSError **)outError {
+    TDTemplate *tmpl = nil;
     
-    if (tmpl) {
-        success = [tmpl render:vars toStream:output error:err];
+    BOOL success = NO;
+    try {
+        tmpl = [self _templateFromString:str filePath:nil context:nil];
+        if (tmpl) {
+            success = [tmpl render:vars toStream:output error:outError];
+        }
+    } catch (ParseException& ex) {
+        if (outError) {
+            *outError = [self errorFromParseException:ex filePath:nil];
+        }
     }
     
     return success;
 }
 
 
-- (TDTemplate *)_cachedTemplateForPath:(NSString *)path {
+- (TDTemplate *)_cachedTemplateForFilePath:(NSString *)path {
     TDTemplate *tmpl = nil;
     if (_cacheTemplates) {
         @synchronized (_templateCache) {
@@ -253,7 +259,7 @@ static TDTemplateEngine *sInstance = nil;
 }
 
 
-- (void)_setCachedTemplate:(TDTemplate *)tmpl forPath:(NSString *)path {
+- (void)_setCachedTemplate:(TDTemplate *)tmpl forFilePath:(NSString *)path {
     if (tmpl && _cacheTemplates) {
         @synchronized (_templateCache) {
             [_templateCache setObject:tmpl forKey:path];
@@ -262,31 +268,71 @@ static TDTemplateEngine *sInstance = nil;
 }
 
 
-- (TDTemplate *)templateWithContentsOfFile:(NSString *)path error:(NSError **)err {
-    return [self templateWithContentsOfFile:path context:nil error:err];
-}
-
-
-- (TDTemplate *)templateWithContentsOfFile:(NSString *)path context:(TDTemplateContext *)ctx error:(NSError **)err {
-    TDTemplate *tmpl = [self _cachedTemplateForPath:path];
-    if (tmpl) return tmpl;
+- (TDTemplate *)templateWithContentsOfFile:(NSString *)filePath error:(NSError **)outError {
     
-    NSStringEncoding enc;
-    NSString *str = [NSString stringWithContentsOfFile:path usedEncoding:&enc error:err];
-    if (!str) {
-        if (*err) NSLog(@"%@", *err);
-        return nil;
+    TDTemplate *tmpl = nil;
+    try {
+        tmpl = [self templateWithContentsOfFile:filePath];
     }
-    
-    tmpl = [self _templateFromString:str filePath:path context:ctx error:err];
-    
-    [self _setCachedTemplate:tmpl forPath:path];
+    catch (ParseException& ex) {
+        if (outError) {
+            NSError *err = [self errorFromParseException:ex filePath:filePath];
+            *outError = err;
+        } else {
+            throw ex;
+        }
+    }
     
     return tmpl;
 }
 
 
-- (TDTemplate *)_templateFromString:(NSString *)str filePath:(NSString *)path context:(TDTemplateContext *)inCtx error:(NSError **)err {
+- (NSError *)errorFromParseException:(ParseException&)ex filePath:(NSString *)filePath {
+    NSString *reason = [NSString stringWithUTF8String:ex.message().c_str()]; //[ex reason];
+    NSString *sample = [NSString stringWithUTF8String:ex.sample().c_str()];
+    Token token = ex.token();
+    
+    id userInfo = @{
+        @"filePath": filePath ? filePath : [NSNull null],
+        @"name": @"TemplateParseError",
+        @"reason": reason ? reason : [NSNull null],
+        @"location": @(token.location()),
+        @"length": @(token.length()),
+        @"lineNumber": @(token.line_number()),
+        @"sample": sample,
+    };
+    NSError *err = [NSError errorWithDomain:TDTemplateEngineErrorDomain code:0 userInfo:userInfo];
+    return err;
+}
+
+
+// throws
+- (TDTemplate *)templateWithContentsOfFile:(NSString *)filePath {
+    return [self templateWithContentsOfFile:filePath context:nil];
+}
+
+
+- (TDTemplate *)templateWithContentsOfFile:(NSString *)filePath context:(TDTemplateContext *)ctx {
+    TDTemplate *tmpl = [self _cachedTemplateForFilePath:filePath];
+    if (tmpl) return tmpl;
+    
+    NSStringEncoding enc;
+    NSError *err = nil;
+    NSString *str = [NSString stringWithContentsOfFile:filePath usedEncoding:&enc error:&err];
+    if (!str) {
+        throw ParseException([[NSString stringWithFormat:@"Error reading file at path: `%@`: %@", filePath, err.localizedDescription] UTF8String]);
+        return nil;
+    }
+    
+    tmpl = [self _templateFromString:str filePath:filePath context:ctx];
+    
+    [self _setCachedTemplate:tmpl forFilePath:filePath];
+    
+    return tmpl;
+}
+
+
+- (TDTemplate *)_templateFromString:(NSString *)str filePath:(NSString *)path context:(TDTemplateContext *)inCtx {
     NSParameterAssert([str length]);
     TDAssert([_printStartDelimiter length]);
     TDAssert([_printEndDelimiter length]);
@@ -306,29 +352,18 @@ static TDTemplateEngine *sInstance = nil;
     @try {
         frags = [self fragmentsFromString:str];
     } @catch (NSException *ex) {
-        if (err) {
-            NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithDictionary:[ex userInfo]];
-            if (![userInfo count]) {
-                userInfo[NSLocalizedFailureReasonErrorKey] = ex.reason;
-            }
-            *err = [NSError errorWithDomain:TDTemplateEngineErrorDomain code:TDTemplateEngineRenderingErrorCode userInfo:userInfo];
-        }
-        return nil;
+        throw ParseException([ex.reason UTF8String]);
     }
     TDAssert(frags);
     
     // compile
-    TDRootNode *root = [self compile:frags filePath:path inContext:ctx error:err];
-    if (!root) {
-        if (*err) NSLog(@"%@", *err);
-        return nil;
-    }
+    TDRootNode *root = [self compile:frags filePath:path inContext:ctx];
     tmpl.rootNode = root;
     tmpl.staticContext = _staticContext;
     
     // check new tmpl to see if starts wtih {% extends %}, if so inherit
     if (tmpl.extendsPath) {
-        TDTemplate *superTemplate = [self templateWithContentsOfFile:tmpl.extendsPath error:err];
+        TDTemplate *superTemplate = [self templateWithContentsOfFile:tmpl.extendsPath];
         if (!superTemplate) {
             NSLog(@"Could not extend template `%@` bc it coult not be loaded or compiled.", tmpl.extendsPath);
             return nil;
@@ -348,12 +383,12 @@ static TDTemplateEngine *sInstance = nil;
 #pragma mark -
 #pragma mark TDTemplateContextDelegate
 
-- (TDTemplate *)templateContext:(TDTemplateContext *)ctx templateForFilePath:(NSString *)filePath error:(NSError **)err {
-    return [self templateWithContentsOfFile:filePath context:ctx error:err];
+- (TDTemplate *)templateContext:(TDTemplateContext *)ctx templateForFilePath:(NSString *)filePath {
+    return [self templateWithContentsOfFile:filePath context:ctx];
 }
 
 
-- (BOOL)templateContext:(TDTemplateContext *)ctx loadTagLibrary:(NSString *)libName error:(NSError **)outErr {
+- (BOOL)templateContext:(TDTemplateContext *)ctx loadTagLibrary:(NSString *)libName {
     static NSSet *sKnown = nil;
     if (!sKnown) {
         sKnown = [[NSSet alloc] initWithObjects:@"static", nil];
@@ -364,13 +399,6 @@ static TDTemplateEngine *sInstance = nil;
     } else {
         // TODO
         return YES;
-//        if (outErr) {
-//            id userInfo = @{
-//                NSLocalizedFailureReasonErrorKey: [NSString stringWithFormat:@"Unknown Tag Library: `%@`", libName],
-//            };
-//            *outErr = [NSError errorWithDomain:TDTemplateEngineErrorDomain code:TDTemplateEngineRenderingErrorCode userInfo:userInfo];
-//        }
-//        return NO;
     }
 }
 
@@ -497,36 +525,40 @@ static TDTemplateEngine *sInstance = nil;
 }
 
 
-- (TDRootNode *)compile:(TokenListPtr)frags filePath:(NSString *)filePath inContext:(TDTemplateContext *)ctx error:(NSError **)outError {
+
+// throws ParseException
+- (TDRootNode *)compile:(TokenListPtr)frags filePath:(NSString *)filePath inContext:(TDTemplateContext *)ctx {
     
     TDAssert(ctx);
     TemplateParser p(self, ctx);
     
     TDRootNode *root = nil;
-    try {
+    //try {
         root = p.parse(frags, filePath);
-    }
-    catch (ParseException& ex) {
-        if (outError) {
-            NSString *reason = [NSString stringWithUTF8String:ex.message().c_str()]; //[ex reason];
-            NSString *sample = [NSString stringWithUTF8String:ex.sample().c_str()];
-            Token token = ex.token();
-            
-            id userInfo = @{
-                @"filePath": filePath ? filePath : [NSNull null],
-                @"name": @"TemplateParseError",
-                @"reason": reason ? reason : [NSNull null],
-                @"location": @(token.location()),
-                @"length": @(token.length()),
-                @"lineNumber": @(token.line_number()),
-                @"sample": sample,
-            };
-            NSError *err = [NSError errorWithDomain:TDTemplateEngineErrorDomain code:0 userInfo:userInfo];
-            *outError = err;
-        } else {
-            throw ex;
-        }
-    }
+    //}
+    
+    // TODO remove let this bubble up to the very top
+//    catch (ParseException& ex) {
+//        if (outError) {
+//            NSString *reason = [NSString stringWithUTF8String:ex.message().c_str()]; //[ex reason];
+//            NSString *sample = [NSString stringWithUTF8String:ex.sample().c_str()];
+//            Token token = ex.token();
+//            
+//            id userInfo = @{
+//                @"filePath": filePath ? filePath : [NSNull null],
+//                @"name": @"TemplateParseError",
+//                @"reason": reason ? reason : [NSNull null],
+//                @"location": @(token.location()),
+//                @"length": @(token.length()),
+//                @"lineNumber": @(token.line_number()),
+//                @"sample": sample,
+//            };
+//            NSError *err = [NSError errorWithDomain:TDTemplateEngineErrorDomain code:0 userInfo:userInfo];
+//            *outError = err;
+//        } else {
+//            throw ex;
+//        }
+//    }
 
     return root;
 }

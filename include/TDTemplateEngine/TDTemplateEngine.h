@@ -61,7 +61,10 @@ extern const NSInteger TDTemplateEngineRenderingErrorCode;
 // static/compile-time vars go here. this is the global scope at both compile-time and render-time. persists across compiles and renders.
 @property (nonatomic, retain, readonly) TDTemplateContext *staticContext;
 
-- (TDTemplate *)templateWithContentsOfFile:(NSString *)path error:(NSError **)err;
+// use this from client code.
+- (TDTemplate *)templateWithContentsOfFile:(NSString *)path error:(NSError **)err; // returns error by calling below:
+// use this in recursive inclusion or include tags. exceptions in those calls need to bubble alll the way up to the client!
+- (TDTemplate *)templateWithContentsOfFile:(NSString *)path; // throws
 @property (nonatomic, assign) BOOL cacheTemplates;
 @end
 

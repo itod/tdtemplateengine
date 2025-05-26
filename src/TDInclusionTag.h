@@ -13,9 +13,9 @@
 
 @interface TDInclusionTag : TDTag <TDCompileTimeTag>
 
-+ (NSString *)outputTemplatePath;
++ (NSString *)inclusionTemplatePath;
 
 - (id)runInContext:(TDTemplateContext *)ctx;
 
-@property (nonatomic, retain) TDTemplate *outputTemplate;
+@property (nonatomic, retain) TDTemplate *inclusionTemplate;
 @end
