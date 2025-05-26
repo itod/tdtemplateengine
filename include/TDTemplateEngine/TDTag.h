@@ -26,8 +26,8 @@
 @class TDExpression;
 
 typedef NS_ENUM(NSUInteger, TDTagContentType) {
-    TDTagContentTypeSimple = 0,
-    TDTagContentTypeComplex,
+    TDTagContentTypeEmpty = 0,
+    TDTagContentTypeFull,
 };
 
 typedef NS_ENUM(NSUInteger, TDTagExpressionType) {

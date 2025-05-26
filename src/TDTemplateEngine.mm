@@ -470,12 +470,12 @@ static TDTemplateEngine *sInstance = nil;
                 Class tagCls = [self registerdTagClassForName:tagName];
                 
                 switch ([tagCls tagContentType]) {
-                    case TDTagContentTypeComplex:
+                    case TDTagContentTypeFull:
                         tokenType = TemplateTokenType_BLOCK_START_TAG;
                         frags->push_back(Token(tokenType, {contentRange.location, contentRange.length}));
                         frags->push_back(Token(TemplateTokenType_TAG, {currRange.location, currRange.length}));
                         break;
-                    case TDTagContentTypeSimple:
+                    case TDTagContentTypeEmpty:
                         tokenType = TemplateTokenType_EMPTY_TAG;
                         frags->push_back(Token(tokenType, {contentRange.location, contentRange.length}));
                         break;

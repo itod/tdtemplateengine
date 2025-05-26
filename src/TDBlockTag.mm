@@ -39,7 +39,7 @@
 
 
 + (TDTagContentType)tagContentType {
-    return TDTagContentTypeComplex;
+    return TDTagContentTypeFull;
 }
 
 
