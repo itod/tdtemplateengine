@@ -62,7 +62,8 @@ using namespace templateengine;
     NSError *err = nil;
     TDExpression *expr = [self expressionFromString:str inContext:ctx error:&err];
     if (!expr) {
-        [NSException raise:TDTemplateEngineErrorDomain format:@"Error while compiling print node expression `%@`\n\n%@", str, [err localizedFailureReason]];
+        throw ParseException([[NSString stringWithFormat:@"Error while compiling print node expression `%@`\n\n%@", str, err.localizedFailureReason] UTF8String]);
+        //[NSException raise:TDTemplateEngineErrorDomain format:@"Error while compiling print node expression `%@`\n\n%@", str, [err localizedFailureReason]];
     }
     
     TDAssert(expr);
@@ -75,7 +76,8 @@ using namespace templateengine;
 - (TDTag *)makeTagForName:(NSString *)tagName token:(Token)token parent:(TDNode *)parent {
     Class cls = [self registerdTagClassForName:tagName];
     if (!cls) {
-        [NSException raise:TDTemplateEngineErrorDomain format:@"Unknown tag name '%@'", tagName];
+        throw ParseException([[NSString stringWithFormat:@"Unknown tag name '%@'", tagName] UTF8String]);
+        //[NSException raise:TDTemplateEngineErrorDomain format:@"Unknown tag name '%@'", tagName];
     }
     TDTag *tag = [[[cls alloc] initWithToken:token parent:parent] autorelease];
     TDAssert(tag);

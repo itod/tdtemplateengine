@@ -208,7 +208,6 @@ void TemplateParser::_text() {
 }
 
 void TemplateParser::raise(NSString *reason, Token tok) {
-    reason = [NSString stringWithFormat:@"Error while parsing Template `%@`:\n%@", _context.originDerivedTemplate.filePath, reason];
     std::string msg = [reason UTF8String];
     std::string sample = [[_context templateSubstringForToken:tok] UTF8String];
     throw ParseException(msg, tok, sample);
