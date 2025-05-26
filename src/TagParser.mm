@@ -110,6 +110,7 @@ const TDTagTokenTable& TagParser::tokenTable() {
         {"with", TDTokenType_WITH},
         {"as", TDTokenType_AS},
         {"silent", TDTokenType_SILENT},
+        {"reversed", TDTokenType_REVERSED},
     };
     return tokenTab;
 }
@@ -296,6 +297,13 @@ void TagParser::_loopTag() {
     _identifiers();
     match(TDTokenType_IN, true);
     _enumExpr();
+    
+    if (predicts(TDTokenType_REVERSED, 0)) {
+        match(TDTokenType_REVERSED, true);
+        TDEnumeration *enumExpr = PEEK_OBJ();
+        enumExpr.reversed = YES;
+    }
+
     if (!isSpeculating()) {
         id enumExpr = POP_OBJ();
         id vars = POP_OBJ();

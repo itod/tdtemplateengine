@@ -46,7 +46,7 @@
     TDEqualObjects(@"foobarbaz", res);
 }
 
-- (void)testFor0To4F {
+- (void)testFor0To3F {
     NSString *input = @"{% for i in 0 to 3 %}f{% endfor %}";
     id vars = nil;
     
@@ -58,7 +58,7 @@
     TDEqualObjects(@"ffff", res);
 }
 
-- (void)testFor0To4FNoSpace {
+- (void)testFor0To3FNoSpace {
     NSString *input = @"{%for i in 0 to 3%}f{%endfor%}";
     id vars = nil;
     
@@ -240,6 +240,58 @@
     TDNil(err);
     NSString *res = [self outputString];
     TDEqualObjects(@"1,2,", res);
+}
+
+- (void)testFor0To3Range {
+    NSString *input = @"{% for i in 0 to 3 %}{{i}}{% endfor %}";
+    id vars = nil;
+    
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"0123", res);
+}
+
+- (void)testFor0To3RangeReversed {
+    NSString *input = @"{% for i in 0 to 3 reversed %}{{i}}{% endfor %}";
+    id vars = nil;
+    
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"3210", res);
+}
+
+- (void)testFor0To3Coll {
+    NSString *input = @"{% for i in list %}{{i}}{% endfor %}";
+    id vars = @{
+        @"list": @[@0, @1, @2, @3],
+    };
+    
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"0123", res);
+}
+
+- (void)testFor0To3CollReversed {
+    NSString *input = @"{% for i in list reversed %}{{i}}{% endfor %}";
+    id vars = @{
+        @"list": @[@0, @1, @2, @3],
+    };
+    
+    NSError *err = nil;
+    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    TDTrue(success);
+    TDNil(err);
+    NSString *res = [self outputString];
+    TDEqualObjects(@"3210", res);
 }
 
 @end

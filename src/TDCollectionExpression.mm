@@ -65,7 +65,11 @@
         self.values = nil;
     } else if ([col isKindOfClass:[NSArray class]]) {
         self.keys = nil;
-        self.values = col;
+        if (self.reversed) {
+            self.values = [self reversedArray:col];
+        } else {
+            self.values = col;
+        }
     } else if ([col isKindOfClass:[NSSet class]]) {
         self.keys = nil;
         self.values = [col allObjects];
@@ -75,7 +79,7 @@
     } else {
         [NSException raise:@"" format:@""]; // TODO
     }
-
+    
     self.current = 0;
 }
 
@@ -98,7 +102,7 @@
             result = self.values[self.current];
             TDAssert(result);
         }
-        self.current++;
+        [self increment];
     } else {
         self.started = NO;
     }

@@ -103,6 +103,10 @@
         }
     }
 
+    if (self.reversed) {
+        range = [self reversedArray:range];
+    }
+    
     self.values = range;
     self.current = 0;
 }
@@ -117,7 +121,7 @@
     id result = nil;
     if ([self hasMore]) {
         result = self.values[self.current];
-        self.current++;
+        [self increment];
     } else {
         self.started = NO;
     }

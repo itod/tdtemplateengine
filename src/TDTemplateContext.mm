@@ -304,7 +304,7 @@ static NSCharacterSet *sNewlineSet = nil;
 
 - (NSString *)absolutePathForTemplateRelativePath:(NSString *)relPath {
     
-    NSString *absPath = nil;
+    NSString *absPath = relPath;
     if ([relPath hasPrefix:@"/"]) {
         absPath = relPath;
     } else if ([relPath hasPrefix:@"."]) {

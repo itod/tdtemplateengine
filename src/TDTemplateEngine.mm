@@ -513,9 +513,9 @@ static TDTemplateEngine *sInstance = nil;
             Token token = ex.token();
             
             id userInfo = @{
-                @"filePath": filePath,
+                @"filePath": filePath ? filePath : [NSNull null],
                 @"name": @"TemplateParseError",
-                @"reason": reason,
+                @"reason": reason ? reason : [NSNull null],
                 @"location": @(token.location()),
                 @"length": @(token.length()),
                 @"lineNumber": @(token.line_number()),

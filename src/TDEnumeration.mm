@@ -31,7 +31,23 @@
 
 
 - (BOOL)hasMore {
-    return _current < [_values count];
+    return _current < _values.count;
+}
+
+
+- (void)increment {
+    ++_current;        
+}
+
+
+- (NSMutableArray *)reversedArray:(NSArray *)inArray {
+    NSUInteger c = inArray.count;
+    if (!c) return nil;
+    NSMutableArray *outArray = [NSMutableArray arrayWithCapacity:c];
+    for (id obj in [inArray reverseObjectEnumerator]) {
+        [outArray addObject:obj];
+    }
+    return outArray;
 }
 
 @end

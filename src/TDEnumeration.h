@@ -25,7 +25,10 @@
 @interface TDEnumeration : TDExpression
 
 - (BOOL)hasMore;
+- (void)increment;
+- (NSMutableArray *)reversedArray:(NSArray *)inArray;
 
 @property (nonatomic, retain) NSArray *values;
 @property (nonatomic, assign) NSInteger current;
+@property (nonatomic, assign) BOOL reversed;
 @end
