@@ -174,7 +174,7 @@ void TemplateParser::_block_start_tag() {
         startTagNode = [_engine tagFromFragment:tok withParent:_currentParent inContext:_context];
     } catch (ParseException& ex) {
 //        raise([ex reason], tok);
-        throw ex;
+        throw ParseException(ex.message(), tok);
     }
     assert(startTagNode);
     [_currentParent addChild:startTagNode];

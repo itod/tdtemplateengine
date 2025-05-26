@@ -506,63 +506,29 @@ static TDTemplateEngine *sInstance = nil;
     try {
         root = p.parse(frags, filePath);
     }
-//    @catch (PKRecognitionException *rex) {
-//        NSString *domain = PEGKitErrorDomain;
-//        NSString *name = rex.currentName;
-//        NSString *reason = rex.currentReason;
-//        NSRange range = rex.range;
-//        NSUInteger lineNumber = rex.lineNumber;
-//        //NSLog(@"%@: %@", name, reason);
-//
-//        if (outError) {
-//            *outError = [self errorWithDomain:domain name:name reason:reason range:range lineNumber:lineNumber];
-//        } else {
-//            [rex raise];
-//        }
-//    }
     catch (ParseException& ex) {
-        NSString *domain = @"ParseKitErrorDomain";
-        NSString *name = @"ParseError"; //[ex name];
-        //NSLog(@"%@", reason);
-        
         if (outError) {
             NSString *reason = [NSString stringWithUTF8String:ex.message().c_str()]; //[ex reason];
-            //NSString *sample = [NSString stringWithUTF8String:ex.sample().c_str()];
-            Token tok = ex.token();
-            NSRange range = {tok.location(), tok.length()};
-            *outError = [self errorWithDomain:domain name:name reason:reason range:range lineNumber:tok.line_number()];
+            NSString *sample = [NSString stringWithUTF8String:ex.sample().c_str()];
+            Token token = ex.token();
+            
+            id userInfo = @{
+                @"filePath": filePath,
+                @"name": @"TemplateParseError",
+                @"reason": reason,
+                @"location": @(token.location()),
+                @"length": @(token.length()),
+                @"lineNumber": @(token.line_number()),
+                @"sample": sample,
+            };
+            NSError *err = [NSError errorWithDomain:TDTemplateEngineErrorDomain code:0 userInfo:userInfo];
+            *outError = err;
         } else {
             throw ex;
         }
     }
 
     return root;
-}
-
-
-- (NSError *)errorWithDomain:(NSString *)domain name:(NSString *)name reason:(NSString *)reason range:(NSRange)r lineNumber:(NSUInteger)lineNum {
-    NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
-
-    // get description
-    name = name ? name : NSLocalizedString(@"A parsing recognition exception occured.", @"");
-    [userInfo setObject:name forKey:NSLocalizedDescriptionKey];
-    
-    // get reason
-    reason = reason ? reason : @"";
-    userInfo[NSLocalizedFailureReasonErrorKey] = reason;
-    userInfo[@"ParseKitErrorRangeKey"] = [NSValue valueWithRange:r];
-    
-    id lineNumVal = nil;
-    if (NSNotFound == lineNum) {
-        lineNumVal = NSLocalizedString(@"Unknown", @"");
-    } else {
-        lineNumVal = @(lineNum);
-    }
-    userInfo[@"ParseKitErrorLineNumberKey"] = lineNumVal;
-    
-    // convert to NSError
-    NSError *err = [NSError errorWithDomain:@"ParseKitErrorDomain" code:0 userInfo:[[userInfo copy] autorelease]];
-    return err;
 }
 
 
