@@ -37,6 +37,7 @@ private:
     
     TDNode *_currentParent;
     void setCurrentParent(TDNode *n);
+    void reThrowOrRaiseWithToken(ParseException& ex, Token token);
     
     void _template(NSString *filePath);
     void _content();

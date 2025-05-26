@@ -76,6 +76,17 @@ TDRootNode *TemplateParser::parse(TokenListPtr frags, NSString *filePath) {
     return node;
 }
 
+void TemplateParser::reThrowOrRaiseWithToken(ParseException& ex, Token token) {
+    // if it is being recursively thrown, retain the existing token and re-throw.
+    // if this exception is first thrown here, it needs a token to display error location context
+    TokenType tt = ex.token().token_type();
+    if (tt != -1 && tt != 0) {
+        throw ex;
+    } else {
+        raise([NSString stringWithUTF8String:ex.message().c_str()], token);
+    }
+}
+
 void TemplateParser::_template(NSString *filePath) {
     assert([_context peekTemplateString]);
     
@@ -126,7 +137,7 @@ void TemplateParser::_empty_tag() {
     try {
         startTagNode = [_engine tagFromFragment:tok withParent:_currentParent inContext:_context];
     } catch (ParseException& ex) {
-        raise([NSString stringWithUTF8String:ex.message().c_str()], tok);
+        reThrowOrRaiseWithToken(ex, tok);
     }
     assert(startTagNode);
     [_currentParent addChild:startTagNode];
@@ -173,8 +184,7 @@ void TemplateParser::_block_start_tag() {
     try {
         startTagNode = [_engine tagFromFragment:tok withParent:_currentParent inContext:_context];
     } catch (ParseException& ex) {
-//        raise([ex reason], tok);
-        throw ParseException(ex.message(), tok);
+        reThrowOrRaiseWithToken(ex, tok);
     }
     assert(startTagNode);
     [_currentParent addChild:startTagNode];
