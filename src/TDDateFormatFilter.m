@@ -10,12 +10,16 @@
 #import <TDTemplateEngine/TDDateValue.h>
 
 static NSDateFormatter *sDateFormatter = nil;
+static NSRegularExpression *sMRegex = nil;
 
 @implementation TDDateFormatFilter
 
 + (void)initialize {
     if ([TDDateFormatFilter class] == self) {
         sDateFormatter = [[NSDateFormatter alloc] init];
+        
+        // python thinks M == Jan, but objc things M = 1, MMM = Jan.
+        sMRegex = [[NSRegularExpression alloc] initWithPattern:@"\\bM\\b" options:0 error:nil];
     }
 }
 
@@ -33,7 +37,8 @@ static NSDateFormatter *sDateFormatter = nil;
     NSDate *date = TDDateFromObject(input);
     TDAssert(date);
     
-    NSString *fmtStr = [args objectAtIndex:0];
+    NSMutableString *fmtStr = [[[args objectAtIndex:0] mutableCopy] autorelease];
+    [sMRegex replaceMatchesInString:fmtStr options:0 range:NSMakeRange(0, fmtStr.length) withTemplate:@"MMM"];
 
     NSString *result = nil;
     TDAssert(sDateFormatter);
