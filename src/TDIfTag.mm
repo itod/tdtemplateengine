@@ -34,7 +34,7 @@
 
 
 + (TDTagContentType)tagContentType {
-    return TDTagContentTypeFull;
+    return TDTagContentTypeParent;
 }
 
 

@@ -32,7 +32,7 @@
 
 
 + (TDTagContentType)tagContentType {
-    return TDTagContentTypeEmpty;
+    return TDTagContentTypeLeaf;
 }
 
 
