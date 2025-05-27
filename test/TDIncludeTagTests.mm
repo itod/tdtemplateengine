@@ -34,12 +34,11 @@ using namespace parsekit;
     ReaderObjC reader(input);
     
     id vars = @{};
-    id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
+    TDTemplateContext *ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
+    ctx.delegate = self.eng;
     
-    NSError *err = nil;
     TDIncludeTag *tag = (id)[self.eng tagFromReader:&reader withParent:nil inContext:ctx];
 
-    XCTAssertNil(err);
     XCTAssertNotNil(tag);
     
     NSString *outPath = [tag.expression evaluateAsStringInContext:ctx];

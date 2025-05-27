@@ -80,11 +80,3 @@ extern const NSInteger TDTemplateEngineRenderingErrorCode;
 - (void)registerFilterClass:(Class)cls forName:(NSString *)filterName;
 - (Class)registeredFilterClassForName:(NSString *)filterName;
 @end
-
-// TODO move all this to private & testing?
-@class TDRootNode;
-@interface TDTemplateEngine (FriendAPI)
-// convenience for testing only. compile + render with render-time vars in one shot
-- (BOOL)processTemplateString:(NSString *)str withVariables:(NSDictionary *)vars toStream:(NSOutputStream *)output error:(NSError **)err;
-- (BOOL)processTemplateFile:(NSString *)path encoding:(NSStringEncoding)enc withVariables:(NSDictionary *)vars toStream:(NSOutputStream *)output error:(NSError **)err;
-@end

@@ -216,38 +216,6 @@ static TDTemplateEngine *sInstance = nil;
 #pragma mark -
 #pragma mark Public
 
-- (BOOL)processTemplateFile:(NSString *)path encoding:(NSStringEncoding)enc withVariables:(NSDictionary *)vars toStream:(NSOutputStream *)output error:(NSError **)err {
-    TDTemplate *tmpl = [self templateWithContentsOfFile:path error:err];
-    
-    BOOL success = NO;
-
-    if (tmpl) {
-        success = [tmpl render:vars toStream:output error:err];
-    }
-    
-    return success;
-}
-
-
-- (BOOL)processTemplateString:(NSString *)str withVariables:(NSDictionary *)vars toStream:(NSOutputStream *)output error:(NSError **)outError {
-    TDTemplate *tmpl = nil;
-    
-    BOOL success = NO;
-    try {
-        tmpl = [self _templateFromString:str filePath:nil context:nil];
-        if (tmpl) {
-            success = [tmpl render:vars toStream:output error:outError];
-        }
-    } catch (ParseException& ex) {
-        if (outError) {
-            *outError = [self errorFromParseException:ex];
-        }
-    }
-    
-    return success;
-}
-
-
 - (TDTemplate *)_cachedTemplateForFilePath:(NSString *)path {
     TDTemplate *tmpl = nil;
     if (_cacheTemplates) {
@@ -321,7 +289,7 @@ static TDTemplateEngine *sInstance = nil;
     NSError *err = nil;
     NSString *str = [NSString stringWithContentsOfFile:filePath usedEncoding:&enc error:&err];
     if (!str) {
-        throw ParseException([[NSString stringWithFormat:@"Error reading file at path: `%@`: %@", filePath, err.localizedDescription] UTF8String]);
+        throw ParseException([NSString stringWithFormat:@"Error reading file at path: `%@`: %@", filePath, err.localizedDescription]);
         return nil;
     }
     
