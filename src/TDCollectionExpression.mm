@@ -60,7 +60,7 @@
     TDAssert(_subExpression);
     id col = [_subExpression evaluateAsObjectInContext:ctx];
     
-    if (!col) {
+    if (!col || [NSNull null] == col) {
         self.keys = nil;
         self.values = nil;
     } else if ([col isKindOfClass:[NSArray class]]) {

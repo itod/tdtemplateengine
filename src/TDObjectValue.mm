@@ -32,8 +32,8 @@ static TDObjectValue *sNullValue = nil;
 
 + (void)initialize {
     if ([TDObjectValue class] == self) {
-//        sNullValue = [[TDObjectValue alloc] initWithObject:[NSNull null]];
-        sNullValue = [[TDObjectValue alloc] initWithObject:nil];
+        sNullValue = [[TDObjectValue alloc] initWithObject:[NSNull null]];
+//        sNullValue = [[TDObjectValue alloc] initWithObject:nil];
     }
 }
 
@@ -104,9 +104,11 @@ static TDObjectValue *sNullValue = nil;
 
 - (BOOL)boolValue {
     BOOL yn = NO;
-    if ([_value isKindOfClass:[NSString class]]) {
+    if (self.isNullValue) {
+        yn = NO;
+    } else if ([_value isKindOfClass:[NSString class]]) {
         yn = [_value length];
-    } else if ([_value isKindOfClass:[NSArray class]] || [_value isKindOfClass:[NSDictionary class]] || [_value isKindOfClass:[NSSet class]]) {
+    } else if ([_value respondsToSelector:@selector(count)]) {
         yn = [_value count];
     } else if ([_value respondsToSelector:@selector(doubleValue)]) {
         yn = (0.0 != [_value doubleValue] && !isnan([_value doubleValue]));
