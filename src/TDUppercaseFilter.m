@@ -30,9 +30,7 @@
 
 
 - (id)runFilter:(id)input withArgs:(NSArray *)args inContext:(TDTemplateContext *)ctx {
-    TDAssert(input);
     NSString *inStr = TDStringFromObject(input);
-    
     NSString *result = [inStr uppercaseString];
     return result;
 }

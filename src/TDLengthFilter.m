@@ -30,8 +30,6 @@
 
 
 - (id)runFilter:(id)input withArgs:(NSArray *)args inContext:(TDTemplateContext *)ctx {
-    TDAssert(input);
-    
     NSUInteger len = 0;
     if ([input respondsToSelector:@selector(length)]) {
         len = [input length];
