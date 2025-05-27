@@ -180,7 +180,7 @@ using namespace templateengine;
             NSError *err = [NSError errorWithDomain:@"TDTemplateEngine"
                                                code:0
                                            userInfo:@{
-                NSLocalizedDescriptionKey: [NSString stringWithUTF8String:ex.message().c_str()],
+                NSLocalizedDescriptionKey: ex.message(),
             }];
             *outErr = err;
         }

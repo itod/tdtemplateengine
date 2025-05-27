@@ -87,7 +87,7 @@ void TemplateParser::reThrowOrRaiseWithToken(ParseException& ex, Token token) {
     if (tt != -1 && tt != 0) {
         throw ex;
     } else {
-        raise([NSString stringWithUTF8String:ex.message().c_str()], token);
+        raise(ex.message(), token);
     }
 }
 
@@ -220,8 +220,7 @@ void TemplateParser::_text() {
 
 }
 
-void TemplateParser::raise(NSString *reason, Token tok) {
-    std::string msg = [reason UTF8String];
+void TemplateParser::raise(NSString *msg, Token tok) {
     NSString *sample = [_context templateSubstringForToken:tok];
     assert(_filePath);
     throw ParseException(msg, tok, sample, _filePath);

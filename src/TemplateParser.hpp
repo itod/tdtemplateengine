@@ -49,7 +49,7 @@ private:
     void _block_end_tag();
     void _text();
 
-    void raise(NSString *reason, Token tok);
+    void raise(NSString *msg, Token tok);
     
 public:
     explicit TemplateParser(TDTemplateEngine *, TDTemplateContext *, NSString *);

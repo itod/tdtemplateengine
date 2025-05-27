@@ -288,7 +288,7 @@ static TDTemplateEngine *sInstance = nil;
 
 
 - (NSError *)errorFromParseException:(ParseException&)ex {
-    NSString *reason = [NSString stringWithUTF8String:ex.message().c_str()]; //[ex reason];
+    NSString *reason = ex.message();
     NSString *sample = ex.sample();
     Token token = ex.token();
     
