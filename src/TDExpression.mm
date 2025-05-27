@@ -68,6 +68,15 @@
 }
 
 
+- (id)evaluateAsObjectInContext:(TDTemplateContext *)ctx defaultValue:(id)defaultValue {
+    id res = [self evaluateAsObjectInContext:ctx];
+    if (!res) {
+        res = defaultValue;
+    }
+    return res;
+}
+
+
 - (BOOL)isValue {
     return [self isKindOfClass:[TDValue class]];
 }
