@@ -93,6 +93,7 @@
     TDTemplate *tmpl = inCtx.originDerivedTemplate;
     TDAssert(tmpl);
     TDRootNode *delegate = (TDRootNode *)[tmpl blockForKey:self.key];
+    if (!delegate) return;
     TDAssert([delegate isKindOfClass:[TDRootNode class]]);
     
     // need one outer ctx for user variables
