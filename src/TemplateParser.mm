@@ -24,9 +24,10 @@ using namespace parsekit;
 
 namespace templateengine {
 
-TemplateParser::TemplateParser(TDTemplateEngine *engine, TDTemplateContext *context) :
+TemplateParser::TemplateParser(TDTemplateEngine *engine, TDTemplateContext *context, NSString *filePath) :
     _engine(engine),
     _context([context retain]),
+    _filePath([filePath retain]),
     _root(nil),
     _currentParent(nil)
 {}
@@ -38,11 +39,14 @@ TemplateParser::~TemplateParser() {
     [_currentParent release];
     _currentParent = nil;
     
+    [_filePath release];
+    _filePath = nil;
+    
     [_root release];
     _root = nil;
 }
 
-TDRootNode *TemplateParser::parse(TokenListPtr frags, NSString *filePath) {
+TDRootNode *TemplateParser::parse(TokenListPtr frags) {
     TokenListTokenizer tokenizer(frags);
     _tokenizer = &tokenizer;
 
@@ -60,7 +64,7 @@ TDRootNode *TemplateParser::parse(TokenListPtr frags, NSString *filePath) {
     
     TDRootNode *node = nil;
     //try {
-        _template(filePath);
+        _template();
         _eof();
         
         node = [[_root retain] autorelease];
@@ -87,11 +91,11 @@ void TemplateParser::reThrowOrRaiseWithToken(ParseException& ex, Token token) {
     }
 }
 
-void TemplateParser::_template(NSString *filePath) {
+void TemplateParser::_template() {
     assert([_context peekTemplateString]);
     
     TDRootNode *root = [TDRootNode rootNode];
-    root.templateFilePath = filePath;
+    root.templateFilePath = _filePath;
     root.templateString = [_context peekTemplateString];
     
     setRoot(root);
@@ -205,7 +209,6 @@ void TemplateParser::_block_end_tag() {
         raise([NSString stringWithFormat:@"Could not find block start tag named: `%@`", tagName], tok);
     }
     assert([_currentParent isKindOfClass:[TDTag class]]);
-    
 }
 
 void TemplateParser::_text() {
@@ -219,8 +222,8 @@ void TemplateParser::_text() {
 
 void TemplateParser::raise(NSString *reason, Token tok) {
     std::string msg = [reason UTF8String];
-    std::string sample = [[_context templateSubstringForToken:tok] UTF8String];
-    throw ParseException(msg, tok, sample);
+    NSString *sample = [_context templateSubstringForToken:tok];
+    throw ParseException(msg, tok, sample, _filePath);
 }
 
 void TemplateParser::setRoot(TDRootNode *n) {

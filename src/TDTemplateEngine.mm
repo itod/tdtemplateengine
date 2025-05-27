@@ -289,7 +289,7 @@ static TDTemplateEngine *sInstance = nil;
 
 - (NSError *)errorFromParseException:(ParseException&)ex filePath:(NSString *)filePath {
     NSString *reason = [NSString stringWithUTF8String:ex.message().c_str()]; //[ex reason];
-    NSString *sample = [NSString stringWithUTF8String:ex.sample().c_str()];
+    NSString *sample = ex.sample();
     Token token = ex.token();
     
     id userInfo = @{
@@ -530,11 +530,11 @@ static TDTemplateEngine *sInstance = nil;
 - (TDRootNode *)compile:(TokenListPtr)frags filePath:(NSString *)filePath inContext:(TDTemplateContext *)ctx {
     
     TDAssert(ctx);
-    TemplateParser p(self, ctx);
+    TemplateParser p(self, ctx, filePath);
     
     TDRootNode *root = nil;
     //try {
-        root = p.parse(frags, filePath);
+        root = p.parse(frags);
     //}
     
     // TODO remove let this bubble up to the very top

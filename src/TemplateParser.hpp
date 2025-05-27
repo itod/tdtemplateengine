@@ -29,6 +29,7 @@ class TemplateParser : public parsekit::BaseParser {
 private:
     TDTemplateEngine *_engine; // weakref, aka delegate
     TDTemplateContext *_context;
+    NSString *_filePath;
     
     TemplateAssembly *_assembly;
     
@@ -39,7 +40,7 @@ private:
     void setCurrentParent(TDNode *n);
     void reThrowOrRaiseWithToken(ParseException& ex, Token token);
     
-    void _template(NSString *filePath);
+    void _template();
     void _content();
     void _print();
     void _empty_tag();
@@ -51,12 +52,12 @@ private:
     void raise(NSString *reason, Token tok);
     
 public:
-    explicit TemplateParser(TDTemplateEngine *, TDTemplateContext *);
+    explicit TemplateParser(TDTemplateEngine *, TDTemplateContext *, NSString *);
     ~TemplateParser();
     
     virtual parsekit::Assembly *assembly() const override { return _assembly; }
     
-    TDRootNode *parse(parsekit::TokenListPtr, NSString *filePath);
+    TDRootNode *parse(parsekit::TokenListPtr);
 };
 
 }
