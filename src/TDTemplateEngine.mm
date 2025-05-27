@@ -290,16 +290,17 @@ static TDTemplateEngine *sInstance = nil;
 - (NSError *)errorFromParseException:(ParseException&)ex {
     NSString *reason = ex.reason();
     NSString *sample = ex.sample();
+    NSString *filePath = ex.filePath();
     Token token = ex.token();
     
     id userInfo = @{
-        @"filePath": ex.filePath(),
-        @"name": @"TemplateParseError",
         @"reason": reason ? reason : [NSNull null],
+        @"sample": sample ? sample : [NSNull null],
+        @"filePath": filePath ? filePath : [NSNull null],
+        @"name": @"TemplateParseError",
         @"location": @(token.location()),
         @"length": @(token.length()),
         @"lineNumber": @(token.line_number()),
-        @"sample": sample,
     };
     NSError *err = [NSError errorWithDomain:TDTemplateEngineErrorDomain code:0 userInfo:userInfo];
     return err;

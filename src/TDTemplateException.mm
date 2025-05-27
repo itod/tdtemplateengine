@@ -14,16 +14,26 @@ using namespace parsekit;
 
 @implementation TDTemplateException
 
-+ (void)raiseFromException:(NSException *)ex context:(TDTemplateContext *)ctx node:(TDNode *)node {
-    NSString *filePath = ctx.currentTemplateFilePath;
-    //TDAssert(filePath);
-    NSString *sample = [ctx templateSubstringForToken:node.token];
-    TDAssert(sample);
+//+ (void)raiseFromException:(NSException *)ex context:(TDTemplateContext *)ctx node:(TDNode *)node {
+//    NSString *filePath = ctx.currentTemplateFilePath;
+//    //TDAssert(filePath);
+//    NSString *sample = [ctx templateSubstringForToken:node.token];
+//    TDAssert(sample);
+//    TDTemplateException *tex = [[[TDTemplateException alloc] initWithName:ex.name reason:ex.reason userInfo:ex.userInfo] autorelease];
+//    TDAssert(tex);
+//    tex.filePath = filePath;
+//    tex.token = node.token;
+//    tex.sample = sample;
+//    [tex raise];
+//}
+
+
++ (void)raiseFromException:(NSException *)ex token:(Token)token sample:(NSString *)sample filePath:(NSString *)filePath {
     TDTemplateException *tex = [[[TDTemplateException alloc] initWithName:ex.name reason:ex.reason userInfo:ex.userInfo] autorelease];
     TDAssert(tex);
-    tex.filePath = filePath;
-    tex.token = node.token;
+    tex.token = token;
     tex.sample = sample;
+    tex.filePath = filePath;
     [tex raise];
 }
 

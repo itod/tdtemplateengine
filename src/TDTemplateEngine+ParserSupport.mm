@@ -60,12 +60,11 @@ using namespace templateengine;
     NSString *str = [ctx templateSubstringForToken:frag];
     TDAssert(str.length);
     
-    NSError *err = nil;
-    TDExpression *expr = [self expressionFromString:str inContext:ctx error:&err];
-    if (!expr) {
-        throw ParseException([NSString stringWithFormat:@"Error while compiling print node expression `%@`\n\n%@", str, err.localizedFailureReason]);
-        //[NSException raise:TDTemplateEngineErrorDomain format:@"Error while compiling print node expression `%@`\n\n%@", str, [err localizedFailureReason]];
-    }
+    TDExpression *expr = [self expressionFromString:str inContext:ctx];
+//    if (!expr) {
+//        throw ParseException([NSString stringWithFormat:@"Error while compiling print node expression `%@`\n\n%@", str, err.localizedFailureReason]);
+//        //[NSException raise:TDTemplateEngineErrorDomain format:@"Error while compiling print node expression `%@`\n\n%@", str, [err localizedFailureReason]];
+//    }
     
     TDAssert(expr);
     TDPrintNode *printNode = [TDPrintNode nodeWithToken:frag parent:parent];
@@ -126,7 +125,7 @@ using namespace templateengine;
 }
 
 
-- (TDExpression *)expressionFromString:(NSString *)str inContext:(TDTemplateContext *)ctx error:(NSError **)outErr {
+- (TDExpression *)expressionFromString:(NSString *)str inContext:(TDTemplateContext *)ctx {
     TDExpression *expr = nil;
     
 //    NSStringEncoding enc = NSUTF8StringEncoding;
@@ -148,15 +147,15 @@ using namespace templateengine;
     
     ReaderObjC reader(str);
     
-    expr = [self expressionFromReader:&reader inContext:ctx error:outErr];
+    expr = [self expressionFromReader:&reader inContext:ctx];
     return expr;
 }
 
 
-- (TDExpression *)expressionFromReader:(parsekit::Reader *)reader inContext:(TDTemplateContext *)ctx error:(NSError **)outErr {
+- (TDExpression *)expressionFromReader:(parsekit::Reader *)reader inContext:(TDTemplateContext *)ctx {
     TagParser p(self, ctx.expressionObjectStack);
 
-    TDExpression *expr = [self expressionFromParser:&p reader:reader error:outErr];
+    TDExpression *expr = p.parseExpression(reader);
 
     expr = [expr simplify];
     return expr;
@@ -166,15 +165,9 @@ using namespace templateengine;
 // TESTing only
 - (TDExpression *)expressionFromReader:(Reader *)reader error:(NSError **)outErr {
     TDTemplateContext *ctx = [[[TDTemplateContext alloc] init] autorelease];
-    return [self expressionFromReader:reader inContext:ctx error:outErr];
-}
-
-
-- (TDExpression *)expressionFromParser:(TagParser *)parser reader:(Reader *)reader error:(NSError **)outErr {
     TDExpression *expr = nil;
-    
     try {
-        expr = parser->parseExpression(reader);
+        expr = [self expressionFromReader:reader inContext:ctx];
     } catch (ParseException& ex) {
         if (outErr) {
             NSError *err = [NSError errorWithDomain:@"TDTemplateEngine"
@@ -187,5 +180,24 @@ using namespace templateengine;
     }
     return expr;
 }
+
+
+//- (TDExpression *)expressionFromParser:(TagParser *)parser reader:(Reader *)reader error:(NSError **)outErr {
+//    TDExpression *expr = nil;
+//    
+//    try {
+//        expr = parser->parseExpression(reader);
+//    } catch (ParseException& ex) {
+//        if (outErr) {
+//            NSError *err = [NSError errorWithDomain:@"TDTemplateEngine"
+//                                               code:0
+//                                           userInfo:@{
+//                NSLocalizedDescriptionKey: ex.reason(),
+//            }];
+//            *outErr = err;
+//        }
+//    }
+//    return expr;
+//}
 
 @end

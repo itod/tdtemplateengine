@@ -64,7 +64,8 @@
     } @catch (TDSkipException *sex) {
         [sex raise];
     } @catch (NSException *ex) {
-        [TDTemplateException raiseFromException:ex context:ctx node:self];
+        NSString *sample = [ctx templateSubstringForToken:self.token];
+        [TDTemplateException raiseFromException:ex token:self.token sample:sample filePath:ctx.currentTemplateFilePath];
     }
 }
 

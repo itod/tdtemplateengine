@@ -40,7 +40,9 @@ using namespace parsekit;
 - (TDTag *)tagFromFragment:(Token)frag withParent:(TDNode *)parent inContext:(TDTemplateContext *)ctx;
 - (TDTag *)tagFromReader:(Reader *)reader withParent:(TDNode *)parent inContext:(TDTemplateContext *)ctx;
 
-- (TDExpression *)expressionFromString:(NSString *)objc_str inContext:(TDTemplateContext *)ctx error:(NSError **)outErr;
-- (TDExpression *)expressionFromReader:(Reader *)reader inContext:(TDTemplateContext *)ctx error:(NSError **)outErr;
+- (TDExpression *)expressionFromString:(NSString *)objc_str inContext:(TDTemplateContext *)ctx;
+- (TDExpression *)expressionFromReader:(Reader *)reader inContext:(TDTemplateContext *)ctx;
+
+
 - (TDExpression *)expressionFromReader:(Reader *)reader error:(NSError **)outErr; // TESTing only
 @end
