@@ -32,7 +32,8 @@ static TDObjectValue *sNullValue = nil;
 
 + (void)initialize {
     if ([TDObjectValue class] == self) {
-        sNullValue = [[TDObjectValue alloc] initWithObject:[NSNull null]];
+//        sNullValue = [[TDObjectValue alloc] initWithObject:[NSNull null]];
+        sNullValue = [[TDObjectValue alloc] initWithObject:nil];
     }
 }
 
@@ -75,7 +76,7 @@ static TDObjectValue *sNullValue = nil;
 
 - (NSString *)stringValue {
     NSString *str = @"";
-    if (!_value || self.isNullValue) {
+    if (self.isNullValue) {
         str = @""; //@"((null))";
     } else if ([_value isKindOfClass:[NSString class]]) {
         str = _value;

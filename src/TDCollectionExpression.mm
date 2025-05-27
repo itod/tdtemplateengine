@@ -77,7 +77,7 @@
         self.keys = [col allKeys];
         self.values = [col allObjects];
     } else {
-        [NSException raise:@"" format:@""]; // TODO
+        [NSException raise:@"UnknownCollectionType" format:@"%@", col]; // TODO
     }
     
     self.current = 0;

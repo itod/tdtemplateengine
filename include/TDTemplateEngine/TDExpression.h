@@ -44,7 +44,6 @@ typedef NS_ENUM(NSUInteger, TDDataType) {
 - (NSDate *)evaluateAsDateInContext:(TDTemplateContext *)ctx;
 - (NSDecimalNumber *)evaluateAsDecimalInContext:(TDTemplateContext *)ctx;
 - (id)evaluateAsObjectInContext:(TDTemplateContext *)ctx;
-- (id)evaluateAsObjectInContext:(TDTemplateContext *)ctx defaultValue:(id)defaultValue;
 
 - (BOOL)isValue;
 
