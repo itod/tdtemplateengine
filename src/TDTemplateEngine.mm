@@ -240,7 +240,7 @@ static TDTemplateEngine *sInstance = nil;
         }
     } catch (ParseException& ex) {
         if (outError) {
-            *outError = [self errorFromParseException:ex filePath:nil];
+            *outError = [self errorFromParseException:ex];
         }
     }
     
@@ -276,7 +276,7 @@ static TDTemplateEngine *sInstance = nil;
     }
     catch (ParseException& ex) {
         if (outError) {
-            NSError *err = [self errorFromParseException:ex filePath:filePath];
+            NSError *err = [self errorFromParseException:ex];
             *outError = err;
         } else {
             throw ex;
@@ -287,13 +287,13 @@ static TDTemplateEngine *sInstance = nil;
 }
 
 
-- (NSError *)errorFromParseException:(ParseException&)ex filePath:(NSString *)filePath {
+- (NSError *)errorFromParseException:(ParseException&)ex {
     NSString *reason = [NSString stringWithUTF8String:ex.message().c_str()]; //[ex reason];
     NSString *sample = ex.sample();
     Token token = ex.token();
     
     id userInfo = @{
-        @"filePath": filePath ? filePath : [NSNull null],
+        @"filePath": ex.filePath(),
         @"name": @"TemplateParseError",
         @"reason": reason ? reason : [NSNull null],
         @"location": @(token.location()),

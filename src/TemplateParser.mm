@@ -223,6 +223,7 @@ void TemplateParser::_text() {
 void TemplateParser::raise(NSString *reason, Token tok) {
     std::string msg = [reason UTF8String];
     NSString *sample = [_context templateSubstringForToken:tok];
+    assert(_filePath);
     throw ParseException(msg, tok, sample, _filePath);
 }
 
