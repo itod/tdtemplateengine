@@ -43,7 +43,7 @@ using namespace templateengine;
 - (TDFilter *)makeFilterForName:(NSString *)filterName {
     Class cls = [self.filterTab objectForKey:filterName];
     if (!cls) {
-        throw ParseException([[NSString stringWithFormat:@"Unknown filter name '%@'", filterName] UTF8String]);
+        throw ParseException([NSString stringWithFormat:@"Unknown filter name '%@'", filterName]);
         //[NSException raise:TDTemplateEngineErrorDomain format:@"Unknown filter name '%@'", filterName];
     }
     TDFilter *filter = [[[cls alloc] init] autorelease];
@@ -63,7 +63,7 @@ using namespace templateengine;
     NSError *err = nil;
     TDExpression *expr = [self expressionFromString:str inContext:ctx error:&err];
     if (!expr) {
-        throw ParseException([[NSString stringWithFormat:@"Error while compiling print node expression `%@`\n\n%@", str, err.localizedFailureReason] UTF8String]);
+        throw ParseException([NSString stringWithFormat:@"Error while compiling print node expression `%@`\n\n%@", str, err.localizedFailureReason]);
         //[NSException raise:TDTemplateEngineErrorDomain format:@"Error while compiling print node expression `%@`\n\n%@", str, [err localizedFailureReason]];
     }
     
@@ -77,7 +77,7 @@ using namespace templateengine;
 - (TDTag *)makeTagForName:(NSString *)tagName token:(Token)token parent:(TDNode *)parent {
     Class cls = [self registerdTagClassForName:tagName];
     if (!cls) {
-        throw ParseException([[NSString stringWithFormat:@"Unknown tag name '%@'", tagName] UTF8String]);
+        throw ParseException([NSString stringWithFormat:@"Unknown tag name '%@'", tagName]);
         //[NSException raise:TDTemplateEngineErrorDomain format:@"Unknown tag name '%@'", tagName];
     }
     TDTag *tag = [[[cls alloc] initWithToken:token parent:parent] autorelease];
@@ -180,7 +180,7 @@ using namespace templateengine;
             NSError *err = [NSError errorWithDomain:@"TDTemplateEngine"
                                                code:0
                                            userInfo:@{
-                NSLocalizedDescriptionKey: ex.message(),
+                NSLocalizedDescriptionKey: ex.reason(),
             }];
             *outErr = err;
         }

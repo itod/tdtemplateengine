@@ -288,7 +288,7 @@ static TDTemplateEngine *sInstance = nil;
 
 
 - (NSError *)errorFromParseException:(ParseException&)ex {
-    NSString *reason = ex.message();
+    NSString *reason = ex.reason();
     NSString *sample = ex.sample();
     Token token = ex.token();
     
@@ -352,7 +352,7 @@ static TDTemplateEngine *sInstance = nil;
     @try {
         frags = [self fragmentsFromString:str];
     } @catch (NSException *ex) {
-        throw ParseException([ex.reason UTF8String]);
+        throw ParseException(ex.reason);
     }
     TDAssert(frags);
     

@@ -87,7 +87,7 @@ void TemplateParser::reThrowOrRaiseWithToken(ParseException& ex, Token token) {
     if (tt != -1 && tt != 0) {
         throw ex;
     } else {
-        raise(ex.message(), token);
+        raise(ex.reason(), token);
     }
 }
 
