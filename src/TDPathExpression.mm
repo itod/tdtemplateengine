@@ -86,7 +86,14 @@
                 if ([step isKindOfClass:[NSNumber class]]) {
                     int idx = [step intValue];
                     TDAssert([obj isKindOfClass:[NSArray class]]);
-                    obj = [obj objectAtIndex:idx];
+                    
+                    // django does not throw an error on out-of-bounds access
+                    if (idx < [obj count]) {
+                        obj = [obj objectAtIndex:idx];
+                    } else {
+                        obj = nil;
+                        break;
+                    }
                 } else if ([step isEqualToString:@"items"] && [obj isKindOfClass:[NSDictionary class]]) {
                     // support for python style `dict.items`
                     obj = obj;

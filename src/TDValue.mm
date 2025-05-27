@@ -37,7 +37,7 @@ TDValue *TDValueFromObject(id obj) {
     
     TDValue *result = nil;
     if (!obj) {
-        obj = [TDObjectValue nullValue];
+        result = [TDObjectValue nullValue];
     } else if ([obj isKindOfClass:[NSString class]]) {
         result = [TDStringValue stringValueWithString:obj];
     } else if ([obj isKindOfClass:[NSDate class]]) {

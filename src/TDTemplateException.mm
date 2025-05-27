@@ -15,7 +15,10 @@ using namespace parsekit;
 @implementation TDTemplateException
 
 + (void)raiseFromException:(NSException *)ex token:(Token)token sample:(NSString *)sample filePath:(NSString *)filePath {
-    TDTemplateException *tex = [[[TDTemplateException alloc] initWithName:ex.name reason:ex.reason userInfo:ex.userInfo] autorelease];
+    id userInfo = [NSMutableDictionary dictionaryWithDictionary:ex.userInfo];
+    [userInfo setObject:ex.name forKey:@"name"];
+    [userInfo setObject:ex.reason forKey:@"reason"];
+    TDTemplateException *tex = [[[TDTemplateException alloc] initWithName:ex.name reason:ex.reason userInfo:userInfo] autorelease];
     TDAssert(tex);
     tex.token = token;
     tex.sample = sample;

@@ -75,11 +75,11 @@ static TDObjectValue *sNullValue = nil;
 
 - (NSString *)stringValue {
     NSString *str = @"";
-    if (!_value) {
-        str = @"((null))";
+    if (!_value || self.isNullValue) {
+        str = @""; //@"((null))";
     } else if ([_value isKindOfClass:[NSString class]]) {
         str = _value;
-    } else if (([_value isKindOfClass:[NSArray class]] || [_value isKindOfClass:[NSDictionary class]] || [_value isKindOfClass:[NSSet class]]) && 0 == [_value count]) {
+    } else if ([_value respondsToSelector:@selector(count)] && 0 == [_value count]) {
         str = @"";
     } else if ([_value respondsToSelector:@selector(stringValue)]) {
         str = [_value stringValue];
