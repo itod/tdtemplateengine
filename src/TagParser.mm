@@ -214,8 +214,7 @@ TDTag *TagParser::parseTag(Reader *r, TDNode *parent) {
             
             tag = POP_OBJ();
         } catch (ParseException& ex) {
-    //        NSString *reason = [NSString stringWithUTF8String:ex.reason()];
-            NSString *reason = ex.reason();
+            NSString *reason = [NSString stringWithUTF8String:ex.message().c_str()];
             [TDTemplateException raiseWithReason:reason token:Token() sample:nil filePath:nil];
         }
     } @finally {
@@ -474,8 +473,7 @@ TDExpression *TagParser::parseExpression(Reader *r) {
             
             expr = POP_OBJ();
         } catch (ParseException& ex) {
-    //        NSString *reason = [NSString stringWithUTF8String:ex.reason()];
-            NSString *reason = ex.reason();
+            NSString *reason = [NSString stringWithUTF8String:ex.message().c_str()];
             [TDTemplateException raiseWithReason:reason token:Token() sample:nil filePath:nil];
         }
     } @finally {
@@ -946,12 +944,7 @@ void TagParser::_filterExpr() {
             NSString *filterName = POP_OBJ();
             id expr = POP_OBJ();
             assert(_engine);
-            TDFilter *filter = nil;
-            //@try {
-                filter = [_engine makeFilterForName:filterName];
-//            } @catch (NSException *ex) {
-//                raise([[ex reason] UTF8String]);
-//            }
+            TDFilter *filter = [_engine makeFilterForName:filterName];
             assert(filter);
             PUSH_OBJ([TDFilterExpression filterExpressionWithExpression:expr filter:filter arguments:args]);
         }

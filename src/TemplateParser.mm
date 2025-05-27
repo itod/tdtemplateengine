@@ -73,7 +73,8 @@ TDRootNode *TemplateParser::parse(TokenListPtr frags) {
         } catch (ParseException& ex) {
             Token token = lt(1);
             NSString *sample = [_context templateSubstringForToken:token];
-            [TDTemplateException raiseWithReason:ex.reason() token:token sample:sample filePath:_filePath];
+            NSString *reason = [NSString stringWithUTF8String:ex.message().c_str()];
+            [TDTemplateException raiseWithReason:reason token:token sample:sample filePath:_filePath];
         }
     } @finally {
         _assembly = nullptr;
