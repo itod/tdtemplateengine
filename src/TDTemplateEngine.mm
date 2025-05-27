@@ -73,6 +73,8 @@
 #import "TDUncapitalizeFilter.h"
 #import "TDBoolFilter.h"
 #import "TDReplaceFilter.h"
+#import "TDAddFilter.h"
+#import "TDDefaultFilter.h"
 #import "TDDefaultIfNoneFilter.h"
 #import "TDPadFilters.h"
 
@@ -189,6 +191,8 @@ static TDTemplateEngine *sInstance = nil;
         [self registerFilterClass:[TDUncapitalizeFilter class] forName:[TDUncapitalizeFilter filterName]];
         [self registerFilterClass:[TDBoolFilter class] forName:[TDBoolFilter filterName]];
         [self registerFilterClass:[TDReplaceFilter class] forName:[TDReplaceFilter filterName]];
+        [self registerFilterClass:[TDAddFilter class] forName:[TDAddFilter filterName]];
+        [self registerFilterClass:[TDDefaultFilter class] forName:[TDDefaultFilter filterName]];
         [self registerFilterClass:[TDDefaultIfNoneFilter class] forName:[TDDefaultIfNoneFilter filterName]];
         [self registerFilterClass:[TDLpadFilter class] forName:[TDLpadFilter filterName]];
         [self registerFilterClass:[TDRpadFilter class] forName:[TDRpadFilter filterName]];
