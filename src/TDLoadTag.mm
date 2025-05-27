@@ -44,7 +44,7 @@
 - (void)compileInContext:(TDTemplateContext *)ctx {
     for (NSString *libName in self.args) {
 
-        // throws ParseException and bubbles up to client
+        // throws TDTemplateException and bubbles up to client
         BOOL success = [ctx.delegate templateContext:ctx loadTagLibrary:libName];
         if (!success) {
             TDAssert(0);

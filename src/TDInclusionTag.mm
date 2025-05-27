@@ -37,7 +37,7 @@
     NSString *absPath = [ctx absolutePathForTemplateRelativePath:relPath];
 
     TDAssert(ctx.delegate);
-    // throws ParseException & bubbles up to client
+    // throws TDTemplateException & bubbles up to client
     TDTemplate *tmpl = [ctx.delegate templateContext:ctx templateForFilePath:absPath];
     
     if (tmpl) {

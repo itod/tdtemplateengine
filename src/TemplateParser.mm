@@ -10,6 +10,7 @@
 #import "TDTemplateEngine+ParserSupport.h"
 #import <ParseKitCPP/ParseException.hpp>
 #import <TDTemplateEngine/TDTemplateEngine.h>
+#import <TDTemplateEngine/TDTemplateException.h>
 #import <TDTemplateEngine/TDRootNode.h>
 #import <TDTemplateEngine/TDPrintNode.h>
 #import <TDTemplateEngine/TDTextNode.h>
@@ -63,31 +64,34 @@ TDRootNode *TemplateParser::parse(TokenListPtr frags) {
     _assembly = &assembly;
     
     TDRootNode *node = nil;
-    //try {
-        _template();
-        _eof();
-        
-        node = [[_root retain] autorelease];
-//    } catch (ParseException& ex) {
-//        node = nil;
-//    }
-    
-    _assembly = nullptr;
-    
-    setRoot(nil);
-    setCurrentParent(nil);
+    @try {
+        try {
+            _template();
+            _eof();
+            
+            node = [[_root retain] autorelease];
+        } catch (ParseException& ex) {
+            Token token = lt(1);
+            NSString *sample = [_context templateSubstringForToken:token];
+            [TDTemplateException raiseWithReason:ex.reason() token:token sample:sample filePath:_filePath];
+        }
+    } @finally {
+        _assembly = nullptr;
+        setRoot(nil);
+        setCurrentParent(nil);
+    }
     
     return node;
 }
 
-void TemplateParser::reThrowOrRaiseWithToken(ParseException& ex, Token token) {
+void TemplateParser::reThrowOrRaiseWithToken(TDTemplateException *ex, Token token) {
     // if it is being recursively thrown, retain the existing token and re-throw.
     // if this exception is first thrown here, it needs a token to display error location context
-    TokenType tt = ex.token().token_type();
+    TokenType tt = ex.token.token_type();
     if (tt != -1 && tt != 0) {
-        throw ex;
+        [ex raise];
     } else {
-        raise(ex.reason(), token);
+        raise(ex.reason, token);
     }
 }
 
@@ -138,9 +142,9 @@ void TemplateParser::_empty_tag() {
     Token tok = assembly()->pop_token();
     assert(_engine);
     TDTag *startTagNode = nil;
-    try {
+    @try {
         startTagNode = [_engine tagFromFragment:tok withParent:_currentParent inContext:_context];
-    } catch (ParseException& ex) {
+    } @catch (TDTemplateException *ex) {
         reThrowOrRaiseWithToken(ex, tok);
     }
     assert(startTagNode);
@@ -185,9 +189,9 @@ void TemplateParser::_block_start_tag() {
     Token tok = _assembly->pop_token();
     assert(_engine);
     TDTag *startTagNode = nil;
-    try {
+    @try {
         startTagNode = [_engine tagFromFragment:tok withParent:_currentParent inContext:_context];
-    } catch (ParseException& ex) {
+    } @catch (TDTemplateException *ex) {
         reThrowOrRaiseWithToken(ex, tok);
     }
     assert(startTagNode);
@@ -222,7 +226,7 @@ void TemplateParser::_text() {
 
 void TemplateParser::raise(NSString *msg, Token tok) {
     NSString *sample = [_context templateSubstringForToken:tok];
-    throw ParseException(msg, tok, sample, _filePath);
+    [TDTemplateException raiseWithReason:msg token:tok sample:sample filePath:_filePath];
 }
 
 void TemplateParser::setRoot(TDRootNode *n) {

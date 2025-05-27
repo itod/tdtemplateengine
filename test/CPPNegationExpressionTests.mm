@@ -304,10 +304,10 @@ using namespace templateengine;
     ReaderCPP r(input);
     
     TDExpression *expr = nil;
-    try {
+    @try {
         expr = p.parseExpression(&r);
         XCTAssertTrue(0);
-    } catch (ParseException& ex) {}
+    } @catch (TDTemplateException *ex) {}
     XCTAssertNil(expr);
 }
 

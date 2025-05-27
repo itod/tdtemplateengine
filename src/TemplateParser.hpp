@@ -11,6 +11,7 @@
 
 @class TDTemplateEngine;
 @class TDTemplateContext;
+@class TDTemplateException;
 @class TDNode;
 @class TDRootNode;
 
@@ -38,7 +39,7 @@ private:
     
     TDNode *_currentParent;
     void setCurrentParent(TDNode *n);
-    void reThrowOrRaiseWithToken(ParseException& ex, Token token);
+    void reThrowOrRaiseWithToken(TDTemplateException *ex, Token token);
     
     void _template();
     void _content();

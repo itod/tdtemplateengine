@@ -28,7 +28,7 @@
 @class TDTemplateContext;
 
 @protocol TDTemplateContextDelegate <NSObject>
-// these throw ParseException (need to bubble up to client)
+// these throw TDTemplateExceptions (which need to bubble all the way up to client)
 - (TDTemplate *)templateContext:(TDTemplateContext *)ctx templateForFilePath:(NSString *)filePath;
 - (BOOL)templateContext:(TDTemplateContext *)ctx loadTagLibrary:(NSString *)libName;
 @end

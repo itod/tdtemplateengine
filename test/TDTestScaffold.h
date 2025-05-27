@@ -11,6 +11,7 @@
 //#import <OCMock/OCMock.h>
 #import <TDTemplateEngine/TDTemplateEngine.h>
 #import <TDTemplateEngine/TDTemplateContext.h>
+#import <TDTemplateEngine/TDTemplateException.h>
 #import "TDTemplateEngine+ParserSupport.h"
 
 #define TDTrue(e) XCTAssertTrue((e), @"")

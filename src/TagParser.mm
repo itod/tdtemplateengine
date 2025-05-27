@@ -1,6 +1,7 @@
 #import "TagParser.hpp"
     
 #import "TDTemplateEngine.h"
+#import "TDTemplateException.h"
 #import "TDTemplateEngine+ParserSupport.h"
 #import "TDTag.h"
 #import "TDBooleanValue.h"
@@ -206,18 +207,22 @@ TDTag *TagParser::parseTag(Reader *r, TDNode *parent) {
     _p = 0;
     
     TDTag *tag = nil;
-    try {
-        _tag(parent);
-        match(TokenType_EOF);
-        
-        tag = POP_OBJ();
-    } catch (std::exception& ex) {
-        assert(0);
+    @try {
+        try {
+            _tag(parent);
+            match(TokenType_EOF);
+            
+            tag = POP_OBJ();
+        } catch (ParseException& ex) {
+    //        NSString *reason = [NSString stringWithUTF8String:ex.reason()];
+            NSString *reason = ex.reason();
+            [TDTemplateException raiseWithReason:reason token:Token() sample:nil filePath:nil];
+        }
+    } @finally {
+        _assembly = nullptr;
+        _markers = nullptr;
+        _lookahead = nullptr;
     }
-
-    _assembly = nullptr;
-    _markers = nullptr;
-    _lookahead = nullptr;
 
     return tag;
 }
@@ -462,18 +467,22 @@ TDExpression *TagParser::parseExpression(Reader *r) {
     _p = 0;
     
     TDExpression *expr = nil;
-    try {
-        _expr();
-        match(TokenType_EOF);
-        
-        expr = POP_OBJ();
-    } catch (std::exception& ex) {
-        assert(0);
+    @try {
+        try {
+            _expr();
+            match(TokenType_EOF);
+            
+            expr = POP_OBJ();
+        } catch (ParseException& ex) {
+    //        NSString *reason = [NSString stringWithUTF8String:ex.reason()];
+            NSString *reason = ex.reason();
+            [TDTemplateException raiseWithReason:reason token:Token() sample:nil filePath:nil];
+        }
+    } @finally {
+        _assembly = nullptr;
+        _markers = nullptr;
+        _lookahead = nullptr;
     }
-
-    _assembly = nullptr;
-    _markers = nullptr;
-    _lookahead = nullptr;
 
     return expr;
 }

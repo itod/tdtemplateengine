@@ -44,10 +44,10 @@ using namespace templateengine;
     TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = nil;
-    try {
+    @try {
         expr = p.parseExpression(&r);
         XCTAssert(0);
-    } catch (ParseException& ex) {}
+    } @catch (TDTemplateException *ex) {}
     XCTAssertNil(expr);
 }
 
@@ -87,10 +87,10 @@ using namespace templateengine;
     TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = nil;
-    try {
+    @try {
         expr = p.parseExpression(&r);
         XCTAssert(0);
-    } catch (ParseException& ex) {}
+    } @catch (TDTemplateException *ex) {}
     XCTAssertNil(expr);
 }
 
@@ -120,10 +120,10 @@ using namespace templateengine;
     TagParser p;
     ReaderCPP r(input);
     TDExpression *expr = nil;
-    try {
+    @try {
         expr = p.parseExpression(&r);
         XCTAssert(0);
-    } catch (ParseException& ex) {}
+    } @catch (TDTemplateException *ex) {}
     XCTAssertNil(expr);
 }
 

@@ -72,7 +72,7 @@
     self.key = [NSString stringWithFormat:@"__include:%@", absPath];
 
     TDAssert(ctx.delegate);
-    // throws ParseException & bubbles up to client
+    // throws TDTemplateException & bubbles up to client
     TDTemplate *tmpl = [ctx.delegate templateContext:ctx templateForFilePath:absPath];
     
     if (tmpl) {

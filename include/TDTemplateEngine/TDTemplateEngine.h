@@ -64,7 +64,7 @@ extern const NSInteger TDTemplateEngineRenderingErrorCode;
 // use this from client code.
 - (TDTemplate *)templateWithContentsOfFile:(NSString *)path error:(NSError **)err; // returns error by calling below:
 
-// use this in recursive inclusion or include tags. exceptions in those calls need to bubble alll the way up to the client!
+// use this in recursive inclusion or include tags. TDTemplateExceptions raised in those calls need to bubble allll the way up to the client!
 - (TDTemplate *)templateWithContentsOfFile:(NSString *)path; // throws
 - (TDTemplate *)templateWithContentsOfFile:(NSString *)filePath context:(TDTemplateContext *)ctx; // throws. DESIGNATED INITIALIZER-like
 

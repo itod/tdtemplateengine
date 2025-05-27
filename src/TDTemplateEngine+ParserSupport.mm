@@ -24,6 +24,7 @@
 #import <TDTemplateEngine/TDExpression.h>
 #import <TDTemplateEngine/TDCompileTimeTag.h>
 #import <TDTemplateEngine/TDPrintNode.h>
+#import <TDTemplateEngine/TDTemplateException.h>
 
 #import <ParseKitCPP/Reader.hpp>
 #import "TagParser.hpp"
@@ -34,7 +35,7 @@ using namespace templateengine;
 @interface TDTemplateEngine ()
 @property (nonatomic, retain) NSMutableDictionary *filterTab;
 - (TDTemplate *)_templateFromString:(NSString *)str filePath:(NSString *)path context:(TDTemplateContext *)inCtx;
-- (NSError *)errorFromParseException:(ParseException&)ex;
+- (NSError *)errorFromParseException:(TDTemplateException *)ex;
 @end
 
 @implementation TDTemplateEngine (ParserSupport)
@@ -45,8 +46,8 @@ using namespace templateengine;
 - (TDFilter *)makeFilterForName:(NSString *)filterName {
     Class cls = [self.filterTab objectForKey:filterName];
     if (!cls) {
-        throw ParseException([NSString stringWithFormat:@"Unknown filter name '%@'", filterName]);
-        //[NSException raise:TDTemplateEngineErrorDomain format:@"Unknown filter name '%@'", filterName];
+        NSString *reason = [NSString stringWithFormat:@"Unknown filter name '%@'", filterName];
+        [TDTemplateException raiseWithReason:reason token:Token() sample:nil filePath:nil];
     }
     TDFilter *filter = [[[cls alloc] init] autorelease];
     TDAssert(filter);
@@ -63,11 +64,6 @@ using namespace templateengine;
     TDAssert(str.length);
     
     TDExpression *expr = [self expressionFromString:str inContext:ctx];
-//    if (!expr) {
-//        throw ParseException([NSString stringWithFormat:@"Error while compiling print node expression `%@`\n\n%@", str, err.localizedFailureReason]);
-//        //[NSException raise:TDTemplateEngineErrorDomain format:@"Error while compiling print node expression `%@`\n\n%@", str, [err localizedFailureReason]];
-//    }
-    
     TDAssert(expr);
     TDPrintNode *printNode = [TDPrintNode nodeWithToken:frag parent:parent];
     printNode.expression = expr;
@@ -78,8 +74,8 @@ using namespace templateengine;
 - (TDTag *)makeTagForName:(NSString *)tagName token:(Token)token parent:(TDNode *)parent {
     Class cls = [self registerdTagClassForName:tagName];
     if (!cls) {
-        throw ParseException([NSString stringWithFormat:@"Unknown tag name '%@'", tagName]);
-        //[NSException raise:TDTemplateEngineErrorDomain format:@"Unknown tag name '%@'", tagName];
+        NSString *reason = [NSString stringWithFormat:@"Unknown tag name '%@'", tagName];
+        [TDTemplateException raiseWithReason:reason token:Token() sample:nil filePath:nil];
     }
     TDTag *tag = [[[cls alloc] initWithToken:token parent:parent] autorelease];
     TDAssert(tag);
@@ -116,12 +112,6 @@ using namespace templateengine;
     TagParser parser(self, ctx.expressionObjectStack);
 
     TDTag *tag = parser.parseTag(reader, parent);
-//    try {
-//        tag = parser.parseTag(reader, parent);
-//    } catch (ParseException& ex) {
-//        NSString *reason = [NSString stringWithUTF8String:ex.message().c_str()];
-//        [NSException raise:@"TDTemplateEngine" format:@"%@", reason];
-//    }
     
     return tag;
 }
@@ -168,15 +158,13 @@ using namespace templateengine;
 - (TDExpression *)expressionFromReader:(Reader *)reader error:(NSError **)outErr {
     TDTemplateContext *ctx = [[[TDTemplateContext alloc] init] autorelease];
     TDExpression *expr = nil;
-    try {
+    @try {
         expr = [self expressionFromReader:reader inContext:ctx];
-    } catch (ParseException& ex) {
+    } @catch (TDTemplateException *ex) {
         if (outErr) {
             NSError *err = [NSError errorWithDomain:@"TDTemplateEngine"
                                                code:0
-                                           userInfo:@{
-                NSLocalizedDescriptionKey: ex.reason(),
-            }];
+                                           userInfo:ex.userInfo];
             *outErr = err;
         }
     }
@@ -201,12 +189,12 @@ using namespace templateengine;
     TDTemplate *tmpl = nil;
     
     BOOL success = NO;
-    try {
+    @try {
         tmpl = [self _templateFromString:str filePath:nil context:nil];
         if (tmpl) {
             success = [tmpl render:vars toStream:output error:outError];
         }
-    } catch (ParseException& ex) {
+    } @catch (TDTemplateException *ex) {
         if (outError) {
             *outError = [self errorFromParseException:ex];
         }
