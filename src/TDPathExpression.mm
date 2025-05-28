@@ -94,7 +94,7 @@
                         obj = nil;
                         break;
                     }
-                } else if ([step isEqualToString:@"items"] && ([obj isKindOfClass:[NSDictionary class]] || [obj isKindOfClass:NSClassFromString(@"DefaultDict")])) {
+                } else if ([step isEqualToString:@"items"] && [obj respondsToSelector:@selector(objectForKeyedSubscript:)]) {
                     // support for python style `dict.items`
                     obj = obj;
                 } else {
