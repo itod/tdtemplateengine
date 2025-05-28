@@ -27,6 +27,19 @@ using namespace parsekit;
 }
 
 
++ (void)raiseFromError:(NSError *)err {
+    id userInfo = err.userInfo;
+    NSString *name = [userInfo objectForKey:@"name"];
+    NSString *reason = [userInfo objectForKey:@"reason"];
+    TDTemplateException *tex = [[[TDTemplateException alloc] initWithName:name reason:reason userInfo:userInfo] autorelease];
+    TDAssert(tex);
+    tex.token = Token();
+    tex.sample = [userInfo objectForKey:@"sample"];
+    tex.filePath = [userInfo objectForKey:@"filePath"];
+    [tex raise];
+}
+
+
 + (void)raiseWithReason:(NSString *)reason token:(Token)token sample:(NSString *)sample filePath:(NSString *)filePath {
     TDTemplateException *tex = [[[TDTemplateException alloc] initWithName:@"TDTemplateCompileTimeException" reason:reason userInfo:nil] autorelease];
     TDAssert(tex);

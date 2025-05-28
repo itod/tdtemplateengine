@@ -18,6 +18,7 @@ using namespace parsekit;
 
 // it seems like we dont actually need the wrapped ex. somehow, callStackSymbols is auto propogated???
 + (void)raiseFromException:(NSException *)ex token:(Token)token sample:(NSString *)sample filePath:(NSString *)filePath;
++ (void)raiseFromError:(NSError *)err;
 + (void)raiseWithReason:(NSString *)reason token:(Token)token sample:(NSString *)sample filePath:(NSString *)filePath;
 
 @property (nonatomic, retain) NSString *filePath;

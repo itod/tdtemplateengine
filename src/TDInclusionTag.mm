@@ -8,6 +8,7 @@
 
 #import <TDTemplateEngine/TDInclusionTag.h>
 #import <TDTemplateEngine/TDTemplateContext.h>
+#import <TDTemplateEngine/TDTemplateException.h>
 #import <TDTemplateEngine/TDTemplate.h>
 #import <TDTemplateEngine/TDWriter.h>
 
@@ -62,7 +63,7 @@
         BOOL success = [_inclusionTemplate render:vars toStream:ctx.writer.output error:&err];
         if (!success) {
             if (err) NSLog(@"%@", err);
-            TDAssert(0);
+            [TDTemplateException raiseFromError:err];
             return;
         }
     }
