@@ -244,10 +244,7 @@ void TagParser::_tag(TDNode *parent) {
                 _loopTag();
                 break;
             case TDTagExpressionTypeArgs:
-                _argListTag();
-                break;
-            case TDTagExpressionTypeKwargs:
-                _kwargsTag();
+                _argsTag();
                 break;
             case TDTagExpressionTypeLoad:
                 _loadTag();
@@ -317,35 +314,60 @@ void TagParser::_loopTag() {
 }
 
 #pragma mark -
-#pragma mark ArgListTag
+#pragma mark ArgsTag
 
-void TagParser::_argListTag() {
+void TagParser::_argsTag() {
     assert(!isSpeculating());
     
-    NSMutableArray *args = [NSMutableArray array];
-
-    // args must be evaled at run time
-    while (!predicts(TokenType_EOF, 0)) {
-        _atom();
-        
-        TDExpression *expr = POP_OBJ();
-        [args addObject:expr];
-    }
+    // optional args…
+    _optionalArgs();
     
-    TDTag *tag = PEEK_OBJ();
-    tag.args = args;
+    // …followed by optional kwargs
+    _optionalKwargs();
 }
 
-#pragma mark -
-#pragma mark KwargsTag
+void TagParser::_optionalArgs() {
+        
+    NSMutableArray *args = nil;
+    while (la(1) != TokenType_EOF && la(2) != TDTokenType_ASSIGN) {
+        _atom();
+        
+        if (!isSpeculating()) {
+            args = args ? args : [NSMutableArray array];
+            
+            // args must be evaled at run time. leave the expr behind
+            TDExpression *expr = POP_OBJ();
+            [args addObject:expr];
+        }
+    }
+    
+    if (!isSpeculating()) {
+        TDTag *tag = PEEK_OBJ();
+        tag.args = args;
+    }
+}
 
-void TagParser::_kwargsTag() {
-    _kwargs();
+void TagParser::_optionalKwargs() {
+    
+    NSMutableDictionary *kwargs = nil;
+    while (la(1) == TokenType_WORD && la(2) == TDTokenType_ASSIGN) {
+        _identifier();
+        match(TDTokenType_ASSIGN, true);
+        _atom();
+
+        if (!isSpeculating()) {
+            kwargs = kwargs ? kwargs : [NSMutableDictionary dictionary];
+            
+            // args must be evaled at run time. leave the expr behind
+            TDExpression *expr = POP_OBJ();
+            NSString *name = POP_OBJ();
+            [kwargs setObject:expr forKey:name];
+        }
+    }
 
     if (!isSpeculating()) {
-        NSDictionary *kwags = POP_OBJ();
         TDTag *tag = PEEK_OBJ();
-        tag.kwargs = kwags;
+        tag.kwargs = kwargs;
     }
 }
 
@@ -386,34 +408,7 @@ void TagParser::_includeTag() {
     
     if (predicts(TDTokenType_WITH, 0)) {
         match(TDTokenType_WITH, true);
-        _kwargs();
-        // kwargs are on stack here
-        NSDictionary *kwargs = POP_OBJ();
-        includeTag.kwargs = kwargs;
-    }
-}
-
-void TagParser::_kwargs() {
-    
-    NSMutableDictionary *tab = nil;
-    if (!isSpeculating() && !predicts(TokenType_EOF, 0)) {
-        tab = [NSMutableDictionary dictionary];
-    }
-    
-    while (!predicts(TokenType_EOF, 0)) {
-        _identifier();
-        match(TDTokenType_ASSIGN, true);
-        _atom();
-        
-        if (!isSpeculating()) {
-            id val = POP_OBJ();
-            id key = POP_OBJ();
-            [tab setObject:val forKey:key];
-        }
-    }
-    
-    if (!isSpeculating() && tab) {
-        PUSH_OBJ(tab);
+        _optionalKwargs();
     }
 }
 
