@@ -50,14 +50,16 @@
     // unfortunately django templates are poorly designed :(
     // _expression here is not a string value that resolves to the name,
     // but rather the hard-coded name
-    if ([self.expression isMemberOfClass:[TDPathExpression class]]) {
-        TDPathExpression *path = (id)self.expression;
+    if (self.args.count) {
+        TDAssert(1 == self.args.count);
+        TDPathExpression *path = self.args[0];
         name = path.head;
     } else {
         name = [TDCycleTag contextKey];
     }
     
-    [ctx defineVariable:name value:@0];
+    [ctx defineVariable:name value:nil];
+    [ctx defineVariable:[NSString stringWithFormat:@"%@-idx", name] value:nil];
 }
 
 @end

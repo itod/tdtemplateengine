@@ -20,27 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "TDNumberFormatFilter.h"
+#import <TDTemplateEngine/TDFilter.h>
 
-@implementation TDNumberFormatFilter
-
-+ (NSString *)filterName {
-    return @"fmt";
-}
-
-
-- (id)runFilter:(id)input withArgs:(NSArray *)args inContext:(TDTemplateContext *)ctx {
-    TDAssert(input);
-    
-    [self validateArgs:args min:1 max:1];
-    
-    double num = [input doubleValue];
-    
-    NSString *fmt = TDStringFromObject([args firstObject]);
-    
-    NSString *result = [NSString stringWithFormat:fmt, num];
- 
-    return result;
-}
+@interface TDFloatFormatFilter : TDFilter
 
 @end

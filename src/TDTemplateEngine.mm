@@ -64,7 +64,7 @@
 #import "TDCeilFilter.h"
 #import "TDFabsFilter.h"
 #import "TDDivisibleByFilter.h"
-#import "TDNumberFormatFilter.h"
+#import "TDFloatFormatFilter.h"
 #import "TDDateFormatFilter.h"
 #import "TDNullFormatFilter.h"
 #import "TDLowercaseFilter.h"
@@ -183,7 +183,7 @@ static TDTemplateEngine *sInstance = nil;
         [self registerFilterClass:[TDCeilFilter class] forName:[TDCeilFilter filterName]];
         [self registerFilterClass:[TDFabsFilter class] forName:[TDFabsFilter filterName]];
         [self registerFilterClass:[TDDivisibleByFilter class] forName:[TDDivisibleByFilter filterName]];
-        [self registerFilterClass:[TDNumberFormatFilter class] forName:[TDNumberFormatFilter filterName]];
+        [self registerFilterClass:[TDFloatFormatFilter class] forName:[TDFloatFormatFilter filterName]];
         [self registerFilterClass:[TDDateFormatFilter class] forName:[TDDateFormatFilter filterName]];
         [self registerFilterClass:[TDNullFormatFilter class] forName:[TDNullFormatFilter filterName]];
         [self registerFilterClass:[TDLowercaseFilter class] forName:[TDLowercaseFilter filterName]];

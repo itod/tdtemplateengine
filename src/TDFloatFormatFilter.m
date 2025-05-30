@@ -20,8 +20,31 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <TDTemplateEngine/TDFilter.h>
+#import "TDFloatFormatFilter.h"
 
-@interface TDNumberFormatFilter : TDFilter
+@implementation TDFloatFormatFilter
+
++ (NSString *)filterName {
+    return @"floatformat";
+}
+
+
+- (id)runFilter:(id)input withArgs:(NSArray *)args inContext:(TDTemplateContext *)ctx {
+    [self validateArgs:args min:0 max:1];
+    
+    double num = [input doubleValue];
+    
+    NSString *fmt = nil;
+    NSUInteger places = 1;
+    
+    if (args.count) {
+        places = [args.firstObject unsignedIntegerValue];
+    }
+    
+    fmt = [NSString stringWithFormat:@"%%0.%luf", places];
+    NSString *result = [NSString stringWithFormat:fmt, num];
+ 
+    return result;
+}
 
 @end

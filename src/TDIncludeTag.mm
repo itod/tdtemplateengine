@@ -67,6 +67,9 @@
 - (void)compileInContext:(TDTemplateContext *)ctx {
         
     NSString *relPath = [self.expression evaluateAsStringInContext:ctx];
+    if ([relPath hasSuffix:@"/panel_row.html"]) {
+        NSLog(@"%@", relPath);
+    }
     NSString *absPath = [ctx absolutePathForTemplateRelativePath:relPath];
 
     self.key = [NSString stringWithFormat:@"__include:%@", absPath];
@@ -111,13 +114,13 @@
             [outer defineVariable:name value:val];
         }
         
-        // and another for variables generated in the template like `forloop`. we dont want these to overwrite any user vars
-        TDTemplateContext *inner = [[[TDTemplateContext alloc] initWithVariables:nil output:inCtx.writer.output] autorelease];
-        inner.delegate = inCtx.delegate;
-        inner.enclosingScope = outer;
-        inner.originDerivedTemplate = inCtx.originDerivedTemplate; // ??
-        inner.currentTemplateFilePath = delegate.templateFilePath;
-        ctx = inner;
+//        // and another for variables generated in the template like `forloop`. we dont want these to overwrite any user vars
+//        TDTemplateContext *inner = [[[TDTemplateContext alloc] initWithVariables:nil output:inCtx.writer.output] autorelease];
+//        inner.delegate = inCtx.delegate;
+//        inner.enclosingScope = outer;
+//        inner.originDerivedTemplate = inCtx.originDerivedTemplate; // ??
+//        inner.currentTemplateFilePath = delegate.templateFilePath;
+//        ctx = inner;
     }
     
     [ctx pushTemplateString:delegate.templateString];
