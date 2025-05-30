@@ -52,7 +52,7 @@
         [tex raise];
     } @catch (NSException *ex) {
         NSString *sample = [ctx templateSubstringForToken:self.token];
-        [TDTemplateException raiseFromException:ex token:self.token sample:sample filePath:ctx.currentTemplateFilePath];
+        [TDTemplateException raiseFromException:ex token:self.token sample:sample filePath:ctx.currentTemplate.filePath];
     }
     
     if (str.length) {

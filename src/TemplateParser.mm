@@ -100,7 +100,6 @@ void TemplateParser::_template() {
     assert([_context peekTemplateString]);
     
     TDRootNode *root = [TDRootNode rootNode];
-    root.templateFilePath = _filePath;
     root.templateString = [_context peekTemplateString];
     
     setRoot(root);

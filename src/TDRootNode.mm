@@ -34,7 +34,6 @@
 
 - (void)dealloc {
     self.owningTemplate = nil;
-    self.templateFilePath = nil;
     self.templateString = nil;
     [super dealloc];
 }

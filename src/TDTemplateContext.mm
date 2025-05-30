@@ -140,7 +140,6 @@ static NSCharacterSet *sNewlineSet = nil;
     self.enclosingScope = nil;
     self.originDerivedTemplate = nil;
     self.currentTemplate = nil;
-    self.currentTemplateFilePath = nil;
     
     self.templateStringStack = nil;
     self.expressionObjectStack = nil;
@@ -381,18 +380,6 @@ static NSCharacterSet *sNewlineSet = nil;
 - (NSString *)peekTemplateString {
     TDAssert(_templateStringStack);
     return _templateStringStack.lastObject;
-}
-
-
-
-
-// TODO RM
-- (void)setCurrentTemplate:(TDTemplate *)currentTemplate {
-    if (_currentTemplate != currentTemplate) {
-        [_currentTemplate release];
-        NSLog(@"%@", currentTemplate.filePath.lastPathComponent);
-        _currentTemplate = [currentTemplate retain];
-    }
 }
 
 @end

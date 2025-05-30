@@ -82,7 +82,6 @@ using namespace parsekit;
     TDTemplateContext *inner = [[[TDTemplateContext alloc] initWithVariables:nil output:output] autorelease];
     inner.originDerivedTemplate = self;
     inner.currentTemplate = self;
-    inner.currentTemplateFilePath = self.filePath;
     
     TDAssert(_staticContext);
     inner.enclosingScope = outer;

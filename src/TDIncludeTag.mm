@@ -81,7 +81,7 @@
         TDRootNode *root = tmpl.rootNode;
         TDAssert(root);
         
-        NSLog(@"setting inc `%@` in current tmpl: %@", relPath, ctx.currentTemplate.filePath.lastPathComponent);
+        //NSLog(@"setting inc `%@` in current tmpl: %@", relPath, ctx.currentTemplate.filePath.lastPathComponent);
         [ctx.currentTemplate setBlock:root forKey:self.key];
     } else {
         TDAssert(0);
@@ -97,28 +97,18 @@
     
     TDTemplate *tmpl = inCtx.currentTemplate;
     TDAssert(tmpl);
-    NSLog(@"getting inc `%@` in current tmpl: %@", self.key.lastPathComponent, tmpl.filePath.lastPathComponent);
+    //NSLog(@"getting inc `%@` in current tmpl: %@", self.key.lastPathComponent, tmpl.filePath.lastPathComponent);
     TDRootNode *delegate = (TDRootNode *)[tmpl blockForKey:self.key];
-    NSAssert(delegate, @"Missing included root for key: %@", self.key);
-//    if (!delegate) return;
+    TDAssert(delegate);
     TDAssert([delegate isKindOfClass:[TDRootNode class]]);
-    
-//    NSString *relPath = [self.expression evaluateAsStringInContext:inCtx];
-//    NSString *absPath = [inCtx absolutePathForTemplateRelativePath:relPath];
-//
-//    TDAssert(inCtx.delegate);
-//    TDTemplate *tmpl = [inCtx.delegate templateContext:inCtx templateForFilePath:absPath]; //[[TDTemplateEngine instance] templateWithContentsOfFile:absPath];
-//    TDAssert(tmpl);
-//    TDRootNode *delegate = tmpl.rootNode;
     
     // need one outer ctx for user variables
     TDTemplateContext *outer = [[[TDTemplateContext alloc] initWithVariables:nil output:inCtx.writer.output] autorelease];
     outer.delegate = inCtx.delegate;
     outer.enclosingScope = inCtx;
     outer.originDerivedTemplate = inCtx.originDerivedTemplate;
-    TDAssert(delegate.owningTemplate);
+    TDAssert(delegate.owningTemplate.filePath);
     outer.currentTemplate = delegate.owningTemplate;
-    outer.currentTemplateFilePath = delegate.templateFilePath;
     TDTemplateContext *ctx = outer;
 
     if (self.kwargs.count) {
