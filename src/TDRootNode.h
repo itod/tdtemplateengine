@@ -22,8 +22,12 @@
 
 #import "TDNode.h"
 
+@class TDTemplate;
+
 @interface TDRootNode : TDNode
 + (instancetype)rootNode;
+
+@property (nonatomic, assign) TDTemplate *owningTemplate; // weak ref bc circular
 
 @property (nonatomic, retain) NSString *templateFilePath;
 @property (nonatomic, retain) NSString *templateString;

@@ -60,6 +60,7 @@
 @property (nonatomic, assign) NSInteger indentDepth;
 
 @property (nonatomic, retain) TDTemplate *originDerivedTemplate;
+@property (nonatomic, retain) TDTemplate *currentTemplate;
 @property (nonatomic, retain) NSString *currentTemplateFilePath;
 - (NSString *)absolutePathForTemplateRelativePath:(NSString *)relPath;
 - (NSString *)absolutePathForPath:(NSString *)relPath relativeTo:(NSString *)peerPath;

@@ -81,6 +81,7 @@ using namespace parsekit;
     // one inner context to hold template evars like `forloop`
     TDTemplateContext *inner = [[[TDTemplateContext alloc] initWithVariables:nil output:output] autorelease];
     inner.originDerivedTemplate = self;
+    inner.currentTemplate = self;
     inner.currentTemplateFilePath = self.filePath;
     
     TDAssert(_staticContext);

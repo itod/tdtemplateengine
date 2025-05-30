@@ -318,6 +318,7 @@ static TDTemplateEngine *sInstance = nil;
     TDTemplate *tmpl = [[[TDTemplate alloc] initWithFilePath:filePath] autorelease];
     TDTemplateContext *ctx = [[[TDTemplateContext alloc] initWithTemplate:inCtx ? inCtx.originDerivedTemplate : tmpl] autorelease];
     ctx.delegate = self;
+    ctx.currentTemplate = tmpl;
     ctx.enclosingScope = _staticContext;
 
     [ctx pushTemplateString:str];
@@ -335,6 +336,7 @@ static TDTemplateEngine *sInstance = nil;
     // compile
     TDRootNode *root = [self compile:frags filePath:filePath inContext:ctx];
     tmpl.rootNode = root;
+    root.owningTemplate = tmpl;
     tmpl.staticContext = _staticContext;
     
     // check new tmpl to see if starts wtih {% extends %}, if so inherit

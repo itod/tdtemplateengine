@@ -111,6 +111,7 @@ static NSCharacterSet *sNewlineSet = nil;
     self = [super init];
     if (self) {
         self.originDerivedTemplate = tmpl;
+        self.currentTemplate = tmpl;
         self.vars = [NSMutableDictionary dictionary];
         self.expressionObjectStack = [NSMutableArray array];
         self.autoescape = YES;
@@ -138,6 +139,7 @@ static NSCharacterSet *sNewlineSet = nil;
     self.writer = nil;
     self.enclosingScope = nil;
     self.originDerivedTemplate = nil;
+    self.currentTemplate = nil;
     self.currentTemplateFilePath = nil;
     
     self.templateStringStack = nil;
@@ -308,7 +310,7 @@ static NSCharacterSet *sNewlineSet = nil;
     if ([relPath hasPrefix:@"/"]) {
         absPath = relPath;
     } else if ([relPath hasPrefix:@"."]) {
-        NSString *peerPath = _originDerivedTemplate.filePath;
+        NSString *peerPath = _originDerivedTemplate.filePath; // TODO should this be relative to -currentTemplate instead????
         absPath = [self absolutePathForPath:relPath relativeTo:peerPath];
     } else {
         NSArray *tmplRoots = [self resolveVariable:@"TEMPLATE_ROOTS"];
@@ -379,6 +381,18 @@ static NSCharacterSet *sNewlineSet = nil;
 - (NSString *)peekTemplateString {
     TDAssert(_templateStringStack);
     return _templateStringStack.lastObject;
+}
+
+
+
+
+// TODO RM
+- (void)setCurrentTemplate:(TDTemplate *)currentTemplate {
+    if (_currentTemplate != currentTemplate) {
+        [_currentTemplate release];
+        NSLog(@"%@", currentTemplate.filePath.lastPathComponent);
+        _currentTemplate = [currentTemplate retain];
+    }
 }
 
 @end

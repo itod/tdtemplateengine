@@ -27,6 +27,9 @@
 #import "TDRootNode.h"
 #import "TDWriter.h"
 
+
+#import "TDTemplateEngine.h"
+
 @interface TDTemplate ()
 @property (nonatomic, retain) TDRootNode *rootNode;
 - (TDNode *)blockForKey:(NSString *)key;
@@ -65,11 +68,7 @@
 
 
 - (void)compileInContext:(TDTemplateContext *)ctx {
-        
     NSString *relPath = [self.expression evaluateAsStringInContext:ctx];
-    if ([relPath hasSuffix:@"/panel_row.html"]) {
-        NSLog(@"%@", relPath);
-    }
     NSString *absPath = [ctx absolutePathForTemplateRelativePath:relPath];
 
     self.key = [NSString stringWithFormat:@"__include:%@", absPath];
@@ -80,7 +79,10 @@
     
     if (tmpl) {
         TDRootNode *root = tmpl.rootNode;
-        [ctx.originDerivedTemplate setBlock:root forKey:self.key];
+        TDAssert(root);
+        
+        NSLog(@"setting inc `%@` in current tmpl: %@", relPath, ctx.currentTemplate.filePath.lastPathComponent);
+        [ctx.currentTemplate setBlock:root forKey:self.key];
     } else {
         TDAssert(0);
     }
@@ -93,17 +95,29 @@
 - (void)runInContext:(TDTemplateContext *)inCtx {
     NSParameterAssert(inCtx);
     
-    TDTemplate *tmpl = inCtx.originDerivedTemplate;
+    TDTemplate *tmpl = inCtx.currentTemplate;
     TDAssert(tmpl);
+    NSLog(@"getting inc `%@` in current tmpl: %@", self.key.lastPathComponent, tmpl.filePath.lastPathComponent);
     TDRootNode *delegate = (TDRootNode *)[tmpl blockForKey:self.key];
-    if (!delegate) return;
+    NSAssert(delegate, @"Missing included root for key: %@", self.key);
+//    if (!delegate) return;
     TDAssert([delegate isKindOfClass:[TDRootNode class]]);
+    
+//    NSString *relPath = [self.expression evaluateAsStringInContext:inCtx];
+//    NSString *absPath = [inCtx absolutePathForTemplateRelativePath:relPath];
+//
+//    TDAssert(inCtx.delegate);
+//    TDTemplate *tmpl = [inCtx.delegate templateContext:inCtx templateForFilePath:absPath]; //[[TDTemplateEngine instance] templateWithContentsOfFile:absPath];
+//    TDAssert(tmpl);
+//    TDRootNode *delegate = tmpl.rootNode;
     
     // need one outer ctx for user variables
     TDTemplateContext *outer = [[[TDTemplateContext alloc] initWithVariables:nil output:inCtx.writer.output] autorelease];
     outer.delegate = inCtx.delegate;
     outer.enclosingScope = inCtx;
-    outer.originDerivedTemplate = inCtx.originDerivedTemplate; // ??
+    outer.originDerivedTemplate = inCtx.originDerivedTemplate;
+    TDAssert(delegate.owningTemplate);
+    outer.currentTemplate = delegate.owningTemplate;
     outer.currentTemplateFilePath = delegate.templateFilePath;
     TDTemplateContext *ctx = outer;
 
@@ -119,6 +133,7 @@
 //        inner.delegate = inCtx.delegate;
 //        inner.enclosingScope = outer;
 //        inner.originDerivedTemplate = inCtx.originDerivedTemplate; // ??
+//        inner.currentTemplate = tmpl;
 //        inner.currentTemplateFilePath = delegate.templateFilePath;
 //        ctx = inner;
     }
