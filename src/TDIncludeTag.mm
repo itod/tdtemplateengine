@@ -27,9 +27,6 @@
 #import "TDRootNode.h"
 #import "TDWriter.h"
 
-
-#import "TDTemplateEngine.h"
-
 @interface TDTemplate ()
 @property (nonatomic, retain) TDRootNode *rootNode;
 - (TDNode *)blockForKey:(NSString *)key;
