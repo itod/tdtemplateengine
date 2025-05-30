@@ -40,24 +40,22 @@
     
     if ([input respondsToSelector:@selector(integerValue)]) {
         NSInteger i = [input integerValue];
-        NSInteger j = (NSInteger)[arg evaluateAsNumberInContext:ctx];
+        NSInteger j = [arg integerValue];
         res = @(i + j);
     } else if ([input isKindOfClass:[NSString class]]) {
-        NSString *rhs = [arg evaluateAsStringInContext:ctx];
+        NSString *rhs = TDStringFromObject(arg);
         res = [NSString stringWithFormat:@"%@%@", input, rhs];
     } else if ([input isKindOfClass:[NSArray class]]) {
-        id rhs = [arg evaluateAsObjectInContext:ctx];
         res = [NSMutableArray arrayWithArray:input];
-        if ([rhs isKindOfClass:[NSArray class]]) {
-            [res addObjectsFromArray:rhs];
+        if ([arg isKindOfClass:[NSArray class]]) {
+            [res addObjectsFromArray:arg];
         } else {
-            [res addObject:rhs];
+            [res addObject:arg];
         }
     } else if ([input isKindOfClass:[NSDictionary class]]) {
-        id rhs = [arg evaluateAsObjectInContext:ctx];
-        if ([rhs isKindOfClass:[NSDictionary class]]) {
+        if ([arg isKindOfClass:[NSDictionary class]]) {
             res = [NSMutableDictionary dictionaryWithDictionary:input];
-            [res addEntriesFromDictionary:rhs];
+            [res addEntriesFromDictionary:arg];
         }
     }
     
