@@ -28,9 +28,7 @@
 #import "TDEnumeration.h"
 #import "TDSkipException.h"
 
-@interface TDForTag ()
-@property (nonatomic, retain) TDForLoop *currentLoop;
-@end
+#define VARIABLE_NAME @"forloop"
 
 @implementation TDForTag
 
@@ -49,12 +47,6 @@
 }
 
 
-- (void)dealloc {
-    self.currentLoop = nil;
-    [super dealloc];
-}
-
-
 - (NSString *)description {
     return [NSString stringWithFormat:@"%p for %@", self, self.expression];
 }
@@ -66,11 +58,15 @@
     
     TDLoopExpression *expr = (id)self.expression;
     TDAssert([expr isKindOfClass:[TDLoopExpression class]]);
-    
-    [self setUpForLoop:ctx];
-    
+
+    TDForLoop *parentLoop = [ctx resolveVariable:VARIABLE_NAME];
+    TDForLoop *currentLoop = [[[TDForLoop alloc] init] autorelease];
+    currentLoop.parentloop = parentLoop;
+
+    [ctx defineVariable:VARIABLE_NAME value:currentLoop];
+
     while ([expr evaluateInContext:ctx]) {
-        _currentLoop.last = ![expr.enumeration hasMore];
+        currentLoop.last = ![expr.enumeration hasMore];
 
         //NSLog(@"rendering body of %@", self);
         @try {
@@ -80,32 +76,14 @@
             continue;
         }
         @finally {
-            _currentLoop.counter0++;
-            _currentLoop.first = NO;
+            currentLoop.counter0++;
+            currentLoop.first = NO;
         }
     }
 
-    [self tearDownForLoop:ctx];
-}
-
-
-- (void)setUpForLoop:(TDTemplateContext *)ctx {
-    self.currentLoop = [[[TDForLoop alloc] init] autorelease];
-    
-    TDForTag *enclosingForTag = (id)[self firstAncestorOfTagName:@"for"];
-    _currentLoop.parentloop = enclosingForTag.currentLoop;
-
-    [ctx defineVariable:@"forloop" value:_currentLoop];
-}
-
-
-- (void)tearDownForLoop:(TDTemplateContext *)ctx {
     // pop stack
-    id newVal = _currentLoop.parentloop;
-    [ctx defineVariable:@"forloop" value:newVal];
-
-    _currentLoop.parentloop = nil;
-    self.currentLoop = nil;
+    [ctx defineVariable:VARIABLE_NAME value:parentLoop];
+    currentLoop.parentloop = nil;
 }
 
 @end
