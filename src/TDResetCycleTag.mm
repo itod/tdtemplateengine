@@ -21,9 +21,9 @@
 // THE SOFTWARE.
 
 #import "TDResetCycleTag.h"
-#import "TDCycleTag.h"
-#import <TDTemplateEngine/TDPathExpression.h>
+#import "TDCycleState.h"
 #import <TDTemplateEngine/TDTemplateContext.h>
+#import <TDTemplateEngine/TDExpression.h>
 
 @implementation TDResetCycleTag
 
@@ -45,21 +45,16 @@
 - (void)runInContext:(TDTemplateContext *)ctx {
     TDAssert(ctx);
     
-    NSString *name = nil;
+    TDCycleState *state = nil;
     
-    // unfortunately django templates are poorly designed :(
-    // _expression here is not a string value that resolves to the name,
-    // but rather the hard-coded name
     if (self.args.count) {
-        TDAssert(1 == self.args.count);
-        TDPathExpression *path = self.args[0];
-        name = path.head;
+        state = [self.args.firstObject evaluateAsObjectInContext:ctx];
     } else {
-        name = [TDCycleTag contextKey];
+        NSString *name = [TDCycleState defaultVariableName];
+        state = [ctx resolveVariable:name];
     }
     
-    [ctx defineVariable:name value:nil];
-    [ctx defineVariable:[NSString stringWithFormat:@"%@-idx", name] value:nil];
+    [state reset];
 }
 
 @end

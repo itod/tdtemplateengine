@@ -24,8 +24,6 @@
 
 @interface TDCycleTag : TDTag
 
-+ (NSString *)contextKey;
-
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, assign) BOOL silent;
 @end
