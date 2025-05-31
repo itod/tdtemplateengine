@@ -52,8 +52,7 @@
     NSString *idxName = [NSString stringWithFormat:@"%@-idx", name];
     
     // get the current index of this cycle tag, non-existant is the same as 0
-    // idx must be stored in the ctx, not as an ivar bc this tag class must be thread safe.
-    // so the idx must be unique to this execution of this template rendering.
+    // idx must be stored in the ctx, bc the `resetcycle` tag also interacts with it.
     NSUInteger idx = [[ctx resolveVariable:idxName] unsignedIntValue]; // nil returns 0
     idx = idx % self.args.count;
     
