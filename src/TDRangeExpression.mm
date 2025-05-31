@@ -49,12 +49,6 @@
 }
 
 
-//- (NSString *)description {
-//    // be very careful trying to print `self.values` here. seems to cause infinite loop while stepping thru in debugger
-//    return [NSString stringWithFormat:@"%@ to %@", self.values[0], [self.values lastObject]];
-//}
-
-
 - (TDValue *)evaluateInContext:(TDTemplateContext *)ctx {
     return [TDObjectValue objectValueWithObject:[self evaluateAsObjectInContext:ctx]];
 }
