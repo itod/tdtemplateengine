@@ -37,6 +37,7 @@ typedef NS_ENUM(NSUInteger, TDTagExpressionType) {
     TDTagExpressionTypeLoad,
     TDTagExpressionTypeInclude,
     TDTagExpressionTypeCycle,
+    TDTagExpressionTypeAutoescape,
 };
 
 @interface TDTag : TDNode

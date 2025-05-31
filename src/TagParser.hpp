@@ -52,6 +52,8 @@ typedef NS_ENUM(int, TDTokenType) {
     TDTokenType_AS                   =  42,
     TDTokenType_SILENT               =  43,
     TDTokenType_REVERSED             =  44,
+    TDTokenType_ON                   =  45,
+    TDTokenType_OFF                  =  46,
 };
 
 typedef std::map<std::string, TDTokenType> TDTagTokenTable;
@@ -87,6 +89,7 @@ private:
     void _optionalKwargs();
     void _includeTag();
     void _cycleTag();
+    void _autoescapeTag();
 
     void _expr();
     void _enumExpr();

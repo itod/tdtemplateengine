@@ -22,6 +22,7 @@
 #import "TDIncludeTag.h"
 #import "TDLoadTag.h"
 #import "TDCycleTag.h"
+#import "TDAutoescapeTag.h"
 
 #import <ParseKitCPP/ModalTokenizer.hpp>
 #import <ParseKitCPP/DefaultTokenizerMode.hpp>
@@ -112,6 +113,8 @@ const TDTagTokenTable& TagParser::tokenTable() {
         {"as", TDTokenType_AS},
         {"silent", TDTokenType_SILENT},
         {"reversed", TDTokenType_REVERSED},
+        {"on", TDTokenType_ON},
+        {"off", TDTokenType_OFF},
     };
     return tokenTab;
 }
@@ -254,6 +257,9 @@ void TagParser::_tag(TDNode *parent) {
                 break;
             case TDTagExpressionTypeCycle:
                 _cycleTag();
+                break;
+            case TDTagExpressionTypeAutoescape:
+                _autoescapeTag();
                 break;
             default:
                 assert(0);
@@ -444,6 +450,28 @@ void TagParser::_cycleTag() {
     }
     
 }
+
+#pragma mark -
+#pragma mark AutoescapeTag
+
+void TagParser::_autoescapeTag() {
+    
+    BOOL enabled = NO;
+    if (predicts(TDTokenType_ON, 0)) {
+        match(TDTokenType_ON, true);
+        enabled = YES;
+    } else if (predicts(TDTokenType_OFF, 0)) {
+        match(TDTokenType_OFF, true);
+        enabled = NO;
+    }
+
+    TDAutoescapeTag *tag = PEEK_OBJ();
+    tag.enabled = enabled;
+}
+
+
+#pragma mark -
+#pragma mark Expression
 
 TDExpression *TagParser::parseExpression(Reader *r) {
     TokenList lookahead;

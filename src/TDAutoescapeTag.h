@@ -10,4 +10,5 @@
 
 @interface TDAutoescapeTag : TDTag
 
+@property (nonatomic, assign) BOOL enabled;
 @end
