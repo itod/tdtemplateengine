@@ -65,56 +65,51 @@
     //NSLog(@"%s %@", __PRETTY_FUNCTION__, self);
     TDAssert(ctx);
     
-    id collection = [self.expression evaluateAsObjectInContext:ctx];
-    if (![collection count]) return;
+    @autoreleasepool {
+        id collection = [self.expression evaluateAsObjectInContext:ctx];
+        if (![collection count]) return;
 
-    TDForLoop *parentLoop = [ctx resolveVariable:VARIABLE_NAME];
-    TDForLoop *currentLoop = [[[TDForLoop alloc] init] autorelease];
-    currentLoop.parentloop = parentLoop;
+        TDForLoop *parentLoop = [ctx resolveVariable:VARIABLE_NAME];
+        TDForLoop *currentLoop = [[[TDForLoop alloc] init] autorelease];
+        currentLoop.parentloop = parentLoop;
 
-    [ctx defineVariable:VARIABLE_NAME value:currentLoop];
+        [ctx defineVariable:VARIABLE_NAME value:currentLoop];
 
-    TDEnumeration *en = ({
-        Class cls = Nil;
-        if (_secondVariable) {
-            TDAssert([collection isKindOfClass:[NSDictionary class]]);
-            cls = [TDPairEnumeration class];
-        } else {
-            TDAssert([collection isKindOfClass:[NSArray class]] || [collection isKindOfClass:[NSSet class]]);
-            cls = [TDEnumeration class];
+        TDEnumeration *en = ({
+            Class cls = _secondVariable ? [TDPairEnumeration class] : [TDEnumeration class];
+            [cls enumerationWithCollection:collection reversed:_reversed];
+        });
+
+        while ([en hasMore]) {
+            id member = [en nextObject];
+            
+            if (_secondVariable) {
+                TDAssert(2 == [member count]);
+                [ctx defineVariable:_firstVariable value:[member firstObject]];
+                [ctx defineVariable:_secondVariable value:[member lastObject]];
+            } else {
+                [ctx defineVariable:_firstVariable value:member];
+            }
+            
+            currentLoop.last = ![en hasMore];
+
+            //NSLog(@"rendering body of %@", self);
+            @try {
+                [self renderChildrenInContext:ctx];
+            }
+            @catch (TDSkipException *ex) {
+                continue;
+            }
+            @finally {
+                currentLoop.counter0++;
+                currentLoop.first = NO;
+            }
         }
-        [cls enumerationWithCollection:collection reversed:_reversed];
-    });
-
-    while ([en hasMore]) {
-        id member = [en nextObject];
         
-        if (_secondVariable) {
-            TDAssert(2 == [member count]);
-            [ctx defineVariable:_firstVariable value:[member firstObject]];
-            [ctx defineVariable:_secondVariable value:[member lastObject]];
-        } else {
-            [ctx defineVariable:_firstVariable value:member];
-        }
-        
-        currentLoop.last = ![en hasMore];
-
-        //NSLog(@"rendering body of %@", self);
-        @try {
-            [self renderChildrenInContext:ctx];
-        }
-        @catch (TDSkipException *ex) {
-            continue;
-        }
-        @finally {
-            currentLoop.counter0++;
-            currentLoop.first = NO;
-        }
+        // pop stack
+        [ctx defineVariable:VARIABLE_NAME value:parentLoop];
+        currentLoop.parentloop = nil;
     }
-    
-    // pop stack
-    [ctx defineVariable:VARIABLE_NAME value:parentLoop];
-    currentLoop.parentloop = nil;
 }
 
 @end

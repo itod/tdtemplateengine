@@ -75,15 +75,4 @@
     return _reversed ? _index >= 0 : _index < [_values count];
 }
 
-
-//+ (NSMutableArray *)reversedArray:(NSArray *)inArray {
-//    NSUInteger c = inArray.count;
-//    if (!c) return nil;
-//    NSMutableArray *outArray = [NSMutableArray arrayWithCapacity:c];
-//    for (id obj in [inArray reverseObjectEnumerator]) {
-//        [outArray addObject:obj];
-//    }
-//    return outArray;
-//}
-
 @end

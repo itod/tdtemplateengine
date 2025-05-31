@@ -29,6 +29,4 @@
 
 - (BOOL)hasMore;
 - (id)nextObject;
-
-//+ (NSMutableArray *)reversedArray:(NSArray *)inArray;
 @end
