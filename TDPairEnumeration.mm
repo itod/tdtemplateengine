@@ -20,16 +20,47 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "TDExpression.h"
+#import "TDPairEnumeration.h"
 
-@class TDEnumeration;
+@interface TDEnumeration ()
+@property (nonatomic, assign) NSInteger index;
+@property (nonatomic, assign) BOOL reversed;
+@property (nonatomic, retain) NSArray *values;
+@end
 
-@interface TDLoopExpression : TDExpression
+@interface TDPairEnumeration ()
+@property (nonatomic, retain) NSArray *keys;
+@end
 
-+ (instancetype)loopExpressionWithVariables:(NSArray *)vars enumeration:(TDEnumeration *)e;
-- (instancetype)initWithVariables:(NSArray *)vars enumeration:(TDEnumeration *)e;
+@implementation TDPairEnumeration
 
-@property (nonatomic, copy) NSString *firstVariable;
-@property (nonatomic, copy) NSString *secondVariable;
-@property (nonatomic, retain) TDEnumeration *enumeration;
++ (instancetype)enumerationWithCollection:(id)coll reversed:(BOOL)rev {
+    return [[[self alloc] initWithCollection:coll reversed:rev] autorelease];
+}
+
+
+- (instancetype)initWithCollection:(id)coll reversed:(BOOL)rev {
+    self = [super init];
+    if (self) {
+        TDAssert([coll isKindOfClass:[NSDictionary class]]);
+        
+        self.keys = [coll allKeys];
+        self.values = [coll allValues];
+        self.reversed = rev;
+        self.index = rev ? [coll count] -1 : 0;
+    }
+    return self;
+}
+
+
+- (void)dealloc {
+    self.keys = nil;
+    [super dealloc];
+}
+
+
+- (id)nextObject {
+    return @[self.keys[self.index], self.values[self.reversed ? self.index-- : self.index++]];
+}
+
 @end

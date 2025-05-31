@@ -7,7 +7,7 @@
 //
 
 #import "TDBaseExpressionTests.h"
-#import "TDLoopExpression.h"
+#import "TDEnumeration.h"
 #import <ParseKitCPP/Reader.hpp>
 
 using namespace parsekit;
@@ -39,12 +39,14 @@ using namespace parsekit;
     XCTAssertNotNil(tag);
     
     TDExpression *expr = [tag.expression simplify];
-    TDTrue([expr isKindOfClass:[TDLoopExpression class]]);
-    
+    TDEnumeration *en = [TDEnumeration enumerationWithCollection:[expr evaluateAsObjectInContext:ctx] reversed:NO];
+
     for (id obj in foo) {
-        id res = [expr evaluateAsObjectInContext:ctx];
+        id res = [en nextObject];
         TDEqualObjects(obj, res);
     }
+    
+    TDFalse([en hasMore]);
 }
 
 - (void)testIIn5To2 {
@@ -59,19 +61,21 @@ using namespace parsekit;
     XCTAssertNotNil(tag);
     
     TDExpression *expr = [tag.expression simplify];
-    TDTrue([expr isKindOfClass:[TDLoopExpression class]]);
+    TDEnumeration *en = [TDEnumeration enumerationWithCollection:[expr evaluateAsObjectInContext:ctx] reversed:NO];
 
     for (id obj in foo) {
-        id res = [expr evaluateAsObjectInContext:ctx];
+        id res = [en nextObject];
         TDEqualObjects(obj, res);
     }
+    
+    TDFalse([en hasMore]);
 }
 
 - (void)testIIn0To10By2 {
     std::string input = "for i in 0 to 10 by 2";
     ReaderCPP reader(input);
 
-    id foo = @[@(0), @(2), @(4), @(6), @(8), @(10)];
+    id foo = @[@(0), @(2), @(4), @(6), @(8)];
     id vars = @{@"foo": foo};
     TDTemplateContext *ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     
@@ -79,12 +83,14 @@ using namespace parsekit;
     XCTAssertNotNil(tag);
     
     TDExpression *expr = [tag.expression simplify];
-    TDTrue([expr isKindOfClass:[TDLoopExpression class]]);
+    TDEnumeration *en = [TDEnumeration enumerationWithCollection:[expr evaluateAsObjectInContext:ctx] reversed:NO];
 
     for (id obj in foo) {
-        id res = [expr evaluateAsObjectInContext:ctx];
+        id res = [en nextObject];
         TDEqualObjects(obj, res);
     }
+    
+    TDFalse([en hasMore]);
 }
 
 - (void)testIIn10To0ByNeg2 {
@@ -99,12 +105,14 @@ using namespace parsekit;
     XCTAssertNotNil(tag);
     
     TDExpression *expr = [tag.expression simplify];
-    TDTrue([expr isKindOfClass:[TDLoopExpression class]]);
+    TDEnumeration *en = [TDEnumeration enumerationWithCollection:[expr evaluateAsObjectInContext:ctx] reversed:NO];
 
     for (id obj in foo) {
-        id res = [expr evaluateAsObjectInContext:ctx];
+        id res = [en nextObject];
         TDEqualObjects(obj, res);
     }
+    
+    TDFalse([en hasMore]);
 }
 
 @end

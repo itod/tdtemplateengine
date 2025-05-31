@@ -13,12 +13,11 @@
 #import "TDBooleanExpression.h"
 #import "TDRelationalExpression.h"
 #import "TDArithmeticExpression.h"
-#import "TDLoopExpression.h"
-#import "TDCollectionExpression.h"
 #import "TDRangeExpression.h"
 #import "TDPathExpression.h"
 #import "TDFilterExpression.h"
 
+#import "TDForTag.h"
 #import "TDIncludeTag.h"
 #import "TDLoadTag.h"
 #import "TDCycleTag.h"
@@ -243,11 +242,11 @@ void TagParser::_tag(TDNode *parent) {
             case TDTagExpressionTypeDefault:
                 _exprTag();
                 break;
-            case TDTagExpressionTypeLoop:
-                _loopTag();
-                break;
             case TDTagExpressionTypeArgs:
                 _argsTag();
+                break;
+            case TDTagExpressionTypeFor:
+                _forTag();
                 break;
             case TDTagExpressionTypeLoad:
                 _loadTag();
@@ -300,22 +299,29 @@ void TagParser::_exprTag() {
 #pragma mark -
 #pragma mark LoopTag
 
-void TagParser::_loopTag() {
+void TagParser::_forTag() {
     _identifiers();
     match(TDTokenType_IN, true);
-    _enumExpr();
+    _collectionExpr();
     
+    BOOL reversed = false;
     if (predicts(TDTokenType_REVERSED, 0)) {
         match(TDTokenType_REVERSED, true);
-        TDEnumeration *enumExpr = PEEK_OBJ();
-        enumExpr.reversed = YES;
+        reversed = true;
     }
 
     if (!isSpeculating()) {
-        id enumExpr = POP_OBJ();
+        id collExpr = POP_OBJ();
         id vars = POP_OBJ();
-        TDTag *tag = PEEK_OBJ();
-        tag.expression = [TDLoopExpression loopExpressionWithVariables:vars enumeration:enumExpr];
+        
+        TDForTag *tag = PEEK_OBJ();
+        tag.expression = collExpr;
+        tag.reversed = reversed;
+        
+        if (2 == [vars count]) {
+            tag.secondVariable = [vars lastObject];
+        }
+        tag.firstVariable = [vars firstObject];
     }
 }
 
@@ -533,24 +539,14 @@ void TagParser::_identifiers() {
 
 }
 
-void TagParser::_enumExpr() {
+void TagParser::_collectionExpr() {
     
     if (speculate([&]{ _rangeExpr(); })) {
         _rangeExpr();
-    } else if (speculate([&]{ _collectionExpr(); })) {
-        _collectionExpr();
+    } else if (speculate([&]{ _pathExpr(); })) {
+        _pathExpr();
     } else {
         raise("No viable alternative found in rule 'enumExpr'.");
-    }
-
-}
-
-void TagParser::_collectionExpr() {
-    
-    _primaryExpr();
-    if (!isSpeculating()) {
-        id expr = POP_OBJ();
-        PUSH_OBJ([TDCollectionExpression collectionExpressionWithExpression:expr]);
     }
 
 }

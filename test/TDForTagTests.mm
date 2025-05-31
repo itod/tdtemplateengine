@@ -55,7 +55,7 @@
     TDTrue(success);
     TDNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"ffff", res);
+    TDEqualObjects(@"fff", res);
 }
 
 - (void)testFor0To3FNoSpace {
@@ -67,7 +67,7 @@
     TDTrue(success);
     TDNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"ffff", res);
+    TDEqualObjects(@"fff", res);
 }
 
 - (void)testFor0ToDepthF {
@@ -79,7 +79,7 @@
     TDTrue(success);
     TDNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"ffff", res);
+    TDEqualObjects(@"fff", res);
 }
 
 - (void)testForloopCurrentIndex {
@@ -127,12 +127,12 @@
     TDTrue(success);
     TDNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"0123", res);
+    TDEqualObjects(@"012", res);
 }
 
 - (void)testNestedFor {
-    NSString *input =   @"{% for i in 0 to 1 %}"
-                            @"{% for j in 0 to 2 %}"
+    NSString *input =   @"{% for i in 0 to 2 %}"
+                            @"{% for j in 0 to 3 %}"
                                 @"{{i}}:{{j}}\n"
                             @"{% endfor %}"
                         @"{% endfor %}";
@@ -146,9 +146,9 @@
 }
 
 - (void)test2NestedFors {
-    NSString *input =   @"{% for i in 0 to 0 %}"
-                            @"{% for j in 0 to 1 %}"
-                                @"{% for k in 0 to 2 %}"
+    NSString *input =   @"{% for i in 0 to 1 %}"
+                            @"{% for j in 0 to 2 %}"
+                                @"{% for k in 0 to 3 %}"
                                     @"{{i}}:{{j}}:{{k}}\n"
                                 @"{% endfor %}"
                             @"{% endfor %}"
@@ -163,8 +163,8 @@
 }
 
 - (void)testNestedForParentloop {
-    NSString *input =   @"{% for i in 0 to 1 %}"
-                            @"{% for j in 0 to 2 %}"
+    NSString *input =   @"{% for i in 0 to 2 %}"
+                            @"{% for j in 0 to 3 %}"
                                 @"{{forloop.parentloop.counter0}}:{{forloop.counter0}}\n"
                             @"{% endfor %}"
                         @"{% endfor %}";
@@ -204,7 +204,7 @@
 }
 
 - (void)testSkipIeq1 {
-    NSString *input =  @"{% for i in 1 to 3 %}"
+    NSString *input =  @"{% for i in 1 to 4 %}"
                             @"{% skip i == 1 %}{{i}}{% if not forloop.last %},{% endif %}"
                         @"{% endfor %}";
     id vars = nil;
@@ -217,7 +217,7 @@
 }
 
 - (void)testSkipIeq2 {
-    NSString *input =  @"{% for i in 1 to 3 %}"
+    NSString *input =  @"{% for i in 1 to 4 %}"
                             @"{% skip i == 2 %}{{i}}{% if not forloop.last %},{% endif %}"
                         @"{% endfor %}";
     id vars = nil;
@@ -230,7 +230,7 @@
 }
 
 - (void)testSkipIeq3 {
-    NSString *input =  @"{% for i in 1 to 3 %}"
+    NSString *input =  @"{% for i in 1 to 4 %}"
                             @"{% skip i == 3 %}{{i}}{% if not forloop.last %},{% endif %}"
                         @"{% endfor %}";
     id vars = nil;
@@ -243,7 +243,7 @@
 }
 
 - (void)testFor0To3Range {
-    NSString *input = @"{% for i in 0 to 3 %}{{i}}{% endfor %}";
+    NSString *input = @"{% for i in 0 to 4 %}{{i}}{% endfor %}";
     id vars = nil;
     
     NSError *err = nil;
@@ -255,7 +255,7 @@
 }
 
 - (void)testFor0To3RangeReversed {
-    NSString *input = @"{% for i in 0 to 3 reversed %}{{i}}{% endfor %}";
+    NSString *input = @"{% for i in 0 to 4 reversed %}{{i}}{% endfor %}";
     id vars = nil;
     
     NSError *err = nil;

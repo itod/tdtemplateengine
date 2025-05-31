@@ -22,7 +22,38 @@
 
 #import "TDEnumeration.h"
 
+@interface TDEnumeration ()
+@property (nonatomic, assign) NSInteger index;
+@property (nonatomic, assign) NSInteger reversed;
+@property (nonatomic, retain) NSArray *values;
+@end
+
 @implementation TDEnumeration
+
++ (instancetype)enumerationWithCollection:(id)coll reversed:(BOOL)rev {
+    return [[[self alloc] initWithCollection:coll reversed:rev] autorelease];
+}
+
+
+- (instancetype)initWithCollection:(id)coll reversed:(BOOL)rev {
+    self = [super init];
+    if (self) {
+        NSArray *values = nil;
+        if ([coll respondsToSelector:@selector(allKeys)]) {
+            values = [coll allKeys];
+        } else if ([coll respondsToSelector:@selector(allObjects)]) {
+            values = [coll allObjects];
+        } else {
+            TDAssert([coll respondsToSelector:@selector(objectAtIndex:)] && [coll respondsToSelector:@selector(count)]);
+            values = coll;
+        }
+        self.values = values;
+        self.reversed = rev;
+        self.index = rev ? [coll count] -1 : 0;
+    }
+    return self;
+}
+
 
 - (void)dealloc {
     self.values = nil;
@@ -30,24 +61,29 @@
 }
 
 
+- (NSString *)description {
+    return [NSString stringWithFormat:@"<%@ %p (%lu of %lu)>", [self class], self, _index, _values.count];
+}
+
+
+- (id)nextObject {
+    return [_values objectAtIndex:_reversed ? _index-- : _index++];
+}
+
+
 - (BOOL)hasMore {
-    return _current < _values.count;
+    return _reversed ? _index >= 0 : _index < [_values count];
 }
 
 
-- (void)increment {
-    ++_current;        
-}
-
-
-- (NSMutableArray *)reversedArray:(NSArray *)inArray {
-    NSUInteger c = inArray.count;
-    if (!c) return nil;
-    NSMutableArray *outArray = [NSMutableArray arrayWithCapacity:c];
-    for (id obj in [inArray reverseObjectEnumerator]) {
-        [outArray addObject:obj];
-    }
-    return outArray;
-}
+//+ (NSMutableArray *)reversedArray:(NSArray *)inArray {
+//    NSUInteger c = inArray.count;
+//    if (!c) return nil;
+//    NSMutableArray *outArray = [NSMutableArray arrayWithCapacity:c];
+//    for (id obj in [inArray reverseObjectEnumerator]) {
+//        [outArray addObject:obj];
+//    }
+//    return outArray;
+//}
 
 @end

@@ -20,15 +20,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "TDExpression.h"
+#import <Foundation/Foundation.h>
 
-@interface TDEnumeration : TDExpression
+@interface TDEnumeration : NSObject
+
++ (instancetype)enumerationWithCollection:(id)coll reversed:(BOOL)rev;
+- (instancetype)initWithCollection:(id)coll reversed:(BOOL)rev;
 
 - (BOOL)hasMore;
-- (void)increment;
-- (NSMutableArray *)reversedArray:(NSArray *)inArray;
+- (id)nextObject;
 
-@property (nonatomic, retain) NSArray *values;
-@property (nonatomic, assign) NSInteger current;
-@property (nonatomic, assign) BOOL reversed;
+//+ (NSMutableArray *)reversedArray:(NSArray *)inArray;
 @end

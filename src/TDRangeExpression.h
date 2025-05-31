@@ -20,9 +20,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "TDEnumeration.h"
+#import "TDExpression.h"
 
-@interface TDRangeExpression : TDEnumeration
+@interface TDRangeExpression : TDExpression
 
 + (instancetype)rangeExpressionWithStart:(TDExpression *)start stop:(TDExpression *)stop by:(TDExpression *)by;
 

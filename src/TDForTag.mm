@@ -24,8 +24,9 @@
 #import "TDForLoop.h"
 #import <TDTemplateEngine/TDTemplateContext.h>
 
-#import "TDLoopExpression.h"
+#import "TDExpression.h"
 #import "TDEnumeration.h"
+#import "TDPairEnumeration.h"
 #import "TDSkipException.h"
 
 #define VARIABLE_NAME @"forloop"
@@ -43,8 +44,16 @@
 
 
 + (TDTagExpressionType)tagExpressionType {
-    return TDTagExpressionTypeLoop;
+    return TDTagExpressionTypeFor;
 }
+
+
+- (void)dealloc {
+    self.firstVariable = nil;
+    self.secondVariable = nil;
+    [super dealloc];
+}
+
 
 
 - (NSString *)description {
@@ -56,8 +65,8 @@
     //NSLog(@"%s %@", __PRETTY_FUNCTION__, self);
     TDAssert(ctx);
     
-    TDLoopExpression *expr = (id)self.expression;
-    TDAssert([expr isKindOfClass:[TDLoopExpression class]]);
+    id collection = [self.expression evaluateAsObjectInContext:ctx];
+    if (![collection count]) return;
 
     TDForLoop *parentLoop = [ctx resolveVariable:VARIABLE_NAME];
     TDForLoop *currentLoop = [[[TDForLoop alloc] init] autorelease];
@@ -65,8 +74,30 @@
 
     [ctx defineVariable:VARIABLE_NAME value:currentLoop];
 
-    while ([expr evaluateInContext:ctx]) {
-        currentLoop.last = ![expr.enumeration hasMore];
+    TDEnumeration *en = ({
+        Class cls = Nil;
+        if (_secondVariable) {
+            TDAssert([collection isKindOfClass:[NSDictionary class]]);
+            cls = [TDPairEnumeration class];
+        } else {
+            TDAssert([collection isKindOfClass:[NSArray class]] || [collection isKindOfClass:[NSSet class]]);
+            cls = [TDEnumeration class];
+        }
+        [cls enumerationWithCollection:collection reversed:_reversed];
+    });
+
+    while ([en hasMore]) {
+        id member = [en nextObject];
+        
+        if (_secondVariable) {
+            TDAssert(2 == [member count]);
+            [ctx defineVariable:_firstVariable value:[member firstObject]];
+            [ctx defineVariable:_secondVariable value:[member lastObject]];
+        } else {
+            [ctx defineVariable:_firstVariable value:member];
+        }
+        
+        currentLoop.last = ![en hasMore];
 
         //NSLog(@"rendering body of %@", self);
         @try {
@@ -80,7 +111,7 @@
             currentLoop.first = NO;
         }
     }
-
+    
     // pop stack
     [ctx defineVariable:VARIABLE_NAME value:parentLoop];
     currentLoop.parentloop = nil;

@@ -22,10 +22,6 @@
 
 #import "TDEnumeration.h"
 
-@interface TDCollectionExpression : TDEnumeration
+@interface TDPairEnumeration : TDEnumeration
 
-+ (instancetype)collectionExpressionWithExpression:(TDExpression *)expr;
-- (instancetype)initWithExpression:(TDExpression *)expr;
-
-@property (nonatomic, retain) TDExpression *subExpression;
 @end

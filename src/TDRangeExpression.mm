@@ -23,10 +23,6 @@
 #import "TDRangeExpression.h"
 #import "TDObjectValue.h"
 
-@interface TDRangeExpression ()
-@property (nonatomic, assign) BOOL started;
-@end
-
 @implementation TDRangeExpression
 
 + (instancetype)rangeExpressionWithStart:(TDExpression *)start stop:(TDExpression *)stop by:(TDExpression *)by {
@@ -59,10 +55,12 @@
 //}
 
 
-#pragma mark -
-#pragma mark TDEnumeration
+- (TDValue *)evaluateInContext:(TDTemplateContext *)ctx {
+    return [TDObjectValue objectValueWithObject:[self evaluateAsObjectInContext:ctx]];
+}
 
-- (void)beginInContext:(TDTemplateContext *)ctx {
+
+- (id)evaluateAsObjectInContext:(TDTemplateContext *)ctx {
     NSInteger start = [_start evaluateAsNumberInContext:ctx];
     NSInteger stop = [_stop evaluateAsNumberInContext:ctx];
     NSInteger step = [_by evaluateAsNumberInContext:ctx];
@@ -77,7 +75,7 @@
     
     if (step > 0) {
         test = ^BOOL(NSInteger val) {
-            return val <= stop;
+            return val < stop;
         };
     } else if (step < 0) {
         test = ^BOOL(NSInteger val) {
@@ -85,7 +83,7 @@
         };
     } else {
         [NSException raise:@"" format:@""]; // TODO
-        return;
+        return nil;
     }
 
     // For a positive step, the contents of a range r are determined by the formula
@@ -102,31 +100,8 @@
             break;
         }
     }
-
-    if (self.reversed) {
-        range = [self reversedArray:range];
-    }
     
-    self.values = range;
-    self.current = 0;
-}
-
-
-- (TDValue *)evaluateInContext:(TDTemplateContext *)ctx {
-    if (!_started) {
-        [self beginInContext:ctx];
-        self.started = YES;
-    }
-    
-    id result = nil;
-    if ([self hasMore]) {
-        result = self.values[self.current];
-        [self increment];
-    } else {
-        self.started = NO;
-    }
-    
-    return result ? [TDObjectValue objectValueWithObject:result] : nil;
+    return range;
 }
 
 @end

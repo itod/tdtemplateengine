@@ -82,7 +82,7 @@ private:
     
     // tag types
     void _exprTag();
-    void _loopTag(); void _identifiers();
+    void _forTag(); void _identifiers();
     void _loadTag();
     void _argsTag();
     void _optionalArgs();

@@ -24,4 +24,7 @@
 
 @interface TDForTag : TDTag
 
+@property (nonatomic, copy) NSString *firstVariable;
+@property (nonatomic, copy) NSString *secondVariable;
+@property (nonatomic, assign) BOOL reversed;
 @end

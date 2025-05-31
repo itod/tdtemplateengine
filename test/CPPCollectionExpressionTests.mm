@@ -7,8 +7,7 @@
 //
 
 #import "TDBaseExpressionTests.h"
-#import "TDLoopExpression.h"
-#import "TDPair.h"
+#import "TDPairEnumeration.h"
 #import <ParseKitCPP/Reader.hpp>
 
 using namespace parsekit;
@@ -40,14 +39,14 @@ using namespace parsekit;
     XCTAssertNotNil(tag);
     
     TDExpression *expr = [tag.expression simplify];
-    TDTrue([expr isKindOfClass:[TDLoopExpression class]]);
+    TDEnumeration *en = [TDEnumeration enumerationWithCollection:[expr evaluateAsObjectInContext:ctx] reversed:NO];
 
     for (id obj in foo) {
-        id res = [expr evaluateAsObjectInContext:ctx];
+        id res = [en nextObject];
         TDEqualObjects(obj, res);
     }
 
-    TDNil([expr evaluateAsObjectInContext:ctx]);
+    TDFalse([en hasMore]);
 }
 
 - (void)testIInArrayOneTwoThree {
@@ -62,14 +61,14 @@ using namespace parsekit;
     XCTAssertNotNil(tag);
     
     TDExpression *expr = [tag.expression simplify];
-    TDTrue([expr isKindOfClass:[TDLoopExpression class]]);
+    TDEnumeration *en = [TDEnumeration enumerationWithCollection:[expr evaluateAsObjectInContext:ctx] reversed:NO];
 
     for (id obj in foo) {
-        id res = [expr evaluateAsObjectInContext:ctx];
+        id res = [en nextObject];
         TDEqualObjects(obj, res);
     }
-    
-    TDNil([expr evaluateInContext:ctx]);
+
+    TDFalse([en hasMore]);
 }
 
 - (void)testObjInSetOneTwoThree {
@@ -84,18 +83,18 @@ using namespace parsekit;
     XCTAssertNotNil(tag);
     
     TDExpression *expr = [tag.expression simplify];
-    TDTrue([expr isKindOfClass:[TDLoopExpression class]]);
+    TDEnumeration *en = [TDEnumeration enumerationWithCollection:[expr evaluateAsObjectInContext:ctx] reversed:NO];
 
     NSMutableSet *test = [NSMutableSet setWithCapacity:[foo count]];
     for (id obj in foo) {
         TDNotNil(obj); // compiler warn
-        id res = [expr evaluateAsObjectInContext:ctx];
+        id res = [en nextObject];
         TDNotNil(res);
         [test addObject:res];
     }
     
-    TDNil([expr evaluateInContext:ctx]);
-    
+    TDFalse([en hasMore]);
+
     for (id obj in foo) {
         TDTrue([test containsObject:obj]);
     }
@@ -113,15 +112,14 @@ using namespace parsekit;
     XCTAssertNotNil(tag);
     
     TDExpression *expr = [tag.expression simplify];
-    TDTrue([expr isKindOfClass:[TDLoopExpression class]]);
+    TDEnumeration *en = [TDEnumeration enumerationWithCollection:[expr evaluateAsObjectInContext:ctx] reversed:NO];
 
     for (id key in dict) {
-        id res = [expr evaluateAsObjectInContext:ctx];
+        id res = [en nextObject];
         TDEqualObjects(key, res);
-        TDEqualObjects(key, [ctx resolveVariable:@"key"]);
     }
     
-    TDNil([expr evaluateInContext:ctx]);
+    TDFalse([en hasMore]);
 }
 
 - (void)testKeyValInDictOneTwoThree {
@@ -136,17 +134,16 @@ using namespace parsekit;
     XCTAssertNotNil(tag);
     
     TDExpression *expr = [tag.expression simplify];
-    TDTrue([expr isKindOfClass:[TDLoopExpression class]]);
+    TDEnumeration *en = [TDPairEnumeration enumerationWithCollection:[expr evaluateAsObjectInContext:ctx] reversed:NO];
 
     for (id key in [dict allKeys]) {
         id val = dict[key];
-        id res = [expr evaluateAsObjectInContext:ctx];
-        XCTAssertEqualObjects([TDPair pairWithFirst:key second:val], res);
-        XCTAssertEqualObjects(key, [ctx resolveVariable:@"key"]);
-        XCTAssertEqualObjects(val, [ctx resolveVariable:@"val"]);
+        id pair = [en nextObject];
+        XCTAssertEqualObjects(key, [pair firstObject]);
+        XCTAssertEqualObjects(val, [pair lastObject]);
     }
     
-    TDNil([expr evaluateInContext:ctx]);
+    TDFalse([en hasMore]);
 }
 
 - (void)testKeyValInDictNumsOneTwoThree {
@@ -162,17 +159,16 @@ using namespace parsekit;
     XCTAssertNotNil(tag);
     
     TDExpression *expr = [tag.expression simplify];
-    TDTrue([expr isKindOfClass:[TDLoopExpression class]]);
+    TDEnumeration *en = [TDPairEnumeration enumerationWithCollection:[expr evaluateAsObjectInContext:ctx] reversed:NO];
 
     for (id key in [dict[@"nums"] allKeys]) {
         id val = dict[@"nums"][key];
-        id res = [expr evaluateAsObjectInContext:ctx];
-        XCTAssertEqualObjects([TDPair pairWithFirst:key second:val], res);
-        TDEqualObjects(key, [ctx resolveVariable:@"key"]);
-        TDEqualObjects(val, [ctx resolveVariable:@"val"]);
+        id pair = [en nextObject];
+        XCTAssertEqualObjects(key, [pair firstObject]);
+        XCTAssertEqualObjects(val, [pair lastObject]);
     }
     
-    TDNil([expr evaluateInContext:ctx]);
+    TDFalse([en hasMore]);
 }
 
 @end
