@@ -35,7 +35,7 @@
 
 - (instancetype)initWithString:(NSString *)s {
     if (self = [super init]) {
-        self.value = (!s ? @"" : s);
+        self.value = s ? s : @"";
     }
     return self;
 }

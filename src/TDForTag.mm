@@ -55,7 +55,6 @@
 }
 
 
-
 - (NSString *)description {
     return [NSString stringWithFormat:@"%p for %@", self, self.expression];
 }

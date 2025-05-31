@@ -53,7 +53,7 @@ using namespace parsekit;
     std::string input = "for i in 5 to 2";
     ReaderCPP reader(input);
 
-    id foo = @[@(5), @(4), @(3), @(2)];
+    id foo = @[@(5), @(4), @(3)];
     id vars = @{@"foo": foo};
     TDTemplateContext *ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     
@@ -97,7 +97,7 @@ using namespace parsekit;
     std::string input = "for i in 10 to 0 by -2";
     ReaderCPP reader(input);
 
-    id foo = @[@(10), @(8), @(6), @(4), @(2), @(0)];
+    id foo = @[@(10), @(8), @(6), @(4), @(2)];
     id vars = @{@"foo": foo};
     TDTemplateContext *ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     

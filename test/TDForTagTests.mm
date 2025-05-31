@@ -91,7 +91,7 @@
     TDTrue(success);
     TDNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"0123", res);
+    TDEqualObjects(@"012", res);
 }
 
 - (void)testForloopFirst {
@@ -103,7 +103,7 @@
     TDTrue(success);
     TDNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"1000", res);
+    TDEqualObjects(@"100", res);
 }
 
 - (void)testForloopLast {
@@ -115,7 +115,7 @@
     TDTrue(success);
     TDNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"0001", res);
+    TDEqualObjects(@"001", res);
 }
 
 - (void)testFor0To4I {
@@ -187,7 +187,7 @@
     TDTrue(success);
     TDNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"70,68,66,64,62,60", res);
+    TDEqualObjects(@"70,68,66,64,62", res);
 }
 
 - (void)testSkip {

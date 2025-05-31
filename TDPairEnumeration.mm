@@ -55,6 +55,7 @@
 
 - (void)dealloc {
     self.keys = nil;
+    self.values = nil;
     [super dealloc];
 }
 
