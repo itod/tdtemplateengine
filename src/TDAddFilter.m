@@ -37,13 +37,13 @@
     
     id input = [expr evaluateAsObjectInContext:ctx];
     
-    if ([input respondsToSelector:@selector(integerValue)]) {
+    if ([input isKindOfClass:[NSString class]]) {
+        NSString *rhs = [args.firstObject evaluateAsStringInContext:ctx];
+        res = [NSString stringWithFormat:@"%@%@", input, rhs];
+    } else if ([input respondsToSelector:@selector(integerValue)]) {
         NSInteger i = [input integerValue];
         NSInteger j = lround([args.firstObject evaluateAsNumberInContext:ctx]);
         res = @(i + j);
-    } else if ([input isKindOfClass:[NSString class]]) {
-        NSString *rhs = [args.firstObject evaluateAsStringInContext:ctx];
-        res = [NSString stringWithFormat:@"%@%@", input, rhs];
     } else if ([input isKindOfClass:[NSArray class]]) {
         res = [NSMutableArray arrayWithArray:input];
         id arg = [args.firstObject evaluateAsObjectInContext:ctx];
