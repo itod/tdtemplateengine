@@ -36,23 +36,24 @@
     id res = nil;
     
     id input = [expr evaluateAsObjectInContext:ctx];
-    id arg = [args objectAtIndex:0];
     
     if ([input respondsToSelector:@selector(integerValue)]) {
         NSInteger i = [input integerValue];
-        NSInteger j = [arg integerValue];
+        NSInteger j = lround([args.firstObject evaluateAsNumberInContext:ctx]);
         res = @(i + j);
     } else if ([input isKindOfClass:[NSString class]]) {
-        NSString *rhs = TDStringFromObject(arg);
+        NSString *rhs = [args.firstObject evaluateAsStringInContext:ctx];
         res = [NSString stringWithFormat:@"%@%@", input, rhs];
     } else if ([input isKindOfClass:[NSArray class]]) {
         res = [NSMutableArray arrayWithArray:input];
+        id arg = [args.firstObject evaluateAsObjectInContext:ctx];
         if ([arg isKindOfClass:[NSArray class]]) {
             [res addObjectsFromArray:arg];
         } else {
             [res addObject:arg];
         }
     } else if ([input isKindOfClass:[NSDictionary class]]) {
+        id arg = [args.firstObject evaluateAsObjectInContext:ctx];
         if ([arg isKindOfClass:[NSDictionary class]]) {
             res = [NSMutableDictionary dictionaryWithDictionary:input];
             [res addEntriesFromDictionary:arg];
