@@ -75,6 +75,11 @@ using namespace parsekit;
 
 
 - (TDValue *)evaluateInContext:(TDTemplateContext *)ctx {
+    return TDValueFromObject([self evaluateAsObjectInContext:ctx]);
+}
+
+
+- (id)evaluateAsObjectInContext:(TDTemplateContext *)ctx {
     TDAssert(ctx);
     TDAssert(_expr);
     TDAssert(_filter);
@@ -82,9 +87,7 @@ using namespace parsekit;
     NSArray *evaledArgs = [self evaluatedArgs:ctx];
     id obj = [_expr evaluateAsObjectInContext:ctx];
     obj = [_filter runFilter:obj withArgs:evaledArgs inContext:ctx];
-    
-    TDValue *val = TDValueFromObject(obj);
-    return val;
+    return obj;
 }
 
 

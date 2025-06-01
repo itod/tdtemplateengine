@@ -63,7 +63,7 @@
 }
 
 
-- (NSString *)description {
+- (NSString *)description { 
     return [NSString stringWithFormat:@"<%@ %p `%@.%@`>", [self class], self, self.head, [self.tail componentsJoinedByString:@"."]];
 }
 
@@ -74,11 +74,14 @@
 
 
 - (TDValue *)evaluateInContext:(TDTemplateContext *)ctx {
+    return TDValueFromObject([self evaluateAsObjectInContext:ctx]);
+}
+
+
+- (id)evaluateAsObjectInContext:(TDTemplateContext *)ctx {
     TDAssert([_head length]);
     id obj = [ctx resolveVariable:_head];
-    
-    TDValue *result = nil;
-    
+        
     if (obj) {
         if (_tail) {
             // to support indexed path steps like foo.0.title, we must go one by one:
@@ -109,10 +112,9 @@
 //        if (!obj && [_head isEqualToString:@"mark"] && [[_tail componentsJoinedByString:@"."] isEqualToString:@"score"]) {
 //            NSLog(@"%@", obj);
 //        }
-        result = TDValueFromObject(obj);
     }
     
-    return result;
+    return obj;
 }
 
 
