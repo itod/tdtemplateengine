@@ -21,6 +21,7 @@
 // THE SOFTWARE.
 
 #import "TDIntCommaFilter.h"
+#import <TDTemplateEngine/TDExpression.h>
 
 @implementation TDIntCommaFilter
 
@@ -29,11 +30,11 @@
 }
 
 
-- (id)runFilter:(id)input withArgs:(NSArray *)args inContext:(TDTemplateContext *)ctx {
-    TDAssert(input);
+- (id)runFilter:(TDExpression *)expr withArgs:(NSArray<TDExpression *> *)args inContext:(TDTemplateContext *)ctx {
+    NSString *str = [expr evaluateAsStringInContext:ctx];
     
     // TODO
-    return input;
+    return str;
 }
 
 @end

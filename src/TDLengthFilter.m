@@ -21,6 +21,7 @@
 // THE SOFTWARE.
 
 #import "TDLengthFilter.h"
+#import <TDTemplateEngine/TDExpression.h>
 
 @implementation TDLengthFilter
 
@@ -29,7 +30,11 @@
 }
 
 
-- (id)runFilter:(id)input withArgs:(NSArray *)args inContext:(TDTemplateContext *)ctx {
+- (id)runFilter:(TDExpression *)expr withArgs:(NSArray<TDExpression *> *)args inContext:(TDTemplateContext *)ctx {
+    [self validateArgs:args min:0 max:0];
+
+    id input = [expr evaluateAsObjectInContext:ctx];
+    
     NSUInteger len = 0;
     if ([input respondsToSelector:@selector(length)]) {
         len = [input length];

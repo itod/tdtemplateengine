@@ -21,6 +21,7 @@
 // THE SOFTWARE.
 
 #import "TDCapitalizeFilter.h"
+#import <TDTemplateEngine/TDExpression.h>
 
 @implementation TDCapitalizeFilter
 
@@ -29,11 +30,12 @@
 }
 
 
-- (id)runFilter:(id)input withArgs:(NSArray *)args inContext:(TDTemplateContext *)ctx {
-    TDAssert(input);
-    NSString *inStr = TDStringFromObject(input);
+- (id)runFilter:(TDExpression *)expr withArgs:(NSArray<TDExpression *> *)args inContext:(TDTemplateContext *)ctx {
+    [self validateArgs:args min:0 max:0];
+    
+    NSString *inStr = [expr evaluateAsStringInContext:ctx];
     NSString *result = inStr;
-    NSUInteger len = [result length];
+    NSUInteger len = result.length;
     if (len) {
         unichar head = toupper([result characterAtIndex:0]);
         NSString *tail = @"";

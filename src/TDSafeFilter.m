@@ -21,6 +21,8 @@
 // THE SOFTWARE.
 
 #import "TDSafeFilter.h"
+#import <TDTemplateEngine/TDExpression.h>
+#import "NSString+TDAdditions.h"
 
 @implementation TDSafeFilter
 
@@ -29,11 +31,11 @@
 }
 
 
-- (id)runFilter:(id)input withArgs:(NSArray *)args inContext:(TDTemplateContext *)ctx {
-    TDAssert(input);
-    
-    // TODO
-    return input;
+- (id)runFilter:(TDExpression *)expr withArgs:(NSArray<TDExpression *> *)args inContext:(TDTemplateContext *)ctx {
+    [self validateArgs:args min:0 max:0];
+
+    NSString *str = [expr evaluateAsStringInContext:ctx];
+    return [str markSafe];
 }
 
 @end

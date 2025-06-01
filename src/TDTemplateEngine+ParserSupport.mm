@@ -51,7 +51,7 @@ using namespace templateengine;
     }
     TDFilter *filter = [[[cls alloc] init] autorelease];
     TDAssert(filter);
-    TDAssert([filter.filterName isEqualToString:filterName]);
+    TDAssert([[[filter class] filterName] isEqualToString:filterName]);
     return filter;
 }
 

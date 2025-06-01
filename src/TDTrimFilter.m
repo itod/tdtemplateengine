@@ -21,6 +21,7 @@
 // THE SOFTWARE.
 
 #import "TDTrimFilter.h"
+#import <TDTemplateEngine/TDExpression.h>
 
 @implementation TDTrimFilter
 
@@ -29,15 +30,11 @@
 }
 
 
-- (id)runFilter:(id)input withArgs:(NSArray *)args inContext:(TDTemplateContext *)ctx {
-    TDAssert(input);
-    
+- (id)runFilter:(TDExpression *)expr withArgs:(NSArray<TDExpression *> *)args inContext:(TDTemplateContext *)ctx {
     [self validateArgs:args min:0 max:0];
     
-    NSString *inStr = TDStringFromObject(input);
-
+    NSString *inStr = [expr evaluateAsStringInContext:ctx];
     NSString *result = [inStr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
- 
     return result;
 }
 

@@ -21,28 +21,27 @@
 // THE SOFTWARE.
 
 #import "TDPadFilters.h"
+#import <TDTemplateEngine/TDExpression.h>
 
 @implementation TDAbstractPadFilter
 
-- (id)runFilter:(id)input withArgs:(NSArray *)args inContext:(TDTemplateContext *)ctx {
-    TDAssert(input);
-    
+- (id)runFilter:(TDExpression *)expr withArgs:(NSArray<TDExpression *> *)args inContext:(TDTemplateContext *)ctx {
     [self validateArgs:args min:1 max:2];
     
-    NSString *inStr = TDStringFromObject(input);
+    NSString *inStr = [expr evaluateAsStringInContext:ctx];
     NSString *result = inStr;
     
     NSString *pad = @"";
     
     NSUInteger len = 0;
     if (args.count > 1) {
-        len = [args[1] unsignedIntegerValue];
+        len = lround([args[1] evaluateAsNumberInContext:ctx]);
     }
     
     if (0 == len && inStr.length) {
-        pad = args[0];
+        pad = [args[0] evaluateAsStringInContext:ctx];
     } else if (result.length < len) {
-        pad = args[0];
+        pad = [args[0] evaluateAsStringInContext:ctx];
         NSMutableString *buf = [NSMutableString stringWithCapacity:len];
         
         for (NSUInteger i = len - result.length; i > 0; --i) {

@@ -29,15 +29,13 @@ static NSRegularExpression *sMRegex = nil;
 }
 
 
-- (id)runFilter:(id)input withArgs:(NSArray *)args inContext:(TDTemplateContext *)ctx {
-    TDAssert(input);
-    
+- (id)runFilter:(TDExpression *)expr withArgs:(NSArray<TDExpression *> *)args inContext:(TDTemplateContext *)ctx {
     [self validateArgs:args min:1 max:1];
     
-    NSDate *date = TDDateFromObject(input);
+    NSDate *date = [expr evaluateAsDateInContext:ctx];
     TDAssert(date);
     
-    NSMutableString *fmtStr = [[[args objectAtIndex:0] mutableCopy] autorelease];
+    NSMutableString *fmtStr = [[[args.firstObject evaluateAsStringInContext:ctx] mutableCopy] autorelease];
     [sMRegex replaceMatchesInString:fmtStr options:0 range:NSMakeRange(0, fmtStr.length) withTemplate:@"MMM"];
 
     NSString *result = nil;

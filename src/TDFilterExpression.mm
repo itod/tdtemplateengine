@@ -84,27 +84,8 @@ using namespace parsekit;
     TDAssert(_expr);
     TDAssert(_filter);
     
-    NSArray *evaledArgs = [self evaluatedArgs:ctx];
-    id obj = [_expr evaluateAsObjectInContext:ctx];
-    obj = [_filter runFilter:obj withArgs:evaledArgs inContext:ctx];
+    id obj = [_filter runFilter:_expr withArgs:_args inContext:ctx];
     return obj;
-}
-
-
-- (NSArray *)evaluatedArgs:(TDTemplateContext *)ctx {
-    NSUInteger c = _args.count;
-    
-    NSMutableArray *evaledArgs = nil;
-    if (c) {
-        evaledArgs = [NSMutableArray arrayWithCapacity:c];
-        
-        for (TDExpression *expr in _args) {
-            id obj = [expr evaluateAsObjectInContext:ctx];
-            [evaledArgs addObject:obj];
-        }
-    }
-    
-    return evaledArgs;
 }
 
 @end

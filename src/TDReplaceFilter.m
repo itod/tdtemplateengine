@@ -21,6 +21,7 @@
 // THE SOFTWARE.
 
 #import "TDReplaceFilter.h"
+#import <TDTemplateEngine/TDExpression.h>
 
 @implementation TDReplaceFilter
 
@@ -29,20 +30,18 @@
 }
 
 
-- (id)runFilter:(id)input withArgs:(NSArray *)args inContext:(TDTemplateContext *)ctx {
-    TDAssert(input);
-    
+- (id)runFilter:(TDExpression *)expr withArgs:(NSArray<TDExpression *> *)args inContext:(TDTemplateContext *)ctx {
     [self validateArgs:args min:2 max:3];
     
-    NSString *inStr = TDStringFromObject(input);
+    NSString *inStr = [expr evaluateAsStringInContext:ctx];
     
-    NSString *searchPat = args[0];
-    NSString *replacePat = args[1];
+    NSString *searchPat = [args[0] evaluateAsStringInContext:ctx];
+    NSString *replacePat = [args[1] evaluateAsStringInContext:ctx];
     
     NSRegularExpressionOptions opts = 0;
     
     if (3 == [args count]) {
-        NSString *optStr = args[2];
+        NSString *optStr = [args[2] evaluateAsStringInContext:ctx];
 
         if ([optStr length]) {
             if ([optStr rangeOfString:@"i"].length) {
@@ -72,7 +71,7 @@
     NSError *err = nil;
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:searchPat options:opts error:&err];
 
-    NSString *result = [regex stringByReplacingMatchesInString:inStr options:NSMatchingReportCompletion range:NSMakeRange(0, [inStr length]) withTemplate:replacePat];
+    NSString *result = [regex stringByReplacingMatchesInString:inStr options:NSMatchingReportCompletion range:NSMakeRange(0, inStr.length) withTemplate:replacePat];
  
     return result;
 }

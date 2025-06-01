@@ -21,6 +21,7 @@
 // THE SOFTWARE.
 
 #import "TDDivisibleByFilter.h"
+#import <TDTemplateEngine/TDExpression.h>
 
 @implementation TDDivisibleByFilter
 
@@ -29,14 +30,11 @@
 }
 
 
-- (id)runFilter:(id)input withArgs:(NSArray *)args inContext:(TDTemplateContext *)ctx {
-    TDAssert(input);
-    
+- (id)runFilter:(TDExpression *)expr withArgs:(NSArray<TDExpression *> *)args inContext:(TDTemplateContext *)ctx {
     [self validateArgs:args min:1 max:1];
     
-    NSInteger num = [input integerValue];
-    
-    NSInteger divisor = [[args firstObject] integerValue];
+    NSInteger num = lround([expr evaluateAsNumberInContext:ctx]);
+    NSInteger divisor = lround([args.firstObject evaluateAsNumberInContext:ctx]);
     
     BOOL result = 0 == num % divisor;
  

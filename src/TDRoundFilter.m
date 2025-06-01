@@ -21,6 +21,7 @@
 // THE SOFTWARE.
 
 #import "TDRoundFilter.h"
+#import <TDTemplateEngine/TDExpression.h>
 
 @implementation TDRoundFilter
 
@@ -29,15 +30,11 @@
 }
 
 
-- (id)runFilter:(id)input withArgs:(NSArray *)args inContext:(TDTemplateContext *)ctx {
-    TDAssert(input);
-    
+- (id)runFilter:(TDExpression *)expr withArgs:(NSArray<TDExpression *> *)args inContext:(TDTemplateContext *)ctx {
     [self validateArgs:args min:0 max:0];
     
-    double num = [input doubleValue];
-
+    double num = [expr evaluateAsNumberInContext:ctx];
     id result = @(round(num));
-    
     return result;
 }
 

@@ -74,14 +74,9 @@ NSDecimalNumber *TDDecimalFromObject(id obj) {
 }
 
 
-- (id)runFilter:(id)input withArgs:(NSArray *)args inContext:(TDTemplateContext *)ctx {
+- (id)runFilter:(TDExpression *)expr withArgs:(NSArray<TDExpression *> *)args inContext:(TDTemplateContext *)ctx {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
     return nil;
-}
-
-
-- (NSString *)filterName {
-    return [[self class] filterName];
 }
 
 

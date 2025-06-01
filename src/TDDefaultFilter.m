@@ -21,6 +21,7 @@
 // THE SOFTWARE.
 
 #import "TDDefaultFilter.h"
+#import <TDTemplateEngine/TDExpression.h>
 
 @implementation TDDefaultFilter
 
@@ -29,15 +30,16 @@
 }
 
 
-- (id)runFilter:(id)input withArgs:(NSArray *)args inContext:(TDTemplateContext *)ctx {
-    TDAssert(input);
-    
+- (id)runFilter:(TDExpression *)expr withArgs:(NSArray<TDExpression *> *)args inContext:(TDTemplateContext *)ctx {
     [self validateArgs:args min:1 max:1];
     
-    id result = input;
+    BOOL yn = [expr evaluateAsBooleanInContext:ctx];
     
-    if (!input) {
-        result = [args objectAtIndex:0];
+    id result = nil;
+    if (yn) {
+        result = [expr evaluateAsObjectInContext:ctx];
+    } else {
+        result = [args[0] evaluateAsObjectInContext:ctx];
     }
      
     return result;

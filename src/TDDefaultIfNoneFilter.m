@@ -21,6 +21,7 @@
 // THE SOFTWARE.
 
 #import "TDDefaultIfNoneFilter.h"
+#import <TDTemplateEngine/TDExpression.h>
 
 @implementation TDDefaultIfNoneFilter
 
@@ -29,15 +30,13 @@
 }
 
 
-- (id)runFilter:(id)input withArgs:(NSArray *)args inContext:(TDTemplateContext *)ctx {
-    TDAssert(input);
-    
+- (id)runFilter:(TDExpression *)expr withArgs:(NSArray<TDExpression *> *)args inContext:(TDTemplateContext *)ctx {
     [self validateArgs:args min:1 max:1];
     
-    id result = input;
+    id result = [expr evaluateAsObjectInContext:ctx];
     
-    if (!input) {
-        result = [args objectAtIndex:0];
+    if (!result || [NSNull null] == result) {
+        result = [args[0] evaluateAsObjectInContext:ctx];
     }
      
     return result;

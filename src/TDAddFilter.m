@@ -30,12 +30,12 @@
 }
 
 
-- (id)runFilter:(id)input withArgs:(NSArray *)args inContext:(TDTemplateContext *)ctx {
-    TDAssert(input);
-    
+- (id)runFilter:(TDExpression *)expr withArgs:(NSArray<TDExpression *> *)args inContext:(TDTemplateContext *)ctx {
     [self validateArgs:args min:1 max:1];
 
     id res = nil;
+    
+    id input = [expr evaluateAsObjectInContext:ctx];
     id arg = [args objectAtIndex:0];
     
     if ([input respondsToSelector:@selector(integerValue)]) {

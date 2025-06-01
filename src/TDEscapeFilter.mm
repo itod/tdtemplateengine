@@ -22,6 +22,7 @@
 
 #import "TDEscapeFilter.h"
 #import "TDTemplateContext.h"
+#import <TDTemplateEngine/TDExpression.h>
 
 @implementation TDEscapeFilter
 
@@ -30,16 +31,12 @@
 }
 
 
-- (id)runFilter:(id)input withArgs:(NSArray *)args inContext:(TDTemplateContext *)ctx {
-    TDAssert(input);
-    
+- (id)runFilter:(TDExpression *)expr withArgs:(NSArray<TDExpression *> *)args inContext:(TDTemplateContext *)ctx {
     [self validateArgs:args min:0 max:0];
 
-    NSString *output = input;
-    if (!ctx.autoescape) {
-        NSString *inStr = TDStringFromObject(input);
-
-        output = [ctx escapedStringForString:inStr];
+    NSString *output = [expr evaluateAsStringInContext:ctx];
+    if (!ctx.autoescape) { // don't double-escape!
+        output = [ctx escapedStringForString:output];
     }
     
     return output;

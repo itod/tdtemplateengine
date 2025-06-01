@@ -21,6 +21,7 @@
 // THE SOFTWARE.
 
 #import "TDFloatFormatFilter.h"
+#import <TDTemplateEngine/TDExpression.h>
 
 @implementation TDFloatFormatFilter
 
@@ -29,16 +30,16 @@
 }
 
 
-- (id)runFilter:(id)input withArgs:(NSArray *)args inContext:(TDTemplateContext *)ctx {
+- (id)runFilter:(TDExpression *)expr withArgs:(NSArray<TDExpression *> *)args inContext:(TDTemplateContext *)ctx {
     [self validateArgs:args min:0 max:1];
     
-    double num = [input doubleValue];
+    double num = [expr evaluateAsNumberInContext:ctx];
     
     NSString *fmt = nil;
     NSUInteger places = 1;
     
     if (args.count) {
-        places = [args.firstObject unsignedIntegerValue];
+        places = lround([args.firstObject evaluateAsNumberInContext:ctx]);
     }
     
     fmt = [NSString stringWithFormat:@"%%0.%luf", places];

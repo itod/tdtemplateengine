@@ -27,16 +27,16 @@ FOUNDATION_EXPORT NSDate *TDDateFromObject(id obj);
 FOUNDATION_EXPORT NSDecimalNumber *TDDecimalFromObject(id obj);
 
 @class TDTemplateContext;
+@class TDExpression;
 
 @interface TDFilter : NSObject
 
 - (void)validateArgs:(NSArray *)args min:(NSUInteger)min max:(NSUInteger)max;
 
-@property (nonatomic, assign, readonly) NSString *filterName; // convenience for class method
 @end
 
 @interface TDFilter (Override)
 + (NSString *)filterName;
 
-- (id)runFilter:(id)input withArgs:(NSArray *)args inContext:(TDTemplateContext *)ctx;
+- (id)runFilter:(TDExpression *)expr withArgs:(NSArray<TDExpression *> *)args inContext:(TDTemplateContext *)ctx;
 @end

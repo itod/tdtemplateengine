@@ -30,9 +30,12 @@
 }
 
 
-- (id)runFilter:(id)input withArgs:(NSArray *)args inContext:(TDTemplateContext *)ctx {
-    // TODO this is not really correct. should show 0
-    if (!input || [NSNull null] == input || 0 == [input integerValue]) {
+- (id)runFilter:(TDExpression *)expr withArgs:(NSArray<TDExpression *> *)args inContext:(TDTemplateContext *)ctx {
+    [self validateArgs:args min:0 max:0];
+    
+    id input = [expr evaluateAsObjectInContext:ctx];
+    
+    if (!input || [NSNull null] == input) {
         return @"";
     } else {
         NSString *str = TDStringFromObject(input);
