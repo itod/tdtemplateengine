@@ -87,13 +87,13 @@ double TDNumberFromString(NSString *s) {
 }
 
 
-- (NSString *)dateValue {
+- (NSDate *)dateValue {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
     return nil;
 }
 
 
-- (NSString *)decimalValue {
+- (NSDecimalNumber *)decimalValue {
     NSAssert2(0, @"%s is an abstract method and must be implemented in %@", __PRETTY_FUNCTION__, [self class]);
     return nil;
 }

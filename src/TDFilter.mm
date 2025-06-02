@@ -83,13 +83,13 @@ NSDecimalNumber *TDDecimalFromObject(id obj) {
 - (void)validateArgs:(NSArray *)args min:(NSUInteger)min max:(NSUInteger)max {
     NSUInteger actual = [args count];
     
-    NSString *plural = min > 1 ? @"s" : @"";
     if (actual < min) {
+        NSString *plural = min > 1 ? @"s" : @"";
         [NSException raise:TDTemplateEngineErrorDomain format:@"Filter '%@' requires at least %lu argument%@. %lu given.", [[self class] filterName], min, plural, actual];
     }
 
-    plural = (0 == max || max > 1) ? @"s" : @"";
     if (actual > max) {
+        NSString *plural = (0 == max || max > 1) ? @"s" : @"";
         [NSException raise:TDTemplateEngineErrorDomain format:@"Filter '%@' requires at most %lu argument%@. %lu given.", [[self class] filterName], max, plural, actual];
     }
 }

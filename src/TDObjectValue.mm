@@ -74,6 +74,28 @@ static TDObjectValue *sNullValue = nil;
 }
 
 
+- (NSDate *)dateValue {
+    if (self.isDateValue) {
+        return _value;
+    } else {
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+        NSString *s = [self  stringValue];
+        return [NSDate dateWithNaturalLanguageString:s];
+#pragma GCC diagnostic pop
+   }
+}
+
+
+- (NSDecimalNumber *)decimalValue {
+    if (self.isDecimalValue) {
+        return _value;
+    } else {
+        return [NSDecimalNumber decimalNumberWithString:[self stringValue]];
+    }
+}
+
+
 - (NSString *)stringValue {
     NSString *str = @"";
     if (self.isNullValue) {
