@@ -33,7 +33,6 @@ static NSRegularExpression *sMRegex = nil;
     [self validateArgs:args min:1 max:1];
     
     NSDate *date = [expr evaluateAsDateInContext:ctx];
-    TDAssert(date);
     
     NSMutableString *fmtStr = [[[args.firstObject evaluateAsStringInContext:ctx] mutableCopy] autorelease];
     [sMRegex replaceMatchesInString:fmtStr options:0 range:NSMakeRange(0, fmtStr.length) withTemplate:@"MMM"];
@@ -44,7 +43,6 @@ static NSRegularExpression *sMRegex = nil;
         sDateFormatter.dateFormat = fmtStr;
         result = [sDateFormatter stringFromDate:date];
     }
-    TDAssert(result.length);
     
     return result;
 }
