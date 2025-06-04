@@ -331,8 +331,6 @@
 		D3A21F451AC9E85F0009A712 /* TDUnaryExpression.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3A21F431AC9E85F0009A712 /* TDUnaryExpression.mm */; };
 		D3A29D8218E5F57300DC591E /* TDTemplateEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29D8118E5F57300DC591E /* TDTemplateEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3A29D8418E5F57E00DC591E /* TDTemplateEngine.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3A29D8318E5F57E00DC591E /* TDTemplateEngine.mm */; };
-		D3A29D8A18E5F5A500DC591E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D3A29D8818E5F5A500DC591E /* InfoPlist.strings */; };
-		D3A29D9218E5F5D900DC591E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D3A29D9018E5F5D900DC591E /* InfoPlist.strings */; };
 		D3A29D9418E5F60100DC591E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3A29D9318E5F60100DC591E /* Foundation.framework */; };
 		D3A29DAB18E609E700DC591E /* TDNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3A29DA918E609E700DC591E /* TDNode.mm */; };
 		D3A29DB618E60E4500DC591E /* TDPrintNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29DB418E60E4500DC591E /* TDPrintNode.h */; };
@@ -660,7 +658,6 @@
 		D3A29D8318E5F57E00DC591E /* TDTemplateEngine.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TDTemplateEngine.mm; path = src/TDTemplateEngine.mm; sourceTree = SOURCE_ROOT; };
 		D3A29D8518E5F58700DC591E /* TDTemplateEngine-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "TDTemplateEngine-Info.plist"; path = "res/TDTemplateEngine-Info.plist"; sourceTree = SOURCE_ROOT; };
 		D3A29D8618E5F5A000DC591E /* TDTemplateEngine-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TDTemplateEngine-Prefix.pch"; path = "res/TDTemplateEngine-Prefix.pch"; sourceTree = SOURCE_ROOT; };
-		D3A29D8918E5F5A500DC591E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = res/en.lproj/InfoPlist.strings; sourceTree = SOURCE_ROOT; };
 		D3A29D8B18E5F5B300DC591E /* TDTestScaffold.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDTestScaffold.h; path = test/TDTestScaffold.h; sourceTree = SOURCE_ROOT; };
 		D3A29D8F18E5F5CC00DC591E /* TDTemplateEngineTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "TDTemplateEngineTests-Info.plist"; path = "test/TDTemplateEngineTests-Info.plist"; sourceTree = SOURCE_ROOT; };
 		D3A29D9118E5F5D900DC591E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = test/en.lproj/InfoPlist.strings; sourceTree = SOURCE_ROOT; };
@@ -989,7 +986,6 @@
 			children = (
 				D3A29D8518E5F58700DC591E /* TDTemplateEngine-Info.plist */,
 				D3100D341CE5317A007B38BE /* TDTemplateEngineiOS-Info.plist */,
-				D3A29D8818E5F5A500DC591E /* InfoPlist.strings */,
 				D3A29D8618E5F5A000DC591E /* TDTemplateEngine-Prefix.pch */,
 			);
 			name = "Supporting Files";
@@ -1582,7 +1578,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D3A29D8A18E5F5A500DC591E /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1590,7 +1585,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D3A29D9218E5F5D900DC591E /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1911,14 +1905,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		D3A29D8818E5F5A500DC591E /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D3A29D8918E5F5A500DC591E /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
 		D3A29D9018E5F5D900DC591E /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
