@@ -13,27 +13,10 @@ using namespace parsekit;
 using namespace templateengine;
 
 @interface CPPUnaryExpressionTests : TDBaseExpressionTests
-@property (nonatomic, retain) NSOutputStream *output;
+
 @end
 
 @implementation CPPUnaryExpressionTests
-
-- (void)setUp {
-    [super setUp];
-    
-    self.output = [NSOutputStream outputStreamToMemory];
-}
-
-- (void)tearDown {
-    self.output = nil;
-    
-    [super tearDown];
-}
-
-- (NSString *)outputString {
-    NSString *str = [[[NSString alloc] initWithData:[_output propertyForKey:NSStreamDataWrittenToMemoryStreamKey] encoding:NSUTF8StringEncoding] autorelease];
-    return str;
-}
 
 - (void)testNeg1 {
     std::string input = "-1";
@@ -81,7 +64,7 @@ using namespace templateengine;
     id vars = @{@"foo": @1};
     
     NSError *err = nil;
-    BOOL success = [self processTemplateString:input withVariables:vars toStream:_output error:&err];
+    BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
     XCTAssertTrue(success);
     XCTAssertNil(err);
     NSString *res = [self outputString];
@@ -93,7 +76,7 @@ using namespace templateengine;
     id vars = @{@"foo": @1};
     
     NSError *err = nil;
-    BOOL success = [self processTemplateString:input withVariables:vars toStream:_output error:&err];
+    BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
     XCTAssertTrue(success);
     XCTAssertNil(err);
     NSString *res = [self outputString];
@@ -105,7 +88,7 @@ using namespace templateengine;
     id vars = @{@"foo": @1};
     
     NSError *err = nil;
-    BOOL success = [self processTemplateString:input withVariables:vars toStream:_output error:&err];
+    BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
     XCTAssertTrue(success);
     XCTAssertNil(err);
     NSString *res = [self outputString];
@@ -117,7 +100,7 @@ using namespace templateengine;
     id vars = @{@"foo": @1};
     
     NSError *err = nil;
-    BOOL success = [self processTemplateString:input withVariables:vars toStream:_output error:&err];
+    BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
     XCTAssertTrue(success);
     XCTAssertNil(err);
     NSString *res = [self outputString];

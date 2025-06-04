@@ -18,27 +18,10 @@ using namespace templateengine;
 @end
 
 @interface TDTemplateEngineTests : TDBaseTestCase
-@property (nonatomic, retain) NSOutputStream *output;
+
 @end
 
 @implementation TDTemplateEngineTests
-
-- (void)setUp {
-    [super setUp];
-    
-    self.output = [NSOutputStream outputStreamToMemory];
-}
-
-- (void)tearDown {
-    self.output = nil;
-    
-    [super tearDown];
-}
-
-- (NSString *)outputString {
-    NSString *str = [[[NSString alloc] initWithData:[_output propertyForKey:NSStreamDataWrittenToMemoryStreamKey] encoding:NSUTF8StringEncoding] autorelease];
-    return str;
-}
 
 - (void)testFragmentGathering {
     NSString *input = @"{% if test %}{{a}}{% else %} foo bar { baz } {% endif %}";

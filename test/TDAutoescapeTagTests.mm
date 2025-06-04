@@ -9,27 +9,10 @@
 #import "TDBaseTestCase.h"
 
 @interface TDAutoescapeTagTests : TDBaseTestCase
-@property (nonatomic, retain) NSOutputStream *output;
+
 @end
 
 @implementation TDAutoescapeTagTests
-
-- (void)setUp {
-    [super setUp];
-    
-    self.output = [NSOutputStream outputStreamToMemory];
-}
-
-- (void)tearDown {
-    self.output = nil;
-    
-    [super tearDown];
-}
-
-- (NSString *)outputString {
-    NSString *str = [[[NSString alloc] initWithData:[_output propertyForKey:NSStreamDataWrittenToMemoryStreamKey] encoding:NSUTF8StringEncoding] autorelease];
-    return str;
-}
 
 - (void)testDefaultAutoescape {
     NSString *foo = @"<a>'\"&";
@@ -41,7 +24,7 @@
     NSError *err = nil;
     BOOL success = NO;
     
-    success = [self processTemplateString:input withVariables:vars toStream:_output error:&err];
+    success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
     TDTrue(success);
     TDNil(err);
     NSString *res = [self outputString];
@@ -58,7 +41,7 @@
     NSError *err = nil;
     BOOL success = NO;
     
-    success = [self processTemplateString:input withVariables:vars toStream:_output error:&err];
+    success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
     TDTrue(success);
     TDNil(err);
     NSString *res = [self outputString];
@@ -75,7 +58,7 @@
     NSError *err = nil;
     BOOL success = NO;
     
-    success = [self processTemplateString:input withVariables:vars toStream:_output error:&err];
+    success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
     TDTrue(success);
     TDNil(err);
     NSString *res = [self outputString];
@@ -93,7 +76,7 @@
     NSError *err = nil;
     BOOL success = NO;
     
-    success = [self processTemplateString:input withVariables:vars toStream:_output error:&err];
+    success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
     TDTrue(success);
     TDNil(err);
     NSString *res = [self outputString];
@@ -110,7 +93,7 @@
     NSError *err = nil;
     BOOL success = NO;
     
-    success = [self processTemplateString:input withVariables:vars toStream:_output error:&err];
+    success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
     TDTrue(success);
     TDNil(err);
     NSString *res = [self outputString];

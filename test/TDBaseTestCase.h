@@ -28,6 +28,8 @@
 - (BOOL)processTemplateFile:(NSString *)path encoding:(NSStringEncoding)enc withVariables:(NSDictionary *)vars toStream:(NSOutputStream *)output error:(NSError **)err;
 - (BOOL)processTemplateString:(NSString *)str withVariables:(NSDictionary *)vars toStream:(NSOutputStream *)output error:(NSError **)outError;
 
-@property (nonatomic, retain) TDTemplateEngine *engine;
+- (NSString *)outputString;
 
+@property (nonatomic, retain) TDTemplateEngine *engine;
+@property (nonatomic, retain) NSOutputStream *output;
 @end

@@ -15,27 +15,10 @@
 @end
 
 @interface TDExtendsTests : TDBaseTestCase
-@property (nonatomic, retain) NSOutputStream *output;
+
 @end
 
 @implementation TDExtendsTests
-
-- (void)setUp {
-    [super setUp];
-    
-    self.output = [NSOutputStream outputStreamToMemory];
-}
-
-- (void)tearDown {
-    self.output = nil;
-    
-    [super tearDown];
-}
-
-- (NSString *)outputString {
-    NSString *str = [[[NSString alloc] initWithData:[_output propertyForKey:NSStreamDataWrittenToMemoryStreamKey] encoding:NSUTF8StringEncoding] autorelease];
-    return str;
-}
 
 - (void)testInheritance {
     self.engine.cacheTemplates = YES;
@@ -67,7 +50,7 @@
     
     id vars = nil;
     NSError *err = nil;
-    BOOL success = [enkel render:vars toStream:_output error:&err];
+    BOOL success = [enkel render:vars toStream:self.output error:&err];
     XCTAssertTrue(success);
     XCTAssertNil(err);
 

@@ -9,34 +9,17 @@
 #import "TDBaseTestCase.h"
 
 @interface TDElseTagTests : TDBaseTestCase
-@property (nonatomic, retain) NSOutputStream *output;
+
 @end
 
 @implementation TDElseTagTests
-
-- (void)setUp {
-    [super setUp];
-    
-    self.output = [NSOutputStream outputStreamToMemory];
-}
-
-- (void)tearDown {
-    self.output = nil;
-    
-    [super tearDown];
-}
-
-- (NSString *)outputString {
-    NSString *str = [[[NSString alloc] initWithData:[_output propertyForKey:NSStreamDataWrittenToMemoryStreamKey] encoding:NSUTF8StringEncoding] autorelease];
-    return str;
-}
 
 - (void)testIf1Else {
     NSString *input = @"{% if 1 %}foo{% else %}bar{% endif %}";
     id vars = nil;
     
     NSError *err = nil;
-    BOOL success = [self processTemplateString:input withVariables:vars toStream:_output error:&err];
+    BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
     TDTrue(success);
     TDNil(err);
     NSString *res = [self outputString];
@@ -48,7 +31,7 @@
     id vars = nil;
     
     NSError *err = nil;
-    BOOL success = [self processTemplateString:input withVariables:vars toStream:_output error:&err];
+    BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
     TDTrue(success);
     TDNil(err);
     NSString *res = [self outputString];
@@ -60,7 +43,7 @@
     id vars = nil;
     
     NSError *err = nil;
-    BOOL success = [self processTemplateString:input withVariables:vars toStream:_output error:&err];
+    BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
     TDTrue(success);
     TDNil(err);
     NSString *res = [self outputString];
@@ -72,7 +55,7 @@
     id vars = nil;
     
     NSError *err = nil;
-    BOOL success = [self processTemplateString:input withVariables:vars toStream:_output error:&err];
+    BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
     TDTrue(success);
     TDNil(err);
     NSString *res = [self outputString];
@@ -84,7 +67,7 @@
     id vars = nil;
     
     NSError *err = nil;
-    BOOL success = [self processTemplateString:input withVariables:vars toStream:_output error:&err];
+    BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
     TDTrue(success);
     TDNil(err);
     NSString *res = [self outputString];
@@ -96,7 +79,7 @@
     id vars = nil;
     
     NSError *err = nil;
-    BOOL success = [self processTemplateString:input withVariables:vars toStream:_output error:&err];
+    BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
     TDTrue(success);
     TDNil(err);
     NSString *res = [self outputString];
@@ -108,7 +91,7 @@
     id vars = nil;
     
     NSError *err = nil;
-    BOOL success = [self processTemplateString:input withVariables:vars toStream:_output error:&err];
+    BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
     TDTrue(success);
     TDNil(err);
     NSString *res = [self outputString];

@@ -20,11 +20,13 @@
     [super setUp];
     
     self.engine = [[[TDTemplateEngine alloc] init] autorelease]; // create thread local temp engine
+    self.output = [NSOutputStream outputStreamToMemory];
 }
 
 - (void)tearDown {
     self.engine = nil;
-    
+    self.output = nil;
+
     [super tearDown];
 }
 
@@ -58,6 +60,12 @@
     }
     
     return success;
+}
+
+
+- (NSString *)outputString {
+    NSString *str = [[[NSString alloc] initWithData:[_output propertyForKey:NSStreamDataWrittenToMemoryStreamKey] encoding:NSUTF8StringEncoding] autorelease];
+    return str;
 }
 
 @end
