@@ -7,13 +7,9 @@
 //
 
 #import <XCTest/XCTest.h>
-//#import <OCMock/OCMock.h>
 #import <TDTemplateEngine/TDTemplateEngine.h>
 #import <TDTemplateEngine/TDTemplateContext.h>
-#import <TDTemplateEngine/TDTemplateException.h>
 #import "TDTemplateEngine+ParserSupport.h"
-
-//#define VERIFY()     @try { [_mock verify]; } @catch (NSException *ex) { NSString *msg = [ex reason]; XCTAssertTrue(0, @"%@", msg); }
 
 @interface TDBaseTestCase : XCTestCase
 
