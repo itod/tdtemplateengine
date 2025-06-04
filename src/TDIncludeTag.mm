@@ -21,11 +21,11 @@
 // THE SOFTWARE.
 
 #import "TDIncludeTag.h"
-#import "TDExpression.h"
-#import "TDTemplate.h"
-#import "TDTemplateContext.h"
+#import <TDTemplateEngine/TDExpression.h>
+#import <TDTemplateEngine/TDTemplate.h>
+#import <TDTemplateEngine/TDTemplateContext.h>
 #import "TDRootNode.h"
-#import "TDWriter.h"
+#import <TDTemplateEngine/TDWriter.h>
 
 @interface TDTemplate ()
 @property (nonatomic, retain) TDRootNode *rootNode;

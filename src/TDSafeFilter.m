@@ -22,7 +22,7 @@
 
 #import "TDSafeFilter.h"
 #import <TDTemplateEngine/TDExpression.h>
-#import "NSString+TDAdditions.h"
+#import <TDTemplateEngine/NSString+TDAdditions.h>
 
 @implementation TDSafeFilter
 

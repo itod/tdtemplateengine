@@ -21,10 +21,10 @@
 // THE SOFTWARE.
 
 #import "TDBlockTag.h"
-#import "TDTemplate.h"
+#import <TDTemplateEngine/TDTemplate.h>
 #import "TDRootNode.h"
 #import "TDPathExpression.h"
-#import "TDTemplateContext.h"
+#import <TDTemplateEngine/TDTemplateContext.h>
 
 @interface TDTemplate ()
 - (TDNode *)blockForKey:(NSString *)key;

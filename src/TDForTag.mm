@@ -24,7 +24,7 @@
 #import "TDForLoop.h"
 #import <TDTemplateEngine/TDTemplateContext.h>
 
-#import "TDExpression.h"
+#import <TDTemplateEngine/TDExpression.h>
 #import "TDEnumeration.h"
 #import "TDPairEnumeration.h"
 #import "TDSkipException.h"

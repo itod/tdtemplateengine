@@ -21,7 +21,7 @@
 // THE SOFTWARE.
 
 #import "TDEscapeFilter.h"
-#import "TDTemplateContext.h"
+#import <TDTemplateEngine/TDTemplateContext.h>
 #import <TDTemplateEngine/TDExpression.h>
 
 @implementation TDEscapeFilter

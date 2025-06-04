@@ -22,7 +22,7 @@
 
 #import "TDLoadTag.h"
 #import "TDPathExpression.h"
-#import "TDTemplateContext.h"
+#import <TDTemplateEngine/TDTemplateContext.h>
 
 @implementation TDLoadTag
 

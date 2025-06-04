@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Todd Ditchendorf. All rights reserved.
 //
 
-#import "TDTag.h"
+#import <TDTemplateEngine/TDTag.h>
 
 @interface TDSepTag : TDTag
 

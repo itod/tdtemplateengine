@@ -27,7 +27,7 @@
 #import "TDDateValue.h"
 #import "TDDecimalValue.h"
 #import "TDObjectValue.h"
-#import "TDTemplateContext.h"
+#import <TDTemplateEngine/TDTemplateContext.h>
 #import "TagParser.hpp"
 
 using namespace templateengine;

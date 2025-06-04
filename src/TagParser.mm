@@ -1,9 +1,9 @@
 #import "TagParser.hpp"
     
-#import "TDTemplateEngine.h"
-#import "TDTemplateException.h"
+#import <TDTemplateEngine/TDTemplateEngine.h>
+#import <TDTemplateEngine/TDTemplateException.h>
 #import "TDTemplateEngine+ParserSupport.h"
-#import "TDTag.h"
+#import <TDTemplateEngine/TDTag.h>
 #import "TDBooleanValue.h"
 #import "TDNumericValue.h"
 #import "TDStringValue.h"

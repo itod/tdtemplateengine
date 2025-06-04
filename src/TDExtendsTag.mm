@@ -21,9 +21,9 @@
 // THE SOFTWARE.
 
 #import "TDExtendsTag.h"
-#import "TDTemplate.h"
-#import "TDExpression.h"
-#import "TDTemplateContext.h"
+#import <TDTemplateEngine/TDTemplate.h>
+#import <TDTemplateEngine/TDExpression.h>
+#import <TDTemplateEngine/TDTemplateContext.h>
 
 @interface TDTemplate ()
 @property (nonatomic, copy) NSString *extendsPath;

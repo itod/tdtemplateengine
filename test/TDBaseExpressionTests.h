@@ -7,7 +7,7 @@
 //
 
 #import "TDBaseTestCase.h"
-#import "TDExpression.h"
+#import <TDTemplateEngine/TDExpression.h>
 
 @interface TDBaseExpressionTests : TDBaseTestCase
 @property (nonatomic, retain) TDExpression *expr;

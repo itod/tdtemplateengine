@@ -31,7 +31,7 @@
 #import "TDTextNode.h"
 #import "TDPrintNode.h"
 
-#import "TDExpression.h"
+#import <TDTemplateEngine/TDExpression.h>
 
 #import "TDExtendsTag.h"
 #import "TDBlockTag.h"

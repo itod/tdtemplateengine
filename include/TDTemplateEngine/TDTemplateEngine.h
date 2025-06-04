@@ -26,8 +26,12 @@
 #import <TDTemplateEngine/TDTemplate.h>
 #import <TDTemplateEngine/TDExpression.h>
 #import <TDTemplateEngine/TDFilter.h>
+#import <TDTemplateEngine/TDNode.h>
 #import <TDTemplateEngine/TDTag.h>
+#import <TDTemplateEngine/TDCompileTimeTag.h>
+#import <TDTemplateEngine/TDInclusionTag.h>
 #import <TDTemplateEngine/TDWriter.h>
+#import <TDTemplateEngine/NSString+TDAdditions.h>
 
 //
 //  TDTemplateengine.h
