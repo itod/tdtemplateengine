@@ -658,7 +658,6 @@
 		D3A29D8318E5F57E00DC591E /* TDTemplateEngine.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TDTemplateEngine.mm; path = src/TDTemplateEngine.mm; sourceTree = SOURCE_ROOT; };
 		D3A29D8518E5F58700DC591E /* TDTemplateEngine-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "TDTemplateEngine-Info.plist"; path = "res/TDTemplateEngine-Info.plist"; sourceTree = SOURCE_ROOT; };
 		D3A29D8618E5F5A000DC591E /* TDTemplateEngine-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TDTemplateEngine-Prefix.pch"; path = "res/TDTemplateEngine-Prefix.pch"; sourceTree = SOURCE_ROOT; };
-		D3A29D8B18E5F5B300DC591E /* TDTestScaffold.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDTestScaffold.h; path = test/TDTestScaffold.h; sourceTree = SOURCE_ROOT; };
 		D3A29D8F18E5F5CC00DC591E /* TDTemplateEngineTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "TDTemplateEngineTests-Info.plist"; path = "test/TDTemplateEngineTests-Info.plist"; sourceTree = SOURCE_ROOT; };
 		D3A29D9118E5F5D900DC591E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = test/en.lproj/InfoPlist.strings; sourceTree = SOURCE_ROOT; };
 		D3A29D9318E5F60100DC591E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -978,7 +977,7 @@
 				D3A29DEB18E6548200DC591E /* Expression */,
 				D367DFBA18E5EF6900F97BCC /* Supporting Files */,
 			);
-			path = TDTemplateEngine;
+			name = TDTemplateEngine;
 			sourceTree = "<group>";
 		};
 		D367DFBA18E5EF6900F97BCC /* Supporting Files */ = {
@@ -994,7 +993,6 @@
 		D367DFCE18E5EF6900F97BCC /* TDTemplateEngine Tests */ = {
 			isa = PBXGroup;
 			children = (
-				D3A29D8B18E5F5B300DC591E /* TDTestScaffold.h */,
 				D3E07C492DF0A0F400108F9D /* TDBaseTestCase.h */,
 				D3E07C4A2DF0A0F400108F9D /* TDBaseTestCase.mm */,
 				D3A3E54C18EC5706004FEB2C /* TDTemplateEngineTests.mm */,
@@ -1003,7 +1001,7 @@
 				D367DFCF18E5EF6900F97BCC /* Supporting Files */,
 			);
 			name = "TDTemplateEngine Tests";
-			path = TDTemplateEngineTests;
+			path = test;
 			sourceTree = "<group>";
 		};
 		D367DFCF18E5EF6900F97BCC /* Supporting Files */ = {
