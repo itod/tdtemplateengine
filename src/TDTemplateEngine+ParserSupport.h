@@ -45,6 +45,4 @@ using namespace parsekit;
 
 // convenience for testing only. compile + render with render-time vars in one shot
 - (TDExpression *)expressionFromReader:(Reader *)reader error:(NSError **)outErr; // TESTing only
-- (BOOL)processTemplateString:(NSString *)str withVariables:(NSDictionary *)vars toStream:(NSOutputStream *)output error:(NSError **)err;
-- (BOOL)processTemplateFile:(NSString *)path encoding:(NSStringEncoding)enc withVariables:(NSDictionary *)vars toStream:(NSOutputStream *)output error:(NSError **)err;
 @end

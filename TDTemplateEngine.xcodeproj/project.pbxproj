@@ -519,6 +519,7 @@
 		D3E07C452DF09F8C00108F9D /* TDPairEnumeration.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3E07C402DF09F8C00108F9D /* TDPairEnumeration.mm */; };
 		D3E07C462DF09F8C00108F9D /* TDPairEnumeration.h in Headers */ = {isa = PBXBuildFile; fileRef = D3E07C3F2DF09F8C00108F9D /* TDPairEnumeration.h */; };
 		D3E07C482DF09FD700108F9D /* TDAutoescapeTagTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3E07C472DF09FD700108F9D /* TDAutoescapeTagTests.mm */; };
+		D3E07C4E2DF0A1B400108F9D /* TDBaseTestCase.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3E07C4A2DF0A0F400108F9D /* TDBaseTestCase.mm */; };
 		D3E95F111AB08E6300D19992 /* TDTrimTag.h in Headers */ = {isa = PBXBuildFile; fileRef = D3E95F0F1AB08E6300D19992 /* TDTrimTag.h */; };
 		D3E95F121AB08E6300D19992 /* TDTrimTag.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3E95F101AB08E6300D19992 /* TDTrimTag.mm */; };
 		D3E95F171AB094DF00D19992 /* TDNewlineTag.h in Headers */ = {isa = PBXBuildFile; fileRef = D3E95F151AB094DF00D19992 /* TDNewlineTag.h */; };
@@ -769,6 +770,8 @@
 		D3E07C3F2DF09F8C00108F9D /* TDPairEnumeration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TDPairEnumeration.h; path = src/TDPairEnumeration.h; sourceTree = SOURCE_ROOT; };
 		D3E07C402DF09F8C00108F9D /* TDPairEnumeration.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = TDPairEnumeration.mm; path = src/TDPairEnumeration.mm; sourceTree = SOURCE_ROOT; };
 		D3E07C472DF09FD700108F9D /* TDAutoescapeTagTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = TDAutoescapeTagTests.mm; path = test/TDAutoescapeTagTests.mm; sourceTree = SOURCE_ROOT; };
+		D3E07C492DF0A0F400108F9D /* TDBaseTestCase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TDBaseTestCase.h; path = test/TDBaseTestCase.h; sourceTree = SOURCE_ROOT; };
+		D3E07C4A2DF0A0F400108F9D /* TDBaseTestCase.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = TDBaseTestCase.mm; path = test/TDBaseTestCase.mm; sourceTree = SOURCE_ROOT; };
 		D3E95F0F1AB08E6300D19992 /* TDTrimTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDTrimTag.h; path = src/TDTrimTag.h; sourceTree = SOURCE_ROOT; };
 		D3E95F101AB08E6300D19992 /* TDTrimTag.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TDTrimTag.mm; path = src/TDTrimTag.mm; sourceTree = SOURCE_ROOT; };
 		D3E95F131AB08FC900D19992 /* TDVerbatimTagTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TDVerbatimTagTests.mm; path = test/TDVerbatimTagTests.mm; sourceTree = SOURCE_ROOT; };
@@ -996,6 +999,8 @@
 			isa = PBXGroup;
 			children = (
 				D3A29D8B18E5F5B300DC591E /* TDTestScaffold.h */,
+				D3E07C492DF0A0F400108F9D /* TDBaseTestCase.h */,
+				D3E07C4A2DF0A0F400108F9D /* TDBaseTestCase.mm */,
 				D3A3E54C18EC5706004FEB2C /* TDTemplateEngineTests.mm */,
 				D306D9C518F5859F00E32DDC /* Expression Tests */,
 				D306D9C618F5872500E32DDC /* Node/Tag Tests */,
@@ -1872,6 +1877,7 @@
 				D36AC9E32D7FD9CE001C99FD /* TDIndentTagTests.mm in Sources */,
 				D3AAFE9C2DD2F009009EDC64 /* CPPFilterExpressionTests.mm in Sources */,
 				D3AAFE9D2DD2F009009EDC64 /* CPPCollectionExpressionTests.mm in Sources */,
+				D3E07C4E2DF0A1B400108F9D /* TDBaseTestCase.mm in Sources */,
 				D3AAFE9E2DD2F009009EDC64 /* CPPPathExpressionTests.mm in Sources */,
 				D3A3E54D18EC5706004FEB2C /* TDForTagTests.mm in Sources */,
 				D306D9C318F5851D00E32DDC /* TDBaseExpressionTests.mm in Sources */,

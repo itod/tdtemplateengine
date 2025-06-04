@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Todd Ditchendorf. All rights reserved.
 //
 
-#import "TDTestScaffold.h"
+#import "TDBaseTestCase.h"
 #import <ParseKitCPP/Token.hpp>
 #import "TemplateParser.hpp"
 
@@ -17,8 +17,7 @@ using namespace templateengine;
 - (TokenListPtr)fragmentsFromString:(NSString *)inStr;
 @end
 
-@interface TDTemplateEngineTests : XCTestCase
-@property (nonatomic, retain) TDTemplateEngine *engine;
+@interface TDTemplateEngineTests : TDBaseTestCase
 @property (nonatomic, retain) NSOutputStream *output;
 @end
 
@@ -27,12 +26,10 @@ using namespace templateengine;
 - (void)setUp {
     [super setUp];
     
-    self.engine = [[TDTemplateEngine new] autorelease];
     self.output = [NSOutputStream outputStreamToMemory];
 }
 
 - (void)tearDown {
-    self.engine = nil;
     self.output = nil;
     
     [super tearDown];
@@ -46,7 +43,7 @@ using namespace templateengine;
 - (void)testFragmentGathering {
     NSString *input = @"{% if test %}{{a}}{% else %} foo bar { baz } {% endif %}";
     
-    TokenListPtr toks = [_engine fragmentsFromString:input];
+    TokenListPtr toks = [self.engine fragmentsFromString:input];
     
     Token tok = toks->at(0);
     XCTAssertEqual(tok.token_type(), TemplateTokenType_BLOCK_START_TAG);

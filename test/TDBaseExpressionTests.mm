@@ -13,13 +13,11 @@
 - (void)setUp {
     [super setUp];
     
-    self.eng = [[TDTemplateEngine new] autorelease]; // create thread local temp engine
     self.expr = nil;
 }
 
 - (void)tearDown {
     self.expr = nil;
-    self.eng = nil;
     
     [super tearDown];
 }

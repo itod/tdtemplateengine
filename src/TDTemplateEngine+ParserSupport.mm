@@ -34,8 +34,6 @@ using namespace templateengine;
 
 @interface TDTemplateEngine ()
 @property (nonatomic, retain) NSMutableDictionary *filterTab;
-- (TDTemplate *)_templateFromString:(NSString *)str filePath:(NSString *)path context:(TDTemplateContext *)inCtx;
-- (NSError *)errorFromParseException:(TDTemplateException *)ex;
 @end
 
 @implementation TDTemplateEngine (ParserSupport)
@@ -170,38 +168,5 @@ using namespace templateengine;
     }
     return expr;
 }
-
-
-- (BOOL)processTemplateFile:(NSString *)path encoding:(NSStringEncoding)enc withVariables:(NSDictionary *)vars toStream:(NSOutputStream *)output error:(NSError **)err {
-    TDTemplate *tmpl = [self templateWithContentsOfFile:path error:err];
-    
-    BOOL success = NO;
-
-    if (tmpl) {
-        success = [tmpl render:vars toStream:output error:err];
-    }
-    
-    return success;
-}
-
-
-- (BOOL)processTemplateString:(NSString *)str withVariables:(NSDictionary *)vars toStream:(NSOutputStream *)output error:(NSError **)outError {
-    TDTemplate *tmpl = nil;
-    
-    BOOL success = NO;
-    @try {
-        tmpl = [self _templateFromString:str filePath:nil context:nil];
-        if (tmpl) {
-            success = [tmpl render:vars toStream:output error:outError];
-        }
-    } @catch (TDTemplateException *ex) {
-        if (outError) {
-            *outError = [self errorFromParseException:ex];
-        }
-    }
-    
-    return success;
-}
-
 
 @end

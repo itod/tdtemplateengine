@@ -6,10 +6,9 @@
 //  Copyright (c) 2014 Todd Ditchendorf. All rights reserved.
 //
 
-#import "TDTestScaffold.h"
+#import "TDBaseTestCase.h"
 #import "TDExpression.h"
 
-@interface TDBaseExpressionTests : XCTestCase
-@property (nonatomic, retain) TDTemplateEngine *eng;
+@interface TDBaseExpressionTests : TDBaseTestCase
 @property (nonatomic, retain) TDExpression *expr;
 @end

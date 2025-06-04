@@ -45,7 +45,7 @@ using namespace parsekit;
     id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     
     NSError *err = nil;
-    TDExpression *expr = [self.eng expressionFromReader:&reader error:&err];
+    TDExpression *expr = [self.engine expressionFromReader:&reader error:&err];
     TDNil(err);
     TDNotNil(expr);
     TDEquals(8.0, [[expr simplify] evaluateAsNumberInContext:ctx]);
@@ -61,7 +61,7 @@ using namespace parsekit;
     id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     
     NSError *err = nil;
-    TDExpression *expr = [self.eng expressionFromReader:&reader error:&err];
+    TDExpression *expr = [self.engine expressionFromReader:&reader error:&err];
     TDNil(err);
     TDNotNil(expr);
     XCTAssertEqualObjects(@"John", [[expr simplify] evaluateAsStringInContext:ctx]);

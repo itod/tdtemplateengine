@@ -35,7 +35,7 @@ using namespace parsekit;
     id vars = @{@"foo": foo};
     TDTemplateContext *ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     
-    TDTag *tag = [self.eng tagFromReader:&reader withParent:nil inContext:ctx];
+    TDTag *tag = [self.engine tagFromReader:&reader withParent:nil inContext:ctx];
     XCTAssertNotNil(tag);
     
     TDExpression *expr = [tag.expression simplify];
@@ -57,7 +57,7 @@ using namespace parsekit;
     id vars = @{@"foo": foo};
     TDTemplateContext *ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     
-    TDTag *tag = [self.eng tagFromReader:&reader withParent:nil inContext:ctx];
+    TDTag *tag = [self.engine tagFromReader:&reader withParent:nil inContext:ctx];
     XCTAssertNotNil(tag);
     
     TDExpression *expr = [tag.expression simplify];
@@ -79,7 +79,7 @@ using namespace parsekit;
     id vars = @{@"foo": foo};
     TDTemplateContext *ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     
-    TDTag *tag = [self.eng tagFromReader:&reader withParent:nil inContext:ctx];
+    TDTag *tag = [self.engine tagFromReader:&reader withParent:nil inContext:ctx];
     XCTAssertNotNil(tag);
     
     TDExpression *expr = [tag.expression simplify];
@@ -101,7 +101,7 @@ using namespace parsekit;
     id vars = @{@"foo": foo};
     TDTemplateContext *ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     
-    TDTag *tag = [self.eng tagFromReader:&reader withParent:nil inContext:ctx];
+    TDTag *tag = [self.engine tagFromReader:&reader withParent:nil inContext:ctx];
     XCTAssertNotNil(tag);
     
     TDExpression *expr = [tag.expression simplify];

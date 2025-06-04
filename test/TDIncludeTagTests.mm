@@ -35,9 +35,9 @@ using namespace parsekit;
     
     id vars = @{};
     TDTemplateContext *ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
-    ctx.delegate = self.eng;
+    ctx.delegate = self.engine;
     
-    TDIncludeTag *tag = (id)[self.eng tagFromReader:&reader withParent:nil inContext:ctx];
+    TDIncludeTag *tag = (id)[self.engine tagFromReader:&reader withParent:nil inContext:ctx];
 
     XCTAssertNotNil(tag);
     
@@ -56,7 +56,7 @@ using namespace parsekit;
     id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     
     NSError *err = nil;
-    TDIncludeTag *tag = (id)[self.eng tagFromReader:&reader withParent:nil inContext:ctx];
+    TDIncludeTag *tag = (id)[self.engine tagFromReader:&reader withParent:nil inContext:ctx];
 
     XCTAssertNil(err);
     XCTAssertNotNil(tag);

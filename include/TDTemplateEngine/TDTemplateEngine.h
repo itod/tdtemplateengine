@@ -22,15 +22,12 @@
 
 #import <Foundation/Foundation.h>
 #import <TDTemplateEngine/TDTemplateContext.h>
-
-#ifdef TARGET_OS_IPHONE
+#import <TDTemplateEngine/TDTemplateException.h>
+#import <TDTemplateEngine/TDTemplate.h>
 #import <TDTemplateEngine/TDExpression.h>
 #import <TDTemplateEngine/TDFilter.h>
 #import <TDTemplateEngine/TDTag.h>
-#import <TDTemplateEngine/TDTemplateEngine.h>
 #import <TDTemplateEngine/TDWriter.h>
-#import <TDTemplateEngine/TDTemplate.h>
-#endif
 
 //
 //  TDTemplateengine.h

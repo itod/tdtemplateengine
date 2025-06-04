@@ -81,7 +81,7 @@ using namespace templateengine;
     id vars = @{@"foo": @1};
     
     NSError *err = nil;
-    BOOL success = [self.eng processTemplateString:input withVariables:vars toStream:_output error:&err];
+    BOOL success = [self processTemplateString:input withVariables:vars toStream:_output error:&err];
     XCTAssertTrue(success);
     XCTAssertNil(err);
     NSString *res = [self outputString];
@@ -93,7 +93,7 @@ using namespace templateengine;
     id vars = @{@"foo": @1};
     
     NSError *err = nil;
-    BOOL success = [self.eng processTemplateString:input withVariables:vars toStream:_output error:&err];
+    BOOL success = [self processTemplateString:input withVariables:vars toStream:_output error:&err];
     XCTAssertTrue(success);
     XCTAssertNil(err);
     NSString *res = [self outputString];
@@ -105,7 +105,7 @@ using namespace templateengine;
     id vars = @{@"foo": @1};
     
     NSError *err = nil;
-    BOOL success = [self.eng processTemplateString:input withVariables:vars toStream:_output error:&err];
+    BOOL success = [self processTemplateString:input withVariables:vars toStream:_output error:&err];
     XCTAssertTrue(success);
     XCTAssertNil(err);
     NSString *res = [self outputString];
@@ -117,7 +117,7 @@ using namespace templateengine;
     id vars = @{@"foo": @1};
     
     NSError *err = nil;
-    BOOL success = [self.eng processTemplateString:input withVariables:vars toStream:_output error:&err];
+    BOOL success = [self processTemplateString:input withVariables:vars toStream:_output error:&err];
     XCTAssertTrue(success);
     XCTAssertNil(err);
     NSString *res = [self outputString];

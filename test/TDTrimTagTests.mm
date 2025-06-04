@@ -6,10 +6,9 @@
 //  Copyright (c) 2014 Todd Ditchendorf. All rights reserved.
 //
 
-#import "TDTestScaffold.h"
+#import "TDBaseTestCase.h"
 
-@interface TDTrimTagTests : XCTestCase
-@property (nonatomic, retain) TDTemplateEngine *engine;
+@interface TDTrimTagTests : TDBaseTestCase
 @property (nonatomic, retain) NSOutputStream *output;
 @end
 
@@ -18,12 +17,10 @@
 - (void)setUp {
     [super setUp];
     
-    self.engine = [[TDTemplateEngine new] autorelease];
     self.output = [NSOutputStream outputStreamToMemory];
 }
 
 - (void)tearDown {
-    self.engine = nil;
     self.output = nil;
     
     [super tearDown];
@@ -42,7 +39,7 @@
     id vars = nil;
     
     NSError *err = nil;
-    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    BOOL success = [self processTemplateString:input withVariables:vars toStream:_output error:&err];
     TDTrue(success);
     TDNil(err);
     NSString *res = [self outputString];
@@ -57,7 +54,7 @@
     id vars = nil;
     
     NSError *err = nil;
-    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    BOOL success = [self processTemplateString:input withVariables:vars toStream:_output error:&err];
     TDTrue(success);
     TDNil(err);
     NSString *res = [self outputString];
@@ -72,7 +69,7 @@
     id vars = @{@"foo": @"bar"};
     
     NSError *err = nil;
-    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    BOOL success = [self processTemplateString:input withVariables:vars toStream:_output error:&err];
     TDTrue(success);
     TDNil(err);
     NSString *res = [self outputString];
@@ -87,7 +84,7 @@
     id vars = @{@"foo": @"bar"};
     
     NSError *err = nil;
-    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    BOOL success = [self processTemplateString:input withVariables:vars toStream:_output error:&err];
     TDTrue(success);
     TDNil(err);
     NSString *res = [self outputString];
@@ -103,7 +100,7 @@
     id vars = @{@"foo": @"bar"};
     
     NSError *err = nil;
-    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    BOOL success = [self processTemplateString:input withVariables:vars toStream:_output error:&err];
     TDTrue(success);
     TDNil(err);
     NSString *res = [self outputString];
@@ -120,7 +117,7 @@
     id vars = @{@"foo": @"bar"};
     
     NSError *err = nil;
-    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    BOOL success = [self processTemplateString:input withVariables:vars toStream:_output error:&err];
     TDTrue(success);
     TDNil(err);
     NSString *res = [self outputString];
@@ -138,7 +135,7 @@
     id vars = @{@"foo": @"bar"};
     
     NSError *err = nil;
-    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    BOOL success = [self processTemplateString:input withVariables:vars toStream:_output error:&err];
     TDTrue(success);
     TDNil(err);
     NSString *res = [self outputString];
@@ -153,7 +150,7 @@
     id vars = @{@"foo": @"bar"};
     
     NSError *err = nil;
-    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    BOOL success = [self processTemplateString:input withVariables:vars toStream:_output error:&err];
     TDTrue(success);
     TDNil(err);
     NSString *res = [self outputString];
@@ -168,7 +165,7 @@
     id vars = @{@"foo": @"bar"};
     
     NSError *err = nil;
-    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    BOOL success = [self processTemplateString:input withVariables:vars toStream:_output error:&err];
     TDTrue(success);
     TDNil(err);
     NSString *res = [self outputString];
@@ -183,7 +180,7 @@
     id vars = @{@"foo": @"bar"};
     
     NSError *err = nil;
-    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    BOOL success = [self processTemplateString:input withVariables:vars toStream:_output error:&err];
     TDTrue(success);
     TDNil(err);
     NSString *res = [self outputString];
@@ -198,7 +195,7 @@
     id vars = @{@"foo": @"bar"};
     
     NSError *err = nil;
-    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+    BOOL success = [self processTemplateString:input withVariables:vars toStream:_output error:&err];
     TDTrue(success);
     TDNil(err);
     NSString *res = [self outputString];
@@ -210,7 +207,7 @@
 //    id vars = @{@"foo": @"bar"};
 //    
 //    NSError *err = nil;
-//    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+//    BOOL success = [self processTemplateString:input withVariables:vars toStream:_output error:&err];
 //    TDTrue(success);
 //    TDNil(err);
 //    NSString *res = [self outputString];
@@ -222,7 +219,7 @@
 //    id vars = @{@"foo": @"bar"};
 //    
 //    NSError *err = nil;
-//    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+//    BOOL success = [self processTemplateString:input withVariables:vars toStream:_output error:&err];
 //    TDTrue(success);
 //    TDNil(err);
 //    NSString *res = [self outputString];
@@ -234,7 +231,7 @@
 //    id vars = nil;
 //    
 //    NSError *err = nil;
-//    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+//    BOOL success = [self processTemplateString:input withVariables:vars toStream:_output error:&err];
 //    TDTrue(success);
 //    TDNil(err);
 //    NSString *res = [self outputString];
@@ -246,7 +243,7 @@
 //    id vars = nil;
 //    
 //    NSError *err = nil;
-//    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+//    BOOL success = [self processTemplateString:input withVariables:vars toStream:_output error:&err];
 //    TDTrue(success);
 //    TDNil(err);
 //    NSString *res = [self outputString];
@@ -258,7 +255,7 @@
 //    id vars = nil;
 //    
 //    NSError *err = nil;
-//    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+//    BOOL success = [self processTemplateString:input withVariables:vars toStream:_output error:&err];
 //    TDTrue(success);
 //    TDNil(err);
 //    NSString *res = [self outputString];
@@ -270,7 +267,7 @@
 //    id vars = nil;
 //    
 //    NSError *err = nil;
-//    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+//    BOOL success = [self processTemplateString:input withVariables:vars toStream:_output error:&err];
 //    TDTrue(success);
 //    TDNil(err);
 //    NSString *res = [self outputString];
@@ -282,7 +279,7 @@
 //    id vars = nil;
 //    
 //    NSError *err = nil;
-//    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+//    BOOL success = [self processTemplateString:input withVariables:vars toStream:_output error:&err];
 //    TDTrue(success);
 //    TDNil(err);
 //    NSString *res = [self outputString];
@@ -294,7 +291,7 @@
 //    id vars = nil;
 //    
 //    NSError *err = nil;
-//    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+//    BOOL success = [self processTemplateString:input withVariables:vars toStream:_output error:&err];
 //    TDTrue(success);
 //    TDNil(err);
 //    NSString *res = [self outputString];
@@ -306,7 +303,7 @@
 //    id vars = nil;
 //    
 //    NSError *err = nil;
-//    BOOL success = [_engine processTemplateString:input withVariables:vars toStream:_output error:&err];
+//    BOOL success = [self processTemplateString:input withVariables:vars toStream:_output error:&err];
 //    TDTrue(success);
 //    TDNil(err);
 //    NSString *res = [self outputString];

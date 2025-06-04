@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Todd Ditchendorf. All rights reserved.
 //
 
-#import "TDTestScaffold.h"
+#import "TDBaseTestCase.h"
 
 @interface TDTemplateEngine ()
 - (TDTemplate *)_cachedTemplateForFilePath:(NSString *)path;
@@ -14,8 +14,7 @@
 - (TDTemplate *)_templateFromString:(NSString *)str filePath:(NSString *)path context:(TDTemplateContext *)ctx;
 @end
 
-@interface TDExtendsTests : XCTestCase
-@property (nonatomic, retain) TDTemplateEngine *engine;
+@interface TDExtendsTests : TDBaseTestCase
 @property (nonatomic, retain) NSOutputStream *output;
 @end
 
@@ -24,12 +23,10 @@
 - (void)setUp {
     [super setUp];
     
-    self.engine = [[TDTemplateEngine new] autorelease];
     self.output = [NSOutputStream outputStreamToMemory];
 }
 
 - (void)tearDown {
-    self.engine = nil;
     self.output = nil;
     
     [super tearDown];
@@ -41,7 +38,7 @@
 }
 
 - (void)testInheritance {
-    _engine.cacheTemplates = YES;
+    self.engine.cacheTemplates = YES;
     //return;
     NSString *parentStr = @"<html><head>{% block head %}{% endblock %}</head><body>{% block body %}{% endblock %}</body></html>";
     NSString *cousinStr = @"baz";
@@ -49,24 +46,24 @@
     NSString *enkelStr  = @"{% extends 'child.html' %}\n{% block head %}foo{% endblock %}";
 
     NSString *path = @"parent.html";
-    TDTemplate *parent = [_engine _templateFromString:parentStr filePath:path context:nil];
+    TDTemplate *parent = [self.engine _templateFromString:parentStr filePath:path context:nil];
     XCTAssert(parent);
-    [_engine _setCachedTemplate:parent forFilePath:path];
+    [self.engine _setCachedTemplate:parent forFilePath:path];
     
     path = @"cousin.html";
-    TDTemplate *cousin = [_engine _templateFromString:cousinStr filePath:path context:nil];
+    TDTemplate *cousin = [self.engine _templateFromString:cousinStr filePath:path context:nil];
     XCTAssert(cousin);
-    [_engine _setCachedTemplate:cousin forFilePath:path];
+    [self.engine _setCachedTemplate:cousin forFilePath:path];
 
     path = @"child.html";
-    TDTemplate *child = [_engine _templateFromString:childStr filePath:path context:nil];
+    TDTemplate *child = [self.engine _templateFromString:childStr filePath:path context:nil];
     XCTAssert(child);
-    [_engine _setCachedTemplate:child forFilePath:path];
+    [self.engine _setCachedTemplate:child forFilePath:path];
 
     path = @"enkel.html";
-    TDTemplate *enkel = [_engine _templateFromString:enkelStr filePath:path context:nil];
+    TDTemplate *enkel = [self.engine _templateFromString:enkelStr filePath:path context:nil];
     XCTAssert(enkel);
-    [_engine _setCachedTemplate:enkel forFilePath:path];
+    [self.engine _setCachedTemplate:enkel forFilePath:path];
     
     id vars = nil;
     NSError *err = nil;

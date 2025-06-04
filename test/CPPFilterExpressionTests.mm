@@ -34,7 +34,7 @@ using namespace parsekit;
     id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     
     NSError *err = nil;
-    TDExpression *expr = [self.eng expressionFromReader:&reader error:&err];
+    TDExpression *expr = [self.engine expressionFromReader:&reader error:&err];
     TDNil(err);
     TDNotNil(expr);
     TDEqualObjects(@"bar", [expr evaluateAsStringInContext:ctx]);
@@ -48,7 +48,7 @@ using namespace parsekit;
     id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     
     NSError *err = nil;
-    TDExpression *expr = [self.eng expressionFromReader:&reader error:&err];
+    TDExpression *expr = [self.engine expressionFromReader:&reader error:&err];
     TDNil(err);
     TDNotNil(expr);
     
@@ -64,7 +64,7 @@ using namespace parsekit;
     id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     
     NSError *err = nil;
-    TDExpression *expr = [self.eng expressionFromReader:&reader error:&err];
+    TDExpression *expr = [self.engine expressionFromReader:&reader error:&err];
     TDNil(err);
     TDNotNil(expr);
     TDEqualObjects(@"BAR", [expr evaluateAsStringInContext:ctx]);
@@ -78,7 +78,7 @@ using namespace parsekit;
     id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     
     NSError *err = nil;
-    TDExpression *expr = [self.eng expressionFromReader:&reader error:&err];
+    TDExpression *expr = [self.engine expressionFromReader:&reader error:&err];
     TDNil(err);
     TDNotNil(expr);
     TDEqualObjects(@"baz", [expr evaluateAsStringInContext:ctx]);
@@ -92,7 +92,7 @@ using namespace parsekit;
     id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     
     NSError *err = nil;
-    TDExpression *expr = [self.eng expressionFromReader:&reader error:&err];
+    TDExpression *expr = [self.engine expressionFromReader:&reader error:&err];
     TDNil(err);
     TDNotNil(expr);
     TDEqualObjects(@"bar", [expr evaluateAsStringInContext:ctx]);
@@ -106,7 +106,7 @@ using namespace parsekit;
     id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     
     NSError *err = nil;
-    TDExpression *expr = [self.eng expressionFromReader:&reader error:&err];
+    TDExpression *expr = [self.engine expressionFromReader:&reader error:&err];
     TDNil(err);
     TDNotNil(expr);
     TDEqualObjects(@"baz", [expr evaluateAsStringInContext:ctx]);
@@ -120,7 +120,7 @@ using namespace parsekit;
     id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     
     NSError *err = nil;
-    TDExpression *expr = [self.eng expressionFromReader:&reader error:&err];
+    TDExpression *expr = [self.engine expressionFromReader:&reader error:&err];
     TDNil(err);
     TDNotNil(expr);
     TDEqualObjects(@"Bar", [expr evaluateAsStringInContext:ctx]);
@@ -134,7 +134,7 @@ using namespace parsekit;
     id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     
     NSError *err = nil;
-    TDExpression *expr = [self.eng expressionFromReader:&reader error:&err];
+    TDExpression *expr = [self.engine expressionFromReader:&reader error:&err];
     TDNil(err);
     TDNotNil(expr);
     TDEqualObjects(@"Foo", [expr evaluateAsStringInContext:ctx]);
@@ -148,7 +148,7 @@ using namespace parsekit;
     id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     
     NSError *err = nil;
-    TDExpression *expr = [self.eng expressionFromReader:&reader error:&err];
+    TDExpression *expr = [self.engine expressionFromReader:&reader error:&err];
     TDNil(err);
     TDNotNil(expr);
     TDEqualObjects(@"bar", [expr evaluateAsStringInContext:ctx]);
@@ -162,7 +162,7 @@ using namespace parsekit;
     id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     
     NSError *err = nil;
-    TDExpression *expr = [self.eng expressionFromReader:&reader error:&err];
+    TDExpression *expr = [self.engine expressionFromReader:&reader error:&err];
     TDNil(err);
     TDNotNil(expr);
     TDEqualObjects(@"foo", [expr evaluateAsStringInContext:ctx]);
@@ -176,7 +176,7 @@ using namespace parsekit;
     id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     
     NSError *err = nil;
-    TDExpression *expr = [self.eng expressionFromReader:&reader error:&err];
+    TDExpression *expr = [self.engine expressionFromReader:&reader error:&err];
     TDNil(err);
     TDNotNil(expr);
     TDEqualObjects(@"BAR", [expr evaluateAsStringInContext:ctx]);
@@ -190,7 +190,7 @@ using namespace parsekit;
     id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     
     NSError *err = nil;
-    TDExpression *expr = [self.eng expressionFromReader:&reader error:&err];
+    TDExpression *expr = [self.engine expressionFromReader:&reader error:&err];
     TDNil(err);
     TDNotNil(expr);
     TDEqualObjects(@"FOO", [expr evaluateAsStringInContext:ctx]);
@@ -204,7 +204,7 @@ using namespace parsekit;
     id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     
     NSError *err = nil;
-    TDExpression *expr = [self.eng expressionFromReader:&reader error:&err];
+    TDExpression *expr = [self.engine expressionFromReader:&reader error:&err];
     TDNil(err);
     TDNotNil(expr);
     TDEqualObjects(@"MonteSereno", [expr evaluateAsStringInContext:ctx]);
@@ -219,7 +219,7 @@ using namespace parsekit;
     id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     
     NSError *err = nil;
-    TDExpression *expr = [self.eng expressionFromReader:&reader error:&err];
+    TDExpression *expr = [self.engine expressionFromReader:&reader error:&err];
     TDNil(err);
     TDNotNil(expr);
     
@@ -242,7 +242,7 @@ using namespace parsekit;
     id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     
     NSError *err = nil;
-    TDExpression *expr = [self.eng expressionFromReader:&reader error:&err];
+    TDExpression *expr = [self.engine expressionFromReader:&reader error:&err];
     TDNil(err);
     TDNotNil(expr);
     
@@ -265,7 +265,7 @@ using namespace parsekit;
     id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     
     NSError *err = nil;
-    TDExpression *expr = [self.eng expressionFromReader:&reader error:&err];
+    TDExpression *expr = [self.engine expressionFromReader:&reader error:&err];
     TDNil(err);
     TDNotNil(expr);
     
@@ -288,7 +288,7 @@ using namespace parsekit;
     id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     
     NSError *err = nil;
-    TDExpression *expr = [self.eng expressionFromReader:&reader error:&err];
+    TDExpression *expr = [self.engine expressionFromReader:&reader error:&err];
     TDNil(err);
     TDNotNil(expr);
     
@@ -307,7 +307,7 @@ using namespace parsekit;
     id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     
     NSError *err = nil;
-    TDExpression *expr = [self.eng expressionFromReader:&reader error:&err];
+    TDExpression *expr = [self.engine expressionFromReader:&reader error:&err];
     TDNil(err);
     TDNotNil(expr);
     
@@ -327,7 +327,7 @@ using namespace parsekit;
     id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     
     NSError *err = nil;
-    TDExpression *expr = [self.eng expressionFromReader:&reader error:&err];
+    TDExpression *expr = [self.engine expressionFromReader:&reader error:&err];
     TDNil(err);
     TDNotNil(expr);
     
