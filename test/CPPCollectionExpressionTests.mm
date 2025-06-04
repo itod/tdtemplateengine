@@ -43,10 +43,10 @@ using namespace parsekit;
 
     for (id obj in foo) {
         id res = [en nextObject];
-        TDEqualObjects(obj, res);
+        XCTAssertEqualObjects(obj, res);
     }
 
-    TDFalse([en hasMore]);
+    XCTAssertFalse([en hasMore]);
 }
 
 - (void)testIInArrayOneTwoThree {
@@ -65,10 +65,10 @@ using namespace parsekit;
 
     for (id obj in foo) {
         id res = [en nextObject];
-        TDEqualObjects(obj, res);
+        XCTAssertEqualObjects(obj, res);
     }
 
-    TDFalse([en hasMore]);
+    XCTAssertFalse([en hasMore]);
 }
 
 - (void)testObjInSetOneTwoThree {
@@ -87,16 +87,16 @@ using namespace parsekit;
 
     NSMutableSet *test = [NSMutableSet setWithCapacity:[foo count]];
     for (id obj in foo) {
-        TDNotNil(obj); // compiler warn
+        XCTAssertNotNil(obj); // compiler warn
         id res = [en nextObject];
-        TDNotNil(res);
+        XCTAssertNotNil(res);
         [test addObject:res];
     }
     
-    TDFalse([en hasMore]);
+    XCTAssertFalse([en hasMore]);
 
     for (id obj in foo) {
-        TDTrue([test containsObject:obj]);
+        XCTAssertTrue([test containsObject:obj]);
     }
 }
 
@@ -116,10 +116,10 @@ using namespace parsekit;
 
     for (id key in dict) {
         id res = [en nextObject];
-        TDEqualObjects(key, res);
+        XCTAssertEqualObjects(key, res);
     }
     
-    TDFalse([en hasMore]);
+    XCTAssertFalse([en hasMore]);
 }
 
 - (void)testKeyValInDictOneTwoThree {
@@ -143,7 +143,7 @@ using namespace parsekit;
         XCTAssertEqualObjects(val, [pair lastObject]);
     }
     
-    TDFalse([en hasMore]);
+    XCTAssertFalse([en hasMore]);
 }
 
 - (void)testKeyValInDictNumsOneTwoThree {
@@ -168,7 +168,7 @@ using namespace parsekit;
         XCTAssertEqualObjects(val, [pair lastObject]);
     }
     
-    TDFalse([en hasMore]);
+    XCTAssertFalse([en hasMore]);
 }
 
 @end

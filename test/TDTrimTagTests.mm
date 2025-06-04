@@ -23,10 +23,10 @@
     
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"f\n", res);
+    XCTAssertEqualObjects(@"f\n", res);
 }
 
 - (void)testTrimFSpace {
@@ -38,10 +38,10 @@
     
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"f\n", res);
+    XCTAssertEqualObjects(@"f\n", res);
 }
 
 - (void)testTrimNestedVar {
@@ -53,10 +53,10 @@
     
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"bar\n", res);
+    XCTAssertEqualObjects(@"bar\n", res);
 }
 
 - (void)testTrimNestedVarSpace {
@@ -68,10 +68,10 @@
     
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"bar\n", res);
+    XCTAssertEqualObjects(@"bar\n", res);
 }
 
 - (void)testTrimNestedVarsSpace {
@@ -84,10 +84,10 @@
     
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"bar\nbar\n", res);
+    XCTAssertEqualObjects(@"bar\nbar\n", res);
 }
 
 - (void)testTrimNestedVarsSpaceLines {
@@ -101,10 +101,10 @@
     
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"bar\n\nbar\n", res);
+    XCTAssertEqualObjects(@"bar\n\nbar\n", res);
 }
 
 - (void)testTrimNestedVarsSpace2Lines {
@@ -119,10 +119,10 @@
     
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"bar\n\n\nbar\n", res);
+    XCTAssertEqualObjects(@"bar\n\n\nbar\n", res);
 }
 
 - (void)testTrimNestedVarSpacesSemi {
@@ -134,10 +134,10 @@
     
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"bar;\n", res);
+    XCTAssertEqualObjects(@"bar;\n", res);
 }
 
 - (void)testTrimNestedVars {
@@ -149,10 +149,10 @@
     
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"bar, bar\n", res);
+    XCTAssertEqualObjects(@"bar, bar\n", res);
 }
 
 - (void)testTrimNestedVarsSemi {
@@ -164,10 +164,10 @@
     
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"bar, bar;\n", res);
+    XCTAssertEqualObjects(@"bar, bar;\n", res);
 }
 
 - (void)testTrimNestedVarsSpacesSemi {
@@ -179,10 +179,10 @@
     
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"bar, bar;\n", res);
+    XCTAssertEqualObjects(@"bar, bar;\n", res);
 }
 
 //- (void)testTrimNestedVarNewline {
@@ -191,10 +191,10 @@
 //    
 //    NSError *err = nil;
 //    BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-//    TDTrue(success);
-//    TDNil(err);
+//    XCTAssertTrue(success);
+//    XCTAssertNil(err);
 //    NSString *res = [self outputString];
-//    TDEqualObjects(@"bar", res);
+//    XCTAssertEqualObjects(@"bar", res);
 //}
 //
 //- (void)testTrimNestedNewlineVarNewline {
@@ -203,10 +203,10 @@
 //    
 //    NSError *err = nil;
 //    BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-//    TDTrue(success);
-//    TDNil(err);
+//    XCTAssertTrue(success);
+//    XCTAssertNil(err);
 //    NSString *res = [self outputString];
-//    TDEqualObjects(@"bar", res);
+//    XCTAssertEqualObjects(@"bar", res);
 //}
 //
 //- (void)testTrimNestedVarSpace {
@@ -215,10 +215,10 @@
 //    
 //    NSError *err = nil;
 //    BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-//    TDTrue(success);
-//    TDNil(err);
+//    XCTAssertTrue(success);
+//    XCTAssertNil(err);
 //    NSString *res = [self outputString];
-//    TDEqualObjects(@"foo", res);
+//    XCTAssertEqualObjects(@"foo", res);
 //}
 //
 //- (void)testTrimNestedIfTagSpace {
@@ -227,10 +227,10 @@
 //    
 //    NSError *err = nil;
 //    BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-//    TDTrue(success);
-//    TDNil(err);
+//    XCTAssertTrue(success);
+//    XCTAssertNil(err);
 //    NSString *res = [self outputString];
-//    TDEqualObjects(@"HI!", res);
+//    XCTAssertEqualObjects(@"HI!", res);
 //}
 //
 //- (void)testTrimNestedIfTag {
@@ -239,10 +239,10 @@
 //    
 //    NSError *err = nil;
 //    BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-//    TDTrue(success);
-//    TDNil(err);
+//    XCTAssertTrue(success);
+//    XCTAssertNil(err);
 //    NSString *res = [self outputString];
-//    TDEqualObjects(@"HI!", res);
+//    XCTAssertEqualObjects(@"HI!", res);
 //}
 //
 //- (void)testTrimNestedTrimNoTag {
@@ -251,10 +251,10 @@
 //    
 //    NSError *err = nil;
 //    BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-//    TDTrue(success);
-//    TDNil(err);
+//    XCTAssertTrue(success);
+//    XCTAssertNil(err);
 //    NSString *res = [self outputString];
-//    TDEqualObjects(@" HI! ", res);
+//    XCTAssertEqualObjects(@" HI! ", res);
 //}
 //
 //- (void)testTrimNestedTrimFalseTag {
@@ -263,10 +263,10 @@
 //    
 //    NSError *err = nil;
 //    BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-//    TDTrue(success);
-//    TDNil(err);
+//    XCTAssertTrue(success);
+//    XCTAssertNil(err);
 //    NSString *res = [self outputString];
-//    TDEqualObjects(@" HI! ", res);
+//    XCTAssertEqualObjects(@" HI! ", res);
 //}
 //
 //- (void)testTrimNestedTrim1Tag {
@@ -275,10 +275,10 @@
 //    
 //    NSError *err = nil;
 //    BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-//    TDTrue(success);
-//    TDNil(err);
+//    XCTAssertTrue(success);
+//    XCTAssertNil(err);
 //    NSString *res = [self outputString];
-//    TDEqualObjects(@"HI!", res);
+//    XCTAssertEqualObjects(@"HI!", res);
 //}
 //
 //- (void)testTrimNestedTrimYesTag {
@@ -287,10 +287,10 @@
 //    
 //    NSError *err = nil;
 //    BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-//    TDTrue(success);
-//    TDNil(err);
+//    XCTAssertTrue(success);
+//    XCTAssertNil(err);
 //    NSString *res = [self outputString];
-//    TDEqualObjects(@"HI!", res);
+//    XCTAssertEqualObjects(@"HI!", res);
 //}
 
 @end

@@ -34,7 +34,7 @@ using namespace templateengine;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
-    TDEquals(3.0, [[expr simplify] evaluateAsNumberInContext:nil]);
+    XCTAssertEqual(3.0, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
 
 - (void)test1Plus2 {
@@ -44,7 +44,7 @@ using namespace templateengine;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
-    TDEquals(3.0, [[expr simplify] evaluateAsNumberInContext:nil]);
+    XCTAssertEqual(3.0, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
 
 - (void)test1SpaceMinusSpace1 {
@@ -54,7 +54,7 @@ using namespace templateengine;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
-    TDEquals(0.0, [[expr simplify] evaluateAsNumberInContext:nil]);
+    XCTAssertEqual(0.0, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
 
 - (void)testTruePlus1 {
@@ -64,7 +64,7 @@ using namespace templateengine;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
-    TDEquals(2.0, [[expr simplify] evaluateAsNumberInContext:nil]);
+    XCTAssertEqual(2.0, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
 
 - (void)testFalsePlus1 {
@@ -74,7 +74,7 @@ using namespace templateengine;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
-    TDEquals(1.0, [[expr simplify] evaluateAsNumberInContext:nil]);
+    XCTAssertEqual(1.0, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
 
 - (void)test2Times2 {
@@ -84,7 +84,7 @@ using namespace templateengine;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
-    TDEquals(4.0, [[expr simplify] evaluateAsNumberInContext:nil]);
+    XCTAssertEqual(4.0, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
 
 - (void)test2Div2 {
@@ -94,7 +94,7 @@ using namespace templateengine;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
-    TDEquals(1.0, [[expr simplify] evaluateAsNumberInContext:nil]);
+    XCTAssertEqual(1.0, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
 
 - (void)test3Plus2Times2 {
@@ -104,7 +104,7 @@ using namespace templateengine;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
-    TDEquals(7.0, [[expr simplify] evaluateAsNumberInContext:nil]);
+    XCTAssertEqual(7.0, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
 
 - (void)testOpen3Plus2CloseTimes2 {
@@ -114,7 +114,7 @@ using namespace templateengine;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
-    TDEquals(10.0, [[expr simplify] evaluateAsNumberInContext:nil]);
+    XCTAssertEqual(10.0, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
 
 - (void)testNeg2Mod2 {
@@ -124,7 +124,7 @@ using namespace templateengine;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
-    TDEquals(-0.0, [[expr simplify] evaluateAsNumberInContext:nil]);
+    XCTAssertEqual(-0.0, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
 
 - (void)testNeg1Mod2 {
@@ -134,7 +134,7 @@ using namespace templateengine;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
-    TDEquals(-1.0, [[expr simplify] evaluateAsNumberInContext:nil]);
+    XCTAssertEqual(-1.0, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
 
 - (void)test0Mod2 {
@@ -144,7 +144,7 @@ using namespace templateengine;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
-    TDEquals(0.0, [[expr simplify] evaluateAsNumberInContext:nil]);
+    XCTAssertEqual(0.0, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
 
 - (void)test1Mod2 {
@@ -154,7 +154,7 @@ using namespace templateengine;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
-    TDEquals(1.0, [[expr simplify] evaluateAsNumberInContext:nil]);
+    XCTAssertEqual(1.0, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
 
 - (void)test2Mod2 {
@@ -164,7 +164,7 @@ using namespace templateengine;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
-    TDEquals(0.0, [[expr simplify] evaluateAsNumberInContext:nil]);
+    XCTAssertEqual(0.0, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
 
 - (void)test3Mod2 {
@@ -174,7 +174,7 @@ using namespace templateengine;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
-    TDEquals(1.0, [[expr simplify] evaluateAsNumberInContext:nil]);
+    XCTAssertEqual(1.0, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
 
 - (void)test4Mod2 {
@@ -184,7 +184,7 @@ using namespace templateengine;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
-    TDEquals(0.0, [[expr simplify] evaluateAsNumberInContext:nil]);
+    XCTAssertEqual(0.0, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
 
 - (void)testMinus1 {
@@ -194,7 +194,7 @@ using namespace templateengine;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
-    TDEquals(-1.0, [[expr simplify] evaluateAsNumberInContext:nil]);
+    XCTAssertEqual(-1.0, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
 
 - (void)testMinusMinus1 {
@@ -204,7 +204,7 @@ using namespace templateengine;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
-    TDEquals(1.0, [[expr simplify] evaluateAsNumberInContext:nil]);
+    XCTAssertEqual(1.0, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
 
 - (void)test1PlusMinusMinus1 {
@@ -214,7 +214,7 @@ using namespace templateengine;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
-    TDEquals(2.0, [[expr simplify] evaluateAsNumberInContext:nil]);
+    XCTAssertEqual(2.0, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
 
 - (void)test1MinusMinusMinus1 {
@@ -224,7 +224,7 @@ using namespace templateengine;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
-    TDEquals(0.0, [[expr simplify] evaluateAsNumberInContext:nil]);
+    XCTAssertEqual(0.0, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
 
 - (void)testMinusMinus1Plus1 {
@@ -234,7 +234,7 @@ using namespace templateengine;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
-    TDEquals(2.0, [[expr simplify] evaluateAsNumberInContext:nil]);
+    XCTAssertEqual(2.0, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
 
 - (void)testMinusMinus1Minus1 {
@@ -244,7 +244,7 @@ using namespace templateengine;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
-    TDEquals(0.0, [[expr simplify] evaluateAsNumberInContext:nil]);
+    XCTAssertEqual(0.0, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
 
 - (void)testMinusMinusMinus1 {
@@ -254,7 +254,7 @@ using namespace templateengine;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
-    TDEquals(-1.0, [[expr simplify] evaluateAsNumberInContext:nil]);
+    XCTAssertEqual(-1.0, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
 
 - (void)testMinusMinusMinusMinus4 {
@@ -264,7 +264,7 @@ using namespace templateengine;
     ReaderCPP r(input);
     TDExpression *expr = p.parseExpression(&r);
     XCTAssertNotNil(expr);
-    TDEquals(4.0, [[expr simplify] evaluateAsNumberInContext:nil]);
+    XCTAssertEqual(4.0, [[expr simplify] evaluateAsNumberInContext:nil]);
 }
 
 - (void)testPathFooBar8Plus2 {
@@ -276,9 +276,9 @@ using namespace templateengine;
     
     NSError *err = nil;
     TDExpression *expr = [self.engine expressionFromReader:&r error:&err];
-    TDNil(err);
-    TDNotNil(expr);
-    TDEquals(10.0, [[expr simplify] evaluateAsNumberInContext:ctx]);
+    XCTAssertNil(err);
+    XCTAssertNotNil(expr);
+    XCTAssertEqual(10.0, [[expr simplify] evaluateAsNumberInContext:ctx]);
 }
 
 @end

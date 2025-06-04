@@ -55,7 +55,7 @@
     XCTAssertNil(err);
 
     NSString *res = [self outputString];
-    TDEqualObjects(@"<html><head>foo</head><body>bar baz</body></html>", res);
+    XCTAssertEqualObjects(@"<html><head>foo</head><body>bar baz</body></html>", res);
 }
 
 @end

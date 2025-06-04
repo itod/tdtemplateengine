@@ -20,10 +20,10 @@
     
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"foo", res);
+    XCTAssertEqualObjects(@"foo", res);
 }
 
 - (void)testIf0Else {
@@ -32,10 +32,10 @@
     
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"bar", res);
+    XCTAssertEqualObjects(@"bar", res);
 }
 
 - (void)testIf0Elif0Else {
@@ -44,10 +44,10 @@
     
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"baz", res);
+    XCTAssertEqualObjects(@"baz", res);
 }
 
 - (void)testIf0Elif0Elif0Else {
@@ -56,10 +56,10 @@
     
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"bat", res);
+    XCTAssertEqualObjects(@"bat", res);
 }
 
 - (void)testIf1Elif1Else {
@@ -68,10 +68,10 @@
     
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"foo", res);
+    XCTAssertEqualObjects(@"foo", res);
 }
 
 - (void)testIf1Elif0Else {
@@ -80,10 +80,10 @@
     
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"foo", res);
+    XCTAssertEqualObjects(@"foo", res);
 }
 
 - (void)testIf0Elif1Else {
@@ -92,10 +92,10 @@
     
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"bar", res);
+    XCTAssertEqualObjects(@"bar", res);
 }
 
 @end

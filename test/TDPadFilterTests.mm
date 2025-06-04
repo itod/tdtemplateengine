@@ -20,10 +20,10 @@
     
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@" bar", res);
+    XCTAssertEqualObjects(@" bar", res);
 }
 
 - (void)testLpadSpaceEmpty {
@@ -32,10 +32,10 @@
     
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"", res);
+    XCTAssertEqualObjects(@"", res);
 }
 
 - (void)testRpadSpace {
@@ -44,10 +44,10 @@
     
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"bar ", res);
+    XCTAssertEqualObjects(@"bar ", res);
 }
 
 - (void)testRpadSpaceEmpty {
@@ -56,10 +56,10 @@
     
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"", res);
+    XCTAssertEqualObjects(@"", res);
 }
 
 - (void)testLpadSpace0 {
@@ -68,10 +68,10 @@
     
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@" bar", res);
+    XCTAssertEqualObjects(@" bar", res);
 }
 
 - (void)testLpadSpace0Empty {
@@ -80,10 +80,10 @@
     
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"", res);
+    XCTAssertEqualObjects(@"", res);
 }
 
 - (void)testLpadSpace8 {
@@ -92,10 +92,10 @@
     
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"     bar", res);
+    XCTAssertEqualObjects(@"     bar", res);
 }
 
 - (void)testLpadSpace8Empty {
@@ -104,10 +104,10 @@
     
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"        ", res);
+    XCTAssertEqualObjects(@"        ", res);
 }
 
 - (void)testRpadSpace0 {
@@ -116,10 +116,10 @@
     
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"bar ", res);
+    XCTAssertEqualObjects(@"bar ", res);
 }
 
 - (void)testRpadSpace0Empty {
@@ -128,10 +128,10 @@
     
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"", res);
+    XCTAssertEqualObjects(@"", res);
 }
 
 - (void)testRpadSpace8 {
@@ -140,10 +140,10 @@
     
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"bar     ", res);
+    XCTAssertEqualObjects(@"bar     ", res);
 }
 
 - (void)testRpadSpace8Empty {
@@ -152,10 +152,10 @@
     
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"        ", res);
+    XCTAssertEqualObjects(@"        ", res);
 }
 
 @end

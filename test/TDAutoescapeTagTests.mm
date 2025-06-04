@@ -25,10 +25,10 @@
     BOOL success = NO;
     
     success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"&lt;a&gt;&apos;&quot;&amp; <a>'\"&", res);
+    XCTAssertEqualObjects(@"&lt;a&gt;&apos;&quot;&amp; <a>'\"&", res);
 }
 
 - (void)testAutoescapeOn {
@@ -42,10 +42,10 @@
     BOOL success = NO;
     
     success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"&lt;a&gt;&apos;&quot;&amp;", res);
+    XCTAssertEqualObjects(@"&lt;a&gt;&apos;&quot;&amp;", res);
 }
 
 - (void)testAutoescapeOff {
@@ -59,10 +59,10 @@
     BOOL success = NO;
     
     success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(foo, res);
+    XCTAssertEqualObjects(foo, res);
 }
 
 - (void)testAutoescapeOnEscapeFilter {
@@ -77,10 +77,10 @@
     BOOL success = NO;
     
     success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"&lt;a&gt;&apos;&quot;&amp;", res);
+    XCTAssertEqualObjects(@"&lt;a&gt;&apos;&quot;&amp;", res);
 }
 
 - (void)testAutoescapeOffEscapeFilter {
@@ -94,10 +94,10 @@
     BOOL success = NO;
     
     success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"&lt;a&gt;&apos;&quot;&amp;", res);
+    XCTAssertEqualObjects(@"&lt;a&gt;&apos;&quot;&amp;", res);
 }
 
 @end

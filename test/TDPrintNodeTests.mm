@@ -20,10 +20,10 @@
     
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"foo", res);
+    XCTAssertEqualObjects(@"foo", res);
 }
 
 - (void)testNonLatin1Passthru {
@@ -32,10 +32,10 @@
     
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"…", res);
+    XCTAssertEqualObjects(@"…", res);
 }
 
 - (void)testSimpleVarReplacementFoo {
@@ -44,10 +44,10 @@
     
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"bar", res);
+    XCTAssertEqualObjects(@"bar", res);
 }
 
 - (void)testSimpleVarReplacementFooCapitalize {
@@ -56,10 +56,10 @@
     
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"Bar", res);
+    XCTAssertEqualObjects(@"Bar", res);
 }
 
 - (void)testSimpleVarReplacementFooLowercase {
@@ -68,10 +68,10 @@
     
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"bar", res);
+    XCTAssertEqualObjects(@"bar", res);
 }
 
 - (void)testSimpleVarReplacementFooUppercase {
@@ -80,10 +80,10 @@
     
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"BAR", res);
+    XCTAssertEqualObjects(@"BAR", res);
 }
 
 - (void)testSimpleVarReplacementBar {
@@ -92,10 +92,10 @@
     
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"foo", res);
+    XCTAssertEqualObjects(@"foo", res);
 }
 
 - (void)testStaticContext {
@@ -105,10 +105,10 @@
     [self.engine.staticContext defineVariable:@"baz" value:@"bat"];
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"bat", res);
+    XCTAssertEqualObjects(@"bat", res);
 }
 
 - (void)testStaticContextShadow {
@@ -118,10 +118,10 @@
     [self.engine.staticContext defineVariable:@"baz" value:@"bat"];
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"foo", res);
+    XCTAssertEqualObjects(@"foo", res);
 }
 
 - (void)testSimpleVarReplacementOneTextTwo {
@@ -130,10 +130,10 @@
     
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"1 text 2", res);
+    XCTAssertEqualObjects(@"1 text 2", res);
 }
 
 @end

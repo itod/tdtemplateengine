@@ -25,10 +25,10 @@
     
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"    f\n", res);
+    XCTAssertEqualObjects(@"    f\n", res);
 }
 
 - (void)testTrimF2 {
@@ -44,10 +44,10 @@
     
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"    f\n    f\n    f\n", res);
+    XCTAssertEqualObjects(@"    f\n    f\n    f\n", res);
 }
 
 - (void)testTrimF2Times {
@@ -63,10 +63,10 @@
     
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"        f\n        f\n        f\n", res);
+    XCTAssertEqualObjects(@"        f\n        f\n        f\n", res);
 }
 
 @end

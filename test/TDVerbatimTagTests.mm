@@ -20,10 +20,10 @@
     
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"f", res);
+    XCTAssertEqualObjects(@"f", res);
 }
 
 - (void)testVerbatimNestedVar {
@@ -32,10 +32,10 @@
     
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"{{foo}}", res);
+    XCTAssertEqualObjects(@"{{foo}}", res);
 }
 
 - (void)testVerbatimNestedVarSpace {
@@ -44,10 +44,10 @@
     
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"{{ foo }}", res);
+    XCTAssertEqualObjects(@"{{ foo }}", res);
 }
 
 - (void)testVerbatimNestedIfTagSpace {
@@ -56,10 +56,10 @@
     
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"{% if 1 %}HI!{% endif %}", res);
+    XCTAssertEqualObjects(@"{% if 1 %}HI!{% endif %}", res);
 }
 
 - (void)testVerbatimNestedIfTag {
@@ -68,10 +68,10 @@
     
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"{%if 1%}HI!{%endif%}", res);
+    XCTAssertEqualObjects(@"{%if 1%}HI!{%endif%}", res);
 }
 
 @end

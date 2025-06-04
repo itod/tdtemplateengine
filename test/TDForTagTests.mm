@@ -20,10 +20,10 @@
     
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"foobarbaz", res);
+    XCTAssertEqualObjects(@"foobarbaz", res);
 }
 
 - (void)testFor0To3F {
@@ -32,10 +32,10 @@
     
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"fff", res);
+    XCTAssertEqualObjects(@"fff", res);
 }
 
 - (void)testFor0To3FNoSpace {
@@ -44,10 +44,10 @@
     
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"fff", res);
+    XCTAssertEqualObjects(@"fff", res);
 }
 
 - (void)testFor0ToDepthF {
@@ -56,10 +56,10 @@
     
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"fff", res);
+    XCTAssertEqualObjects(@"fff", res);
 }
 
 - (void)testForloopCurrentIndex {
@@ -68,10 +68,10 @@
     
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"012", res);
+    XCTAssertEqualObjects(@"012", res);
 }
 
 - (void)testForloopFirst {
@@ -80,10 +80,10 @@
     
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"100", res);
+    XCTAssertEqualObjects(@"100", res);
 }
 
 - (void)testForloopLast {
@@ -92,10 +92,10 @@
     
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"001", res);
+    XCTAssertEqualObjects(@"001", res);
 }
 
 - (void)testFor0To4I {
@@ -104,10 +104,10 @@
     
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"012", res);
+    XCTAssertEqualObjects(@"012", res);
 }
 
 - (void)testNestedFor {
@@ -119,10 +119,10 @@
     id vars = nil;
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"0:0\n0:1\n0:2\n1:0\n1:1\n1:2\n", res);
+    XCTAssertEqualObjects(@"0:0\n0:1\n0:2\n1:0\n1:1\n1:2\n", res);
 }
 
 - (void)test2NestedFors {
@@ -136,10 +136,10 @@
     id vars = nil;
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"0:0:0\n0:0:1\n0:0:2\n0:1:0\n0:1:1\n0:1:2\n", res);
+    XCTAssertEqualObjects(@"0:0:0\n0:0:1\n0:0:2\n0:1:0\n0:1:1\n0:1:2\n", res);
 }
 
 - (void)testNestedForParentloop {
@@ -151,10 +151,10 @@
     id vars = nil;
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"0:0\n0:1\n0:2\n1:0\n1:1\n1:2\n", res);
+    XCTAssertEqualObjects(@"0:0\n0:1\n0:2\n1:0\n1:1\n1:2\n", res);
 }
 
 - (void)testReverseBy {
@@ -164,10 +164,10 @@
     id vars = nil;
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"70,68,66,64,62", res);
+    XCTAssertEqualObjects(@"70,68,66,64,62", res);
 }
 
 - (void)testSkip {
@@ -177,10 +177,10 @@
     id vars = nil;
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"", res);
+    XCTAssertEqualObjects(@"", res);
 }
 
 - (void)testSkipIeq1 {
@@ -190,10 +190,10 @@
     id vars = nil;
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"2,3", res);
+    XCTAssertEqualObjects(@"2,3", res);
 }
 
 - (void)testSkipIeq2 {
@@ -203,10 +203,10 @@
     id vars = nil;
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"1,3", res);
+    XCTAssertEqualObjects(@"1,3", res);
 }
 
 - (void)testSkipIeq3 {
@@ -216,10 +216,10 @@
     id vars = nil;
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"1,2,", res);
+    XCTAssertEqualObjects(@"1,2,", res);
 }
 
 - (void)testFor0To3Range {
@@ -228,10 +228,10 @@
     
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"0123", res);
+    XCTAssertEqualObjects(@"0123", res);
 }
 
 - (void)testFor0To3RangeReversed {
@@ -240,10 +240,10 @@
     
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"3210", res);
+    XCTAssertEqualObjects(@"3210", res);
 }
 
 - (void)testFor0To3Coll {
@@ -254,10 +254,10 @@
     
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"0123", res);
+    XCTAssertEqualObjects(@"0123", res);
 }
 
 - (void)testFor0To3CollReversed {
@@ -268,10 +268,10 @@
     
     NSError *err = nil;
     BOOL success = [self processTemplateString:input withVariables:vars toStream:self.output error:&err];
-    TDTrue(success);
-    TDNil(err);
+    XCTAssertTrue(success);
+    XCTAssertNil(err);
     NSString *res = [self outputString];
-    TDEqualObjects(@"3210", res);
+    XCTAssertEqualObjects(@"3210", res);
 }
 
 @end

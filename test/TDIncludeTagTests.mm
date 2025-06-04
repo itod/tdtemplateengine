@@ -66,8 +66,8 @@ using namespace parsekit;
 
     XCTAssertNotNil(tag.kwargs);
     XCTAssertEqualWithAccuracy(1.0, [[tag.kwargs objectForKey:@"a"] evaluateAsNumberInContext:ctx], 0.001);
-    TDEqualObjects(@"foo", [[tag.kwargs objectForKey:@"b"] evaluateAsStringInContext:ctx]);
-    TDEqualObjects(@"baz", [[tag.kwargs objectForKey:@"c"] evaluateAsStringInContext:ctx]);
+    XCTAssertEqualObjects(@"foo", [[tag.kwargs objectForKey:@"b"] evaluateAsStringInContext:ctx]);
+    XCTAssertEqualObjects(@"baz", [[tag.kwargs objectForKey:@"c"] evaluateAsStringInContext:ctx]);
 }
 
 @end

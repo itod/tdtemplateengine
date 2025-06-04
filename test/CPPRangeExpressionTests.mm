@@ -43,10 +43,10 @@ using namespace parsekit;
 
     for (id obj in foo) {
         id res = [en nextObject];
-        TDEqualObjects(obj, res);
+        XCTAssertEqualObjects(obj, res);
     }
     
-    TDFalse([en hasMore]);
+    XCTAssertFalse([en hasMore]);
 }
 
 - (void)testIIn5To2 {
@@ -65,10 +65,10 @@ using namespace parsekit;
 
     for (id obj in foo) {
         id res = [en nextObject];
-        TDEqualObjects(obj, res);
+        XCTAssertEqualObjects(obj, res);
     }
     
-    TDFalse([en hasMore]);
+    XCTAssertFalse([en hasMore]);
 }
 
 - (void)testIIn0To10By2 {
@@ -87,10 +87,10 @@ using namespace parsekit;
 
     for (id obj in foo) {
         id res = [en nextObject];
-        TDEqualObjects(obj, res);
+        XCTAssertEqualObjects(obj, res);
     }
     
-    TDFalse([en hasMore]);
+    XCTAssertFalse([en hasMore]);
 }
 
 - (void)testIIn10To0ByNeg2 {
@@ -109,10 +109,10 @@ using namespace parsekit;
 
     for (id obj in foo) {
         id res = [en nextObject];
-        TDEqualObjects(obj, res);
+        XCTAssertEqualObjects(obj, res);
     }
     
-    TDFalse([en hasMore]);
+    XCTAssertFalse([en hasMore]);
 }
 
 @end

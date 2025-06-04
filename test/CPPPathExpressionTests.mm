@@ -46,9 +46,9 @@ using namespace parsekit;
     
     NSError *err = nil;
     TDExpression *expr = [self.engine expressionFromReader:&reader error:&err];
-    TDNil(err);
-    TDNotNil(expr);
-    TDEquals(8.0, [[expr simplify] evaluateAsNumberInContext:ctx]);
+    XCTAssertNil(err);
+    XCTAssertNotNil(expr);
+    XCTAssertEqual(8.0, [[expr simplify] evaluateAsNumberInContext:ctx]);
 }
 
 - (void)testPathFooBarProperty {
@@ -62,8 +62,8 @@ using namespace parsekit;
     
     NSError *err = nil;
     TDExpression *expr = [self.engine expressionFromReader:&reader error:&err];
-    TDNil(err);
-    TDNotNil(expr);
+    XCTAssertNil(err);
+    XCTAssertNotNil(expr);
     XCTAssertEqualObjects(@"John", [[expr simplify] evaluateAsStringInContext:ctx]);
 }
 

@@ -35,9 +35,9 @@ using namespace parsekit;
     
     NSError *err = nil;
     TDExpression *expr = [self.engine expressionFromReader:&reader error:&err];
-    TDNil(err);
-    TDNotNil(expr);
-    TDEqualObjects(@"bar", [expr evaluateAsStringInContext:ctx]);
+    XCTAssertNil(err);
+    XCTAssertNotNil(expr);
+    XCTAssertEqualObjects(@"bar", [expr evaluateAsStringInContext:ctx]);
 }
 
 - (void)testReplaceLiteral {
@@ -49,11 +49,11 @@ using namespace parsekit;
     
     NSError *err = nil;
     TDExpression *expr = [self.engine expressionFromReader:&reader error:&err];
-    TDNil(err);
-    TDNotNil(expr);
+    XCTAssertNil(err);
+    XCTAssertNotNil(expr);
     
     NSString *res = [expr evaluateAsStringInContext:ctx];
-    TDEqualObjects(@"Goodbye, Cruel World!", res);
+    XCTAssertEqualObjects(@"Goodbye, Cruel World!", res);
 }
 
 - (void)testFooVarTrimUppercase {
@@ -65,9 +65,9 @@ using namespace parsekit;
     
     NSError *err = nil;
     TDExpression *expr = [self.engine expressionFromReader:&reader error:&err];
-    TDNil(err);
-    TDNotNil(expr);
-    TDEqualObjects(@"BAR", [expr evaluateAsStringInContext:ctx]);
+    XCTAssertNil(err);
+    XCTAssertNotNil(expr);
+    XCTAssertEqualObjects(@"BAR", [expr evaluateAsStringInContext:ctx]);
 }
 
 - (void)testFooVarReplace {
@@ -79,9 +79,9 @@ using namespace parsekit;
     
     NSError *err = nil;
     TDExpression *expr = [self.engine expressionFromReader:&reader error:&err];
-    TDNil(err);
-    TDNotNil(expr);
-    TDEqualObjects(@"baz", [expr evaluateAsStringInContext:ctx]);
+    XCTAssertNil(err);
+    XCTAssertNotNil(expr);
+    XCTAssertEqualObjects(@"baz", [expr evaluateAsStringInContext:ctx]);
 }
 
 - (void)testFooVarReplaceNotCaseInsensitive {
@@ -93,9 +93,9 @@ using namespace parsekit;
     
     NSError *err = nil;
     TDExpression *expr = [self.engine expressionFromReader:&reader error:&err];
-    TDNil(err);
-    TDNotNil(expr);
-    TDEqualObjects(@"bar", [expr evaluateAsStringInContext:ctx]);
+    XCTAssertNil(err);
+    XCTAssertNotNil(expr);
+    XCTAssertEqualObjects(@"bar", [expr evaluateAsStringInContext:ctx]);
 }
 
 - (void)testFooVarReplaceCaseInsensitive {
@@ -107,9 +107,9 @@ using namespace parsekit;
     
     NSError *err = nil;
     TDExpression *expr = [self.engine expressionFromReader:&reader error:&err];
-    TDNil(err);
-    TDNotNil(expr);
-    TDEqualObjects(@"baz", [expr evaluateAsStringInContext:ctx]);
+    XCTAssertNil(err);
+    XCTAssertNotNil(expr);
+    XCTAssertEqualObjects(@"baz", [expr evaluateAsStringInContext:ctx]);
 }
 
 - (void)testFooVarCapitalized {
@@ -121,9 +121,9 @@ using namespace parsekit;
     
     NSError *err = nil;
     TDExpression *expr = [self.engine expressionFromReader:&reader error:&err];
-    TDNil(err);
-    TDNotNil(expr);
-    TDEqualObjects(@"Bar", [expr evaluateAsStringInContext:ctx]);
+    XCTAssertNil(err);
+    XCTAssertNotNil(expr);
+    XCTAssertEqualObjects(@"Bar", [expr evaluateAsStringInContext:ctx]);
 }
 
 - (void)testFooLiteralCapitalized {
@@ -135,9 +135,9 @@ using namespace parsekit;
     
     NSError *err = nil;
     TDExpression *expr = [self.engine expressionFromReader:&reader error:&err];
-    TDNil(err);
-    TDNotNil(expr);
-    TDEqualObjects(@"Foo", [expr evaluateAsStringInContext:ctx]);
+    XCTAssertNil(err);
+    XCTAssertNotNil(expr);
+    XCTAssertEqualObjects(@"Foo", [expr evaluateAsStringInContext:ctx]);
 }
 
 - (void)testFooVarLowercase {
@@ -149,9 +149,9 @@ using namespace parsekit;
     
     NSError *err = nil;
     TDExpression *expr = [self.engine expressionFromReader:&reader error:&err];
-    TDNil(err);
-    TDNotNil(expr);
-    TDEqualObjects(@"bar", [expr evaluateAsStringInContext:ctx]);
+    XCTAssertNil(err);
+    XCTAssertNotNil(expr);
+    XCTAssertEqualObjects(@"bar", [expr evaluateAsStringInContext:ctx]);
 }
 
 - (void)testFooLiteralLowercase {
@@ -163,9 +163,9 @@ using namespace parsekit;
     
     NSError *err = nil;
     TDExpression *expr = [self.engine expressionFromReader:&reader error:&err];
-    TDNil(err);
-    TDNotNil(expr);
-    TDEqualObjects(@"foo", [expr evaluateAsStringInContext:ctx]);
+    XCTAssertNil(err);
+    XCTAssertNotNil(expr);
+    XCTAssertEqualObjects(@"foo", [expr evaluateAsStringInContext:ctx]);
 }
 
 - (void)testFooVarUppercase {
@@ -177,9 +177,9 @@ using namespace parsekit;
     
     NSError *err = nil;
     TDExpression *expr = [self.engine expressionFromReader:&reader error:&err];
-    TDNil(err);
-    TDNotNil(expr);
-    TDEqualObjects(@"BAR", [expr evaluateAsStringInContext:ctx]);
+    XCTAssertNil(err);
+    XCTAssertNotNil(expr);
+    XCTAssertEqualObjects(@"BAR", [expr evaluateAsStringInContext:ctx]);
 }
 
 - (void)testFooLiteralUppercase {
@@ -191,9 +191,9 @@ using namespace parsekit;
     
     NSError *err = nil;
     TDExpression *expr = [self.engine expressionFromReader:&reader error:&err];
-    TDNil(err);
-    TDNotNil(expr);
-    TDEqualObjects(@"FOO", [expr evaluateAsStringInContext:ctx]);
+    XCTAssertNil(err);
+    XCTAssertNotNil(expr);
+    XCTAssertEqualObjects(@"FOO", [expr evaluateAsStringInContext:ctx]);
 }
 
 - (void)testmonteSerenoLiteralUppercase {
@@ -205,9 +205,9 @@ using namespace parsekit;
     
     NSError *err = nil;
     TDExpression *expr = [self.engine expressionFromReader:&reader error:&err];
-    TDNil(err);
-    TDNotNil(expr);
-    TDEqualObjects(@"MonteSereno", [expr evaluateAsStringInContext:ctx]);
+    XCTAssertNil(err);
+    XCTAssertNotNil(expr);
+    XCTAssertEqualObjects(@"MonteSereno", [expr evaluateAsStringInContext:ctx]);
 }
 
 - (void)testDateFormatToday {
@@ -220,17 +220,17 @@ using namespace parsekit;
     
     NSError *err = nil;
     TDExpression *expr = [self.engine expressionFromReader:&reader error:&err];
-    TDNil(err);
-    TDNotNil(expr);
+    XCTAssertNil(err);
+    XCTAssertNotNil(expr);
     
     NSDate *now = [NSDate date];
     NSDateFormatter *fmt = [[[NSDateFormatter alloc] init] autorelease];
     [fmt setDateFormat:fmtStr];
     NSString *expected = [fmt stringFromDate:now];
     NSString *actual = [expr evaluateAsStringInContext:ctx];
-    TDEqualObjects(expected, actual);
-    TDTrue([actual length]);
-    TDTrue([actual rangeOfString:@","].length);
+    XCTAssertEqualObjects(expected, actual);
+    XCTAssertTrue([actual length]);
+    XCTAssertTrue([actual rangeOfString:@","].length);
 }
 
 - (void)testDateFormatNow {
@@ -243,17 +243,17 @@ using namespace parsekit;
     
     NSError *err = nil;
     TDExpression *expr = [self.engine expressionFromReader:&reader error:&err];
-    TDNil(err);
-    TDNotNil(expr);
+    XCTAssertNil(err);
+    XCTAssertNotNil(expr);
     
     NSDate *now = [NSDate date];
     NSDateFormatter *fmt = [[[NSDateFormatter alloc] init] autorelease];
     [fmt setDateFormat:fmtStr];
     NSString *expected = [fmt stringFromDate:now];
     NSString *actual = [expr evaluateAsStringInContext:ctx];
-    TDEqualObjects(expected, actual);
-    TDTrue([actual length]);
-    TDTrue([actual rangeOfString:@","].length);
+    XCTAssertEqualObjects(expected, actual);
+    XCTAssertTrue([actual length]);
+    XCTAssertTrue([actual rangeOfString:@","].length);
 }
 
 - (void)testDateFormatOct26Literal {
@@ -266,12 +266,12 @@ using namespace parsekit;
     
     NSError *err = nil;
     TDExpression *expr = [self.engine expressionFromReader:&reader error:&err];
-    TDNil(err);
-    TDNotNil(expr);
+    XCTAssertNil(err);
+    XCTAssertNotNil(expr);
     
     NSString *expected = @"Wed, Oct 26, 77";
     NSString *actual = [expr evaluateAsStringInContext:ctx];
-    TDEqualObjects(expected, actual);
+    XCTAssertEqualObjects(expected, actual);
 }
 
 
@@ -289,12 +289,12 @@ using namespace parsekit;
     
     NSError *err = nil;
     TDExpression *expr = [self.engine expressionFromReader:&reader error:&err];
-    TDNil(err);
-    TDNotNil(expr);
+    XCTAssertNil(err);
+    XCTAssertNotNil(expr);
     
     NSString *expected = @"Thu, Apr 25, 96";
     NSString *actual = [expr evaluateAsStringInContext:ctx];
-    TDEqualObjects(expected, actual);
+    XCTAssertEqualObjects(expected, actual);
 }
 
 - (void)testDateFormatApril25Var2 {
@@ -308,13 +308,13 @@ using namespace parsekit;
     
     NSError *err = nil;
     TDExpression *expr = [self.engine expressionFromReader:&reader error:&err];
-    TDNil(err);
-    TDNotNil(expr);
+    XCTAssertNil(err);
+    XCTAssertNotNil(expr);
     
 //    NSString *expected = @"01996.April.25 AD 12:00 PM";
     NSString *expected = @"01996.April.25 AD 12:00";
     NSString *actual = [expr evaluateAsStringInContext:ctx];
-    TDEqualObjects(expected, actual);
+    XCTAssertEqualObjects(expected, actual);
 }
 
 - (void)testDateFormatApril25Arg {
@@ -328,12 +328,12 @@ using namespace parsekit;
     
     NSError *err = nil;
     TDExpression *expr = [self.engine expressionFromReader:&reader error:&err];
-    TDNil(err);
-    TDNotNil(expr);
+    XCTAssertNil(err);
+    XCTAssertNotNil(expr);
     
     NSString *expected = @"Thu, Apr 25, 96";
     NSString *actual = [expr evaluateAsStringInContext:ctx];
-    TDEqualObjects(expected, actual);
+    XCTAssertEqualObjects(expected, actual);
 }
 
 #pragma clang diagnostic pop
