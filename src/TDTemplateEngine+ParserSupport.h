@@ -38,8 +38,9 @@ using namespace parsekit;
 
 - (TDTag *)makeTagForName:(NSString *)tagName token:(Token)token parent:(TDNode *)parent;
 - (TDTag *)tagFromFragment:(Token)frag withParent:(TDNode *)parent inContext:(TDTemplateContext *)ctx;
-- (TDTag *)tagFromReader:(Reader *)reader withParent:(TDNode *)parent inContext:(TDTemplateContext *)ctx;
 
+// Exposed For Testing only
+- (TDTag *)tagFromReader:(Reader *)reader withParent:(TDNode *)parent inContext:(TDTemplateContext *)ctx;
 - (TDExpression *)expressionFromString:(NSString *)objc_str inContext:(TDTemplateContext *)ctx;
 - (TDExpression *)expressionFromReader:(Reader *)reader inContext:(TDTemplateContext *)ctx;
 @end
