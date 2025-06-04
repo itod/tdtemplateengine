@@ -275,7 +275,7 @@ using namespace templateengine;
     id ctx = [[[TDTemplateContext alloc] initWithVariables:vars output:nil] autorelease];
     
     NSError *err = nil;
-    TDExpression *expr = [self.engine expressionFromReader:&r error:&err];
+    TDExpression *expr = [self expressionFromReader:&r error:&err];
     XCTAssertNil(err);
     XCTAssertNotNil(expr);
     XCTAssertEqual(10.0, [[expr simplify] evaluateAsNumberInContext:ctx]);

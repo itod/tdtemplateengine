@@ -16,6 +16,9 @@
 - (BOOL)processTemplateFile:(NSString *)path encoding:(NSStringEncoding)enc withVariables:(NSDictionary *)vars toStream:(NSOutputStream *)output error:(NSError **)err;
 - (BOOL)processTemplateString:(NSString *)str withVariables:(NSDictionary *)vars toStream:(NSOutputStream *)output error:(NSError **)outError;
 
+// compile + render with render-time vars in one shot
+- (TDExpression *)expressionFromReader:(Reader *)reader error:(NSError **)outErr;
+
 - (NSString *)outputString;
 
 @property (nonatomic, retain) TDTemplateEngine *engine;

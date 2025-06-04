@@ -151,22 +151,4 @@ using namespace templateengine;
     return expr;
 }
 
-
-// TESTing only
-- (TDExpression *)expressionFromReader:(Reader *)reader error:(NSError **)outErr {
-    TDTemplateContext *ctx = [[[TDTemplateContext alloc] init] autorelease];
-    TDExpression *expr = nil;
-    @try {
-        expr = [self expressionFromReader:reader inContext:ctx];
-    } @catch (TDTemplateException *ex) {
-        if (outErr) {
-            NSError *err = [NSError errorWithDomain:@"TDTemplateEngine"
-                                               code:0
-                                           userInfo:ex.userInfo];
-            *outErr = err;
-        }
-    }
-    return expr;
-}
-
 @end

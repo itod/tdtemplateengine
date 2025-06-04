@@ -42,7 +42,4 @@ using namespace parsekit;
 
 - (TDExpression *)expressionFromString:(NSString *)objc_str inContext:(TDTemplateContext *)ctx;
 - (TDExpression *)expressionFromReader:(Reader *)reader inContext:(TDTemplateContext *)ctx;
-
-// convenience for testing only. compile + render with render-time vars in one shot
-- (TDExpression *)expressionFromReader:(Reader *)reader error:(NSError **)outErr; // TESTing only
 @end
