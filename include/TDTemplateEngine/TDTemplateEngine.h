@@ -47,6 +47,12 @@ FOUNDATION_EXPORT double TDTemplateengineVersionNumber;
 //! Project version string for TDTemplateengine.
 FOUNDATION_EXPORT const unsigned char TDTemplateengineVersionString[];
 
+//#define TD_TEMPLATE_ENCODING NSUTF16StringEncoding
+//#define TD_TEMPLATE_CHARSET "utf-16"
+
+#define TD_TEMPLATE_ENCODING NSUTF8StringEncoding
+#define TD_TEMPLATE_CHARSET "utf-8"
+
 @class TDTag;
 @class TDFilter;
 @class TDTemplate;
