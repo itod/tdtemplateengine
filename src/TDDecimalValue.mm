@@ -25,7 +25,7 @@
 static NSNumberFormatter *sNumberFormatter = nil;
 
 @interface TDDecimalValue ()
-@property (nonatomic, copy) NSDecimalNumber *value;
+@property (nonatomic, retain) NSDecimalNumber *value;
 @end
 
 @implementation TDDecimalValue

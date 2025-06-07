@@ -25,7 +25,7 @@
 static NSDateFormatter *sDateFormatter = nil;
 
 @interface TDDateValue ()
-@property (nonatomic, copy) NSDate *value;
+@property (nonatomic, retain) NSDate *value;
 @end
 
 @implementation TDDateValue

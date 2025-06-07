@@ -20,73 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "TDStringValue.h"
+#import <TDTemplateEngine/TDFilter.h>
 
-@interface TDStringValue ()
-@property (nonatomic, retain) NSString *value;
-@end
-
-@implementation TDStringValue
-
-+ (TDStringValue *)stringValueWithString:(NSString *)s {
-    return [[[self alloc] initWithString:s] autorelease];
-}
-
-
-- (instancetype)initWithString:(NSString *)s {
-    if (self = [super init]) {
-        self.value = s ? s : @"";
-    }
-    return self;
-}
-
-
-- (void)dealloc {
-    self.value = nil;
-    [super dealloc];
-}
-
-
-- (id)objectValue {
-    return _value;
-}
-
-
-- (NSString *)stringValue {
-    return _value;
-}
-
-
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-- (NSDate *)dateValue {
-    return [NSDate dateWithNaturalLanguageString:_value];
-}
-#pragma GCC diagnostic pop
-
-
-- (NSDecimalNumber *)decimalValue {
-    return [NSDecimalNumber decimalNumberWithString:_value];
-}
-
-
-- (double)doubleValue {
-    return TDNumberFromString(_value);
-}
-
-
-- (BOOL)boolValue {
-    return [_value length] > 0;
-}
-
-
-- (TDDataType)dataType {
-    return TDDataTypeString;
-}
-
-
-- (BOOL)isEqualToStringValue:(TDStringValue *)v {
-    return [_value isEqualToString:v->_value];
-}
+@interface TDJoinFilter : TDFilter
 
 @end

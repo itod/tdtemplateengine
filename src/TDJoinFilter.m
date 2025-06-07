@@ -20,73 +20,29 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "TDStringValue.h"
+#import "TDJoinFilter.h"
+#import <TDTemplateEngine/TDExpression.h>
+#import <TDTemplateEngine/NSString+TDAdditions.h>
 
-@interface TDStringValue ()
-@property (nonatomic, retain) NSString *value;
-@end
+@implementation TDJoinFilter
 
-@implementation TDStringValue
-
-+ (TDStringValue *)stringValueWithString:(NSString *)s {
-    return [[[self alloc] initWithString:s] autorelease];
++ (NSString *)filterName {
+    return @"join";
 }
 
 
-- (instancetype)initWithString:(NSString *)s {
-    if (self = [super init]) {
-        self.value = s ? s : @"";
+- (id)runFilter:(TDExpression *)expr withArgs:(NSArray<TDExpression *> *)args inContext:(TDTemplateContext *)ctx {
+    [self validateArgs:args min:1 max:1];
+    
+    id input = [expr evaluateAsObjectInContext:ctx];
+    NSString *result = @"";
+    if (input && [NSNull null] != input) {
+        NSString *sep = [args.firstObject evaluateAsStringInContext:ctx];
+        
+        result = [[input componentsJoinedByString:sep] markSafe];
     }
-    return self;
-}
-
-
-- (void)dealloc {
-    self.value = nil;
-    [super dealloc];
-}
-
-
-- (id)objectValue {
-    return _value;
-}
-
-
-- (NSString *)stringValue {
-    return _value;
-}
-
-
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-- (NSDate *)dateValue {
-    return [NSDate dateWithNaturalLanguageString:_value];
-}
-#pragma GCC diagnostic pop
-
-
-- (NSDecimalNumber *)decimalValue {
-    return [NSDecimalNumber decimalNumberWithString:_value];
-}
-
-
-- (double)doubleValue {
-    return TDNumberFromString(_value);
-}
-
-
-- (BOOL)boolValue {
-    return [_value length] > 0;
-}
-
-
-- (TDDataType)dataType {
-    return TDDataTypeString;
-}
-
-
-- (BOOL)isEqualToStringValue:(TDStringValue *)v {
-    return [_value isEqualToString:v->_value];
+    
+    return result;
 }
 
 @end
