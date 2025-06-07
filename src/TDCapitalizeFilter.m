@@ -34,16 +34,24 @@
     [self validateArgs:args min:0 max:0];
     
     NSString *inStr = [expr evaluateAsStringInContext:ctx];
-    NSString *result = inStr;
-    NSUInteger len = result.length;
-    if (len) {
-        unichar head = toupper([result characterAtIndex:0]);
-        NSString *tail = @"";
-        if (len > 1) {
-            tail = [result substringFromIndex:1];
+    
+    NSArray *chunks = [inStr componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    NSMutableArray *buff = [NSMutableArray arrayWithCapacity:chunks.count];
+    
+    for (NSString *chunk in chunks) {
+        NSUInteger len = chunk.length;
+        if (len) {
+            unichar head = toupper([chunk characterAtIndex:0]);
+            NSString *tail = @"";
+            if (len > 1) {
+                tail = [[chunk substringFromIndex:1] lowercaseString];
+            }
+            chunk = [NSString stringWithFormat:@"%C%@", head, tail];
         }
-        result = [NSString stringWithFormat:@"%C%@", head, tail];
+        [buff addObject:chunk];
     }
+    
+    NSString *result = [buff componentsJoinedByString:@" "];
     return result;
 }
 
