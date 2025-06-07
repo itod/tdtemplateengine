@@ -22,6 +22,6 @@
 
 #import <TDTemplateEngine/TDFilter.h>
 
-@interface TDCapitalizeFilter : TDFilter
+@interface TDTitleFilter : TDFilter
 
 @end

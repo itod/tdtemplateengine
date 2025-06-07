@@ -69,7 +69,7 @@
 #import "TDNullFormatFilter.h"
 #import "TDLowercaseFilter.h"
 #import "TDUppercaseFilter.h"
-#import "TDCapitalizeFilter.h"
+#import "TDTitleFilter.h"
 #import "TDReplaceFilter.h"
 #import "TDAddFilter.h"
 #import "TDDefaultFilter.h"
@@ -186,7 +186,7 @@ static TDTemplateEngine *sInstance = nil;
         [self registerFilterClass:[TDNullFormatFilter class] forName:[TDNullFormatFilter filterName]];
         [self registerFilterClass:[TDLowercaseFilter class] forName:[TDLowercaseFilter filterName]];
         [self registerFilterClass:[TDUppercaseFilter class] forName:[TDUppercaseFilter filterName]];
-        [self registerFilterClass:[TDCapitalizeFilter class] forName:[TDCapitalizeFilter filterName]];
+        [self registerFilterClass:[TDTitleFilter class] forName:[TDTitleFilter filterName]];
         [self registerFilterClass:[TDReplaceFilter class] forName:[TDReplaceFilter filterName]];
         [self registerFilterClass:[TDAddFilter class] forName:[TDAddFilter filterName]];
         [self registerFilterClass:[TDDefaultFilter class] forName:[TDDefaultFilter filterName]];

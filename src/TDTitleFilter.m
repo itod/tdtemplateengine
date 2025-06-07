@@ -20,10 +20,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "TDCapitalizeFilter.h"
+#import "TDTitleFilter.h"
 #import <TDTemplateEngine/TDExpression.h>
 
-@implementation TDCapitalizeFilter
+@implementation TDTitleFilter
 
 + (NSString *)filterName {
     return @"title";
