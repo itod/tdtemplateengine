@@ -86,7 +86,10 @@
         if (_tail) {
             // to support indexed path steps like foo.0.title, we must go one by one:
             for (id step in _tail) {
-                if ([step isKindOfClass:[NSNumber class]] && [obj respondsToSelector:@selector(objectAtIndex:)]) {
+                if ([step isKindOfClass:[NSNumber class]]) {
+                    if (obj && ![obj respondsToSelector:@selector(objectAtIndex:)]) {
+                        [NSException raise:@"TDTemplateException" format: @"Using array index path for non-array object: %@", self];
+                    }
                     int idx = [step intValue];
                     // django does not throw an error on out-of-bounds access
                     if (idx < [obj count]) {
