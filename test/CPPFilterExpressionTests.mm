@@ -207,7 +207,7 @@ using namespace parsekit;
     TDExpression *expr = [self expressionFromReader:&reader error:&err];
     XCTAssertNil(err);
     XCTAssertNotNil(expr);
-    XCTAssertEqualObjects(@"MonteSereno", [expr evaluateAsStringInContext:ctx]);
+    XCTAssertEqualObjects(@"Montesereno", [expr evaluateAsStringInContext:ctx]);
 }
 
 - (void)testDateFormatToday {
