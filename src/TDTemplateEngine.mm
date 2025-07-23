@@ -53,6 +53,7 @@
 #import "TDNewlineTag.h"
 #import "TDSpaceTag.h"
 #import "TDTabTag.h"
+#import "TDTransTag.h"
 #import "TDSepTag.h"
 
 #import "TDSafeFilter.h"
@@ -170,6 +171,7 @@ static TDTemplateEngine *sInstance = nil;
         [self registerTagClass:[TDNewlineTag class] forName:[TDNewlineTag tagName]];
         [self registerTagClass:[TDSpaceTag class] forName:[TDSpaceTag tagName]];
         [self registerTagClass:[TDTabTag class] forName:[TDTabTag tagName]];
+        [self registerTagClass:[TDTransTag class] forName:[TDTransTag tagName]];
         [self registerTagClass:[TDSepTag class] forName:[TDSepTag tagName]];
         
         self.filterTab = [NSMutableDictionary dictionary];
