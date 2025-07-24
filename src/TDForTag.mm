@@ -66,7 +66,7 @@
     
     @autoreleasepool {
         id collection = [self.expression evaluateAsObjectInContext:ctx];
-        if (![collection count]) return;
+        if ([NSNull null] == collection || ![collection count]) return;
 
         TDForLoop *parentLoop = [ctx resolveVariable:VARIABLE_NAME];
         TDForLoop *currentLoop = [[[TDForLoop alloc] init] autorelease];

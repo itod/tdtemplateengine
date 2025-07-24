@@ -78,6 +78,7 @@
 #import "TDPadFilters.h"
 #import "TDLengthFilter.h"
 #import "TDJoinFilter.h"
+#import "TDOrdinalFilter.h"
 
 #import <ParseKitCPP/Tokenizer.hpp>
 #import "TemplateParser.hpp"
@@ -198,6 +199,7 @@ static TDTemplateEngine *sInstance = nil;
         [self registerFilterClass:[TDRpadFilter class] forName:[TDRpadFilter filterName]];
         [self registerFilterClass:[TDLengthFilter class] forName:[TDLengthFilter filterName]];
         [self registerFilterClass:[TDJoinFilter class] forName:[TDJoinFilter filterName]];
+        [self registerFilterClass:[TDOrdinalFilter class] forName:[TDOrdinalFilter filterName]];
     }
     return self;
 }
