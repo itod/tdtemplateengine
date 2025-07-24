@@ -33,9 +33,26 @@
 - (id)runFilter:(TDExpression *)expr withArgs:(NSArray<TDExpression *> *)args inContext:(TDTemplateContext *)ctx {
     [self validateArgs:args min:0 max:0];
     
-    double num = [expr evaluateAsNumberInContext:ctx];
-    id result = @(num); // TODO
-    return result;
+    NSUInteger num = fabsl([expr evaluateAsNumberInContext:ctx]);
+    
+    NSString *result = nil;
+    
+    switch (num) {
+        case 1:
+            result = @"st";
+            break;
+        case 2:
+            result = @"nd";
+            break;
+        case 3:
+            result = @"rd";
+            break;
+        default:
+            result = @"th";
+            break;
+    }
+    
+    return [NSString stringWithFormat:@"%lu%@", num, result];
 }
 
 @end
