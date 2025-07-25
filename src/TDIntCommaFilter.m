@@ -32,9 +32,30 @@
 
 - (id)runFilter:(TDExpression *)expr withArgs:(NSArray<TDExpression *> *)args inContext:(TDTemplateContext *)ctx {
     NSString *str = [expr evaluateAsStringInContext:ctx];
+    NSString *res = str;
     
-    // TODO
-    return str;
+    NSUInteger oldLen = str.length;
+    if (oldLen) {
+        
+        NSUInteger newLen = 0;
+        unichar rev[oldLen << 1];
+        
+        for (NSUInteger i = 1; i <= oldLen; i++) {
+            rev[newLen++] = [str characterAtIndex:oldLen - i];
+            if (i != oldLen && 0 == i % 3) {
+                rev[newLen++] = ',';
+            }
+        }
+        
+        unichar fwd[newLen];
+        for (NSUInteger i = 0; i < newLen; i++) {
+            fwd[i] = rev[newLen - (i+1)];
+        }
+        
+        res = [NSString stringWithCharacters:fwd length:newLen];
+    }
+    
+    return res;
 }
 
 @end
