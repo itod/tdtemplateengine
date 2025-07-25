@@ -69,7 +69,7 @@
 #import <PEGKit/PKRecognitionException.h>
 #import "PKToken+Verbatim.h"
 
-NSString * const TDTemplateEngineTagEndPrefix = @"end";
+NSString * const TDTemplateEngineTagEndPrefix = @"/";
 NSString * const TDTemplateEngineErrorDomain = @"TDTemplateEngineErrorDomain";
 const NSInteger TDTemplateEngineRenderingErrorCode = 1;
 
