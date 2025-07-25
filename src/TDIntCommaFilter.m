@@ -37,11 +37,14 @@
     NSUInteger oldLen = str.length;
     if (oldLen) {
         
+        unichar old[oldLen];
+        [str getCharacters:old];
+        
         NSUInteger newLen = 0;
         unichar rev[oldLen << 1];
         
         for (NSUInteger i = 1; i <= oldLen; i++) {
-            rev[newLen++] = [str characterAtIndex:oldLen - i];
+            rev[newLen++] = old[oldLen - i];
             if (i != oldLen && 0 == i % 3) {
                 rev[newLen++] = ',';
             }
