@@ -75,6 +75,12 @@
     self.currentParent = root;
 
     }];
+
+    if ([self predicts:TOKEN_KIND_BUILTIN_EOF, 0]) {
+        [self empty_];
+        return;
+    }
+
     do {
         [self content_]; 
     } while ([self predicts:TOKEN_KIND_BUILTIN_ANY, 0]);
@@ -197,6 +203,20 @@
     [self execute:^{
     
     PKToken *tok = POP();
+    TDNode *txtNode = [TDTextNode nodeWithToken:tok parent:_currentParent];
+    [_currentParent addChild:txtNode];
+
+    }];
+
+}
+
+- (void)empty_ {
+
+    [self matchEOF:NO];
+
+    [self execute:^{
+
+    PKToken *tok = [PKToken tokenWithTokenType:PKTokenTypeWord stringValue:@"" doubleValue:0.0];
     TDNode *txtNode = [TDTextNode nodeWithToken:tok parent:_currentParent];
     [_currentParent addChild:txtNode];
 

@@ -34,7 +34,7 @@
 - (void)renderInContext:(TDTemplateContext *)ctx {
     NSParameterAssert(ctx);
 
-    TDAssert([self.token.stringValue length]);
+    TDAssert(self.token.stringValue != nil);
     
     [ctx writeString:self.token.stringValue];
 }
