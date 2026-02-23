@@ -197,7 +197,7 @@ TDTag *TagParser::parseTag(Reader *r, TDNode *parent) {
     TokenList lookahead;
     _lookahead = &lookahead;
     
-    IntStack markers;
+    IndexList markers;
     _markers = &markers;
     
     TokenList token_stack;
@@ -483,7 +483,7 @@ TDExpression *TagParser::parseExpression(Reader *r) {
     TokenList lookahead;
     _lookahead = &lookahead;
     
-    IntStack markers;
+    IndexList markers;
     _markers = &markers;
     
     TokenList token_stack;
