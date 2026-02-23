@@ -107,9 +107,9 @@ using namespace parsekit;
         if (tex.filePath) [info setObject:tex.filePath forKey:@"filePath"];
         if (tex.sample) [info setObject:tex.sample forKey:@"sample"];
 
-        [info setObject:@(tex.token.line_number()) forKey:@"lineNumber"];
-        [info setObject:@(tex.token.location()) forKey:@"location"];
-        [info setObject:@(tex.token.length()) forKey:@"length"];
+        [info setObject:@(tex.token.getLineNumber()) forKey:@"lineNumber"];
+        [info setObject:@(tex.token.getLocation()) forKey:@"location"];
+        [info setObject:@(tex.token.getLength()) forKey:@"length"];
 
         if (err) *err = [NSError errorWithDomain:TDTemplateEngineErrorDomain
                                             code:TDTemplateEngineRenderingErrorCode
@@ -127,7 +127,7 @@ using namespace parsekit;
 
 - (NSString *)templateSubstringForToken:(parsekit::Token)token {
     TDAssert(_rootNode.templateString);
-    NSString *result = [_rootNode.templateString substringWithRange:NSMakeRange(token.range().location, token.range().length)];
+    NSString *result = [_rootNode.templateString substringWithRange:NSMakeRange(token.getRange().location, token.getRange().length)];
     return result;
 }
 

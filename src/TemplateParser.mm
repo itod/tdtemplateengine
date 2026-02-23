@@ -88,7 +88,7 @@ TDRootNode *TemplateParser::parse(TokenListPtr frags) {
 void TemplateParser::reThrowOrRaiseWithToken(TDTemplateException *ex, Token token) {
     // if it is being recursively thrown, retain the existing token and re-throw.
     // if this exception is first thrown here, it needs a token to display error location context
-    TokenType tt = ex.token.token_type();
+    TokenType tt = ex.token.getTokenType();
     if (tt != -1 && tt != 0) {
         [ex raise];
     } else {
@@ -169,14 +169,14 @@ void TemplateParser::_block_tag() {
     match(TemplateTokenType_TAG, true);
 
     if (_currentParent.isVerbatim) {
-        TokenRange beg_range = beg_tok.range();
+        TokenRange beg_range = beg_tok.getRange();
         size_t beg_offset = beg_range.location + beg_range.length;
         
-        TokenRange end_range = end_tok.range();
+        TokenRange end_range = end_tok.getRange();
         size_t end_offset = end_range.location;// + end_range.length;
         
         size_t length = end_offset - beg_offset;
-        Token tok = Token(TemplateTokenType_BLOCK_START_TAG, beg_offset, length, _currentParent.token.line_number());
+        Token tok = Token(TemplateTokenType_BLOCK_START_TAG, beg_offset, length, _currentParent.token.getLineNumber());
         _currentParent.token = tok;
     }
 

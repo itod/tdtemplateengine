@@ -274,9 +274,9 @@ static TDTemplateEngine *sInstance = nil;
         @"sample": sample ? sample : [NSNull null],
         @"filePath": filePath ? filePath : [NSNull null],
         @"name": ex.name,
-        @"location": @(token.location()),
-        @"length": @(token.length()),
-        @"lineNumber": @(token.line_number()),
+        @"location": @(token.getLocation()),
+        @"length": @(token.getLength()),
+        @"lineNumber": @(token.getLineNumber()),
     };
     NSError *err = [NSError errorWithDomain:TDTemplateEngineErrorDomain code:0 userInfo:userInfo];
     return err;

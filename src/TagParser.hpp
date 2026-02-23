@@ -154,10 +154,10 @@ public:
         if (tab.contains(s)) {
             tt = tab.at(s);
         } else {
-            tt = tok.token_type();
+            tt = tok.getTokenType();
         }
         
-        return Token(tt, tok.range(), tok.line_number());
+        return Token(tt, tok.getRange(), tok.getLineNumber());
     }
     
     TDTag *parseTag(Reader *r, TDNode *parent);

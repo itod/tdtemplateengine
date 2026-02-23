@@ -33,7 +33,7 @@
     //    [ctx writeString:str];
     
     NSString *str = [ctx templateString];
-    NSRange r = NSMakeRange(self.token.location(), self.token.length());
+    NSRange r = NSMakeRange(self.token.getLocation(), self.token.getLength());
     [ctx writeRange:r ofString:str];
 }
 

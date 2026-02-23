@@ -345,7 +345,7 @@ static NSCharacterSet *sNewlineSet = nil;
 
 
 - (NSString *)templateSubstringForToken:(parsekit::Token)token {
-    parsekit::TokenRange range = token.range();
+    parsekit::TokenRange range = token.getRange();
     NSString *result = [[self templateString] substringWithRange:NSMakeRange(range.location, range.length)];
     return result;
 }

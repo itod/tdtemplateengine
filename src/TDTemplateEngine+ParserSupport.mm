@@ -55,7 +55,7 @@ using namespace templateengine;
 
 
 - (TDPrintNode *)printNodeFromFragment:(Token)frag withParent:(TDNode *)parent inContext:(TDTemplateContext *)ctx {
-    NSParameterAssert(!frag.is_eof());
+    NSParameterAssert(!frag.isEOF());
     NSParameterAssert(parent);
     
     NSString *str = [ctx templateSubstringForToken:frag];
@@ -84,7 +84,7 @@ using namespace templateengine;
 
 
 - (TDTag *)tagFromFragment:(Token)frag withParent:(TDNode *)parent inContext:(TDTemplateContext *)ctx {
-    NSParameterAssert(!frag.is_eof());
+    NSParameterAssert(!frag.isEOF());
     NSParameterAssert(parent);
     
     NSString *str = [ctx templateSubstringForToken:frag];
