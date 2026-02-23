@@ -24,7 +24,6 @@
 #import "TDAutoescapeTag.h"
 
 #import <ParseKitCPP/ModalTokenizer.hpp>
-#import <ParseKitCPP/DefaultTokenizerMode.hpp>
 
 #define COLON @"COLON"
 #define OPEN_PAREN @"OPEN_PAREN"
@@ -48,25 +47,24 @@ using namespace parsekit;
 namespace templateengine {
 
 Tokenizer *TagParser::tokenizer() {
-    static Tokenizer *t = nullptr;
+    static ModalTokenizerPtr t = nullptr;
     if (!t) {
-        DefaultTokenizerModePtr mode(new DefaultTokenizerMode());
-        t = new ModalTokenizer(mode);
+        t = ModalTokenizerPtr(new ModalTokenizer());
         
-        mode->getSymbolState()->add("==");
-        mode->getSymbolState()->add("!=");
-        mode->getSymbolState()->add("<=");
-        mode->getSymbolState()->add(">=");
-        mode->getSymbolState()->add("&&");
-        mode->getSymbolState()->add("||");
+        t->getSymbolState()->add("==");
+        t->getSymbolState()->add("!=");
+        t->getSymbolState()->add("<=");
+        t->getSymbolState()->add(">=");
+        t->getSymbolState()->add("&&");
+        t->getSymbolState()->add("||");
         
-        mode->set_tokenizer_state(mode->getSymbolState(), '.', '.');
-        mode->set_tokenizer_state(mode->getSymbolState(), '-', '-');
-        mode->getWordState()->setWordChars(false, '\'', '\'');
+        t->set_tokenizer_state(t->getSymbolState(), '.', '.');
+        t->set_tokenizer_state(t->getSymbolState(), '-', '-');
+        t->getWordState()->setWordChars(false, '\'', '\'');
     }
     
     assert(t);
-    return t;
+    return t.get();
 }
 
 const TDTagTokenTable& TagParser::tokenTable() {
