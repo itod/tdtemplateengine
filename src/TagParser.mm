@@ -198,10 +198,10 @@ TDTag *TagParser::parseTag(Reader *r, TDNode *parent) {
     IndexList markers;
     _markers = &markers;
     
-    TokenList token_stack;
+    TokenList tokenStack;
     TokenList consumed;
         
-    TagAssembly a(r, &token_stack, &consumed, _objectStack);
+    TagAssembly a(r, &tokenStack, &consumed, _objectStack);
     _assembly = &a;
 
     _p = 0;
@@ -484,10 +484,10 @@ TDExpression *TagParser::parseExpression(Reader *r) {
     IndexList markers;
     _markers = &markers;
     
-    TokenList token_stack;
+    TokenList tokenStack;
     TokenList consumed;
     
-    TagAssembly a(r, &token_stack, &consumed, _objectStack);
+    TagAssembly a(r, &tokenStack, &consumed, _objectStack);
     _assembly = &a;
 
     _p = 0;

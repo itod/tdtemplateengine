@@ -10,8 +10,8 @@
 using namespace parsekit;
 namespace templateengine {
 
-//TemplateAssembly::TemplateAssembly(Tokenizer *t, TokenList *token_stack, TokenList *consumed, NodeList *node_stack) :
-//    Assembly(t, token_stack, consumed),
+//TemplateAssembly::TemplateAssembly(Tokenizer *t, TokenList *tokenStack, TokenList *consumed, NodeList *node_stack) :
+//    Assembly(t, tokenStack, consumed),
 //    
 //    _node_stack(node_stack),
 //{}
@@ -42,8 +42,8 @@ namespace templateengine {
 //    _node_stack->push_back(node);
 //}
 
-TemplateAssembly::TemplateAssembly(TokenList *token_stack, TokenList *consumed, NSMutableArray *node_stack) :
-    Assembly(nullptr, token_stack, consumed),
+TemplateAssembly::TemplateAssembly(TokenList *tokenStack, TokenList *consumed, NSMutableArray *node_stack) :
+    Assembly(nullptr, tokenStack, consumed),
     _node_stack([node_stack retain])
 {}
 

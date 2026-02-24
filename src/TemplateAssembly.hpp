@@ -19,7 +19,7 @@ private:
     NSMutableArray *_node_stack;
 
 public:
-//    TemplateAssembly(Tokenizer *t, TokenList *token_stack, TokenList *consumed, NodeList *node_stack);
+//    TemplateAssembly(Tokenizer *t, TokenList *tokenStack, TokenList *consumed, NodeList *node_stack);
     
     // Node Stack
 //    bool is_node_stack_empty() const;
@@ -27,7 +27,7 @@ public:
 //    NodePtr pop_node();
 //    void push_node(NodePtr node);
 
-    TemplateAssembly(TokenList *token_stack, TokenList *consumed, NSMutableArray *node_stack);
+    TemplateAssembly(TokenList *tokenStack, TokenList *consumed, NSMutableArray *node_stack);
     ~TemplateAssembly();
 
     bool is_node_stack_empty() const;

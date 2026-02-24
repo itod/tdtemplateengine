@@ -56,11 +56,11 @@ TDRootNode *TemplateParser::parse(TokenListPtr frags) {
     
     _p = 0;
     
-    TokenList token_stack;
+    TokenList tokenStack;
     TokenList consumed;
     
     NSMutableArray *node_stack = [NSMutableArray array];
-    TemplateAssembly assembly(&token_stack, &consumed, node_stack);
+    TemplateAssembly assembly(&tokenStack, &consumed, node_stack);
     _assembly = &assembly;
     
     TDRootNode *node = nil;
