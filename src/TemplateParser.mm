@@ -73,7 +73,7 @@ TDRootNode *TemplateParser::parse(TokenListPtr frags) {
         } catch (ParseException& ex) {
             Token token = lt(1);
             NSString *sample = [_context templateSubstringForToken:token];
-            NSString *reason = [NSString stringWithUTF8String:ex.message().c_str()];
+            NSString *reason = [NSString stringWithUTF8String:ex.getMessage().c_str()];
             [TDTemplateException raiseWithReason:reason token:token sample:sample filePath:_filePath];
         }
     } @finally {
@@ -127,7 +127,7 @@ void TemplateParser::_content() {
 void TemplateParser::_print() {
     match(TemplateTokenType_PRINT, false);
 
-    Token tok = _assembly->pop_token();
+    Token tok = _assembly->popToken();
     assert(_engine);
     
     TDNode *printNode = [_engine printNodeFromFragment:tok withParent:_currentParent inContext:_context];
@@ -139,7 +139,7 @@ void TemplateParser::_print() {
 void TemplateParser::_empty_tag() {
     match(TemplateTokenType_EMPTY_TAG, false);
     
-    Token tok = assembly()->pop_token();
+    Token tok = assembly()->popToken();
     assert(_engine);
     TDTag *startTagNode = nil;
     @try {
@@ -186,7 +186,7 @@ void TemplateParser::_block_tag() {
 void TemplateParser::_block_start_tag() {
     match(TemplateTokenType_BLOCK_START_TAG, false);
     
-    Token tok = _assembly->pop_token();
+    Token tok = _assembly->popToken();
     assert(_engine);
     TDTag *startTagNode = nil;
     @try {
@@ -202,7 +202,7 @@ void TemplateParser::_block_start_tag() {
 void TemplateParser::_block_end_tag() {
     match(TemplateTokenType_BLOCK_END_TAG, false);
     
-    Token tok = _assembly->pop_token();
+    Token tok = _assembly->popToken();
     NSString *tagName = [[_context templateSubstringForToken:tok] substringFromIndex:TDTemplateEngineTagEndPrefix.length];
     
     while (_currentParent && ![_currentParent.tagName isEqualToString:tagName]) {
@@ -218,7 +218,7 @@ void TemplateParser::_block_end_tag() {
 void TemplateParser::_text() {
     match(TemplateTokenType_TEXT, false);
 
-    Token tok = _assembly->pop_token();
+    Token tok = _assembly->popToken();
     TDNode *txtNode = [TDTextNode nodeWithToken:tok parent:_currentParent];
     [_currentParent addChild:txtNode];
 

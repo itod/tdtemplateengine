@@ -31,17 +31,17 @@
 #define REV(a)                reversedArray(a)
 #define OBJS_ABOVE(obj)       objectsAbove((obj))
 
-#define PUSH_OBJ(obj)         _assembly->push_object((obj))
+#define PUSH_OBJ(obj)         _assembly->pushObject((obj))
 #define PUSH_ALL_OBJS(a)      pushAll((a))
 
-#define POP_OBJ()             _assembly->pop_object()
-#define PEEK_OBJ()            _assembly->peek_object()
+#define POP_OBJ()             _assembly->popObject()
+#define PEEK_OBJ()            _assembly->peekObject()
 
-#define POP_TOK()             _assembly->pop_token()
-#define POP_TOK_STR()         [NSString stringWithUTF8String:_assembly->cpp_string_for_token(POP_TOK()).c_str()]
+#define POP_TOK()             _assembly->popToken()
+#define POP_TOK_STR()         [NSString stringWithUTF8String:_assembly->cpp_str_for_token(POP_TOK()).c_str()]
 #define POP_TOK_QUOTED_STR()  stringByTrimmingQuotes(POP_TOK_STR())
-#define POP_TOK_INT()         _assembly->int_for_token(_assembly->pop_token())
-#define POP_TOK_DOUBLE()      _assembly->float_for_token(_assembly->pop_token())
+#define POP_TOK_INT()         _assembly->int_for_token(_assembly->popToken())
+#define POP_TOK_DOUBLE()      _assembly->float_for_token(_assembly->popToken())
 
 using namespace parsekit;
 namespace templateengine {
@@ -58,8 +58,8 @@ Tokenizer *TagParser::tokenizer() {
         t->getSymbolState()->add("&&");
         t->getSymbolState()->add("||");
         
-        t->set_tokenizer_state(t->getSymbolState(), '.', '.');
-        t->set_tokenizer_state(t->getSymbolState(), '-', '-');
+        t->setTokenizerStateFor(t->getSymbolState(), '.', '.');
+        t->setTokenizerStateFor(t->getSymbolState(), '-', '-');
         t->getWordState()->setWordChars(false, '\'', '\'');
     }
     
@@ -126,18 +126,18 @@ NSArray *TagParser::reversedArray(NSArray *inArray) {
 
 void TagParser::pushAll(NSArray *a) {
     for (id obj in a) {
-        _assembly->push_object(obj);
+        _assembly->pushObject(obj);
     }
 }
 
 NSArray *TagParser::objectsAbove(id fence) {
     NSMutableArray *result = [NSMutableArray array];
     
-    while (!_assembly->is_object_stack_empty()) {
-        id obj = _assembly->pop_object();
+    while (!_assembly->isObjectStackEmpty()) {
+        id obj = _assembly->popObject();
         
         if ([obj isEqual:fence]) {
-            _assembly->push_object(obj);
+            _assembly->pushObject(obj);
             break;
         } else {
             [result addObject:obj];
@@ -214,7 +214,7 @@ TDTag *TagParser::parseTag(Reader *r, TDNode *parent) {
             
             tag = POP_OBJ();
         } catch (ParseException& ex) {
-            NSString *reason = [NSString stringWithUTF8String:ex.message().c_str()];
+            NSString *reason = [NSString stringWithUTF8String:ex.getMessage().c_str()];
             [TDTemplateException raiseWithReason:reason token:Token() sample:nil filePath:nil];
         }
     } @finally {
@@ -273,7 +273,7 @@ void TagParser::_tagName(TDNode *parent) {
     assert(!isSpeculating());
     Token tok = POP_TOK();
     
-    NSString *tagName = _assembly->reader()->objc_substr(tok);
+    NSString *tagName = _assembly->getReader()->objc_substr(tok);
 
     TDTag *tag = [_engine makeTagForName:tagName token:tok parent:parent];
     assert(tag);
@@ -500,7 +500,7 @@ TDExpression *TagParser::parseExpression(Reader *r) {
             
             expr = POP_OBJ();
         } catch (ParseException& ex) {
-            NSString *reason = [NSString stringWithUTF8String:ex.message().c_str()];
+            NSString *reason = [NSString stringWithUTF8String:ex.getMessage().c_str()];
             [TDTemplateException raiseWithReason:reason token:Token() sample:nil filePath:nil];
         }
     } @finally {

@@ -145,9 +145,9 @@ public:
     static Tokenizer *tokenizer();
     static const TDTagTokenTable& tokenTable();
     
-    virtual Token edit_token_type(const Token& tok) const override {
+    virtual Token editTokenType(const Token& tok) const override {
         
-        std::string s = _assembly->cpp_string_for_token(tok);
+        std::string s = _assembly->cpp_str_for_token(tok);
         const TDTagTokenTable tab = TagParser::tokenTable();
         
         TokenType tt;

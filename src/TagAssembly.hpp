@@ -6,32 +6,32 @@ namespace templateengine {
 
 class TagAssembly : public Assembly {
 private:
-    NSMutableArray *_object_stack;
+    NSMutableArray *_objectStack;
         
 public:
-    TagAssembly(Reader *reader, TokenList *token_stack, TokenList *consumed, NSMutableArray *object_stack);
+    TagAssembly(Reader *reader, TokenList *tokenStack, TokenList *consumed, NSMutableArray *objectStack);
     ~TagAssembly();
     
-    void push_object(id obj) {
-        assert(_object_stack);
-        [_object_stack addObject:obj];
+    void pushObject(id obj) {
+        assert(_objectStack);
+        [_objectStack addObject:obj];
     }
     
-    id peek_object() {
-        assert(_object_stack);
-        return _object_stack.lastObject;
+    id peekObject() {
+        assert(_objectStack);
+        return _objectStack.lastObject;
     }
     
-    id pop_object() {
-        assert(_object_stack);
-        id res = [[_object_stack.lastObject retain] autorelease];
-        [_object_stack removeLastObject];
+    id popObject() {
+        assert(_objectStack);
+        id res = [[_objectStack.lastObject retain] autorelease];
+        [_objectStack removeLastObject];
         return res;
     }
     
-    bool is_object_stack_empty() {
-        assert(_object_stack);
-        return 0 == _object_stack.count;
+    bool isObjectStackEmpty() {
+        assert(_objectStack);
+        return 0 == _objectStack.count;
     }
 };
 
