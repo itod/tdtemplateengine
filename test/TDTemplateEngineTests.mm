@@ -30,31 +30,31 @@ using namespace templateengine;
     
     Token tok = toks->at(0);
     XCTAssertEqual(tok.getTokenType(), TemplateTokenType_BLOCK_START_TAG);
-    XCTAssertEqualObjects([input substringWithRange:NSMakeRange(tok.getRange().location, tok.getRange().length)], @" if test ");
+    XCTAssertEqualObjects([input substringWithRange:NSMakeRange(tok.getLocation(), tok.getLength())], @" if test ");
 
     tok = toks->at(1);
     XCTAssertEqual(tok.getTokenType(), TemplateTokenType_TAG);
-    XCTAssertEqualObjects([input substringWithRange:NSMakeRange(tok.getRange().location, tok.getRange().length)], @"{% if test %}");
+    XCTAssertEqualObjects([input substringWithRange:NSMakeRange(tok.getLocation(), tok.getLength())], @"{% if test %}");
     
     tok = toks->at(2);
     XCTAssertEqual(tok.getTokenType(), TemplateTokenType_PRINT);
-    XCTAssertEqualObjects([input substringWithRange:NSMakeRange(tok.getRange().location, tok.getRange().length)], @"a");
+    XCTAssertEqualObjects([input substringWithRange:NSMakeRange(tok.getLocation(), tok.getLength())], @"a");
     
     tok = toks->at(3);
     XCTAssertEqual(tok.getTokenType(), TemplateTokenType_EMPTY_TAG);
-    XCTAssertEqualObjects([input substringWithRange:NSMakeRange(tok.getRange().location, tok.getRange().length)], @" else ");
+    XCTAssertEqualObjects([input substringWithRange:NSMakeRange(tok.getLocation(), tok.getLength())], @" else ");
 
     tok = toks->at(4);
     XCTAssertEqual(tok.getTokenType(), TemplateTokenType_TEXT);
-    XCTAssertEqualObjects([input substringWithRange:NSMakeRange(tok.getRange().location, tok.getRange().length)], @" foo bar { baz } ");
+    XCTAssertEqualObjects([input substringWithRange:NSMakeRange(tok.getLocation(), tok.getLength())], @" foo bar { baz } ");
     
     tok = toks->at(5);
     XCTAssertEqual(tok.getTokenType(), TemplateTokenType_BLOCK_END_TAG);
-    XCTAssertEqualObjects([input substringWithRange:NSMakeRange(tok.getRange().location, tok.getRange().length)], @"endif");
+    XCTAssertEqualObjects([input substringWithRange:NSMakeRange(tok.getLocation(), tok.getLength())], @"endif");
 
     tok = toks->at(6);
     XCTAssertEqual(tok.getTokenType(), TemplateTokenType_TAG);
-    XCTAssertEqualObjects([input substringWithRange:NSMakeRange(tok.getRange().location, tok.getRange().length)], @"{% endif %}");
+    XCTAssertEqualObjects([input substringWithRange:NSMakeRange(tok.getLocation(), tok.getLength())], @"{% endif %}");
 }
 
 @end
