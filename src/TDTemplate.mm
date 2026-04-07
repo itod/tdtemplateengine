@@ -57,69 +57,75 @@ using namespace parsekit;
 #pragma mark -
 #pragma mark Public
 
-- (BOOL)render:(NSDictionary *)vars toStream:(NSOutputStream *)output error:(NSError **)err {
+- (BOOL)render:(NSDictionary *)vars toStream:(NSOutputStream *)output error:(NSError **)outErr {
     NSParameterAssert([_rootNode isKindOfClass:[TDRootNode class]]);
     NSParameterAssert(output);
     
     TDRootNode *document = (id)[self blockForKey:@""];
     if (!document) {
-        *err = [NSError errorWithDomain:TDTemplateEngineErrorDomain code:TDTemplateEngineRenderingErrorCode userInfo:@{
+        *outErr = [NSError errorWithDomain:TDTemplateEngineErrorDomain code:TDTemplateEngineRenderingErrorCode userInfo:@{
             NSLocalizedFailureReasonErrorKey: [NSString stringWithFormat:@"Could not find Document Node for template: `%@`", _filePath],
-        }];
+            }];
         return NO;
     }
     
     [output open];
     TDAssert([output hasSpaceAvailable]);
-    
-    // one outer context to hold user variables. these should not be directly overwritable by template vars like `forloop`
-    TDTemplateContext *outer = [[[TDTemplateContext alloc] initWithVariables:vars output:output] autorelease];
-    
-    TDAssert(_staticContext);
-    outer.enclosingScope = _staticContext;
 
-    // one inner context to hold template evars like `forloop`
-    TDTemplateContext *inner = [[[TDTemplateContext alloc] initWithVariables:nil output:output] autorelease];
-    inner.originDerivedTemplate = self;
-    inner.currentTemplate = self;
-    
-    TDAssert(_staticContext);
-    inner.enclosingScope = outer;
-
-    TDAssert(document.templateString);
-    [inner pushTemplateString:document.templateString];
-    
-    //TDAssert(_staticContext);
-    //dynamicContext.enclosingScope = _staticContext;
-    
     BOOL success = YES;
-    
-    @try {
-        [document renderInContext:inner];
-    }
-    @catch (TDTemplateException *tex) {
-        success = NO;
-        id info = [NSMutableDictionary dictionaryWithDictionary:[tex userInfo]];
+    NSError *err = nil;
+
+    @autoreleasepool {
+        // one outer context to hold user variables. these should not be directly overwritable by template vars like `forloop`
+        TDTemplateContext *outer = [[[TDTemplateContext alloc] initWithVariables:vars output:output] autorelease];
         
-        if (tex.name) [info setObject:tex.name forKey:@"name"];
-        if (tex.reason) [info setObject:tex.reason forKey:@"reason"];
-        if (tex.callStackSymbols) [info setObject:tex.callStackSymbols forKey:@"callStackSymbols"];
-        if (tex.filePath) [info setObject:tex.filePath forKey:@"filePath"];
-        if (tex.sample) [info setObject:tex.sample forKey:@"sample"];
+        TDAssert(_staticContext);
+        outer.enclosingScope = _staticContext;
 
-        [info setObject:@(tex.token.getLineNumber()) forKey:@"lineNumber"];
-        [info setObject:@(tex.token.getLocation()) forKey:@"location"];
-        [info setObject:@(tex.token.getLength()) forKey:@"length"];
+        // one inner context to hold template evars like `forloop`
+        TDTemplateContext *inner = [[[TDTemplateContext alloc] initWithVariables:nil output:output] autorelease];
+        inner.originDerivedTemplate = self;
+        inner.currentTemplate = self;
+        
+        TDAssert(_staticContext);
+        inner.enclosingScope = outer;
 
-        if (err) *err = [NSError errorWithDomain:TDTemplateEngineErrorDomain
-                                            code:TDTemplateEngineRenderingErrorCode
-                                        userInfo:info];
-    }
-    @catch (NSException *ex) {
-        TDAssert(0);
-    }
+        TDAssert(document.templateString);
+        [inner pushTemplateString:document.templateString];
+        
+        //TDAssert(_staticContext);
+        //dynamicContext.enclosingScope = _staticContext;
+        
+        @try {
+            [document renderInContext:inner];
+        }
+        @catch (TDTemplateException *tex) {
+            success = NO;
+            id info = [NSMutableDictionary dictionaryWithDictionary:[tex userInfo]];
+            
+            if (tex.name) [info setObject:tex.name forKey:@"name"];
+            if (tex.reason) [info setObject:tex.reason forKey:@"reason"];
+            if (tex.callStackSymbols) [info setObject:tex.callStackSymbols forKey:@"callStackSymbols"];
+            if (tex.filePath) [info setObject:tex.filePath forKey:@"filePath"];
+            if (tex.sample) [info setObject:tex.sample forKey:@"sample"];
+
+            [info setObject:@(tex.token.getLineNumber()) forKey:@"lineNumber"];
+            [info setObject:@(tex.token.getLocation()) forKey:@"location"];
+            [info setObject:@(tex.token.getLength()) forKey:@"length"];
+
+            err = [[NSError alloc] initWithDomain:TDTemplateEngineErrorDomain
+                                             code:TDTemplateEngineRenderingErrorCode
+                                         userInfo:info]; // +1
+        }
+        @catch (NSException *ex) {
+            TDAssert(0);
+        }
+        
+        [inner popTemplateString];
+    } // pool
     
-    [inner popTemplateString];
+    if (outErr) *outErr = err;
+    [err autorelease]; // -1
     
     return success;
 }

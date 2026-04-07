@@ -318,43 +318,46 @@ static TDTemplateEngine *sInstance = nil;
     TDAssert([_tagEndDelimiter length]);
     
     TDTemplate *tmpl = [[[TDTemplate alloc] initWithFilePath:filePath] autorelease];
-    TDTemplateContext *ctx = [[[TDTemplateContext alloc] initWithTemplate:inCtx ? inCtx.originDerivedTemplate : tmpl] autorelease];
-    ctx.delegate = self;
-    ctx.currentTemplate = tmpl;
-    ctx.enclosingScope = _staticContext;
+    
+    @autoreleasepool {
+        TDTemplateContext *ctx = [[[TDTemplateContext alloc] initWithTemplate:inCtx ? inCtx.originDerivedTemplate : tmpl] autorelease];
+        ctx.delegate = self;
+        ctx.currentTemplate = tmpl;
+        ctx.enclosingScope = _staticContext;
 
-    [ctx pushTemplateString:str];
-    
-    // lex
-    TokenListPtr frags = nil;
-    
-    @try {
-        frags = [self fragmentsFromString:str];
-    } @catch (NSException *ex) {
-        [TDTemplateException raiseFromException:ex token:Token() sample:nil filePath:filePath];
-    }
-    TDAssert(frags);
-    
-    // compile
-    TDRootNode *root = [self compile:frags filePath:filePath inContext:ctx];
-    tmpl.rootNode = root;
-    root.owningTemplate = tmpl;
-    tmpl.staticContext = _staticContext;
-    
-    // check new tmpl to see if starts wtih {% extends %}, if so inherit
-    if (tmpl.extendsPath) {
-        TDTemplate *superTemplate = [self templateWithContentsOfFile:tmpl.extendsPath];
-        if (!superTemplate) {
-            NSLog(@"Could not extend template `%@` bc it coult not be loaded or compiled.", tmpl.extendsPath);
-            return nil;
+        [ctx pushTemplateString:str];
+        
+        // lex
+        TokenListPtr frags = nil;
+        
+        @try {
+            frags = [self fragmentsFromString:str];
+        } @catch (NSException *ex) {
+            [TDTemplateException raiseFromException:ex token:Token() sample:nil filePath:filePath];
+        }
+        TDAssert(frags);
+        
+        // compile
+        TDRootNode *root = [self compile:frags filePath:filePath inContext:ctx];
+        tmpl.rootNode = root;
+        root.owningTemplate = tmpl;
+        tmpl.staticContext = _staticContext;
+        
+        // check new tmpl to see if starts wtih {% extends %}, if so inherit
+        if (tmpl.extendsPath) {
+            TDTemplate *superTemplate = [self templateWithContentsOfFile:tmpl.extendsPath];
+            if (!superTemplate) {
+                NSLog(@"Could not extend template `%@` bc it coult not be loaded or compiled.", tmpl.extendsPath);
+                return nil;
+            }
+            
+            tmpl.superTemplate = superTemplate;
+        } else {
+            [tmpl setBlock:root forKey:@""];
         }
         
-        tmpl.superTemplate = superTemplate;
-    } else {
-        [tmpl setBlock:root forKey:@""];
+        [ctx popTemplateString];
     }
-    
-    [ctx popTemplateString];
 
     return tmpl;
 }
