@@ -319,7 +319,7 @@ static TDTemplateEngine *sInstance = nil;
     
     TDTemplate *tmpl = [[[TDTemplate alloc] initWithFilePath:filePath] autorelease];
     
-    @autoreleasepool {
+//    @autoreleasepool {
         TDTemplateContext *ctx = [[[TDTemplateContext alloc] initWithTemplate:inCtx ? inCtx.originDerivedTemplate : tmpl] autorelease];
         ctx.delegate = self;
         ctx.currentTemplate = tmpl;
@@ -357,7 +357,7 @@ static TDTemplateEngine *sInstance = nil;
         }
         
         [ctx popTemplateString];
-    }
+//    }
 
     return tmpl;
 }
