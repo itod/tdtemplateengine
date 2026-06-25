@@ -26,6 +26,7 @@ using namespace parsekit;
 namespace templateengine {
 
 TemplateParser::TemplateParser(TDTemplateEngine *engine, TDTemplateContext *context, NSString *filePath) :
+    parsekit::BaseParser(),
     _engine(engine),
     _context([context retain]),
     _filePath([filePath retain]),
@@ -48,8 +49,8 @@ TemplateParser::~TemplateParser() {
 }
 
 TDRootNode *TemplateParser::parse(TokenListPtr frags) {
-    TokenListTokenizer tokenizer(frags);
-    _tokenizer = &tokenizer;
+    TokenizerPtr tp(new TokenListTokenizer(frags));
+    _tokenizer = tp;
 
     TokenList lookahead;
     _lookahead = &lookahead;

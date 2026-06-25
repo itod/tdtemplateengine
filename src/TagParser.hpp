@@ -142,7 +142,7 @@ public:
     TagParser(TDTemplateEngine *engine, NSMutableArray *objectStack);
     ~TagParser();
 
-    static Tokenizer *tokenizer();
+    static ModalTokenizerPtr tokenizer();
     static const TDTagTokenTable& tokenTable();
     
     virtual Token editTokenType(const Token& tok) const override {

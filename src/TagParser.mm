@@ -46,7 +46,7 @@
 using namespace parsekit;
 namespace templateengine {
 
-Tokenizer *TagParser::tokenizer() {
+ModalTokenizerPtr TagParser::tokenizer() {
     static ModalTokenizerPtr t = nullptr;
     if (!t) {
         t = ModalTokenizerPtr(new ModalTokenizer());
@@ -64,7 +64,7 @@ Tokenizer *TagParser::tokenizer() {
     }
     
     assert(t);
-    return t.get();
+    return t;
 }
 
 const TDTagTokenTable& TagParser::tokenTable() {
