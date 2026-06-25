@@ -63,9 +63,11 @@ using namespace parsekit;
     
     TDRootNode *document = (id)[self blockForKey:@""];
     if (!document) {
-        *outErr = [NSError errorWithDomain:TDTemplateEngineErrorDomain code:TDTemplateEngineRenderingErrorCode userInfo:@{
-            NSLocalizedFailureReasonErrorKey: [NSString stringWithFormat:@"Could not find Document Node for template: `%@`", _filePath],
+        if (outErr) {
+            *outErr = [NSError errorWithDomain:TDTemplateEngineErrorDomain code:TDTemplateEngineRenderingErrorCode userInfo:@{
+                NSLocalizedFailureReasonErrorKey: [NSString stringWithFormat:@"Could not find Document Node for template: `%@`", _filePath],
             }];
+        }
         return NO;
     }
     

@@ -49,6 +49,7 @@
 - (void)dealloc {
     self.parent = nil;
     self.expression = nil;
+    self.children = nil;
     
     [super dealloc];
 }
