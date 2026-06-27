@@ -46,10 +46,10 @@
 using namespace parsekit;
 namespace templateengine {
 
-ModalTokenizerPtr TagParser::tokenizer() {
-    static ModalTokenizerPtr t = nullptr;
+Tokenizer *TagParser::tokenizer() {
+    static ModalTokenizer *t = nullptr;
     if (!t) {
-        t = ModalTokenizerPtr(new ModalTokenizer());
+        t = new ModalTokenizer();
         
         t->getSymbolState()->add("==");
         t->getSymbolState()->add("!=");

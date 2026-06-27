@@ -49,8 +49,8 @@ TemplateParser::~TemplateParser() {
 }
 
 TDRootNode *TemplateParser::parse(TokenListPtr frags) {
-    TokenizerPtr tp(new TokenListTokenizer(frags));
-    _tokenizer = tp;
+    TokenListTokenizer t(frags);
+    _tokenizer = &t;
 
     TokenList lookahead;
     _lookahead = &lookahead;
@@ -79,6 +79,7 @@ TDRootNode *TemplateParser::parse(TokenListPtr frags) {
         }
     } @finally {
         _assembly = nullptr;
+        _tokenizer = nullptr;
         setRoot(nil);
         setCurrentParent(nil);
     }
