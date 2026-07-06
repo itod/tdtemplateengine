@@ -44,7 +44,8 @@
             unichar head = toupper([chunk characterAtIndex:0]);
             NSString *tail = @"";
             if (len > 1) {
-                tail = [[chunk substringFromIndex:1] lowercaseString];
+                //tail = [[chunk substringFromIndex:1] lowercaseString];
+                tail = [chunk substringFromIndex:1];
             }
             chunk = [NSString stringWithFormat:@"%C%@", head, tail];
         }

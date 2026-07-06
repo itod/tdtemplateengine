@@ -75,15 +75,19 @@ static TDObjectValue *sNullValue = nil;
 
 
 - (NSDate *)dateValue {
+    NSDate *d = nil;
     if (self.isDateValue) {
-        return _value;
+        d = _value;
     } else {
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-        NSString *s = [self  stringValue];
-        return [NSDate dateWithNaturalLanguageString:s];
+        NSString *s = [self stringValue];
+        if (s) {
+            d = [NSDate dateWithNaturalLanguageString:s];
+        }
 #pragma GCC diagnostic pop
-   }
+    }
+    return d;
 }
 
 
