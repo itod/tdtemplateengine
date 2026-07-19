@@ -251,7 +251,6 @@
 		D35E973C2E31555700419858 /* TDTransTag.mm in Sources */ = {isa = PBXBuildFile; fileRef = D35E97362E31555700419858 /* TDTransTag.mm */; };
 		D35E973D2E31564400419858 /* TDTransTag.h in Headers */ = {isa = PBXBuildFile; fileRef = D35E97352E31555700419858 /* TDTransTag.h */; };
 		D35E973E2E31564400419858 /* TDTransTag.h in Headers */ = {isa = PBXBuildFile; fileRef = D35E97352E31555700419858 /* TDTransTag.h */; };
-		D367DFC918E5EF6900F97BCC /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D367DFC818E5EF6900F97BCC /* XCTest.framework */; };
 		D367DFCD18E5EF6900F97BCC /* TDTemplateEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D367DFB018E5EF6900F97BCC /* TDTemplateEngine.framework */; };
 		D369BD4218EF7F6A003E715B /* TDForLoop.h in Headers */ = {isa = PBXBuildFile; fileRef = D369BD4018EF7F6A003E715B /* TDForLoop.h */; };
 		D369BD4318EF7F6A003E715B /* TDForLoop.m in Sources */ = {isa = PBXBuildFile; fileRef = D369BD4118EF7F6A003E715B /* TDForLoop.m */; };
@@ -349,7 +348,6 @@
 		D3A21F451AC9E85F0009A712 /* TDUnaryExpression.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3A21F431AC9E85F0009A712 /* TDUnaryExpression.mm */; };
 		D3A29D8218E5F57300DC591E /* TDTemplateEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29D8118E5F57300DC591E /* TDTemplateEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3A29D8418E5F57E00DC591E /* TDTemplateEngine.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3A29D8318E5F57E00DC591E /* TDTemplateEngine.mm */; };
-		D3A29D9418E5F60100DC591E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3A29D9318E5F60100DC591E /* Foundation.framework */; };
 		D3A29DAB18E609E700DC591E /* TDNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3A29DA918E609E700DC591E /* TDNode.mm */; };
 		D3A29DB618E60E4500DC591E /* TDPrintNode.h in Headers */ = {isa = PBXBuildFile; fileRef = D3A29DB418E60E4500DC591E /* TDPrintNode.h */; };
 		D3A29DB718E60E4500DC591E /* TDPrintNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = D3A29DB518E60E4500DC591E /* TDPrintNode.mm */; };
@@ -638,7 +636,6 @@
 		D35E97362E31555700419858 /* TDTransTag.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = TDTransTag.mm; path = src/TDTransTag.mm; sourceTree = "<group>"; };
 		D367DFB018E5EF6900F97BCC /* TDTemplateEngine.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TDTemplateEngine.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D367DFC718E5EF6900F97BCC /* TDTemplateEngineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TDTemplateEngineTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D367DFC818E5EF6900F97BCC /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		D369BD4018EF7F6A003E715B /* TDForLoop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDForLoop.h; path = src/TDForLoop.h; sourceTree = SOURCE_ROOT; };
 		D369BD4118EF7F6A003E715B /* TDForLoop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TDForLoop.m; path = src/TDForLoop.m; sourceTree = SOURCE_ROOT; };
 		D369BD4818EF8921003E715B /* TDEnumeration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDEnumeration.h; path = src/TDEnumeration.h; sourceTree = SOURCE_ROOT; };
@@ -684,7 +681,6 @@
 		D3A29D8618E5F5A000DC591E /* TDTemplateEngine-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TDTemplateEngine-Prefix.pch"; path = "res/TDTemplateEngine-Prefix.pch"; sourceTree = SOURCE_ROOT; };
 		D3A29D8F18E5F5CC00DC591E /* TDTemplateEngineTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "TDTemplateEngineTests-Info.plist"; path = "test/TDTemplateEngineTests-Info.plist"; sourceTree = SOURCE_ROOT; };
 		D3A29D9118E5F5D900DC591E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = test/en.lproj/InfoPlist.strings; sourceTree = SOURCE_ROOT; };
-		D3A29D9318E5F60100DC591E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D3A29DA918E609E700DC591E /* TDNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TDNode.mm; path = src/TDNode.mm; sourceTree = SOURCE_ROOT; };
 		D3A29DB418E60E4500DC591E /* TDPrintNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TDPrintNode.h; path = src/TDPrintNode.h; sourceTree = SOURCE_ROOT; };
 		D3A29DB518E60E4500DC591E /* TDPrintNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TDPrintNode.mm; path = src/TDPrintNode.mm; sourceTree = SOURCE_ROOT; };
@@ -835,7 +831,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D39D35F72DBFE8AA006F1663 /* ParseKitCPP.framework in Frameworks */,
-				D3A29D9418E5F60100DC591E /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -844,7 +839,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D367DFCD18E5EF6900F97BCC /* TDTemplateEngine.framework in Frameworks */,
-				D367DFC918E5EF6900F97BCC /* XCTest.framework in Frameworks */,
 				D3AAFE482DD29C0B009EDC64 /* ParseKitCPP.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -974,8 +968,6 @@
 				D31E3E3C1F1C1CAE004BD0C6 /* libPEGKitOSX.a */,
 				D3A391CF1CE55A01001FA335 /* PEGKit.framework */,
 				D319137018F197D400430BAD /* PEGKit.framework */,
-				D3A29D9318E5F60100DC591E /* Foundation.framework */,
-				D367DFC818E5EF6900F97BCC /* XCTest.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1569,7 +1561,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastUpgradeCheck = 2650;
+				LastUpgradeCheck = 2660;
 				ORGANIZATIONNAME = "Todd Ditchendorf";
 				TargetAttributes = {
 					D3100CB81CE52E4F007B38BE = {
